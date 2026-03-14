@@ -178,7 +178,7 @@ const BlogPreview: FC = () => (
 
       {/* Newsletter CTA */}
       <motion.div
-        className="mt-12 bg-gradient-to-r from-brand-blue to-brand-purple rounded-3xl p-8 sm:p-10 text-white text-center"
+        className="mt-12 bg-gradient-to-r from-brand-blue via-brand-purple to-[#D97706] rounded-3xl p-8 sm:p-10 text-white text-center"
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -200,9 +200,9 @@ const BlogPreview: FC = () => (
           <motion.button
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
-            className="px-5 py-3 rounded-xl text-sm font-black bg-white text-brand-blue
-                       shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            className="px-5 py-3 rounded-xl text-sm font-black bg-[#F59E0B] text-white
+                       shadow-[0_4px_20px_rgba(245,158,11,0.4)] transition-all
+                       hover:bg-[#D97706] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             Subscribe Free
           </motion.button>

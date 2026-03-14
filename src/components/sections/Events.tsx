@@ -147,7 +147,7 @@ const Countdown: FC<{ date: Date; color: string }> = ({ date, color }) => {
 
 const EventCard: FC<{ event: EventItem }> = ({ event }) => (
   <motion.div variants={cardVariants} whileHover={{ y: -5 }}>
-    <Card className="h-full rounded-2xl border-0 overflow-hidden p-0">
+    <Card className="h-full rounded-2xl border-0 overflow-hidden p-0 shadow-card hover:shadow-card-hover transition-shadow">
       <div className="h-1.5 w-full" style={{ backgroundColor: event.accentColor }} />
       <CardContent className="p-5 flex flex-col gap-4 h-full">
 
@@ -252,7 +252,7 @@ const Events: FC = () => (
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <motion.div whileHover={{ scale: 1.04, y: -2 }} whileTap={{ scale: 0.97 }}>
-                <Button variant="purple" size="lg" className="rounded-xl">
+                <Button size="lg" className="rounded-xl bg-[#D97706] hover:bg-[#B45309] text-white shadow-[0_4px_20px_rgba(217,119,6,0.35)]">
                   Post Your Event →
                 </Button>
               </motion.div>
@@ -260,7 +260,7 @@ const Events: FC = () => (
                 <Button
                   variant="outline"
                   size="lg"
-                  className="rounded-xl border-2 border-brand-purple text-brand-purple hover:bg-brand-purple hover:text-white"
+                  className="rounded-xl border-2 border-[#D97706] text-[#D97706] hover:bg-[#D97706] hover:text-white"
                 >
                   View All Events
                 </Button>

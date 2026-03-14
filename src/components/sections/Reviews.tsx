@@ -259,20 +259,18 @@ const Reviews: FC = () => (
           {/* Affiliate buy buttons */}
           <motion.div variants={itemVariants} className="flex flex-wrap gap-3">
             <motion.button
-              whileHover={{ scale: 1.03, boxShadow: '0 8px 24px rgba(34,197,94,0.2)' }}
+              whileHover={{ scale: 1.03, boxShadow: '0 8px 24px rgba(217,119,6,0.35)' }}
               whileTap={{ scale: 0.97 }}
-              className="px-5 py-3 rounded-xl text-sm font-black text-white bg-brand-green
-                         shadow-card-green transition-all
-                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-green"
+              className="px-5 py-3 rounded-xl text-sm font-black text-white bg-[#D97706]
+                         transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
             >
               Buy via Apple Education [Affiliate] →
             </motion.button>
             <motion.button
-              whileHover={{ scale: 1.03, boxShadow: '0 8px 24px rgba(59,130,246,0.2)' }}
+              whileHover={{ scale: 1.03, boxShadow: '0 8px 24px rgba(245,158,11,0.3)' }}
               whileTap={{ scale: 0.97 }}
-              className="px-5 py-3 rounded-xl text-sm font-black text-white bg-brand-blue
-                         shadow-card-blue transition-all
-                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+              className="px-5 py-3 rounded-xl text-sm font-black text-white bg-[#F59E0B]
+                         transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B]"
             >
               View on Amazon [Affiliate] →
             </motion.button>
@@ -294,9 +292,9 @@ const Reviews: FC = () => (
         <motion.button
           whileHover={{ scale: 1.04, y: -2 }}
           whileTap={{ scale: 0.97 }}
-          className="px-8 py-3.5 rounded-2xl border-2 border-brand-orange text-brand-orange font-black text-sm
-                     hover:bg-brand-orange hover:text-white transition-all
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+          className="px-8 py-3.5 rounded-2xl border-2 border-[#D97706] text-[#D97706] font-black text-sm
+                     hover:bg-[#D97706] hover:text-white transition-all
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
         >
           Browse All Equipment Reviews →
         </motion.button>

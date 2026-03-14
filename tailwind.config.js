@@ -4,12 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Brand palette ──────────────────────────────────
+        // ── Brand palette (light sections) ────────────────────
         brand: {
           blue:   '#3B82F6',
           green:  '#22C55E',
           purple: '#8B5CF6',
           orange: '#F97316',
+          amber:  '#D97706',
+          gold:   '#F59E0B',
         },
         cream: {
           DEFAULT: '#FEFDFB',
@@ -22,7 +24,28 @@ export default {
           light:   '#6B7280',
           pale:    '#9CA3AF',
         },
-        // ── shadcn/ui CSS variable tokens ──────────────────
+        // ── Dark nav / hero palette (Notion-style) ─────────────
+        navy: {
+          DEFAULT: '#0F172A',
+          mid:     '#1E293B',
+          light:   '#334155',
+          border:  '#2D3F55',
+        },
+        sky: {
+          soft: '#60A5FA',
+          teal: '#67E8F9',
+          glow: '#38BDF8',
+        },
+        // ── Pastel accent blocks (light sections) ─────────────
+        pastel: {
+          blue:   '#BAE6FD',
+          green:  '#A7F3D0',
+          yellow: '#FEF3C7',
+          teal:   '#99F6E4',
+          coral:  '#FECACA',
+          purple: '#DDD6FE',
+        },
+        // ── shadcn/ui CSS variable tokens ──────────────────────
         background:  'hsl(var(--background))',
         foreground:  'hsl(var(--foreground))',
         card: {
@@ -86,8 +109,8 @@ export default {
           '100%': { '--shine-angle': '360deg' },
         },
         'pulse-soft': {
-          '0%,100%': { boxShadow: '0 0 0 0 rgba(59,130,246,0.15)' },
-          '50%':     { boxShadow: '0 0 0 8px rgba(59,130,246,0)' },
+          '0%,100%': { boxShadow: '0 0 0 0 rgba(96,165,250,0.2)' },
+          '50%':     { boxShadow: '0 0 0 8px rgba(96,165,250,0)' },
         },
         'fade-in-up': {
           '0%':   { opacity: '0', transform: 'translateY(20px)' },
@@ -103,7 +126,10 @@ export default {
         'card-hover': '0 8px 32px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.06)',
         'card-blue':  '0 4px 20px rgba(59,130,246,0.18)',
         'card-green': '0 4px 20px rgba(34,197,94,0.18)',
-        'nav':        '0 1px 0 #E5E7EB, 0 2px 12px rgba(0,0,0,0.04)',
+        'nav':        '0 1px 0 rgba(255,255,255,0.06), 0 2px 12px rgba(0,0,0,0.3)',
+        'sky-glow':   '0 4px 24px rgba(96,165,250,0.35)',
+        'teal-glow':  '0 4px 24px rgba(103,232,249,0.30)',
+        'amber-glow': '0 4px 24px rgba(217,119,6,0.35)',
       },
     },
   },

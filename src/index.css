@@ -111,4 +111,17 @@ html { scrollbar-gutter: stable; }
   /* Warm cream section */
   .bg-cream { background-color: #FEFDFB; }
   .bg-cream-warm { background-color: #FFF7ED; }
+
+  /* Dark nav / hero — guaranteed rendering independent of Tailwind JIT */
+  .nav-dark {
+    background-color: rgba(15, 23, 42, 0.95) !important;
+    border-bottom: 1px solid #2D3F55 !important;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 2px 12px rgba(0,0,0,0.3) !important;
+  }
+  .hero-dark { background-color: #0F172A !important; }
+  .hero-marquee { background-color: #1E293B !important; border-top: 1px solid #2D3F55 !important; }
+  .drawer-dark {
+    background-color: #0F172A !important;
+    border-right: 1px solid #2D3F55 !important;
+  }
 }

@@ -88,7 +88,7 @@ const Footer: FC<FooterProps> = ({ onNav }) => (
                          transition-colors"
             />
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}>
-              <Button variant="default" size="sm" className="rounded-lg flex-shrink-0">
+              <Button size="sm" className="rounded-lg flex-shrink-0 bg-[#D97706] hover:bg-[#B45309] text-white">
                 Subscribe
               </Button>
             </motion.div>
