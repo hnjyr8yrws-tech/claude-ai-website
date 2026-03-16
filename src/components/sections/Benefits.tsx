@@ -1,118 +1,91 @@
 /**
- * Benefits.tsx — Numbered benefit blocks
- * shadcn Card · pastel accent blocks · All Week big numbers
+ * Benefits.tsx — Why Schools Trust Promptly
  */
 
 import React, { FC } from 'react';
 import { motion, Variants } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
 
-const containerVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-const cardVariants: Variants = {
-  hidden:  { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 22 } },
-};
-
-interface Benefit {
-  num: string;
-  color: string;
-  pastelBg: string;
-  pastelBadge: string;
-  headline: string;
-  sub: string;
-  icon: string;
-}
-
-const BENEFITS: Benefit[] = [
+const TRUST_POINTS = [
   {
-    num: '01', color: 'text-brand-blue',
-    pastelBg: 'bg-pastel-blue/20', pastelBadge: 'bg-pastel-blue text-blue-700',
-    headline: 'No Overwhelm',
-    sub: 'Life is busy — AI research shouldn\'t add to the pile. We cut through the noise so you get straight to the tools that work for your classroom.',
-    icon: '🧘',
+    icon: '🏫',
+    title: 'Tested in Real UK Classrooms',
+    desc: "Every tool we review gets used by real teachers in real UK schools. If it doesn't work on a Monday morning, we say so plainly.",
+    color: '#3B82F6',
+    bg: 'bg-blue-50',
+    border: 'border-blue-100',
   },
   {
-    num: '02', color: 'text-brand-green',
-    pastelBg: 'bg-pastel-green/20', pastelBadge: 'bg-pastel-green text-green-700',
-    headline: 'Real-Life Fit',
-    sub: 'Every tool we review gets tested in real UK schools by real teachers. If it doesn\'t fit into a Monday morning, we say so plainly.',
-    icon: '✅',
-  },
-  {
-    num: '03', color: 'text-brand-purple',
-    pastelBg: 'bg-pastel-purple/20', pastelBadge: 'bg-pastel-purple text-purple-700',
-    headline: 'Truly Safe',
-    sub: 'GDPR compliance, age-appropriateness, and data privacy aren\'t checkboxes to us. They\'re the first thing we look for, before a single word of praise.',
     icon: '🛡️',
+    title: 'Safety & GDPR Checks for Every Tool',
+    desc: "Data privacy and age-appropriateness aren't checkboxes to us. They're the first thing we check before a single word of praise.",
+    color: '#22C55E',
+    bg: 'bg-green-50',
+    border: 'border-green-100',
   },
   {
-    num: '04', color: 'text-brand-orange',
-    pastelBg: 'bg-pastel-yellow/30', pastelBadge: 'bg-pastel-yellow text-amber-700',
-    headline: 'Premium Quality',
-    sub: 'We only feature tools we\'d genuinely recommend to a colleague. No sponsored placements. No pay-to-rank. Independent editorial — always.',
-    icon: '🏆',
+    icon: '✅',
+    title: 'Independent Reviews — Never Paid Rankings',
+    desc: 'No sponsored placements. No pay-to-rank. Our editorial is 100% independent — always. Safety scores are never for sale.',
+    color: '#8B5CF6',
+    bg: 'bg-purple-50',
+    border: 'border-purple-100',
+  },
+  {
+    icon: '🧑‍🏫',
+    title: 'Designed for Teachers, Not Tech Experts',
+    desc: 'Written by educators who understand the reality of the classroom — not tech companies writing for other tech companies.',
+    color: '#F97316',
+    bg: 'bg-orange-50',
+    border: 'border-orange-100',
   },
 ];
 
+const cardVariants: Variants = {
+  hidden:  { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 22 } },
+};
+
 const Benefits: FC = () => (
-  <section className="bg-[#FAFAFA] py-20 sm:py-24" aria-labelledby="benefits-heading">
+  <section className="bg-[#FAFAFA] py-20 sm:py-24" aria-labelledby="trust-heading">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-      {/* Header */}
-      <motion.div className="text-center mb-16"
-        initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }} transition={{ duration: 0.5 }}
+      <motion.div
+        className="text-center mb-14"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="inline-block bg-pastel-yellow/60 text-amber-700 text-[10px] font-black tracking-[0.2em] uppercase px-4 py-1.5 rounded-full mb-4">
+        <span className="inline-block bg-blue-50 text-blue-700 text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-4 border border-blue-100">
           Why Promptly
-        </div>
-        <h2 id="benefits-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight mt-2">
-          Planning shouldn't be<br />
-          <span className="text-brand-blue">this hard.</span>
+        </span>
+        <h2 id="trust-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight">
+          Why Schools Trust<br />
+          <span className="text-brand-blue">Promptly</span>
         </h2>
-        <p className="mt-4 text-gray-500 max-w-md mx-auto text-base leading-relaxed">
-          Life is busy. AI shouldn't add to the chaos — it should quietly fix it.
-        </p>
       </motion.div>
 
-      {/* Benefit cards */}
-      <motion.div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        variants={containerVariants} initial="hidden"
-        whileInView="visible" viewport={{ once: true, margin: '-60px' }}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ staggerChildren: 0.08 }}
       >
-        {BENEFITS.map((b) => (
-          <motion.div key={b.num} variants={cardVariants} whileHover={{ y: -6 }}>
-            <Card className={`h-full rounded-3xl border-0 shadow-card hover:shadow-card-hover p-0 overflow-hidden ${b.pastelBg}`}>
-              <CardContent className="p-6 flex flex-col gap-4 h-full">
-                {/* Big number */}
-                <div className={`text-7xl font-black tracking-tighter leading-none ${b.color} opacity-20 select-none`} aria-hidden="true">
-                  {b.num}
-                </div>
-                {/* Icon pill */}
-                <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-bold w-fit ${b.pastelBadge}`}>
-                  <span aria-hidden="true">{b.icon}</span>
-                </span>
-                {/* Headline */}
-                <h3 className="text-xl font-black tracking-tight text-ink leading-tight">{b.headline}</h3>
-                {/* Body */}
-                <p className="text-sm text-gray-500 leading-relaxed flex-1">{b.sub}</p>
-              </CardContent>
-            </Card>
+        {TRUST_POINTS.map((point) => (
+          <motion.div
+            key={point.title}
+            variants={cardVariants}
+            whileHover={{ y: -5 }}
+            className={`rounded-2xl border p-6 flex flex-col gap-4 transition-shadow hover:shadow-card-hover ${point.bg} ${point.border}`}
+          >
+            <span className="text-3xl" aria-hidden="true">{point.icon}</span>
+            <h3 className="text-base font-black tracking-tight text-ink leading-snug">{point.title}</h3>
+            <p className="text-sm text-gray-500 leading-relaxed flex-1">{point.desc}</p>
+            <div className="h-0.5 rounded-full w-10" style={{ backgroundColor: point.color }} />
           </motion.div>
         ))}
       </motion.div>
-
-      {/* Tagline */}
-      <motion.p className="text-center mt-12 text-2xl sm:text-3xl font-black tracking-tight text-ink"
-        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-        viewport={{ once: true }} transition={{ delay: 0.4 }}
-      >
-        Safe AI. Real schools. <span className="text-brand-green">Zero fluff.</span>
-      </motion.p>
     </div>
   </section>
 );

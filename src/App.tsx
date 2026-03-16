@@ -1,6 +1,6 @@
 /**
  * App.tsx — getpromptly.co.uk
- * Dark nav/hero (Notion style #0F172A) · Light sections below · Spring drawer
+ * Dark nav/hero · Light sections · Spring drawer
  */
 
 import React, { useState, useRef, useEffect, FC } from 'react';
@@ -8,12 +8,13 @@ import { motion, AnimatePresence, Variants, useMotionValue, useSpring } from 'fr
 import { cn } from './lib/utils';
 import Hero        from './components/sections/Hero';
 import Benefits    from './components/sections/Benefits';
-import TimeSavings from './components/sections/TimeSavings';
 import ToolsGrid   from './components/sections/ToolsGrid';
-import Reviews     from './components/sections/Reviews';
-import Events      from './components/sections/Events';
-import BlogPreview  from './components/sections/BlogPreview';
+import TimeSavings from './components/sections/TimeSavings';
 import SafetyGuide from './components/sections/SafetyGuide';
+import BlogPreview from './components/sections/BlogPreview';
+import Events      from './components/sections/Events';
+import Reviews     from './components/sections/Reviews';
+import Blog        from './components/sections/Blog';
 import About       from './components/sections/About';
 import Footer      from './components/sections/Footer';
 
@@ -28,7 +29,7 @@ const NAV_ITEMS: { id: SectionId; label: string }[] = [
   { id: 'about',   label: 'About Us' },
 ];
 
-// ── Spring slide-in drawer variants (preserved) ───────────────────────────────
+// ── Drawer variants ────────────────────────────────────────────────────────────
 
 const drawerVariants: Variants = {
   hidden:  { x: '-100%', opacity: 0 },
@@ -44,7 +45,7 @@ const navItemVariants: Variants = {
   }),
 };
 
-// ── Logo Orb — breathing animation (adapted for dark nav) ─────────────────────
+// ── Logo Orb ───────────────────────────────────────────────────────────────────
 
 const LogoOrb: FC<{ size?: number }> = ({ size = 32 }) => (
   <motion.div
@@ -73,7 +74,7 @@ const LogoOrb: FC<{ size?: number }> = ({ size = 32 }) => (
   </motion.div>
 );
 
-// ── Mobile Drawer — dark navy theme ───────────────────────────────────────────
+// ── Mobile Drawer ──────────────────────────────────────────────────────────────
 
 const MobileDrawer: FC<{
   active: SectionId;
@@ -149,8 +150,8 @@ const MobileDrawer: FC<{
     {/* Footer */}
     <div className="border-t border-[#2D3F55] px-5 py-4 space-y-3">
       <p className="text-[11px] text-slate-400 leading-relaxed">
-        Safe AI for every classroom.<br/>
-        <span className="text-[#60A5FA] font-medium">Trusted by 2,400+ UK schools.</span>
+        Safe AI for every classroom.<br />
+        <span className="text-[#60A5FA] font-medium">Trusted by UK educators.</span>
       </p>
       <motion.button
         whileHover={{ scale: 1.02, boxShadow: '0 4px 16px rgba(96,165,250,0.35)' }}
@@ -158,13 +159,13 @@ const MobileDrawer: FC<{
         className="w-full py-2.5 rounded-xl bg-[#60A5FA] text-[#0F172A] font-black text-xs
                    transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA]"
       >
-        Join 12,000+ Educators →
+        Join Our Community →
       </motion.button>
     </div>
   </motion.div>
 );
 
-// ── Top Navigation — dark navy Notion style ────────────────────────────────────
+// ── Top Navigation ─────────────────────────────────────────────────────────────
 
 const TopNav: FC<{
   active: SectionId;
@@ -221,7 +222,7 @@ const TopNav: FC<{
           ))}
         </nav>
 
-        {/* Search bar */}
+        {/* Search */}
         <div className="hidden md:flex flex-1 max-w-xs ml-auto">
           <div className="relative w-full">
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -264,7 +265,7 @@ const TopNav: FC<{
                        hover:opacity-90 transition-all
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA]"
           >
-            Post Event
+            Newsletter
           </motion.button>
         </div>
 
@@ -287,7 +288,7 @@ const TopNav: FC<{
   );
 };
 
-// ── App ───────────────────────────────────────────────────────────────────────
+// ── App ────────────────────────────────────────────────────────────────────────
 
 const App: FC = () => {
   const [activeSection, setActiveSection] = useState<SectionId>('home');
@@ -298,6 +299,7 @@ const App: FC = () => {
     home: null, tools: null, reviews: null, blog: null, safety: null, about: null,
   });
 
+  // Close drawer on outside click
   useEffect(() => {
     if (!drawerOpen) return;
     const handler = (e: MouseEvent) => {
@@ -308,6 +310,7 @@ const App: FC = () => {
     return () => document.removeEventListener('mousedown', handler);
   }, [drawerOpen]);
 
+  // Active section tracking
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     (Object.keys(sectionRefs.current) as SectionId[]).forEach((id) => {
@@ -361,7 +364,7 @@ const App: FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Sticky dark nav */}
+      {/* Sticky nav */}
       <TopNav
         active={activeSection}
         onNav={scrollTo}
@@ -369,21 +372,39 @@ const App: FC = () => {
         drawerOpen={drawerOpen}
       />
 
-      {/* Page sections */}
       <main aria-label="Main content">
-        {/* ── Dark hero ── */}
+        {/* 1. Hero */}
         <div ref={setRef('home')}>
           <Hero onExplore={() => scrollTo('tools')} onGuides={() => scrollTo('blog')} />
         </div>
-        {/* ── Light sections below ── */}
+
+        {/* 2. Why Schools Trust Promptly */}
         <Benefits />
-        <TimeSavings />
+
+        {/* 3. Explore AI Tools */}
         <div ref={setRef('tools')}><ToolsGrid /></div>
-        <div ref={setRef('reviews')}><Reviews /></div>
-        <Events />
-        <div ref={setRef('blog')}><BlogPreview /></div>
+
+        {/* 4. How AI Helps Teachers */}
+        <TimeSavings />
+
+        {/* 5. Safety First */}
         <div ref={setRef('safety')}><SafetyGuide /></div>
+
+        {/* 6. Guides & Resources */}
+        <div ref={setRef('blog')}><BlogPreview /></div>
+
+        {/* 7. Free AI Training */}
+        <Events />
+
+        {/* 8. Equipment Reviews */}
+        <div ref={setRef('reviews')}><Reviews /></div>
+
+        {/* 9. From the Blog */}
+        <Blog />
+
+        {/* 10. Team · Vision · Newsletter */}
         <div ref={setRef('about')}><About /></div>
+
         <Footer onNav={scrollTo} />
       </main>
     </div>
