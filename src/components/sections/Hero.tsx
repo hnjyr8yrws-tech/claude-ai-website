@@ -1,118 +1,201 @@
 /**
- * Hero.tsx — GetPromptly.co.uk
- * "Stop Guessing with AI. Start Getting Promptly."
+ * Hero.tsx — Promptly hero
+ * Original layout: dark navy overlay · hero-bg.jpg · marquee · stats
  */
 
-import { FC } from 'react';
-import { motion, Variants } from 'framer-motion';
-import { Button } from '@/components/ui/button';
+import React, { FC } from 'react';
+import { motion, Variants, useMotionValue, useSpring } from 'framer-motion';
+import { cn } from '@/lib/utils';
+import heroBg from '@/assets/hero-bg.jpg';
 
-const container: Variants = {
+const containerVariants: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.09 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
-const item: Variants = {
-  hidden:  { opacity: 0, y: 22 },
+
+const itemVariants: Variants = {
+  hidden:  { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 22 } },
 };
 
-const ROLES_LIST =
-  'Leadership/SLT · Teaching & Curriculum · SEND/Inclusion · Safeguarding & Pastoral · Administration · Finance · HR · IT · Communications · Parents · Students';
+// ── CTA Button ─────────────────────────────────────────────────────────────────
 
-interface HeroProps {
-  onQuiz: () => void;
-  onChecklist: () => void;
-}
+const CTAButton: FC<{
+  children: React.ReactNode;
+  onClick?: () => void;
+  primary?: boolean;
+}> = ({ children, onClick, primary = true }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mx = useSpring(x, { stiffness: 240, damping: 20 });
+  const my = useSpring(y, { stiffness: 240, damping: 20 });
 
-const Hero: FC<HeroProps> = ({ onQuiz, onChecklist }) => (
+  return (
+    <motion.button
+      onClick={onClick}
+      style={{ x: mx, y: my }}
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        x.set((e.clientX - r.left - r.width / 2) * 0.12);
+        y.set((e.clientY - r.top - r.height / 2) * 0.12);
+      }}
+      onMouseLeave={() => { x.set(0); y.set(0); }}
+      whileHover={{ scale: 1.03, y: -2 }}
+      whileTap={{ scale: 0.97 }}
+      className={cn(
+        'px-6 py-3.5 rounded-2xl font-bold text-sm tracking-tight transition-all',
+        'focus-visible:outline-none focus-visible:ring-2',
+        primary
+          ? 'bg-[#60A5FA] text-[#0F172A] shadow-sky-glow hover:opacity-90 focus-visible:ring-[#60A5FA]'
+          : 'border-2 border-[#67E8F9]/50 text-[#67E8F9] bg-[#67E8F9]/10 hover:bg-[#67E8F9]/20 focus-visible:ring-[#67E8F9]'
+      )}
+    >
+      {children}
+    </motion.button>
+  );
+};
+
+// ── Audience pills ─────────────────────────────────────────────────────────────
+
+const AUDIENCE = [
+  { icon: '🧑‍🏫', label: 'Teachers' },
+  { icon: '🎒',   label: 'Students' },
+  { icon: '👨‍👩‍👧', label: 'Parents' },
+  { icon: '🏫',   label: 'School Staff' },
+];
+
+// ── Stats ──────────────────────────────────────────────────────────────────────
+
+const STATS = [
+  { value: '2,400+',  label: 'UK Schools',     color: 'text-[#60A5FA]' },
+  { value: '180+',    label: 'Tools Reviewed',  color: 'text-[#67E8F9]' },
+  { value: '9.2/10',  label: 'Safety Score',    color: 'text-[#60A5FA]' },
+  { value: '100%',    label: 'Independent',     color: 'text-[#67E8F9]' },
+];
+
+// ── Marquee ────────────────────────────────────────────────────────────────────
+
+const MARQUEE_ITEMS = [
+  '🏫 Trusted by UK Schools',
+  '🛡️ Safety-Rated Tools',
+  '✅ GDPR Compliant',
+  '🎯 Curriculum-Aligned',
+  '👩‍🏫 Built by Educators',
+  '📚 180+ Tools Reviewed',
+  '🆓 Free Safety Guides',
+  '🏆 Independent Reviews',
+];
+
+const Marquee: FC = () => {
+  const doubled = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
+  return (
+    <div className="hero-marquee w-full overflow-hidden py-3 relative" aria-hidden="true">
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#1E293B] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#1E293B] to-transparent z-10 pointer-events-none" />
+      <div className="flex animate-marquee whitespace-nowrap" style={{ width: 'max-content' }}>
+        {doubled.map((item, i) => (
+          <span key={i} className="inline-flex items-center text-slate-300 text-sm font-medium px-8">
+            {item}
+            <span className="ml-8 text-slate-500">·</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// ── Main ───────────────────────────────────────────────────────────────────────
+
+const Hero: FC<{ onExplore: () => void; onGuides: () => void }> = ({ onExplore, onGuides }) => (
   <section
     id="hero"
     aria-labelledby="hero-heading"
-    className="relative overflow-hidden bg-gradient-to-br from-white via-blue-50/40 to-teal-50/30 pt-20 pb-24"
+    className="hero-dark relative overflow-hidden"
+    style={{
+      backgroundImage: `url(${heroBg})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    }}
   >
-    {/* Decorative blobs */}
-    <div aria-hidden="true" className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-blue-100/40 blur-3xl pointer-events-none" />
-    <div aria-hidden="true" className="absolute -bottom-16 -left-16 w-72 h-72 rounded-full bg-teal-100/50 blur-3xl pointer-events-none" />
+    <div className="absolute inset-0 bg-[#0F172A]/65 z-0" aria-hidden="true" />
 
-    <div className="relative max-w-4xl mx-auto px-4 sm:px-6 text-center">
-      <motion.div className="space-y-7" variants={container} initial="hidden" animate="visible">
-
+    <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
+      <motion.div
+        className="space-y-7"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Eyebrow */}
-        <motion.div variants={item}>
+        <motion.div variants={itemVariants}>
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full
-                           bg-brand-blue/10 border border-brand-blue/20 text-brand-blue text-xs font-bold tracking-wide">
+                           bg-[#60A5FA]/10 border border-[#60A5FA]/25 text-[#60A5FA] text-xs font-semibold">
             <motion.span
-              className="w-1.5 h-1.5 rounded-full bg-brand-blue flex-shrink-0"
+              className="w-1.5 h-1.5 rounded-full bg-[#60A5FA] flex-shrink-0"
               animate={{ scale: [1, 1.6, 1] }}
               transition={{ duration: 1.8, repeat: Infinity }}
             />
-            UK's Independent EdTech Resource — Free to Use
+            The UK's Independent EdTech Resource
           </span>
         </motion.div>
 
         {/* Headline */}
         <motion.h1
           id="hero-heading"
-          variants={item}
-          className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[0.9] text-ink"
+          variants={itemVariants}
+          className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[0.92] text-white"
         >
-          Stop Guessing with AI.{' '}
-          <br className="hidden sm:block" />
-          <span className="text-brand-blue">Start Getting Promptly.</span>
+          Stop Guessing with AI.<br />
+          <span className="text-[#60A5FA]">Start Getting Promptly.</span>
         </motion.h1>
 
-        {/* Sub-headline */}
-        <motion.p variants={item} className="text-xl sm:text-2xl text-ink-mid leading-relaxed max-w-3xl mx-auto">
-          Pass Ofsted checks. Get real results for every department, parent &amp; student across{' '}
-          <span className="font-semibold text-ink">schools, colleges, unis &amp; apprenticeships.</span>
-        </motion.p>
-
-        {/* Supporting roles line */}
-        <motion.p variants={item} className="text-sm text-ink-light max-w-2xl mx-auto leading-relaxed">
-          Tools, prompts, safety scores &amp; equipment for{' '}
-          <span className="text-ink font-medium">{ROLES_LIST}</span>
+        {/* Subtext */}
+        <motion.p variants={itemVariants} className="text-lg text-slate-300 leading-relaxed max-w-xl mx-auto">
+          Pass Ofsted checks. Independent reviews, safety guides, and practical AI tools for teachers,
+          students, parents and every school department.
         </motion.p>
 
         {/* CTAs */}
-        <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button
-            size="lg"
-            onClick={onQuiz}
-            className="bg-brand-blue hover:bg-brand-blue/90 text-white text-base px-8 py-4 rounded-2xl font-bold shadow-card-blue"
-          >
-            Take the 60-Second Toolkit Quiz →
-          </Button>
-          <Button
-            size="lg"
-            variant="outline"
-            onClick={onChecklist}
-            className="text-base px-8 py-4 rounded-2xl font-bold border-2 border-brand-blue/30 text-brand-blue hover:bg-brand-blue/5"
-          >
-            Get Free AI Safety Checklist + 50 Prompts
-          </Button>
+        <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3">
+          <CTAButton primary onClick={onExplore}>Explore AI Tools →</CTAButton>
+          <CTAButton primary={false} onClick={onGuides}>Read Our Guides</CTAButton>
         </motion.div>
 
-        {/* Social proof */}
-        <motion.div variants={item} className="flex flex-wrap justify-center gap-6 pt-2">
-          {[
-            { value: '12,000+', label: 'UK Educators' },
-            { value: '180+',    label: 'Tools Reviewed' },
-            { value: '500+',    label: 'Free Prompts' },
-            { value: '100%',    label: 'Independent' },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <div className="text-2xl font-black text-brand-blue">{s.value}</div>
-              <div className="text-xs text-ink-light mt-0.5">{s.label}</div>
-            </div>
+        {/* Audience pills */}
+        <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2">
+          {AUDIENCE.map((a) => (
+            <motion.span
+              key={a.label}
+              whileHover={{ scale: 1.05, y: -1 }}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
+                         bg-[#1E293B] border border-[#2D3F55] text-slate-300 hover:text-white
+                         hover:border-[#60A5FA]/30 transition-colors cursor-default"
+            >
+              <span>{a.icon}</span>{a.label}
+            </motion.span>
           ))}
         </motion.div>
 
-        {/* Affiliate disclosure */}
-        <motion.p variants={item} className="text-[11px] text-ink-pale">
-          Affiliate disclosure: Some links earn us a small commission at no extra cost to you. Our safety scores are always independent.
-        </motion.p>
+        {/* Stats row */}
+        <motion.div
+          variants={itemVariants}
+          className="grid grid-cols-4 gap-4 pt-6 border-t border-[#2D3F55] max-w-xl mx-auto"
+        >
+          {STATS.map((s) => (
+            <div key={s.label} className="text-center">
+              <div className={cn('text-xl sm:text-2xl font-black tracking-tight', s.color)}>{s.value}</div>
+              <div className="text-xs text-slate-400 mt-1 leading-tight">{s.label}</div>
+            </div>
+          ))}
+        </motion.div>
       </motion.div>
     </div>
+
+    <div className="relative z-10">
+      <Marquee />
+    </div>
+    {/* Gradient bridge: dark navy → cream */}
+    <div className="relative z-10 h-10 bg-gradient-to-b from-[#1E293B] to-[#FAFAFA]" aria-hidden="true" />
   </section>
 );
 

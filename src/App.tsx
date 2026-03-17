@@ -429,8 +429,8 @@ const App: FC = () => {
         {/* 1. Hero */}
         <div ref={setRef('hero')}>
           <Hero
-            onQuiz={() => setQuizOpen(true)}
-            onChecklist={() => scrollTo('guides')}
+            onExplore={() => scrollTo('tools')}
+            onGuides={() => scrollTo('guides')}
           />
         </div>
 
