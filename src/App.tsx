@@ -1,36 +1,39 @@
 /**
- * App.tsx — getpromptly.co.uk
- * Dark nav/hero · Light sections · Spring drawer
+ * App.tsx — GetPromptly.co.uk
+ * Nav · Hero · Trust Bar · Featured Categories · Team · Prompts Teaser · Blog · Footer
  */
 
-import React, { useState, useRef, useEffect, FC } from 'react';
-import { motion, AnimatePresence, Variants, useMotionValue, useSpring } from 'framer-motion';
+import { useState, useRef, useEffect, FC } from 'react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { cn } from './lib/utils';
-import Hero        from './components/sections/Hero';
-import Benefits    from './components/sections/Benefits';
-import ToolsGrid   from './components/sections/ToolsGrid';
-import Hubs        from './components/sections/Hubs';
-import TimeSavings from './components/sections/TimeSavings';
-import SafetyGuide from './components/sections/SafetyGuide';
-import BlogPreview from './components/sections/BlogPreview';
-import Events      from './components/sections/Events';
-import Reviews     from './components/sections/Reviews';
-import Blog        from './components/sections/Blog';
-import About       from './components/sections/About';
-import Footer      from './components/sections/Footer';
+import Hero         from './components/sections/Hero';
+import Benefits     from './components/sections/Benefits';
+import ToolsGrid    from './components/sections/ToolsGrid';
+import About        from './components/sections/About';
+import PromoTeaser  from './components/sections/PromoTeaser';
+import Blog         from './components/sections/Blog';
+import Footer       from './components/sections/Footer';
 
-type SectionId = 'home' | 'library' | 'hubs' | 'blog' | 'resources' | 'about';
+type SectionId = 'home' | 'tools' | 'about' | 'prompts' | 'blog';
 
-const NAV_ITEMS: { id: SectionId; label: string }[] = [
-  { id: 'home',      label: 'Home' },
-  { id: 'library',   label: 'Prompt Library' },
-  { id: 'hubs',      label: 'Educator Hub' },
-  { id: 'blog',      label: 'Blog & Demos' },
-  { id: 'resources', label: 'Resources' },
-  { id: 'about',     label: 'About Us' },
+interface NavItem {
+  id: SectionId | null;  // null = external href
+  label: string;
+  href?: string;
+  highlight?: boolean;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { id: 'home',    label: 'Home' },
+  { id: 'tools',   label: 'AI Tools' },
+  { id: null,      label: 'Training',    href: '/training' },
+  { id: null,      label: 'IT Equipment', href: '/it-equipment' },
+  { id: 'prompts', label: 'AI Prompts for Schools', highlight: true },
+  { id: 'blog',    label: 'Blog' },
+  { id: 'about',   label: 'About Us' },
 ];
 
-// ── Drawer variants ────────────────────────────────────────────────────────────
+// ── Drawer variants ─────────────────────────────────────────────────────────────
 
 const drawerVariants: Variants = {
   hidden:  { x: '-100%', opacity: 0 },
@@ -42,37 +45,26 @@ const navItemVariants: Variants = {
   hidden:  { opacity: 0, x: -14 },
   visible: (i: number) => ({
     opacity: 1, x: 0,
-    transition: { type: 'spring', stiffness: 300, damping: 26, delay: i * 0.06 },
+    transition: { type: 'spring', stiffness: 300, damping: 26, delay: i * 0.05 },
   }),
 };
 
-// ── Logo Orb ───────────────────────────────────────────────────────────────────
+// ── Logo ───────────────────────────────────────────────────────────────────────
 
-const LogoOrb: FC<{ size?: number }> = ({ size = 32 }) => (
-  <motion.div
-    aria-hidden="true"
-    className="relative rounded-xl bg-gradient-to-br from-[#60A5FA] to-[#67E8F9]
-               flex items-center justify-center overflow-hidden flex-shrink-0"
-    style={{ width: size, height: size }}
-    animate={{ boxShadow: [
-      '0 0 0 0 rgba(96,165,250,0.3)',
-      '0 0 0 7px rgba(96,165,250,0)',
-      '0 0 0 0 rgba(96,165,250,0)',
-    ]}}
-    transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-    whileHover={{ scale: 1.08, rotate: 4 }}
+const Logo: FC<{ onClick: () => void }> = ({ onClick }) => (
+  <button
+    onClick={onClick}
+    className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded-lg"
+    aria-label="GetPromptly home"
   >
-    <motion.div
-      className="absolute inset-0"
-      style={{ background: 'conic-gradient(from 0deg, transparent 70%, rgba(255,255,255,0.25) 80%, transparent 90%)' }}
-      animate={{ rotate: 360 }}
-      transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-    />
-    <svg width={size * 0.5} height={size * 0.5} viewBox="0 0 16 16" fill="none" className="relative z-10" aria-hidden="true">
-      <circle cx="8" cy="8" r="5" stroke="white" strokeWidth="1.5" strokeOpacity=".95"/>
-      <circle cx="8" cy="8" r="2" fill="white"/>
-    </svg>
-  </motion.div>
+    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#14B8A6] to-[#3B82F6] flex items-center justify-center flex-shrink-0">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="5" stroke="white" strokeWidth="1.5" strokeOpacity=".95"/>
+        <circle cx="8" cy="8" r="2" fill="white"/>
+      </svg>
+    </div>
+    <span className="font-bold text-white text-base tracking-tight">GetPromptly</span>
+  </button>
 );
 
 // ── Mobile Drawer ──────────────────────────────────────────────────────────────
@@ -87,20 +79,15 @@ const MobileDrawer: FC<{
     initial="hidden"
     animate="visible"
     exit="exit"
-    className="flex flex-col w-72 h-full drawer-dark shadow-2xl"
+    className="flex flex-col w-72 h-full bg-[#0F172A] shadow-2xl"
     aria-label="Mobile navigation"
     role="dialog"
   >
-    {/* Header */}
-    <div className="flex items-center gap-3 px-5 py-4 border-b border-[#2D3F55]">
-      <LogoOrb size={36} />
-      <div className="min-w-0">
-        <span className="font-black text-sm text-white tracking-tight block">Promptly</span>
-        <span className="text-[10px] text-slate-400">getpromptly.co.uk</span>
-      </div>
+    <div className="flex items-center gap-3 px-5 py-4 border-b border-white/10">
+      <Logo onClick={() => { onNav('home'); onClose(); }} />
       <motion.button
         onClick={onClose}
-        whileHover={{ scale: 1.1, backgroundColor: 'rgba(255,255,255,0.08)' }}
+        whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.92 }}
         className="ml-auto p-2 rounded-lg text-slate-400 hover:text-white transition-colors"
         aria-label="Close menu"
@@ -111,58 +98,34 @@ const MobileDrawer: FC<{
       </motion.button>
     </div>
 
-    {/* Nav links */}
     <nav aria-label="Navigation" className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
       {NAV_ITEMS.map((item, i) => (
         <motion.button
-          key={item.id}
+          key={item.label}
           custom={i}
           variants={navItemVariants}
           initial="hidden"
           animate="visible"
-          aria-current={active === item.id ? 'page' : undefined}
-          onClick={() => { onNav(item.id); onClose(); }}
-          whileHover={{ x: 4, backgroundColor: 'rgba(255,255,255,0.06)' }}
+          onClick={() => {
+            if (item.id) { onNav(item.id); onClose(); }
+          }}
+          aria-current={item.id && active === item.id ? 'page' : undefined}
+          whileHover={{ x: 4 }}
           whileTap={{ scale: 0.97 }}
           className={cn(
-            'relative w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA]',
-            active === item.id
-              ? 'bg-[#60A5FA]/15 text-[#60A5FA] border border-[#60A5FA]/25'
-              : 'text-slate-300 hover:text-white border border-transparent'
+            'w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors text-left',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400',
+            item.highlight
+              ? 'text-teal-400 bg-teal-400/10 border border-teal-400/20'
+              : item.id && active === item.id
+                ? 'bg-white/10 text-white'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
           )}
         >
-          <AnimatePresence>
-            {active === item.id && (
-              <motion.div
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full bg-[#60A5FA]"
-                initial={{ scaleY: 0, opacity: 0 }}
-                animate={{ scaleY: 1, opacity: 1 }}
-                exit={{ scaleY: 0, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              />
-            )}
-          </AnimatePresence>
           {item.label}
         </motion.button>
       ))}
     </nav>
-
-    {/* Footer */}
-    <div className="border-t border-[#2D3F55] px-5 py-4 space-y-3">
-      <p className="text-[11px] text-slate-400 leading-relaxed">
-        Safe AI for every classroom.<br />
-        <span className="text-[#60A5FA] font-medium">Trusted by UK educators.</span>
-      </p>
-      <motion.button
-        whileHover={{ scale: 1.02, boxShadow: '0 4px 16px rgba(96,165,250,0.35)' }}
-        whileTap={{ scale: 0.97 }}
-        className="w-full py-2.5 rounded-xl bg-[#60A5FA] text-[#0F172A] font-black text-xs
-                   transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA]"
-      >
-        Join Our Community →
-      </motion.button>
-    </div>
   </motion.div>
 );
 
@@ -173,121 +136,71 @@ const TopNav: FC<{
   onNav: (id: SectionId) => void;
   onHamburger: () => void;
   drawerOpen: boolean;
-}> = ({ active, onNav, onHamburger, drawerOpen }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const mx = useSpring(x, { stiffness: 200, damping: 20 });
-  const my = useSpring(y, { stiffness: 200, damping: 20 });
+}> = ({ active, onNav, onHamburger, drawerOpen }) => (
+  <motion.header
+    className="sticky top-0 z-40 w-full bg-[#0F172A] shadow-md"
+    initial={{ opacity: 0, y: -8 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4, ease: 'easeOut' }}
+  >
+    <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-6">
 
-  return (
-    <motion.header
-      className="sticky top-0 z-40 w-full nav-dark backdrop-blur-md"
-      initial={{ opacity: 0, y: -8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-4">
+      <Logo onClick={() => onNav('home')} />
 
-        {/* Logo */}
-        <button
-          onClick={() => onNav('home')}
-          className="flex items-center gap-2.5 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA] rounded-lg"
-          aria-label="Promptly home"
-        >
-          <LogoOrb size={34} />
-          <div className="hidden sm:block">
-            <span className="font-black text-white tracking-tight text-base leading-none block">Promptly</span>
-            <span className="text-[9px] text-slate-400 tracking-wide">getpromptly.co.uk</span>
-          </div>
-        </button>
-
-        {/* Desktop nav links */}
-        <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5 ml-4">
-          {NAV_ITEMS.map((item) => (
-            <motion.button
-              key={item.id}
-              onClick={() => onNav(item.id)}
-              aria-current={active === item.id ? 'page' : undefined}
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.97 }}
-              className={cn(
-                'px-3.5 py-2 rounded-lg text-sm font-medium transition-colors',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA]',
-                active === item.id
-                  ? 'bg-[#60A5FA]/15 text-[#60A5FA]'
+      {/* Desktop nav */}
+      <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-1 ml-2">
+        {NAV_ITEMS.map((item) => (
+          <motion.button
+            key={item.label}
+            onClick={() => item.id && onNav(item.id)}
+            aria-current={item.id && active === item.id ? 'page' : undefined}
+            whileHover={{ y: -1 }}
+            whileTap={{ scale: 0.97 }}
+            className={cn(
+              'px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400',
+              item.highlight
+                ? 'text-teal-400 hover:text-teal-300 font-semibold'
+                : item.id && active === item.id
+                  ? 'bg-white/10 text-white'
                   : 'text-slate-300 hover:text-white hover:bg-white/5'
-              )}
-            >
-              {item.label}
-            </motion.button>
-          ))}
-        </nav>
-
-        {/* Search */}
-        <div className="hidden md:flex flex-1 max-w-xs ml-auto">
-          <div className="relative w-full">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <circle cx="6.5" cy="6.5" r="5"/><path d="M11.5 11.5l3 3"/>
-            </svg>
-            <input
-              type="search"
-              placeholder="Search tools, reviews…"
-              aria-label="Search"
-              className="w-full pl-9 pr-4 py-2 text-sm border border-[#2D3F55] rounded-xl
-                         bg-[#1E293B] text-slate-200 placeholder-slate-500
-                         focus:outline-none focus:ring-2 focus:ring-[#60A5FA]/50 focus:border-[#60A5FA]/40
-                         transition-all"
-            />
-          </div>
-        </div>
-
-        {/* Right CTAs */}
-        <div className="hidden lg:flex items-center gap-2 ml-3">
-          <motion.button
-            whileHover={{ y: -1, boxShadow: '0 4px 16px rgba(103,232,249,0.3)' }}
-            whileTap={{ scale: 0.97 }}
-            style={{ x: mx, y: my }}
-            onMouseMove={(e) => {
-              const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
-              x.set((e.clientX - r.left - r.width / 2) * 0.1);
-              y.set((e.clientY - r.top - r.height / 2) * 0.1);
-            }}
-            onMouseLeave={() => { x.set(0); y.set(0); }}
-            className="px-4 py-2 rounded-xl border border-[#67E8F9]/40 text-[#67E8F9] text-sm font-bold
-                       bg-[#67E8F9]/10 hover:bg-[#67E8F9]/20 transition-all
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#67E8F9]"
+            )}
           >
-            Submit Prompt
+            {item.label}
           </motion.button>
-          <motion.button
-            whileHover={{ y: -1, boxShadow: '0 4px 16px rgba(96,165,250,0.35)' }}
-            whileTap={{ scale: 0.97 }}
-            className="px-4 py-2 rounded-xl bg-[#60A5FA] text-[#0F172A] font-bold text-sm
-                       hover:opacity-90 transition-all
-                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA]"
-          >
-            Newsletter
-          </motion.button>
-        </div>
+        ))}
+      </nav>
 
-        {/* Mobile hamburger */}
+      {/* Right CTA */}
+      <div className="hidden lg:flex ml-auto">
         <motion.button
-          onClick={onHamburger}
-          whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.08)' }}
-          whileTap={{ scale: 0.92 }}
-          className="lg:hidden ml-auto p-2 rounded-lg text-slate-300 hover:text-white transition-colors
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#60A5FA]"
-          aria-label="Open menu"
-          aria-expanded={drawerOpen}
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.97 }}
+          onClick={() => onNav('tools')}
+          className="px-5 py-2.5 rounded-xl bg-[#14B8A6] hover:bg-[#0D9488] text-white font-semibold text-sm
+                     transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
         >
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-            <path d="M3 5h14M3 10h14M3 15h14"/>
-          </svg>
+          Browse AI Tools
         </motion.button>
       </div>
-    </motion.header>
-  );
-};
+
+      {/* Mobile hamburger */}
+      <motion.button
+        onClick={onHamburger}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.92 }}
+        className="lg:hidden ml-auto p-2 rounded-lg text-slate-300 hover:text-white transition-colors
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+        aria-label="Open menu"
+        aria-expanded={drawerOpen}
+      >
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+          <path d="M3 5h14M3 10h14M3 15h14"/>
+        </svg>
+      </motion.button>
+    </div>
+  </motion.header>
+);
 
 // ── App ────────────────────────────────────────────────────────────────────────
 
@@ -297,7 +210,7 @@ const App: FC = () => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
   const sectionRefs = useRef<Record<SectionId, HTMLDivElement | null>>({
-    home: null, library: null, hubs: null, blog: null, resources: null, about: null,
+    home: null, tools: null, about: null, prompts: null, blog: null,
   });
 
   // Close drawer on outside click
@@ -336,7 +249,7 @@ const App: FC = () => {
   };
 
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen font-sans bg-white">
 
       {/* Mobile overlay */}
       <AnimatePresence>
@@ -376,38 +289,23 @@ const App: FC = () => {
       <main aria-label="Main content">
         {/* 1. Hero */}
         <div ref={setRef('home')}>
-          <Hero onExplore={() => scrollTo('library')} onGuides={() => scrollTo('blog')} />
+          <Hero onExplore={() => scrollTo('tools')} onGuides={() => scrollTo('about')} />
         </div>
 
-        {/* 2. Why UK Professionals Choose Promptly */}
+        {/* 2. Trust Bar */}
         <Benefits />
 
-        {/* 3. Prompt Library */}
-        <div ref={setRef('library')}><ToolsGrid /></div>
+        {/* 3. Featured Categories */}
+        <div ref={setRef('tools')}><ToolsGrid /></div>
 
-        {/* 4. Professional Hubs */}
-        <div ref={setRef('hubs')}><Hubs /></div>
-
-        {/* 5. How Prompts Save You Time */}
-        <TimeSavings />
-
-        {/* 6. About AI Safety */}
-        <SafetyGuide />
-
-        {/* 7. Blog & Demos */}
-        <div ref={setRef('blog')}><BlogPreview /></div>
-
-        {/* 8. Free Training */}
-        <Events />
-
-        {/* 9. Recommended Resources */}
-        <div ref={setRef('resources')}><Reviews /></div>
-
-        {/* 10. From the Blog */}
-        <Blog />
-
-        {/* 11. Team · Vision · Newsletter */}
+        {/* 4. Team */}
         <div ref={setRef('about')}><About /></div>
+
+        {/* 5. AI Prompts Teaser */}
+        <div ref={setRef('prompts')}><PromoTeaser /></div>
+
+        {/* 6. Blog */}
+        <div ref={setRef('blog')}><Blog /></div>
 
         <Footer onNav={scrollTo} />
       </main>

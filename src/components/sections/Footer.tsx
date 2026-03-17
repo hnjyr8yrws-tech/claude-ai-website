@@ -7,7 +7,7 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
-type SectionId = 'home' | 'library' | 'hubs' | 'blog' | 'resources' | 'about';
+type SectionId = 'home' | 'tools' | 'about' | 'prompts' | 'blog';
 
 interface FooterProps {
   onNav: (id: SectionId) => void;
@@ -17,17 +17,16 @@ const NAV_COLS: { heading: string; links: { label: string; id: SectionId }[] }[]
   {
     heading: 'Explore',
     links: [
-      { label: 'Home',             id: 'home' },
-      { label: 'Prompt Library',   id: 'library' },
-      { label: 'Educator Hub',     id: 'hubs' },
+      { label: 'Home',              id: 'home' },
+      { label: 'AI Tools',          id: 'tools' },
+      { label: 'AI Prompts',        id: 'prompts' },
     ],
   },
   {
-    heading: 'Resources',
+    heading: 'Company',
     links: [
-      { label: 'Blog & Demos',     id: 'blog' },
-      { label: 'Resources',        id: 'resources' },
-      { label: 'About Us',         id: 'about' },
+      { label: 'Blog',              id: 'blog' },
+      { label: 'About Us',          id: 'about' },
     ],
   },
 ];
@@ -143,13 +142,13 @@ const Footer: FC<FooterProps> = ({ onNav }) => (
         <p className="text-[11px] text-gray-600">
           © {new Date().getFullYear()}{' '}
           <motion.span
-            className="text-brand-blue font-semibold"
+            className="text-teal-400 font-semibold"
             animate={{ opacity: [1, 0.7, 1] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
-            getpromptly.co.uk
+            GetPromptly.co.uk
           </motion.span>
-          {' '}· All rights reserved. Built by educators, for educators.
+          {' '}· All affiliate links are clearly disclosed · GDPR compliant
         </p>
         <div className="flex items-center gap-4">
           {['Privacy Policy', 'Cookie Policy', 'Affiliate Disclosure', 'Contact'].map((item) => (
