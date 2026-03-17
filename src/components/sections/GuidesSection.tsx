@@ -12,7 +12,7 @@ const GUIDES = [
     title: 'SLT Ofsted AI Policy Template',
     desc: 'Ready-to-adapt school AI policy mapped to the current Ofsted EIF — download, personalise, use.',
     pages: '12 pages', audience: 'Leadership & SLT',
-    bg: '#1D4ED8',   // deep blue
+    bg: '#2B4590',   // Notion wikis blue
   },
   {
     icon: '🛡️',
@@ -26,7 +26,7 @@ const GUIDES = [
     title: "Parent's Guide to AI in Schools",
     desc: "Plain-English answers: what data is shared, how AI is used in lessons, how to talk to your child.",
     pages: '6 pages', audience: 'Parents',
-    bg: '#92400E',   // deep amber
+    bg: '#7B4F2A',   // Notion projects brown
   },
   {
     icon: '🤝',
@@ -45,7 +45,7 @@ const GUIDES = [
 ] as const;
 
 const GuidesSection: FC = () => (
-  <section id="guides" aria-labelledby="guides-heading" className="bg-[#0D4444] py-20 sm:py-24">
+  <section id="guides" aria-labelledby="guides-heading" className="bg-[#2D6A4F] py-20 sm:py-24">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
       <motion.div
