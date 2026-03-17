@@ -2,38 +2,38 @@
  * Benefits.tsx — Why Schools Trust Promptly
  */
 
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { motion, Variants } from 'framer-motion';
 
 const TRUST_POINTS = [
   {
-    icon: '🏫',
-    title: 'Tested in Real UK Classrooms',
-    desc: "Every tool we review gets used by real teachers in real UK schools. If it doesn't work on a Monday morning, we say so plainly.",
+    icon: '🇬🇧',
+    title: 'Built for UK Professionals',
+    desc: 'Every prompt is written with UK context in mind — from curriculum standards for teachers to Companies House compliance for finance teams.',
     color: '#3B82F6',
     bg: 'bg-blue-50',
     border: 'border-blue-100',
   },
   {
-    icon: '🛡️',
-    title: 'Safety & GDPR Checks for Every Tool',
-    desc: "Data privacy and age-appropriateness aren't checkboxes to us. They're the first thing we check before a single word of praise.",
+    icon: '✅',
+    title: 'Tested by Real Practitioners',
+    desc: "Our prompts are refined by the people who use them daily — teachers, finance managers, school leaders, and admin staff.",
     color: '#22C55E',
     bg: 'bg-green-50',
     border: 'border-green-100',
   },
   {
-    icon: '✅',
-    title: 'Independent Reviews — Never Paid Rankings',
-    desc: 'No sponsored placements. No pay-to-rank. Our editorial is 100% independent — always. Safety scores are never for sale.',
+    icon: '🏆',
+    title: 'Independent — Never Sponsored',
+    desc: 'No paid placements. No sponsored prompts. Our library is 100% editorially independent. What you see is what actually works.',
     color: '#8B5CF6',
     bg: 'bg-purple-50',
     border: 'border-purple-100',
   },
   {
-    icon: '🧑‍🏫',
-    title: 'Designed for Teachers, Not Tech Experts',
-    desc: 'Written by educators who understand the reality of the classroom — not tech companies writing for other tech companies.',
+    icon: '🚀',
+    title: 'Save Hours Every Week',
+    desc: 'Stop writing from scratch. Our prompts are structured to get Claude producing professional-quality output on the first try.',
     color: '#F97316',
     bg: 'bg-orange-50',
     border: 'border-orange-100',
@@ -60,8 +60,8 @@ const Benefits: FC = () => (
           Why Promptly
         </span>
         <h2 id="trust-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight">
-          Why Schools Trust<br />
-          <span className="text-brand-blue">Promptly</span>
+          Why UK Professionals<br />
+          <span className="text-brand-blue">Choose Promptly</span>
         </h2>
       </motion.div>
 

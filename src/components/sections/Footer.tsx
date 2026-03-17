@@ -3,11 +3,11 @@
  * shadcn Button · dark bg · full affiliate disclosure · breathing mini-orb
  */
 
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
-type SectionId = 'home' | 'tools' | 'reviews' | 'blog' | 'safety' | 'about';
+type SectionId = 'home' | 'library' | 'hubs' | 'blog' | 'resources' | 'about';
 
 interface FooterProps {
   onNav: (id: SectionId) => void;
@@ -17,17 +17,17 @@ const NAV_COLS: { heading: string; links: { label: string; id: SectionId }[] }[]
   {
     heading: 'Explore',
     links: [
-      { label: 'Home',               id: 'home' },
-      { label: 'AI Tools Directory', id: 'tools' },
-      { label: 'Equipment Reviews',  id: 'reviews' },
+      { label: 'Home',             id: 'home' },
+      { label: 'Prompt Library',   id: 'library' },
+      { label: 'Educator Hub',     id: 'hubs' },
     ],
   },
   {
     heading: 'Resources',
     links: [
-      { label: 'Blog & Guides', id: 'blog' },
-      { label: 'Safety Guide',  id: 'safety' },
-      { label: 'About Us',      id: 'about' },
+      { label: 'Blog & Demos',     id: 'blog' },
+      { label: 'Resources',        id: 'resources' },
+      { label: 'About Us',         id: 'about' },
     ],
   },
 ];
@@ -71,7 +71,7 @@ const Footer: FC<FooterProps> = ({ onNav }) => (
 
         <p className="text-xs text-gray-400 leading-relaxed max-w-xs">
           The UK's trusted resource for safe EdTech AI. Independent reviews, safety guides,
-          and a community of 12,000+ educators and parents.
+          and a growing community of educators and parents.
         </p>
 
         {/* Newsletter */}

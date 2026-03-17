@@ -9,6 +9,7 @@ import { cn } from './lib/utils';
 import Hero        from './components/sections/Hero';
 import Benefits    from './components/sections/Benefits';
 import ToolsGrid   from './components/sections/ToolsGrid';
+import Hubs        from './components/sections/Hubs';
 import TimeSavings from './components/sections/TimeSavings';
 import SafetyGuide from './components/sections/SafetyGuide';
 import BlogPreview from './components/sections/BlogPreview';
@@ -18,15 +19,15 @@ import Blog        from './components/sections/Blog';
 import About       from './components/sections/About';
 import Footer      from './components/sections/Footer';
 
-type SectionId = 'home' | 'tools' | 'reviews' | 'blog' | 'safety' | 'about';
+type SectionId = 'home' | 'library' | 'hubs' | 'blog' | 'resources' | 'about';
 
 const NAV_ITEMS: { id: SectionId; label: string }[] = [
-  { id: 'home',    label: 'Home' },
-  { id: 'tools',   label: 'AI Tools' },
-  { id: 'reviews', label: 'Equipment Reviews' },
-  { id: 'blog',    label: 'Blog' },
-  { id: 'safety',  label: 'Safety Guide' },
-  { id: 'about',   label: 'About Us' },
+  { id: 'home',      label: 'Home' },
+  { id: 'library',   label: 'Prompt Library' },
+  { id: 'hubs',      label: 'Educator Hub' },
+  { id: 'blog',      label: 'Blog & Demos' },
+  { id: 'resources', label: 'Resources' },
+  { id: 'about',     label: 'About Us' },
 ];
 
 // ── Drawer variants ────────────────────────────────────────────────────────────
@@ -256,7 +257,7 @@ const TopNav: FC<{
                        bg-[#67E8F9]/10 hover:bg-[#67E8F9]/20 transition-all
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#67E8F9]"
           >
-            Submit Tool
+            Submit Prompt
           </motion.button>
           <motion.button
             whileHover={{ y: -1, boxShadow: '0 4px 16px rgba(96,165,250,0.35)' }}
@@ -296,7 +297,7 @@ const App: FC = () => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
   const sectionRefs = useRef<Record<SectionId, HTMLDivElement | null>>({
-    home: null, tools: null, reviews: null, blog: null, safety: null, about: null,
+    home: null, library: null, hubs: null, blog: null, resources: null, about: null,
   });
 
   // Close drawer on outside click
@@ -375,34 +376,37 @@ const App: FC = () => {
       <main aria-label="Main content">
         {/* 1. Hero */}
         <div ref={setRef('home')}>
-          <Hero onExplore={() => scrollTo('tools')} onGuides={() => scrollTo('blog')} />
+          <Hero onExplore={() => scrollTo('library')} onGuides={() => scrollTo('blog')} />
         </div>
 
-        {/* 2. Why Schools Trust Promptly */}
+        {/* 2. Why UK Professionals Choose Promptly */}
         <Benefits />
 
-        {/* 3. Explore AI Tools */}
-        <div ref={setRef('tools')}><ToolsGrid /></div>
+        {/* 3. Prompt Library */}
+        <div ref={setRef('library')}><ToolsGrid /></div>
 
-        {/* 4. How AI Helps Teachers */}
+        {/* 4. Professional Hubs */}
+        <div ref={setRef('hubs')}><Hubs /></div>
+
+        {/* 5. How Prompts Save You Time */}
         <TimeSavings />
 
-        {/* 5. Safety First */}
-        <div ref={setRef('safety')}><SafetyGuide /></div>
+        {/* 6. About AI Safety */}
+        <SafetyGuide />
 
-        {/* 6. Guides & Resources */}
+        {/* 7. Blog & Demos */}
         <div ref={setRef('blog')}><BlogPreview /></div>
 
-        {/* 7. Free AI Training */}
+        {/* 8. Free Training */}
         <Events />
 
-        {/* 8. Equipment Reviews */}
-        <div ref={setRef('reviews')}><Reviews /></div>
+        {/* 9. Recommended Resources */}
+        <div ref={setRef('resources')}><Reviews /></div>
 
-        {/* 9. From the Blog */}
+        {/* 10. From the Blog */}
         <Blog />
 
-        {/* 10. Team · Vision · Newsletter */}
+        {/* 11. Team · Vision · Newsletter */}
         <div ref={setRef('about')}><About /></div>
 
         <Footer onNav={scrollTo} />

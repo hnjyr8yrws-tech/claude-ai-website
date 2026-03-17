@@ -1,9 +1,9 @@
 /**
- * Hero.tsx — Promptly hero
- * "Trusted AI Tools for UK Schools"
+ * Hero.tsx — GetPromptly.co.uk
+ * "Expert Claude Prompts for UK Professionals"
  */
 
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { motion, Variants, useMotionValue, useSpring } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import heroBg from '@/assets/hero-bg.jpg';
@@ -58,32 +58,32 @@ const CTAButton: FC<{
 // ── Audience pills ─────────────────────────────────────────────────────────────
 
 const AUDIENCE = [
-  { icon: '🧑‍🏫', label: 'Teachers' },
-  { icon: '🎒',   label: 'Students' },
-  { icon: '👨‍👩‍👧', label: 'Parents' },
-  { icon: '🏫',   label: 'School Staff' },
+  { icon: '🧑‍🏫', label: 'Educators' },
+  { icon: '💷',   label: 'Finance Teams' },
+  { icon: '🏆',   label: 'Leaders' },
+  { icon: '🗂️',   label: 'Admin Staff' },
 ];
 
 // ── Stats ──────────────────────────────────────────────────────────────────────
 
 const STATS = [
-  { value: '2,400+',  label: 'UK Schools',     color: 'text-[#60A5FA]' },
-  { value: '180+',    label: 'Tools Reviewed',  color: 'text-[#67E8F9]' },
-  { value: '9.2/10',  label: 'Safety Score',    color: 'text-[#60A5FA]' },
-  { value: '100%',    label: 'Independent',     color: 'text-[#67E8F9]' },
+  { value: '500+',   label: 'Free Prompts',       color: 'text-[#60A5FA]' },
+  { value: '4',      label: 'Professional Hubs',  color: 'text-[#67E8F9]' },
+  { value: '100%',   label: 'Free to Use',        color: 'text-[#60A5FA]' },
+  { value: 'UK',     label: 'Based & Tested',     color: 'text-[#67E8F9]' },
 ];
 
 // ── Marquee ────────────────────────────────────────────────────────────────────
 
 const MARQUEE_ITEMS = [
-  '🏫 Trusted by UK Schools',
-  '🛡️ Safety-Rated Tools',
-  '✅ GDPR Compliant',
-  '🎯 Curriculum-Aligned',
-  '👩‍🏫 Built by Educators',
-  '📚 180+ Tools Reviewed',
-  '🆓 Free Safety Guides',
-  '🏆 Independent Reviews',
+  '🧑‍🏫 Educators Hub',
+  '💷 Finance Hub',
+  '🏆 Leadership Hub',
+  '🗂️ Admin Hub',
+  '✅ 100% Free Prompts',
+  '🇬🇧 Built for UK Professionals',
+  '🤖 Powered by Claude AI',
+  '🚀 Boost Your Productivity',
 ];
 
 const Marquee: FC = () => {
@@ -135,7 +135,7 @@ const Hero: FC<{ onExplore: () => void; onGuides: () => void }> = ({ onExplore, 
               animate={{ scale: [1, 1.6, 1] }}
               transition={{ duration: 1.8, repeat: Infinity }}
             />
-            The UK's Independent EdTech Resource
+            The UK's Curated Claude Prompt Library
           </span>
         </motion.div>
 
@@ -145,18 +145,18 @@ const Hero: FC<{ onExplore: () => void; onGuides: () => void }> = ({ onExplore, 
           variants={itemVariants}
           className="text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[0.92] text-white"
         >
-          Trusted AI Tools<br />
-          <span className="text-[#60A5FA]">for UK Schools</span>
+          Expert Claude Prompts<br />
+          <span className="text-[#60A5FA]">for UK Professionals</span>
         </motion.h1>
 
         {/* Subtext */}
         <motion.p variants={itemVariants} className="text-lg text-slate-300 leading-relaxed max-w-xl mx-auto">
-          Independent reviews, safety guides, and practical AI tools for teachers, students, and parents.
+          Curated by Teachers, Creators &amp; Tech Experts — Boost Productivity in Education, Finance, Leadership &amp; Admin.
         </motion.p>
 
         {/* CTAs */}
         <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3">
-          <CTAButton primary onClick={onExplore}>Explore AI Tools →</CTAButton>
+          <CTAButton primary onClick={onExplore}>Explore Free Prompts →</CTAButton>
           <CTAButton primary={false} onClick={onGuides}>Read Our Guides</CTAButton>
         </motion.div>
 
@@ -182,11 +182,16 @@ const Hero: FC<{ onExplore: () => void; onGuides: () => void }> = ({ onExplore, 
         >
           {STATS.map((s) => (
             <div key={s.label} className="text-center">
-              <div className={cn('text-xl sm:text-2xl font-black tracking-tight', s.color)}>{s.value}</div>
+              <div className={`text-xl sm:text-2xl font-black tracking-tight ${s.color}`}>{s.value}</div>
               <div className="text-xs text-slate-400 mt-1 leading-tight">{s.label}</div>
             </div>
           ))}
         </motion.div>
+
+        {/* Affiliate disclosure */}
+        <motion.p variants={itemVariants} className="text-[11px] text-slate-500 leading-relaxed">
+          Affiliate Disclosure: Some links earn us a small commission at no extra cost to you.
+        </motion.p>
       </motion.div>
     </div>
 

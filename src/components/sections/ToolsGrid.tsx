@@ -1,63 +1,92 @@
 /**
- * ToolsGrid.tsx — Explore AI Tools for Schools
+ * ToolsGrid.tsx — Prompt Library
+ * Curated Claude prompts by professional category
  */
 
 import { FC, useState } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
-import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 
 const CATEGORIES = [
-  'All', 'Teaching', 'Assessment', 'SEND', 'Behaviour',
-  'Admin', 'Parents', 'Creativity', 'Student Tools',
+  'All', 'Educators', 'Finance', 'Leadership', 'Admin', 'HR', 'Creativity', 'Sales',
 ];
 
-interface Tool {
+interface Prompt {
   name: string;
   tagline: string;
   desc: string;
-  score: number;
-  scoreColor: string;
-  progressClass: string;
+  hub: string;
+  hubColor: string;
+  hubBg: string;
   icon: string;
   iconBg: string;
   categories: string[];
   badge?: string;
   badgeColor?: string;
   badgeBg?: string;
-  price: string;
+  promptPreview: string;
 }
 
-const TOOLS: Tool[] = [
+const PROMPTS: Prompt[] = [
   {
-    name: 'MagicSchool',
-    tagline: 'AI Lesson Planning & Differentiation',
-    desc: 'Generate lesson plans, differentiated resources, and marking rubrics in seconds. Trusted by 30,000+ UK teachers.',
-    score: 9.7, scoreColor: '#22C55E', progressClass: 'bg-green-400',
-    icon: '✨', iconBg: '#F0FDF4',
-    categories: ['Teaching', 'Assessment'],
-    badge: "Editor's Pick", badgeColor: '#D97706', badgeBg: '#FEF3C7',
-    price: 'Free Tier',
+    name: 'Lesson Planner',
+    tagline: 'Full lesson plans in seconds',
+    desc: 'Generate differentiated lesson plans for any year group, subject, and ability level — including SEND adaptations.',
+    hub: 'Educators Hub', hubColor: '#3B82F6', hubBg: '#EFF6FF',
+    icon: '🧑‍🏫', iconBg: '#EFF6FF',
+    categories: ['Educators'],
+    badge: "Most Used", badgeColor: '#1D4ED8', badgeBg: '#DBEAFE',
+    promptPreview: '"Create a 60-minute Year 7 Science lesson on photosynthesis..."',
   },
   {
-    name: 'Diffit',
-    tagline: 'Differentiated Reading Resources',
-    desc: 'Instantly adapts any text to different reading levels. Perfect for mixed-ability and SEND-inclusive classes.',
-    score: 9.2, scoreColor: '#3B82F6', progressClass: 'bg-blue-400',
-    icon: '📖', iconBg: '#EFF6FF',
-    categories: ['Teaching', 'SEND'],
-    badge: 'Free for Teachers', badgeColor: '#1D4ED8', badgeBg: '#EFF6FF',
-    price: 'Free',
+    name: 'Budget Narrative',
+    tagline: 'Turn spreadsheets into clear stories',
+    desc: 'Summarise financial data for board reports, senior leadership, or governor meetings — plain English, professional tone.',
+    hub: 'Finance Hub', hubColor: '#22C55E', hubBg: '#F0FDF4',
+    icon: '💷', iconBg: '#F0FDF4',
+    categories: ['Finance'],
+    badge: 'New', badgeColor: '#15803D', badgeBg: '#DCFCE7',
+    promptPreview: '"Write a board-ready summary of our Q3 budget vs actuals..."',
   },
   {
-    name: 'Curipod',
-    tagline: 'Interactive AI-Powered Lessons',
-    desc: 'Create engaging interactive lessons with AI-generated polls, questions, and real-time student feedback.',
-    score: 8.8, scoreColor: '#F59E0B', progressClass: 'bg-amber-400',
-    icon: '🎯', iconBg: '#FFFBEB',
-    categories: ['Teaching', 'Student Tools', 'Creativity'],
-    badge: 'Highly Engaging', badgeColor: '#92400E', badgeBg: '#FEF3C7',
-    price: 'Free Tier',
+    name: '1-on-1 Framework',
+    tagline: 'Structured check-ins for managers',
+    desc: 'Build meaningful 1-on-1 agendas, surface blockers early, and document action points — every time.',
+    hub: 'Leadership Hub', hubColor: '#8B5CF6', hubBg: '#F5F3FF',
+    icon: '🏆', iconBg: '#F5F3FF',
+    categories: ['Leadership', 'HR'],
+    badge: '', badgeColor: '', badgeBg: '',
+    promptPreview: '"Create a 30-minute 1-on-1 agenda for a team member who..."',
+  },
+  {
+    name: 'Meeting Agenda',
+    tagline: 'Crisp agendas that respect time',
+    desc: 'Draft focused meeting agendas with time allocations, pre-reads, and clear objectives — in under a minute.',
+    hub: 'Admin Hub', hubColor: '#F97316', hubBg: '#FFF7ED',
+    icon: '🗂️', iconBg: '#FFF7ED',
+    categories: ['Admin'],
+    badge: '', badgeColor: '', badgeBg: '',
+    promptPreview: '"Draft an agenda for a 45-minute project kick-off meeting..."',
+  },
+  {
+    name: 'Student Report Writer',
+    tagline: 'Personalised reports at scale',
+    desc: 'Generate individual, warm, and accurate student reports from your notes — varying sentence structure automatically.',
+    hub: 'Educators Hub', hubColor: '#3B82F6', hubBg: '#EFF6FF',
+    icon: '📝', iconBg: '#EFF6FF',
+    categories: ['Educators'],
+    badge: '', badgeColor: '', badgeBg: '',
+    promptPreview: '"Write a Year 10 end-of-term report for a student who..."',
+  },
+  {
+    name: 'Job Description Builder',
+    tagline: 'Inclusive JDs that attract talent',
+    desc: 'Write inclusive, role-specific job descriptions with clear responsibilities, person spec, and benefits — bias-checked.',
+    hub: 'HR Hub', hubColor: '#EC4899', hubBg: '#FDF2F8',
+    icon: '👥', iconBg: '#FDF2F8',
+    categories: ['HR'],
+    badge: '', badgeColor: '', badgeBg: '',
+    promptPreview: '"Write an inclusive job description for a Senior Finance Manager..."',
   },
 ];
 
@@ -66,7 +95,7 @@ const cardVariants: Variants = {
   visible: { opacity: 1, y: 0,  scale: 1, transition: { type: 'spring', stiffness: 260, damping: 22 } },
 };
 
-const ToolCard: FC<{ tool: Tool }> = ({ tool }) => (
+const PromptCard: FC<{ prompt: Prompt }> = ({ prompt }) => (
   <motion.div
     layout
     variants={cardVariants}
@@ -81,40 +110,39 @@ const ToolCard: FC<{ tool: Tool }> = ({ tool }) => (
       <div className="flex items-center gap-3">
         <div
           className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl flex-shrink-0"
-          style={{ backgroundColor: tool.iconBg }}
+          style={{ backgroundColor: prompt.iconBg }}
         >
-          {tool.icon}
+          {prompt.icon}
         </div>
         <div>
           <div className="flex items-center gap-2 flex-wrap">
-            <h3 className="font-black text-base text-ink">{tool.name}</h3>
-            {tool.badge && (
+            <h3 className="font-black text-base text-ink">{prompt.name}</h3>
+            {prompt.badge && (
               <span
                 className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ color: tool.badgeColor, backgroundColor: tool.badgeBg }}
+                style={{ color: prompt.badgeColor, backgroundColor: prompt.badgeBg }}
               >
-                ★ {tool.badge}
+                ★ {prompt.badge}
               </span>
             )}
           </div>
-          <p className="text-xs text-gray-400 mt-0.5">{tool.tagline}</p>
+          <p className="text-xs text-gray-400 mt-0.5">{prompt.tagline}</p>
         </div>
       </div>
-      <div className="text-right flex-shrink-0">
-        <div className="text-xl font-black" style={{ color: tool.scoreColor }}>{tool.score}</div>
-        <div className="text-[10px] text-gray-400 mt-0.5">{tool.price}</div>
-      </div>
+      <span
+        className="text-[10px] font-bold px-2.5 py-1 rounded-full flex-shrink-0 mt-0.5"
+        style={{ color: prompt.hubColor, backgroundColor: prompt.hubBg }}
+      >
+        {prompt.hub}
+      </span>
     </div>
 
-    <p className="text-sm text-gray-500 leading-relaxed">{tool.desc}</p>
+    <p className="text-sm text-gray-500 leading-relaxed">{prompt.desc}</p>
 
-    {/* Safety score */}
-    <div className="space-y-1.5">
-      <div className="flex justify-between items-center">
-        <span className="text-[11px] text-gray-400 font-medium">Safety Score</span>
-        <span className="text-[11px] font-bold" style={{ color: tool.scoreColor }}>{tool.score}/10</span>
-      </div>
-      <Progress value={tool.score * 10} indicatorClassName={tool.progressClass} />
+    {/* Prompt preview */}
+    <div className="rounded-xl bg-gray-50 border border-gray-100 px-4 py-3">
+      <p className="text-[11px] text-gray-400 font-medium mb-1">Example prompt</p>
+      <p className="text-xs text-gray-600 italic leading-relaxed">{prompt.promptPreview}</p>
     </div>
 
     {/* CTA */}
@@ -124,24 +152,24 @@ const ToolCard: FC<{ tool: Tool }> = ({ tool }) => (
       className="w-full py-2.5 rounded-xl border-2 text-sm font-bold transition-all
                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1"
       style={{
-        borderColor: tool.scoreColor,
-        color: tool.scoreColor,
-        backgroundColor: `${tool.scoreColor}0D`,
+        borderColor: prompt.hubColor,
+        color: prompt.hubColor,
+        backgroundColor: `${prompt.hubColor}0D`,
       }}
     >
-      Read Full Review →
+      Use This Prompt →
     </motion.button>
   </motion.div>
 );
 
 const ToolsGrid: FC = () => {
   const [active, setActive] = useState('All');
-  const filtered = TOOLS.filter(
-    (t) => active === 'All' || t.categories.includes(active)
+  const filtered = PROMPTS.filter(
+    (p) => active === 'All' || p.categories.includes(active)
   );
 
   return (
-    <section id="tools" aria-labelledby="tools-heading" className="bg-white py-20 sm:py-24">
+    <section id="library" aria-labelledby="library-heading" className="bg-white py-20 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         <motion.div
@@ -152,14 +180,14 @@ const ToolsGrid: FC = () => {
           transition={{ duration: 0.5 }}
         >
           <span className="inline-block bg-blue-50 text-blue-700 text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-4 border border-blue-100">
-            AI Tools Directory
+            Prompt Library
           </span>
-          <h2 id="tools-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight">
-            Explore AI Tools<br />
-            <span className="text-brand-blue">for Schools</span>
+          <h2 id="library-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight">
+            Free Prompts for<br />
+            <span className="text-brand-blue">UK Professionals</span>
           </h2>
           <p className="mt-4 text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
-            Every tool assessed for safety, GDPR compliance, and real-world classroom usefulness.
+            Every prompt is tested and refined by practitioners in that field — not generic AI templates.
           </p>
         </motion.div>
 
@@ -185,14 +213,14 @@ const ToolsGrid: FC = () => {
           ))}
         </div>
 
-        {/* Tool cards */}
+        {/* Prompt cards */}
         <AnimatePresence mode="popLayout">
           {filtered.length > 0 ? (
             <motion.div
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
               layout
             >
-              {filtered.map((tool) => <ToolCard key={tool.name} tool={tool} />)}
+              {filtered.map((prompt) => <PromptCard key={prompt.name} prompt={prompt} />)}
             </motion.div>
           ) : (
             <motion.p
@@ -200,7 +228,7 @@ const ToolsGrid: FC = () => {
               animate={{ opacity: 1 }}
               className="text-center text-gray-400 py-16 text-sm"
             >
-              No tools listed in this category yet — check back soon.
+              No prompts in this category yet — check back soon.
             </motion.p>
           )}
         </AnimatePresence>
@@ -220,7 +248,7 @@ const ToolsGrid: FC = () => {
                        hover:opacity-90 shadow-card-blue transition-all
                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
           >
-            View All 180+ Tools →
+            View All 500+ Prompts →
           </motion.button>
         </motion.div>
       </div>
