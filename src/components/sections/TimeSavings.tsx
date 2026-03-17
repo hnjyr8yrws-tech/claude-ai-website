@@ -1,70 +1,52 @@
 /**
- * TimeSavings.tsx — How AI Helps (all roles)
- * 6 role cards with time-saving stats
+ * TimeSavings.tsx — How AI Saves Time
+ * DARK navy section background — strong visual break from white sections
  */
 
 import { FC } from 'react';
-import { motion, Variants } from 'framer-motion';
-import { Card, CardContent } from '@/components/ui/card';
+import { motion } from 'framer-motion';
 
 const ROLES = [
   {
-    icon: '🧑‍🏫',
-    role: 'Teachers',
-    stat: '5 hrs/week',
-    statLabel: 'saved on average',
+    icon: '🧑‍🏫', role: 'Teachers',
+    stat: '5 hrs', statLabel: 'saved/week',
     examples: ['Lesson plans in 2 minutes', 'Differentiated worksheets instantly', 'Report comments at scale'],
-    color: '#3B82F6', bg: 'bg-blue-50', border: 'border-blue-100',
+    accent: '#60A5FA',   // sky blue
   },
   {
-    icon: '🏆',
-    role: 'Leadership & SLT',
-    stat: '4 hrs/week',
-    statLabel: 'saved on average',
+    icon: '🏆', role: 'Leadership & SLT',
+    stat: '4 hrs', statLabel: 'saved/week',
     examples: ['SIP and SEF first drafts', 'Ofsted evidence packs', 'Strategy and governor reports'],
-    color: '#8B5CF6', bg: 'bg-purple-50', border: 'border-purple-100',
+    accent: '#A78BFA',   // violet
   },
   {
-    icon: '🤝',
-    role: 'SEND Coordinators',
-    stat: '6 hrs/week',
-    statLabel: 'saved on average',
+    icon: '🤝', role: 'SEND Coordinators',
+    stat: '6 hrs', statLabel: 'saved/week',
     examples: ['IEP and EHCP drafting', 'Resource adaptation for all needs', 'Parent communication templates'],
-    color: '#22C55E', bg: 'bg-green-50', border: 'border-green-100',
+    accent: '#34D399',   // emerald
   },
   {
-    icon: '🗂️',
-    role: 'Admin & Finance Teams',
-    stat: '7 hrs/week',
-    statLabel: 'saved on average',
+    icon: '🗂️', role: 'Admin & Finance',
+    stat: '7 hrs', statLabel: 'saved/week',
     examples: ['Letters & policy templates', 'Budget narrative drafts', 'Meeting notes and action logs'],
-    color: '#F97316', bg: 'bg-orange-50', border: 'border-orange-100',
+    accent: '#FBBF24',   // amber
   },
   {
-    icon: '👨‍👩‍👧',
-    role: 'Parents',
-    stat: '2 hrs/week',
-    statLabel: 'saved on average',
-    examples: ['Homework support & explanations', 'Understanding school reports', 'Finding tuition & resources'],
-    color: '#D97706', bg: 'bg-amber-50', border: 'border-amber-100',
+    icon: '👨‍👩‍👧', role: 'Parents',
+    stat: '2 hrs', statLabel: 'saved/week',
+    examples: ['Homework support & explanations', 'Understanding school reports', 'Finding resources'],
+    accent: '#F87171',   // coral
   },
   {
-    icon: '🎒',
-    role: 'Students',
-    stat: '3 hrs/week',
-    statLabel: 'saved on average',
-    examples: ['Essay planning & structure', 'Revision summaries and quizzes', 'UCAS and application writing'],
-    color: '#14B8A6', bg: 'bg-teal-50', border: 'border-teal-100',
+    icon: '🎒', role: 'Students',
+    stat: '3 hrs', statLabel: 'saved/week',
+    examples: ['Essay planning & structure', 'Revision summaries and quizzes', 'UCAS writing'],
+    accent: '#2DD4BF',   // teal
   },
 ] as const;
 
-const cardVariants: Variants = {
-  hidden:  { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 22 } },
-};
-
 const TimeSavings: FC = () => (
-  <section id="how" aria-labelledby="how-heading" className="bg-white py-20 sm:py-24">
+  <section id="how" aria-labelledby="how-heading" className="bg-[#0F172A] py-20 sm:py-24">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
       <motion.div
@@ -74,51 +56,55 @@ const TimeSavings: FC = () => (
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <span className="inline-block bg-purple-50 text-brand-purple text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-4 border border-purple-100">
+        <span className="inline-block bg-white/10 text-white text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-4 border border-white/20">
           Time Savings
         </span>
-        <h2 id="how-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight">
-          How AI Saves Time<br />
-          <span className="text-brand-purple">Across Your Whole School</span>
+        <h2 id="how-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+          Hours Back Every Week,<br />
+          <span className="text-[#60A5FA]">Across Your Whole School</span>
         </h2>
-        <p className="mt-4 text-gray-600 text-sm max-w-lg mx-auto">
-          Real examples from UK schools. Not theory — actual time back in people's days.
+        <p className="mt-4 text-slate-400 text-sm max-w-lg mx-auto">
+          Real examples from UK schools — not theory, actual time back in people's days.
         </p>
       </motion.div>
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
         transition={{ staggerChildren: 0.07 }}
       >
         {ROLES.map((r) => (
-          <motion.div key={r.role} variants={cardVariants} whileHover={{ y: -4 }}>
-            <Card className={`h-full ${r.bg} ${r.border} shadow-none`}>
-              <CardContent className="p-6 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
-                  <span className="text-3xl" aria-hidden="true">{r.icon}</span>
-                  <div className="text-right">
-                    <div className="text-xl font-black" style={{ color: r.color }}>{r.stat}</div>
-                    <div className="text-[10px] text-ink-light">{r.statLabel}</div>
-                  </div>
+          <motion.div
+            key={r.role}
+            variants={{
+              hidden:  { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 22 } },
+            }}
+            whileHover={{ y: -4 }}
+          >
+            <div className="h-full bg-white/5 border border-white/10 rounded-2xl p-6 flex flex-col gap-4 hover:bg-white/8 transition-colors">
+
+              <div className="flex items-start justify-between">
+                <span className="text-3xl" aria-hidden="true">{r.icon}</span>
+                <div className="text-right">
+                  <div className="text-2xl font-black leading-none" style={{ color: r.accent }}>{r.stat}</div>
+                  <div className="text-[10px] text-slate-500 mt-0.5">{r.statLabel}</div>
                 </div>
+              </div>
 
-                <h3 className="font-black text-base text-ink">{r.role}</h3>
+              <h3 className="font-black text-base text-white">{r.role}</h3>
 
-                <ul className="space-y-2 flex-1">
-                  {r.examples.map((ex) => (
-                    <li key={ex} className="flex items-start gap-2 text-xs text-gray-600">
-                      <span className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: r.color }} />
-                      {ex}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="h-0.5 w-10 rounded-full" style={{ backgroundColor: r.color }} />
-              </CardContent>
-            </Card>
+              <ul className="space-y-2 flex-1">
+                {r.examples.map((ex) => (
+                  <li key={ex} className="flex items-start gap-2 text-xs text-slate-400">
+                    <span className="w-1 h-1 rounded-full mt-1.5 flex-shrink-0" style={{ backgroundColor: r.accent }} />
+                    {ex}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </motion.div>
         ))}
       </motion.div>

@@ -40,7 +40,7 @@ const SafetyScore: FC = () => {
   };
 
   return (
-    <section id="safety" aria-labelledby="safety-heading" className="bg-gray-50/60 py-20 sm:py-24">
+    <section id="safety" aria-labelledby="safety-heading" className="bg-[#F1F5F9] py-20 sm:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
         <motion.div
