@@ -12,42 +12,42 @@ const BENEFITS = [
     icon: '🎯',
     title: 'Ofsted-Ready',
     desc: 'Every recommendation maps to Ofsted inspection frameworks. Walk into any inspection with confidence.',
-    bg: '#2563EB',   // strong blue
+    bg: '#DBEAFE', text: '#1E3A8A', sub: '#3B5FAD',   // pastel blue
     wide: true,
   },
   {
     icon: '🛡️',
     title: 'Safety-First',
     desc: 'Tools checked for GDPR, age-appropriateness, data storage, and safeguarding — every time.',
-    bg: '#16A34A',   // strong green
+    bg: '#DCFCE7', text: '#14532D', sub: '#166534',   // pastel green
     wide: false,
   },
   {
     icon: '🧑‍🏫',
     title: 'Made by Educators',
     desc: "Donna has 14+ years in UK classrooms. Every review is grounded in real teaching experience.",
-    bg: '#7C3AED',   // strong purple
+    bg: '#EDE9FE', text: '#3B0764', sub: '#6D28D9',   // pastel purple
     wide: false,
   },
   {
     icon: '🆓',
     title: 'Free to Start',
     desc: '50 role-specific prompts + AI Safety Checklist — no credit card, no paywall.',
-    bg: '#EA580C',   // strong orange
+    bg: '#FFEDD5', text: '#7C2D12', sub: '#C2410C',   // pastel orange
     wide: false,
   },
   {
     icon: '📊',
     title: 'Role-Specific',
     desc: 'Guides for Teaching, SEND, Finance, HR, IT, Leadership, Parents and Students.',
-    bg: '#B45309',   // strong amber
+    bg: '#FEF9C3', text: '#713F12', sub: '#A16207',   // pastel amber
     wide: false,
   },
   {
     icon: '🏆',
     title: '100% Independent',
     desc: 'No sponsored listings. No paid rankings. Our safety scores are never for sale.',
-    bg: '#0D9488',   // strong teal
+    bg: '#CCFBF1', text: '#134E4A', sub: '#0F766E',   // pastel teal
     wide: true,
   },
 ] as const;
@@ -93,8 +93,8 @@ const WhyPromptly: FC = () => (
               style={{ backgroundColor: b.bg }}
             >
               <span className="text-4xl" aria-hidden="true">{b.icon}</span>
-              <h3 className="text-xl font-black text-white leading-tight">{b.title}</h3>
-              <p className="text-sm text-white/80 leading-relaxed flex-1">{b.desc}</p>
+              <h3 className="text-xl font-black leading-tight" style={{ color: b.text }}>{b.title}</h3>
+              <p className="text-sm leading-relaxed flex-1" style={{ color: b.sub }}>{b.desc}</p>
             </div>
           </motion.div>
         ))}

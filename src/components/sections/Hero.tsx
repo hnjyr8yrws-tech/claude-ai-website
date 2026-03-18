@@ -117,7 +117,33 @@ const Hero: FC<{ onExplore: () => void; onGuides: () => void }> = ({ onExplore, 
       backgroundPosition: 'center',
     }}
   >
-    <div className="absolute inset-0 bg-[#0F172A]/65 z-0" aria-hidden="true" />
+    <div className="absolute inset-0 bg-[#0F172A]/60 z-0" aria-hidden="true" />
+
+    {/* Notion-style animated glow orbs */}
+    <motion.div aria-hidden="true" className="absolute pointer-events-none"
+      style={{ width: 700, height: 700, borderRadius: '50%', top: '-15%', left: '-10%', zIndex: 1,
+        background: 'radial-gradient(circle, #3B82F6 0%, transparent 65%)', filter: 'blur(80px)', opacity: 0.22 }}
+      animate={{ y: [0, -40, 0], x: [0, 30, 0], scale: [1, 1.12, 1] }}
+      transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+    />
+    <motion.div aria-hidden="true" className="absolute pointer-events-none"
+      style={{ width: 600, height: 600, borderRadius: '50%', top: '10%', right: '-8%', zIndex: 1,
+        background: 'radial-gradient(circle, #818CF8 0%, transparent 65%)', filter: 'blur(90px)', opacity: 0.18 }}
+      animate={{ y: [0, 35, 0], x: [0, -25, 0], scale: [1, 1.08, 1] }}
+      transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+    />
+    <motion.div aria-hidden="true" className="absolute pointer-events-none"
+      style={{ width: 500, height: 500, borderRadius: '50%', bottom: '5%', left: '30%', zIndex: 1,
+        background: 'radial-gradient(circle, #06B6D4 0%, transparent 65%)', filter: 'blur(70px)', opacity: 0.15 }}
+      animate={{ y: [0, -25, 0], x: [0, -20, 0], scale: [1, 1.15, 1] }}
+      transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 4 }}
+    />
+    <motion.div aria-hidden="true" className="absolute pointer-events-none"
+      style={{ width: 400, height: 400, borderRadius: '50%', top: '40%', left: '55%', zIndex: 1,
+        background: 'radial-gradient(circle, #34D399 0%, transparent 65%)', filter: 'blur(80px)', opacity: 0.12 }}
+      animate={{ y: [0, 30, 0], x: [0, 20, 0], scale: [1, 1.1, 1] }}
+      transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
+    />
 
     <div className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 pt-20 pb-16 text-center">
       <motion.div

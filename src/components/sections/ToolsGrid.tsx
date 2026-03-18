@@ -4,9 +4,9 @@
  * Each card: safety badge · description · affiliate CTA · video thumbnail placeholder
  */
 
-import { FC } from 'react';
-import { motion } from 'framer-motion';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { FC, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -20,7 +20,10 @@ interface Tool {
   safety: number;       // 1–10
   price: string;
   affiliateHref: string;
+  category: string;
 }
+
+const ALL_LABEL = 'All Tools';
 
 // ── Data ───────────────────────────────────────────────────────────────────────
 
@@ -115,6 +118,13 @@ const TABS: { id: string; label: string; tools: Tool[] }[] = [
   },
 ];
 
+// Flat list with category injected — used for filtering
+const ALL_TOOLS: Tool[] = TABS.flatMap((t) =>
+  t.tools.map((tool) => ({ ...tool, category: t.label }))
+);
+
+const CATEGORIES = [ALL_LABEL, ...TABS.map((t) => t.label)];
+
 // ── Safety badge colour ────────────────────────────────────────────────────────
 
 const safetyColor = (n: number) =>
@@ -191,68 +201,83 @@ const ToolCard: FC<{ tool: Tool }> = ({ tool }) => (
 
 // ── Main ───────────────────────────────────────────────────────────────────────
 
-const ToolsGrid: FC = () => (
-  <section id="tools" aria-labelledby="tools-heading" className="bg-gray-50/60 py-20 sm:py-24">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+const ToolsGrid: FC = () => {
+  const [activeCategory, setActiveCategory] = useState(ALL_LABEL);
 
-      <motion.div
-        className="text-center mb-12"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-      >
-        <span className="inline-block bg-blue-50 text-brand-blue text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-4 border border-blue-100">
-          AI Tools Directory
-        </span>
-        <h2 id="tools-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight">
-          Explore AI Tools<br />
-          <span className="text-brand-blue">for Every Role</span>
-        </h2>
-        <p className="mt-4 text-gray-600 text-sm max-w-lg mx-auto">
-          Every tool safety-rated 1–10 by Donna. Filter by your role to see only what's relevant to you.
-        </p>
-      </motion.div>
+  const filteredTools = activeCategory === ALL_LABEL
+    ? ALL_TOOLS
+    : ALL_TOOLS.filter((t) => t.category === activeCategory);
 
-      <Tabs defaultValue="slt">
-        {/* Scrollable tab list on mobile */}
-        <div className="overflow-x-auto pb-1 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <TabsList className="flex w-max gap-1 rounded-2xl bg-gray-100/80 p-1 mb-8">
-            {TABS.map((t) => (
-              <TabsTrigger key={t.id} value={t.id} className="whitespace-nowrap text-xs sm:text-sm">
-                {t.label}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </div>
+  return (
+    <section id="tools" aria-labelledby="tools-heading" className="bg-gray-50/60 py-20 sm:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-        {TABS.map((t) => (
-          <TabsContent key={t.id} value={t.id}>
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="inline-block bg-blue-50 text-brand-blue text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-4 border border-blue-100">
+            AI Tools Directory
+          </span>
+          <h2 id="tools-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-ink leading-tight">
+            Explore AI Tools<br />
+            <span className="text-brand-blue">for Every Role</span>
+          </h2>
+          <p className="mt-4 text-gray-600 text-sm max-w-lg mx-auto">
+            Every tool safety-rated 1–10 by Donna. Filter by your role to see only what's relevant to you.
+          </p>
+        </motion.div>
+
+        <Tabs value={activeCategory} onValueChange={setActiveCategory} className="w-full">
+          {/* Underline-style scrollable tab bar */}
+          <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0 mb-8">
+            <TabsList className="inline-flex h-11 w-max items-center gap-0 rounded-none border-b border-gray-200 bg-transparent p-0">
+              {CATEGORIES.map((cat) => (
+                <TabsTrigger
+                  key={cat}
+                  value={cat}
+                  className="whitespace-nowrap rounded-none border-b-2 border-transparent px-4 text-xs sm:text-sm font-semibold text-gray-500
+                             data-[state=active]:border-brand-blue data-[state=active]:text-brand-blue data-[state=active]:bg-transparent
+                             hover:text-ink transition-colors"
+                >
+                  {cat}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </div>
+
+          {/* Single filtered grid */}
+          <AnimatePresence mode="wait">
             <motion.div
+              key={activeCategory}
               className="grid grid-cols-1 md:grid-cols-3 gap-5"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.25 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
             >
-              {t.tools.map((tool) => (
+              {filteredTools.map((tool) => (
                 <ToolCard key={tool.name + tool.tagline} tool={tool} />
               ))}
             </motion.div>
-          </TabsContent>
-        ))}
-      </Tabs>
+          </AnimatePresence>
+        </Tabs>
 
-      <div className="text-center mt-10">
-        <Button
-          variant="outline"
-          size="lg"
-          className="rounded-2xl border-2 border-brand-blue/30 text-brand-blue hover:bg-brand-blue hover:text-white font-bold transition-all"
-        >
-          View Full Directory (180+ Tools) →
-        </Button>
+        <div className="text-center mt-10">
+          <Button
+            variant="outline"
+            size="lg"
+            className="rounded-2xl border-2 border-brand-blue/30 text-brand-blue hover:bg-brand-blue hover:text-white font-bold transition-all"
+          >
+            View Full Directory (180+ Tools) →
+          </Button>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default ToolsGrid;

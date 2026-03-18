@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notion "Light On" Animation · Standalone Demo</title>
+
+  <!-- ① Only external dependency: Tailwind CDN for utility classes -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       CUSTOM KEYFRAMES
+       All animations live here — easy to copy into a CSS module,
+       Tailwind plugin, or Framer Motion variant.
+    ═══════════════════════════════════════════════════════════════ */
+
+    /* ── 1. Content blocks: fade up from slight offset ─────────── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(9px); }
+      to   { opacity: 1; transform: translateY(0);   }
+    }
+
+    /* ── 2. Blue-white glow pulse around the laptop frame ────────
+       Starts transparent, peaks at full glow ~50%, then settles
+       at a softer ambient glow so it doesn't feel jarring.        */
+    @keyframes frameGlow {
+      0%   { box-shadow:
+               0 12px 40px rgba(0,0,0,0.6),
+               0  2px  6px rgba(0,0,0,0.45),
+               0  0  0px 0px rgba(99,179,237,0.00); }
+      45%  { box-shadow:
+               0 12px 40px rgba(0,0,0,0.6),
+               0  2px  6px rgba(0,0,0,0.45),
+               0  0 50px 12px rgba(99,179,237,0.50),
+               0  0 90px 28px rgba(147,197,253,0.22); }
+      100% { box-shadow:
+               0 12px 40px rgba(0,0,0,0.6),
+               0  2px  6px rgba(0,0,0,0.45),
+               0  0 22px  5px rgba(99,179,237,0.28),
+               0  0 44px 14px rgba(147,197,253,0.12); }
+    }
+
+    /* ── 3. Stagger delay helpers ─────────────────────────────────
+       Sidebar items animate first (0–240ms),
+       main content follows (300–900ms).                           */
+    .anim-item           { opacity: 0; }   /* hidden until .animate added */
+    .anim-item.animate   { animation: fadeInUp 0.42s ease-out forwards; }
+
+    .delay-0   { animation-delay:   0ms; }
+    .delay-80  { animation-delay:  80ms; }
+    .delay-160 { animation-delay: 160ms; }
+    .delay-240 { animation-delay: 240ms; }
+    .delay-300 { animation-delay: 300ms; }
+    .delay-440 { animation-delay: 440ms; }
+    .delay-580 { animation-delay: 580ms; }
+    .delay-700 { animation-delay: 700ms; }
+    .delay-840 { animation-delay: 840ms; }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       LAPTOP SHELL — pure CSS, no images
+    ═══════════════════════════════════════════════════════════════ */
+
+    .laptop-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      margin: 0 auto;
+      /* perspective for subtle 3-D tilt on hover */
+      perspective: 1200px;
+    }
+
+    /* ── Lid: thick dark-aluminium bezel ─────────────────────── */
+    .laptop-lid {
+      background: linear-gradient(155deg, #323236 0%, #1d1d20 100%);
+      border-radius: 18px 18px 6px 6px;
+      padding: 11px 11px 5px;
+      /* base shadow — glow animation layers on top via keyframe */
+      box-shadow:
+        0 12px 40px rgba(0,0,0,0.6),
+        0  2px  6px rgba(0,0,0,0.45);
+      transition: transform 0.6s ease;
+    }
+    .laptop-lid.glowing {
+      /* re-plays the glow animation each time class is added */
+      animation: frameGlow 2s ease-out forwards;
+      animation-delay: 0.25s;
+    }
+
+    /* Camera pill */
+    .laptop-camera {
+      width: 8px; height: 8px;
+      background: #2a2a2e;
+      border-radius: 50%;
+      margin: 0 auto 7px;
+      border: 1.5px solid #3a3a3e;
+      position: relative;
+    }
+    .laptop-camera::after {          /* lens glint */
+      content: '';
+      width: 3px; height: 3px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50%;
+      position: absolute;
+      top: 1px; left: 1px;
+    }
+
+    /* Glass bezel border around screen */
+    .laptop-screen-border {
+      background: #0a0a0c;
+      border-radius: 7px;
+      padding: 2px;
+    }
+
+    /* ── THE SCREEN — brightness animation target ─────────────
+       Starts: very dim, blurred, desaturated (simulates off).
+       .screen-on transition: smoothly restores full brightness. */
+    .laptop-screen {
+      position: relative;
+      border-radius: 5px;
+      overflow: hidden;
+      aspect-ratio: 16 / 10;
+      background: #fff;
+      /* START STATE */
+      filter: brightness(0.1) blur(6px) saturate(0.3);
+      /* TRANSITION: what drives the "light switching on" feel */
+      transition: filter 1.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .laptop-screen.screen-on {
+      /* END STATE — pure, crisp, full brightness */
+      filter: brightness(1) blur(0px) saturate(1);
+    }
+
+    /* ── Hinge + body ────────────────────────────────────────── */
+    .laptop-hinge {
+      height: 5px;
+      background: linear-gradient(to bottom, #3e3e44, #28282c);
+      border-radius: 0 0 2px 2px;
+      margin: 0 3%;
+    }
+    .laptop-body {
+      position: relative;
+      background: linear-gradient(170deg, #2e2e33 0%, #202023 100%);
+      height: 26px;
+      border-radius: 0 0 14px 14px;
+      margin: 0 -2%;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.42);
+    }
+    /* Keyboard rows — decorative repeating lines */
+    .laptop-body::before {
+      content: '';
+      position: absolute;
+      top: 5px; left: 14%; right: 14%;
+      height: 11px;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent 0px, transparent 6px,
+        rgba(255,255,255,0.035) 6px, rgba(255,255,255,0.035) 8px
+      );
+      border-radius: 3px;
+    }
+    /* Trackpad */
+    .laptop-body::after {
+      content: '';
+      position: absolute;
+      bottom: 5px; left: 50%;
+      transform: translateX(-50%);
+      width: 17%; height: 7px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.07);
+    }
+    /* Foot shadow under body */
+    .laptop-foot {
+      height: 3px;
+      background: rgba(0,0,0,0.22);
+      border-radius: 0 0 50% 50% / 0 0 6px 6px;
+      margin: 0 5%;
+      filter: blur(4px);
+    }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       NOTION UI — what lives inside the screen
+    ═══════════════════════════════════════════════════════════════ */
+
+    .notion-ui {
+      display: flex;
+      height: 100%;
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #37352f;
+      background: #fff;
+      overflow: hidden;
+    }
+
+    /* ── Dark mode overrides ─────────────────────────────────── */
+    .notion-ui.dark                          { background: #191919; color: #e3e3e3; }
+    .notion-ui.dark .notion-sidebar          { background: #202020; border-right-color: #2e2e2e; }
+    .notion-ui.dark .sidebar-section        { color: #555; }
+    .notion-ui.dark .sidebar-item           { color: #888; }
+    .notion-ui.dark .sidebar-item.active    { background: rgba(255,255,255,0.07); color: #ddd; }
+    .notion-ui.dark .notion-topbar          { border-bottom-color: #2e2e2e; }
+    .notion-ui.dark .topbar-crumb           { color: #999; }
+    .notion-ui.dark .topbar-crumb.current   { color: #ddd; }
+    .notion-ui.dark .topbar-btn             { border-color: #3a3a3a; color: #777; }
+    .notion-ui.dark .page-title             { color: #ececec; }
+    .notion-ui.dark .callout                { background: rgba(96,165,250,0.1); }
+    .notion-ui.dark .callout-text           { color: #aaa; }
+    .notion-ui.dark .block-text             { color: #999; }
+    .notion-ui.dark .block-h2               { color: #ccc; border-bottom-color: #2e2e2e; }
+    .notion-ui.dark .todo-text              { color: #ccc; }
+    .notion-ui.dark .todo-check             { border-color: #444; }
+    .notion-ui.dark .db-table th            { color: #555; border-bottom-color: #2e2e2e; }
+    .notion-ui.dark .db-table td            { color: #999; border-bottom-color: #252525; }
+    .notion-ui.dark .status-done            { background: rgba(47,158,68,0.15);  color: #69db7c; }
+    .notion-ui.dark .status-prog            { background: rgba(59,91,219,0.15);  color: #748ffc; }
+    .notion-ui.dark .status-paused          { background: rgba(230,119,0,0.15);  color: #ffa94d; }
+    .notion-ui.dark .theme-btn              { background: rgba(255,255,255,0.08); }
+    .notion-ui.dark .theme-btn:hover        { background: rgba(255,255,255,0.14); }
+
+    /* ── Sidebar ─────────────────────────────────────────────── */
+    .notion-sidebar {
+      width: 144px;
+      flex-shrink: 0;
+      background: #f7f7f5;
+      border-right: 1px solid #ebebea;
+      padding: 8px 0 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      overflow: hidden;
+    }
+    .sidebar-logo {
+      display: flex; align-items: center; gap: 6px;
+      padding: 3px 10px 9px;
+      font-weight: 700; font-size: 11.5px;
+    }
+    .sidebar-logo svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .sidebar-section {
+      padding: 4px 10px 2px;
+      font-size: 9px; font-weight: 600;
+      color: #9b9b9b; letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 5px;
+      padding: 3px 8px; margin: 0 4px;
+      border-radius: 4px; cursor: default;
+      color: #6b6b6b; font-size: 10.5px;
+      transition: background 0.12s;
+    }
+    .sidebar-item.active {
+      background: rgba(0,0,0,0.05);
+      color: #1a1a1a; font-weight: 500;
+    }
+    .sidebar-icon { font-size: 10px; width: 13px; text-align: center; flex-shrink: 0; }
+
+    /* ── Main area ───────────────────────────────────────────── */
+    .notion-main {
+      flex: 1; display: flex;
+      flex-direction: column; overflow: hidden;
+    }
+    .notion-topbar {
+      display: flex; align-items: center;
+      justify-content: space-between;
+      padding: 5px 14px;
+      border-bottom: 1px solid #ebebea;
+    }
+    .topbar-crumbs { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #9b9b9b; }
+    .topbar-crumb.current { color: #37352f; font-weight: 500; }
+    .topbar-actions { display: flex; gap: 4px; }
+    .topbar-btn {
+      padding: 2px 7px; border-radius: 4px; font-size: 9px;
+      font-weight: 500; border: 1px solid #e3e3e1;
+      background: transparent; color: #9b9b9b; cursor: default;
+    }
+
+    /* Page content scrollable area */
+    .notion-page { flex: 1; padding: 14px 22px 14px 18px; overflow: hidden; }
+
+    .page-title {
+      font-size: 21px; font-weight: 800;
+      color: #1a1a1a; margin-bottom: 9px; line-height: 1.15;
+    }
+
+    /* Callout */
+    .callout {
+      display: flex; align-items: flex-start; gap: 6px;
+      background: #edf5ff; border-radius: 5px;
+      padding: 7px 9px; margin-bottom: 9px;
+    }
+    .callout-text { font-size: 10px; color: #4a4a4a; line-height: 1.45; }
+
+    /* Plain text block */
+    .block-text { color: #6b6b6b; padding: 1px 0; font-size: 10.5px; }
+
+    /* Section heading */
+    .block-h2 {
+      font-size: 12.5px; font-weight: 700;
+      color: #1a1a1a; margin: 10px 0 5px;
+      padding-bottom: 4px; border-bottom: 1px solid #eee;
+    }
+
+    /* To-do */
+    .todo-item { display: flex; align-items: center; gap: 6px; padding: 2px 0; }
+    .todo-check {
+      width: 12px; height: 12px; border-radius: 3px;
+      border: 1.5px solid #c9c9c7; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px;
+    }
+    .todo-check.checked { background: #2eaadc; border-color: #2eaadc; color: #fff; }
+    .todo-text { font-size: 10.5px; color: #37352f; }
+    .todo-text.done { text-decoration: line-through; color: #aaa; }
+
+    /* Mini database */
+    .db-table { width: 100%; border-collapse: collapse; font-size: 9.5px; }
+    .db-table th {
+      text-align: left; font-weight: 600; color: #9b9b9b;
+      padding: 3px 7px; border-bottom: 1px solid #ebebea;
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .db-table td { padding: 4px 7px; border-bottom: 1px solid #f3f3f1; color: #37352f; }
+    .db-table tr:last-child td { border-bottom: none; }
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 3px;
+      padding: 1px 5px; border-radius: 3px;
+      font-size: 8.5px; font-weight: 500;
+    }
+    .status-done   { background: #d3f9d8; color: #2f9e44; }
+    .status-prog   { background: #dbe4ff; color: #3b5bdb; }
+    .status-paused { background: #ffe8cc; color: #e67700; }
+
+    /* ── Theme toggle button (inside screen, top-right) ──────── */
+    .theme-btn {
+      position: absolute; top: 7px; right: 9px; z-index: 20;
+      width: 21px; height: 21px; border-radius: 50%;
+      background: rgba(0,0,0,0.07); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; transition: background 0.15s;
+    }
+    .theme-btn:hover { background: rgba(0,0,0,0.13); }
+
+
+    /* ═══════════════════════════════════════════════════════════════
+       PAGE CHROME (outside the laptop)
+    ═══════════════════════════════════════════════════════════════ */
+
+    .demo-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 9px 22px; background: #111; color: #fff;
+      border-radius: 9999px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer;
+      transition: background 0.15s, transform 0.12s;
+    }
+    .demo-btn:hover  { background: #2a2a2a; transform: scale(1.03); }
+    .demo-btn:active { transform: scale(0.97); }
+
+    /* ═══════════════════════════════════════════════════════════════
+       CODE BLOCK (integration notes)
+    ═══════════════════════════════════════════════════════════════ */
+    .code-block {
+      background: #0d1117; border-radius: 14px; overflow: hidden;
+      font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+      font-size: 11.5px; line-height: 1.7;
+    }
+    .code-block pre { padding: 20px 24px; overflow-x: auto; color: #c9d1d9; white-space: pre; }
+    .code-kw  { color: #ff7b72; }  /* keywords */
+    .code-fn  { color: #d2a8ff; }  /* functions */
+    .code-str { color: #a5d6ff; }  /* strings / values */
+    .code-cm  { color: #8b949e; }  /* comments */
+
+    /* ═══════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════════════ */
+    @media (max-width: 520px) {
+      .notion-sidebar  { width: 96px; }
+      .page-title      { font-size: 15px; }
+      .notion-page     { padding: 10px 12px; }
+      .db-table        { display: none; }   /* too cramped on mobile */
+      .block-h2        { font-size: 11px; }
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-white to-slate-200
+             flex flex-col items-center justify-start py-14 px-4 gap-12">
+
+  <!-- ── Page heading ──────────────────────────────────────── -->
+  <div class="text-center space-y-3 max-w-lg">
+    <p class="text-xs font-bold uppercase tracking-widest text-slate-400">CSS + Vanilla JS · No frameworks</p>
+    <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-slate-900">
+      Notion "Light On" Animation
+    </h1>
+    <p class="text-slate-500 text-sm leading-relaxed">
+      Pure CSS brightness transition, frame glow, and staggered content fade-in —
+      recreating the Notion homepage laptop animation.
+    </p>
+
+    <!-- ① Demo again button — calls playAnimation() -->
+    <div class="pt-1">
+      <button class="demo-btn" onclick="playAnimation()">
+        <span aria-hidden="true">▶</span> Demo again
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       LAPTOP MOCKUP
+  ══════════════════════════════════════════════════════════ -->
+  <div class="laptop-wrap">
+
+    <!-- LID — the animated glow target -->
+    <div class="laptop-lid" id="laptopLid">
+
+      <!-- Camera -->
+      <div class="laptop-camera" aria-hidden="true"></div>
+
+      <!-- Screen glass border -->
+      <div class="laptop-screen-border">
+
+        <!-- ② THE SCREEN — brightness transition lives here -->
+        <div class="laptop-screen" id="laptopScreen">
+
+          <!-- ③ Theme toggle: dark ↔ light, also re-triggers animation -->
+          <button class="theme-btn" id="themeBtn"
+                  onclick="toggleTheme()" title="Toggle dark/light mode"
+                  aria-label="Toggle dark mode">🌙</button>
+
+          <!-- ────────────────────────────────────────────────────
+               NOTION UI
+               Each element has .anim-item + a .delay-* class.
+               JS adds .animate to all of them at t=650ms,
+               and each individual delay staggers the fade-in.
+          ──────────────────────────────────────────────────── -->
+          <div class="notion-ui" id="notionUI">
+
+            <!-- ── SIDEBAR ─────────────────────────────────── -->
+            <aside class="notion-sidebar">
+
+              <!-- Logo — stagger group 1 (sidebar, 0ms) -->
+              <div class="sidebar-logo anim-item delay-0">
+                <!-- Notion N logo: inline SVG, zero external deps -->
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect width="100" height="100" rx="18" fill="#fff"/>
+                  <path d="M12 14c0-5 3.7-7.5 9-6.5l55 8.5c4.5.7 7 3.5 7 8v55c0 5-3.7 7.5-9 6.5l-55-8.5c-4.5-.7-7-3.5-7-8V14z" fill="#111"/>
+                  <path d="M34 25l30 44V31l-7-1v-6l18 2.5v4L42 74V30l7 1v-7L34 22v3z" fill="#fff"/>
+                </svg>
+                <span>Workspace</span>
+              </div>
+
+              <div class="sidebar-section anim-item delay-0">Private</div>
+
+              <div class="sidebar-item anim-item delay-80">
+                <span class="sidebar-icon">🔍</span><span>Search</span>
+              </div>
+              <div class="sidebar-item anim-item delay-80">
+                <span class="sidebar-icon">🏠</span><span>Home</span>
+              </div>
+              <div class="sidebar-item anim-item delay-80">
+                <span class="sidebar-icon">📥</span><span>Inbox</span>
+              </div>
+
+              <!-- active page -->
+              <div class="sidebar-item active anim-item delay-160">
+                <span class="sidebar-icon">✏️</span><span>Quick Notes</span>
+              </div>
+              <div class="sidebar-item anim-item delay-160">
+                <span class="sidebar-icon">📅</span><span>Calendar</span>
+              </div>
+              <div class="sidebar-item anim-item delay-160">
+                <span class="sidebar-icon">🎯</span><span>Goals</span>
+              </div>
+
+              <div class="sidebar-section anim-item delay-240">Shared</div>
+
+              <div class="sidebar-item anim-item delay-240">
+                <span class="sidebar-icon">📋</span><span>Team Wiki</span>
+              </div>
+              <div class="sidebar-item anim-item delay-240">
+                <span class="sidebar-icon">🗂️</span><span>Projects</span>
+              </div>
+              <div class="sidebar-item anim-item delay-240">
+                <span class="sidebar-icon">📊</span><span>Roadmap</span>
+              </div>
+
+            </aside>
+
+            <!-- ── MAIN CONTENT ─────────────────────────────── -->
+            <main class="notion-main">
+
+              <!-- Top bar — stagger group 2 (300ms) -->
+              <div class="notion-topbar anim-item delay-300">
+                <div class="topbar-crumbs">
+                  <span class="topbar-crumb">Pages</span>
+                  <span class="topbar-crumb">›</span>
+                  <span class="topbar-crumb current">Quick Notes</span>
+                </div>
+                <div class="topbar-actions">
+                  <button class="topbar-btn">Share</button>
+                  <button class="topbar-btn">···</button>
+                </div>
+              </div>
+
+              <!-- Page body -->
+              <div class="notion-page">
+
+                <!-- Title — stagger group 3 (440ms) -->
+                <div class="page-title anim-item delay-440">✏️ Quick Notes</div>
+
+                <!-- Callout block -->
+                <div class="callout anim-item delay-440">
+                  <span aria-hidden="true">💡</span>
+                  <p class="callout-text">
+                    Capture quickly here — move to Projects or Team Wiki when ready to share.
+                  </p>
+                </div>
+
+                <!-- To-do section — stagger group 4 (580ms) -->
+                <div class="block-h2 anim-item delay-580">Today</div>
+
+                <div class="anim-item delay-580">
+                  <div class="todo-item">
+                    <div class="todo-check checked" aria-hidden="true">✓</div>
+                    <span class="todo-text done">Review Q2 budget draft with CFO</span>
+                  </div>
+                </div>
+
+                <div class="anim-item delay-580">
+                  <div class="todo-item">
+                    <div class="todo-check checked" aria-hidden="true">✓</div>
+                    <span class="todo-text done">Send Ofsted AI policy to SLT</span>
+                  </div>
+                </div>
+
+                <div class="anim-item delay-700">
+                  <div class="todo-item">
+                    <div class="todo-check" aria-hidden="true"></div>
+                    <span class="todo-text">Write up team standup notes</span>
+                  </div>
+                </div>
+
+                <div class="anim-item delay-700">
+                  <div class="todo-item">
+                    <div class="todo-check" aria-hidden="true"></div>
+                    <span class="todo-text">Finalise CPD plan for Autumn term</span>
+                  </div>
+                </div>
+
+                <!-- Database — stagger group 5 (840ms) -->
+                <div class="block-h2 anim-item delay-840">📊 Project Tracker</div>
+
+                <div class="anim-item delay-840">
+                  <table class="db-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Owner</th>
+                        <th>Due</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Website Relaunch</td>
+                        <td><span class="status-badge status-done">✅ Done</span></td>
+                        <td>Chloe</td>
+                        <td>Mar 15</td>
+                      </tr>
+                      <tr>
+                        <td>AI Policy v2</td>
+                        <td><span class="status-badge status-prog">🔄 In Progress</span></td>
+                        <td>Donna</td>
+                        <td>Mar 28</td>
+                      </tr>
+                      <tr>
+                        <td>CPD Framework</td>
+                        <td><span class="status-badge status-paused">⏸ On Hold</span></td>
+                        <td>Charles</td>
+                        <td>Apr 10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </div><!-- /notion-page -->
+            </main><!-- /notion-main -->
+          </div><!-- /notion-ui -->
+
+        </div><!-- /laptop-screen -->
+      </div><!-- /laptop-screen-border -->
+    </div><!-- /laptop-lid -->
+
+    <!-- Body / keyboard base -->
+    <div class="laptop-base">
+      <div class="laptop-hinge"></div>
+      <div class="laptop-body" aria-hidden="true"></div>
+    </div>
+    <div class="laptop-foot" aria-hidden="true"></div>
+
+  </div><!-- /laptop-wrap -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       INTEGRATION GUIDE
+  ══════════════════════════════════════════════════════════ -->
+  <div class="max-w-2xl w-full space-y-4">
+    <h2 class="text-lg font-black text-slate-800">How to integrate into React / Next.js / Vue</h2>
+
+    <div class="code-block">
+      <div class="flex items-center gap-2 px-5 py-3 bg-[#161b22] border-b border-[#30363d]">
+        <span class="w-3 h-3 rounded-full bg-red-400 opacity-80"></span>
+        <span class="w-3 h-3 rounded-full bg-yellow-400 opacity-80"></span>
+        <span class="w-3 h-3 rounded-full bg-green-400 opacity-80"></span>
+        <span class="ml-3 text-[#8b949e] text-xs">LaptopHero.tsx  ·  LaptopHero.vue</span>
+      </div>
+      <pre>
+<span class="code-cm">// ─────────────────────────────────────────────────────────────────
+// REACT / NEXT.JS  (TypeScript)
+// Copy the CSS from the &lt;style&gt; block into LaptopHero.module.css
+// ─────────────────────────────────────────────────────────────────</span>
+<span class="code-kw">import</span> { <span class="code-fn">useEffect</span>, <span class="code-fn">useRef</span> } <span class="code-kw">from</span> <span class="code-str">'react'</span>
+<span class="code-kw">import</span> styles <span class="code-kw">from</span> <span class="code-str">'./LaptopHero.module.css'</span>
+
+<span class="code-kw">export default function</span> <span class="code-fn">LaptopHero</span>() {
+  <span class="code-kw">const</span> screenRef = <span class="code-fn">useRef</span>&lt;HTMLDivElement&gt;(<span class="code-kw">null</span>)
+  <span class="code-kw">const</span> lidRef    = <span class="code-fn">useRef</span>&lt;HTMLDivElement&gt;(<span class="code-kw">null</span>)
+
+  <span class="code-kw">const</span> <span class="code-fn">playAnimation</span> = () => {
+    <span class="code-kw">const</span> screen = screenRef.current
+    <span class="code-kw">const</span> lid    = lidRef.current
+    <span class="code-kw">if</span> (!screen || !lid) <span class="code-kw">return</span>
+
+    <span class="code-cm">// ① Reset all classes</span>
+    screen.<span class="code-fn">classList</span>.remove(<span class="code-str">'screen-on'</span>)
+    lid.<span class="code-fn">classList</span>.remove(<span class="code-str">'glowing'</span>)
+    document.<span class="code-fn">querySelectorAll</span>(<span class="code-str">'.anim-item'</span>)
+      .<span class="code-fn">forEach</span>(el => el.classList.remove(<span class="code-str">'animate'</span>))
+
+    <span class="code-cm">// ② Force reflow so CSS transitions restart cleanly</span>
+    <span class="code-kw">void</span> screen.offsetWidth
+
+    <span class="code-cm">// ③ Screen brightens (CSS transition handles easing)</span>
+    <span class="code-fn">setTimeout</span>(() => screen.classList.add(<span class="code-str">'screen-on'</span>), <span class="code-str">80</span>)
+
+    <span class="code-cm">// ④ Frame glow (CSS animation on .glowing)</span>
+    <span class="code-fn">setTimeout</span>(() => lid.classList.add(<span class="code-str">'glowing'</span>), <span class="code-str">300</span>)
+
+    <span class="code-cm">// ⑤ Stagger content — .delay-* classes control per-item timing</span>
+    <span class="code-fn">setTimeout</span>(() => {
+      document.<span class="code-fn">querySelectorAll</span>(<span class="code-str">'.anim-item'</span>)
+        .<span class="code-fn">forEach</span>(el => el.classList.add(<span class="code-str">'animate'</span>))
+    }, <span class="code-str">650</span>)
+  }
+
+  <span class="code-fn">useEffect</span>(() => { <span class="code-fn">setTimeout</span>(playAnimation, <span class="code-str">400</span>) }, [])
+
+  <span class="code-kw">return</span> (
+    &lt;div className={styles.laptopWrap}&gt;
+      &lt;div className={styles.laptopLid} ref={lidRef}&gt;
+        &lt;div className={styles.laptopScreen} ref={screenRef}&gt;
+          <span class="code-cm">{/* ... same HTML structure ... */}</span>
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
+}
+
+<span class="code-cm">// ─────────────────────────────────────────────────────────────────
+// VUE 3  (Composition API — same logic, different syntax)
+// ─────────────────────────────────────────────────────────────────</span>
+<span class="code-cm">/*
+&lt;script setup&gt;
+import { onMounted, ref } from 'vue'
+const screenEl = ref(null)
+const lidEl    = ref(null)
+
+function playAnimation() {
+  const screen = screenEl.value
+  const lid    = lidEl.value
+  screen.classList.remove('screen-on')
+  lid.classList.remove('glowing')
+  document.querySelectorAll('.anim-item').forEach(el => el.classList.remove('animate'))
+  void screen.offsetWidth
+  setTimeout(() => screen.classList.add('screen-on'), 80)
+  setTimeout(() => lid.classList.add('glowing'), 300)
+  setTimeout(() => document.querySelectorAll('.anim-item')
+    .forEach(el => el.classList.add('animate')), 650)
+}
+onMounted(() => setTimeout(playAnimation, 400))
+&lt;/script&gt;
+*/</span>
+
+<span class="code-cm">// ─────────────────────────────────────────────────────────────────
+// FRAMER MOTION upgrade (replaces JS classList with variants)
+// ─────────────────────────────────────────────────────────────────</span>
+<span class="code-cm">/*
+const containerVariants = {
+  hidden:  {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.65 } }
+}
+const itemVariants = {
+  hidden:  { opacity: 0, y: 9 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.42, ease: 'easeOut' } }
+}
+
+// Wrap .notion-ui in:
+&lt;motion.div variants={containerVariants} initial="hidden" animate="visible"&gt;
+  // Each .anim-item becomes:
+  &lt;motion.div variants={itemVariants}&gt;...&lt;/motion.div&gt;
+&lt;/motion.div&gt;
+
+// Screen brightness uses animate prop:
+&lt;motion.div animate={{ filter: isOn ? 'brightness(1)' : 'brightness(0.1)' }}
+            transition={{ duration: 1.15, ease: [0.25, 0.46, 0.45, 0.94] }}&gt;
+*/</span>
+      </pre>
+    </div>
+  </div><!-- /integration guide -->
+
+
+  <!-- ══════════════════════════════════════════════════════════
+       JAVASCRIPT — animation controller
+  ══════════════════════════════════════════════════════════ -->
+  <script>
+    // ── Element refs ─────────────────────────────────────────────
+    const screen    = document.getElementById('laptopScreen');
+    const lid       = document.getElementById('laptopLid');
+    const notionUI  = document.getElementById('notionUI');
+    const themeBtn  = document.getElementById('themeBtn');
+    const animItems = document.querySelectorAll('.anim-item');
+
+    let isDark = false;
+
+    // ── Core animation sequence ───────────────────────────────────
+    // Steps:
+    //  80ms  → screen brightens (CSS transition, 1.15s duration)
+    //  300ms → frame glow fires (CSS keyframe animation)
+    //  650ms → content items stagger in (CSS animation + delay-* classes)
+    function playAnimation() {
+      // RESET — remove all active states
+      screen.classList.remove('screen-on');
+      lid.classList.remove('glowing');
+      animItems.forEach(el => el.classList.remove('animate'));
+
+      // Force layout reflow so transitions restart from the dim state
+      // (without this, removing + adding a class in the same tick is a no-op)
+      void screen.offsetWidth;
+      void lid.offsetWidth;
+
+      // STEP 1 — screen brightness ramps up (handled by CSS transition)
+      setTimeout(() => screen.classList.add('screen-on'), 80);
+
+      // STEP 2 — blue-white glow pulses around the laptop frame
+      setTimeout(() => lid.classList.add('glowing'), 300);
+
+      // STEP 3 — stagger content blocks
+      // Adding .animate triggers the fadeInUp animation;
+      // each element's .delay-* class provides its individual offset.
+      setTimeout(() => animItems.forEach(el => el.classList.add('animate')), 650);
+    }
+
+    // ── Dark / light toggle ───────────────────────────────────────
+    // Flips theme on the Notion UI and re-runs the animation
+    // so the "light switching on" effect reinforces the theme change.
+    function toggleTheme() {
+      isDark = !isDark;
+      notionUI.classList.toggle('dark', isDark);
+      themeBtn.textContent = isDark ? '☀️' : '🌙';
+      themeBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      playAnimation();
+    }
+
+    // ── Auto-play on load ─────────────────────────────────────────
+    // Small delay so the user briefly sees the "off" state
+    window.addEventListener('load', () => setTimeout(playAnimation, 420));
+  </script>
+
+</body>
+</html>

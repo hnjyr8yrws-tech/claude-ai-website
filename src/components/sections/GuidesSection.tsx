@@ -1,6 +1,6 @@
 /**
  * GuidesSection.tsx — 5 downloadable PDF guides
- * Deep teal section background with bold white-text cards
+ * Notion-style product cards: bold solid bg, large icon, plain category label, minimal CTA arrow
  */
 
 import { FC } from 'react';
@@ -12,35 +12,35 @@ const GUIDES = [
     title: 'SLT Ofsted AI Policy Template',
     desc: 'Ready-to-adapt school AI policy mapped to the current Ofsted EIF — download, personalise, use.',
     pages: '12 pages', audience: 'Leadership & SLT',
-    bg: '#2B4590',   // Notion wikis blue
+    bg: '#D1FAE5', text: '#064E3B', sub: '#065F46',   // mint green
   },
   {
     icon: '🛡️',
     title: 'Safeguarding with AI',
     desc: 'How to use AI safely in pastoral contexts — data sharing rules, permitted use cases, red flags.',
     pages: '8 pages', audience: 'Safeguarding',
-    bg: '#166534',   // deep green
+    bg: '#A7F3D0', text: '#064E3B', sub: '#047857',   // emerald green
   },
   {
     icon: '👨‍👩‍👧',
     title: "Parent's Guide to AI in Schools",
     desc: "Plain-English answers: what data is shared, how AI is used in lessons, how to talk to your child.",
     pages: '6 pages', audience: 'Parents',
-    bg: '#7B4F2A',   // Notion projects brown
+    bg: '#CCFBF1', text: '#134E4A', sub: '#0F766E',   // teal-green
   },
   {
     icon: '🤝',
     title: 'SEND & AI: Making Tech Inclusive',
     desc: 'Assistive AI tools, accessibility settings, and adapting outputs for students with additional needs.',
     pages: '10 pages', audience: 'SEND / Inclusion',
-    bg: '#9D174D',   // deep pink
+    bg: '#BBF7D0', text: '#14532D', sub: '#166534',   // soft green
   },
   {
     icon: '🎓',
     title: 'Staff CPD: AI Literacy for All',
     desc: 'Whole-school CPD framework — AI basics, role-specific use cases, 5-session INSET plan.',
     pages: '16 pages', audience: 'All Staff',
-    bg: '#1E3A5F',   // deep navy teal
+    bg: '#ECFDF5', text: '#064E3B', sub: '#059669',   // pale green
   },
 ] as const;
 
@@ -80,32 +80,33 @@ const GuidesSection: FC = () => (
               hidden:  { opacity: 0, y: 20 },
               visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 22 } },
             }}
-            whileHover={{ y: -4, scale: 1.01 }}
+            whileHover={{ y: -4 }}
           >
             <div
-              className="h-full rounded-2xl p-7 flex flex-col gap-5 min-h-[220px]"
+              className="h-full rounded-2xl p-8 flex flex-col gap-6 min-h-[260px] cursor-pointer"
               style={{ backgroundColor: g.bg }}
             >
-              <div className="flex items-start justify-between">
-                <span className="text-4xl" aria-hidden="true">{g.icon}</span>
-                <span className="text-[10px] font-bold text-white/60 bg-white/10 px-2.5 py-1 rounded-full">
+              {/* Icon */}
+              <span className="text-5xl leading-none" aria-hidden="true">{g.icon}</span>
+
+              {/* Text body */}
+              <div className="flex-1 flex flex-col gap-2">
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: g.sub }}>
                   {g.audience}
-                </span>
+                </p>
+                <h3 className="text-lg font-black leading-snug" style={{ color: g.text }}>{g.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: g.sub }}>{g.desc}</p>
               </div>
 
-              <div className="flex-1">
-                <h3 className="font-black text-base text-white leading-snug mb-2">{g.title}</h3>
-                <p className="text-xs text-white/70 leading-relaxed">{g.desc}</p>
-              </div>
-
-              <div className="flex items-center justify-between pt-4 border-t border-white/20">
-                <span className="text-[11px] text-white/50">📄 {g.pages}</span>
+              {/* Footer */}
+              <div className="flex items-center justify-between">
+                <span className="text-[11px]" style={{ color: g.sub }}>{g.pages}</span>
                 <motion.a
                   href="#"
                   download
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="text-xs font-bold text-white bg-white/15 hover:bg-white/25 px-4 py-2 rounded-xl transition-colors"
+                  whileHover={{ x: 3 }}
+                  className="text-sm font-bold transition-colors flex items-center gap-1"
+                  style={{ color: g.text }}
                   aria-label={`Download ${g.title}`}
                 >
                   Download PDF →
