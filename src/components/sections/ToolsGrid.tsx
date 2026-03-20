@@ -22,11 +22,10 @@ interface Tool {
   name: string;
   category: string;
   description?: string;
-  // add any other fields your tools already have (safety score, price, etc.)
 }
 
 interface ToolsGridProps {
-  tools: Tool[];
+  tools?: Tool[];
 }
 
 export default function ToolsGrid({ tools = [] }: ToolsGridProps) {
@@ -59,7 +58,7 @@ export default function ToolsGrid({ tools = [] }: ToolsGridProps) {
           </TabsList>
         </Tabs>
 
-        {/* TOOLS LIST / GRID (replace inner part with your existing card if different) */}
+        {/* TOOLS GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTools.length > 0 ? (
             filteredTools.map((tool) => (
