@@ -6,6 +6,7 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { cn } from './lib/utils';
+import lightbulb from './assets/lightbulb.png';
 
 // ── Section components ─────────────────────────────────────────────────────────
 import Hero              from './components/sections/Hero';
@@ -71,12 +72,9 @@ const Logo: FC<{ onClick: () => void }> = ({ onClick }) => (
     className="flex items-center gap-2.5 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue rounded-lg"
     aria-label="GetPromptly home"
   >
-    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-blue to-[#14B8A6] flex items-center justify-center">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <circle cx="8" cy="8" r="5" stroke="white" strokeWidth="1.5" strokeOpacity=".95"/>
-        <circle cx="8" cy="8" r="2" fill="white"/>
-      </svg>
-    </div>
+    <img src={lightbulb} alt="" aria-hidden="true"
+         className="w-8 h-8 flex-shrink-0"
+         style={{ filter: 'url(#remove-white-bg)' }} />
     <div className="hidden sm:block">
       <span className="font-black text-white tracking-tight text-base leading-none block">GetPromptly</span>
       <span className="text-[9px] text-slate-400 tracking-wide">getpromptly.co.uk</span>
@@ -387,6 +385,18 @@ const App: FC = () => {
 
   return (
     <div className="min-h-screen font-sans bg-cream">
+      {/* SVG filter to remove white background from lightbulb PNG */}
+      <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} aria-hidden="true">
+        <defs>
+          <filter id="remove-white-bg" x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
+            <feColorMatrix type="matrix"
+              values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                     -1 -1 -1 3 0" />
+          </filter>
+        </defs>
+      </svg>
 
       {/* ── Mobile overlay ── */}
       <AnimatePresence>
