@@ -17,10 +17,9 @@ interface Tool {
   category: string;
   description: string;
   safetyScore: number;
-  link?: string;
 }
 
-// Sample data — 21 tools across categories
+// 21 sample tools so Load More is noticeable
 const SAMPLE_TOOLS: Tool[] = [
   { id: 1, name: "Claude 3", category: "Chatbots & LLMs", description: "Advanced conversational AI by Anthropic, excellent for reasoning and safety.", safetyScore: 92 },
   { id: 2, name: "ChatGPT-4o", category: "Chatbots & LLMs", description: "OpenAI's flagship model, multimodal and very capable.", safetyScore: 85 },
@@ -45,19 +44,15 @@ const SAMPLE_TOOLS: Tool[] = [
   { id: 21, name: "Otter.ai", category: "Productivity", description: "AI meeting notes and transcription.", safetyScore: 89 }
 ];
 
-interface ToolsGridProps {
-  tools?: Tool[];
-}
+const ITEMS_PER_PAGE = 9;
 
-export default function ToolsGrid({ tools = SAMPLE_TOOLS }: ToolsGridProps) {
-  const ITEMS_PER_PAGE = 9;
-
+export default function ToolsGrid() {
   const [activeCategory, setActiveCategory] = useState<Category>("All Tools");
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
 
   const filteredTools = useMemo(() => {
-    return tools
+    return SAMPLE_TOOLS
       .filter((tool) => {
         const matchesCategory = activeCategory === "All Tools" || tool.category === activeCategory;
         const matchesSearch = tool.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -65,7 +60,7 @@ export default function ToolsGrid({ tools = SAMPLE_TOOLS }: ToolsGridProps) {
         return matchesCategory && matchesSearch;
       })
       .sort((a, b) => b.safetyScore - a.safetyScore);
-  }, [tools, activeCategory, searchTerm]);
+  }, [activeCategory, searchTerm]);
 
   const paginatedTools = useMemo(() => {
     return filteredTools.slice(0, page * ITEMS_PER_PAGE);
@@ -73,9 +68,7 @@ export default function ToolsGrid({ tools = SAMPLE_TOOLS }: ToolsGridProps) {
 
   const hasMore = paginatedTools.length < filteredTools.length;
 
-  const loadMore = () => {
-    setPage(prev => prev + 1);
-  };
+  const loadMore = () => setPage(prev => prev + 1);
 
   return (
     <section className="py-16 bg-background">
@@ -96,10 +89,10 @@ export default function ToolsGrid({ tools = SAMPLE_TOOLS }: ToolsGridProps) {
           />
         </div>
 
-        {/* 11 FILTER TABS */}
+        {/* TABS */}
         <Tabs value={activeCategory} onValueChange={(val) => {
           setActiveCategory(val as Category);
-          setPage(1); // reset pagination on category change
+          setPage(1); // reset on category change
         }}>
           <TabsList className="inline-flex h-12 items-center bg-muted/50 p-1 rounded-xl mb-12 overflow-x-auto no-scrollbar w-full">
             {categories.map((category) => (
@@ -114,49 +107,33 @@ export default function ToolsGrid({ tools = SAMPLE_TOOLS }: ToolsGridProps) {
           </TabsList>
         </Tabs>
 
-        {/* TOOLS GRID */}
+        {/* GRID */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {paginatedTools.length > 0 ? (
-            paginatedTools.map((tool) => (
-              <div
-                key={tool.id}
-                className="group border border-border rounded-3xl p-6 hover:border-primary/30 transition-all hover:shadow-lg flex flex-col"
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="font-semibold text-xl group-hover:text-primary transition-colors">{tool.name}</h3>
-                  <span className="text-xs font-medium bg-green-100 text-green-700 px-2.5 py-1 rounded-full">
-                    {tool.safetyScore}% safe
-                  </span>
-                </div>
-                <p className="text-sm text-muted-foreground flex-grow line-clamp-4 mb-4">{tool.description}</p>
-                <div className="flex items-center justify-between mt-auto pt-4 border-t">
-                  <div className="text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full">
-                    {tool.category}
-                  </div>
-                  {tool.link && (
-                    <a href={tool.link} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">
-                      Visit →
-                    </a>
-                  )}
+          {paginatedTools.map((tool) => (
+            <div
+              key={tool.id}
+              className="group border border-border rounded-3xl p-6 hover:border-primary/30 transition-all hover:shadow-lg flex flex-col"
+            >
+              <div className="flex justify-between items-start mb-3">
+                <h3 className="font-semibold text-xl group-hover:text-primary transition-colors">{tool.name}</h3>
+                <span className="text-xs font-medium bg-green-100 text-green-700 px-2.5 py-1 rounded-full">
+                  {tool.safetyScore}% safe
+                </span>
+              </div>
+              <p className="text-sm text-muted-foreground flex-grow line-clamp-4 mb-4">{tool.description}</p>
+              <div className="flex items-center justify-between mt-auto pt-4 border-t">
+                <div className="text-xs font-medium bg-primary/10 text-primary px-3 py-1 rounded-full">
+                  {tool.category}
                 </div>
               </div>
-            ))
-          ) : (
-            <p className="col-span-full text-center text-muted-foreground py-12 text-lg">
-              No tools match your search — try different keywords!
-            </p>
-          )}
+            </div>
+          ))}
         </div>
 
-        {/* LOAD MORE BUTTON */}
+        {/* LOAD MORE */}
         {hasMore && (
           <div className="text-center mt-12">
-            <Button
-              onClick={loadMore}
-              variant="outline"
-              size="lg"
-              className="min-w-[200px]"
-            >
+            <Button onClick={loadMore} variant="outline" size="lg" className="min-w-[200px]">
               Load More
             </Button>
           </div>
