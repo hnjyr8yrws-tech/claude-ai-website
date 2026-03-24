@@ -18,7 +18,7 @@ import ToolsGrid              from './components/sections/ToolsGrid';
 import ExploreCategoriesSection from './components/sections/ExploreCategoriesSection';
 import GuidesSection          from './components/sections/GuidesSection';
 import Blog                   from './components/sections/Blog';
-import EquipmentReviews       from './components/sections/EquipmentReviews';
+import EquipmentReviews       from '@/components/sections/EquipmentReviews';
 import FinalCTASection        from './components/sections/FinalCTASection';
 import About                  from './components/sections/About';
 import Footer                 from './components/sections/Footer';
