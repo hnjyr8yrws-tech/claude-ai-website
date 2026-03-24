@@ -18,6 +18,7 @@ import ToolsGrid              from './components/sections/ToolsGrid';
 import ExploreCategoriesSection from './components/sections/ExploreCategoriesSection';
 import GuidesSection          from './components/sections/GuidesSection';
 import Blog                   from './components/sections/Blog';
+import EquipmentReviews       from './components/sections/EquipmentReviews';
 import FinalCTASection        from './components/sections/FinalCTASection';
 import About                  from './components/sections/About';
 import Footer                 from './components/sections/Footer';
@@ -462,7 +463,10 @@ const App: FC = () => {
           <Blog />
         </div>
 
-        {/* 9 · Final CTA */}
+        {/* 9 · Equipment Reviews */}
+        <EquipmentReviews />
+
+        {/* 10 · Final CTA */}
         <div ref={setRef('cta')}>
           <FinalCTASection
             onExplore={() => scrollTo('tools')}
