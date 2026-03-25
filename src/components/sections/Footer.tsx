@@ -7,32 +7,38 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
+type SectionId = 'hero' | 'why' | 'tools' | 'how' | 'safety' | 'guides' | 'training' | 'equipment' | 'blog' | 'team' | 'vision' | 'newsletter';
+
 interface FooterProps {
-  onNav: (id: string) => void;
+  onNav: (id: SectionId) => void;
 }
 
-const NAV_COLS: { heading: string; links: { label: string; id: string }[] }[] = [
+const NAV_COLS: { heading: string; links: { label: string; id: SectionId }[] }[] = [
   {
     heading: 'Explore',
     links: [
-      { label: 'Home',             id: 'hero' },
-      { label: 'AI Tools',         id: 'tools' },
-      { label: 'AI Assistant',     id: 'assistant' },
-      { label: 'Categories',       id: 'categories' },
+      { label: 'Home',              id: 'hero' },
+      { label: 'Why Promptly',      id: 'why' },
+      { label: 'AI Tools',          id: 'tools' },
+      { label: 'How AI Helps',      id: 'how' },
     ],
   },
   {
-    heading: 'Resources',
+    heading: 'Safety & Guides',
     links: [
-      { label: 'Free Guides',      id: 'guides' },
-      { label: 'Trusted Tools',    id: 'trusted' },
-      { label: 'Blog',             id: 'blog' },
+      { label: 'Safety Scores',     id: 'safety' },
+      { label: 'Free Guides',       id: 'guides' },
+      { label: 'Training & Prompts',id: 'training' },
+      { label: 'Equipment Reviews', id: 'equipment' },
     ],
   },
   {
     heading: 'Company',
     links: [
-      { label: 'About',            id: 'about' },
+      { label: 'Blog',              id: 'blog' },
+      { label: 'Meet the Team',     id: 'team' },
+      { label: 'Our Vision',        id: 'vision' },
+      { label: 'Newsletter',        id: 'newsletter' },
     ],
   },
 ];

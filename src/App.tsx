@@ -1,7 +1,6 @@
 /**
  * App.tsx — GetPromptly.co.uk
- * AI for Education — Made Simple
- * Nav: Home · AI Tools · AI Assistant · Guides · About
+ * 12-section single-page scroll · smooth anchor nav · floating CTA · WCAG AA
  */
 
 import { useState, useRef, useEffect, FC } from 'react';
@@ -10,36 +9,46 @@ import { cn } from './lib/utils';
 import lightbulb from './assets/lightbulb.png';
 
 // ── Section components ─────────────────────────────────────────────────────────
-import Hero                   from './components/sections/Hero';
-import AudienceSection        from './components/sections/AudienceSection';
-import AIAssistantSection     from './components/sections/AIAssistantSection';
-import TrustedToolsSection    from './components/sections/TrustedToolsSection';
-import ToolsGrid              from './components/sections/ToolsGrid';
-import ExploreCategoriesSection from './components/sections/ExploreCategoriesSection';
-import GuidesSection          from './components/sections/GuidesSection';
-import Blog                   from './components/sections/Blog';
-import EquipmentReviews       from '@/components/sections/EquipmentReviews';
-import FinalCTASection        from './components/sections/FinalCTASection';
-import About                  from './components/sections/About';
-import Footer                 from './components/sections/Footer';
+import Hero              from './components/sections/Hero';
+import WhyPromptly       from './components/sections/WhyPromptly';
+import ToolsGrid         from './components/sections/ToolsGrid';
+import TimeSavings       from './components/sections/TimeSavings';
+import SafetyScore       from './components/sections/SafetyScore';
+import GuidesSection     from './components/sections/GuidesSection';
+import TrainingSection   from './components/sections/TrainingSection';
+import EquipmentReviews  from '@/components/EquipmentReviews';
+import Blog              from './components/sections/Blog';
+import About             from './components/sections/About';
+import Vision            from './components/sections/Vision';
+import NewsletterSection from './components/sections/NewsletterSection';
+import Footer            from './components/sections/Footer';
+
+// ── Quiz form ──────────────────────────────────────────────────────────────────
+import QuizForm from './components/QuizForm';
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
 type SectionId =
-  | 'hero' | 'audience' | 'assistant' | 'trusted'
-  | 'tools' | 'categories' | 'guides' | 'blog' | 'cta' | 'about';
+  | 'hero' | 'why' | 'tools' | 'how' | 'safety'
+  | 'guides' | 'training' | 'equipment' | 'blog'
+  | 'team' | 'vision' | 'newsletter';
 
-// ── Navigation items ───────────────────────────────────────────────────────────
-
-const NAV_ITEMS: { id: SectionId; label: string; primary?: boolean }[] = [
-  { id: 'hero',      label: 'Home' },
-  { id: 'tools',     label: 'AI Tools' },
-  { id: 'assistant', label: 'AI Assistant', primary: true },
-  { id: 'guides',    label: 'Guides' },
-  { id: 'about',     label: 'About' },
+const NAV_ITEMS: { id: SectionId; label: string }[] = [
+  { id: 'hero',       label: 'Home' },
+  { id: 'why',        label: 'Why Promptly' },
+  { id: 'tools',      label: 'AI Tools' },
+  { id: 'how',        label: 'How It Helps' },
+  { id: 'safety',     label: 'Safety Scores' },
+  { id: 'guides',     label: 'Guides' },
+  { id: 'training',   label: 'Training' },
+  { id: 'equipment',  label: 'Equipment' },
+  { id: 'blog',       label: 'Blog' },
+  { id: 'team',       label: 'Team' },
+  { id: 'vision',     label: 'Vision' },
+  { id: 'newsletter', label: 'Newsletter' },
 ];
 
-// ── Drawer variants ────────────────────────────────────────────────────────────
+// ── Drawer variants ─────────────────────────────────────────────────────────────
 
 const drawerVariants: Variants = {
   hidden:  { x: '-100%', opacity: 0 },
@@ -60,18 +69,15 @@ const navItemVariants: Variants = {
 const Logo: FC<{ onClick: () => void }> = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="flex items-center gap-2.5 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb] rounded-lg"
+    className="flex items-center gap-2.5 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue rounded-lg"
     aria-label="GetPromptly home"
   >
-    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
-         style={{ background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)' }}>
-      <img src={lightbulb} alt="" aria-hidden="true"
-           className="w-5 h-5"
-           style={{ filter: 'brightness(0) invert(1)' }} />
-    </div>
-    <div>
-      <span className="font-black text-gray-900 tracking-tight text-base leading-none block">GetPromptly</span>
-      <span className="text-[9px] text-gray-400 tracking-wide">getpromptly.co.uk</span>
+    <img src={lightbulb} alt="" aria-hidden="true"
+         className="w-8 h-8 flex-shrink-0"
+         style={{ filter: 'url(#remove-white-bg)' }} />
+    <div className="hidden sm:block">
+      <span className="font-black text-white tracking-tight text-base leading-none block">GetPromptly</span>
+      <span className="text-[9px] text-slate-400 tracking-wide">getpromptly.co.uk</span>
     </div>
   </button>
 );
@@ -82,21 +88,23 @@ const MobileDrawer: FC<{
   active: SectionId;
   onNav: (id: SectionId) => void;
   onClose: () => void;
-}> = ({ active, onNav, onClose }) => (
+  onQuiz: () => void;
+}> = ({ active, onNav, onClose, onQuiz }) => (
   <motion.div
     variants={drawerVariants}
     initial="hidden" animate="visible" exit="exit"
-    className="flex flex-col w-72 h-full bg-white border-r border-gray-100 shadow-2xl"
+    className="flex flex-col w-72 h-full bg-ink shadow-2xl"
     aria-label="Mobile navigation"
     role="dialog"
   >
-    <div className="flex items-center gap-3 px-5 py-4 border-b border-gray-100">
+    <div className="flex items-center gap-3 px-5 py-4 border-b border-white/10">
       <Logo onClick={() => { onNav('hero'); onClose(); }} />
       <motion.button
         onClick={onClose}
-        whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.92 }}
-        className="ml-auto p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-50 transition-colors
-                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.92 }}
+        className="ml-auto p-2 rounded-lg text-slate-400 hover:text-white transition-colors
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
         aria-label="Close menu"
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -114,73 +122,63 @@ const MobileDrawer: FC<{
           initial="hidden" animate="visible"
           aria-current={active === item.id ? 'page' : undefined}
           onClick={() => { onNav(item.id); onClose(); }}
-          whileHover={{ x: 4 }}
+          whileHover={{ x: 4, backgroundColor: 'rgba(255,255,255,0.06)' }}
           whileTap={{ scale: 0.97 }}
           className={cn(
-            'relative w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]',
+            'relative w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue',
             active === item.id
-              ? 'bg-blue-50 text-[#2563eb] border border-blue-100'
-              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 border border-transparent'
+              ? 'bg-brand-blue/15 text-brand-blue border border-brand-blue/25'
+              : 'text-slate-300 hover:text-white border border-transparent'
           )}
         >
           {active === item.id && (
             <motion.div
-              className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 rounded-full bg-[#2563eb]"
+              className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-4 rounded-full bg-brand-blue"
               initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
               transition={{ duration: 0.2 }}
             />
           )}
           {item.label}
-          {item.primary && (
-            <span className="ml-auto px-1.5 py-0.5 rounded-full text-[9px] font-bold text-white bg-[#2563eb]">
-              NEW
-            </span>
-          )}
         </motion.button>
       ))}
     </nav>
 
-    <div className="border-t border-gray-100 px-5 py-4">
+    <div className="border-t border-white/10 px-5 py-4">
       <motion.button
-        whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-        onClick={() => { onNav('tools'); onClose(); }}
-        className="w-full py-3 rounded-xl text-white font-bold text-sm
-                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]"
-        style={{ background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)' }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.97 }}
+        onClick={() => { onQuiz(); onClose(); }}
+        className="w-full py-2.5 rounded-xl bg-brand-blue text-white font-black text-xs
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
       >
-        Explore Trusted AI Tools →
+        Take the 60-Second Toolkit Quiz →
       </motion.button>
     </div>
   </motion.div>
 );
 
-// ── Top Navigation ─────────────────────────────────────────────────────────────
+// ── Top Nav ────────────────────────────────────────────────────────────────────
 
 const TopNav: FC<{
   active: SectionId;
   onNav: (id: SectionId) => void;
   onHamburger: () => void;
+  onQuiz: () => void;
   drawerOpen: boolean;
-  scrolled: boolean;
-}> = ({ active, onNav, onHamburger, drawerOpen, scrolled }) => (
+}> = ({ active, onNav, onHamburger, onQuiz, drawerOpen }) => (
   <motion.header
-    className={cn(
-      'sticky top-0 z-40 w-full transition-all duration-200',
-      scrolled
-        ? 'bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm'
-        : 'bg-white border-b border-gray-100'
-    )}
+    className="sticky top-0 z-40 w-full bg-ink/95 backdrop-blur-md shadow-nav"
     initial={{ opacity: 0, y: -8 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, ease: 'easeOut' }}
   >
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-4">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-3">
 
       <Logo onClick={() => onNav('hero')} />
 
-      {/* Desktop nav */}
-      <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-1 ml-2">
+      {/* Desktop nav — scrollable if needed */}
+      <nav aria-label="Main navigation" className="hidden xl:flex items-center gap-0.5 ml-3 overflow-x-auto">
         {NAV_ITEMS.map((item) => (
           <motion.button
             key={item.id}
@@ -189,15 +187,11 @@ const TopNav: FC<{
             whileHover={{ y: -1 }}
             whileTap={{ scale: 0.97 }}
             className={cn(
-              'px-3.5 py-2 rounded-lg text-sm font-semibold whitespace-nowrap transition-colors',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]',
-              item.primary
-                ? active === item.id
-                  ? 'bg-[#2563eb] text-white'
-                  : 'text-[#2563eb] hover:bg-blue-50'
-                : active === item.id
-                  ? 'bg-gray-100 text-gray-900'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+              'px-3 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue',
+              active === item.id
+                ? 'bg-brand-blue/15 text-brand-blue'
+                : 'text-slate-300 hover:text-white hover:bg-white/5'
             )}
           >
             {item.label}
@@ -205,27 +199,44 @@ const TopNav: FC<{
         ))}
       </nav>
 
-      {/* Right CTA */}
-      <div className="hidden lg:flex items-center gap-2 ml-auto">
+      {/* Search */}
+      <div className="hidden lg:flex flex-1 max-w-xs ml-auto">
+        <div className="relative w-full">
+          <svg className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <circle cx="6.5" cy="6.5" r="5"/><path d="M11.5 11.5l3 3"/>
+          </svg>
+          <input
+            type="search"
+            placeholder="Search tools, guides…"
+            aria-label="Search"
+            className="w-full pl-8 pr-4 py-2 text-xs border border-navy-border rounded-xl
+                       bg-navy-mid text-slate-200 placeholder-slate-500
+                       focus:outline-none focus:ring-2 focus:ring-brand-blue/50 focus:border-brand-blue/40
+                       transition-all"
+          />
+        </div>
+      </div>
+
+      {/* Right CTAs */}
+      <div className="hidden lg:flex items-center gap-2 ml-3">
         <motion.button
-          whileHover={{ scale: 1.02, y: -1 }}
+          whileHover={{ y: -1 }}
           whileTap={{ scale: 0.97 }}
-          onClick={() => onNav('tools')}
-          className="px-5 py-2.5 rounded-xl text-white font-bold text-sm transition-all
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#2563eb]
-                     shadow-sm shadow-blue-100"
-          style={{ background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)' }}
+          onClick={onQuiz}
+          className="px-4 py-2 rounded-xl bg-brand-blue text-white font-bold text-xs
+                     hover:opacity-90 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
         >
-          Explore Trusted AI Tools
+          60-Second Quiz →
         </motion.button>
       </div>
 
       {/* Hamburger */}
       <motion.button
         onClick={onHamburger}
-        whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.92 }}
-        className="lg:hidden ml-auto p-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors
-                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.92 }}
+        className="xl:hidden ml-auto p-2 rounded-lg text-slate-300 hover:text-white transition-colors
+                   focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
         aria-label="Open menu"
         aria-expanded={drawerOpen}
       >
@@ -233,10 +244,44 @@ const TopNav: FC<{
           <path d="M3 5h14M3 10h14M3 15h14"/>
         </svg>
       </motion.button>
-
     </div>
   </motion.header>
 );
+
+// ── Floating "Free Prompts" button ─────────────────────────────────────────────
+
+const FloatingPromptBtn: FC<{ onScroll: () => void }> = ({ onScroll }) => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const onScrollEvt = () => setVisible(window.scrollY > 400);
+    window.addEventListener('scroll', onScrollEvt, { passive: true });
+    return () => window.removeEventListener('scroll', onScrollEvt);
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          key="float"
+          onClick={onScroll}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 40 }}
+          whileHover={{ scale: 1.07 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: 'spring', stiffness: 300, damping: 24 }}
+          className="fixed right-5 bottom-20 z-30 flex items-center gap-2 px-4 py-3 rounded-2xl
+                     bg-[#14B8A6] text-white font-bold text-sm shadow-2xl
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14B8A6]"
+          aria-label="Get free prompts"
+        >
+          <span aria-hidden="true">📦</span> Free Prompts
+        </motion.button>
+      )}
+    </AnimatePresence>
+  );
+};
 
 // ── GDPR Cookie banner ─────────────────────────────────────────────────────────
 
@@ -244,7 +289,11 @@ const GDPRBanner: FC = () => {
   const [accepted, setAccepted] = useState(
     () => typeof window !== 'undefined' && localStorage.getItem('gdpr_accepted') === 'true'
   );
-  const accept = () => { localStorage.setItem('gdpr_accepted', 'true'); setAccepted(true); };
+
+  const accept = () => {
+    localStorage.setItem('gdpr_accepted', 'true');
+    setAccepted(true);
+  };
 
   return (
     <AnimatePresence>
@@ -261,57 +310,26 @@ const GDPRBanner: FC = () => {
                      bg-white rounded-2xl shadow-2xl border border-gray-200 p-5 space-y-3"
         >
           <p className="text-xs text-gray-600 leading-relaxed">
-            🍪 We use cookies for analytics only. We never sell your data.{' '}
-            <button className="text-[#2563eb] hover:underline font-medium">Privacy Policy</button>.
+            🍪 We use cookies for analytics only. We never sell your data. Read our{' '}
+            <button className="text-brand-blue hover:underline font-medium">Privacy Policy</button>.
           </p>
           <div className="flex gap-2">
-            <button onClick={accept}
-              className="flex-1 py-2 rounded-xl bg-[#2563eb] text-white text-xs font-bold
-                         hover:bg-[#1d4ed8] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]">
+            <button
+              onClick={accept}
+              className="flex-1 py-2 rounded-xl bg-brand-blue text-white text-xs font-bold
+                         hover:opacity-90 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue"
+            >
               Accept
             </button>
-            <button onClick={accept}
+            <button
+              onClick={accept}
               className="flex-1 py-2 rounded-xl bg-gray-100 text-gray-600 text-xs font-semibold
-                         hover:bg-gray-200 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400">
+                         hover:bg-gray-200 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400"
+            >
               Decline
             </button>
           </div>
         </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
-
-// ── Floating CTA ───────────────────────────────────────────────────────────────
-
-const FloatingCTA: FC<{ onClick: () => void }> = ({ onClick }) => {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setVisible(window.scrollY > 500);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.button
-          key="float"
-          onClick={onClick}
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 40 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-          className="fixed right-5 bottom-20 z-30 px-4 py-3 rounded-2xl text-white font-bold text-sm shadow-xl
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2563eb]"
-          style={{ background: 'linear-gradient(135deg, #2563eb 0%, #7c3aed 100%)' }}
-          aria-label="Explore trusted AI tools"
-        >
-          Explore Tools →
-        </motion.button>
       )}
     </AnimatePresence>
   );
@@ -322,20 +340,14 @@ const FloatingCTA: FC<{ onClick: () => void }> = ({ onClick }) => {
 const App: FC = () => {
   const [activeSection, setActiveSection] = useState<SectionId>('hero');
   const [drawerOpen, setDrawerOpen]       = useState(false);
-  const [scrolled, setScrolled]           = useState(false);
+  const [quizOpen, setQuizOpen]           = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
 
   const sectionRefs = useRef<Record<SectionId, HTMLDivElement | null>>({
-    hero: null, audience: null, assistant: null, trusted: null,
-    tools: null, categories: null, guides: null, blog: null, cta: null, about: null,
+    hero: null, why: null, tools: null, how: null, safety: null,
+    guides: null, training: null, equipment: null, blog: null,
+    team: null, vision: null, newsletter: null,
   });
-
-  // Scroll state for nav shadow
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   // Close drawer on outside click
   useEffect(() => {
@@ -347,7 +359,7 @@ const App: FC = () => {
     return () => document.removeEventListener('mousedown', h);
   }, [drawerOpen]);
 
-  // Active section tracking
+  // Active section tracking via IntersectionObserver
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
     (Object.keys(sectionRefs.current) as SectionId[]).forEach((id) => {
@@ -372,123 +384,110 @@ const App: FC = () => {
   };
 
   return (
-    <div className="min-h-screen font-sans bg-white">
-      {/* SVG filter (lightbulb PNG transparency) */}
+    <div className="min-h-screen font-sans bg-cream">
+      {/* SVG filter to remove white background from lightbulb PNG */}
       <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }} aria-hidden="true">
         <defs>
           <filter id="remove-white-bg" x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
             <feColorMatrix type="matrix"
-              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 3 0" />
+              values="1 0 0 0 0
+                      0 1 0 0 0
+                      0 0 1 0 0
+                     -1 -1 -1 3 0" />
           </filter>
         </defs>
       </svg>
 
-      {/* Mobile overlay */}
+      {/* ── Mobile overlay ── */}
       <AnimatePresence>
         {drawerOpen && (
           <motion.div
             aria-hidden="true"
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+            className="fixed inset-0 bg-black/55 backdrop-blur-sm z-40 xl:hidden"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             onClick={() => setDrawerOpen(false)}
           />
         )}
       </AnimatePresence>
 
-      {/* Mobile drawer */}
+      {/* ── Mobile drawer ── */}
       <AnimatePresence>
         {drawerOpen && (
-          <div ref={drawerRef} className="fixed inset-y-0 left-0 z-50 lg:hidden">
+          <div ref={drawerRef} className="fixed inset-y-0 left-0 z-50 xl:hidden">
             <MobileDrawer
               active={activeSection}
               onNav={scrollTo}
               onClose={() => setDrawerOpen(false)}
+              onQuiz={() => setQuizOpen(true)}
             />
           </div>
         )}
       </AnimatePresence>
 
-      {/* Top nav */}
+      {/* ── Sticky nav ── */}
       <TopNav
         active={activeSection}
         onNav={scrollTo}
         onHamburger={() => setDrawerOpen(true)}
+        onQuiz={() => setQuizOpen(true)}
         drawerOpen={drawerOpen}
-        scrolled={scrolled}
       />
 
-      {/* Main content */}
+      {/* ── Main content ── */}
       <main aria-label="Main content">
 
-        {/* 1 · Hero */}
+        {/* 1. Hero */}
         <div ref={setRef('hero')}>
           <Hero
             onExplore={() => scrollTo('tools')}
-            onAssistant={() => scrollTo('assistant')}
+            onGuides={() => scrollTo('guides')}
           />
         </div>
 
-        {/* 2 · Audience — who is this for */}
-        <div ref={setRef('audience')}>
-          <AudienceSection onViewTools={() => scrollTo('tools')} />
-        </div>
+        {/* 2. Why Promptly */}
+        <div ref={setRef('why')}><WhyPromptly /></div>
 
-        {/* 3 · AI Assistant — KEY FEATURE */}
-        <div ref={setRef('assistant')}>
-          <AIAssistantSection />
-        </div>
+        {/* 3. Explore AI Tools */}
+        <div ref={setRef('tools')}><ToolsGrid /></div>
 
-        {/* 4 · Trusted Tools */}
-        <div ref={setRef('trusted')}>
-          <TrustedToolsSection />
-        </div>
+        {/* 4. How AI Helps */}
+        <div ref={setRef('how')}><TimeSavings /></div>
 
-        {/* 5 · Full AI Tools Grid */}
-        <div ref={setRef('tools')}>
-          <ToolsGrid />
-        </div>
+        {/* 5. Safety Score */}
+        <div ref={setRef('safety')}><SafetyScore /></div>
 
-        {/* 6 · Explore by Category */}
-        <div ref={setRef('categories')}>
-          <ExploreCategoriesSection onExplore={(cat) => cat === 'AI Tools' && scrollTo('tools')} />
-        </div>
+        {/* 6. Guides */}
+        <div ref={setRef('guides')}><GuidesSection /></div>
 
-        {/* 7 · Free Guides */}
-        <div ref={setRef('guides')}>
-          <GuidesSection />
-        </div>
+        {/* 7. Free Training & Prompts (shadcn Tabs) */}
+        <div ref={setRef('training')}><TrainingSection /></div>
 
-        {/* 8 · Blog */}
-        <div ref={setRef('blog')}>
-          <Blog />
-        </div>
+        {/* 8. Equipment Reviews */}
+        <div ref={setRef('equipment')}><EquipmentReviews /></div>
 
-        {/* 9 · Equipment Reviews */}
-        <EquipmentReviews />
+        {/* 9. Blog */}
+        <div ref={setRef('blog')}><Blog /></div>
 
-        {/* 10 · Final CTA */}
-        <div ref={setRef('cta')}>
-          <FinalCTASection
-            onExplore={() => scrollTo('tools')}
-            onAssistant={() => scrollTo('assistant')}
-          />
-        </div>
+        {/* 10. Meet the Team */}
+        <div ref={setRef('team')}><About /></div>
 
-        {/* 10 · About */}
-        <div ref={setRef('about')}>
-          <About />
-        </div>
+        {/* 11. Vision */}
+        <div ref={setRef('vision')}><Vision /></div>
 
-        {/* Footer */}
-        <Footer onNav={(id) => scrollTo(id as SectionId)} />
+        {/* 12. Newsletter */}
+        <div ref={setRef('newsletter')}><NewsletterSection /></div>
 
+        <Footer onNav={scrollTo} />
       </main>
 
-      {/* Floating CTA */}
-      <FloatingCTA onClick={() => scrollTo('tools')} />
+      {/* ── Floating "Free Prompts" button ── */}
+      <FloatingPromptBtn onScroll={() => scrollTo('training')} />
 
-      {/* GDPR banner */}
+      {/* ── GDPR Cookie banner ── */}
       <GDPRBanner />
+
+      {/* ── Quiz form modal ── */}
+      <QuizForm open={quizOpen} onClose={() => setQuizOpen(false)} />
     </div>
   );
 };

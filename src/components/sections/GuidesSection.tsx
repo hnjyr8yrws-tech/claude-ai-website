@@ -1,6 +1,6 @@
 /**
- * GuidesSection.tsx — Free downloadable guides
- * 3 cards: clean light design, Download Guide CTA
+ * GuidesSection.tsx — 5 downloadable PDF guides
+ * Notion-style product cards: bold solid bg, large icon, plain category label, minimal CTA arrow
  */
 
 import { FC } from 'react';
@@ -9,50 +9,45 @@ import { motion } from 'framer-motion';
 const GUIDES = [
   {
     icon: '📋',
-    title: 'AI Policy Template for Schools',
-    desc: 'A ready-to-adapt school AI policy mapped to Ofsted requirements — download, personalise, and use today.',
-    audience: 'School Leadership',
-    pages: '12 pages · PDF',
-    color: '#2563eb',
-    bg: '#eff6ff',
-    border: '#bfdbfe',
+    title: 'SLT Ofsted AI Policy Template',
+    desc: 'Ready-to-adapt school AI policy mapped to the current Ofsted EIF — download, personalise, use.',
+    pages: '12 pages', audience: 'Leadership & SLT',
+    bg: '#D1FAE5', text: '#064E3B', sub: '#065F46',   // mint green
+  },
+  {
+    icon: '🛡️',
+    title: 'Safeguarding with AI',
+    desc: 'How to use AI safely in pastoral contexts — data sharing rules, permitted use cases, red flags.',
+    pages: '8 pages', audience: 'Safeguarding',
+    bg: '#A7F3D0', text: '#064E3B', sub: '#047857',   // emerald green
   },
   {
     icon: '👨‍👩‍👧',
     title: "Parent's Guide to AI in Schools",
-    desc: "Plain-English answers to every question parents ask about AI, data safety, and how it's used in lessons.",
-    audience: 'Parents & Families',
-    pages: '6 pages · PDF',
-    color: '#7c3aed',
-    bg: '#f5f3ff',
-    border: '#ddd6fe',
+    desc: "Plain-English answers: what data is shared, how AI is used in lessons, how to talk to your child.",
+    pages: '6 pages', audience: 'Parents',
+    bg: '#CCFBF1', text: '#134E4A', sub: '#0F766E',   // teal-green
+  },
+  {
+    icon: '🤝',
+    title: 'SEND & AI: Making Tech Inclusive',
+    desc: 'Assistive AI tools, accessibility settings, and adapting outputs for students with additional needs.',
+    pages: '10 pages', audience: 'SEND / Inclusion',
+    bg: '#BBF7D0', text: '#14532D', sub: '#166534',   // soft green
   },
   {
     icon: '🎓',
-    title: 'AI Literacy for All Staff',
-    desc: 'A whole-school CPD framework — AI basics, role-specific use cases, and a 5-session INSET plan.',
-    audience: 'All Educators',
-    pages: '16 pages · PDF',
-    color: '#14b8a6',
-    bg: '#f0fdfa',
-    border: '#99f6e4',
+    title: 'Staff CPD: AI Literacy for All',
+    desc: 'Whole-school CPD framework — AI basics, role-specific use cases, 5-session INSET plan.',
+    pages: '16 pages', audience: 'All Staff',
+    bg: '#ECFDF5', text: '#064E3B', sub: '#059669',   // pale green
   },
 ] as const;
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
-};
-const cardVariants = {
-  hidden:  { opacity: 0, y: 22 },
-  visible: { opacity: 1, y: 0, transition: { type: 'spring' as const, stiffness: 260, damping: 24 } },
-};
-
 const GuidesSection: FC = () => (
-  <section id="guides" aria-labelledby="guides-heading" className="bg-gray-50 py-20 sm:py-24">
+  <section id="guides" aria-labelledby="guides-heading" className="bg-[#2D6A4F] py-20 sm:py-24">
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-      {/* Heading */}
       <motion.div
         className="text-center mb-12"
         initial={{ opacity: 0, y: 16 }}
@@ -60,69 +55,67 @@ const GuidesSection: FC = () => (
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <span className="inline-block bg-white border border-gray-200 text-gray-500 text-[11px] font-bold tracking-[0.16em] uppercase px-4 py-1.5 rounded-full mb-4">
+        <span className="inline-block bg-white/15 text-white text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full mb-4 border border-white/20">
           Free Downloads
         </span>
-        <h2 id="guides-heading" className="text-3xl sm:text-4xl font-black tracking-tight text-gray-900 leading-tight">
-          Free Guides &amp; Resources
+        <h2 id="guides-heading" className="text-4xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+          Guides &amp; Resources
         </h2>
-        <p className="mt-3 text-gray-500 text-base max-w-lg mx-auto">
+        <p className="mt-4 text-white/60 text-sm max-w-lg mx-auto">
           Professionally written for every role — download as PDF, no sign-up required.
         </p>
       </motion.div>
 
-      {/* Cards */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-3 gap-5"
-        variants={containerVariants}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-60px' }}
+        transition={{ staggerChildren: 0.07 }}
       >
         {GUIDES.map((g) => (
-          <motion.div key={g.title} variants={cardVariants}>
-            <motion.div
-              whileHover={{ y: -5, boxShadow: '0 16px 40px rgba(0,0,0,0.09)' }}
-              transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-              className="h-full rounded-2xl border p-6 flex flex-col gap-5"
-              style={{
-                backgroundColor: g.bg,
-                borderColor: g.border,
-                boxShadow: '0 2px 10px rgba(0,0,0,0.04)',
-              }}
+          <motion.div
+            key={g.title}
+            variants={{
+              hidden:  { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 22 } },
+            }}
+            whileHover={{ y: -4 }}
+          >
+            <div
+              className="h-full rounded-2xl p-8 flex flex-col gap-6 min-h-[260px] cursor-pointer"
+              style={{ backgroundColor: g.bg }}
             >
               {/* Icon */}
-              <span className="text-4xl" aria-hidden="true">{g.icon}</span>
+              <span className="text-5xl leading-none" aria-hidden="true">{g.icon}</span>
 
-              {/* Content */}
+              {/* Text body */}
               <div className="flex-1 flex flex-col gap-2">
-                <p className="text-[10.5px] font-black uppercase tracking-[0.14em]" style={{ color: g.color }}>
+                <p className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: g.sub }}>
                   {g.audience}
                 </p>
-                <h3 className="text-lg font-black text-gray-900 leading-snug">{g.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{g.desc}</p>
+                <h3 className="text-lg font-black leading-snug" style={{ color: g.text }}>{g.title}</h3>
+                <p className="text-sm leading-relaxed" style={{ color: g.sub }}>{g.desc}</p>
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between pt-4 border-t border-black/5">
-                <span className="text-xs text-gray-400">{g.pages}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-[11px]" style={{ color: g.sub }}>{g.pages}</span>
                 <motion.a
                   href="#"
                   download
-                  whileHover={{ x: 2 }}
-                  transition={{ type: 'spring', stiffness: 400 }}
-                  className="text-sm font-bold flex items-center gap-1 transition-colors"
-                  style={{ color: g.color }}
+                  whileHover={{ x: 3 }}
+                  className="text-sm font-bold transition-colors flex items-center gap-1"
+                  style={{ color: g.text }}
                   aria-label={`Download ${g.title}`}
                 >
-                  Download Guide →
+                  Download PDF →
                 </motion.a>
               </div>
-            </motion.div>
+            </div>
           </motion.div>
         ))}
       </motion.div>
-
     </div>
   </section>
 );

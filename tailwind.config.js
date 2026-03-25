@@ -4,12 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Brand palette ──────────────────────────────────────
+        // ── Brand palette (light sections) ────────────────────
         brand: {
-          blue:   '#2563eb',   // spec primary
-          purple: '#7c3aed',   // spec secondary
-          teal:   '#14b8a6',   // spec optional accent
+          blue:   '#3B82F6',
           green:  '#22C55E',
+          purple: '#8B5CF6',
           orange: '#F97316',
           amber:  '#D97706',
           gold:   '#F59E0B',
