@@ -1,9 +1,23 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import QuizForm from "../QuizForm";
+import { useState, useEffect } from "react";
 
 export default function TrainingSection() {
+  const [activeTab, setActiveTab] = useState("overview");
+
+  // Auto-open quiz tab when someone clicks the "60-Second Quiz" button
+  useEffect(() => {
+    if (window.location.hash === "#quiz") {
+      setActiveTab("quiz");
+      const section = document.getElementById("training-hub");
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, []);
+
   return (
-    <section className="py-16 bg-background">
+    <section id="training-hub" className="py-16 bg-background">
       <div className="container mx-auto px-6 max-w-6xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold tracking-tight mb-4">AI Training Hub</h2>
@@ -12,7 +26,7 @@ export default function TrainingSection() {
           </p>
         </div>
 
-        <Tabs defaultValue="overview" className="w-full">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-10 bg-muted/50 p-1 rounded-xl">
             <TabsTrigger value="overview" className="rounded-lg">Overview</TabsTrigger>
             <TabsTrigger value="paths" className="rounded-lg">Learning Paths</TabsTrigger>
@@ -20,14 +34,12 @@ export default function TrainingSection() {
             <TabsTrigger value="quiz" className="rounded-lg">Take Quiz</TabsTrigger>
           </TabsList>
 
-          {/* OVERVIEW TAB */}
           <TabsContent value="overview" className="space-y-8">
             <div className="prose max-w-none">
               <p>Welcome to the AI Training Hub! Here you'll find everything you need to go from beginner to pro.</p>
             </div>
           </TabsContent>
 
-          {/* LEARNING PATHS TAB */}
           <TabsContent value="paths" className="space-y-8">
             <div className="grid md:grid-cols-3 gap-6">
               <div className="p-6 border rounded-2xl">Beginner AI Basics</div>
@@ -36,12 +48,10 @@ export default function TrainingSection() {
             </div>
           </TabsContent>
 
-          {/* RESOURCES TAB */}
           <TabsContent value="resources" className="space-y-8">
             <p>Resources tab content goes here (videos, articles, PDFs…)</p>
           </TabsContent>
 
-          {/* QUIZ TAB — NOW FIXED */}
           <TabsContent value="quiz" className="max-w-3xl mx-auto">
             <QuizForm />
           </TabsContent>
