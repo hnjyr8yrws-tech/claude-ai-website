@@ -1,4 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import QuizForm from "../QuizForm";
 
 export default function TrainingSection() {
   return (
@@ -40,11 +41,9 @@ export default function TrainingSection() {
             <p>Resources tab content goes here (videos, articles, PDFs…)</p>
           </TabsContent>
 
-          {/* QUIZ TAB (placeholder for now) */}
+          {/* QUIZ TAB — NOW FIXED */}
           <TabsContent value="quiz" className="max-w-3xl mx-auto">
-            <div className="text-center py-12 border-2 border-dashed border-muted-foreground/30 rounded-3xl">
-              <p className="text-muted-foreground">Quiz form will go here (we'll add it in Task #3)</p>
-            </div>
+            <QuizForm />
           </TabsContent>
         </Tabs>
       </div>
