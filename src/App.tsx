@@ -11,10 +11,10 @@ import lightbulb from './assets/lightbulb.png';
 // ── Section components ─────────────────────────────────────────────────────────
 import Hero              from './components/sections/Hero';
 import WhyPromptly       from './components/sections/WhyPromptly';
-import ToolsGrid         from './components/sections/ToolsGrid';
 import TimeSavings       from './components/sections/TimeSavings';
-import SafetyScore       from './components/sections/SafetyScore';
-import GuidesSection     from './components/sections/GuidesSection';
+import AIToolsAndSafety  from './components/sections/AIToolsAndSafety';
+import Agents247Section   from './components/sections/Agents247Section';
+import { AgentChatModal, FloatingAgentBtn } from './components/AgentChatModal';
 import TrainingSection   from './components/sections/TrainingSection';
 import EquipmentReviews  from '@/components/EquipmentReviews';
 import Blog              from './components/sections/Blog';
@@ -29,8 +29,8 @@ import QuizForm from './components/QuizForm';
 // ── Types ──────────────────────────────────────────────────────────────────────
 
 type SectionId =
-  | 'hero' | 'why' | 'tools' | 'how' | 'safety'
-  | 'guides' | 'training' | 'equipment' | 'blog'
+  | 'hero' | 'why' | 'tools' | 'how' | 'safety' | 'agents'
+  | 'training' | 'equipment' | 'blog'
   | 'team' | 'vision' | 'newsletter';
 
 const NAV_ITEMS: { id: SectionId; label: string }[] = [
@@ -38,8 +38,7 @@ const NAV_ITEMS: { id: SectionId; label: string }[] = [
   { id: 'why',        label: 'Why Promptly' },
   { id: 'tools',      label: 'AI Tools' },
   { id: 'how',        label: 'How It Helps' },
-  { id: 'safety',     label: 'Safety Scores' },
-  { id: 'guides',     label: 'Guides' },
+  { id: 'agents',     label: 'Agents 24/7' },
   { id: 'training',   label: 'Training' },
   { id: 'equipment',  label: 'Equipment' },
   { id: 'blog',       label: 'Blog' },
@@ -344,8 +343,8 @@ const App: FC = () => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
   const sectionRefs = useRef<Record<SectionId, HTMLDivElement | null>>({
-    hero: null, why: null, tools: null, how: null, safety: null,
-    guides: null, training: null, equipment: null, blog: null,
+    hero: null, why: null, tools: null, how: null, safety: null, agents: null,
+    training: null, equipment: null, blog: null,
     team: null, vision: null, newsletter: null,
   });
 
@@ -440,26 +439,26 @@ const App: FC = () => {
         <div ref={setRef('hero')}>
           <Hero
             onExplore={() => scrollTo('tools')}
-            onGuides={() => scrollTo('guides')}
+            onGuides={() => scrollTo('training')}
           />
         </div>
 
         {/* 2. Why Promptly */}
         <div ref={setRef('why')}><WhyPromptly /></div>
 
-        {/* 3. Explore AI Tools */}
-        <div ref={setRef('tools')}><ToolsGrid /></div>
+        {/* 3. AI Tools Directory + Safety Score (merged split-screen) */}
+        <div ref={setRef('tools')}><AIToolsAndSafety /></div>
 
         {/* 4. How AI Helps */}
         <div ref={setRef('how')}><TimeSavings /></div>
 
-        {/* 5. Safety Score */}
-        <div ref={setRef('safety')}><SafetyScore /></div>
+        {/* 5. Safety Score (legacy — now merged above, kept for anchor) */}
+        <div ref={setRef('safety')} style={{ display: 'none' }} />
 
-        {/* 6. Guides */}
-        <div ref={setRef('guides')}><GuidesSection /></div>
+        {/* 5b. Agents 24/7 */}
+        <div ref={setRef('agents')}><Agents247Section /></div>
 
-        {/* 7. Free Training & Prompts (shadcn Tabs) */}
+        {/* 6. Free Training & Prompts (shadcn Tabs) */}
         <div ref={setRef('training')}><TrainingSection /></div>
 
         {/* 8. Equipment Reviews */}
@@ -483,8 +482,14 @@ const App: FC = () => {
       {/* ── Floating "Free Prompts" button ── */}
       <FloatingPromptBtn onScroll={() => scrollTo('training')} />
 
+      {/* ── Floating "Speak with an Agent" button ── */}
+      <FloatingAgentBtn />
+
       {/* ── GDPR Cookie banner ── */}
       <GDPRBanner />
+
+      {/* ── Agent chat modal ── */}
+      <AgentChatModal />
 
       {/* ── Quiz form modal ── */}
       <QuizForm open={quizOpen} onClose={() => setQuizOpen(false)} />

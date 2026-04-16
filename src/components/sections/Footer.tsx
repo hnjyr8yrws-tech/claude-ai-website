@@ -7,7 +7,7 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
-type SectionId = 'hero' | 'why' | 'tools' | 'how' | 'safety' | 'guides' | 'training' | 'equipment' | 'blog' | 'team' | 'vision' | 'newsletter';
+type SectionId = 'hero' | 'why' | 'tools' | 'how' | 'safety' | 'agents' | 'training' | 'equipment' | 'blog' | 'team' | 'vision' | 'newsletter';
 
 interface FooterProps {
   onNav: (id: SectionId) => void;
@@ -24,10 +24,10 @@ const NAV_COLS: { heading: string; links: { label: string; id: SectionId }[] }[]
     ],
   },
   {
-    heading: 'Safety & Guides',
+    heading: 'Safety & Training',
     links: [
       { label: 'Safety Scores',     id: 'safety' },
-      { label: 'Free Guides',       id: 'guides' },
+      { label: 'Agents 24/7',       id: 'agents' },
       { label: 'Training & Prompts',id: 'training' },
       { label: 'Equipment Reviews', id: 'equipment' },
     ],

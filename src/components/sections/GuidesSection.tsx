@@ -45,7 +45,7 @@ const GUIDES = [
 ] as const;
 
 const GuidesSection: FC = () => (
-  <section id="guides" aria-labelledby="guides-heading" className="bg-[#2D6A4F] py-20 sm:py-24">
+  <section id="guides" aria-labelledby="guides-heading" className="bg-[#2D6A4F] py-20 sm:py-24" style={{ scrollMarginTop: '64px' }}>
     <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
       <motion.div
