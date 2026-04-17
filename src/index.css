@@ -1,86 +1,96 @@
 /* ============================================================
    Global styles — getpromptly.co.uk
-   Light theme · Tailwind v3 · Framer Motion
+   Tailwind v3 · Framer Motion · Instrument Serif + Inter
    ============================================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ── shadcn/ui CSS variables ─────────────────────────────── */
+/* ── Design system CSS variables ──────────────────────────── */
 :root {
-  --background:         45 50% 99%;   /* #FEFDFB */
-  --foreground:         221 39% 11%;  /* #111827 ink */
+  /* Brand palette */
+  --bg:       #f7f6f2;   /* warm off-white */
+  --accent:   #00808a;   /* teal — headings and CTAs only */
+  --text:     #1c1a15;   /* near-black body text */
+  --dark-bg:  #111210;   /* agent / dark section */
+  --subtle:   #e8e6e0;   /* hairline borders */
+  --muted:    #6b6760;   /* secondary text */
+
+  /* shadcn/ui tokens (keep for component compatibility) */
+  --background:         40 30% 97%;
+  --foreground:         30 10% 10%;
   --card:               0 0% 100%;
-  --card-foreground:    221 39% 11%;
+  --card-foreground:    30 10% 10%;
   --popover:            0 0% 100%;
-  --popover-foreground: 221 39% 11%;
-  --primary:            217 91% 60%;  /* brand-blue #3B82F6 */
+  --popover-foreground: 30 10% 10%;
+  --primary:            183 100% 27%;   /* teal */
   --primary-foreground: 0 0% 100%;
-  --secondary:          142 71% 45%;  /* brand-green #22C55E */
-  --secondary-foreground: 0 0% 100%;
-  --muted:              220 14% 96%;
-  --muted-foreground:   220 9% 46%;
-  --accent:             25 95% 53%;   /* brand-orange #F97316 */
+  --secondary:          40 15% 94%;
+  --secondary-foreground: 30 10% 20%;
+  --muted:              40 15% 94%;
+  --muted-foreground:   30 8% 42%;
+  --accent:             183 100% 27%;
   --accent-foreground:  0 0% 100%;
   --destructive:        0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border:             220 13% 91%;
-  --input:              220 13% 91%;
-  --ring:               217 91% 60%;
+  --border:             40 12% 88%;
+  --input:              40 12% 88%;
+  --ring:               183 100% 27%;
   --radius:             0.75rem;
 }
 
 /* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: #FEFDFB;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
   color-scheme: light;
 }
 
-/* ── CSS property for conic shine (used sparingly) ───────── */
-@property --shine-angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
+/* ── Typography: Instrument Serif for display headings ───── */
+h1, h2, h3,
+.font-display {
+  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
-@keyframes shine-rotate {
-  to { --shine-angle: 360deg; }
-}
-
-/* ── Marquee animation ───────────────────────────────────── */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* ── Scrollbars (light) ──────────────────────────────────── */
+/* ── Scrollbars ──────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+::-webkit-scrollbar-thumb { background: var(--subtle); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #c5c2bb; }
 
 /* ── Text selection ──────────────────────────────────────── */
-::selection { background: rgba(59,130,246,0.2); color: #1e3a8a; }
+::selection { background: rgba(0,128,138,0.15); color: var(--text); }
 
-/* ── Global focus ring ───────────────────────────────────── */
+/* ── Focus ring ──────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid #3B82F6;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
-/* ── Prevent layout shift on scrollbar ──────────────────── */
-html { scrollbar-gutter: stable; }
-
-/* ── Framer Motion: disable for prefers-reduced-motion ───── */
+/* ── Reduced motion ──────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -89,39 +99,82 @@ html { scrollbar-gutter: stable; }
   }
 }
 
+/* ── Skip to main content link ───────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 99999;
+  padding: 10px 20px;
+  background: #00808a;
+  color: white;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 10px 10px;
+  transition: top 0.15s;
+}
+.skip-link:focus { top: 0; }
+
+/* ── Agent panel — full-screen on mobile, floating on sm+ ─────── */
+.agent-panel {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+@media (min-width: 640px) {
+  .agent-panel {
+    inset: auto;
+    bottom: 5rem;
+    right: 1rem;
+    width: min(400px, calc(100vw - 2rem));
+    height: min(580px, calc(100vh - 6rem));
+    border-radius: 1rem;
+  }
+}
+
+/* ── Screen-reader only utility ──────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Content-visibility for below-fold sections ──────────────── */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
 /* ── Utilities ───────────────────────────────────────────── */
 @layer utilities {
-  .animate-marquee {
-    animation: marquee 35s linear infinite;
+  .font-display {
+    font-family: 'Instrument Serif', Georgia, serif;
   }
-  .animate-marquee-slow {
-    animation: marquee 55s linear infinite;
-  }
-  /* Light card surface */
-  .card-light {
+  .text-accent { color: var(--accent); }
+  .bg-site    { background-color: var(--bg); }
+  .bg-dark    { background-color: var(--dark-bg); }
+  .text-muted-site { color: var(--muted); }
+  .border-subtle { border-color: var(--subtle); }
+
+  /* Clean editorial card */
+  .card-editorial {
     background: #ffffff;
-    border: 1px solid #E5E7EB;
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid var(--subtle);
+    border-radius: 12px;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
   }
-  .card-light:hover {
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
-  }
-  /* Warm cream section */
-  .bg-cream { background-color: #FEFDFB; }
-  .bg-cream-warm { background-color: #FFF7ED; }
-
-  /* Dark nav / hero — guaranteed rendering independent of Tailwind JIT */
-  .nav-dark {
-    background-color: rgba(15, 23, 42, 0.95) !important;
-    border-bottom: 1px solid #2D3F55 !important;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.06), 0 2px 12px rgba(0,0,0,0.3) !important;
-  }
-  .hero-dark { background-color: #0F172A !important; }
-  .hero-marquee { background-color: #1E293B !important; border-top: 1px solid #2D3F55 !important; }
-  .drawer-dark {
-    background-color: #0F172A !important;
-    border-right: 1px solid #2D3F55 !important;
+  .card-editorial:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
   }
 }

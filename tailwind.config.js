@@ -13,6 +13,17 @@ export default {
           amber:  '#D97706',
           gold:   '#F59E0B',
         },
+        site: {
+          bg:     '#f7f6f2',
+          dark:   '#111210',
+          subtle: '#e8e6e0',
+          muted:  '#6b6760',
+        },
+        teal: {
+          DEFAULT: '#00808a',
+          light:   '#e0f5f6',
+          dark:    '#005f66',
+        },
         cream: {
           DEFAULT: '#FEFDFB',
           warm:    '#FFF7ED',
@@ -81,8 +92,9 @@ export default {
         ring:    'hsl(var(--ring))',
       },
       fontFamily: {
-        sans: ['Inter var', 'Inter', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans:    ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Instrument Serif', 'Georgia', 'serif'],
+        mono:    ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       borderRadius: {
         lg:  'var(--radius)',
