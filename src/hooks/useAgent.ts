@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import { SYSTEM_PROMPTS, AgentRole } from '../api/agent';
+import { buildSystemPrompt, AgentRole, AgentMode } from '../api/agent';
 
 export interface Message {
   id: string;
@@ -17,13 +17,11 @@ interface UseAgentReturn {
 
 const ANTHROPIC_URL = 'https://api.anthropic.com/v1/messages';
 
-export function useAgent(role: AgentRole): UseAgentReturn {
+export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgentReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState<string | null>(null);
 
-  // Keep a ref so sendMessage always reads the latest messages without
-  // needing to be recreated on every render.
   const messagesRef = useRef<Message[]>([]);
   messagesRef.current = messages;
 
@@ -41,7 +39,6 @@ export function useAgent(role: AgentRole): UseAgentReturn {
     setLoading(true);
     setError(null);
 
-    // Build the payload — Anthropic expects [{role, content}] without our internal `id` field.
     const apiMessages = next.map(({ role, content }) => ({ role, content }));
 
     try {
@@ -51,20 +48,18 @@ export function useAgent(role: AgentRole): UseAgentReturn {
           'Content-Type': 'application/json',
           'x-api-key': apiKey,
           'anthropic-version': '2023-06-01',
-          // Required when calling the API directly from a browser.
           'anthropic-dangerous-allow-browser': 'true',
         },
         body: JSON.stringify({
-          model: 'claude-3-5-haiku-20241022',
-          max_tokens: 300,
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 350,
           temperature: 0.7,
-          system: SYSTEM_PROMPTS[role],
+          system: buildSystemPrompt(role, mode),
           messages: apiMessages,
         }),
       });
 
       if (!res.ok) {
-        // Try to extract Anthropic's error message; fall back to status code.
         const body = await res.json().catch(() => ({})) as { error?: { message?: string } };
         throw new Error(body?.error?.message ?? `API error ${res.status}`);
       }
@@ -81,7 +76,7 @@ export function useAgent(role: AgentRole): UseAgentReturn {
     } finally {
       setLoading(false);
     }
-  }, [role]); // role change reuses the same function but picks up new system prompt via closure
+  }, [role, mode]);
 
   const clearMessages = useCallback(() => {
     setMessages([]);

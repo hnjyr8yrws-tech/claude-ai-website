@@ -2,9 +2,13 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 const NAV = [
-  { label: 'AI Tools',  to: '/tools' },
-  { label: 'Equipment', to: '/equipment' },
-  { label: 'Training',  to: '/training' },
+  { label: 'AI Tools',         to: '/tools' },
+  { label: 'Equipment',        to: '/ai-equipment' },
+  { label: 'Training',         to: '/ai-training' },
+  { label: 'Prompts',          to: '/prompts' },
+  { label: 'For Schools',      to: '/schools' },
+  { label: 'Safety Methodology', to: '/safety-methodology' },
+  { label: 'Who We Are',        to: '/who-we-are' },
 ];
 
 const COMPLIANCE = [
