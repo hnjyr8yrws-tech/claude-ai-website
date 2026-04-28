@@ -84,14 +84,16 @@ const Hero: FC = () => (
 
         {/* CTAs */}
         <div className="flex flex-wrap gap-3">
-          <Link
-            to="/tools"
-            onClick={() => track({ name: 'cta_clicked', section: 'home-hero', label: 'Explore the Platform' })}
+          <button
+            onClick={() => {
+              track({ name: 'cta_clicked', section: 'home-hero', label: 'Explore the Platform' });
+              document.getElementById('platform-overview')?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
             style={{ background: TEAL, color: 'white' }}
           >
             Explore the Platform →
-          </Link>
+          </button>
           <button
             onClick={() => { track({ name: 'cta_clicked', section: 'home-hero', label: 'Ask Our Agent' }); openWidget(); }}
             className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
@@ -100,7 +102,7 @@ const Hero: FC = () => (
             Ask Our Agent
           </button>
           <Link
-            to="/ai-equipment/schools"
+            to="/schools"
             onClick={() => track({ name: 'cta_clicked', section: 'home-hero', label: 'For Schools' })}
             className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
             style={{ borderColor: '#d1cec8', color: '#6b6760' }}
@@ -118,7 +120,7 @@ const Hero: FC = () => (
         className="mt-14 flex flex-wrap gap-6 sm:gap-10"
       >
         {[
-          { n: '120+', label: 'AI tools reviewed' },
+          { n: '155',  label: 'AI tools reviewed' },
           { n: '96',   label: 'equipment products' },
           { n: '440+', label: 'ready-to-use prompts' },
           { n: '24/7', label: 'AI agent guidance' },
@@ -145,7 +147,7 @@ const ROLES = [
 ];
 
 const WhoItsFor: FC = () => (
-  <section style={{ background: 'white' }}>
+  <section id="platform-overview" style={{ background: 'white' }}>
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
       <FadeIn>
         <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Built for everyone</p>
@@ -193,7 +195,7 @@ const WhoItsFor: FC = () => (
 const PILLARS = [
   {
     title: 'AI Tools',
-    stat: '120+',
+    stat: '155',
     sub: 'tools reviewed',
     desc: 'Every major AI tool assessed against UK safety standards — KCSIE 2025, UK GDPR and Ofsted. With safety scores and independent editorial.',
     link: '/tools',
@@ -528,7 +530,7 @@ const SchoolsCTA: FC = () => (
       <FadeIn delay={0.1}>
         <div className="space-y-3">
           {[
-            { label: 'AI Tools', desc: '120+ tools reviewed with KCSIE safety scores', to: '/tools' },
+            { label: 'AI Tools', desc: '155 tools reviewed with KCSIE safety scores', to: '/tools' },
             { label: 'Staff Training', desc: 'Free and paid CPD for all school roles', to: '/ai-training/teachers' },
             { label: 'Equipment', desc: 'Classroom tech, SEND assistive tech and class packs', to: '/ai-equipment/schools' },
             { label: 'Prompt Packs', desc: '440+ prompts for teachers, SENCOs and leaders', to: '/prompts/teachers' },
@@ -674,9 +676,7 @@ const Home: FC = () => (
     <AgentsSection />
     <FeaturedCollections />
     <HowItWorks />
-    <Testimonials />
     <SchoolsCTA />
-    <LatestArticles />
   </>
 );
 

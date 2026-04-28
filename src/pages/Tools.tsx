@@ -332,13 +332,6 @@ function ToolCard({
           >
             Try Demo →
           </a>
-          <Link
-            to={`/tools/${tool.slug}`}
-            className="flex-1 text-center text-xs font-semibold py-2 rounded-lg border transition-colors hover:bg-[#f7f6f2]"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
-          >
-            Learn More
-          </Link>
           <button
             onClick={onToggleCompare}
             disabled={compareDisabled && !inCompare}

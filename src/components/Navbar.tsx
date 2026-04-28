@@ -3,10 +3,11 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const LINKS = [
-  { to: '/tools',     label: 'AI Tools' },
+  { to: '/tools',        label: 'AI Tools' },
   { to: '/ai-equipment', label: 'Equipment' },
   { to: '/ai-training',  label: 'Training' },
-  { to: '/schools',   label: 'For Schools' },
+  { to: '/prompts',      label: 'Prompts' },
+  { to: '/schools',      label: 'For Schools' },
 ];
 
 const Navbar: FC = () => {

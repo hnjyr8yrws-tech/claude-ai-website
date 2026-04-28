@@ -20,10 +20,9 @@ const COMPLIANCE = [
 // Legal items — Link components for real pages once they exist.
 // Using # as placeholder; swap for real routes when pages are built.
 const LEGAL = [
-  { label: 'Privacy Policy',      href: '#privacy' },
-  { label: 'Cookie Policy',       href: '#cookies' },
-  { label: 'Affiliate Disclosure',href: '#affiliate' },
-  { label: 'Contact',             href: 'mailto:hello@getpromptly.co.uk' },
+  { label: 'Privacy Policy',       to: '/legal#privacy' },
+  { label: 'Cookie Policy',        to: '/legal#cookies' },
+  { label: 'Affiliate Disclosure', to: '/legal#affiliate' },
 ];
 
 const Footer: FC = () => (
@@ -113,15 +112,24 @@ const Footer: FC = () => (
         <ul className="space-y-2.5" role="list">
           {LEGAL.map((item) => (
             <li key={item.label}>
-              <a
-                href={item.href}
+              <Link
+                to={item.to}
                 className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
                 style={{ color: '#6b6760' }}
               >
                 {item.label}
-              </a>
+              </Link>
             </li>
           ))}
+          <li>
+            <a
+              href="mailto:hello@getpromptly.co.uk"
+              className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+              style={{ color: '#6b6760' }}
+            >
+              Contact
+            </a>
+          </li>
         </ul>
       </nav>
     </div>

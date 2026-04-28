@@ -44,6 +44,7 @@ const AIEquipmentCategory = lazy(() => import('./pages/AIEquipmentCategory'));
 const AIEquipmentProduct  = lazy(() => import('./pages/AIEquipmentProduct'));
 const WhoWeAre            = lazy(() => import('./pages/WhoWeAre'));
 const Schools             = lazy(() => import('./pages/Schools'));
+const Legal               = lazy(() => import('./pages/Legal'));
 
 // ── Loading fallback ────────────────────────────────────────────────────────
 const PageLoader = () => (
@@ -120,6 +121,9 @@ const App = () => (
           <Route path="/who-we-are"                     element={<WhoWeAre />} />
           <Route path="/schools"                        element={<Schools />} />
           <Route path="/for-schools"                    element={<Navigate to="/schools" replace />} />
+          <Route path="/legal"                          element={<Legal />} />
+          <Route path="/privacy-policy"                 element={<Navigate to="/legal#privacy" replace />} />
+          <Route path="/cookie-policy"                  element={<Navigate to="/legal#cookies" replace />} />
         </Routes>
       </Suspense>
     </main>
