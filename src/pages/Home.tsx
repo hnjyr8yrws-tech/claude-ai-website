@@ -7,6 +7,7 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
+import { track } from '../utils/analytics';
 
 const TEAL = '#00808a';
 const DARK = '#111210';
@@ -85,13 +86,14 @@ const Hero: FC = () => (
         <div className="flex flex-wrap gap-3">
           <Link
             to="/tools"
+            onClick={() => track({ name: 'cta_clicked', section: 'home-hero', label: 'Explore the Platform' })}
             className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
             style={{ background: TEAL, color: 'white' }}
           >
             Explore the Platform →
           </Link>
           <button
-            onClick={openWidget}
+            onClick={() => { track({ name: 'cta_clicked', section: 'home-hero', label: 'Ask Our Agent' }); openWidget(); }}
             className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
             style={{ borderColor: '#d1cec8', color: '#6b6760' }}
           >
@@ -99,6 +101,7 @@ const Hero: FC = () => (
           </button>
           <Link
             to="/ai-equipment/schools"
+            onClick={() => track({ name: 'cta_clicked', section: 'home-hero', label: 'For Schools' })}
             className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
             style={{ borderColor: '#d1cec8', color: '#6b6760' }}
           >

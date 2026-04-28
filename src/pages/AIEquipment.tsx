@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
+import { track } from '../utils/analytics';
 import {
   EQUIPMENT,
   BUNDLES,
@@ -846,7 +847,10 @@ export default function AIEquipment() {
               type="search"
               placeholder="Search by name, brand or use case…"
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={e => {
+                setSearch(e.target.value);
+                if (e.target.value.length > 2) track({ name: 'search_performed', section: 'equipment', query: e.target.value });
+              }}
               className="w-full sm:max-w-sm px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2"
               style={{
                 borderColor: '#e8e6e0',

@@ -1,6 +1,8 @@
 import { FC, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import SEO from '../components/SEO';
+import { track } from '../utils/analytics';
 
 // ─── Design tokens ─────────────────────────────────────────────────────────────
 const TEAL   = '#00808a';
@@ -319,6 +321,7 @@ const ConsultationForm: FC = () => {
     e.preventDefault();
     // Placeholder — wire to backend / Formspree / EmailJS
     setSubmitted(true);
+    track({ name: 'email_capture_submitted', section: 'schools-consultation' });
   };
 
   if (submitted) {
@@ -449,6 +452,12 @@ const Schools: FC = () => {
 
   return (
     <div style={{ background: BG, color: TEXT }}>
+      <SEO
+        title="AI Advisory for UK Schools | GetPromptly"
+        description="From classroom AI tools to SEND technology, staff training to AI policy — GetPromptly helps UK schools make confident decisions about AI."
+        keywords="ai advisory for uk schools, school ai procurement uk, kcsie compliant ai tools schools"
+        path="/schools"
+      />
 
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
       <section style={{ background: DARK }}>

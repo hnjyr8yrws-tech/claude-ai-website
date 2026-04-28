@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SectionLabel from '../components/SectionLabel';
 import SEO from '../components/SEO';
+import { track } from '../utils/analytics';
 
 const TEAL = '#00808a';
 
@@ -609,7 +610,10 @@ export default function Tools() {
             <input
               type="search"
               value={search}
-              onChange={e => setSearch(e.target.value)}
+              onChange={e => {
+                setSearch(e.target.value);
+                if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value });
+              }}
               placeholder="Search 155 tools by name, category or description…"
               className="w-full pl-9 pr-4 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors"
               style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
@@ -631,7 +635,7 @@ export default function Tools() {
           {ROLE_TABS.map(r => (
             <button
               key={r}
-              onClick={() => setRoleTab(r)}
+              onClick={() => { setRoleTab(r); track({ name: 'filter_applied', section: 'tools', filter: 'role', value: r }); }}
               className="px-4 py-1.5 rounded-full text-sm font-medium border transition-all"
               style={roleTab === r
                 ? { background: TEAL, color: 'white', borderColor: TEAL }
@@ -674,7 +678,7 @@ export default function Tools() {
             return (
               <button
                 key={s}
-                onClick={() => setSafetyFilter(s)}
+                onClick={() => { setSafetyFilter(s); track({ name: 'filter_applied', section: 'tools', filter: 'safety', value: s }); }}
                 className="px-3 py-1 rounded-full text-xs font-semibold border transition-all"
                 style={safetyFilter === s
                   ? { background: style.bg, color: style.text, borderColor: style.text }
