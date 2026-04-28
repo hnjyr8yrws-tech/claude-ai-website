@@ -216,13 +216,12 @@ const Hero: FC = () => (
           </span>
 
           <h1 className="font-display leading-[1.08] mb-5" style={{ fontSize: 'clamp(2.2rem, 4.8vw, 3.8rem)', color: '#1c1a15' }}>
-            Find the right AI tools,<br />
-            training and prompts<br />
-            <em style={{ color: TEAL, fontStyle: 'italic' }}>for your role.</em>
+            Stop Guessing with AI.<br />
+            <em style={{ color: TEAL, fontStyle: 'italic' }}>Start Getting Promptly.</em>
           </h1>
 
           <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#6b6760' }}>
-            GetPromptly guides teachers, leaders, SENCOs, parents and students to the safest, most effective AI for UK education.
+            The UK's trusted platform for AI in education. Tools, training, equipment and prompts &mdash; curated for teachers, leaders, SENCOs, parents and students.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
