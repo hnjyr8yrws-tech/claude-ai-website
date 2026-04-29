@@ -11,6 +11,15 @@ const NAV = [
   { label: 'Who We Are',        to: '/who-we-are' },
 ];
 
+const ROLES = [
+  { label: 'Teachers',        to: '/teachers' },
+  { label: 'School Leaders',  to: '/school-leaders' },
+  { label: 'SENDCOs',         to: '/senco' },
+  { label: 'Parents',         to: '/parents' },
+  { label: 'Students',        to: '/students' },
+  { label: 'Admin Staff',     to: '/admin' },
+];
+
 const COMPLIANCE = [
   { label: 'KCSIE 2025', note: 'Aligned' },
   { label: 'GDPR',       note: 'Compliant' },
@@ -38,7 +47,7 @@ const Footer: FC = () => (
       </p>
     </div>
 
-    <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
 
       {/* Brand */}
       <div className="lg:col-span-2 space-y-4">
@@ -91,6 +100,26 @@ const Footer: FC = () => (
         </h3>
         <ul className="space-y-2.5" role="list">
           {NAV.map((link) => (
+            <li key={link.to}>
+              <Link
+                to={link.to}
+                className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+                style={{ color: '#6b6760' }}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* Roles */}
+      <nav aria-label="Role pages">
+        <h3 className="text-[11px] font-semibold tracking-widest uppercase mb-4" style={{ color: '#3a3835' }}>
+          I&rsquo;m a&hellip;
+        </h3>
+        <ul className="space-y-2.5" role="list">
+          {ROLES.map((link) => (
             <li key={link.to}>
               <Link
                 to={link.to}

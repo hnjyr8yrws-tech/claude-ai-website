@@ -46,6 +46,14 @@ const WhoWeAre            = lazy(() => import('./pages/WhoWeAre'));
 const Schools             = lazy(() => import('./pages/Schools'));
 const Legal               = lazy(() => import('./pages/Legal'));
 
+// ── Role-first pages ─────────────────────────────────────────────────────────
+const TeachersPage        = lazy(() => import('./pages/RolePage').then(m => ({ default: m.TeachersPage })));
+const LeadersPage         = lazy(() => import('./pages/RolePage').then(m => ({ default: m.LeadersPage })));
+const SencoPage           = lazy(() => import('./pages/RolePage').then(m => ({ default: m.SencoPage })));
+const ParentsRolePage     = lazy(() => import('./pages/RolePage').then(m => ({ default: m.ParentsRolePage })));
+const StudentsRolePage    = lazy(() => import('./pages/RolePage').then(m => ({ default: m.StudentsRolePage })));
+const AdminRolePage       = lazy(() => import('./pages/RolePage').then(m => ({ default: m.AdminRolePage })));
+
 // ── Loading fallback ────────────────────────────────────────────────────────
 const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
@@ -117,6 +125,14 @@ const App = () => (
           <Route path="/prompts/parents"                element={<PromptsParents />} />
           <Route path="/prompts/students"               element={<PromptsStudents />} />
           <Route path="/prompts/admin"                  element={<PromptsAdmin />} />
+
+          {/* Role-first pages */}
+          <Route path="/teachers"                        element={<TeachersPage />} />
+          <Route path="/school-leaders"                  element={<LeadersPage />} />
+          <Route path="/senco"                           element={<SencoPage />} />
+          <Route path="/parents"                         element={<ParentsRolePage />} />
+          <Route path="/students"                        element={<StudentsRolePage />} />
+          <Route path="/admin"                           element={<AdminRolePage />} />
 
           <Route path="/who-we-are"                     element={<WhoWeAre />} />
           <Route path="/schools"                        element={<Schools />} />

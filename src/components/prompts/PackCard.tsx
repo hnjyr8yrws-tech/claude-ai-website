@@ -13,7 +13,8 @@ interface Props {
 const PackCard = ({ pack }: Props) => {
   const [bookmarkTooltip, setBookmarkTooltip] = useState(false);
 
-  const firstPrompt = pack.prompts[0] ?? '';
+  const firstPromptObj = pack.prompts[0];
+  const firstPrompt = firstPromptObj ? (typeof firstPromptObj === 'string' ? firstPromptObj : firstPromptObj.prompt) : '';
   const extraSEN = pack.senFocus.length > 2 ? pack.senFocus.length - 2 : 0;
   const visibleSEN = pack.senFocus.slice(0, 2);
   const visibleRoles = pack.roles.slice(0, 2);

@@ -97,7 +97,7 @@ const AUDIENCES = [
     heading: 'Navigate procurement clearly and confidently',
     points: [
       'Understand the difference between Amazon, reseller and specialist procurement routes',
-      'Request quotes from relevant suppliers via GetPromptly',
+      'Find and compare relevant suppliers for your school',
       'Compare total cost of ownership across hardware bundles',
       'Access VAT exemption guidance for qualifying SEND items',
       'Identify Crown Commercial Service and ESFA framework options',

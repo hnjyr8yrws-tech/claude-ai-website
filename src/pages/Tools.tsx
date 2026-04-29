@@ -18,6 +18,8 @@ interface ToolRaw {
   name: string; category: string; subcategory: string;
   audience: string[]; ukReady: 'Yes' | 'Partial';
   safety: number; tier: Tier; desc: string; url: string; free: boolean;
+  lastReviewed?: string;
+  reviewNeeded?: true;
 }
 interface Tool extends ToolRaw { slug: string; }
 
@@ -28,19 +30,23 @@ function toSlug(name: string): string {
 // ─── Category colours ─────────────────────────────────────────────────────────
 
 const CAT_COLOURS: Record<string, { bg: string; text: string }> = {
-  'Teacher AI':   { bg: '#e0f5f6', text: TEAL },
-  'Student AI':   { bg: '#dbeafe', text: '#2563eb' },
-  'SEND':         { bg: '#f3e8ff', text: '#7c3aed' },
-  'Writing':      { bg: '#e0e7ff', text: '#4338ca' },
-  'General AI':   { bg: '#f3f4f6', text: '#374151' },
-  'Creative':     { bg: '#fce7f3', text: '#be185d' },
-  'Systems':      { bg: '#f1f5f9', text: '#475569' },
-  'Parents':      { bg: '#fef3c7', text: '#92400e' },
-  'Assessment':   { bg: '#fef9c3', text: '#854d0e' },
-  'Coding':       { bg: '#d1fae5', text: '#065f46' },
-  'Research':     { bg: '#ede9fe', text: '#5b21b6' },
-  'Productivity': { bg: '#e0f2fe', text: '#0369a1' },
-  'Wellbeing':    { bg: '#dcfce7', text: '#15803d' },
+  'Teacher AI':       { bg: '#e0f5f6', text: TEAL },
+  'Student AI':       { bg: '#dbeafe', text: '#2563eb' },
+  'SEND':             { bg: '#f3e8ff', text: '#7c3aed' },
+  'Writing':          { bg: '#e0e7ff', text: '#4338ca' },
+  'General AI':       { bg: '#f3f4f6', text: '#374151' },
+  'Creative':         { bg: '#fce7f3', text: '#be185d' },
+  'Systems':          { bg: '#f1f5f9', text: '#475569' },
+  'Parents':          { bg: '#fef3c7', text: '#92400e' },
+  'Assessment':       { bg: '#fef9c3', text: '#854d0e' },
+  'Coding':           { bg: '#d1fae5', text: '#065f46' },
+  'Research':         { bg: '#ede9fe', text: '#5b21b6' },
+  'Productivity':     { bg: '#e0f2fe', text: '#0369a1' },
+  'Wellbeing':        { bg: '#dcfce7', text: '#15803d' },
+  'MIS & Analytics':  { bg: '#fff7ed', text: '#c2410c' },
+  'Safeguarding':     { bg: '#fef2f2', text: '#991b1b' },
+  'AI Policy':        { bg: '#f0fdf4', text: '#15803d' },
+  'Literacy':         { bg: '#fdf4ff', text: '#86198f' },
 };
 
 const TIER_STYLE: Record<Tier, { bg: string; text: string }> = {
@@ -228,6 +234,128 @@ const TOOLS_RAW: ToolRaw[] = [
   // ── Wellbeing (2) ─────────────────────────────────────────────────────────
   { name:"Woebot", category:"Wellbeing", subcategory:"Mental Health AI", audience:["Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-powered mental health chatbot using CBT techniques to support emotional wellbeing.", url:"https://woebothealth.com", free:true },
   { name:"Togetherall", category:"Wellbeing", subcategory:"Mental Health", audience:["Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Safe online mental health community for young people, moderated by clinical staff.", url:"https://togetherall.com", free:false },
+
+  // ── Teacher AI — additional (10) ──────────────────────────────────────────
+  { name:"Quizizz", category:"Teacher AI", subcategory:"Quizzes & Gamification", audience:["Teachers","Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"AI quiz platform with gamified assessments, homework mode and auto-grading for any curriculum.", url:"https://quizizz.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Edpuzzle", category:"Teacher AI", subcategory:"Video Lessons", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Turn any video into an interactive lesson with AI-generated questions and student progress tracking.", url:"https://edpuzzle.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Wooclap", category:"Teacher AI", subcategory:"Audience Response", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Live audience response tool for lessons and CPD with polls, word clouds and AI question generation.", url:"https://www.wooclap.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Explain Everything", category:"Teacher AI", subcategory:"Interactive Whiteboard", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-enhanced digital whiteboard for creating interactive lesson recordings and collaborative work.", url:"https://explaineverything.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Class Companion", category:"Teacher AI", subcategory:"Writing Feedback", audience:["Teachers"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI writing feedback tool that gives students Socratic hints rather than answers to guide improvement.", url:"https://classcompanion.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Parlay", category:"Teacher AI", subcategory:"Discussion & Debate", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI discussion platform for structured classroom debates and Socratic seminars with tracking.", url:"https://parlayideas.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Loom for Education", category:"Teacher AI", subcategory:"Video Messaging", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Screen and camera recording tool for video feedback, lesson walkthroughs and parent updates.", url:"https://www.loom.com/education", free:true, lastReviewed:"Apr 2026" },
+  { name:"Whetstone Education", category:"Teacher AI", subcategory:"Teacher Observation", audience:["Teachers","SLT"], ukReady:"Partial", safety:8, tier:"Trusted", desc:"AI-assisted teacher observation and coaching platform for professional development and appraisal.", url:"https://www.whetstoneeducation.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Screencastify", category:"Teacher AI", subcategory:"Screen Recording", audience:["Teachers","Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Simple browser-based screen recorder for teacher video feedback and student digital projects.", url:"https://www.screencastify.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Classkick", category:"Teacher AI", subcategory:"Instant Feedback", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Real-time student work platform where teachers see class progress and give instant targeted feedback.", url:"https://classkick.com", free:true, lastReviewed:"Apr 2026" },
+
+  // ── Student AI — additional (10) ──────────────────────────────────────────
+  { name:"Hegarty Maths", category:"Student AI", subcategory:"UK Maths", audience:["Students","Schools"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK GCSE and KS3 maths platform with expert video lessons, practice questions and teacher dashboards.", url:"https://hegartymaths.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Dr Frost Maths", category:"Student AI", subcategory:"UK Maths", audience:["Students","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Free UK GCSE and A-Level maths platform with thousands of exam-style questions, videos and solutions.", url:"https://www.drfrostmaths.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"MathsWatch", category:"Student AI", subcategory:"UK Maths Revision", audience:["Students","Schools"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK GCSE maths revision VLE with video lessons aligned to AQA, Edexcel and OCR specifications.", url:"https://vle.mathswatch.co.uk", free:false, lastReviewed:"Apr 2026" },
+  { name:"Times Tables Rock Stars", category:"Student AI", subcategory:"Primary Maths", audience:["Students","Teachers","Parents"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Award-winning UK platform that uses music and games to master times tables in primary school.", url:"https://ttrockstars.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Sam Learning", category:"Student AI", subcategory:"UK Exam Prep", audience:["Students","Schools"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK GCSE and A-Level exam preparation platform with personalised revision and teacher progress tracking.", url:"https://www.samlearning.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Pobble", category:"Student AI", subcategory:"Creative Writing", audience:["Students","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK primary writing platform with daily prompts, student publishing and teacher planning resources.", url:"https://www.pobble.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"StudySmarter", category:"Student AI", subcategory:"AI Study Notes", audience:["Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI study platform that turns notes and PDFs into flashcards, summaries and personalised practice tests.", url:"https://www.studysmarter.co.uk", free:true, lastReviewed:"Apr 2026" },
+  { name:"Anki", category:"Student AI", subcategory:"Spaced Repetition", audience:["Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Free spaced repetition flashcard app — the gold standard for long-term memory and exam revision.", url:"https://apps.ankiweb.net", free:true, lastReviewed:"Apr 2026" },
+  { name:"Prodigy Math", category:"Student AI", subcategory:"Maths Game", audience:["Students","Parents"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Fantasy maths game that adapts to each student's level for engaging primary and KS3 maths practice.", url:"https://www.prodigygame.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Revision World", category:"Student AI", subcategory:"UK GCSE Revision", audience:["Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Free UK GCSE and A-Level revision notes, flashcards and past paper practice across all major subjects.", url:"https://revisionworld.com", free:true, lastReviewed:"Apr 2026" },
+
+  // ── SEND — additional (2) ─────────────────────────────────────────────────
+  { name:"Therapy Box", category:"SEND", subcategory:"AAC & SLT", audience:["Students","SENCO","Parents"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK-developed communication app suite for speech, language and communication needs including Grid Player.", url:"https://www.therapy-box.co.uk", free:false, lastReviewed:"Apr 2026" },
+  { name:"Pictello", category:"SEND", subcategory:"Social Stories", audience:["Students","SENCO","Parents"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Create personalised visual social stories and video models for students with autism and SEND.", url:"https://www.assistiveware.com/products/pictello", free:false, lastReviewed:"Apr 2026" },
+
+  // ── Writing — additional (6) ──────────────────────────────────────────────
+  { name:"NoRedInk", category:"Writing", subcategory:"Grammar", audience:["Students","Teachers"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-powered grammar and writing practice that adapts to each student's interests and level.", url:"https://www.noredink.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Turnitin Draft Coach", category:"Writing", subcategory:"Academic Writing", audience:["Students","Teachers"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Real-time citation and similarity checking integrated into Google Docs for academic writing support.", url:"https://www.turnitin.com/products/draft-coach/", free:false, lastReviewed:"Apr 2026" },
+  { name:"Writable", category:"Writing", subcategory:"Writing Feedback", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-assisted writing platform with peer review, rubrics and personalised feedback for all key stages.", url:"https://www.writable.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Copy.ai", category:"Writing", subcategory:"AI Content", audience:["Teachers","Admin"], ukReady:"Yes", safety:7, tier:"Guided", desc:"AI writing assistant for generating school communications, newsletters and policy draft content.", url:"https://www.copy.ai", free:true, lastReviewed:"Apr 2026" },
+  { name:"Jasper AI", category:"Writing", subcategory:"AI Content", audience:["Teachers","Admin","SLT"], ukReady:"Yes", safety:7, tier:"Guided", desc:"Professional AI writing tool for school marketing, annual reports and official documentation.", url:"https://www.jasper.ai", free:false, lastReviewed:"Apr 2026" },
+  { name:"Rytr", category:"Writing", subcategory:"AI Writing", audience:["Teachers","Students"], ukReady:"Yes", safety:7, tier:"Guided", desc:"Affordable AI writing assistant for generating lesson content, summaries and differentiated resources.", url:"https://rytr.me", free:true, lastReviewed:"Apr 2026" },
+
+  // ── Creative — additional (6) ─────────────────────────────────────────────
+  { name:"Descript", category:"Creative", subcategory:"Video & Audio Editing", audience:["Teachers","Students"], ukReady:"Yes", safety:7, tier:"Guided", desc:"AI video and podcast editor where you edit by editing the transcript — great for CPD content creation.", url:"https://www.descript.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"HeyGen", category:"Creative", subcategory:"AI Video Avatars", audience:["Teachers","Schools"], ukReady:"Yes", safety:7, tier:"Guided", desc:"Create AI avatar videos with a digital presenter for lesson content and school communications.", url:"https://www.heygen.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Kapwing", category:"Creative", subcategory:"Video Editing", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Online AI video editor for educational content, student media projects and classroom resources.", url:"https://www.kapwing.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"WeVideo", category:"Creative", subcategory:"Cloud Video", audience:["Students","Teachers"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Cloud-based video creation platform designed for schools with student collaboration and teacher controls.", url:"https://www.wevideo.com/education", free:true, lastReviewed:"Apr 2026" },
+  { name:"Piktochart", category:"Creative", subcategory:"Infographics", audience:["Teachers","Students","Admin"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-powered infographic and report creator for visualising data and producing school displays.", url:"https://piktochart.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Animoto", category:"Creative", subcategory:"Video Maker", audience:["Teachers","Students","Parents"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Simple AI video maker for celebration videos, school announcements and lesson recap clips.", url:"https://animoto.com", free:true, lastReviewed:"Apr 2026" },
+
+  // ── Parents — additional (5) ──────────────────────────────────────────────
+  { name:"Parent Zone", category:"Parents", subcategory:"Digital Safety", audience:["Parents","Schools"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"UK parent digital safety charity with expert guides on AI, screen time and online risks for families.", url:"https://parentzone.org.uk", free:true, lastReviewed:"Apr 2026" },
+  { name:"Family Zone", category:"Parents", subcategory:"Parental Controls", audience:["Parents"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Comprehensive parental control app covering school Wi-Fi and home digital wellbeing management.", url:"https://www.familyzone.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Google Family Link", category:"Parents", subcategory:"Parental Controls", audience:["Parents"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Free Google parental controls for managing children's apps, screen time and location on Android devices.", url:"https://families.google.com/familylink/", free:true, lastReviewed:"Apr 2026" },
+  { name:"CEOP ThinkUKnow", category:"Parents", subcategory:"Online Safety", audience:["Parents","Teachers"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"NCA-CEOP's ThinkUKnow resources for parents and teachers on child online safety and reporting abuse.", url:"https://www.thinkuknow.co.uk", free:true, lastReviewed:"Apr 2026" },
+  { name:"Talking Futures", category:"Parents", subcategory:"Careers Guidance", audience:["Parents","Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK Careers & Enterprise Company resource helping parents support career conversations with teenagers.", url:"https://www.talkingfutures.org.uk", free:true, lastReviewed:"Apr 2026" },
+
+  // ── Assessment — additional (5) ───────────────────────────────────────────
+  { name:"Edulastic", category:"Assessment", subcategory:"Standards Assessment", audience:["Teachers","Admin"], ukReady:"Partial", safety:8, tier:"Trusted", desc:"AI-powered formative and summative assessment with question banks and auto-scoring analytics.", url:"https://edulastic.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Socrative", category:"Assessment", subcategory:"Live Quizzes", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Simple classroom response system with space races, exit tickets and instant grade reports.", url:"https://www.socrative.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Quizalize", category:"Assessment", subcategory:"UK Curriculum Quizzes", audience:["Teachers","Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK curriculum-aligned quiz platform with mastery tracking and learning gap analysis for teachers.", url:"https://www.quizalize.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Plickers", category:"Assessment", subcategory:"No-Device Assessment", audience:["Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Paper-card classroom polling — students hold printed cards, teacher scans the room with a phone.", url:"https://get.plickers.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Ziplet", category:"Assessment", subcategory:"Exit Tickets", audience:["Teachers"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-powered digital exit ticket tool for quick formative assessment checks at the end of any lesson.", url:"https://ziplet.com", free:true, lastReviewed:"Apr 2026" },
+
+  // ── Coding — additional (3) ───────────────────────────────────────────────
+  { name:"Tinkercad", category:"Coding", subcategory:"3D Design & STEM", audience:["Students","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Free browser-based 3D design and electronics simulation tool from Autodesk for STEM education.", url:"https://www.tinkercad.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Raspberry Pi Foundation", category:"Coding", subcategory:"Physical Computing", audience:["Students","Teachers"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"UK computing education charity providing free curriculum, projects and teacher training resources.", url:"https://www.raspberrypi.org/education", free:true, lastReviewed:"Apr 2026" },
+  { name:"Kano Computing", category:"Coding", subcategory:"Creative Coding", audience:["Students","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK-based creative computing kit and online platform for ages 6–14 to learn coding and hardware.", url:"https://kano.me", free:false, lastReviewed:"Apr 2026" },
+
+  // ── Research — additional (6) ─────────────────────────────────────────────
+  { name:"Connected Papers", category:"Research", subcategory:"Literature Mapping", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Visual graph tool for exploring the academic literature landscape around any research paper or topic.", url:"https://www.connectedpapers.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"ResearchRabbit", category:"Research", subcategory:"Paper Discovery", audience:["Teachers","Students"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-powered paper discovery tool that surfaces relevant research and maps citation networks.", url:"https://www.researchrabbit.ai", free:true, lastReviewed:"Apr 2026" },
+  { name:"Semantic Scholar", category:"Research", subcategory:"AI Literature Search", audience:["Teachers","Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Free AI-powered academic search engine with TLDR summaries, citation networks and paper recommendations.", url:"https://www.semanticscholar.org", free:true, lastReviewed:"Apr 2026" },
+  { name:"Zotero", category:"Research", subcategory:"Citation Management", audience:["Teachers","Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Free open-source reference manager with AI features for organising and citing academic research.", url:"https://www.zotero.org", free:true, lastReviewed:"Apr 2026" },
+  { name:"SciSummary", category:"Research", subcategory:"Paper Summaries", audience:["Teachers","Students"], ukReady:"Yes", safety:7, tier:"Guided", desc:"AI tool that summarises academic papers into plain English — useful for evidence-based CPD preparation.", url:"https://scisummary.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Humata AI", category:"Research", subcategory:"Document Q&A", audience:["Teachers","Students","Admin"], ukReady:"Yes", safety:7, tier:"Guided", desc:"Chat with any PDF or document using AI — ideal for extracting insights from Ofsted reports and research.", url:"https://www.humata.ai", free:true, lastReviewed:"Apr 2026" },
+
+  // ── Productivity — additional (8) ─────────────────────────────────────────
+  { name:"Todoist AI", category:"Productivity", subcategory:"Task Management", audience:["Teachers","Admin","SLT"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-enhanced task manager with smart scheduling and priority sorting for busy school staff.", url:"https://todoist.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Asana", category:"Productivity", subcategory:"Project Management", audience:["Admin","SLT","Teachers"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-powered project management for school improvement planning, CPD coordination and team tasks.", url:"https://asana.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Zapier AI", category:"Productivity", subcategory:"Automation", audience:["Admin","SLT"], ukReady:"Yes", safety:7, tier:"Guided", desc:"No-code AI automation connecting school apps to eliminate repetitive admin and data-entry tasks.", url:"https://zapier.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Mem AI", category:"Productivity", subcategory:"AI Memory Notes", audience:["Teachers","Admin"], ukReady:"Yes", safety:7, tier:"Guided", desc:"AI note-taking app that automatically organises and surfaces relevant notes when you need them.", url:"https://mem.ai", free:false, lastReviewed:"Apr 2026" },
+  { name:"Reclaim AI", category:"Productivity", subcategory:"Smart Scheduling", audience:["Teachers","Admin","SLT"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI calendar tool that automatically protects planning, marking and CPD preparation time.", url:"https://reclaim.ai", free:true, lastReviewed:"Apr 2026" },
+  { name:"Clockwise", category:"Productivity", subcategory:"Calendar AI", audience:["Teachers","Admin","SLT"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI calendar assistant that finds optimal meeting times and protects focus time for school staff.", url:"https://www.getclockwise.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Coda AI", category:"Productivity", subcategory:"Collaborative Docs", audience:["Admin","SLT","Teachers"], ukReady:"Yes", safety:7, tier:"Guided", desc:"AI-powered doc and database tool for building school handbooks, tracking systems and planning documents.", url:"https://coda.io", free:true, lastReviewed:"Apr 2026" },
+  { name:"Tana", category:"Productivity", subcategory:"AI Note-Taking", audience:["Teachers","SLT"], ukReady:"Yes", safety:7, tier:"Guided", desc:"Next-gen note-taking with AI tagging and supertags for connecting school knowledge and strategic plans.", url:"https://tana.inc", free:false, lastReviewed:"Apr 2026" },
+
+  // ── Wellbeing — additional (5) ────────────────────────────────────────────
+  { name:"Wysa", category:"Wellbeing", subcategory:"Mental Health AI", audience:["Students","Parents"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI wellbeing coach using CBT and mindfulness techniques to support young people's mental health.", url:"https://www.wysa.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"Headspace for Education", category:"Wellbeing", subcategory:"Mindfulness", audience:["Students","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Mindfulness and meditation app with a dedicated free education programme for schools and staff.", url:"https://www.headspace.com/schools", free:true, lastReviewed:"Apr 2026" },
+  { name:"Calm for Schools", category:"Wellbeing", subcategory:"Mindfulness", audience:["Students","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Free school subscription to Calm's meditations, sleep stories and breathing exercises for classrooms.", url:"https://www.calm.com/schools", free:true, lastReviewed:"Apr 2026" },
+  { name:"Place2Be", category:"Wellbeing", subcategory:"SEMH Support", audience:["Students","SENCO","Parents"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"UK charity providing in-school counselling and mental health support to children and families.", url:"https://www.place2be.org.uk", free:false, lastReviewed:"Apr 2026" },
+  { name:"Unmind", category:"Wellbeing", subcategory:"Staff Wellbeing", audience:["Teachers","Admin","SLT"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Digital mental health platform for school staff offering evidence-based tools for wellbeing and resilience.", url:"https://unmind.com", free:false, lastReviewed:"Apr 2026" },
+
+  // ── MIS & Analytics (8) ───────────────────────────────────────────────────
+  { name:"SIMS (Capita)", category:"MIS & Analytics", subcategory:"UK MIS", audience:["Admin","SLT"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK's most widely used school management information system for pupil data, attendance and reporting.", url:"https://www.capita-sims.co.uk", free:false, lastReviewed:"Apr 2026" },
+  { name:"Bromcom", category:"MIS & Analytics", subcategory:"UK Cloud MIS", audience:["Admin","SLT","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Cloud-based UK MIS with behaviour, attendance, timetabling and parent communication modules.", url:"https://www.bromcom.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"ScholarPack", category:"MIS & Analytics", subcategory:"UK Primary MIS", audience:["Admin","SLT"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK cloud MIS designed specifically for primary schools with simple assessment and reporting tools.", url:"https://scholarpack.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Pupil Asset", category:"MIS & Analytics", subcategory:"UK Assessment MIS", audience:["Admin","SLT","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK pupil tracking and assessment platform with curriculum mapping, SEND tracking and progress analysis.", url:"https://www.pupilasset.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"FFT Aspire", category:"MIS & Analytics", subcategory:"School Data Analytics", audience:["SLT","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"National pupil progress and attainment analytics platform used by the majority of UK secondary schools.", url:"https://fft.org.uk/fft-aspire/", free:false, lastReviewed:"Apr 2026" },
+  { name:"SISRA Analytics", category:"MIS & Analytics", subcategory:"Exam Analytics", audience:["SLT","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK exam results analysis and Progress 8 tracking platform for school improvement and Ofsted planning.", url:"https://www.sisraanalytics.co.uk", free:false, lastReviewed:"Apr 2026" },
+  { name:"4Matrix", category:"MIS & Analytics", subcategory:"Progress Tracking", audience:["SLT","Teachers"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"School data analysis tool for tracking pupil progress, monitoring disadvantaged gaps and Ofsted preparation.", url:"https://www.4matrix.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Compass Education", category:"MIS & Analytics", subcategory:"Student Management", audience:["Admin","SLT","Teachers","Parents"], ukReady:"Partial", safety:8, tier:"Trusted", desc:"Comprehensive school management platform covering wellbeing, attendance, reporting and parent communications.", url:"https://www.compass.education", free:false, lastReviewed:"Apr 2026" },
+
+  // ── Safeguarding (6) ──────────────────────────────────────────────────────
+  { name:"MyConcern", category:"Safeguarding", subcategory:"Safeguarding Recording", audience:["Admin","SLT","SENCO"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"UK-leading safeguarding incident recording and case management system used in thousands of schools.", url:"https://www.myconcern.education", free:false, lastReviewed:"Apr 2026" },
+  { name:"Impero Education Pro", category:"Safeguarding", subcategory:"Classroom Monitoring", audience:["Admin","SLT","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK classroom monitoring software with AI safeguarding keyword alerts and remote screen supervision.", url:"https://www.imperosoftware.com/uk/", free:false, lastReviewed:"Apr 2026" },
+  { name:"Securus Software", category:"Safeguarding", subcategory:"Online Monitoring", audience:["Admin","SLT"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"AI-powered monitoring that alerts DSLs to at-risk student online behaviour and keyword activity.", url:"https://www.securussoftware.co.uk", free:false, lastReviewed:"Apr 2026" },
+  { name:"Lightspeed Systems", category:"Safeguarding", subcategory:"Internet Filtering", audience:["Admin","SLT"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"AI-driven internet filtering and student activity monitoring for UK school networks.", url:"https://www.lightspeedsystems.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"ActOn Safeguarding", category:"Safeguarding", subcategory:"Staff Training", audience:["Admin","SLT","Teachers","SENCO"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"UK-certified online safeguarding and KCSIE training platform for all school and college staff.", url:"https://www.actonsafeguarding.co.uk", free:false, lastReviewed:"Apr 2026" },
+  { name:"Eduspot Wellbeing", category:"Safeguarding", subcategory:"Pupil Welfare", audience:["Admin","SLT","SENCO","Teachers"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK pupil wellbeing and pastoral care management platform integrated with major MIS systems.", url:"https://www.eduspot.co.uk", free:false, lastReviewed:"Apr 2026" },
+
+  // ── AI Policy (5) ─────────────────────────────────────────────────────────
+  { name:"AI for Education (AIfE)", category:"AI Policy", subcategory:"UK AI Guidance", audience:["Teachers","SLT","Admin"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"UK organisation providing practical AI in education guidance, policy templates and school leader briefings.", url:"https://www.aiforeducation.co.uk", free:true, lastReviewed:"Apr 2026" },
+  { name:"NAACE AI in Education", category:"AI Policy", subcategory:"UK Framework", audience:["SLT","Teachers"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"NAACE's framework and guidance for school leaders implementing responsible AI across the curriculum.", url:"https://www.naace.co.uk/publications/artificial-intelligence-in-education", free:true, lastReviewed:"Apr 2026" },
+  { name:"DfE AI in Education Guidance", category:"AI Policy", subcategory:"Government Guidance", audience:["SLT","Admin","Teachers"], ukReady:"Yes", safety:10, tier:"Trusted", desc:"Official UK government guidance for schools and colleges on using generative AI tools safely.", url:"https://www.gov.uk/government/publications/generative-artificial-intelligence-in-education", free:true, lastReviewed:"Apr 2026" },
+  { name:"EdSafe AI Alliance", category:"AI Policy", subcategory:"International Standards", audience:["SLT","Teachers"], ukReady:"Partial", safety:9, tier:"Trusted", desc:"International alliance developing responsible AI standards and safe deployment practices for K-12 schools.", url:"https://www.edsafeai.org", free:true, lastReviewed:"Apr 2026" },
+  { name:"UNESCO AI in Education", category:"AI Policy", subcategory:"Global Guidance", audience:["SLT","Teachers"], ukReady:"Partial", safety:9, tier:"Trusted", desc:"UNESCO's competency framework and ethical guidance for schools deploying AI-based educational tools.", url:"https://www.unesco.org/en/digital-education/artificial-intelligence", free:true, lastReviewed:"Apr 2026" },
+
+  // ── Literacy (7) ──────────────────────────────────────────────────────────
+  { name:"Accelerated Reader", category:"Literacy", subcategory:"Reading Programme", audience:["Students","Teachers","Schools"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK's most popular reading practice programme with AI-personalised quizzes and vocabulary growth tracking.", url:"https://www.renaissance.com/products/accelerated-reader/", free:false, lastReviewed:"Apr 2026" },
+  { name:"Wordwall", category:"Literacy", subcategory:"Teaching Resources", audience:["Teachers","Students"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"Create interactive classroom activities, word games and resource templates widely used in UK schools.", url:"https://wordwall.net", free:true, lastReviewed:"Apr 2026" },
+  { name:"Reading Plus", category:"Literacy", subcategory:"Comprehension", audience:["Students","Schools"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"Adaptive reading comprehension platform that builds speed, fluency and critical thinking skills.", url:"https://www.readingplus.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Spelling Shed", category:"Literacy", subcategory:"UK Spelling", audience:["Students","Teachers","Parents"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK National Curriculum-aligned spelling platform with games, house challenges and teacher tracking.", url:"https://www.spellingshed.com", free:true, lastReviewed:"Apr 2026" },
+  { name:"IDL Literacy", category:"Literacy", subcategory:"Dyslexia Literacy", audience:["Students","SENCO","Schools"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK-developed evidence-based literacy intervention for students with dyslexia and reading difficulties.", url:"https://idlsgroup.com", free:false, lastReviewed:"Apr 2026" },
+  { name:"Lexia PowerUp", category:"Literacy", subcategory:"Secondary Literacy", audience:["Students","Schools"], ukReady:"Yes", safety:8, tier:"Trusted", desc:"AI-driven literacy programme for secondary students who are behind age-expected reading levels.", url:"https://www.lexialearning.com/products/powerup", free:false, lastReviewed:"Apr 2026" },
+  { name:"Phonics Hero", category:"Literacy", subcategory:"Phonics", audience:["Students","Teachers","Parents"], ukReady:"Yes", safety:9, tier:"Trusted", desc:"UK-developed online phonics programme aligned to Year 1 Phonics Screening Check with progress tracking.", url:"https://www.phonicshero.com", free:false, lastReviewed:"Apr 2026" },
 ];
 
 const TOOLS: Tool[] = TOOLS_RAW.map(t => ({ ...t, slug: toSlug(t.name) }));
@@ -239,12 +367,29 @@ const CAT_FILTERS = [
   'All', 'Teacher AI', 'Student AI', 'SEND', 'Writing', 'General AI',
   'Creative', 'Systems', 'Parents', 'Assessment', 'Coding',
   'Research', 'Productivity', 'Wellbeing',
+  'Literacy', 'MIS & Analytics', 'Safeguarding', 'AI Policy',
 ] as const;
 const SAFETY_FILTERS: SafetyFilter[] = ['All', 'Trusted', 'Guided', 'Emerging'];
 
 // ─── Safety badge (simple for grid performance) ───────────────────────────────
 
-function SafetyBadge({ score, tier }: { score: number; tier: string }) {
+function SafetyBadge({ score, tier, reviewNeeded }: { score: number; tier: string; reviewNeeded?: true }) {
+  if (reviewNeeded) {
+    return (
+      <div className="flex items-center gap-2">
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center text-[9px] font-bold text-white flex-shrink-0"
+          style={{ background: '#9ca3af' }}
+          aria-label="Review needed"
+        >
+          ?
+        </div>
+        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f3f4f6', color: '#6b7280' }}>
+          Review needed
+        </span>
+      </div>
+    );
+  }
   const colour = score >= 9 ? '#16a34a' : score >= 7 ? '#d97706' : score >= 5 ? '#ea580c' : '#dc2626';
   const ts = TIER_STYLE[tier as Tier] ?? { bg: '#f3f4f6', text: '#374151' };
   return (
@@ -318,7 +463,10 @@ function ToolCard({
 
         {/* Safety score */}
         <div className="mb-4">
-          <SafetyBadge score={tool.safety} tier={tool.tier} />
+          <SafetyBadge score={tool.safety} tier={tool.tier} reviewNeeded={tool.reviewNeeded} />
+          {tool.lastReviewed && (
+            <p className="text-[9px] mt-1" style={{ color: '#c5c2bb' }}>Reviewed {tool.lastReviewed}</p>
+          )}
         </div>
 
         {/* Actions */}
@@ -399,7 +547,7 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
   const rows: { label: string; render: (t: Tool) => React.ReactNode }[] = [
     { label: 'Category',    render: t => t.category },
     { label: 'Subcategory', render: t => t.subcategory },
-    { label: 'Safety',      render: t => <SafetyBadge score={t.safety} tier={t.tier} /> },
+    { label: 'Safety',      render: t => <SafetyBadge score={t.safety} tier={t.tier} reviewNeeded={t.reviewNeeded} /> },
     { label: 'UK Ready',    render: t => (
       <span className="text-xs font-bold px-2 py-0.5 rounded-full"
         style={t.ukReady === 'Yes' ? { background: '#dcfce7', color: '#166534' } : { background: '#f3f4f6', color: '#6b7280' }}>
@@ -528,7 +676,7 @@ export default function Tools() {
     if (sortOption === 'A-Z')
       copy.sort((a, b) => a.name.localeCompare(b.name));
     else
-      copy.sort((a, b) => b.safety - a.safety);
+      copy.sort((a, b) => (b.reviewNeeded ? -1 : b.safety) - (a.reviewNeeded ? -1 : a.safety));
     return copy;
   }, [roleTab, catFilter, safetyFilter, search, sortOption]);
 
@@ -547,8 +695,8 @@ export default function Tools() {
   return (
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <SEO
-        title="155 AI Tools for UK Schools – KCSIE Checked | GetPromptly"
-        description="155 AI tools independently reviewed and safety-scored for UK schools. Filter by role — teachers, SEND, students, parents, SLT. Every tool KCSIE 2025 assessed."
+        title={`${STAT_TOTAL} AI Tools for UK Schools – KCSIE Checked | GetPromptly`}
+        description={`${STAT_TOTAL} AI tools independently reviewed and safety-scored for UK schools. Filter by role — teachers, SEND, students, parents, SLT. Every tool KCSIE 2025 assessed.`}
         keywords="AI tools UK schools 2026, KCSIE AI tools, safe AI education, SEND AI tools, AI for teachers UK, school software reviews"
         path="/tools"
       />
@@ -561,7 +709,7 @@ export default function Tools() {
           <span style={{ color: TEAL }}>UK Education.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl mb-8" style={{ color: '#6b6760' }}>
-          {STAT_TOTAL} tools independently safety-scored against KCSIE 2025. Filtered by your role. No paid placements.
+          {STAT_TOTAL} tools independently safety-scored against KCSIE 2025. Filtered by your role. No paid placements. Last updated Apr 2026.
         </p>
 
         {/* Stat boxes */}
@@ -607,7 +755,7 @@ export default function Tools() {
                 setSearch(e.target.value);
                 if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value });
               }}
-              placeholder="Search 155 tools by name, category or description…"
+              placeholder={`Search ${STAT_TOTAL} tools by name, category or description…`}
               className="w-full pl-9 pr-4 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors"
               style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
             />

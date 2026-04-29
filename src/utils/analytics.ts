@@ -18,7 +18,12 @@ export type SiteEvent =
   | { name: 'agent_opened'; section: string }
   | { name: 'recommendation_clicked'; type: string }
   | { name: 'quote_cta_clicked'; section: string }
-  | { name: 'email_capture_submitted'; section: string };
+  | { name: 'email_capture_submitted'; section: string }
+  | { name: 'prompt_pack_view'; packSlug: string }
+  | { name: 'prompt_pack_preview_copy'; packSlug: string; promptIndex: number }
+  | { name: 'prompt_pack_email_submit'; packSlug: string; role: string }
+  | { name: 'prompt_pack_marketing_opt_in'; packSlug: string }
+  | { name: 'pathway_email_submit'; pathwaySlug: string };
 
 declare global {
   interface Window { gtag?: (...args: unknown[]) => void; }

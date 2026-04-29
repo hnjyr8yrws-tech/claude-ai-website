@@ -686,12 +686,12 @@ const PlatformNav: FC = () => (
 // ─── 9. Schools dark CTA ──────────────────────────────────────────────────────
 
 const SchoolsCTA: FC = () => (
-  <section style={{ background: DARK }}>
-    <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+  <section style={{ background: 'white' }}>
+    <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
       <FadeIn>
         <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>For schools &amp; trusts</p>
-        <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: 'white' }}>Whole-school AI advisory, without the jargon.</h2>
-        <p className="text-sm leading-relaxed max-w-md mb-8" style={{ color: '#9ca3af' }}>
+        <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: '#1c1a15' }}>Whole-school AI advisory, without the jargon.</h2>
+        <p className="text-sm leading-relaxed max-w-md mb-8" style={{ color: '#6b6760' }}>
           GetPromptly helps headteachers, SENCOs, IT leads and business managers make informed decisions about AI tools, staff training, SEND technology and procurement.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
@@ -701,8 +701,8 @@ const SchoolsCTA: FC = () => (
             GetPromptly for Schools &rarr;
           </Link>
           <button onClick={() => { track({ name: 'cta_clicked', section: 'home-schools-cta', label: 'Request consultation' }); openWidget(); }}
-            className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-white/5"
-            style={{ borderColor: '#374151', color: '#9ca3af' }}>
+            className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-[#f0ede8]"
+            style={{ borderColor: BORDER, color: '#6b6760' }}>
             Request a consultation
           </button>
         </div>
@@ -717,13 +717,13 @@ const SchoolsCTA: FC = () => (
           ].map(item => (
             <Link key={item.label} to={item.to} onClick={() => track({ name: 'cta_clicked', section: 'home-schools-links', label: item.label })}
               className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[#00808a] group"
-              style={{ borderColor: '#2a2825', background: '#1a1815' }}>
+              style={{ borderColor: BORDER, background: '#f7f6f2' }}>
               <span className="text-lg flex-shrink-0" aria-hidden="true">{item.emoji}</span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold group-hover:text-[#00808a] transition-colors" style={{ color: 'white' }}>{item.label}</p>
+                <p className="text-sm font-semibold group-hover:text-[#00808a] transition-colors" style={{ color: '#1c1a15' }}>{item.label}</p>
                 <p className="text-xs" style={{ color: '#6b6760' }}>{item.desc}</p>
               </div>
-              <span className="text-xs flex-shrink-0" style={{ color: '#374151' }} aria-hidden="true">&rarr;</span>
+              <span className="text-xs flex-shrink-0" style={{ color: '#a09d98' }} aria-hidden="true">&rarr;</span>
             </Link>
           ))}
         </div>

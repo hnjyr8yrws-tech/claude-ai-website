@@ -8,8 +8,14 @@ import {
   PATHWAY_PARENTS,
   PATHWAY_SEND,
   PATHWAY_LEADERS,
+  PATHWAY_SENCO,
+  PATHWAY_STUDENTS,
+  PATHWAY_ADMIN,
+  PATHWAY_SAFEGUARDING,
+  PATHWAY_POLICY,
   type TrainingItem,
 } from '../data/training';
+import PathwayEmailCTA from '../components/PathwayEmailCTA';
 
 const TEAL = '#00808a';
 const AMBER_BG = '#fef3c7';
@@ -20,13 +26,13 @@ const AMBER_BORDER = '#fcd34d';
 
 const STAT_TOTAL       = TRAINING.length;
 const STAT_FREE        = TRAINING.filter(t => t.type === 'Free').length;
-const STAT_UK_BACKED   = TRAINING.filter(t => t.ukRelevant && t.provider.toLowerCase().includes('government') || t.provider === 'GOV.UK').length;
-const STAT_CERTS       = TRAINING.filter(t => t.affiliate && t.type === 'Paid').length;
+const STAT_UK_BACKED   = TRAINING.filter(t => t.ukRelevant && !t.affiliate).length;
+const STAT_CERTS       = TRAINING.filter(t => t.certificate === true).length;
 
 // ─── Filter types ─────────────────────────────────────────────────────────────
 
 type TypeFilter     = 'All' | 'Free' | 'Paid';
-type AudienceFilter = 'All' | 'Teachers' | 'Parents' | 'Students' | 'SEND' | 'Leaders';
+type AudienceFilter = 'All' | 'Teachers' | 'Parents' | 'Students' | 'SEND' | 'Leaders' | 'Admin';
 
 const TYPE_TABS: { label: string; value: TypeFilter }[] = [
   { label: 'All',  value: 'All' },
@@ -41,6 +47,7 @@ const AUDIENCE_PILLS: { label: string; value: AudienceFilter }[] = [
   { label: 'Students',    value: 'Students' },
   { label: 'SEND',        value: 'SEND' },
   { label: 'Leaders',     value: 'Leaders' },
+  { label: 'Admin',       value: 'Admin' },
 ];
 
 // ─── Card component ───────────────────────────────────────────────────────────
@@ -65,19 +72,12 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             {item.category}
           </span>
           <div className="flex items-center gap-1.5 flex-shrink-0">
-            {item.type === 'Free' ? (
+            {item.type === 'Free' && (
               <span
                 className="text-[10px] font-bold px-2 py-0.5 rounded-full"
                 style={{ background: '#f0fdf4', color: '#15803d' }}
               >
                 Free
-              </span>
-            ) : (
-              <span
-                className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ background: '#fffbeb', color: '#92400e' }}
-              >
-                Paid
               </span>
             )}
             {item.ukRelevant && (
@@ -86,14 +86,6 @@ function TrainingCard({ item }: { item: TrainingItem }) {
                 style={{ background: '#e0f2fe', color: '#0369a1' }}
               >
                 UK
-              </span>
-            )}
-            {item.affiliate && (
-              <span
-                className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                style={{ background: '#f5f3ff', color: '#7c3aed' }}
-              >
-                Partner
               </span>
             )}
           </div>
@@ -120,6 +112,22 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           >
             {item.level}
           </span>
+          {item.duration && (
+            <span
+              className="text-[10px] font-medium px-2 py-0.5 rounded-full border"
+              style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+            >
+              {item.duration}
+            </span>
+          )}
+          {item.certificate && (
+            <span
+              className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
+              style={{ background: '#fef3c7', color: '#92400e' }}
+            >
+              🎓 Certificate
+            </span>
+          )}
         </div>
       </div>
 
@@ -130,15 +138,20 @@ function TrainingCard({ item }: { item: TrainingItem }) {
         <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>
           {item.cost}
         </span>
-        <a
-          href={item.url}
-          target="_blank"
-          rel={linkRel}
-          className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors"
-          style={{ background: TEAL, color: 'white' }}
-        >
-          Visit →
-        </a>
+        <div className="flex flex-col items-end gap-0.5">
+          <a
+            href={item.url}
+            target="_blank"
+            rel={linkRel}
+            className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors"
+            style={{ background: TEAL, color: 'white' }}
+          >
+            Visit →
+          </a>
+          {item.affiliate && (
+            <span className="text-[9px]" style={{ color: '#c5c2bb' }}>Affiliate link</span>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -151,6 +164,7 @@ interface PathwayCardProps {
   description: string;
   slugs: string[];
   to: string;
+  pathwaySlug: string;
   accentBg: string;
   accentText: string;
   accentBorder: string;
@@ -161,6 +175,7 @@ function PathwayCard({
   description,
   slugs,
   to,
+  pathwaySlug,
   accentBg,
   accentText,
   accentBorder,
@@ -198,11 +213,12 @@ function PathwayCard({
       </ul>
       <Link
         to={to}
-        className="inline-flex items-center gap-1 text-sm font-semibold rounded-lg transition-colors self-start"
+        className="inline-flex items-center gap-1 text-sm font-semibold rounded-lg transition-colors self-start mb-4"
         style={{ color: accentText }}
       >
         View pathway →
       </Link>
+      <PathwayEmailCTA pathwayName={title} pathwaySlug={pathwaySlug} />
     </div>
   );
 }
@@ -272,8 +288,8 @@ export default function AITraining() {
   return (
     <>
       <SEO
-        title="AI Training Hub — Free & Paid Courses for UK Educators | GetPromptly"
-        description="26 free and paid AI training resources curated for UK teachers, parents, students and school leaders. Government-backed, certificate courses and specialist pathways."
+        title={`AI Training Hub — ${STAT_TOTAL} Free & Paid Courses for UK Educators | GetPromptly`}
+        description={`${STAT_TOTAL} free and paid AI training resources curated for UK teachers, parents, students and school leaders. Government-backed, certificate courses and specialist pathways.`}
         keywords="AI training UK, free AI courses teachers, AI courses education, AI skills hub, AI learning parents, SEND AI resources"
         path="/ai-training"
       />
@@ -299,7 +315,7 @@ export default function AITraining() {
             {[
               { label: 'Total resources', value: STAT_TOTAL },
               { label: 'Completely free', value: STAT_FREE },
-              { label: 'UK government-backed', value: 4 },
+              { label: 'UK government-backed', value: STAT_UK_BACKED },
               { label: 'Certificate courses', value: STAT_CERTS },
             ].map(stat => (
               <div
@@ -365,12 +381,13 @@ export default function AITraining() {
             anywhere — each path is independently completable.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <PathwayCard
               title="AI for Teachers Starter Path"
               description="From understanding what AI is to using it safely in the classroom. Government-backed resources plus Google and Microsoft essentials."
               slugs={PATHWAY_TEACHERS}
               to="/ai-training/teachers"
+              pathwaySlug="teachers"
               accentBg="#f0fdf4"
               accentText="#15803d"
               accentBorder="#bbf7d0"
@@ -380,6 +397,7 @@ export default function AITraining() {
               description="Practical guidance on AI at home, keeping children safe online, and understanding AI tools your children may use."
               slugs={PATHWAY_PARENTS}
               to="/ai-training/parents"
+              pathwaySlug="parents"
               accentBg={AMBER_BG}
               accentText={AMBER_TEXT}
               accentBorder={AMBER_BORDER}
@@ -389,6 +407,7 @@ export default function AITraining() {
               description="Resources that work for learners with disabilities, focusing on accessibility features, screen readers and neurodiversity."
               slugs={PATHWAY_SEND}
               to="/ai-training/send"
+              pathwaySlug="send"
               accentBg="#eff6ff"
               accentText="#1d4ed8"
               accentBorder="#bfdbfe"
@@ -398,9 +417,60 @@ export default function AITraining() {
               description="For headteachers and governors: policy, implementation, safeguarding and whole-school CPD planning."
               slugs={PATHWAY_LEADERS}
               to="/ai-training/leaders"
-              accentBg="#111210"
+              pathwaySlug="leaders"
+              accentBg="#faf5ff"
+              accentText="#7c3aed"
+              accentBorder="#e9d5ff"
+            />
+            <PathwayCard
+              title="SENCO AI Toolkit"
+              description="SEND-specialist resources for SENCOs covering assistive tech, AAC, autism support and EHCP documentation."
+              slugs={PATHWAY_SENCO}
+              to="/ai-training/send"
+              pathwaySlug="senco"
+              accentBg="#fdf4ff"
+              accentText="#86198f"
+              accentBorder="#f0abfc"
+            />
+            <PathwayCard
+              title="AI Literacy for Students"
+              description="Age-appropriate resources helping students understand how AI works, stay safe online and use AI tools responsibly."
+              slugs={PATHWAY_STUDENTS}
+              to="/ai-training/students"
+              pathwaySlug="students"
+              accentBg="#e0f5f6"
               accentText="#00808a"
-              accentBorder="#1f2937"
+              accentBorder="#99d9de"
+            />
+            <PathwayCard
+              title="AI Productivity for Admin Teams"
+              description="Practical training for school business managers and admin staff on AI in Microsoft 365, Google Workspace and GDPR."
+              slugs={PATHWAY_ADMIN}
+              to="/ai-training"
+              pathwaySlug="admin"
+              accentBg="#fff7ed"
+              accentText="#c2410c"
+              accentBorder="#fed7aa"
+            />
+            <PathwayCard
+              title="AI Safeguarding Path"
+              description="Essential reading for DSLs and SLT: KCSIE 2024, JCQ policy, online harms and AI risk management."
+              slugs={PATHWAY_SAFEGUARDING}
+              to="/ai-training/leaders"
+              pathwaySlug="safeguarding"
+              accentBg="#fef2f2"
+              accentText="#991b1b"
+              accentBorder="#fecaca"
+            />
+            <PathwayCard
+              title="AI Policy & Governance"
+              description="For policy leads: ICO guidance, Ofqual AI integrity, ASCL briefings and building a whole-school AI policy."
+              slugs={PATHWAY_POLICY}
+              to="/ai-training/leaders"
+              pathwaySlug="policy"
+              accentBg="#f0fdf4"
+              accentText="#166534"
+              accentBorder="#bbf7d0"
             />
           </div>
         </div>

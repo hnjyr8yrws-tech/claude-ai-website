@@ -334,7 +334,7 @@ export default function AIEquipmentProduct() {
                     className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
                     style={{ borderColor: TEAL, color: TEAL }}
                   >
-                    Request a Quote
+                    Ask Promptly about pricing
                   </button>
                 )}
               </div>

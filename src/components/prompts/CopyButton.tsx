@@ -3,9 +3,10 @@ import { useState } from 'react';
 interface Props {
   text: string;
   size?: 'sm' | 'md';
+  onCopied?: () => void;
 }
 
-const CopyButton = ({ text, size = 'md' }: Props) => {
+const CopyButton = ({ text, size = 'md', onCopied }: Props) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -13,6 +14,7 @@ const CopyButton = ({ text, size = 'md' }: Props) => {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+      onCopied?.();
     } catch {
       // fallback
       const el = document.createElement('textarea');
@@ -23,6 +25,7 @@ const CopyButton = ({ text, size = 'md' }: Props) => {
       document.body.removeChild(el);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+      onCopied?.();
     }
   };
 

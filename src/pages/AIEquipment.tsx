@@ -250,15 +250,18 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
             {inCompare ? '✓ Added' : '+ Compare'}
           </button>
 
-          <a
-            href={product.affiliateLink}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
-          >
-            View →
-          </a>
+          <div className="flex flex-col items-end gap-0.5">
+            <a
+              href={product.affiliateLink}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
+              style={{ background: TEAL, color: 'white' }}
+            >
+              View →
+            </a>
+            <span className="text-[9px]" style={{ color: '#c5c2bb' }}>Affiliate link</span>
+          </div>
         </div>
       </div>
     </div>
@@ -658,7 +661,7 @@ export default function AIEquipment() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
             style={{ borderColor: '#e8e6e0', color: 'var(--text)' }}
           >
-            Request a School Quote
+            Ask Promptly for advice
           </button>
         </div>
       </div>
