@@ -10,6 +10,10 @@ const LINKS = [
   { to: '/prompts',      label: 'Prompts' },
 ];
 
+const DARK = '#0F1C1A';
+const LIME = '#BEFF00';
+const CREAM = '#F8F5F0';
+
 const Navbar: FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,9 +44,10 @@ const Navbar: FC = () => {
         role="banner"
         className="sticky top-0 z-40 w-full transition-all duration-300"
         style={{
-          background: scrolled ? 'rgba(247,246,242,0.97)' : 'var(--bg)',
-          borderBottom: scrolled ? '1px solid #e8e6e0' : '1px solid transparent',
-          backdropFilter: scrolled ? 'blur(12px)' : 'none',
+          background: scrolled ? 'rgba(248,245,240,0.86)' : 'transparent',
+          borderBottom: scrolled ? '1px solid rgba(15,28,26,0.08)' : '1px solid transparent',
+          backdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(14px) saturate(140%)' : 'none',
         }}
       >
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
@@ -50,19 +55,22 @@ const Navbar: FC = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 flex-shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+            className="flex items-center gap-2.5 flex-shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
             aria-label="GetPromptly – go to homepage"
           >
             <div
-              className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-              style={{ background: '#00808a' }}
+              className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{
+                background: DARK,
+                boxShadow: `0 0 0 1px rgba(190,255,0,0.35), 0 8px 16px rgba(15,28,26,0.18)`,
+              }}
               aria-hidden="true"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M7 1v12M1 7h12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
+                <path d="M7 1v12M1 7h12" stroke={LIME} strokeWidth="2.2" strokeLinecap="round"/>
               </svg>
             </div>
-            <span className="font-display text-lg leading-none" style={{ color: 'var(--text)' }}>
+            <span className="font-display text-lg leading-none" style={{ color: DARK }}>
               GetPromptly
             </span>
           </Link>
@@ -74,11 +82,18 @@ const Navbar: FC = () => {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  `relative px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
                     isActive
-                      ? 'text-[#00808a] bg-[#e0f5f6]'
-                      : 'text-[#6b6760] hover:text-[#1c1a15] hover:bg-[#eeece7]'
+                      ? 'text-white'
+                      : 'text-[#1A1A1A] hover:bg-black/[0.04]'
                   }`
+                }
+                style={({ isActive }) => isActive
+                  ? {
+                      background: DARK,
+                      boxShadow: `0 0 0 1px rgba(190,255,0,0.25), 0 8px 20px rgba(15,28,26,0.18)`,
+                    }
+                  : {}
                 }
               >
                 {link.label}
@@ -91,13 +106,18 @@ const Navbar: FC = () => {
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
               aria-label="Open Promptly AI chat"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2"
-              style={{ background: '#00808a' }}
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 min-h-[42px] rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+              style={{
+                background: `linear-gradient(180deg, #D6FF4A 0%, ${LIME} 100%)`,
+                color: DARK,
+                border: '1px solid rgba(15,28,26,0.16)',
+                boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+              }}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
                 <path
                   d="M8 1C4.13 1 1 3.69 1 7c0 1.66.77 3.16 2 4.23L2 15l4-1.73c.63.15 1.3.23 2 .23 3.87 0 7-2.69 7-6S11.87 1 8 1Z"
-                  fill="white"
+                  fill={DARK}
                 />
               </svg>
               Ask Promptly AI
@@ -106,13 +126,14 @@ const Navbar: FC = () => {
             {/* Hamburger — min 44×44px touch target */}
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg transition-colors hover:bg-[#eeece7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="md:hidden flex items-center justify-center w-11 h-11 rounded-xl transition-colors hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
               aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
+              style={{ color: DARK }}
             >
               <svg
-                width="18" height="18" viewBox="0 0 18 18"
+                width="20" height="20" viewBox="0 0 18 18"
                 fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"
                 aria-hidden="true"
               >
@@ -133,7 +154,8 @@ const Navbar: FC = () => {
             {/* Backdrop */}
             <motion.div
               aria-hidden="true"
-              className="fixed inset-0 z-30 bg-black/20 md:hidden"
+              className="fixed inset-0 z-30 md:hidden"
+              style={{ background: 'rgba(15,28,26,0.45)', backdropFilter: 'blur(4px)' }}
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMenuOpen(false)}
             />
@@ -143,21 +165,31 @@ const Navbar: FC = () => {
               role="navigation"
               aria-label="Mobile navigation"
               className="fixed top-16 inset-x-0 z-40 md:hidden border-b"
-              style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}
+              style={{
+                background: CREAM,
+                borderColor: 'rgba(15,28,26,0.08)',
+                boxShadow: '0 24px 48px rgba(15,28,26,0.12)',
+              }}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.18 }}
+              transition={{ duration: 0.22 }}
             >
-              <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1">
+              <div className="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1.5">
                 {LINKS.map((link) => (
                   <NavLink
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                      `px-4 py-3 rounded-xl text-sm font-medium transition-colors min-h-[44px] flex items-center ${
-                        isActive ? 'text-[#00808a] bg-[#e0f5f6]' : 'text-[#6b6760] hover:bg-[#eeece7]'
+                      `px-4 py-3 rounded-xl text-sm font-semibold transition-all min-h-[44px] flex items-center ${
+                        isActive
+                          ? 'text-white'
+                          : 'text-[#1A1A1A] hover:bg-black/[0.04]'
                       }`
+                    }
+                    style={({ isActive }) => isActive
+                      ? { background: DARK, boxShadow: `0 0 0 1px rgba(190,255,0,0.25)` }
+                      : {}
                     }
                   >
                     {link.label}
@@ -168,13 +200,18 @@ const Navbar: FC = () => {
                     setMenuOpen(false);
                     window.dispatchEvent(new CustomEvent('open-agent-chat'));
                   }}
-                  className="mt-2 px-4 py-3 min-h-[44px] rounded-xl text-sm font-semibold text-white text-left flex items-center gap-2"
-                  style={{ background: '#00808a' }}
+                  className="mt-3 px-4 py-3 min-h-[48px] rounded-xl text-sm font-bold flex items-center gap-2"
+                  style={{
+                    background: `linear-gradient(180deg, #D6FF4A 0%, ${LIME} 100%)`,
+                    color: DARK,
+                    border: '1px solid rgba(15,28,26,0.16)',
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+                  }}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
                     <path
                       d="M8 1C4.13 1 1 3.69 1 7c0 1.66.77 3.16 2 4.23L2 15l4-1.73c.63.15 1.3.23 2 .23 3.87 0 7-2.69 7-6S11.87 1 8 1Z"
-                      fill="white"
+                      fill={DARK}
                     />
                   </svg>
                   Ask Promptly AI
