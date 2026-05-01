@@ -11,6 +11,7 @@ import Home from './pages/Home';
 
 // ── Lazy-loaded pages ───────────────────────────────────────────────────────
 const Tools               = lazy(() => import('./pages/Tools'));
+const ToolDetail          = lazy(() => import('./pages/ToolDetail'));
 const Equipment           = lazy(() => import('./pages/Equipment'));
 const EquipmentSEND       = lazy(() => import('./pages/EquipmentSEND'));
 const EquipmentSchools    = lazy(() => import('./pages/EquipmentSchools'));
@@ -81,7 +82,8 @@ const App = () => (
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/"          element={<Home />} />
-          <Route path="/tools"     element={<Tools />} />
+          <Route path="/tools"          element={<Tools />} />
+          <Route path="/tools/:slug"    element={<ToolDetail />} />
 
           {/* Old equipment routes → redirect to new hub */}
           <Route path="/equipment"         element={<Navigate to="/ai-equipment" replace />} />

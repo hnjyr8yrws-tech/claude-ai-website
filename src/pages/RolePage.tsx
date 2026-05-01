@@ -3,7 +3,7 @@
  * Routes: /teachers, /school-leaders, /senco, /parents, /students, /admin
  */
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
@@ -57,6 +57,10 @@ export interface RoleData {
 
 const RolePage: FC<{ data: RoleData }> = ({ data }) => {
   const d = data;
+
+  useEffect(() => {
+    track({ name: 'role_selected', role: d.slug, pageType: 'role-page' });
+  }, [d.slug]);
 
   return (
     <div style={{ background: BG, color: '#1c1a15' }}>

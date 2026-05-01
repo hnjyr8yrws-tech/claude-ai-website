@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
+import AgentCTACard from '../components/AgentCTACard';
 
 const STATS = [
   { value: '50', label: 'Prompt Packs' },
@@ -166,19 +167,21 @@ const PromptsHub = () => {
         </div>
       </section>
 
-      {/* Agent CTA amber strip */}
-      <section className="px-5 sm:px-8 py-4" style={{ background: '#fef3c7', borderBottom: '1px solid #fcd34d' }}>
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center gap-3 justify-between">
-          <p className="text-sm font-medium" style={{ color: '#92400e' }}>
-            Not sure where to start? Ask the Promptly AI for a personalised prompt recommendation →
-          </p>
-          <button
-            onClick={handleWidgetClick}
-            className="flex-shrink-0 text-sm font-semibold px-4 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#92400e]"
-            style={{ background: '#92400e', color: 'white' }}
-          >
-            Ask the AI
-          </button>
+      {/* ── Agent CTA ── */}
+      <section className="px-5 sm:px-8 py-6" style={{ background: 'var(--bg)' }}>
+        <div className="max-w-5xl mx-auto">
+          <AgentCTACard
+            section="Promptly AI · Prompt Personaliser"
+            headline="Create a prompt pack for my situation."
+            description="Tell us your role, subject and what you need — our AI will craft the right prompts for you to copy and use instantly."
+            prompts={[
+              "Give me a differentiated lesson plan prompt for Year 9 English",
+              "I'm a SENCO — show me EHCP review prompts",
+              "Help me write a parent email about a behaviour concern",
+              "Give my GCSE student a revision prompt for tomorrow's exam",
+            ]}
+            analyticsSection="prompts"
+          />
         </div>
       </section>
 

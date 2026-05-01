@@ -16,6 +16,11 @@ import {
   type TrainingItem,
 } from '../data/training';
 import PathwayEmailCTA from '../components/PathwayEmailCTA';
+import AgentCTACard from '../components/AgentCTACard';
+import CrossSellCard from '../components/CrossSellCard';
+import CrossSellPopup from '../components/CrossSellPopup';
+import { useCrossSell } from '../hooks/useCrossSell';
+import { linkLabel, inferLinkType } from '../utils/linkType';
 
 const TEAL = '#00808a';
 const AMBER_BG = '#fef3c7';
@@ -146,7 +151,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors"
             style={{ background: TEAL, color: 'white' }}
           >
-            Visit →
+            {linkLabel(item.linkType ?? inferLinkType(item.url))} →
           </a>
           {item.affiliate && (
             <span className="text-[9px]" style={{ color: '#c5c2bb' }}>Affiliate link</span>
@@ -266,6 +271,12 @@ export default function AITraining() {
     [],
   );
 
+  // Cross-sell
+  const { inlineItems, popupItems, popupOpen, popupTrigger, closePopup } = useCrossSell({
+    currentSection: 'training',
+    roles: audienceFilter !== 'All' ? [audienceFilter] : undefined,
+  });
+
   // Main filterable grid
   const filtered = useMemo(() => {
     return TRAINING.filter(item => {
@@ -335,27 +346,21 @@ export default function AITraining() {
         </div>
       </section>
 
-      {/* ── Amber CTA strip ─────────────────────────────────────────────────── */}
+      {/* ── Agent CTA ─────────────────────────────────────────────────────── */}
       <section className="px-5 sm:px-8 pb-10" style={{ background: 'var(--bg)' }}>
         <div className="max-w-4xl mx-auto">
-          <div
-            className="rounded-2xl border px-6 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
-            style={{ background: AMBER_BG, borderColor: AMBER_BORDER }}
-          >
-            <p className="text-sm font-semibold" style={{ color: AMBER_TEXT }}>
-              Not sure where to start?
-            </p>
-            <button
-              className="text-sm font-bold px-4 py-2 rounded-lg border transition-colors self-start sm:self-auto"
-              style={{ background: 'white', borderColor: AMBER_BORDER, color: AMBER_TEXT }}
-              onClick={() => {
-                const w = document.querySelector<HTMLButtonElement>('[data-agent-trigger]');
-                if (w) w.click();
-              }}
-            >
-              Ask the AI for a personalised training recommendation →
-            </button>
-          </div>
+          <AgentCTACard
+            section="Promptly AI · Learning Pathfinder"
+            headline="Build my AI learning path."
+            description="Tell us your role and experience level — our AI advisor will recommend the right courses, certifications and free resources for you."
+            prompts={[
+              "What free AI training is available for UK teachers?",
+              "Which course gives the best certification for school leaders?",
+              "What AI training should a new SENCO start with?",
+              "I'm a parent — where do I learn about AI safety?",
+            ]}
+            analyticsSection="training"
+          />
         </div>
       </section>
 
@@ -739,6 +744,22 @@ export default function AITraining() {
         </div>
       </section>
 
+      {/* ── Cross-sell recommendations ──────────────────────────────────────── */}
+      {inlineItems.length > 0 && (
+        <section className="px-5 sm:px-8 py-10" style={{ background: 'var(--bg)' }}>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+              You might also like
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {inlineItems.map(item => (
+                <CrossSellCard key={item.id} item={item} sourceSection="training" />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Dark CTA ──────────────────────────────────────────────────────────── */}
       <section
         className="px-5 sm:px-8 py-20"
@@ -756,15 +777,22 @@ export default function AITraining() {
           <button
             className="px-6 py-3 rounded-xl font-semibold text-white transition-opacity hover:opacity-90"
             style={{ background: TEAL }}
-            onClick={() => {
-              const w = document.querySelector<HTMLButtonElement>('[data-agent-trigger]');
-              if (w) w.click();
-            }}
+            onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
           >
             Ask the Promptly AI →
           </button>
         </div>
       </section>
+
+      {/* Cross-sell popup */}
+      {popupOpen && popupItems.length > 0 && (
+        <CrossSellPopup
+          items={popupItems}
+          trigger={popupTrigger}
+          sourceSection="training"
+          onClose={closePopup}
+        />
+      )}
     </>
   );
 }

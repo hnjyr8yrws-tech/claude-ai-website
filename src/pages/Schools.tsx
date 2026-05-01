@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
+import AgentCTACard from '../components/AgentCTACard';
 
 // ─── Design tokens ─────────────────────────────────────────────────────────────
 const TEAL   = '#00808a';
@@ -889,34 +890,30 @@ const Schools: FC = () => {
         </div>
       </section>
 
-      {/* ── Dark CTA ─────────────────────────────────────────────────────────── */}
+      {/* ── Agent CTA ─────────────────────────────────────────────────────── */}
       <section style={{ background: DARK }}>
-        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16 text-center">
-          <FadeIn>
-            <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: 'white' }}>
-              Ready to start?
-            </h2>
-            <p className="text-base mb-8 leading-relaxed" style={{ color: '#a09d98' }}>
-              Ask our AI agent a question right now — no sign-up needed. Or request a consultation
-              and we will get back to you within two working days.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <button
-                onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: TEAL }}
-              >
-                Ask Promptly AI
-              </button>
-              <a
-                href="#consultation"
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
-              >
-                Request a Consultation
-              </a>
-            </div>
-          </FadeIn>
+        <div className="max-w-4xl mx-auto px-5 sm:px-8 py-16">
+          <AgentCTACard
+            section="Promptly AI · School Advisor"
+            headline="Build a school AI readiness plan."
+            description="Our AI advisor helps school leaders, IT leads and SENCOs navigate AI strategy, procurement and policy — no sign-up needed."
+            prompts={[
+              "Help me write a brief for our school's AI policy",
+              "What equipment is available via school purchasing frameworks?",
+              "Help me shortlist interactive displays for 12 classrooms",
+              "What's the procurement route for specialist AAC devices?",
+            ]}
+            analyticsSection="schools"
+          />
+          <div className="flex justify-center mt-6">
+            <a
+              href="#consultation"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
+            >
+              Or request a consultation →
+            </a>
+          </div>
         </div>
       </section>
 

@@ -4,6 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { track } from '../utils/analytics';
+import AgentCTACard from '../components/AgentCTACard';
+import CrossSellCard from '../components/CrossSellCard';
+import CrossSellPopup from '../components/CrossSellPopup';
+import { useCrossSell } from '../hooks/useCrossSell';
 import {
   EQUIPMENT,
   BUNDLES,
@@ -541,6 +545,13 @@ export default function AIEquipment() {
 
   const compareItems = useMemo(() => EQUIPMENT.filter(p => compareIds.includes(p.id)), [compareIds]);
 
+  // Cross-sell
+  const { inlineItems, popupItems, popupOpen, popupTrigger, closePopup } = useCrossSell({
+    currentSection: 'equipment',
+    roles: audienceFilter !== 'All' ? [audienceFilter] : undefined,
+    category: categoryFilter !== 'All' ? categoryFilter : undefined,
+  });
+
   function toggleCompare(id: string) {
     setCompareIds(prev =>
       prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 4 ? [...prev, id] : prev
@@ -682,26 +693,20 @@ export default function AIEquipment() {
         </div>
       </div>
 
-      {/* ── AGENT CTA STRIP ───────────────────────────────────────────────────── */}
-      <div
-        className="border-y px-5 sm:px-8 py-4"
-        style={{ background: AMBER_BG, borderColor: AMBER_BORDER }}
-      >
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
-          <p className="text-sm font-semibold" style={{ color: AMBER_TEXT }}>
-            Not sure what equipment your school needs? Ask the Promptly AI for a recommendation →
-          </p>
-          <button
-            onClick={() => {
-              const widget = document.getElementById('promptly-widget-trigger');
-              if (widget) (widget as HTMLButtonElement).click();
-            }}
-            className="flex-shrink-0 text-sm font-semibold px-4 py-2 rounded-xl transition-opacity hover:opacity-80"
-            style={{ background: AMBER_TEXT, color: 'white' }}
-          >
-            Ask the AI →
-          </button>
-        </div>
+      {/* ── AGENT CTA ───────────────────────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6">
+        <AgentCTACard
+          section="Promptly AI · Equipment Guide"
+          headline="Find equipment for this learner need."
+          description="Tell us who it's for, what you need and your budget — our AI advisor will recommend the right products and procurement routes."
+          prompts={[
+            "What's the best visualiser for a primary classroom?",
+            "Compare interactive whiteboards for a 30-pupil class",
+            "What SEND equipment helps with AAC communication?",
+            "Help me build a home learning setup for £300",
+          ]}
+          analyticsSection="equipment"
+        />
       </div>
 
       {/* ── AUDIENCE ENTRY CARDS ──────────────────────────────────────────────── */}
@@ -1088,7 +1093,19 @@ export default function AIEquipment() {
         </div>
       </div>
 
-      {/* ── CROSS-SELL STRIP ──────────────────────────────────────────────────── */}
+      {/* ── CROSS-SELL RECOMMENDATIONS ────────────────────────────────────────── */}
+      {inlineItems.length > 0 && (
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
+          <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+            You might also like
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {inlineItems.map(item => (
+              <CrossSellCard key={item.id} item={item} sourceSection="equipment" />
+            ))}
+          </div>
+        </div>
+      )}
       <div style={{ background: '#111210' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
           <p className="font-display text-xl text-white">More from GetPromptly</p>
@@ -1122,6 +1139,16 @@ export default function AIEquipment() {
           <CompareModal items={compareItems} onClose={() => setCompareOpen(false)} />
         )}
       </AnimatePresence>
+
+      {/* Cross-sell popup */}
+      {popupOpen && popupItems.length > 0 && (
+        <CrossSellPopup
+          items={popupItems}
+          trigger={popupTrigger}
+          sourceSection="equipment"
+          onClose={closePopup}
+        />
+      )}
     </div>
   );
 }

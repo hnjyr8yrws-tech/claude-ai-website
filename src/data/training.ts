@@ -1,3 +1,5 @@
+import type { LinkType } from '../utils/linkType';
+
 export interface TrainingItem {
   id: string;
   slug: string;
@@ -16,6 +18,8 @@ export interface TrainingItem {
   certificate?: boolean;
   duration?: string;
   why?: string;
+  /** Classifies what the outbound link opens — drives the CTA label */
+  linkType?: LinkType;
 }
 
 export const TRAINING: TrainingItem[] = [

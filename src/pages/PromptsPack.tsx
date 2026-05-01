@@ -11,6 +11,10 @@ import CopyButton from '../components/prompts/CopyButton';
 import PackCard from '../components/prompts/PackCard';
 import { PROMPT_PACKS, type StructuredPrompt } from '../data/prompts';
 import { track } from '../utils/analytics';
+import CrossSellCard from '../components/CrossSellCard';
+import CrossSellPopup from '../components/CrossSellPopup';
+import { useCrossSell } from '../hooks/useCrossSell';
+import type { CrossSellContext } from '../utils/crossSell';
 
 const PREVIEW_COUNT = 3;
 const WORKS_WITH = ['Claude', 'ChatGPT', 'Gemini', 'Perplexity'];
@@ -55,6 +59,25 @@ const PromptsPack = () => {
       track({ name: 'prompt_pack_view', packSlug: pack.slug });
     }
   }, [pack]);
+
+  // Cross-sell
+  const xsCtx = useMemo<CrossSellContext>(() => ({
+    currentSection: 'prompts',
+    itemName: pack?.title,
+    category: pack?.category,
+    roles: pack?.roles,
+    senFocus: pack?.senFocus,
+    tools: pack?.prompts?.[0]?.tools,
+  }), [pack]);
+  const { inlineItems, popupItems, popupOpen, popupTrigger, triggerPopup, closePopup } = useCrossSell(xsCtx);
+
+  const handlePromptCopy = (index: number) => {
+    if (pack) {
+      track({ name: 'prompt_pack_preview_copy', packSlug: pack.slug, promptIndex: index });
+      track({ name: 'prompt_preview_copied', packSlug: pack.slug, promptIndex: index });
+      triggerPopup('prompt_copied');
+    }
+  };
 
   if (!pack) {
     return (
@@ -182,7 +205,7 @@ const PromptsPack = () => {
                 prompt={prompt}
                 packTitle={pack.title}
                 index={i}
-                onCopy={() => track({ name: 'prompt_pack_preview_copy', packSlug: pack.slug, promptIndex: i })}
+                onCopy={() => handlePromptCopy(i)}
               />
             ))}
           </div>
@@ -257,6 +280,22 @@ const PromptsPack = () => {
         </div>
       </section>
 
+      {/* Cross-sell recommendations */}
+      {inlineItems.length > 0 && (
+        <section className="px-5 sm:px-8 py-10" style={{ background: 'var(--bg)' }}>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+              Recommended for you
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {inlineItems.slice(0, 2).map(item => (
+                <CrossSellCard key={item.id} item={item} sourceSection="prompts-pack" />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Related packs */}
       {relatedPacks.length > 0 && (
         <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
@@ -294,6 +333,16 @@ const PromptsPack = () => {
           <AgentCTA context="Tell the Promptly AI about your student, subject and situation for a personalised prompt." />
         </div>
       </section>
+
+      {/* Cross-sell popup */}
+      {popupOpen && popupItems.length > 0 && (
+        <CrossSellPopup
+          items={popupItems}
+          trigger={popupTrigger}
+          sourceSection="prompts-pack"
+          onClose={closePopup}
+        />
+      )}
     </>
   );
 };

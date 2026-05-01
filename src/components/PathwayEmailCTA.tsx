@@ -24,6 +24,7 @@ export default function PathwayEmailCTA({ pathwayName, pathwaySlug }: Props) {
     }
     setError('');
     track({ name: 'pathway_email_submit', pathwaySlug });
+    track({ name: 'training_path_email_submit', pathwaySlug });
     try { localStorage.setItem('promptly_email', trimmed); } catch { /* ignore */ }
     setSent(true);
   };
