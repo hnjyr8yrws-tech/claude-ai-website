@@ -272,34 +272,62 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
   );
 }
 
-// ─── Bundle card ──────────────────────────────────────────────────────────────
+// ─── Bundle card (expandable) ─────────────────────────────────────────────────
 
 function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div
-      className="rounded-2xl border p-5 flex flex-col gap-3"
+      className="rounded-2xl border overflow-hidden"
       style={{ borderColor: '#e8e6e0', background: 'white' }}
     >
-      <div>
-        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
-          Bundle · {bundle.totalPriceBand}
-        </p>
-        <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>
-          {bundle.name}
-        </h3>
-        <p className="text-xs mt-1" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
-      </div>
-      <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
-      <div className="flex flex-wrap gap-1.5">
-        {bundle.senCategory.map((s: string) => (
-          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
-            {s}
-          </span>
-        ))}
-        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f3f4f6', color: '#6b7280' }}>
-          {bundle.productSlugs.length} products
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        aria-expanded={open}
+        className="w-full flex items-start justify-between gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded-2xl"
+      >
+        <div className="flex-1">
+          <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
+            Ready-to-Use Equipment Set · {bundle.totalPriceBand}
+          </p>
+          <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>
+            {bundle.name}
+          </h3>
+          <p className="text-xs mt-1" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {bundle.senCategory.map((s: string) => (
+              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+                {s}
+              </span>
+            ))}
+            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f3f4f6', color: '#6b7280' }}>
+              {bundle.productSlugs.length} products
+            </span>
+          </div>
+        </div>
+        <span
+          className="flex-shrink-0 text-xs font-bold px-3 py-1 rounded-full border mt-1"
+          style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+        >
+          {open ? 'Close' : 'Open'}
         </span>
-      </div>
+      </button>
+
+      {open && (
+        <div className="border-t px-5 pb-5 pt-4" style={{ borderColor: '#e8e6e0' }}>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>{bundle.desc}</p>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: `${bundle.id}-equipment-set` } }))}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+            style={{ background: TEAL }}
+          >
+            Email me this equipment set
+          </button>
+        </div>
+      )}
     </div>
   );
 }
@@ -737,9 +765,19 @@ export default function AIEquipment() {
       {/* ── FEATURED COLLECTIONS ──────────────────────────────────────────────── */}
       <div className="border-y py-6 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#c5c2bb' }}>
-            Featured collections
-          </p>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#c5c2bb' }}>
+              Featured collections
+            </p>
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: 'equipment-shortlist' } }))}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+            >
+              Email me an equipment shortlist
+            </button>
+          </div>
           <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide flex-nowrap">
             {COLLECTIONS.map(col => (
               <button
@@ -828,9 +866,9 @@ export default function AIEquipment() {
 
       {/* ── BUNDLES ───────────────────────────────────────────────────────────── */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
-        <SectionLabel>Curated bundles</SectionLabel>
+        <SectionLabel>Ready-to-Use Equipment Sets</SectionLabel>
         <h2 className="font-display text-3xl mb-8" style={{ color: 'var(--text)' }}>
-          Ready-made Equipment Sets
+          Practical starter sets for real classroom needs
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {BUNDLES.map(b => (

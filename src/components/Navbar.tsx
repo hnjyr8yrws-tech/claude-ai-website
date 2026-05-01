@@ -3,11 +3,11 @@ import { NavLink, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const LINKS = [
-  { to: '/tools',        label: 'AI Tools' },
-  { to: '/ai-equipment', label: 'Equipment' },
-  { to: '/ai-training',  label: 'Training' },
-  { to: '/prompts',      label: 'Prompts' },
   { to: '/schools',      label: 'For Schools' },
+  { to: '/tools',        label: 'AI Tools' },
+  { to: '/ai-training',  label: 'Training' },
+  { to: '/ai-equipment', label: 'Equipment' },
+  { to: '/prompts',      label: 'Prompts' },
 ];
 
 const Navbar: FC = () => {
@@ -94,6 +94,12 @@ const Navbar: FC = () => {
               className="hidden sm:flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2"
               style={{ background: '#00808a' }}
             >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
+                <path
+                  d="M8 1C4.13 1 1 3.69 1 7c0 1.66.77 3.16 2 4.23L2 15l4-1.73c.63.15 1.3.23 2 .23 3.87 0 7-2.69 7-6S11.87 1 8 1Z"
+                  fill="white"
+                />
+              </svg>
               Ask Promptly AI
             </button>
 
@@ -162,9 +168,15 @@ const Navbar: FC = () => {
                     setMenuOpen(false);
                     window.dispatchEvent(new CustomEvent('open-agent-chat'));
                   }}
-                  className="mt-2 px-4 py-3 min-h-[44px] rounded-xl text-sm font-semibold text-white text-left"
+                  className="mt-2 px-4 py-3 min-h-[44px] rounded-xl text-sm font-semibold text-white text-left flex items-center gap-2"
                   style={{ background: '#00808a' }}
                 >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
+                    <path
+                      d="M8 1C4.13 1 1 3.69 1 7c0 1.66.77 3.16 2 4.23L2 15l4-1.73c.63.15 1.3.23 2 .23 3.87 0 7-2.69 7-6S11.87 1 8 1Z"
+                      fill="white"
+                    />
+                  </svg>
                   Ask Promptly AI
                 </button>
               </div>

@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import AgentCTACard from '../components/AgentCTACard';
+
+const TEAL = '#00808a';
 
 const STATS = [
   { value: '50', label: 'Prompt Packs' },
@@ -93,6 +96,87 @@ const COLLECTIONS = [
   { label: 'Free Resources', to: '/prompts/library' },
 ];
 
+const ROLE_PACKS = [
+  {
+    id: 'teachers',
+    role: 'For teachers',
+    headline: 'Plan, adapt and feedback faster',
+    desc: 'Lesson planning, differentiation, retrieval practice, whole-class feedback, parent updates and CPD reflection.',
+    offer: 'teacher-prompt-pack',
+    ctaLabel: 'Email me the teacher pack',
+    examples: [
+      'Create a lesson plan from a learning objective, class profile and likely misconceptions.',
+      'Adapt this task for stretch, scaffold, EAL and dyslexia-friendly access.',
+      'Turn common marking errors into a whole-class feedback slide and next-step task.',
+    ],
+  },
+  {
+    id: 'leaders',
+    role: 'For school leaders',
+    headline: 'Lead AI safely across your school',
+    desc: 'Policy drafting, staff briefings, governor updates, risk registers, Ofsted preparation and implementation planning.',
+    offer: 'leader-prompt-pack',
+    ctaLabel: 'Email me the leadership pack',
+    examples: [
+      'Draft a one-page AI acceptable-use policy for staff consultation.',
+      'Create a governor briefing that explains benefits, risks and safeguards.',
+      'Build a phased AI rollout plan with owners, milestones and review points.',
+    ],
+  },
+  {
+    id: 'senco',
+    role: 'For SENCOs',
+    headline: 'Reduce SEND paperwork without losing professional judgement',
+    desc: 'Provision mapping, EHCP review preparation, access arrangements, parent letters and classroom strategy sheets.',
+    offer: 'senco-prompt-pack',
+    ctaLabel: 'Email me the SENCO pack',
+    examples: [
+      'Summarise staff observations into neutral annual-review preparation notes.',
+      'Generate classroom strategies from a learner profile and known barriers.',
+      'Create an access-arrangements evidence checklist from assessment notes.',
+    ],
+  },
+  {
+    id: 'admin',
+    role: 'For school admin',
+    headline: 'Handle routine communication and templates faster',
+    desc: 'Parent letters, meeting summaries, policy drafts, timetable notices and internal updates.',
+    offer: 'admin-prompt-pack',
+    ctaLabel: 'Email me the admin pack',
+    examples: [
+      'Rewrite a parent email so it is clear, calm and school-appropriate.',
+      'Turn meeting notes into actions, owners and deadlines.',
+      'Draft a concise reminder for attendance, trips or deadline communication.',
+    ],
+  },
+  {
+    id: 'parents',
+    role: 'For parents',
+    headline: 'Support learning at home without doing the work for them',
+    desc: 'Homework help, revision plans, SEN advocacy, school communication and confidence-building routines.',
+    offer: 'parent-prompt-pack',
+    ctaLabel: 'Email me the parents pack',
+    examples: [
+      'Create a 20-minute revision routine for a reluctant GCSE learner.',
+      'Rewrite a school email so it is firm, polite and evidence-based.',
+      'Explain this homework task in simpler steps without giving the answer.',
+    ],
+  },
+  {
+    id: 'students',
+    role: 'For students',
+    headline: 'Use AI to study better, not shortcut learning',
+    desc: 'Revision, essay planning, exam practice, feedback reflection, focus routines and study confidence.',
+    offer: 'student-prompt-pack',
+    ctaLabel: 'Email me the student pack',
+    examples: [
+      'Create a revision plan from my exam date, topics and confidence scores.',
+      'Ask me Socratic questions to improve my essay argument.',
+      'Turn this mark scheme into a checklist I can use before submitting.',
+    ],
+  },
+];
+
 const STEPS = [
   { n: '01', title: 'Choose your role', desc: 'Pick the section that matches you — teacher, parent, student, SENCO or school leader.' },
   { n: '02', title: 'Browse or search', desc: 'Filter by category, SEN focus area or key stage to find the right pack instantly.' },
@@ -101,20 +185,81 @@ const STEPS = [
   { n: '05', title: 'Get better results', desc: 'Use the Promptly AI agent for a personalised prompt tailored to your exact situation.' },
 ];
 
+function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <button
+        type="button"
+        onClick={() => setOpen(o => !o)}
+        aria-expanded={open}
+        className="w-full p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded-2xl"
+      >
+        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>{pack.role}</p>
+        <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{pack.headline}</h3>
+        <p className="text-sm mt-1.5 leading-relaxed" style={{ color: '#6b6760' }}>{pack.desc}</p>
+        <span className="inline-block mt-3 text-xs font-bold" style={{ color: TEAL }}>
+          {open ? '▲ Less' : '▼ See example prompts'}
+        </span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22 }}
+            style={{ overflow: 'hidden' }}
+          >
+            <div className="border-t px-5 pb-5 pt-4" style={{ borderColor: '#e8e6e0' }}>
+              <ul className="space-y-2 mb-5">
+                {pack.examples.map((ex, i) => (
+                  <li key={i} className="flex gap-2 text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5" style={{ background: '#e0f5f6', color: TEAL }}>{i + 1}</span>
+                    {ex}
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: pack.offer } }))}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                style={{ background: TEAL }}
+              >
+                {pack.ctaLabel}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
 const PromptsHub = () => {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
+  const [freePackEmail, setFreePackEmail] = useState('');
+  const [freePackSent, setFreePackSent] = useState(false);
+  const [freePackSending, setFreePackSending] = useState(false);
 
   const handleWidgetClick = () => {
     const trigger = document.getElementById('promptly-widget-trigger');
     if (trigger) trigger.click();
   };
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleFreePackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
-      setSubmitted(true);
-    }
+    const email = freePackEmail.trim();
+    if (!email) return;
+    setFreePackSending(true);
+    try {
+      await fetch('/api/lead-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, offer: 'free-prompt-pack', page: '/prompts', source: 'getpromptly-site' }),
+      });
+    } catch { /* fail silently — still show success */ }
+    setFreePackSent(true);
+    setFreePackSending(false);
   };
 
   return (
@@ -281,55 +426,54 @@ const PromptsHub = () => {
         </div>
       </section>
 
-      {/* Monetisation section */}
-      <section className="px-5 sm:px-8 py-16" style={{ background: '#111210' }}>
+      {/* Ready-to-Use Prompt Packs */}
+      <section className="px-5 sm:px-8 py-16" style={{ background: 'var(--bg)' }}>
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <SectionLabel className="text-[#00808a]">Access</SectionLabel>
-            <h2 className="font-display text-3xl text-white mb-3">Free to use. More coming soon.</h2>
-            <p className="text-sm max-w-xl mx-auto" style={{ color: '#6b6760' }}>
-              Browse and copy all sample prompts — free forever. Premium packs and school bundles arriving soon.
-            </p>
+          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start mb-10">
+            <div>
+              <SectionLabel>Ready-to-Use Prompt Packs</SectionLabel>
+              <h2 className="font-display text-3xl mt-2 mb-3" style={{ color: 'var(--text)' }}>
+                Practical prompts for the work educators actually do.
+              </h2>
+              <p className="text-base leading-relaxed" style={{ color: '#6b6760' }}>
+                Choose a role, open a pack and get prompts for planning, feedback, SEND support, leadership, parent communication and admin workflows.
+              </p>
+            </div>
+            <div className="rounded-2xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+              <h3 className="font-semibold text-base mb-1" style={{ color: 'var(--text)' }}>Start with the free pack</h3>
+              <p className="text-sm mb-3" style={{ color: '#6b6760' }}>We'll email a role-specific starter pack you can copy into Claude, ChatGPT or Gemini today.</p>
+              {freePackSent ? (
+                <p className="text-sm font-semibold py-2" style={{ color: TEAL }}>✓ Check your inbox — pack sent!</p>
+              ) : (
+                <form onSubmit={handleFreePackSubmit} className="flex flex-col sm:flex-row gap-2">
+                  <label htmlFor="free-pack-email" className="sr-only">Email address</label>
+                  <input
+                    id="free-pack-email"
+                    type="email"
+                    value={freePackEmail}
+                    onChange={e => setFreePackEmail(e.target.value)}
+                    placeholder="Your school email"
+                    required
+                    className="flex-1 px-4 py-2.5 rounded-xl text-sm border outline-none focus:ring-2 focus:ring-[#00808a]"
+                    style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: 'var(--text)' }}
+                  />
+                  <button
+                    type="submit"
+                    disabled={freePackSending}
+                    className="flex-shrink-0 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
+                    style={{ background: TEAL }}
+                  >
+                    {freePackSending ? 'Sending…' : 'Get your free prompt pack'}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-10">
-            {[
-              { label: 'Free tier', value: 'Browse and copy all sample prompts — free forever' },
-              { label: 'Premium Pack Downloads', value: '£4.99–£9.99 per pack — coming soon' },
-              { label: 'School Bundle', value: 'All 50 packs + agent access — £49/year — coming soon' },
-            ].map((item) => (
-              <div key={item.label} className="p-5 rounded-xl border" style={{ borderColor: '#2a2825' }}>
-                <p className="text-[11px] font-semibold tracking-widest uppercase mb-2" style={{ color: '#00808a' }}>{item.label}</p>
-                <p className="text-sm" style={{ color: '#a09d98' }}>{item.value}</p>
-              </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {ROLE_PACKS.map(pack => (
+              <ExpandablePackCard key={pack.id} pack={pack} />
             ))}
-          </div>
-
-          {/* Email capture */}
-          <div className="max-w-md mx-auto text-center">
-            <p className="text-sm font-medium mb-3 text-white">Get notified when premium packs launch</p>
-            {submitted ? (
-              <p className="text-sm" style={{ color: '#00808a' }}>Thanks — we'll be in touch!</p>
-            ) : (
-              <form onSubmit={handleEmailSubmit} className="flex gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  required
-                  className="flex-1 px-3 py-2 rounded-lg text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a]"
-                  style={{ background: '#1f1d1b', borderColor: '#2a2825', color: 'white' }}
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-lg text-sm font-semibold transition-colors"
-                  style={{ background: '#00808a', color: 'white' }}
-                >
-                  Notify me
-                </button>
-              </form>
-            )}
           </div>
         </div>
       </section>

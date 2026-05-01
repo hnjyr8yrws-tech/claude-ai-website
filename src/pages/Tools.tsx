@@ -901,10 +901,18 @@ export default function Tools() {
           {/* Main grid */}
           <div className="flex-1 min-w-0">
             {filtered.length === 0 ? (
-              <div className="p-12 text-center rounded-2xl border" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-                <p className="text-sm" style={{ color: '#6b6760' }}>
-                  No tools match your filters. Try adjusting your search or removing a filter.
+              <div className="p-10 text-center rounded-2xl border" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+                <p className="font-display text-lg mb-2" style={{ color: 'var(--text)' }}>No exact matches yet.</p>
+                <p className="text-sm mb-5" style={{ color: '#6b6760' }}>
+                  Try removing one filter, searching a broader task such as "feedback" or "SEND", or suggest a tool for review.
                 </p>
+                <a
+                  href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                  style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+                >
+                  Suggest a tool at info@getpromptly.co.uk
+                </a>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -1025,6 +1033,28 @@ export default function Tools() {
         </div>
 
         {/* Mobile agent CTA — handled by the hero AgentCTACard above */}
+      </div>
+
+      {/* ── SUGGEST A TOOL ── */}
+      <div style={{ background: 'white' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
+          <div className="rounded-2xl border p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5" style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}>
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: TEAL }}>Suggest a tool</p>
+              <h2 className="font-display text-xl mb-1.5" style={{ color: 'var(--text)' }}>Know a tool we should review?</h2>
+              <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+                Email the GetPromptly team with the tool name, website and the school role it supports.
+              </p>
+            </div>
+            <a
+              href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly"
+              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              style={{ background: TEAL }}
+            >
+              info@getpromptly.co.uk
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* ── CROSS-SELL STRIP ── */}

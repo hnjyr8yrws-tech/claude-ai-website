@@ -178,3 +178,45 @@ h1, h2, h3,
     transform: translateY(-2px);
   }
 }
+
+/* ── GetPromptly component layer ─────────────────────────── */
+/* Additive only — does not override existing brand tokens   */
+
+.gp-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--subtle);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.76);
+  padding: 0.4rem 0.75rem;
+  color: #0a4c44;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.gp-card {
+  border: 1px solid var(--subtle);
+  border-radius: 1.25rem;
+  background: #ffffff;
+  box-shadow: 0 18px 50px rgba(15,40,34,0.07);
+}
+
+/* Lead-capture inline forms */
+.gp-lead-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+@media (min-width: 480px) {
+  .gp-lead-row { flex-direction: row; }
+}
+
+/* Expandable bundle open/close label transition */
+[data-bundle-open="true"] .gp-bundle-label-open { display: inline; }
+[data-bundle-open="true"] .gp-bundle-label-closed { display: none; }
+[data-bundle-open="false"] .gp-bundle-label-open { display: none; }
+[data-bundle-open="false"] .gp-bundle-label-closed { display: inline; }

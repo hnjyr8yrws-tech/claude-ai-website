@@ -489,13 +489,13 @@ const Schools: FC = () => {
               >
                 Request a Consultation
               </a>
-              <Link
-                to="/ai-equipment/schools"
+              <button
+                onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: 'school-toolkit' } }))}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
                 style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
               >
-                Browse School Solutions
-              </Link>
+                Receive the school toolkit
+              </button>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
@@ -709,38 +709,6 @@ const Schools: FC = () => {
             ))}
           </div>
 
-          <FadeIn>
-            <div
-              className="rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6"
-              style={{ background: '#e0f5f6', border: `1px solid #b3e8eb` }}
-            >
-              <div className="flex-1">
-                <h3 className="font-display text-lg mb-2" style={{ color: TEXT }}>
-                  Not sure which route is right for you?
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
-                  Our agent or our team can help identify the right supplier and procurement path for
-                  your specific requirements and budget.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-3 flex-shrink-0">
-                <a
-                  href="#consultation"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-                  style={{ background: TEAL }}
-                >
-                  Request a Quote
-                </a>
-                <button
-                  onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-                  style={{ background: 'white', color: TEAL, border: `1px solid ${TEAL}` }}
-                >
-                  Ask the Agent
-                </button>
-              </div>
-            </div>
-          </FadeIn>
         </div>
       </section>
 

@@ -5,6 +5,7 @@ import Footer from './components/Footer';
 import AgentWidget from './components/AgentWidget';
 import ScrollToTop from './components/ScrollToTop';
 import CookieBanner from './components/CookieBanner';
+import LeadCaptureModal from './components/LeadCaptureModal';
 
 // ── Eagerly loaded (above the fold on first visit) ──────────────────────────
 import Home from './pages/Home';
@@ -149,6 +150,7 @@ const App = () => (
     <Footer />
     <AgentWidget />
     <CookieBanner />
+    <LeadCaptureModal />
   </>
 );
 
