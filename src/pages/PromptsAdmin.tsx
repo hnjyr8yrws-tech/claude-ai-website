@@ -59,28 +59,28 @@ const PromptsAdmin = () => (
     {/* Hero */}
     <section className="px-5 sm:px-8 pt-16 pb-12" style={{ background: 'var(--bg)' }}>
       <div className="max-w-3xl mx-auto">
-        <Link to="/prompts" className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[#00808a]" style={{ color: '#9ca3af' }}>
+        <Link to="/prompts" className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[#BEFF00]" style={{ color: '#9ca3af' }}>
           ← AI Prompts
         </Link>
         <SectionLabel>For School Admin</SectionLabel>
         <h1 className="font-display text-4xl sm:text-5xl leading-tight mb-4" style={{ color: 'var(--text)' }}>
           AI Prompts for School Admin and Support Staff
         </h1>
-        <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: '#6b6760' }}>
+        <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: '#4A4A4A' }}>
           From letters to data entry — use AI to handle routine school admin faster and more accurately.
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
             to="/prompts/library"
             className="px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors"
-            style={{ background: '#00808a', color: 'white' }}
+            style={{ background: '#BEFF00', color: '#0F1C1A' }}
           >
             Browse All Packs →
           </Link>
           <Link
             to="/ai-training"
-            className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+            className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]"
+            style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}
           >
             AI Training
           </Link>
@@ -93,7 +93,7 @@ const PromptsAdmin = () => (
       <section
         key={section.label}
         className="px-5 sm:px-8 py-10 border-t"
-        style={{ borderColor: '#e8e6e0', background: idx % 2 === 0 ? 'white' : 'var(--bg)' }}
+        style={{ borderColor: '#ECE7DD', background: idx % 2 === 0 ? 'white' : 'var(--bg)' }}
       >
         <div className="max-w-3xl mx-auto">
           <SectionLabel>{section.label}</SectionLabel>
@@ -124,21 +124,21 @@ const PromptsAdmin = () => (
     </section>
 
     {/* Trust note */}
-    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#ECE7DD' }}>
       <div className="max-w-3xl mx-auto">
-        <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-          <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-            <strong style={{ color: '#1c1a15' }}>Important:</strong> Always review AI-generated letters and documents before sending. Ensure compliance with your school's data protection policy, GDPR obligations, and any applicable statutory requirements. AI outputs are a starting point — not a finished document.
+        <div className="rounded-xl border p-5" style={{ borderColor: '#ECE7DD', background: 'white' }}>
+          <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>
+            <strong style={{ color: '#1A1A1A' }}>Important:</strong> Always review AI-generated letters and documents before sending. Ensure compliance with your school's data protection policy, GDPR obligations, and any applicable statutory requirements. AI outputs are a starting point — not a finished document.
           </p>
         </div>
       </div>
     </section>
 
     {/* Cross-links */}
-    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: '#ECE7DD' }}>
       <div className="max-w-3xl mx-auto flex flex-wrap gap-3">
-        <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Tools Directory →</Link>
-        <Link to="/ai-training" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Training →</Link>
+        <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]" style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}>AI Tools Directory →</Link>
+        <Link to="/ai-training" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]" style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}>AI Training →</Link>
       </div>
     </section>
   </>

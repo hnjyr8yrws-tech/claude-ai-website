@@ -3,7 +3,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { TRAINING, type TrainingItem } from '../data/training';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 const studentItems = TRAINING.filter(t => t.tags.includes('Students'));
 
@@ -33,11 +33,11 @@ function TrainingCard({ item }: { item: TrainingItem }) {
   return (
     <div
       className="rounded-2xl border flex flex-col"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>
             {item.category}
           </span>
           <div className="flex gap-1.5">
@@ -53,17 +53,17 @@ function TrainingCard({ item }: { item: TrainingItem }) {
         </div>
         <h3 className="font-display text-lg leading-snug mb-0.5" style={{ color: 'var(--text)' }}>{item.name}</h3>
         <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{item.provider}</p>
-        <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b6760' }}>{item.notes}</p>
+        <p className="text-sm leading-relaxed mb-3" style={{ color: '#4A4A4A' }}>{item.notes}</p>
         <span
           className="text-[10px] font-medium px-2 py-0.5 rounded-full border"
-          style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+          style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}
         >
           {item.level}
         </span>
       </div>
       <div className="px-5 pb-5 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#f3f4f6' }}>
         <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.cost}</span>
-        <a href={item.url} target="_blank" rel={linkRel} className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: 'white' }}>
+        <a href={item.url} target="_blank" rel={linkRel} className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: '#0F1C1A' }}>
           Visit →
         </a>
       </div>
@@ -98,7 +98,7 @@ export default function AITrainingStudents() {
             AI Learning for{' '}
             <span style={{ color: TEAL }}>Students.</span>
           </h1>
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#4A4A4A' }}>
             Whether you want to understand how ChatGPT works, get better at using AI for study,
             or start building your own projects — these are the best resources for students in the UK.
           </p>
@@ -112,7 +112,7 @@ export default function AITrainingStudents() {
           <h2 className="font-display text-3xl mb-2" style={{ color: 'var(--text)' }}>
             Three resources every student should know
           </h2>
-          <p className="text-base mb-8 max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8 max-w-2xl" style={{ color: '#4A4A4A' }}>
             These three are completely free, require no technical knowledge, and are used by millions
             of students worldwide.
           </p>
@@ -123,7 +123,7 @@ export default function AITrainingStudents() {
                 <div
                   key={slug}
                   className="rounded-2xl border p-6"
-                  style={{ borderColor: '#e8e6e0', background: 'white' }}
+                  style={{ borderColor: '#ECE7DD', background: 'white' }}
                 >
                   <span
                     className="text-[10px] font-bold px-2 py-0.5 rounded-full mb-3 inline-block"
@@ -133,13 +133,13 @@ export default function AITrainingStudents() {
                   </span>
                   <h3 className="font-display text-xl leading-snug mb-1" style={{ color: 'var(--text)' }}>{item.name}</h3>
                   <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{item.provider}</p>
-                  <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b6760' }}>{item.notes}</p>
+                  <p className="text-sm leading-relaxed mb-5" style={{ color: '#4A4A4A' }}>{item.notes}</p>
                   <a
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm font-semibold px-4 py-2 rounded-xl inline-block"
-                    style={{ background: TEAL, color: 'white' }}
+                    style={{ background: TEAL, color: '#0F1C1A' }}
                   >
                     Start learning →
                   </a>
@@ -167,7 +167,7 @@ export default function AITrainingStudents() {
                   <h3 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
                     {block.title}
                   </h3>
-                  <p className="text-base leading-relaxed mb-6 max-w-2xl" style={{ color: '#6b6760' }}>
+                  <p className="text-base leading-relaxed mb-6 max-w-2xl" style={{ color: '#4A4A4A' }}>
                     {block.description}
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -203,7 +203,7 @@ export default function AITrainingStudents() {
           <Link
             to="/tools"
             className="flex-1 rounded-2xl border p-6 text-center"
-            style={{ borderColor: '#e8e6e0', background: 'white' }}
+            style={{ borderColor: '#ECE7DD', background: 'white' }}
           >
             <p className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>
               Explore AI tools →
@@ -215,7 +215,7 @@ export default function AITrainingStudents() {
           <Link
             to="/ai-training"
             className="flex-1 rounded-2xl border p-6 text-center"
-            style={{ borderColor: '#e8e6e0', background: 'white' }}
+            style={{ borderColor: '#ECE7DD', background: 'white' }}
           >
             <p className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>
               Back to Training Hub →

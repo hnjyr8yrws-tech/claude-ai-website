@@ -4,8 +4,9 @@ import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { EQUIPMENT, BUNDLES, type EquipmentProduct, type PurchaseModel } from '../data/equipment';
+import { resolveProductAffiliateUrl, AFFILIATE_LINK_ATTRS } from '../utils/affiliateLinks';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 // ─── School-relevant products ─────────────────────────────────────────────────
 
@@ -109,19 +110,18 @@ function ProductRow({ product }: { product: EquipmentProduct }) {
         <div className="font-medium text-sm" style={{ color: 'var(--text)' }}>{product.name}</div>
         <div className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>{product.brand}</div>
       </td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.category}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: '#4A4A4A' }}>{product.category}</td>
       <td className="px-4 py-3 text-xs font-semibold" style={{ color: 'var(--text)' }}>{product.priceBand}</td>
       <td className="px-4 py-3">
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: ps.bg, color: ps.color }}>
           {product.purchaseModel}
         </span>
       </td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.supplierName}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: '#4A4A4A' }}>{product.supplierName}</td>
       <td className="px-4 py-3">
         <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+          href={resolveProductAffiliateUrl(product)}
+          {...AFFILIATE_LINK_ATTRS}
           className="text-xs font-semibold transition-opacity hover:opacity-70"
           style={{ color: TEAL }}
         >
@@ -168,13 +168,13 @@ export default function EquipmentSchools() {
           School<br />
           <span style={{ color: TEAL }}>Procurement.</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-xl" style={{ color: '#4A4A4A' }}>
           {SCHOOL_PRODUCTS.length} products available for school procurement — with supplier types, purchase models, VAT notes, and framework compliance guidance.
         </p>
       </div>
 
       {/* ── PROCUREMENT CHECKLIST ─────────────────────────────────────────────── */}
-      <div className="border-t border-b" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t border-b" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-12">
           <FadeIn>
             <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -184,7 +184,7 @@ export default function EquipmentSchools() {
           <div className="space-y-4">
             {CHECKLIST.map((item, i) => (
               <FadeIn key={item.step} delay={i * 0.06}>
-                <div className="flex gap-5 p-5 rounded-xl border" style={{ borderColor: '#e8e6e0' }}>
+                <div className="flex gap-5 p-5 rounded-xl border" style={{ borderColor: '#ECE7DD' }}>
                   <span
                     className="font-display text-2xl flex-shrink-0 w-10 text-center leading-none mt-0.5"
                     style={{ color: TEAL }}
@@ -193,7 +193,7 @@ export default function EquipmentSchools() {
                   </span>
                   <div>
                     <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>{item.title}</h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{item.body}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{item.body}</p>
                   </div>
                 </div>
               </FadeIn>
@@ -206,22 +206,22 @@ export default function EquipmentSchools() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12">
         <FadeIn>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>Supplier types explained</h2>
-          <p className="text-sm mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-8" style={{ color: '#4A4A4A' }}>
             Choose the right supplier channel for your procurement type.
           </p>
         </FadeIn>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {SUPPLIER_NOTES.map((s, i) => (
             <FadeIn key={s.type} delay={i * 0.06}>
-              <div className="rounded-2xl border p-6" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+              <div className="rounded-2xl border p-6" style={{ borderColor: '#ECE7DD', background: 'white' }}>
                 <h3 className="font-display text-lg mb-2" style={{ color: 'var(--text)' }}>{s.title}</h3>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>{s.desc}</p>
+                <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A4A4A' }}>{s.desc}</p>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-xs font-semibold mb-2" style={{ color: '#15803d' }}>Pros</p>
                     <ul className="space-y-1">
                       {s.pros.map(p => (
-                        <li key={p} className="text-xs flex gap-1.5" style={{ color: '#6b6760' }}>
+                        <li key={p} className="text-xs flex gap-1.5" style={{ color: '#4A4A4A' }}>
                           <span style={{ color: '#15803d' }}>✓</span> {p}
                         </li>
                       ))}
@@ -231,7 +231,7 @@ export default function EquipmentSchools() {
                     <p className="text-xs font-semibold mb-2" style={{ color: '#9a3412' }}>Cons</p>
                     <ul className="space-y-1">
                       {s.cons.map(c => (
-                        <li key={c} className="text-xs flex gap-1.5" style={{ color: '#6b6760' }}>
+                        <li key={c} className="text-xs flex gap-1.5" style={{ color: '#4A4A4A' }}>
                           <span style={{ color: '#9a3412' }}>×</span> {c}
                         </li>
                       ))}
@@ -246,7 +246,7 @@ export default function EquipmentSchools() {
 
       {/* ── BUNDLES FOR SCHOOLS ───────────────────────────────────────────────── */}
       {SCHOOL_BUNDLES.length > 0 && (
-        <div className="border-t" style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}>
+        <div className="border-t" style={{ borderColor: '#ECE7DD', background: '#F8F5F0' }}>
           <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
             <FadeIn>
               <h2 className="font-display text-2xl mb-5" style={{ color: 'var(--text)' }}>
@@ -256,13 +256,13 @@ export default function EquipmentSchools() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {SCHOOL_BUNDLES.map((bundle, i) => (
                 <FadeIn key={bundle.id} delay={i * 0.06}>
-                  <div className="rounded-2xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+                  <div className="rounded-2xl border p-5" style={{ borderColor: '#ECE7DD', background: 'white' }}>
                     <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
                       Bundle · {bundle.totalPriceBand}
                     </p>
                     <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>{bundle.name}</h3>
                     <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{bundle.desc}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{bundle.desc}</p>
                     <p className="text-xs mt-3 font-semibold" style={{ color: TEAL }}>
                       {bundle.productSlugs.length} products included
                     </p>
@@ -288,7 +288,7 @@ export default function EquipmentSchools() {
             onChange={e => setSearch(e.target.value)}
             placeholder="Search products…"
             className="flex-1 pl-4 pr-4 py-2.5 rounded-xl border text-sm focus:outline-none"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)', maxWidth: 360 }}
+            style={{ borderColor: '#ECE7DD', background: 'white', color: 'var(--text)', maxWidth: 360 }}
           />
           <div className="flex gap-2 flex-wrap">
             {(['All', ...PURCHASE_MODELS] as const).map(m => (
@@ -298,8 +298,8 @@ export default function EquipmentSchools() {
                 className="px-3 py-2 rounded-xl text-xs font-medium border transition-colors"
                 style={{
                   background: purchaseFilter === m ? TEAL : 'white',
-                  color: purchaseFilter === m ? 'white' : '#6b6760',
-                  borderColor: purchaseFilter === m ? TEAL : '#e8e6e0',
+                  color: purchaseFilter === m ? 'white' : '#4A4A4A',
+                  borderColor: purchaseFilter === m ? TEAL : '#ECE7DD',
                 }}
               >
                 {m === 'All' ? 'All models' : m}
@@ -313,12 +313,12 @@ export default function EquipmentSchools() {
         </p>
 
         {/* Table */}
-        <div className="rounded-2xl border overflow-hidden overflow-x-auto" style={{ borderColor: '#e8e6e0' }}>
+        <div className="rounded-2xl border overflow-hidden overflow-x-auto" style={{ borderColor: '#ECE7DD' }}>
           <table className="w-full text-sm min-w-[640px]">
             <thead>
-              <tr style={{ background: '#f7f6f2', borderBottom: '1px solid #e8e6e0' }}>
+              <tr style={{ background: '#F8F5F0', borderBottom: '1px solid #ECE7DD' }}>
                 {['Product', 'Category', 'Price', 'Purchase', 'Supplier', ''].map(h => (
-                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb' }}>
+                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#9C9690' }}>
                     {h}
                   </th>
                 ))}
@@ -358,7 +358,7 @@ export default function EquipmentSchools() {
                 if (widget) (widget as HTMLButtonElement).click();
               }}
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#0F1C1A' }}
             >
               Get procurement advice →
             </button>

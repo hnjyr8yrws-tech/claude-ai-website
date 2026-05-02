@@ -2,18 +2,17 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
+import LeadMagnet from '../components/LeadMagnet';
 import {
   EQUIPMENT,
   type EquipmentProduct,
   type EquipmentCategory,
   type PurchaseModel,
 } from '../data/equipment';
+import { resolveProductAffiliateUrl, AFFILIATE_LINK_ATTRS } from '../utils/affiliateLinks';
 import { badgeStyle, reviewBadge } from './AIEquipment';
 
-const TEAL = '#00808a';
-const AMBER_BG = '#fef3c7';
-const AMBER_TEXT = '#92400e';
-const AMBER_BORDER = '#fcd34d';
+const TEAL = '#BEFF00';
 
 const ROLE_CARDS = [
   {
@@ -83,10 +82,10 @@ function SchoolProductRow({ product }: { product: EquipmentProduct }) {
         </Link>
         <div className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>{product.brand}</div>
       </td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.category}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: '#4A4A4A' }}>{product.category}</td>
       <td className="px-4 py-3 text-xs font-semibold" style={{ color: 'var(--text)' }}>{product.priceBand}</td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.purchaseModel}</td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.supplierName}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: '#4A4A4A' }}>{product.purchaseModel}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: '#4A4A4A' }}>{product.supplierName}</td>
       <td className="px-4 py-3">
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
           {rb.label}
@@ -94,11 +93,10 @@ function SchoolProductRow({ product }: { product: EquipmentProduct }) {
       </td>
       <td className="px-4 py-3">
         <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+          href={resolveProductAffiliateUrl(product)}
+          {...AFFILIATE_LINK_ATTRS}
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#0F1C1A' }}
         >
           View →
         </a>
@@ -146,26 +144,35 @@ export default function AIEquipmentSchools() {
           Equipment Solutions<br />
           <span style={{ color: TEAL }}>for UK Schools</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#4A4A4A' }}>
           Procurement support, class packs, interactive displays, AV, hearing loops and SEND provision — all in one place.
         </p>
         <div className="flex flex-wrap gap-3">
-          <button
-            onClick={() => {
-              const widget = document.getElementById('promptly-widget-trigger');
-              if (widget) (widget as HTMLButtonElement).click();
+          <a
+            href="#school-toolkit"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+            style={{
+              background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+              color: '#0F1C1A',
+              border: '1px solid rgba(15,28,26,0.16)',
+              boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
             }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
           >
-            Request a School Quote
-          </button>
+            Receive the school toolkit
+          </a>
           <Link
             to="/ai-equipment/compare"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: 'var(--text)' }}
+            style={{ borderColor: '#ECE7DD', color: 'var(--text)' }}
           >
             Compare Products
+          </Link>
+          <Link
+            to="/schools#consultation"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[#BEFF00]"
+            style={{ borderColor: '#ECE7DD', color: '#0F1C1A', background: 'white' }}
+          >
+            Request a school consultation →
           </Link>
         </div>
       </div>
@@ -181,18 +188,18 @@ export default function AIEquipmentSchools() {
             <div
               key={role.title}
               className="rounded-xl border p-5 flex flex-col gap-3"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: '#ECE7DD', background: 'white' }}
             >
               <div className="text-2xl">{role.icon}</div>
               <h3 className="font-display text-lg" style={{ color: 'var(--text)' }}>{role.title}</h3>
-              <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{role.desc}</p>
+              <p className="text-sm leading-relaxed flex-1" style={{ color: '#4A4A4A' }}>{role.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* BUYING CATEGORIES */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
           <SectionLabel>School buying categories</SectionLabel>
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -217,10 +224,10 @@ export default function AIEquipmentSchools() {
                   key={cat.label}
                   to={`/ai-equipment/category/${catSlug}`}
                   className="rounded-xl border p-5 flex flex-col gap-2 transition-shadow hover:shadow-md"
-                  style={{ borderColor: '#e8e6e0', background: 'var(--bg)' }}
+                  style={{ borderColor: '#ECE7DD', background: 'var(--bg)' }}
                 >
                   <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{cat.label}</h3>
-                  <p className="text-xs flex-1" style={{ color: '#6b6760' }}>{cat.desc}</p>
+                  <p className="text-xs flex-1" style={{ color: '#4A4A4A' }}>{cat.desc}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs" style={{ color: '#9ca3af' }}>{count} products</span>
                     <span className="text-xs font-semibold" style={{ color: TEAL }}>Browse →</span>
@@ -259,16 +266,16 @@ export default function AIEquipmentSchools() {
               bg: '#f0fdf4', color: '#15803d',
             },
             {
-              badge: null,
-              title: 'Request a Quote',
-              desc: 'Tell us what you need — the Promptly AI will help you find the right supplier.',
-              bg: AMBER_BG, color: AMBER_TEXT,
+              badge: 'Crown Commercial Service',
+              title: 'CCS Frameworks',
+              desc: 'Buy via Tech Services 3, Education Technology Platforms or G-Cloud — already-tendered, audit-friendly procurement for state schools.',
+              bg: 'rgba(0,209,255,0.14)', color: '#0F1C1A',
             },
           ].map(item => (
             <div
               key={item.title}
               className="rounded-xl border p-5 flex flex-col gap-3"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: '#ECE7DD', background: 'white' }}
             >
               {item.badge && (
                 <span
@@ -279,26 +286,36 @@ export default function AIEquipmentSchools() {
                 </span>
               )}
               <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{item.title}</h3>
-              <p className="text-sm flex-1 leading-relaxed" style={{ color: '#6b6760' }}>{item.desc}</p>
-              {!item.badge && (
-                <button
-                  onClick={() => {
-                    const widget = document.getElementById('promptly-widget-trigger');
-                    if (widget) (widget as HTMLButtonElement).click();
-                  }}
-                  className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
-                >
-                  Get a Quote →
-                </button>
-              )}
+              <p className="text-sm flex-1 leading-relaxed" style={{ color: '#4A4A4A' }}>{item.desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* ── Lead magnet: school toolkit ───────────────────────────────── */}
+        <div id="school-toolkit" className="mt-10 scroll-mt-24">
+          <LeadMagnet
+            eyebrow="Free download"
+            headline="Receive the school equipment toolkit"
+            description={
+              <>
+                A printable PDF for your business manager, IT lead and SLT — covering the four procurement paths above, an editable spec template, KCSIE 2025 procurement notes, supplier contact list and sample governor approval wording. Built for UK schools.
+              </>
+            }
+            buttonLabel="Email me the toolkit →"
+            analyticsSection="schools-equipment-toolkit"
+            successMessage={<>Toolkit on its way — check your inbox in the next minute.</>}
+          />
+          <p className="text-xs text-center mt-3" style={{ color: '#9C9690' }}>
+            Need a tailored shortlist for a specific budget or year-group?{' '}
+            <Link to="/schools#consultation" className="font-semibold underline" style={{ color: '#0F1C1A' }}>
+              Request a school consultation →
+            </Link>
+          </p>
         </div>
       </div>
 
       {/* PROCUREMENT CHECKLIST */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
           <SectionLabel>Procurement checklist</SectionLabel>
           <h2 className="font-display text-2xl mb-8" style={{ color: 'var(--text)' }}>
@@ -309,11 +326,11 @@ export default function AIEquipmentSchools() {
               <div
                 key={step.num}
                 className="rounded-xl border p-5 flex flex-col gap-3"
-                style={{ borderColor: '#e8e6e0', background: 'var(--bg)' }}
+                style={{ borderColor: '#ECE7DD', background: 'var(--bg)' }}
               >
-                <div className="font-display text-3xl" style={{ color: '#e8e6e0' }}>{step.num}</div>
+                <div className="font-display text-3xl" style={{ color: '#ECE7DD' }}>{step.num}</div>
                 <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{step.label}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{step.desc}</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{step.desc}</p>
               </div>
             ))}
           </div>
@@ -337,9 +354,9 @@ export default function AIEquipmentSchools() {
               onClick={() => setPurchaseFilter(opt.value)}
               className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
               style={{
-                borderColor: purchaseFilter === opt.value ? TEAL : '#e8e6e0',
+                borderColor: purchaseFilter === opt.value ? TEAL : '#ECE7DD',
                 background: purchaseFilter === opt.value ? '#e0f5f6' : 'white',
-                color: purchaseFilter === opt.value ? TEAL : '#6b6760',
+                color: purchaseFilter === opt.value ? TEAL : '#4A4A4A',
               }}
             >
               {opt.label}
@@ -347,12 +364,12 @@ export default function AIEquipmentSchools() {
           ))}
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: '#e8e6e0' }}>
+        <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: '#ECE7DD' }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ background: '#f7f6f2' }}>
+              <tr style={{ background: '#F8F5F0' }}>
                 {['Product', 'Category', 'Price', 'Purchase Model', 'Supplier', 'Status', ''].map(h => (
-                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb' }}>
+                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#9C9690' }}>
                     {h}
                   </th>
                 ))}
@@ -372,26 +389,131 @@ export default function AIEquipmentSchools() {
         </div>
       </div>
 
-      {/* BOTTOM CTA */}
-      <div style={{ background: '#111210' }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
-          <div>
-            <p className="font-display text-xl text-white mb-1">Need procurement support?</p>
-            <p className="text-sm" style={{ color: '#6b6760' }}>Ask the AI or explore SEND-specific equipment.</p>
-          </div>
-          <div className="flex flex-wrap gap-4">
-            <Link to="/ai-equipment/send" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
-              SEND Equipment →
-            </Link>
-            <Link to="/prompts/school-leaders" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
-              School Leader Prompts →
-            </Link>
-            <Link to="/ai-training/leaders" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
-              AI Training for Leaders →
-            </Link>
+      {/* BOTTOM CTA — promotional dark band */}
+      <section
+        className="relative overflow-hidden px-5 sm:px-8 py-14"
+        style={{ background: 'linear-gradient(180deg, #0F1C1A 0%, #1B302C 100%)' }}
+      >
+        <div className="relative max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
+            <div>
+              <span
+                className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-4"
+                style={{ background: 'rgba(190,255,0,0.18)', color: '#BEFF00' }}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ background: '#BEFF00', boxShadow: '0 0 0 3px rgba(190,255,0,0.18)' }}
+                  aria-hidden="true"
+                />
+                School advisory
+              </span>
+              <h2
+                className="font-display text-3xl sm:text-4xl leading-tight mb-3"
+                style={{ color: '#FFFFFF' }}
+              >
+                A second opinion before you spend{' '}
+                <span
+                  className="italic"
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, #BEFF00 0%, #00D1FF 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                  }}
+                >
+                  £5k or £50k.
+                </span>
+              </h2>
+              <p className="text-base leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.72)' }}>
+                We're independent — not affiliated with any vendor or reseller. We'll review your shortlist against KCSIE 2025, UK GDPR, accessibility, supplier reliability and total cost of ownership. Free 30-minute call for state schools, MATs and SEND settings.
+              </p>
+              <ul className="space-y-2 mb-6 text-sm" style={{ color: 'rgba(255,255,255,0.78)' }}>
+                {[
+                  'Independent review — no commission, no vendor bias',
+                  'KCSIE 2025 + UK GDPR procurement check',
+                  'Total cost of ownership: not just sticker price',
+                  'Compatible-with-existing-fleet feasibility',
+                ].map(item => (
+                  <li key={item} className="flex items-start gap-2.5">
+                    <span
+                      className="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-bold"
+                      style={{ background: '#BEFF00', color: '#0F1C1A' }}
+                      aria-hidden="true"
+                    >
+                      ✓
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  to="/schools#consultation"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+                  style={{
+                    background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+                    color: '#0F1C1A',
+                    border: '1px solid rgba(15,28,26,0.16)',
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+                  }}
+                >
+                  Request a school consultation →
+                </Link>
+                <Link
+                  to="/ai-equipment/send"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+                  style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    color: '#FFFFFF',
+                    border: '1px solid rgba(255,255,255,0.18)',
+                    backdropFilter: 'blur(10px)',
+                  }}
+                >
+                  SEND equipment →
+                </Link>
+              </div>
+            </div>
+
+            {/* Side cross-sell promo */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+              {[
+                {
+                  to: '/prompts/school-leaders',
+                  title: 'Prompts for School Leaders',
+                  desc: 'Strategy, Ofsted prep, staff comms, policy drafting.',
+                },
+                {
+                  to: '/ai-training/leaders',
+                  title: 'AI Training for Leaders',
+                  desc: 'CPD, governor briefings, AI policy frameworks.',
+                },
+                {
+                  to: '/tools',
+                  title: 'AI Tools Directory',
+                  desc: '243 tools — every one safety-scored for UK schools.',
+                },
+              ].map(item => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="group p-4 rounded-2xl border transition-transform hover:-translate-y-0.5"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    borderColor: 'rgba(255,255,255,0.10)',
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.06) inset',
+                  }}
+                >
+                  <p className="text-sm font-bold mb-1 group-hover:text-[#BEFF00] transition-colors" style={{ color: '#FFFFFF' }}>
+                    {item.title} →
+                  </p>
+                  <p className="text-xs" style={{ color: 'rgba(255,255,255,0.55)' }}>{item.desc}</p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -4,11 +4,13 @@
  * All copy, sections, role-selector behaviour, links, forms and tracking preserved.
  */
 
-import { FC, useState, ReactNode } from 'react';
+import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
+import { BubbleLayer } from '../components/Bubbles';
+import { FadeIn, Stagger, staggerItem } from '../components/anim';
 
 // ─── Promptly palette tokens (mirror CSS variables) ──────────────────────────
 const DARK    = '#0F1C1A';
@@ -29,65 +31,6 @@ function openWidget() {
   const btn = document.getElementById('promptly-widget-trigger');
   if (btn) (btn as HTMLButtonElement).click();
 }
-
-// ─── Animation primitives ────────────────────────────────────────────────────
-function FadeIn({ children, delay = 0, className = '', y = 18 }: {
-  children: ReactNode; delay?: number; className?: string; y?: number;
-}) {
-  return (
-    <motion.div className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, delay, ease: [0.2, 0.7, 0.2, 1] }}
-    >{children}</motion.div>
-  );
-}
-
-function Stagger({ children, className = '', delay = 0 }: {
-  children: ReactNode; className?: string; delay?: number;
-}) {
-  return (
-    <motion.div className={className}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: '-60px' }}
-      variants={{
-        hidden: {},
-        show:   { transition: { staggerChildren: 0.08, delayChildren: delay } },
-      }}
-    >{children}</motion.div>
-  );
-}
-
-const staggerItem = {
-  hidden: { opacity: 0, y: 20 },
-  show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0.7, 0.2, 1] as const } },
-};
-
-// ─── Decorative bubble layer ─────────────────────────────────────────────────
-
-type Bubble = {
-  variant: 'lime' | 'cyan' | 'purple' | 'yellow' | 'soft-lime' | 'soft-cyan' | 'soft-purple';
-  size: number;
-  top?: string; left?: string; right?: string; bottom?: string;
-  anim: 'gp-float-a' | 'gp-float-b' | 'gp-float-c';
-};
-
-const BubbleLayer: FC<{ bubbles: Bubble[] }> = ({ bubbles }) => (
-  <div className="gp-bubble-layer" aria-hidden="true">
-    {bubbles.map((b, i) => (
-      <span
-        key={i}
-        className={`gp-bubble gp-bubble--${b.variant} ${b.anim}`}
-        style={{
-          width: b.size, height: b.size,
-          top: b.top, left: b.left, right: b.right, bottom: b.bottom,
-        }}
-      />
-    ))}
-  </div>
-);
 
 // ─── Role data ───────────────────────────────────────────────────────────────
 

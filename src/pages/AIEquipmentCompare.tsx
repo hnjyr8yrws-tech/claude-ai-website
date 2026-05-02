@@ -2,16 +2,14 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
+import LeadMagnet from '../components/LeadMagnet';
 import {
   EQUIPMENT,
   type EquipmentProduct,
 } from '../data/equipment';
 import { reviewBadge } from './AIEquipment';
 
-const TEAL = '#00808a';
-const AMBER_BG = '#fef3c7';
-const AMBER_TEXT = '#92400e';
-const AMBER_BORDER = '#fcd34d';
+const TEAL = '#BEFF00';
 
 interface ColDef {
   header: string;
@@ -39,24 +37,24 @@ function ComparisonTable({
       <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
         {title}
       </h2>
-      <p className="text-sm mb-6 max-w-2xl" style={{ color: '#6b6760' }}>{description}</p>
+      <p className="text-sm mb-6 max-w-2xl" style={{ color: '#4A4A4A' }}>{description}</p>
 
-      <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: '#e8e6e0' }}>
+      <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: '#ECE7DD' }}>
         <table className="w-full text-sm" style={{ minWidth: 700 }}>
           <thead>
-            <tr style={{ background: '#f7f6f2' }}>
+            <tr style={{ background: '#F8F5F0' }}>
               <th
                 className="px-5 py-3 text-left text-xs font-semibold"
-                style={{ color: '#c5c2bb', minWidth: 200 }}
+                style={{ color: '#9C9690', minWidth: 200 }}
               >
                 Product
               </th>
               {cols.map(c => (
-                <th key={c.header} className="px-4 py-3 text-left text-xs font-semibold whitespace-nowrap" style={{ color: '#c5c2bb' }}>
+                <th key={c.header} className="px-4 py-3 text-left text-xs font-semibold whitespace-nowrap" style={{ color: '#9C9690' }}>
                   {c.header}
                 </th>
               ))}
-              <th className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb' }}>Status</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#9C9690' }}>Status</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -79,7 +77,7 @@ function ComparisonTable({
                     <div className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>{p.brand}</div>
                   </td>
                   {cols.map(c => (
-                    <td key={c.header} className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>
+                    <td key={c.header} className="px-4 py-3 text-xs" style={{ color: '#4A4A4A' }}>
                       {c.render(p)}
                     </td>
                   ))}
@@ -107,24 +105,6 @@ function ComparisonTable({
         </table>
       </div>
 
-      <div
-        className="mt-4 rounded-xl border px-5 py-3 flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between"
-        style={{ borderColor: AMBER_BORDER, background: AMBER_BG }}
-      >
-        <p className="text-sm font-medium" style={{ color: AMBER_TEXT }}>
-          Not sure which is right for you?
-        </p>
-        <button
-          onClick={() => {
-            const widget = document.getElementById('promptly-widget-trigger');
-            if (widget) (widget as HTMLButtonElement).click();
-          }}
-          className="flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
-          style={{ background: AMBER_TEXT, color: 'white' }}
-        >
-          Ask the Promptly AI →
-        </button>
-      </div>
     </section>
   );
 }
@@ -227,7 +207,7 @@ export default function AIEquipmentCompare() {
           Compare Education<br />
           <span style={{ color: TEAL }}>Equipment</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-8" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-8" style={{ color: '#4A4A4A' }}>
           Side-by-side comparisons for tablets, interactive displays, reading pens, visualisers, AAC devices and coding robots for UK education.
         </p>
 
@@ -244,8 +224,8 @@ export default function AIEquipmentCompare() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm px-4 py-1.5 rounded-xl border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
-              style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+              className="text-sm px-4 py-1.5 rounded-xl border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]"
+              style={{ borderColor: '#ECE7DD', color: '#4A4A4A', background: 'white' }}
             >
               {item.label}
             </a>
@@ -304,18 +284,36 @@ export default function AIEquipmentCompare() {
         />
       </div>
 
+      {/* ── LEAD MAGNET — comparison shortlist ─────────────────────────────── */}
+      <section className="px-5 sm:px-8 pb-16">
+        <div className="max-w-3xl mx-auto">
+          <LeadMagnet
+            eyebrow="Free download"
+            headline="Email me this equipment set"
+            description={
+              <>
+                Get a printable shortlist of the products on this page — with prices, suppliers, SEND notes and procurement paths — sent straight to your inbox. Use it for budget bids, governor reports or department planning.
+              </>
+            }
+            buttonLabel="Email me the shortlist →"
+            analyticsSection="equipment-compare-shortlist"
+            successMessage={<>Sending the equipment shortlist to <strong>your inbox</strong> now.</>}
+          />
+        </div>
+      </section>
+
       {/* CROSS-SELL */}
-      <div style={{ background: '#111210' }}>
+      <div style={{ background: '#0F1C1A' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
           <p className="font-display text-xl text-white">Explore more resources</p>
           <div className="flex flex-wrap gap-4">
-            <Link to="/ai-equipment" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment" className="text-sm transition-colors hover:text-white" style={{ color: '#4A4A4A' }}>
               All Equipment →
             </Link>
-            <Link to="/ai-equipment/send" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment/send" className="text-sm transition-colors hover:text-white" style={{ color: '#4A4A4A' }}>
               SEND Equipment →
             </Link>
-            <Link to="/ai-equipment/schools" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment/schools" className="text-sm transition-colors hover:text-white" style={{ color: '#4A4A4A' }}>
               School Procurement →
             </Link>
           </div>

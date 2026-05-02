@@ -3,7 +3,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { TRAINING, PATHWAY_PARENTS, type TrainingItem } from '../data/training';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -37,11 +37,11 @@ function TrainingCard({ item }: { item: TrainingItem }) {
   return (
     <div
       className="rounded-xl border flex flex-col"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="px-4 pt-4 pb-3 flex-1">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>
             {item.provider}
           </span>
           <span
@@ -54,7 +54,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
         <h4 className="font-display text-base leading-snug mb-1" style={{ color: 'var(--text)' }}>
           {item.name}
         </h4>
-        <p className="text-xs" style={{ color: '#6b6760' }}>{item.notes}</p>
+        <p className="text-xs" style={{ color: '#4A4A4A' }}>{item.notes}</p>
       </div>
       <div className="px-4 pb-4 pt-2 border-t" style={{ borderColor: '#f3f4f6' }}>
         <a
@@ -98,7 +98,7 @@ export default function AITrainingParents() {
             AI Safety for{' '}
             <span style={{ color: TEAL }}>Parents.</span>
           </h1>
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#4A4A4A' }}>
             Practical, jargon-free guidance on AI for families. Understand what AI is, how it
             affects your children, and how to have confident conversations at home.
           </p>
@@ -112,7 +112,7 @@ export default function AITrainingParents() {
           <h2 className="font-display text-3xl mb-2" style={{ color: 'var(--text)' }}>
             AI Safety for Parents — starter path
           </h2>
-          <p className="text-base mb-8 max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8 max-w-2xl" style={{ color: '#4A4A4A' }}>
             Four free resources in the order we recommend. No technical knowledge required.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -134,7 +134,7 @@ export default function AITrainingParents() {
                 <h3 className="font-display text-base leading-snug mb-2" style={{ color: 'var(--text)' }}>
                   {item.name}
                 </h3>
-                <p className="text-xs flex-1 mb-4" style={{ color: '#6b6760' }}>{item.notes}</p>
+                <p className="text-xs flex-1 mb-4" style={{ color: '#4A4A4A' }}>{item.notes}</p>
                 <a
                   href={item.url}
                   target="_blank"
@@ -167,7 +167,7 @@ export default function AITrainingParents() {
                   <h3 className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>
                     {block.title}
                   </h3>
-                  <p className="text-sm leading-relaxed mb-2" style={{ color: '#6b6760' }}>
+                  <p className="text-sm leading-relaxed mb-2" style={{ color: '#4A4A4A' }}>
                     {block.description}
                   </p>
                   <p className="text-xs mb-4 italic" style={{ color: '#9ca3af' }}>
@@ -195,12 +195,12 @@ export default function AITrainingParents() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div
               className="rounded-2xl border p-6"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: '#ECE7DD', background: 'white' }}
             >
               <h3 className="font-display text-lg mb-2" style={{ color: 'var(--text)' }}>
                 Internet Matters
               </h3>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>
+              <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A4A4A' }}>
                 A UK not-for-profit backed by major internet providers. Their AI guide for parents
                 is practical, up to date and free. Covers social media AI, generative AI and
                 advice on age-appropriate AI use.
@@ -217,12 +217,12 @@ export default function AITrainingParents() {
             </div>
             <div
               className="rounded-2xl border p-6"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: '#ECE7DD', background: 'white' }}
             >
               <h3 className="font-display text-lg mb-2" style={{ color: 'var(--text)' }}>
                 Common Sense Media
               </h3>
-              <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>
+              <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A4A4A' }}>
                 Internationally respected resource for parents on technology and media. Their AI
                 education section includes age-by-age guides, conversation starters and
                 school-specific advice.
@@ -248,7 +248,7 @@ export default function AITrainingParents() {
           <h2 className="font-display text-3xl mb-4" style={{ color: 'white' }}>
             Have a specific question about AI and your child?
           </h2>
-          <p className="text-base mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8" style={{ color: '#4A4A4A' }}>
             The Promptly AI assistant can answer questions about AI safety, school use policies
             and what to look out for — in plain English.
           </p>

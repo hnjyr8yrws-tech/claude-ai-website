@@ -7,9 +7,10 @@ import {
   type EquipmentProduct,
   type EqBadge,
 } from '../data/equipment';
+import { resolveProductAffiliateUrl, AFFILIATE_LINK_ATTRS } from '../utils/affiliateLinks';
 import { badgeStyle, reviewBadge } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -19,10 +20,10 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-xl border p-4 flex flex-col gap-2"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -35,7 +36,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         </h3>
       </Link>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{product.brand}</p>
-      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
+      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#4A4A4A' }}>{product.desc}</p>
       <p className="text-xs italic" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
       <div className="flex flex-wrap gap-1">
         {product.badges.slice(0, 2).map((b: EqBadge) => {
@@ -50,11 +51,10 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
       <div className="flex items-center justify-between pt-1">
         <span className="text-xs font-bold" style={{ color: 'var(--text)' }}>{product.priceBand}</span>
         <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+          href={resolveProductAffiliateUrl(product)}
+          {...AFFILIATE_LINK_ATTRS}
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#0F1C1A' }}
         >
           View →
         </a>
@@ -122,7 +122,7 @@ export default function AIEquipmentStudents() {
           Study Better with<br />
           <span style={{ color: TEAL }}>the Right Equipment</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#4A4A4A' }}>
           Laptops, tablets, reading pens, noise-cancelling headphones and study accessories for UK students.
         </p>
       </div>
@@ -142,7 +142,7 @@ export default function AIEquipmentStudents() {
       </div>
 
       {/* BY CATEGORY */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-6xl mx-auto space-y-12">
           {devices.length > 0 && (
             <div>
@@ -197,7 +197,7 @@ export default function AIEquipmentStudents() {
 
       {/* GCSE / A-LEVEL */}
       {gcseALevel.length > 0 && (
-        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
           <div className="max-w-6xl mx-auto">
             <SectionLabel>GCSE &amp; A-Level</SectionLabel>
             <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>

@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { EQUIPMENT, type EquipmentProduct, type EquipmentCategory } from '../data/equipment';
+import { resolveProductAffiliateUrl, AFFILIATE_LINK_ATTRS } from '../utils/affiliateLinks';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 // ─── SEND-specific data ───────────────────────────────────────────────────────
 
@@ -92,11 +93,11 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-2xl border flex flex-col"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>
             {product.category}
           </span>
           {product.badges.includes('SEND Friendly') && (
@@ -109,7 +110,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           {product.name}
         </h3>
         <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{product.brand}</p>
-        <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b6760' }}>{product.desc}</p>
+        <p className="text-sm leading-relaxed mb-3" style={{ color: '#4A4A4A' }}>{product.desc}</p>
         <p className="text-xs italic mb-3" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
 
         {product.senCategory.length > 0 && (
@@ -140,11 +141,10 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           <span className="text-xs ml-2" style={{ color: '#9ca3af' }}>{product.supplierName}</span>
         </div>
         <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+          href={resolveProductAffiliateUrl(product)}
+          {...AFFILIATE_LINK_ATTRS}
           className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#0F1C1A' }}
         >
           View →
         </a>
@@ -198,7 +198,7 @@ export default function EquipmentSEND() {
           SEND<br />
           <span style={{ color: TEAL }}>Equipment.</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-xl" style={{ color: '#4A4A4A' }}>
           {SEND_PRODUCTS.length} products independently assessed for special educational needs — from low-tech AAC to sensory regulation tools and hearing supports.
         </p>
       </div>
@@ -212,15 +212,15 @@ export default function EquipmentSEND() {
               <FadeIn key={col.title} delay={i * 0.06}>
                 <button
                   onClick={() => setCategoryFilter(col.category)}
-                  className="w-full text-left rounded-2xl border p-5 transition-colors hover:border-[#00808a] group"
+                  className="w-full text-left rounded-2xl border p-5 transition-colors hover:border-[#BEFF00] group"
                   style={{
-                    borderColor: categoryFilter === col.category ? TEAL : '#e8e6e0',
+                    borderColor: categoryFilter === col.category ? TEAL : '#ECE7DD',
                     background: categoryFilter === col.category ? '#e0f5f6' : 'white',
                   }}
                 >
                   <div className="text-2xl mb-2" aria-hidden="true">{col.icon}</div>
                   <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>{col.title}</h3>
-                  <p className="text-xs leading-relaxed mb-3" style={{ color: '#6b6760' }}>{col.desc}</p>
+                  <p className="text-xs leading-relaxed mb-3" style={{ color: '#4A4A4A' }}>{col.desc}</p>
                   <span className="text-xs font-semibold" style={{ color: TEAL }}>{col.count} products →</span>
                 </button>
               </FadeIn>
@@ -230,7 +230,7 @@ export default function EquipmentSEND() {
       </div>
 
       {/* ── FILTER + GRID ─────────────────────────────────────────────────────── */}
-      <div className="border-t" style={{ borderColor: '#e8e6e0' }}>
+      <div className="border-t" style={{ borderColor: '#ECE7DD' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
             All SEND products
@@ -244,7 +244,7 @@ export default function EquipmentSEND() {
               onChange={e => setSearch(e.target.value)}
               placeholder="Search by name, need, or SEN category…"
               className="w-full pl-4 pr-4 py-2.5 rounded-xl border text-sm focus:outline-none"
-              style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)', maxWidth: 480 }}
+              style={{ borderColor: '#ECE7DD', background: 'white', color: 'var(--text)', maxWidth: 480 }}
             />
 
             <div className="flex flex-wrap gap-2">
@@ -255,8 +255,8 @@ export default function EquipmentSEND() {
                   className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors border"
                   style={{
                     background: senFilter === s ? TEAL : 'white',
-                    color: senFilter === s ? 'white' : '#6b6760',
-                    borderColor: senFilter === s ? TEAL : '#e8e6e0',
+                    color: senFilter === s ? 'white' : '#4A4A4A',
+                    borderColor: senFilter === s ? TEAL : '#ECE7DD',
                   }}
                 >
                   {s}
@@ -314,9 +314,9 @@ export default function EquipmentSEND() {
                   body: 'GPS trackers, smart watches and any connected device collecting data about children falls under UK GDPR. Confirm data processing agreements with suppliers before deploying in school.',
                 },
               ].map(item => (
-                <div key={item.title} className="p-5 rounded-xl border" style={{ borderColor: '#e8e6e0' }}>
+                <div key={item.title} className="p-5 rounded-xl border" style={{ borderColor: '#ECE7DD' }}>
                   <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{item.body}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{item.body}</p>
                 </div>
               ))}
             </div>
@@ -343,7 +343,7 @@ export default function EquipmentSEND() {
                 if (widget) (widget as HTMLButtonElement).click();
               }}
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#0F1C1A' }}
             >
               Get a personalised recommendation →
             </button>

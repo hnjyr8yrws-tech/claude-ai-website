@@ -7,6 +7,8 @@ import { track } from '../utils/analytics';
 import AgentCTACard from '../components/AgentCTACard';
 import CrossSellCard from '../components/CrossSellCard';
 import CrossSellPopup from '../components/CrossSellPopup';
+import { BubbleLayer } from '../components/Bubbles';
+import LeadMagnet from '../components/LeadMagnet';
 import { useCrossSell } from '../hooks/useCrossSell';
 import type { CrossSellContext } from '../utils/crossSell';
 import { linkLabel, inferLinkType } from '../utils/linkType';
@@ -17,7 +19,24 @@ import {
   CAT_COLOURS, TIER_STYLE,
 } from '../data/tools';
 
-const TEAL = '#00808a';
+// Promptly palette tokens (mirror :root CSS variables)
+const TEAL   = '#BEFF00';   // legacy alias kept for zero-churn changes; same hex as LIME
+const LIME   = '#BEFF00';
+const CYAN   = '#00D1FF';
+const PURPLE = '#A78BFA';
+const YELLOW = '#FFEA00';
+const DARK   = '#0F1C1A';
+const INK    = '#0F1C1A';
+const INK_SOFT = '#4A4A4A';
+const BORDER  = '#ECE7DD';
+
+// Reusable lime-gradient button style — lime + dark ink text + glow + inset highlight
+const LIME_BTN: React.CSSProperties = {
+  background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+  color: INK,
+  border: '1px solid rgba(15,28,26,0.16)',
+  boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+};
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -54,7 +73,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       className="rounded-2xl border overflow-hidden"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4" style={{ background: '#111210' }}>
@@ -79,7 +98,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
             </div>
           </div>
         </div>
-        <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60" style={{ color: '#6b6760' }} aria-label="Close">
+        <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60" style={{ color: '#4A4A4A' }} aria-label="Close">
           ✕
         </button>
       </div>
@@ -96,7 +115,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
           <>
             {/* Five pillar breakdown */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: '#c5c2bb' }}>Safety Pillar Breakdown</p>
+              <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: '#9C9690' }}>Safety Pillar Breakdown</p>
               <div className="space-y-2.5">
                 {PILLARS.map((pillar, i) => {
                   const val = pillars[i];
@@ -105,7 +124,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
                   return (
                     <div key={pillar}>
                       <div className="flex justify-between text-xs mb-1">
-                        <span style={{ color: '#6b6760' }}>{pillar}</span>
+                        <span style={{ color: '#4A4A4A' }}>{pillar}</span>
                         <span className="font-semibold" style={{ color: barColour }}>{val}/10</span>
                       </div>
                       <div className="h-2 rounded-full overflow-hidden" style={{ background: '#f3f4f6' }}>
@@ -125,10 +144,10 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
 
             {/* Role suitability */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: '#c5c2bb' }}>Suitable For</p>
+              <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: '#9C9690' }}>Suitable For</p>
               <div className="flex flex-wrap gap-1.5">
                 {tool.audience.map(a => (
-                  <span key={a} className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+                  <span key={a} className="text-xs font-semibold px-2.5 py-1 rounded-full" style={{ background: 'rgba(190,255,0,0.18)', color: INK, border: '1px solid rgba(190,255,0,0.35)' }}>
                     {a}
                   </span>
                 ))}
@@ -144,7 +163,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
         )}
 
         {/* Description */}
-        <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{tool.desc}</p>
+        <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{tool.desc}</p>
 
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row gap-2">
@@ -152,15 +171,15 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
             href={tool.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            className="flex-1 text-center text-sm font-bold py-2.5 rounded-xl transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+            style={LIME_BTN}
           >
             {linkLabel(tool.linkType ?? inferLinkType(tool.url))} →
           </a>
           <button
             onClick={onCompare}
-            className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl border transition-all hover:opacity-80"
-            style={{ background: 'white', color: TEAL, borderColor: TEAL }}
+            className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl border transition-colors hover:bg-[#F8F5F0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+            style={{ background: 'white', color: INK, borderColor: BORDER }}
           >
             Compare with alternatives
           </button>
@@ -174,7 +193,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
         </div>
 
         {tool.lastReviewed && (
-          <p className="text-[10px] text-center" style={{ color: '#c5c2bb' }}>Last reviewed: {tool.lastReviewed}</p>
+          <p className="text-[10px] text-center" style={{ color: '#9C9690' }}>Last reviewed: {tool.lastReviewed}</p>
         )}
       </div>
     </motion.div>
@@ -213,7 +232,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
             We'll notify you at {email} when the review is complete.
           </p>
         )}
-        <button onClick={onClose} className="mt-4 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <button onClick={onClose} className="mt-4 text-xs font-bold transition-opacity hover:opacity-70 underline decoration-dotted underline-offset-4" style={{ color: INK }}>
           Search another tool →
         </button>
       </motion.div>
@@ -226,7 +245,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -8 }}
       className="rounded-2xl border overflow-hidden"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="px-6 py-4" style={{ background: '#111210' }}>
         <div className="flex items-center justify-between">
@@ -241,7 +260,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
               </p>
             </div>
           </div>
-          <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60" style={{ color: '#6b6760' }} aria-label="Close">
+          <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60" style={{ color: '#4A4A4A' }} aria-label="Close">
             ✕
           </button>
         </div>
@@ -249,34 +268,34 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
 
       <form onSubmit={handleSubmit} className="p-6 space-y-4">
         <div>
-          <label htmlFor="review-tool-name" className="text-xs font-semibold mb-1 block" style={{ color: '#6b6760' }}>Tool name or URL</label>
+          <label htmlFor="review-tool-name" className="text-xs font-semibold mb-1 block" style={{ color: '#4A4A4A' }}>Tool name or URL</label>
           <input
             id="review-tool-name"
             type="text"
             required
             value={toolName}
             onChange={e => setToolName(e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
-            style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#1c1a15' }}
+            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#BEFF00]"
+            style={{ borderColor: '#ECE7DD', background: '#F8F5F0', color: '#1A1A1A' }}
           />
         </div>
         <div>
-          <label htmlFor="review-email" className="text-xs font-semibold mb-1 block" style={{ color: '#6b6760' }}>Email (optional — we'll notify you when reviewed)</label>
+          <label htmlFor="review-email" className="text-xs font-semibold mb-1 block" style={{ color: '#4A4A4A' }}>Email (optional — we'll notify you when reviewed)</label>
           <input
             id="review-email"
             type="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="you@school.ac.uk"
-            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
-            style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#1c1a15' }}
+            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#BEFF00]"
+            style={{ borderColor: '#ECE7DD', background: '#F8F5F0', color: '#1A1A1A' }}
           />
         </div>
         <div className="flex flex-col sm:flex-row gap-2">
           <button
             type="submit"
-            className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            className="flex-1 text-center text-sm font-bold py-2.5 rounded-xl transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+            style={LIME_BTN}
           >
             Submit for Review
           </button>
@@ -289,7 +308,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
             Ask Promptly AI about this tool
           </button>
         </div>
-        <p className="text-[10px] text-center" style={{ color: '#c5c2bb' }}>
+        <p className="text-[10px] text-center" style={{ color: '#9C9690' }}>
           We review tools against KCSIE 2025. No fake scores — ever.
         </p>
       </form>
@@ -342,13 +361,33 @@ function ToolCard({
   tool: Tool; inCompare: boolean; onToggleCompare: () => void; compareDisabled: boolean; onTryDemo?: (tool: Tool) => void;
 }) {
   const catStyle = CAT_COLOURS[tool.category] ?? { bg: '#f3f4f6', text: '#374151' };
+  // Searchable / queryable data attributes — exposed for QA, snapshot tests and
+  // any future client-side instant-search overlays. The visible count is
+  // derived from the same `filtered` array that produces these cards, so the
+  // empty state can never disagree with what's actually rendered.
+  const dataAttrs = {
+    'data-tool-card': 'true',
+    'data-tool-slug': tool.slug,
+    'data-tool-name': tool.name,
+    'data-tool-category': tool.category,
+    'data-tool-subcategory': tool.subcategory,
+    'data-tool-roles': tool.audience.join('|'),
+    'data-tool-safety': tool.reviewNeeded ? 'review' : String(tool.safety),
+    'data-tool-tier': tool.tier,
+    'data-tool-price': tool.free ? 'free' : 'paid',
+    'data-tool-uk-readiness': tool.ukReady ?? 'Unknown',
+  } as Record<string, string>;
   return (
     <div
-      className="flex flex-col rounded-2xl border overflow-hidden transition-shadow hover:shadow-md"
+      {...dataAttrs}
+      className="gp-tool-card flex flex-col rounded-2xl border overflow-hidden transition-all hover:-translate-y-0.5 hover:shadow-lg"
       style={{
-        borderColor: inCompare ? TEAL : '#e8e6e0',
+        borderColor: inCompare ? LIME : BORDER,
         background: 'white',
-        outline: inCompare ? `2px solid ${TEAL}` : undefined,
+        outline: inCompare ? `2px solid ${LIME}` : undefined,
+        boxShadow: inCompare
+          ? '0 0 0 4px rgba(190,255,0,0.18), 0 8px 22px rgba(15,28,26,0.06)'
+          : '0 1px 0 rgba(255,255,255,0.8) inset, 0 1px 0 rgba(15,28,26,0.04)',
       }}
     >
       <div className="p-5 flex flex-col flex-1">
@@ -363,7 +402,7 @@ function ToolCard({
             </span>
           )}
           {tool.free && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(190,255,0,0.20)', color: INK, border: '1px solid rgba(190,255,0,0.40)' }}>
               Free tier
             </span>
           )}
@@ -373,10 +412,10 @@ function ToolCard({
         <h2 className="font-display text-base leading-tight mb-0.5" style={{ color: 'var(--text)' }}>
           {tool.name}
         </h2>
-        <p className="text-[10px] mb-3" style={{ color: '#c5c2bb' }}>{tool.subcategory}</p>
+        <p className="text-[10px] mb-3" style={{ color: '#9C9690' }}>{tool.subcategory}</p>
 
         {/* Description */}
-        <p className="text-xs leading-relaxed mb-3 flex-1" style={{ color: '#6b6760' }}>{tool.desc}</p>
+        <p className="text-xs leading-relaxed mb-3 flex-1" style={{ color: '#4A4A4A' }}>{tool.desc}</p>
 
         {/* Audience tags */}
         <div className="flex flex-wrap gap-1 mb-3">
@@ -391,7 +430,7 @@ function ToolCard({
         <div className="mb-4">
           <SafetyBadge score={tool.safety} tier={tool.tier} reviewNeeded={tool.reviewNeeded} />
           {tool.lastReviewed && (
-            <p className="text-[9px] mt-1" style={{ color: '#c5c2bb' }}>Reviewed {tool.lastReviewed}</p>
+            <p className="text-[9px] mt-1" style={{ color: '#9C9690' }}>Reviewed {tool.lastReviewed}</p>
           )}
         </div>
 
@@ -402,20 +441,21 @@ function ToolCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onTryDemo?.(tool)}
-            className="flex-1 text-center text-xs font-semibold py-2 rounded-lg transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            className="flex-1 text-center text-xs font-bold py-2 rounded-lg transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+            style={LIME_BTN}
           >
             {linkLabel(tool.linkType ?? inferLinkType(tool.url))} →
           </a>
           <button
             onClick={onToggleCompare}
             disabled={compareDisabled && !inCompare}
-            className="text-[10px] font-semibold px-2 py-2 rounded-lg border transition-all disabled:opacity-30 flex-shrink-0"
+            className="text-sm font-bold px-2.5 py-2 rounded-lg border transition-all disabled:opacity-30 flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
             style={inCompare
-              ? { background: TEAL, color: 'white', borderColor: TEAL }
-              : { background: 'white', color: '#9ca3af', borderColor: '#e8e6e0' }
+              ? { background: LIME, color: INK, borderColor: LIME }
+              : { background: 'white', color: INK_SOFT, borderColor: BORDER }
             }
-            aria-label={inCompare ? 'Remove from compare' : 'Add to compare'}
+            aria-label={inCompare ? `Remove ${tool.name} from compare` : `Add ${tool.name} to compare`}
+            aria-pressed={inCompare}
           >
             {inCompare ? '✓' : '+'}
           </button>
@@ -452,15 +492,15 @@ function CompareBar({ count, onCompare, onClear }: { count: number; onCompare: (
       <button
         onClick={onCompare}
         disabled={count < 2}
-        className="px-4 py-1.5 rounded-lg text-xs font-semibold transition-opacity disabled:opacity-40 hover:opacity-80"
-        style={{ background: TEAL, color: 'white' }}
+        className="px-4 py-1.5 rounded-lg text-xs font-bold transition-all disabled:opacity-40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+        style={LIME_BTN}
       >
         Compare Now ▶
       </button>
       <button
         onClick={onClear}
         className="text-xs transition-opacity hover:opacity-60"
-        style={{ color: '#6b6760' }}
+        style={{ color: 'rgba(255,255,255,0.65)' }}
       >
         Clear
       </button>
@@ -489,11 +529,11 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
         ))}
       </div>
     )},
-    { label: 'Description', render: t => <span className="text-xs leading-relaxed" style={{ color: '#6b6760' }}>{t.desc}</span> },
+    { label: 'Description', render: t => <span className="text-xs leading-relaxed" style={{ color: '#4A4A4A' }}>{t.desc}</span> },
     { label: 'Try',         render: t => (
       <a href={t.url} target="_blank" rel="noopener noreferrer"
-        className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
-        style={{ background: TEAL, color: 'white' }}>
+        className="inline-block text-xs font-bold px-3 py-1.5 rounded-lg transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+        style={LIME_BTN}>
         {linkLabel(t.linkType ?? inferLinkType(t.url))} →
       </a>
     )},
@@ -510,7 +550,7 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
       <div className="absolute inset-0" style={{ background: 'rgba(17,18,16,0.75)' }} />
       <motion.div
         className="relative w-full max-w-5xl max-h-[90vh] overflow-auto rounded-2xl shadow-2xl"
-        style={{ background: 'white', border: '1px solid #e8e6e0' }}
+        style={{ background: 'white', border: '1px solid #ECE7DD' }}
         initial={{ scale: 0.97, y: 16 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.97, y: 16 }}
@@ -523,16 +563,16 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
             Comparing {tools.length} tools
           </p>
           <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60"
-            style={{ color: '#6b6760' }} aria-label="Close">✕</button>
+            style={{ color: '#4A4A4A' }} aria-label="Close">✕</button>
         </div>
 
         {/* Tool name headers */}
-        <div className="grid border-b" style={{ gridTemplateColumns: `140px repeat(${tools.length}, 1fr)`, borderColor: '#e8e6e0' }}>
-          <div className="px-4 py-3" style={{ background: '#f7f6f2' }} />
+        <div className="grid border-b" style={{ gridTemplateColumns: `140px repeat(${tools.length}, 1fr)`, borderColor: '#ECE7DD' }}>
+          <div className="px-4 py-3" style={{ background: '#F8F5F0' }} />
           {tools.map(t => (
-            <div key={t.slug} className="px-4 py-3 border-l" style={{ background: '#f7f6f2', borderColor: '#e8e6e0' }}>
+            <div key={t.slug} className="px-4 py-3 border-l" style={{ background: '#F8F5F0', borderColor: '#ECE7DD' }}>
               <p className="font-display text-sm font-bold" style={{ color: 'var(--text)' }}>{t.name}</p>
-              <p className="text-[10px] mt-0.5" style={{ color: '#c5c2bb' }}>{t.category}</p>
+              <p className="text-[10px] mt-0.5" style={{ color: '#9C9690' }}>{t.category}</p>
             </div>
           ))}
         </div>
@@ -540,8 +580,8 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
         {/* Rows */}
         {rows.map(row => (
           <div key={row.label} className="grid border-b" style={{ gridTemplateColumns: `140px repeat(${tools.length}, 1fr)`, borderColor: '#f3f4f6' }}>
-            <div className="px-4 py-3 flex items-start" style={{ background: '#f7f6f2' }}>
-              <span className="text-xs font-semibold" style={{ color: '#6b6760' }}>{row.label}</span>
+            <div className="px-4 py-3 flex items-start" style={{ background: '#F8F5F0' }}>
+              <span className="text-xs font-semibold" style={{ color: '#4A4A4A' }}>{row.label}</span>
             </div>
             {tools.map(t => (
               <div key={t.slug} className="px-4 py-3 border-l text-xs" style={{ borderColor: '#f3f4f6', color: 'var(--text)' }}>
@@ -673,6 +713,26 @@ export default function Tools() {
     return copy;
   }, [roleTab, catFilter, safetyFilter, search, sortOption]);
 
+  // ── Single source of truth for what is rendered ──────────────────────────
+  // `visibleTools` drives BOTH the grid map and the empty state, so the
+  // count, the cards and the "no results" message can never disagree. Result
+  // count is announced via aria-live so AT users hear filter outcomes.
+  const visibleTools = filtered;
+  const visibleCount = visibleTools.length;
+  const filtersActive =
+    roleTab !== 'All' ||
+    catFilter !== 'All' ||
+    safetyFilter !== 'All' ||
+    search.trim() !== '';
+
+  function clearAllFilters() {
+    setRoleTab('All');
+    setCatFilter('All');
+    setSafetyFilter('All');
+    setSearch('');
+    track({ name: 'filter_applied', section: 'tools', filter: 'clear-all', value: 'reset' });
+  }
+
   const compareTools = useMemo(
     () => compareList.map(slug => TOOLS.find(t => t.slug === slug)!).filter(Boolean),
     [compareList]
@@ -695,57 +755,106 @@ export default function Tools() {
       />
 
       {/* ── HERO ── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
-        <SectionLabel>AI Tools Directory</SectionLabel>
-        <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
-          AI Tools for<br />
-          <span style={{ color: TEAL }}>UK Education.</span>
-        </h1>
-        <p className="text-base sm:text-lg max-w-xl mb-8" style={{ color: '#6b6760' }}>
-          {STAT_TOTAL} tools independently safety-scored against KCSIE 2025. Filtered by your role. No paid placements. Last updated Apr 2026.
-        </p>
+      <section className="relative overflow-hidden" style={{ background: '#0F1C1A' }}>
+        <BubbleLayer
+          bubbles={[
+            { variant: 'lime', size: 380, top: '-20%', left: '-8%', anim: 'gp-float-a' },
+            { variant: 'cyan', size: 340, top: '15%', right: '-10%', anim: 'gp-float-b' },
+            { variant: 'soft-purple', size: 220, bottom: '-15%', left: '45%', anim: 'gp-float-c' },
+          ]}
+        />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-20 pb-12 z-10">
+          <span
+            className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 px-3 py-1.5 rounded-full"
+            style={{
+              color: '#BEFF00',
+              background: 'rgba(190,255,0,0.10)',
+              border: '1px solid rgba(190,255,0,0.25)',
+            }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#BEFF00', boxShadow: '0 0 6px #BEFF00' }} aria-hidden="true" />
+            AI Tools Directory
+          </span>
+          <h1 className="font-display text-5xl sm:text-6xl mb-5 leading-[1.05]" style={{ color: 'white' }}>
+            AI Tools for<br />
+            <em
+              className="not-italic"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #BEFF00 0%, #00D1FF 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >UK Education.</em>
+          </h1>
+          <p className="text-base sm:text-lg max-w-xl mb-10" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            {STAT_TOTAL} tools independently safety-scored against KCSIE 2025. Filtered by your role. No paid placements. Last updated Apr 2026.
+          </p>
 
-        {/* Stat boxes */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px mb-10" style={{ background: '#e8e6e0' }}>
-          {[
-            { label: 'Total Tools',  value: STAT_TOTAL   },
-            { label: 'Trusted Tier', value: STAT_TRUSTED  },
-            { label: 'SEND Tools',   value: STAT_SEND     },
-            { label: 'Free Tier',    value: STAT_FREE     },
-          ].map(s => (
-            <div key={s.label} className="px-6 py-5" style={{ background: 'white' }}>
-              <p className="font-display text-3xl font-bold mb-0.5" style={{ color: TEAL }}>{s.value}</p>
-              <p className="text-xs" style={{ color: '#6b6760' }}>{s.label}</p>
-            </div>
-          ))}
+          {/* Stat boxes */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+            {[
+              { label: 'Total Tools',  value: STAT_TOTAL,    accent: '#BEFF00' },
+              { label: 'Trusted Tier', value: STAT_TRUSTED,  accent: '#00D1FF' },
+              { label: 'SEND Tools',   value: STAT_SEND,     accent: '#A78BFA' },
+              { label: 'Free Tier',    value: STAT_FREE,     accent: '#FFEA00' },
+            ].map(s => (
+              <div
+                key={s.label}
+                className="px-5 py-4 rounded-2xl"
+                style={{
+                  background: 'linear-gradient(180deg, #142522 0%, #0F1C1A 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: '0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 18px rgba(0,0,0,0.30)',
+                }}
+              >
+                <p className="font-display text-3xl font-bold mb-0.5" style={{ color: s.accent }}>{s.value}</p>
+                <p className="text-xs" style={{ color: 'rgba(255,255,255,0.55)' }}>{s.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-12 pb-10">
         {/* ── SCORE A TOOL ── */}
-        <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: TEAL, background: '#e0f5f6' }}>
-          <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>Score a Tool</p>
+        <div
+          className="rounded-2xl p-6 mb-8"
+          style={{
+            border: '1px solid rgba(190,255,0,0.30)',
+            background: 'linear-gradient(180deg, #FFFFFF 0%, rgba(190,255,0,0.04) 100%)',
+            boxShadow: '0 1px 0 rgba(255,255,255,0.8) inset, 0 8px 22px rgba(15,28,26,0.06)',
+          }}
+        >
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: '#0F1C1A' }}>Score a Tool</p>
           <h2 className="font-display text-xl sm:text-2xl mb-2" style={{ color: 'var(--text)' }}>
             Check any AI tool's safety score
           </h2>
-          <p className="text-sm mb-4" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-4" style={{ color: '#4A4A4A' }}>
             Type a tool name or paste a URL — we'll show you its safety rating, pillar breakdown and recommended action.
           </p>
           <form onSubmit={handleScoreTool} className="flex flex-col sm:flex-row gap-2 max-w-xl">
             <div className="relative flex-1">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: TEAL }}>🔍</span>
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: '#0F1C1A' }}>🔍</span>
               <input
                 type="text"
                 value={scoreQuery}
                 onChange={e => setScoreQuery(e.target.value)}
                 placeholder="e.g. ChatGPT, Canva, briskteaching.com…"
-                className="w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
-                style={{ borderColor: TEAL, background: 'white', color: 'var(--text)' }}
+                className="w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#BEFF00] transition-colors"
+                style={{ borderColor: '#ECE7DD', background: 'white', color: 'var(--text)' }}
                 aria-label="Tool name or URL"
               />
             </div>
             <button
               type="submit"
-              className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+              style={{
+                background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+                color: '#0F1C1A',
+                border: '1px solid rgba(15,28,26,0.16)',
+                boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+              }}
             >
               Score this tool
             </button>
@@ -793,7 +902,7 @@ export default function Tools() {
         {/* Search + sort */}
         <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mb-5">
           <div className="relative flex-1">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: '#c5c2bb' }}>🔍</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: '#9C9690' }}>🔍</span>
             <input
               type="search"
               value={search}
@@ -802,15 +911,15 @@ export default function Tools() {
                 if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value });
               }}
               placeholder={`Search ${STAT_TOTAL} tools by name, category or description…`}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors"
-              style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border text-sm outline-none focus:border-[#BEFF00] transition-colors"
+              style={{ borderColor: '#ECE7DD', background: 'white', color: 'var(--text)' }}
             />
           </div>
           <select
             value={sortOption}
             onChange={e => setSortOption(e.target.value as SortOption)}
-            className="px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a]"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760', minWidth: '180px' }}
+            className="px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#BEFF00]"
+            style={{ borderColor: '#ECE7DD', background: 'white', color: '#4A4A4A', minWidth: '180px' }}
           >
             <option value="A-Z">Sort: A–Z</option>
             <option value="Safety Score">Sort: Safety Score ↓</option>
@@ -818,29 +927,49 @@ export default function Tools() {
         </div>
 
         {/* Role tabs */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {ROLE_TABS.map(r => (
-            <button
-              key={r}
-              onClick={() => {
-                setRoleTab(r);
-                track({ name: 'filter_applied', section: 'tools', filter: 'role', value: r });
-                if (r !== 'All') track({ name: 'role_selected', role: r, pageType: 'tools-directory' });
-                track({ name: 'tool_filter_used', filterType: 'role', value: r, pageType: 'tools-directory' });
-              }}
-              className="px-4 py-1.5 rounded-full text-sm font-medium border transition-all"
-              style={roleTab === r
-                ? { background: TEAL, color: 'white', borderColor: TEAL }
-                : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
-              }
-            >
-              {r}
-            </button>
-          ))}
+        <div
+          className="flex flex-wrap gap-2 mb-4"
+          role="tablist"
+          aria-label="Filter tools by role"
+        >
+          {ROLE_TABS.map(r => {
+            const active = roleTab === r;
+            return (
+              <button
+                key={r}
+                role="tab"
+                aria-selected={active}
+                aria-pressed={active}
+                onClick={() => {
+                  setRoleTab(r);
+                  track({ name: 'filter_applied', section: 'tools', filter: 'role', value: r });
+                  if (r !== 'All') track({ name: 'role_selected', role: r, pageType: 'tools-directory' });
+                  track({ name: 'tool_filter_used', filterType: 'role', value: r, pageType: 'tools-directory' });
+                }}
+                className="px-4 py-1.5 rounded-full text-sm font-semibold border transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+                style={active
+                  ? {
+                      background: DARK,
+                      color: 'white',
+                      borderColor: 'rgba(255,255,255,0.05)',
+                      boxShadow: '0 0 0 1px rgba(190,255,0,0.18), 0 0 18px rgba(190,255,0,0.18), 0 8px 18px rgba(15,28,26,0.18)',
+                    }
+                  : { background: 'white', color: INK_SOFT, borderColor: BORDER }
+                }
+              >
+                {r}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Category pills */}
-        <div className="flex flex-wrap gap-2 mb-3">
+        {/* Category pills — horizontally scrollable on mobile so all 18 are reachable */}
+        <div
+          className="flex flex-nowrap sm:flex-wrap gap-2 mb-3 overflow-x-auto sm:overflow-visible -mx-5 sm:mx-0 px-5 sm:px-0 pb-1 sm:pb-0"
+          role="group"
+          aria-label="Filter tools by category"
+          style={{ scrollbarWidth: 'thin' }}
+        >
           {CAT_FILTERS.map(c => {
             const cs = CAT_COLOURS[c];
             const active = catFilter === c;
@@ -851,11 +980,12 @@ export default function Tools() {
                   setCatFilter(c);
                   track({ name: 'tool_filter_used', filterType: 'category', value: c, pageType: 'tools-directory' });
                 }}
-                className="px-3 py-1 rounded-full text-xs font-medium border transition-all"
+                className="flex-shrink-0 px-3 py-1 rounded-full text-xs font-semibold border transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
                 style={active
-                  ? { background: cs?.text ?? '#111210', color: 'white', borderColor: cs?.text ?? '#111210' }
-                  : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
+                  ? { background: cs?.text ?? DARK, color: 'white', borderColor: cs?.text ?? DARK }
+                  : { background: 'white', color: INK_SOFT, borderColor: BORDER }
                 }
+                aria-pressed={active}
               >
                 {c}
               </button>
@@ -870,6 +1000,7 @@ export default function Tools() {
                         : s === 'Guided'  ? TIER_STYLE.Guided
                         : s === 'Emerging'? TIER_STYLE.Emerging
                         : { bg: '#f3f4f6', text: '#6b7280' };
+            const active = safetyFilter === s;
             return (
               <button
                 key={s}
@@ -878,19 +1009,51 @@ export default function Tools() {
                   track({ name: 'filter_applied', section: 'tools', filter: 'safety', value: s });
                   track({ name: 'tool_filter_used', filterType: 'safety', value: s, pageType: 'tools-directory' });
                 }}
-                className="px-3 py-1 rounded-full text-xs font-semibold border transition-all"
-                style={safetyFilter === s
+                className="px-3 py-1 rounded-full text-xs font-semibold border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+                style={active
                   ? { background: style.bg, color: style.text, borderColor: style.text }
-                  : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
+                  : { background: 'white', color: INK_SOFT, borderColor: BORDER }
                 }
+                aria-pressed={active}
               >
                 {s === 'All' ? 'All tiers' : s}
               </button>
             );
           })}
-          <span className="ml-auto text-xs" style={{ color: '#c5c2bb' }}>
-            Showing <strong style={{ color: 'var(--text)' }}>{filtered.length}</strong> of {STAT_TOTAL} tools
-          </span>
+
+          {/* Clear-all-filters — appears only when something is filtering */}
+          {filtersActive && (
+            <button
+              onClick={clearAllFilters}
+              className="ml-1 inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+              style={{
+                background: 'white',
+                color: INK,
+                borderColor: LIME,
+                boxShadow: '0 0 0 3px rgba(190,255,0,0.18)',
+              }}
+              aria-label="Clear all filters"
+              data-testid="clear-all-filters"
+            >
+              <span aria-hidden="true">✕</span> Clear all
+            </button>
+          )}
+
+          {/* Result count — aria-live announces changes after each search/filter */}
+          <div
+            className="ml-auto text-xs"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+            data-testid="tools-result-count"
+            data-visible-count={visibleCount}
+            data-total-count={STAT_TOTAL}
+            style={{ color: '#9C9690' }}
+          >
+            Showing <strong style={{ color: INK }}>{visibleCount}</strong> of {STAT_TOTAL} tools
+            {filtersActive && visibleCount > 0 && <span className="sr-only"> matching your filters</span>}
+            {visibleCount === 0 && <span className="sr-only"> — no matches; try clearing filters</span>}
+          </div>
         </div>
       </div>
 
@@ -898,25 +1061,70 @@ export default function Tools() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-20">
         <div className="lg:flex lg:gap-8 lg:items-start">
 
-          {/* Main grid */}
-          <div className="flex-1 min-w-0">
-            {filtered.length === 0 ? (
-              <div className="p-10 text-center rounded-2xl border" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-                <p className="font-display text-lg mb-2" style={{ color: 'var(--text)' }}>No exact matches yet.</p>
-                <p className="text-sm mb-5" style={{ color: '#6b6760' }}>
-                  Try removing one filter, searching a broader task such as "feedback" or "SEND", or suggest a tool for review.
-                </p>
-                <a
-                  href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-                  style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+          {/* Main grid — `visibleTools` is the single source for both grid + empty state */}
+          <div className="flex-1 min-w-0" data-testid="tools-grid-container" data-visible-count={visibleCount}>
+            {visibleCount === 0 ? (
+              <div
+                className="p-8 sm:p-10 rounded-2xl border"
+                style={{
+                  borderColor: BORDER,
+                  background: 'linear-gradient(180deg, #FFFFFF 0%, rgba(190,255,0,0.04) 100%)',
+                  boxShadow: '0 1px 0 rgba(255,255,255,0.8) inset, 0 8px 22px rgba(15,28,26,0.06)',
+                }}
+                data-testid="tools-empty-state"
+              >
+                <span
+                  className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full mb-4"
+                  style={{ background: 'rgba(190,255,0,0.18)', color: INK, border: '1px solid rgba(190,255,0,0.35)' }}
                 >
-                  Suggest a tool at info@getpromptly.co.uk
-                </a>
+                  <span className="w-1.5 h-1.5 rounded-full" style={{ background: LIME, boxShadow: '0 0 6px rgba(190,255,0,0.65)' }} aria-hidden="true" />
+                  No matches
+                </span>
+                <p className="font-display text-2xl sm:text-3xl mb-2" style={{ color: INK }}>
+                  Nothing here for{' '}
+                  <em
+                    className="not-italic"
+                    style={{
+                      backgroundImage: 'linear-gradient(90deg, #BEFF00 0%, #00D1FF 100%)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      fontStyle: 'italic',
+                    }}
+                  >
+                    that combination.
+                  </em>
+                </p>
+                <p className="text-sm sm:text-base leading-relaxed mb-6 max-w-xl" style={{ color: INK_SOFT }}>
+                  Try removing one filter, searching a broader task like &ldquo;feedback&rdquo; or &ldquo;SEND&rdquo;, or tell us about a tool we should review next — we update the directory monthly.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  {filtersActive && (
+                    <button
+                      onClick={clearAllFilters}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+                      style={LIME_BTN}
+                    >
+                      Clear all filters
+                    </button>
+                  )}
+                  <a
+                    href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly"
+                    onClick={() => track({ name: 'cta_clicked', section: 'tools-empty-state', label: 'Suggest a tool email' })}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold border transition-colors hover:border-[#0F1C1A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+                    style={{ borderColor: BORDER, color: INK, background: 'white' }}
+                  >
+                    Suggest a tool — info@getpromptly.co.uk
+                  </a>
+                </div>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filtered.map(tool => (
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                data-testid="tools-grid"
+                data-visible-count={visibleCount}
+              >
+                {visibleTools.map(tool => (
                   <ToolCard
                     key={tool.slug}
                     tool={tool}
@@ -934,29 +1142,29 @@ export default function Tools() {
           <div className="hidden lg:block w-72 flex-shrink-0 sticky top-24 space-y-4 mt-1">
 
             {/* Agent panel */}
-            <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#e8e6e0' }}>
+            <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#ECE7DD' }}>
               <div className="px-4 py-3 border-b" style={{ background: '#111210', borderColor: '#1f1f1c' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: '#6b6760' }}>Promptly AI</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: '#4A4A4A' }}>Promptly AI</p>
                 <p className="text-sm font-medium" style={{ color: 'white' }}>Ask about any tool</p>
               </div>
               <div className="p-4" style={{ background: 'white' }}>
-                <p className="rounded-xl p-3 mb-3 text-sm leading-relaxed italic" style={{ background: '#f7f6f2', color: '#6b6760' }}>
+                <p className="rounded-xl p-3 mb-3 text-sm leading-relaxed italic" style={{ background: '#F8F5F0', color: INK_SOFT }}>
                   "Which SEND tools work with Google Classroom?"
                 </p>
                 <button
                   onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
-                  className="w-full py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  className="w-full py-2.5 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+                  style={LIME_BTN}
                 >
                   Ask Promptly AI →
                 </button>
-                <p className="text-[10px] text-center mt-2" style={{ color: '#c5c2bb' }}>Powered by Claude · Free</p>
+                <p className="text-[10px] text-center mt-2" style={{ color: '#9C9690' }}>Powered by Claude · Free</p>
               </div>
             </div>
 
             {/* Stats */}
-            <div className="rounded-2xl border p-4" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-              <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#c5c2bb' }}>Directory</p>
+            <div className="rounded-2xl border p-4" style={{ borderColor: '#ECE7DD', background: 'white' }}>
+              <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#9C9690' }}>Directory</p>
               <div className="space-y-2.5">
                 {[
                   ['Tools reviewed', STAT_TOTAL.toString()],
@@ -966,7 +1174,7 @@ export default function Tools() {
                   ['Last updated',   'Apr 2026'],
                 ].map(([l, v]) => (
                   <div key={l} className="flex justify-between text-sm">
-                    <span style={{ color: '#6b6760' }}>{l}</span>
+                    <span style={{ color: '#4A4A4A' }}>{l}</span>
                     <span className="font-semibold" style={{ color: 'var(--text)' }}>{v}</span>
                   </div>
                 ))}
@@ -974,10 +1182,10 @@ export default function Tools() {
             </div>
 
             {/* Safety key */}
-            <div className="rounded-2xl border p-4" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+            <div className="rounded-2xl border p-4" style={{ borderColor: '#ECE7DD', background: 'white' }}>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>Safety Tiers</p>
-                <Link to="/safety-methodology" className="text-[10px] font-semibold hover:opacity-70 transition-opacity" style={{ color: TEAL }}>
+                <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>Safety Tiers</p>
+                <Link to="/safety-methodology" className="text-[10px] font-bold hover:opacity-70 transition-opacity underline decoration-dotted underline-offset-2" style={{ color: INK }}>
                   How? →
                 </Link>
               </div>
@@ -992,7 +1200,7 @@ export default function Tools() {
                     <span className="w-10 text-center font-bold px-1 py-0.5 rounded" style={{ background: s.bg, color: s.text }}>
                       {item.range}
                     </span>
-                    <span style={{ color: '#6b6760' }}>{item.desc}</span>
+                    <span style={{ color: '#4A4A4A' }}>{item.desc}</span>
                   </div>
                 );
               })}
@@ -1000,8 +1208,8 @@ export default function Tools() {
 
             {/* Cross-sell recommendations */}
             {inlineItems.length > 0 && (
-              <div className="rounded-2xl border p-4" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#c5c2bb' }}>Recommended</p>
+              <div className="rounded-2xl border p-4" style={{ borderColor: '#ECE7DD', background: 'white' }}>
+                <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#9C9690' }}>Recommended</p>
                 <div className="space-y-2">
                   {inlineItems.slice(0, 2).map(item => (
                     <CrossSellCard key={item.id} item={item} sourceSection="tools" compact />
@@ -1012,19 +1220,26 @@ export default function Tools() {
 
             {/* Compare shortcut */}
             {compareList.length > 0 && (
-              <div className="rounded-2xl border p-4" style={{ borderColor: TEAL, background: '#e0f5f6' }}>
-                <p className="text-xs font-semibold mb-2" style={{ color: TEAL }}>
+              <div
+                className="rounded-2xl border p-4"
+                style={{
+                  borderColor: LIME,
+                  background: 'rgba(190,255,0,0.08)',
+                  boxShadow: '0 0 0 4px rgba(190,255,0,0.10)',
+                }}
+              >
+                <p className="text-xs font-bold mb-2" style={{ color: INK }}>
                   {compareList.length}/3 tools selected
                 </p>
                 <button
                   onClick={() => compareList.length >= 2 && setCompareOpen(true)}
                   disabled={compareList.length < 2}
-                  className="w-full py-2 rounded-lg text-xs font-semibold transition-opacity disabled:opacity-40 hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  className="w-full py-2 rounded-lg text-xs font-bold transition-all disabled:opacity-40 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+                  style={LIME_BTN}
                 >
                   Compare Now →
                 </button>
-                <button onClick={() => setCompareList([])} className="w-full text-center text-xs mt-2 hover:opacity-60" style={{ color: '#6b6760' }}>
+                <button onClick={() => setCompareList([])} className="w-full text-center text-xs mt-2 hover:opacity-60" style={{ color: INK_SOFT }}>
                   Clear selection
                 </button>
               </div>
@@ -1035,58 +1250,214 @@ export default function Tools() {
         {/* Mobile agent CTA — handled by the hero AgentCTACard above */}
       </div>
 
-      {/* ── SUGGEST A TOOL ── */}
-      <div style={{ background: 'white' }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
-          <div className="rounded-2xl border p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5" style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}>
-            <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: TEAL }}>Suggest a tool</p>
-              <h2 className="font-display text-xl mb-1.5" style={{ color: 'var(--text)' }}>Know a tool we should review?</h2>
-              <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-                Email the GetPromptly team with the tool name, website and the school role it supports.
+      {/* ── SUGGEST A TOOL — prominent premium block ── */}
+      <section
+        id="suggest-a-tool"
+        aria-labelledby="suggest-a-tool-heading"
+        className="relative overflow-hidden"
+        style={{ background: DARK }}
+      >
+        <BubbleLayer
+          bubbles={[
+            { variant: 'soft-lime', size: 320, top: '-15%', left: '-6%', anim: 'gp-float-a' },
+            { variant: 'soft-cyan', size: 280, bottom: '-20%', right: '-8%', anim: 'gp-float-b' },
+          ]}
+        />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20 z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+            <div className="lg:col-span-3">
+              <span
+                className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] mb-5 px-3 py-1.5 rounded-full"
+                style={{
+                  color: LIME,
+                  background: 'rgba(190,255,0,0.10)',
+                  border: '1px solid rgba(190,255,0,0.25)',
+                }}
+              >
+                <span className="w-1.5 h-1.5 rounded-full" style={{ background: LIME, boxShadow: '0 0 6px rgba(190,255,0,0.65)' }} aria-hidden="true" />
+                We&apos;re listening
+              </span>
+              <h2
+                id="suggest-a-tool-heading"
+                className="font-display text-3xl sm:text-4xl lg:text-5xl leading-[1.05] mb-5"
+                style={{ color: 'white' }}
+              >
+                Spotted a tool we should{' '}
+                <em
+                  className="not-italic"
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, #BEFF00 0%, #00D1FF 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    fontStyle: 'italic',
+                  }}
+                >
+                  review next?
+                </em>
+              </h2>
+              <p className="text-base sm:text-lg leading-relaxed mb-7 max-w-xl" style={{ color: 'rgba(255,255,255,0.72)' }}>
+                Tell us the name, the website and the role it&apos;s for. We&apos;ll review it against KCSIE 2025, score it on our 5 safety pillars and publish the verdict — usually within 14 days.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 mb-5">
+                <a
+                  href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly&body=Tool%20name%3A%20%0AWebsite%3A%20%0ASchool%20role%20it%20supports%3A%20%0AAnything%20else%20we%20should%20know%3A%20"
+                  onClick={() => track({ name: 'cta_clicked', section: 'tools-suggest', label: 'Email info@getpromptly.co.uk' })}
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+                  style={LIME_BTN}
+                  data-testid="suggest-a-tool-email"
+                >
+                  <span aria-hidden="true">✉</span> Email info@getpromptly.co.uk
+                </a>
+                <button
+                  onClick={() => {
+                    track({ name: 'cta_clicked', section: 'tools-suggest', label: 'Ask Promptly AI' });
+                    window.dispatchEvent(new CustomEvent('open-agent-chat'));
+                  }}
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+                  style={{
+                    background: 'rgba(255,255,255,0.04)',
+                    color: 'white',
+                    border: '1px solid rgba(255,255,255,0.14)',
+                    backdropFilter: 'blur(10px)',
+                  }}
+                >
+                  Or ask Promptly AI →
+                </button>
+              </div>
+
+              <p className="text-xs" style={{ color: 'rgba(255,255,255,0.55)' }}>
+                Direct line:{' '}
+                <a
+                  href="mailto:info@getpromptly.co.uk"
+                  className="font-bold underline decoration-dotted underline-offset-4 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+                  style={{ color: LIME }}
+                >
+                  info@getpromptly.co.uk
+                </a>
+                {' '}— a real human reads every email.
               </p>
             </div>
-            <a
-              href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly"
-              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-              style={{ background: TEAL }}
-            >
-              info@getpromptly.co.uk
-            </a>
+
+            <div className="lg:col-span-2">
+              <div
+                className="rounded-3xl p-6 sm:p-7"
+                style={{
+                  background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
+                }}
+              >
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-4" style={{ color: LIME }}>
+                  What happens next
+                </p>
+                <ol className="space-y-4">
+                  {[
+                    { n: '01', accent: LIME,   title: 'We review the tool',  desc: 'Against KCSIE 2025, UK GDPR and DfE guidance.' },
+                    { n: '02', accent: CYAN,   title: 'We score 5 pillars',  desc: 'Privacy, safeguarding, age, transparency, accessibility.' },
+                    { n: '03', accent: PURPLE, title: 'We publish the verdict', desc: 'Trusted, Guided or Emerging — usually within 14 days.' },
+                    { n: '04', accent: YELLOW, title: 'We email you back',   desc: 'Direct reply with the score, no boilerplate.' },
+                  ].map(s => (
+                    <li key={s.n} className="flex items-start gap-3.5 text-sm" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                      <span
+                        className="w-9 h-9 rounded-xl text-[11px] font-bold flex items-center justify-center flex-shrink-0"
+                        style={{ background: `${s.accent}29`, color: s.accent, border: `1px solid ${s.accent}59` }}
+                        aria-hidden="true"
+                      >
+                        {s.n}
+                      </span>
+                      <span>
+                        <span className="block font-semibold" style={{ color: 'white' }}>{s.title}</span>
+                        <span className="block text-xs mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>{s.desc}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── TOOLS SHORTLIST LEAD MAGNET ── */}
+      <div style={{ background: 'var(--bg)' }}>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-12">
+          <LeadMagnet
+            eyebrow="Free download"
+            headline="Email me the AI tools shortlist"
+            description={
+              <>
+                A printable PDF of the top-scoring AI tools for UK education — by safety tier, by role and by classroom use case. Includes KCSIE 2025 notes and a side-by-side comparison sheet for your SLT.
+              </>
+            }
+            buttonLabel="Email me the shortlist →"
+            analyticsSection="tools-shortlist"
+          />
         </div>
       </div>
 
-      {/* ── CROSS-SELL STRIP ── */}
-      <div style={{ background: '#111210' }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
+      {/* ── CROSS-SELL STRIP — promotional dark band ── */}
+      <section
+        className="relative overflow-hidden px-5 sm:px-8 py-14"
+        style={{ background: 'linear-gradient(180deg, #0F1C1A 0%, #1B302C 100%)' }}
+      >
+        <div className="relative max-w-6xl mx-auto">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>Recommended Training</p>
-              <h2 className="font-display text-2xl sm:text-3xl" style={{ color: 'white' }}>Go further with these tools.</h2>
+              <span
+                className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-3"
+                style={{ background: 'rgba(190,255,0,0.18)', color: '#BEFF00' }}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ background: '#BEFF00', boxShadow: '0 0 0 3px rgba(190,255,0,0.18)' }}
+                  aria-hidden="true"
+                />
+                Recommended training
+              </span>
+              <h2 className="font-display text-2xl sm:text-3xl" style={{ color: '#FFFFFF' }}>
+                A great tool is only half the answer.
+              </h2>
+              <p className="text-sm mt-2 max-w-xl" style={{ color: 'rgba(255,255,255,0.65)' }}>
+                Pair the right AI tool with structured CPD — DfE-backed courses, OpenAI Academy and premium certificates that fit alongside teaching.
+              </p>
             </div>
-            <Link to="/training" className="hidden sm:block text-sm font-semibold hover:opacity-70 transition-opacity pb-1" style={{ color: TEAL }}>
+            <Link to="/ai-training" className="hidden sm:block text-sm font-semibold hover:text-white transition-colors pb-1" style={{ color: '#BEFF00' }}>
               All training →
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px" style={{ background: '#1f1f1c' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {TRAINING_CROSS_SELL.map((item, i) => (
               <motion.div key={item.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
-                <Link to="/training" className="block p-6 transition-colors hover:bg-[#181815]" style={{ background: '#111210' }}>
-                  <span className="inline-block text-[10px] font-semibold px-2 py-1 rounded mb-3" style={{ background: '#0d1f0d', color: TEAL }}>{item.tag}</span>
-                  <h3 className="font-display text-lg mb-1" style={{ color: 'white' }}>{item.name}</h3>
-                  <p className="text-xs mb-3" style={{ color: '#4b5563' }}>{item.provider}</p>
-                  <p className="text-sm leading-relaxed" style={{ color: '#9ca3af' }}>{item.desc}</p>
-                  <span className="inline-block mt-4 text-xs font-semibold" style={{ color: TEAL }}>Start learning →</span>
+                <Link
+                  to="/ai-training"
+                  className="block p-5 rounded-2xl border transition-transform hover:-translate-y-0.5"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    borderColor: 'rgba(255,255,255,0.10)',
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.06) inset',
+                  }}
+                >
+                  <span
+                    className="inline-block text-[10px] font-semibold px-2 py-0.5 rounded-full mb-3"
+                    style={{ background: 'rgba(190,255,0,0.18)', color: '#BEFF00' }}
+                  >
+                    {item.tag}
+                  </span>
+                  <h3 className="font-display text-lg mb-1" style={{ color: '#FFFFFF' }}>{item.name}</h3>
+                  <p className="text-xs mb-3" style={{ color: 'rgba(255,255,255,0.45)' }}>{item.provider}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.72)' }}>{item.desc}</p>
+                  <span className="inline-block mt-4 text-xs font-bold" style={{ color: '#BEFF00' }}>Start learning →</span>
                 </Link>
               </motion.div>
             ))}
           </div>
-          <Link to="/training" className="sm:hidden block text-center mt-6 text-sm font-semibold" style={{ color: TEAL }}>
+          <Link to="/ai-training" className="sm:hidden block text-center mt-6 text-sm font-bold" style={{ color: '#BEFF00' }}>
             Browse all training →
           </Link>
         </div>
-      </div>
+      </section>
 
       {/* ── COMPARE BAR ── */}
       <AnimatePresence>

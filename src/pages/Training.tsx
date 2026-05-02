@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SectionLabel from '../components/SectionLabel';
 import SEO from '../components/SEO';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -196,9 +196,9 @@ function Stars({ n }: { n: number }) {
   return (
     <span className="flex items-center gap-0.5">
       {[1,2,3,4,5].map(i => (
-        <span key={i} style={{ color: i <= Math.round(n) ? '#f59e0b' : '#e8e6e0', fontSize: '11px' }}>★</span>
+        <span key={i} style={{ color: i <= Math.round(n) ? '#f59e0b' : '#ECE7DD', fontSize: '11px' }}>★</span>
       ))}
-      <span className="text-xs font-semibold ml-1 tabular-nums" style={{ color: '#6b6760' }}>{n.toFixed(1)}</span>
+      <span className="text-xs font-semibold ml-1 tabular-nums" style={{ color: '#4A4A4A' }}>{n.toFixed(1)}</span>
     </span>
   );
 }
@@ -280,9 +280,9 @@ function LearningPathGenerator() {
   }
 
   return (
-    <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-      <div className="px-6 py-5 border-b" style={{ borderColor: '#e8e6e0', background: '#111210' }}>
-        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: '#6b6760' }}>
+    <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#ECE7DD', background: 'white' }}>
+      <div className="px-6 py-5 border-b" style={{ borderColor: '#ECE7DD', background: '#111210' }}>
+        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: '#4A4A4A' }}>
           Powered by Claude
         </p>
         <h3 className="font-display text-xl" style={{ color: 'white' }}>
@@ -297,12 +297,12 @@ function LearningPathGenerator() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           {/* Role */}
           <div>
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#6b6760' }}>Your role</label>
+            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#4A4A4A' }}>Your role</label>
             <select
               value={role}
               onChange={e => setRole(e.target.value as Role)}
-              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors appearance-none"
-              style={{ borderColor: '#e8e6e0', color: role ? 'var(--text)' : '#c5c2bb', background: 'white' }}
+              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#BEFF00] transition-colors appearance-none"
+              style={{ borderColor: '#ECE7DD', color: role ? 'var(--text)' : '#9C9690', background: 'white' }}
             >
               <option value="">Select your role…</option>
               {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
@@ -311,12 +311,12 @@ function LearningPathGenerator() {
 
           {/* Goal */}
           <div>
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#6b6760' }}>Your goal</label>
+            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#4A4A4A' }}>Your goal</label>
             <select
               value={goal}
               onChange={e => setGoal(e.target.value as Goal)}
-              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors appearance-none"
-              style={{ borderColor: '#e8e6e0', color: goal ? 'var(--text)' : '#c5c2bb', background: 'white' }}
+              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#BEFF00] transition-colors appearance-none"
+              style={{ borderColor: '#ECE7DD', color: goal ? 'var(--text)' : '#9C9690', background: 'white' }}
             >
               <option value="">Select your goal…</option>
               {GOALS.map(g => <option key={g} value={g}>{g}</option>)}
@@ -328,7 +328,7 @@ function LearningPathGenerator() {
           onClick={generate}
           disabled={!role || !goal || loading}
           className="w-full py-2.5 rounded-xl text-sm font-semibold transition-opacity disabled:opacity-40"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#0F1C1A' }}
         >
           {loading ? 'Building your path…' : 'Build my learning path →'}
         </button>
@@ -347,14 +347,14 @@ function LearningPathGenerator() {
                 <div key={i} className="flex gap-3">
                   <span
                     className="flex-shrink-0 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center mt-0.5"
-                    style={{ background: TEAL, color: 'white' }}
+                    style={{ background: TEAL, color: '#0F1C1A' }}
                   >
                     {i + 1}
                   </span>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{step}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{step}</p>
                 </div>
               ))}
-              <div className="pt-2 border-t" style={{ borderColor: '#e8e6e0' }}>
+              <div className="pt-2 border-t" style={{ borderColor: '#ECE7DD' }}>
                 <button
                   onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
                   className="text-xs font-semibold transition-opacity hover:opacity-70"
@@ -407,7 +407,7 @@ function EmailCapture() {
               className="px-3 py-1 rounded-full text-xs font-medium border transition-all"
               style={
                 activeRole === r
-                  ? { background: TEAL, color: 'white', borderColor: TEAL }
+                  ? { background: TEAL, color: '#0F1C1A', borderColor: TEAL }
                   : { background: 'transparent', color: '#6b7280', borderColor: '#374151' }
               }
             >
@@ -447,7 +447,7 @@ function EmailCapture() {
               <button
                 type="submit"
                 className="px-4 py-2.5 rounded-xl text-sm font-semibold flex-shrink-0 transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: 'white' }}
+                style={{ background: TEAL, color: '#0F1C1A' }}
               >
                 Subscribe →
               </button>
@@ -487,14 +487,14 @@ const Training: FC = () => {
           Training & CPD for<br />
           <span style={{ color: TEAL }}>AI in Education.</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-xl mb-8" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-xl mb-8" style={{ color: '#4A4A4A' }}>
           Free UK trusted CPD and premium courses to build AI confidence — for every education role.
         </p>
 
         {/* Tab toggles */}
         <div
           className="inline-flex rounded-xl p-1 gap-1"
-          style={{ background: '#e8e6e0' }}
+          style={{ background: '#ECE7DD' }}
         >
           {([
             { id: 'free', label: '🆓 Free UK Trusted' },
@@ -507,7 +507,7 @@ const Training: FC = () => {
               style={
                 activeTab === tab.id
                   ? { background: 'white', color: 'var(--text)', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }
-                  : { background: 'transparent', color: '#6b6760' }
+                  : { background: 'transparent', color: '#4A4A4A' }
               }
             >
               {tab.label}
@@ -529,12 +529,12 @@ const Training: FC = () => {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-xs mb-5" style={{ color: '#c5c2bb' }}>
+              <p className="text-xs mb-5" style={{ color: '#9C9690' }}>
                 {FREE_COURSES.length} free resources · DfE-aligned · Updated April 2026
               </p>
               <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px"
-                style={{ background: '#e8e6e0' }}
+                style={{ background: '#ECE7DD' }}
               >
                 {FREE_COURSES.map((course, i) => (
                   <motion.div
@@ -555,15 +555,15 @@ const Training: FC = () => {
                         >
                           Free
                         </span>
-                        <p className="text-[10px] mt-0.5" style={{ color: '#c5c2bb' }}>{course.provider}</p>
+                        <p className="text-[10px] mt-0.5" style={{ color: '#9C9690' }}>{course.provider}</p>
                       </div>
                     </div>
 
                     <h2 className="font-display text-lg leading-snug mb-1" style={{ color: 'var(--text)' }}>
                       {course.title}
                     </h2>
-                    <p className="text-xs mb-3" style={{ color: '#c5c2bb' }}>{course.duration}</p>
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b6760' }}>{course.desc}</p>
+                    <p className="text-xs mb-3" style={{ color: '#9C9690' }}>{course.duration}</p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: '#4A4A4A' }}>{course.desc}</p>
 
                     <RoleTags roles={course.roles} />
 
@@ -582,7 +582,7 @@ const Training: FC = () => {
                         style={
                           summaryId === course.id
                             ? { background: '#e0f5f6', color: TEAL, borderColor: TEAL }
-                            : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
+                            : { background: 'white', color: '#4A4A4A', borderColor: '#ECE7DD' }
                         }
                       >
                         ✦ Promptly AI Summary
@@ -601,7 +601,7 @@ const Training: FC = () => {
                         >
                           <div
                             className="mt-3 p-3 rounded-xl text-xs leading-relaxed"
-                            style={{ background: '#f7f6f2', color: '#6b6760', borderLeft: `3px solid ${TEAL}` }}
+                            style={{ background: '#F8F5F0', color: '#4A4A4A', borderLeft: `3px solid ${TEAL}` }}
                           >
                             <strong style={{ color: TEAL }}>Promptly AI says:</strong> This is one of the best free resources for your role. It covers the core concepts in under half a day and leaves you with practical actions you can use in your next lesson or team meeting.
                           </div>
@@ -623,12 +623,12 @@ const Training: FC = () => {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-xs mb-5" style={{ color: '#c5c2bb' }}>
+              <p className="text-xs mb-5" style={{ color: '#9C9690' }}>
                 {PAID_COURSES.length} premium courses · Affiliate links may apply · Promptly-verified only
               </p>
               <div
                 className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-px"
-                style={{ background: '#e8e6e0' }}
+                style={{ background: '#ECE7DD' }}
               >
                 {PAID_COURSES.map((course, i) => (
                   <motion.div
@@ -645,12 +645,12 @@ const Training: FC = () => {
                         <span className="text-2xl">{course.logo}</span>
                         <div>
                           <Badge label={course.badge} />
-                          <p className="text-[10px] mt-0.5" style={{ color: '#c5c2bb' }}>{course.provider}</p>
+                          <p className="text-[10px] mt-0.5" style={{ color: '#9C9690' }}>{course.provider}</p>
                         </div>
                       </div>
                       <span
                         className="text-sm font-bold flex-shrink-0 tabular-nums"
-                        style={{ color: course.comingSoon ? '#c5c2bb' : '#92400e' }}
+                        style={{ color: course.comingSoon ? '#9C9690' : '#92400e' }}
                       >
                         {course.price}
                       </span>
@@ -664,12 +664,12 @@ const Training: FC = () => {
                       <div className="flex items-center gap-3 mb-2">
                         <Stars n={course.stars} />
                         {course.students && (
-                          <span className="text-xs" style={{ color: '#c5c2bb' }}>{course.students} enrolled</span>
+                          <span className="text-xs" style={{ color: '#9C9690' }}>{course.students} enrolled</span>
                         )}
                       </div>
                     )}
 
-                    <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b6760' }}>{course.desc}</p>
+                    <p className="text-sm leading-relaxed mb-3" style={{ color: '#4A4A4A' }}>{course.desc}</p>
                     <RoleTags roles={course.roles} />
 
                     {/* CTA */}
@@ -678,7 +678,7 @@ const Training: FC = () => {
                         <button
                           onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
                           className="text-xs font-semibold px-3 py-1.5 rounded-xl border transition-all hover:opacity-80"
-                          style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+                          style={{ borderColor: '#ECE7DD', color: '#4A4A4A', background: 'white' }}
                         >
                           Join waitlist →
                         </button>
@@ -686,7 +686,7 @@ const Training: FC = () => {
                         <a
                           href={course.url}
                           className="inline-block text-xs font-semibold px-3 py-1.5 rounded-xl transition-opacity hover:opacity-80"
-                          style={{ background: TEAL, color: 'white' }}
+                          style={{ background: TEAL, color: '#0F1C1A' }}
                         >
                           Enrol now →
                         </a>
@@ -702,7 +702,7 @@ const Training: FC = () => {
       </div>
 
       {/* ── PROMPT LIBRARY TEASER ── */}
-      <div style={{ background: 'white', borderTop: '1px solid #e8e6e0', borderBottom: '1px solid #e8e6e0' }}>
+      <div style={{ background: 'white', borderTop: '1px solid #ECE7DD', borderBottom: '1px solid #ECE7DD' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <div className="flex items-end justify-between mb-8">
             <div>
@@ -716,7 +716,7 @@ const Training: FC = () => {
           </div>
 
           {/* Sample prompt cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px mb-8" style={{ background: '#e8e6e0' }}>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-px mb-8" style={{ background: '#ECE7DD' }}>
             {SAMPLE_PROMPTS.map((p, i) => (
               <motion.div
                 key={p.role}
@@ -736,7 +736,7 @@ const Training: FC = () => {
                     {p.role}
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed font-mono" style={{ color: '#6b6760', fontFamily: 'monospace', fontSize: '12px' }}>
+                <p className="text-sm leading-relaxed font-mono" style={{ color: '#4A4A4A', fontFamily: 'monospace', fontSize: '12px' }}>
                   "{p.prompt}"
                 </p>
                 <button
@@ -753,13 +753,13 @@ const Training: FC = () => {
           {/* Email gate CTA */}
           <div
             className="rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-            style={{ background: '#f7f6f2', border: '1px solid #e8e6e0' }}
+            style={{ background: '#F8F5F0', border: '1px solid #ECE7DD' }}
           >
             <div className="flex-1">
               <p className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>
                 Get the full prompt library — free
               </p>
-              <p className="text-sm" style={{ color: '#6b6760' }}>
+              <p className="text-sm" style={{ color: '#4A4A4A' }}>
                 200+ prompts for every role. Enter your email to unlock instantly.
               </p>
             </div>
@@ -778,13 +778,13 @@ const Training: FC = () => {
                   onChange={e => setPromptEmail(e.target.value)}
                   placeholder="your@school.ac.uk"
                   required
-                  className="flex-1 sm:w-52 px-3 py-2 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors"
-                  style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
+                  className="flex-1 sm:w-52 px-3 py-2 rounded-xl border text-sm outline-none focus:border-[#BEFF00] transition-colors"
+                  style={{ borderColor: '#ECE7DD', background: 'white', color: 'var(--text)' }}
                 />
                 <button
                   type="submit"
                   className="flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  style={{ background: TEAL, color: '#0F1C1A' }}
                 >
                   Get library →
                 </button>

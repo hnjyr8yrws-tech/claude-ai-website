@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import { track } from '../utils/analytics';
 import type { CrossSellItem } from '../utils/crossSell';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 const SECTION_ICONS: Record<string, React.ReactNode> = {
   prompts: (
@@ -70,15 +70,15 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
       <Link
         to={item.href}
         onClick={handleClick}
-        className="block rounded-xl border p-3 transition-all hover:border-[#00808a] hover:shadow-sm group"
-        style={{ borderColor: '#e8e6e0', background: 'white' }}
+        className="block rounded-xl border p-3 transition-all hover:border-[#BEFF00] hover:shadow-sm group"
+        style={{ borderColor: '#ECE7DD', background: 'white' }}
       >
         <div className="flex items-start gap-2.5">
           <div className="flex-shrink-0 mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: '#e0f5f6' }}>
             {SECTION_ICONS[item.section]}
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-semibold leading-tight mb-0.5 group-hover:text-[#00808a] transition-colors" style={{ color: 'var(--text)' }}>
+            <p className="text-xs font-semibold leading-tight mb-0.5 group-hover:text-[#BEFF00] transition-colors" style={{ color: 'var(--text)' }}>
               {item.title}
             </p>
             {item.badge && (
@@ -101,8 +101,8 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
       <Link
         to={item.href}
         onClick={handleClick}
-        className="block rounded-2xl border p-5 transition-all hover:border-[#00808a] hover:shadow-md group"
-        style={{ borderColor: '#e8e6e0', background: 'white' }}
+        className="block rounded-2xl border p-5 transition-all hover:border-[#BEFF00] hover:shadow-md group"
+        style={{ borderColor: '#ECE7DD', background: 'white' }}
       >
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#e0f5f6' }}>
@@ -110,7 +110,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-sm font-semibold group-hover:text-[#00808a] transition-colors" style={{ color: 'var(--text)' }}>
+              <h3 className="text-sm font-semibold group-hover:text-[#BEFF00] transition-colors" style={{ color: 'var(--text)' }}>
                 {item.title}
               </h3>
               {item.badge && (
@@ -119,7 +119,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
                 </span>
               )}
             </div>
-            <p className="text-xs leading-relaxed mb-2" style={{ color: '#6b6760' }}>
+            <p className="text-xs leading-relaxed mb-2" style={{ color: '#4A4A4A' }}>
               {item.description}
             </p>
             <span className="text-xs font-semibold" style={{ color: TEAL }}>

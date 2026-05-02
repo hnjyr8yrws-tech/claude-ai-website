@@ -24,7 +24,11 @@ import {
 } from '../api/agent';
 import { useBrevo } from '../hooks/useBrevo';
 
-const TEAL = '#00808a';
+// ─── Promptly palette ───────────────────────────────────────────────────────
+const DARK = '#0F1C1A';
+const DARK_2 = '#142522';
+const LIME = '#BEFF00';
+const INK = '#1A1A1A';
 
 // ─── Typing indicator ─────────────────────────────────────────────────────────
 
@@ -35,7 +39,7 @@ function TypingDots() {
         <motion.span
           key={i}
           className="w-1.5 h-1.5 rounded-full"
-          style={{ background: '#c5c2bb' }}
+          style={{ background: '#9C9690' }}
           animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
           transition={{ duration: 0.8, delay: i * 0.15, repeat: Infinity }}
         />
@@ -56,11 +60,11 @@ function RoleSelector({
   const starters = CONVERSATION_STARTERS[mode];
 
   return (
-    <div className="flex-1 flex flex-col p-5 overflow-y-auto" style={{ background: '#f7f6f2' }}>
+    <div className="flex-1 flex flex-col p-5 overflow-y-auto" style={{ background: '#F8F5F0' }}>
       {/* Welcome */}
       <div
         className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed mb-4"
-        style={{ background: 'white', color: '#6b6760' }}
+        style={{ background: 'white', color: '#4A4A4A' }}
       >
         Hi! I'm Promptly AI — your {MODE_PERSONA[mode].toLowerCase()} for UK education.
         {' '}Select your role so I can give you the most relevant advice.
@@ -72,8 +76,8 @@ function RoleSelector({
           <button
             key={r}
             onClick={() => onSelect(r)}
-            className="px-2 py-2 rounded-xl border text-xs font-semibold transition-all hover:border-[#00808a] hover:text-[#00808a]"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+            className="px-2 py-2 rounded-xl border text-xs font-semibold transition-all hover:border-[#BEFF00] hover:text-[#BEFF00]"
+            style={{ borderColor: '#ECE7DD', color: '#4A4A4A', background: 'white' }}
           >
             {r}
           </button>
@@ -81,7 +85,7 @@ function RoleSelector({
       </div>
 
       {/* Conversation starters */}
-      <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#c5c2bb' }}>
+      <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#9C9690' }}>
         Or jump straight in
       </p>
       <div className="space-y-1.5">
@@ -96,8 +100,8 @@ function RoleSelector({
               // We dispatch a custom event to send the starter after role is set.
               window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: s }));
             }}
-            className="w-full text-left px-3 py-2 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[#00808a] hover:bg-white"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+            className="w-full text-left px-3 py-2 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[#BEFF00] hover:bg-white"
+            style={{ borderColor: '#ECE7DD', background: 'white', color: '#4A4A4A' }}
           >
             {s}
           </button>
@@ -122,7 +126,14 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
 
   if (status === 'success') {
     return (
-      <div className="mx-3 mb-3 px-4 py-3 rounded-xl text-xs text-center" style={{ background: '#e0f5f6', color: TEAL }}>
+      <div
+        className="mx-3 mb-3 px-4 py-3 rounded-xl text-xs text-center font-semibold"
+        style={{
+          background: 'rgba(190,255,0,0.14)',
+          color: DARK,
+          border: '1px solid rgba(190,255,0,0.35)',
+        }}
+      >
         ✓ You're subscribed! Personalised picks coming your way.
       </div>
     );
@@ -133,7 +144,7 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       className="mx-3 mb-3 px-4 py-3 rounded-xl border"
-      style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
+      style={{ borderColor: '#ECE7DD', background: '#F8F5F0' }}
     >
       <p className="text-xs font-semibold mb-2" style={{ color: 'var(--text)' }}>
         Want personalised recommendations emailed to you?
@@ -145,14 +156,19 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
           onChange={e => setEmail(e.target.value)}
           placeholder="your@school.ac.uk"
           required
-          className="flex-1 px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[#00808a]"
-          style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
+          className="flex-1 px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[#BEFF00]"
+          style={{ borderColor: '#ECE7DD', background: 'white', color: 'var(--text)' }}
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 disabled:opacity-50"
-          style={{ background: TEAL, color: 'white' }}
+          className="px-3 py-1.5 rounded-lg text-xs font-bold transition-all hover:-translate-y-0.5 disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+          style={{
+            background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+            color: DARK,
+            border: '1px solid rgba(15,28,26,0.16)',
+            boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 4px 12px rgba(190,255,0,0.28)',
+          }}
         >
           {status === 'loading' ? '…' : 'Yes →'}
         </button>
@@ -237,9 +253,9 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
   if (!current) return null;
 
   return (
-    <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: '#f7f6f2' }}>
+    <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: '#F8F5F0' }}>
       <div className="flex items-center justify-between mb-4">
-        <p className="text-xs font-semibold" style={{ color: TEAL }}>
+        <p className="text-xs font-bold" style={{ color: DARK }}>
           {QUIZ_LABELS[quizKey]} · Step {step + 1}/{steps.length}
         </p>
         <button onClick={onCancel} className="text-xs" style={{ color: '#9ca3af' }}>Cancel</button>
@@ -257,8 +273,8 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
           <button
             key={opt}
             onClick={() => pick(opt)}
-            className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[#00808a] hover:text-[#00808a] text-left"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+            className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[#BEFF00] hover:text-[#BEFF00] text-left"
+            style={{ borderColor: '#ECE7DD', background: 'white', color: '#4A4A4A' }}
           >
             {opt}
           </button>
@@ -266,10 +282,14 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
       </div>
 
       {/* Progress bar */}
-      <div className="mt-5 h-1 rounded-full overflow-hidden" style={{ background: '#e8e6e0' }}>
+      <div className="mt-5 h-1 rounded-full overflow-hidden" style={{ background: '#ECE7DD' }}>
         <div
           className="h-full rounded-full transition-all"
-          style={{ width: `${((step + 1) / steps.length) * 100}%`, background: TEAL }}
+          style={{
+            width: `${((step + 1) / steps.length) * 100}%`,
+            background: `linear-gradient(90deg, ${LIME} 0%, #D6FF4A 100%)`,
+            boxShadow: '0 0 8px rgba(190,255,0,0.5)',
+          }}
         />
       </div>
     </div>
@@ -357,30 +377,39 @@ function ChatPanel({ mode, onClose }: PanelProps) {
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.97 }}
       transition={{ duration: 0.2 }}
-      className="agent-panel z-[9999] flex flex-col shadow-2xl overflow-hidden"
-      style={{ background: 'white', border: '1px solid #e8e6e0' }}
+      className="agent-panel z-[9999] flex flex-col overflow-hidden rounded-[22px]"
+      style={{
+        background: 'white',
+        border: '1px solid #ECE7DD',
+        boxShadow:
+          '0 1px 0 rgba(255,255,255,0.8) inset, 0 32px 64px rgba(15,28,26,0.18), 0 8px 20px rgba(15,28,26,0.10)',
+      }}
     >
       {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3 flex-shrink-0"
-        style={{ background: '#111210', borderBottom: '1px solid #1f1f1c' }}
+        style={{ background: DARK, borderBottom: '1px solid rgba(255,255,255,0.10)' }}
       >
         <div className="flex items-center gap-2.5">
           <div className="relative">
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-              style={{ background: TEAL, color: 'white' }}
+              className="w-8 h-8 rounded-xl flex items-center justify-center text-sm font-bold"
+              style={{
+                background: DARK_2,
+                color: LIME,
+                boxShadow: '0 0 0 1px rgba(190,255,0,0.35), 0 4px 10px rgba(0,0,0,0.45)',
+              }}
             >
               P
             </div>
             <span
               className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2"
-              style={{ background: '#22c55e', borderColor: '#111210' }}
+              style={{ background: LIME, borderColor: DARK, boxShadow: `0 0 6px ${LIME}` }}
             />
           </div>
           <div>
             <p className="text-xs font-semibold leading-none" style={{ color: 'white' }}>Promptly AI</p>
-            <p className="text-[10px] mt-0.5" style={{ color: '#6b6760' }}>
+            <p className="text-[10px] mt-0.5" style={{ color: '#4A4A4A' }}>
               {role ? `${role} · ${MODE_PERSONA[mode]}` : MODE_PERSONA[mode] + ' · 24/7'}
             </p>
           </div>
@@ -391,7 +420,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             <button
               onClick={clearMessages}
               className="text-[10px] transition-opacity hover:opacity-60"
-              style={{ color: '#6b6760' }}
+              style={{ color: '#4A4A4A' }}
             >
               Clear
             </button>
@@ -400,7 +429,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             <button
               onClick={() => { setRole(null); setQuiz(null); clearMessages(); }}
               className="text-[10px] transition-opacity hover:opacity-60"
-              style={{ color: '#6b6760' }}
+              style={{ color: '#4A4A4A' }}
             >
               Switch role
             </button>
@@ -408,7 +437,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           <button
             onClick={onClose}
             className="text-lg leading-none transition-opacity hover:opacity-60"
-            style={{ color: '#6b6760' }}
+            style={{ color: '#4A4A4A' }}
           >
             ✕
           </button>
@@ -427,14 +456,14 @@ function ChatPanel({ mode, onClose }: PanelProps) {
       ) : (
         <>
           {/* Message list */}
-          <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3" style={{ background: '#f7f6f2' }}>
+          <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3" style={{ background: '#F8F5F0' }}>
 
             {/* Welcome */}
             {messages.length === 0 && (
               <div className="space-y-3">
                 <div
                   className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed"
-                  style={{ background: 'white', color: '#6b6760' }}
+                  style={{ background: 'white', color: '#4A4A4A' }}
                 >
                   Hi! I'm your {MODE_PERSONA[mode].toLowerCase()} — ask me anything about AI tools,
                   equipment, training or prompts for UK education.
@@ -444,10 +473,10 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                 {quizKey && (
                   <button
                     onClick={() => setQuiz(quizKey)}
-                    className="w-full text-left px-4 py-3 rounded-2xl border text-sm font-medium transition-colors hover:border-[#00808a]"
-                    style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
+                    className="w-full text-left px-4 py-3 rounded-2xl border text-sm font-medium transition-colors hover:border-[#BEFF00]"
+                    style={{ borderColor: '#ECE7DD', background: 'white', color: 'var(--text)' }}
                   >
-                    ✦ <span style={{ color: TEAL }}>Quick quiz:</span> {QUIZ_LABELS[quizKey]} for me →
+                    ✦ <span style={{ color: DARK, fontWeight: 700 }}>Quick quiz:</span> {QUIZ_LABELS[quizKey]} for me →
                   </button>
                 )}
 
@@ -460,8 +489,8 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                         trackEvent({ name: 'starter_clicked', starter: s });
                         sendMessage(s);
                       }}
-                      className="w-full text-left px-3 py-2 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[#00808a] hover:bg-white"
-                      style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+                      className="w-full text-left px-3 py-2 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[#BEFF00] hover:bg-white"
+                      style={{ borderColor: '#ECE7DD', background: 'white', color: '#4A4A4A' }}
                     >
                       {s}
                     </button>
@@ -480,8 +509,19 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                   className="px-4 py-3 rounded-2xl text-sm leading-relaxed max-w-[86%] whitespace-pre-wrap"
                   style={
                     msg.role === 'user'
-                      ? { background: TEAL, color: 'white', borderRadius: '16px 16px 4px 16px' }
-                      : { background: 'white', color: '#1c1a15', borderRadius: '4px 16px 16px 16px' }
+                      ? {
+                          background: DARK,
+                          color: 'white',
+                          borderRadius: '16px 16px 4px 16px',
+                          boxShadow: '0 0 0 1px rgba(190,255,0,0.20), 0 8px 16px rgba(15,28,26,0.18)',
+                        }
+                      : {
+                          background: 'white',
+                          color: INK,
+                          borderRadius: '4px 16px 16px 16px',
+                          border: '1px solid #ECE7DD',
+                          boxShadow: '0 4px 10px rgba(15,28,26,0.06)',
+                        }
                   }
                 >
                   {msg.content}
@@ -515,14 +555,14 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           {showLeadCapture && <LeadCapture agentRole={role} />}
 
           {/* Disclaimer */}
-          <p className="text-[10px] text-center px-3 pt-1 flex-shrink-0" style={{ color: '#c5c2bb' }}>
+          <p className="text-[10px] text-center px-3 pt-1 flex-shrink-0" style={{ color: '#9C9690' }}>
             Powered by Claude · Responses may be inaccurate. Verify important information.
           </p>
 
           {/* Input */}
           <div
             className="flex items-end gap-2 px-3 py-3 flex-shrink-0"
-            style={{ borderTop: '1px solid #e8e6e0', background: 'white' }}
+            style={{ borderTop: '1px solid #ECE7DD', background: 'white' }}
           >
             <textarea
               value={input}
@@ -530,11 +570,11 @@ function ChatPanel({ mode, onClose }: PanelProps) {
               onKeyDown={handleKeyDown}
               placeholder={`Ask your ${MODE_PERSONA[mode].toLowerCase()}…`}
               rows={1}
-              className="flex-1 resize-none px-3 py-2 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors"
+              className="flex-1 resize-none px-3 py-2 rounded-xl border text-sm outline-none focus:border-[#BEFF00] transition-colors"
               style={{
-                borderColor: '#e8e6e0',
+                borderColor: '#ECE7DD',
                 color: 'var(--text)',
-                background: '#f7f6f2',
+                background: '#F8F5F0',
                 maxHeight: '96px',
                 lineHeight: '1.4',
               }}
@@ -542,12 +582,16 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             <button
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30"
-              style={{ background: TEAL }}
+              className="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center transition-all hover:-translate-y-0.5 disabled:opacity-30 disabled:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+              style={{
+                background: `linear-gradient(180deg, #D6FF4A 0%, ${LIME} 100%)`,
+                border: '1px solid rgba(15,28,26,0.16)',
+                boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 4px 12px rgba(190,255,0,0.28)',
+              }}
               aria-label="Send message"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="white" />
+                <path d="M2 8L14 2L8 14L7 9L2 8Z" fill={DARK} />
               </svg>
             </button>
           </div>
@@ -610,26 +654,32 @@ const AgentWidget: FC = () => {
       {/* Floating bubble */}
       <motion.button
         onClick={openWidget}
-        className="fixed bottom-4 right-4 z-[9998] flex items-center gap-2 px-4 py-2.5 rounded-full shadow-lg"
-        style={{ background: TEAL, color: 'white' }}
-        whileHover={{ scale: 1.04 }}
+        className="fixed bottom-4 right-4 z-[9998] flex items-center gap-2 px-4 py-2.5 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+        style={{
+          background: DARK,
+          color: 'white',
+          border: '1px solid rgba(255,255,255,0.10)',
+          boxShadow:
+            '0 0 0 1px rgba(190,255,0,0.30), 0 12px 28px rgba(15,28,26,0.40), 0 4px 10px rgba(190,255,0,0.20)',
+        }}
+        whileHover={{ scale: 1.04, y: -2 }}
         whileTap={{ scale: 0.97 }}
         aria-label="Open Promptly AI"
       >
         <span className="relative flex-shrink-0">
-          <span className="w-2 h-2 rounded-full block" style={{ background: '#22c55e' }} />
+          <span className="w-2 h-2 rounded-full block" style={{ background: LIME, boxShadow: `0 0 6px ${LIME}` }} />
           <motion.span
             className="absolute inset-0 rounded-full"
-            style={{ background: '#22c55e' }}
+            style={{ background: LIME }}
             animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
             transition={{ duration: 2, repeat: Infinity }}
           />
         </span>
-        <span className="text-xs font-semibold whitespace-nowrap">Promptly AI · 24/7</span>
+        <span className="text-xs font-bold whitespace-nowrap">Promptly AI · 24/7</span>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0" aria-hidden="true">
           <path
             d="M7 1C3.69 1 1 3.24 1 6c0 1.44.67 2.73 1.75 3.65L2 13l3.47-1.5C5.93 11.82 6.45 12 7 12c3.31 0 6-2.24 6-5S10.31 1 7 1Z"
-            fill="white"
+            fill={LIME}
           />
         </svg>
       </motion.button>

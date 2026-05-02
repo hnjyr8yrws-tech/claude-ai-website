@@ -103,7 +103,7 @@ export default function SafetyScore({
         <circle
           cx={centre} cy={centre} r={r}
           fill="none"
-          stroke="#e8e6e0"
+          stroke="#ECE7DD"
           strokeWidth={stroke}
         />
         {/* Score arc */}
@@ -153,11 +153,15 @@ export default function SafetyScore({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 6, scale: 0.97 }}
               transition={{ duration: 0.15 }}
-              className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-50 w-64 rounded-xl shadow-xl overflow-hidden"
-              style={{ background: '#111210', border: '1px solid #2a2825' }}
+              className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-50 w-64 rounded-2xl overflow-hidden"
+              style={{
+                background: 'linear-gradient(180deg, #142522 0%, #0F1C1A 100%)',
+                border: '1px solid rgba(255,255,255,0.10)',
+                boxShadow: '0 1px 0 rgba(255,255,255,0.05) inset, 0 24px 48px rgba(0,0,0,0.45)',
+              }}
             >
               {/* Header */}
-              <div className="px-4 py-3 border-b" style={{ borderColor: '#2a2825' }}>
+              <div className="px-4 py-3 border-b" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
                 <div className="flex items-center justify-between">
                   <p className="text-xs font-semibold" style={{ color: 'white' }}>
                     {label ?? 'GetPromptly Safety Score'}
@@ -169,7 +173,7 @@ export default function SafetyScore({
                     {score.toFixed(1)}/10
                   </span>
                 </div>
-                <p className="text-[10px] mt-0.5" style={{ color: '#6b6760' }}>
+                <p className="text-[10px] mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>
                   {tier} — assessed against KCSIE 2025
                 </p>
               </div>
@@ -181,7 +185,7 @@ export default function SafetyScore({
                     {/* Weight dot */}
                     <span
                       className="flex-shrink-0 text-[10px] font-bold mt-0.5 w-7 text-right tabular-nums"
-                      style={{ color: '#00808a' }}
+                      style={{ color: '#BEFF00' }}
                     >
                       {p.weight}%
                     </span>
@@ -189,7 +193,7 @@ export default function SafetyScore({
                       <p className="text-[10px] font-semibold leading-none" style={{ color: 'white' }}>
                         {p.name}
                       </p>
-                      <p className="text-[10px] mt-0.5 leading-relaxed" style={{ color: '#6b6760' }}>
+                      <p className="text-[10px] mt-0.5 leading-relaxed" style={{ color: '#4A4A4A' }}>
                         {p.desc}
                       </p>
                     </div>
@@ -198,8 +202,8 @@ export default function SafetyScore({
               </div>
 
               {/* Footer */}
-              <div className="px-4 py-2 border-t" style={{ borderColor: '#2a2825' }}>
-                <p className="text-[10px]" style={{ color: '#4b5563' }}>
+              <div className="px-4 py-2 border-t" style={{ borderColor: 'rgba(255,255,255,0.08)' }}>
+                <p className="text-[10px]" style={{ color: 'rgba(255,255,255,0.40)' }}>
                   100% independent · No vendor affiliation
                 </p>
               </div>
@@ -207,7 +211,12 @@ export default function SafetyScore({
               {/* Caret */}
               <div
                 className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45"
-                style={{ background: '#111210', border: '1px solid #2a2825', borderTop: 'none', borderLeft: 'none' }}
+                style={{
+                  background: '#0F1C1A',
+                  border: '1px solid rgba(255,255,255,0.10)',
+                  borderTop: 'none',
+                  borderLeft: 'none',
+                }}
                 aria-hidden="true"
               />
             </motion.div>

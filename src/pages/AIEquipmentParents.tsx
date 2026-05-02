@@ -10,9 +10,10 @@ import {
   type PriceBand,
   type EqBadge,
 } from '../data/equipment';
+import { resolveProductAffiliateUrl, AFFILIATE_LINK_ATTRS } from '../utils/affiliateLinks';
 import { badgeStyle, reviewBadge } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -22,10 +23,10 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-xl border p-4 flex flex-col gap-2"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -38,7 +39,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         </h3>
       </Link>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{product.brand}</p>
-      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
+      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#4A4A4A' }}>{product.desc}</p>
       <p className="text-xs italic" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
       <div className="flex flex-wrap gap-1">
         {product.badges.slice(0, 2).map((b: EqBadge) => {
@@ -53,11 +54,10 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
       <div className="flex items-center justify-between pt-1">
         <span className="text-xs font-bold" style={{ color: 'var(--text)' }}>{product.priceBand}</span>
         <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
+          href={resolveProductAffiliateUrl(product)}
+          {...AFFILIATE_LINK_ATTRS}
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#0F1C1A' }}
         >
           View →
         </a>
@@ -70,14 +70,14 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
   return (
     <div
       className="rounded-xl border p-5 flex flex-col gap-3"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: TEAL }}>
         Bundle · {bundle.totalPriceBand}
       </p>
       <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{bundle.name}</h3>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
-      <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
+      <p className="text-sm leading-relaxed flex-1" style={{ color: '#4A4A4A' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map((s: string) => (
           <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
@@ -144,7 +144,7 @@ export default function AIEquipmentParents() {
           Equipment for<br />
           <span style={{ color: TEAL }}>Home Learning</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#4A4A4A' }}>
           Tablets, reading pens, sensory tools and study accessories for supporting your child at home.
         </p>
       </div>
@@ -164,7 +164,7 @@ export default function AIEquipmentParents() {
       </div>
 
       {/* BUDGET GUIDE */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
           <SectionLabel>Budget guide</SectionLabel>
           <h2 className="font-display text-2xl mb-8" style={{ color: 'var(--text)' }}>
@@ -216,7 +216,7 @@ export default function AIEquipmentParents() {
 
       {/* BUNDLES FOR PARENTS */}
       {bundles.length > 0 && (
-        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
           <div className="max-w-6xl mx-auto">
             <SectionLabel>Recommended bundles</SectionLabel>
             <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -233,15 +233,15 @@ export default function AIEquipmentParents() {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
         <div
           className="rounded-2xl border p-6"
-          style={{ borderColor: '#e8e6e0', background: 'white' }}
+          style={{ borderColor: '#ECE7DD', background: 'white' }}
         >
           <h3 className="font-display text-xl mb-3" style={{ color: 'var(--text)' }}>
             A note on specialist SEND equipment
           </h3>
-          <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>
+          <p className="text-sm leading-relaxed mb-4" style={{ color: '#4A4A4A' }}>
             Products marked as SEND-specific — such as AAC devices, eye-gaze technology and specialist hearing equipment — should always be assessed in the context of your child's specific needs. We recommend:
           </p>
-          <ul className="space-y-2 text-sm" style={{ color: '#6b6760' }}>
+          <ul className="space-y-2 text-sm" style={{ color: '#4A4A4A' }}>
             <li className="flex items-start gap-2">
               <span style={{ color: TEAL }}>•</span>
               Talking to your child's school and SENCO before purchasing

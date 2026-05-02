@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import SEO from '../components/SEO';
 
-const TEAL  = '#00808a';
-const MUTED = '#6b6760';
+const TEAL  = '#BEFF00';
+const MUTED = '#4A4A4A';
 
 export default function Legal() {
   const { hash } = useLocation();
@@ -17,7 +17,7 @@ export default function Legal() {
   }, [hash]);
 
   return (
-    <div style={{ background: '#f7f6f2', color: '#1c1a15' }}>
+    <div style={{ background: '#F8F5F0', color: '#1A1A1A' }}>
       <SEO
         title="Legal — Privacy, Cookies & Affiliate Disclosure | GetPromptly"
         description="Read GetPromptly's privacy policy, cookie policy and affiliate disclosure. We are fully transparent about how we use data and how our site is funded."
@@ -32,7 +32,7 @@ export default function Legal() {
           <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>
             Legal &amp; Policies
           </p>
-          <h1 className="font-display text-4xl mb-4" style={{ color: '#1c1a15' }}>
+          <h1 className="font-display text-4xl mb-4" style={{ color: '#1A1A1A' }}>
             Transparency &amp; Legal Information
           </h1>
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
@@ -43,7 +43,7 @@ export default function Legal() {
 
         {/* Privacy Policy */}
         <section id="privacy" className="scroll-mt-24 space-y-5">
-          <h2 className="font-display text-2xl sm:text-3xl" style={{ color: '#1c1a15' }}>Privacy Policy</h2>
+          <h2 className="font-display text-2xl sm:text-3xl" style={{ color: '#1A1A1A' }}>Privacy Policy</h2>
 
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
             GetPromptly (&ldquo;we&rdquo;, &ldquo;our&rdquo;, &ldquo;us&rdquo;) is committed to protecting your privacy. This policy
@@ -81,11 +81,11 @@ export default function Legal() {
           </p>
         </section>
 
-        <hr style={{ borderColor: '#e8e6e0' }} />
+        <hr style={{ borderColor: '#ECE7DD' }} />
 
         {/* Cookie Policy */}
         <section id="cookies" className="scroll-mt-24 space-y-5">
-          <h2 className="font-display text-2xl sm:text-3xl" style={{ color: '#1c1a15' }}>Cookie Policy</h2>
+          <h2 className="font-display text-2xl sm:text-3xl" style={{ color: '#1A1A1A' }}>Cookie Policy</h2>
 
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
             GetPromptly uses a small number of cookies. We never use cookies for advertising or
@@ -95,10 +95,10 @@ export default function Legal() {
           <div className="overflow-x-auto">
             <table className="w-full text-xs border-collapse" style={{ color: MUTED }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid #e8e6e0' }}>
-                  <th className="text-left py-2 pr-4 font-semibold" style={{ color: '#1c1a15' }}>Cookie</th>
-                  <th className="text-left py-2 pr-4 font-semibold" style={{ color: '#1c1a15' }}>Purpose</th>
-                  <th className="text-left py-2 font-semibold" style={{ color: '#1c1a15' }}>Duration</th>
+                <tr style={{ borderBottom: '1px solid #ECE7DD' }}>
+                  <th className="text-left py-2 pr-4 font-semibold" style={{ color: '#1A1A1A' }}>Cookie</th>
+                  <th className="text-left py-2 pr-4 font-semibold" style={{ color: '#1A1A1A' }}>Purpose</th>
+                  <th className="text-left py-2 font-semibold" style={{ color: '#1A1A1A' }}>Duration</th>
                 </tr>
               </thead>
               <tbody className="space-y-1">
@@ -122,11 +122,11 @@ export default function Legal() {
           </p>
         </section>
 
-        <hr style={{ borderColor: '#e8e6e0' }} />
+        <hr style={{ borderColor: '#ECE7DD' }} />
 
         {/* Affiliate Disclosure */}
         <section id="affiliate" className="scroll-mt-24 space-y-5">
-          <h2 className="font-display text-2xl sm:text-3xl" style={{ color: '#1c1a15' }}>Affiliate Disclosure</h2>
+          <h2 className="font-display text-2xl sm:text-3xl" style={{ color: '#1A1A1A' }}>Affiliate Disclosure</h2>
 
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
             GetPromptly is an independent advisory platform. Some links on this site are affiliate

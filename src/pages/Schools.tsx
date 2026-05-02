@@ -4,14 +4,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import AgentCTACard from '../components/AgentCTACard';
+import { BubbleLayer } from '../components/Bubbles';
 
 // ─── Design tokens ─────────────────────────────────────────────────────────────
-const TEAL   = '#00808a';
-const BG     = '#f7f6f2';
-const DARK   = '#111210';
-const TEXT   = '#1c1a15';
-const MUTED  = '#6b6760';
-const BORDER = '#e8e6e0';
+const LIME   = '#BEFF00';
+const TEAL   = LIME; // legacy alias retained
+const CYAN   = '#00D1FF';
+const BG     = '#F8F5F0';
+const DARK   = '#0F1C1A';
+const DARK_2 = '#142522';
+const TEXT   = '#1A1A1A';
+const MUTED  = '#4A4A4A';
+const BORDER = '#ECE7DD';
 
 // ─── Fade-in animation wrapper ─────────────────────────────────────────────────
 const FadeIn: FC<{ children: React.ReactNode; delay?: number; className?: string }> = ({
@@ -262,7 +266,7 @@ const FaqItem: FC<{ q: string; a: string }> = ({ q, a }) => {
     <div className="border-b" style={{ borderColor: BORDER }}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded"
+        className="w-full flex items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] rounded"
         aria-expanded={open}
       >
         <span className="font-medium text-[15px]" style={{ color: TEXT }}>{q}</span>
@@ -327,14 +331,24 @@ const ConsultationForm: FC = () => {
 
   if (submitted) {
     return (
-      <div className="rounded-2xl p-8 text-center" style={{ background: '#e6f7f8', border: `1px solid #b3e8eb` }}>
+      <div
+        className="rounded-2xl p-8 text-center"
+        style={{
+          background: 'rgba(190,255,0,0.10)',
+          border: `1px solid rgba(190,255,0,0.35)`,
+          boxShadow: '0 0 0 1px rgba(190,255,0,0.15), 0 8px 24px rgba(15,28,26,0.08)',
+        }}
+      >
         <div
-          className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-          style={{ background: TEAL }}
+          className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
+          style={{
+            background: `linear-gradient(180deg, #D6FF4A 0%, ${LIME} 100%)`,
+            boxShadow: '0 8px 20px rgba(190,255,0,0.30)',
+          }}
           aria-hidden="true"
         >
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M4 11l5 5 9-9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M4 11l5 5 9-9" stroke={DARK} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </div>
         <h3 className="font-display text-xl mb-2" style={{ color: TEXT }}>Request received</h3>
@@ -359,7 +373,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.name}
             onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a]"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#BEFF00]"
             style={{ background: 'white', borderColor: BORDER, color: TEXT }}
             placeholder="Jane Smith"
           />
@@ -374,7 +388,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.school}
             onChange={e => setForm(f => ({ ...f, school: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a]"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#BEFF00]"
             style={{ background: 'white', borderColor: BORDER, color: TEXT }}
             placeholder="Oakfield Primary School"
           />
@@ -391,7 +405,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.role}
             onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a] appearance-none"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#BEFF00] appearance-none"
             style={{ background: 'white', borderColor: BORDER, color: form.role ? TEXT : MUTED }}
           >
             <option value="" disabled>Select your role…</option>
@@ -407,7 +421,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.need}
             onChange={e => setForm(f => ({ ...f, need: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a] appearance-none"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#BEFF00] appearance-none"
             style={{ background: 'white', borderColor: BORDER, color: form.need ? TEXT : MUTED }}
           >
             <option value="" disabled>Select a topic…</option>
@@ -425,7 +439,7 @@ const ConsultationForm: FC = () => {
           rows={4}
           value={form.message}
           onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-          className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a] resize-none"
+          className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#BEFF00] resize-none"
           style={{ background: 'white', borderColor: BORDER, color: TEXT }}
           placeholder="E.g. We are a two-form entry primary looking to improve AI literacy across Key Stage 2..."
         />
@@ -433,8 +447,13 @@ const ConsultationForm: FC = () => {
 
       <button
         type="submit"
-        className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2"
-        style={{ background: TEAL }}
+        className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2"
+        style={{
+          background: `linear-gradient(180deg, #D6FF4A 0%, ${LIME} 100%)`,
+          color: DARK,
+          border: '1px solid rgba(15,28,26,0.16)',
+          boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+        }}
       >
         Send consultation request
       </button>
@@ -461,49 +480,88 @@ const Schools: FC = () => {
       />
 
       {/* ── Hero ──────────────────────────────────────────────────────────────── */}
-      <section style={{ background: DARK }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28">
+      <section className="relative overflow-hidden" style={{ background: DARK }}>
+        <BubbleLayer
+          bubbles={[
+            { variant: 'lime', size: 420, top: '-15%', left: '-10%', anim: 'gp-float-a' },
+            { variant: 'cyan', size: 360, top: '20%', right: '-12%', anim: 'gp-float-b' },
+            { variant: 'soft-purple', size: 240, bottom: '-15%', left: '40%', anim: 'gp-float-c' },
+          ]}
+        />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28 z-10">
           <FadeIn>
-            <p
-              className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest mb-6 px-3 py-1.5 rounded-full border"
-              style={{ color: TEAL, borderColor: '#1a3f42' }}
+            <span
+              className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] mb-6 px-3 py-1.5 rounded-full"
+              style={{
+                color: LIME,
+                background: 'rgba(190,255,0,0.10)',
+                border: '1px solid rgba(190,255,0,0.25)',
+              }}
             >
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: TEAL }} aria-hidden="true" />
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{ background: LIME, boxShadow: `0 0 6px ${LIME}` }}
+                aria-hidden="true"
+              />
               For Schools &amp; Trusts
-            </p>
+            </span>
             <h1
-              className="font-display text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6"
+              className="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] mb-6"
               style={{ color: 'white' }}
             >
-              AI Advisory<br />for UK Schools
+              AI Advisory<br />
+              <em
+                className="not-italic"
+                style={{
+                  backgroundImage: `linear-gradient(90deg, ${LIME} 0%, ${CYAN} 100%)`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >for UK Schools</em>
             </h1>
-            <p className="text-lg sm:text-xl max-w-2xl leading-relaxed mb-10" style={{ color: '#a09d98' }}>
+            <p className="text-lg sm:text-xl max-w-2xl leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.65)' }}>
               From classroom tools to SEND technology, staff training to AI policy —
               GetPromptly helps schools make confident, well-informed decisions about AI.
             </p>
             <div className="flex flex-wrap gap-3">
               <a
                 href="#consultation"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: TEAL }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+                style={{
+                  background: `linear-gradient(180deg, #D6FF4A 0%, ${LIME} 100%)`,
+                  color: DARK,
+                  border: '1px solid rgba(15,28,26,0.16)',
+                  boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+                }}
               >
                 Request a Consultation
               </a>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: 'school-toolkit' } }))}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+                style={{
+                  background: 'rgba(255,255,255,0.04)',
+                  color: 'rgba(255,255,255,0.85)',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                }}
               >
                 Receive the school toolkit
               </button>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: 'transparent', color: '#d0cdc8', border: '1px solid #2a2825' }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+                style={{
+                  background: 'transparent',
+                  color: 'rgba(255,255,255,0.85)',
+                  border: '1px solid rgba(255,255,255,0.14)',
+                }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M1 7a6 6 0 1012 0A6 6 0 001 7z" stroke={TEAL} strokeWidth="1.5"/>
-                  <path d="M7 4v3l2 1" stroke={TEAL} strokeWidth="1.5" strokeLinecap="round"/>
+                  <path d="M1 7a6 6 0 1012 0A6 6 0 001 7z" stroke={LIME} strokeWidth="1.5"/>
+                  <path d="M7 4v3l2 1" stroke={LIME} strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>
                 Talk to Our Agent
               </button>
@@ -554,7 +612,7 @@ const Schools: FC = () => {
                 aria-selected={activeTab === a.id}
                 aria-controls={`tab-panel-${a.id}`}
                 onClick={() => setActiveTab(a.id)}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
                 style={{
                   background: activeTab === a.id ? TEAL : BG,
                   color: activeTab === a.id ? 'white' : MUTED,
@@ -600,7 +658,7 @@ const Schools: FC = () => {
               </ul>
               <Link
                 to={active.cta.to}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
                 style={{ background: TEAL }}
               >
                 {active.cta.label}
@@ -633,7 +691,7 @@ const Schools: FC = () => {
                   <div className="flex items-center gap-3 mb-5">
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center font-display text-sm font-bold flex-shrink-0"
-                      style={{ background: '#e0f5f6', color: TEAL }}
+                      style={{ background: 'rgba(190,255,0,0.18)', color: '#0F1C1A' }}
                       aria-hidden="true"
                     >
                       {s.letter}
@@ -643,14 +701,14 @@ const Schools: FC = () => {
                   <ul className="space-y-2.5 flex-1 mb-5" role="list">
                     {s.items.map(item => (
                       <li key={item} className="flex items-start gap-2.5">
-                        <span className="text-[#00808a] flex-shrink-0 mt-0.5" aria-hidden="true">·</span>
+                        <span className="text-[#BEFF00] flex-shrink-0 mt-0.5" aria-hidden="true">·</span>
                         <span className="text-sm leading-relaxed" style={{ color: MUTED }}>{item}</span>
                       </li>
                     ))}
                   </ul>
                   <Link
                     to={s.to}
-                    className="text-sm font-semibold flex items-center gap-1.5 w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded"
+                    className="text-sm font-semibold flex items-center gap-1.5 w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] rounded"
                     style={{ color: TEAL }}
                   >
                     Explore
@@ -713,11 +771,27 @@ const Schools: FC = () => {
       </section>
 
       {/* ── Trust section ─────────────────────────────────────────────────────── */}
-      <section style={{ background: DARK }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
+      <section className="relative overflow-hidden" style={{ background: DARK }}>
+        <BubbleLayer
+          bubbles={[
+            { variant: 'soft-lime', size: 320, top: '-15%', right: '-10%', anim: 'gp-float-a' },
+            { variant: 'soft-cyan', size: 260, bottom: '-15%', left: '-10%', anim: 'gp-float-b' },
+          ]}
+        />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-8 py-20 z-10">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Why schools trust us</p>
-            <h2 className="font-display text-3xl mb-12" style={{ color: 'white' }}>
+            <span
+              className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] mb-3 px-3 py-1.5 rounded-full"
+              style={{
+                color: LIME,
+                background: 'rgba(190,255,0,0.10)',
+                border: '1px solid rgba(190,255,0,0.25)',
+              }}
+            >
+              <span className="w-1.5 h-1.5 rounded-full" style={{ background: LIME, boxShadow: `0 0 6px ${LIME}` }} aria-hidden="true" />
+              Why schools trust us
+            </span>
+            <h2 className="font-display text-3xl sm:text-4xl mb-12" style={{ color: 'white' }}>
               Independent. Transparent. Education-first.
             </h2>
           </FadeIn>
@@ -743,16 +817,28 @@ const Schools: FC = () => {
             ].map((item, i) => (
               <FadeIn key={item.title} delay={i * 0.07}>
                 <div
-                  className="rounded-2xl p-6 h-full"
-                  style={{ background: '#1a1916', border: '1px solid #2a2825' }}
+                  className="rounded-2xl p-6 h-full transition-all hover:-translate-y-1"
+                  style={{
+                    background: `linear-gradient(180deg, ${DARK_2} 0%, ${DARK} 100%)`,
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 22px rgba(0,0,0,0.30)',
+                  }}
                 >
                   <div
-                    className="w-2 h-2 rounded-full mb-4"
-                    style={{ background: TEAL }}
+                    className="w-8 h-8 rounded-xl mb-4 flex items-center justify-center"
+                    style={{
+                      background: 'rgba(190,255,0,0.10)',
+                      border: '1px solid rgba(190,255,0,0.25)',
+                    }}
                     aria-hidden="true"
-                  />
+                  >
+                    <span
+                      className="w-2 h-2 rounded-full"
+                      style={{ background: LIME, boxShadow: `0 0 6px ${LIME}` }}
+                    />
+                  </div>
                   <h3 className="font-semibold text-[15px] mb-3" style={{ color: 'white' }}>{item.title}</h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#a09d98' }}>{item.body}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>{item.body}</p>
                 </div>
               </FadeIn>
             ))}
@@ -829,27 +915,44 @@ const Schools: FC = () => {
 
       {/* ── Internal links / explore more ────────────────────────────────────── */}
       <section style={{ background: BG }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-6 text-center" style={{ color: MUTED }}>
-              Explore the platform
-            </p>
+            <div className="text-center mb-8">
+              <p className="text-[11px] font-bold uppercase tracking-widest mb-2" style={{ color: TEAL }}>
+                The full platform
+              </p>
+              <h2 className="font-display text-3xl" style={{ color: TEXT }}>
+                Everything UK schools need to navigate AI
+              </h2>
+              <p className="text-sm max-w-xl mx-auto mt-3" style={{ color: MUTED }}>
+                Independent reviews, curated equipment, role-by-role prompt packs and free + paid CPD — all built around UK education standards.
+              </p>
+            </div>
           </FadeIn>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {[
-              { label: 'AI Tools Hub', to: '/tools', desc: '120+ reviewed tools' },
-              { label: 'Equipment Hub', to: '/ai-equipment', desc: '96 products' },
-              { label: 'Training Hub', to: '/ai-training', desc: '26 resources' },
-              { label: 'Prompts Library', to: '/prompts', desc: '440+ prompts' },
-              { label: 'Who We Are', to: '/who-we-are', desc: 'Our mission' },
+              { label: 'AI Tools Hub',     to: '/tools',        desc: '243 reviewed tools',  accent: '#BEFF00' },
+              { label: 'Equipment Hub',    to: '/ai-equipment', desc: '96+ products',        accent: '#00D1FF' },
+              { label: 'Training Hub',     to: '/ai-training',  desc: '76 CPD pathways',     accent: '#A78BFA' },
+              { label: 'Prompts Library',  to: '/prompts',      desc: '440+ prompts',        accent: '#FFEA00' },
+              { label: 'Who We Are',       to: '/who-we-are',   desc: 'Independent advisory',accent: '#BEFF00' },
             ].map((link, i) => (
               <FadeIn key={link.to} delay={i * 0.05}>
                 <Link
                   to={link.to}
-                  className="rounded-2xl p-4 text-center block transition-colors hover:border-[#00808a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-                  style={{ background: 'white', border: `1px solid ${BORDER}` }}
+                  className="group rounded-2xl p-4 block transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+                  style={{
+                    background: 'white',
+                    border: `1px solid ${BORDER}`,
+                    boxShadow: '0 1px 0 rgba(255,255,255,0.8) inset, 0 4px 14px rgba(15,28,26,0.05)',
+                  }}
                 >
-                  <p className="text-sm font-semibold mb-1" style={{ color: TEXT }}>{link.label}</p>
+                  <span
+                    className="inline-block w-2 h-2 rounded-full mb-3"
+                    style={{ background: link.accent, boxShadow: `0 0 0 3px ${link.accent}30` }}
+                    aria-hidden="true"
+                  />
+                  <p className="text-sm font-bold mb-0.5" style={{ color: TEXT }}>{link.label} →</p>
                   <p className="text-xs" style={{ color: MUTED }}>{link.desc}</p>
                 </Link>
               </FadeIn>
@@ -876,8 +979,14 @@ const Schools: FC = () => {
           <div className="flex justify-center mt-6">
             <a
               href="#consultation"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-              style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                color: 'rgba(255,255,255,0.85)',
+                border: '1px solid rgba(255,255,255,0.14)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
+              }}
             >
               Or request a consultation →
             </a>

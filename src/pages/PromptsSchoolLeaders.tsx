@@ -64,28 +64,28 @@ const PromptsSchoolLeaders = () => (
     {/* Hero */}
     <section className="px-5 sm:px-8 pt-16 pb-12" style={{ background: 'var(--bg)' }}>
       <div className="max-w-3xl mx-auto">
-        <Link to="/prompts" className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[#00808a]" style={{ color: '#9ca3af' }}>
+        <Link to="/prompts" className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[#BEFF00]" style={{ color: '#9ca3af' }}>
           ← AI Prompts
         </Link>
         <SectionLabel>For School Leaders</SectionLabel>
         <h1 className="font-display text-4xl sm:text-5xl leading-tight mb-4" style={{ color: 'var(--text)' }}>
           AI Prompts for School Leaders
         </h1>
-        <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: '#6b6760' }}>
+        <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: '#4A4A4A' }}>
           From strategy to staff comms — use AI to lead more effectively and reclaim time for what matters.
         </p>
         <div className="flex flex-wrap gap-3">
           <Link
             to="/prompts/library"
             className="px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors"
-            style={{ background: '#00808a', color: 'white' }}
+            style={{ background: '#BEFF00', color: '#0F1C1A' }}
           >
             Browse All Packs →
           </Link>
           <Link
             to="/ai-training/leaders"
-            className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+            className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]"
+            style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}
           >
             AI Training for Leaders
           </Link>
@@ -98,7 +98,7 @@ const PromptsSchoolLeaders = () => (
       <section
         key={section.label}
         className="px-5 sm:px-8 py-10 border-t"
-        style={{ borderColor: '#e8e6e0', background: idx % 2 === 0 ? 'white' : 'var(--bg)' }}
+        style={{ borderColor: '#ECE7DD', background: idx % 2 === 0 ? 'white' : 'var(--bg)' }}
       >
         <div className="max-w-3xl mx-auto">
           <SectionLabel>{section.label}</SectionLabel>
@@ -129,22 +129,22 @@ const PromptsSchoolLeaders = () => (
     </section>
 
     {/* Trust note */}
-    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#ECE7DD' }}>
       <div className="max-w-3xl mx-auto">
-        <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-          <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-            <strong style={{ color: '#1c1a15' }}>Important:</strong> These prompts support strategic thinking and communication. They do not constitute legal, HR or Ofsted advice. Always verify outputs against current statutory guidance and school policy.
+        <div className="rounded-xl border p-5" style={{ borderColor: '#ECE7DD', background: 'white' }}>
+          <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>
+            <strong style={{ color: '#1A1A1A' }}>Important:</strong> These prompts support strategic thinking and communication. They do not constitute legal, HR or Ofsted advice. Always verify outputs against current statutory guidance and school policy.
           </p>
         </div>
       </div>
     </section>
 
     {/* Cross-links */}
-    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: '#ECE7DD' }}>
       <div className="max-w-3xl mx-auto flex flex-wrap gap-3">
-        <Link to="/safety-methodology" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>Safety Methodology →</Link>
-        <Link to="/ai-training/leaders" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Training for Leaders →</Link>
-        <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Tools Directory →</Link>
+        <Link to="/safety-methodology" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]" style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}>Safety Methodology →</Link>
+        <Link to="/ai-training/leaders" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]" style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}>AI Training for Leaders →</Link>
+        <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]" style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}>AI Tools Directory →</Link>
       </div>
     </section>
   </>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { track } from '../../utils/analytics';
 
-const TEAL = '#00808a';
-const BORDER = '#e8e6e0';
+const TEAL = '#BEFF00';
+const BORDER = '#ECE7DD';
 
 const ROLES = [
   'Teacher',
@@ -71,8 +71,8 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
         <h3 className="font-display text-xl mb-2" style={{ color: '#15803d' }}>
           Pack unlocked!
         </h3>
-        <p className="text-sm leading-relaxed mb-1" style={{ color: '#6b6760' }}>
-          All {totalCount} prompts from <strong style={{ color: '#1c1a15' }}>{packTitle}</strong> are now visible below.
+        <p className="text-sm leading-relaxed mb-1" style={{ color: '#4A4A4A' }}>
+          All {totalCount} prompts from <strong style={{ color: '#1A1A1A' }}>{packTitle}</strong> are now visible below.
         </p>
         <p className="text-xs" style={{ color: '#9ca3af' }}>
           We&rsquo;ll also send a copy to your inbox.
@@ -84,16 +84,16 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
   return (
     <div
       className="rounded-2xl border p-6 sm:p-8"
-      style={{ borderColor: BORDER, background: '#f7f6f2' }}
+      style={{ borderColor: BORDER, background: '#F8F5F0' }}
     >
       <div className="max-w-md mx-auto">
         <p className="text-[11px] font-semibold tracking-widest uppercase mb-2" style={{ color: TEAL }}>
           Full Pack
         </p>
-        <h3 className="font-display text-xl mb-1" style={{ color: '#1c1a15' }}>
+        <h3 className="font-display text-xl mb-1" style={{ color: '#1A1A1A' }}>
           Get all {totalCount} prompts — free
         </h3>
-        <p className="text-sm mb-5" style={{ color: '#6b6760' }}>
+        <p className="text-sm mb-5" style={{ color: '#4A4A4A' }}>
           Enter your email to unlock the remaining {hiddenCount} prompts. We&rsquo;ll send the full pack to your inbox too.
         </p>
 
@@ -107,8 +107,8 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               placeholder="Your email address"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
-              style={{ borderColor: BORDER, background: 'white', color: '#1c1a15' }}
+              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#BEFF00]"
+              style={{ borderColor: BORDER, background: 'white', color: '#1A1A1A' }}
             />
           </div>
 
@@ -119,11 +119,11 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               required
               value={role}
               onChange={e => setRole(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a] appearance-none"
+              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#BEFF00] appearance-none"
               style={{
                 borderColor: BORDER,
                 background: 'white',
-                color: role ? '#1c1a15' : '#9ca3af',
+                color: role ? '#1A1A1A' : '#9ca3af',
               }}
             >
               <option value="" disabled>Select your role</option>
@@ -141,8 +141,8 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               placeholder="School or organisation (optional)"
               value={school}
               onChange={e => setSchool(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
-              style={{ borderColor: BORDER, background: 'white', color: '#1c1a15' }}
+              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#BEFF00]"
+              style={{ borderColor: BORDER, background: 'white', color: '#1A1A1A' }}
             />
           </div>
 
@@ -152,8 +152,8 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
 
           <button
             type="submit"
-            className="w-full py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#00808a]"
-            style={{ background: TEAL, color: 'white' }}
+            className="w-full py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#BEFF00]"
+            style={{ background: TEAL, color: '#0F1C1A' }}
           >
             Send me the full pack
           </button>
@@ -163,14 +163,14 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               type="checkbox"
               checked={marketingConsent}
               onChange={e => setMarketingConsent(e.target.checked)}
-              className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[#00808a] flex-shrink-0"
+              className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[#BEFF00] flex-shrink-0"
             />
-            <span className="text-xs leading-relaxed" style={{ color: '#6b6760' }}>
+            <span className="text-xs leading-relaxed" style={{ color: '#4A4A4A' }}>
               Send me future GetPromptly AI tools, training and prompt updates.
             </span>
           </label>
 
-          <p className="text-[10px] leading-relaxed" style={{ color: '#c5c2bb' }}>
+          <p className="text-[10px] leading-relaxed" style={{ color: '#9C9690' }}>
             We&rsquo;ll only email your pack. No spam, ever. Unsubscribe any time.
           </p>
         </form>
@@ -183,23 +183,23 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
 const MonetisationBanner = ({ variant: _variant }: { variant: 'pack' | 'bundle' }) => (
   <div
     className="rounded-2xl border p-6 flex flex-col sm:flex-row sm:items-center gap-4"
-    style={{ borderColor: BORDER, background: '#f7f6f2' }}
+    style={{ borderColor: BORDER, background: '#F8F5F0' }}
   >
     <div className="flex-1">
       <p className="text-[11px] font-semibold tracking-widest uppercase mb-1" style={{ color: TEAL }}>
         School Bundle
       </p>
-      <h3 className="font-display text-xl mb-1" style={{ color: '#1c1a15' }}>
+      <h3 className="font-display text-xl mb-1" style={{ color: '#1A1A1A' }}>
         Get All 50 Packs for Your School
       </h3>
-      <p className="text-sm" style={{ color: '#6b6760' }}>
+      <p className="text-sm" style={{ color: '#4A4A4A' }}>
         Every prompt pack plus full AI agent access for your whole staff team.
       </p>
     </div>
     <div>
       <button
         className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90"
-        style={{ background: TEAL, color: 'white' }}
+        style={{ background: TEAL, color: '#0F1C1A' }}
         onClick={() => {
           const w = document.getElementById('promptly-widget-trigger');
           if (w) (w as HTMLButtonElement).click();

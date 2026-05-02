@@ -58,10 +58,13 @@ const AdminRolePage       = lazy(() => import('./pages/RolePage').then(m => ({ d
 
 // ── Loading fallback ────────────────────────────────────────────────────────
 const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-[60vh]">
+  <div
+    className="flex items-center justify-center min-h-[60vh]"
+    style={{ background: '#F8F5F0' }}
+  >
     <div
-      className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin"
-      style={{ borderColor: '#e8e6e0', borderTopColor: '#00808a' }}
+      className="w-9 h-9 rounded-full border-2 border-t-transparent animate-spin"
+      style={{ borderColor: '#ECE7DD', borderTopColor: '#BEFF00' }}
       role="status"
       aria-label="Loading page"
     />

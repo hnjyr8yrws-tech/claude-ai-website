@@ -24,10 +24,10 @@ const PackCard = ({ pack }: Props) => {
   return (
     <article
       className="flex flex-col rounded-2xl border bg-white overflow-hidden transition-shadow hover:shadow-md"
-      style={{ borderColor: '#e8e6e0' }}
+      style={{ borderColor: '#ECE7DD' }}
     >
       {/* Top accent bar */}
-      <div className="h-1 w-full" style={{ background: '#00808a' }} />
+      <div className="h-1 w-full" style={{ background: '#BEFF00' }} />
 
       <div className="flex flex-col flex-1 p-5 gap-3">
         {/* Header row */}
@@ -37,7 +37,7 @@ const PackCard = ({ pack }: Props) => {
             <div className="flex items-center gap-2 flex-wrap">
               <span
                 className="text-[11px] font-bold tracking-widest uppercase px-2 py-0.5 rounded"
-                style={{ background: '#e0f5f6', color: '#00808a' }}
+                style={{ background: '#e0f5f6', color: '#BEFF00' }}
               >
                 Pack {packNum}
               </span>
@@ -46,7 +46,7 @@ const PackCard = ({ pack }: Props) => {
               </span>
             </div>
             {/* Title */}
-            <h3 className="font-display text-base leading-snug mt-1" style={{ color: '#1c1a15' }}>
+            <h3 className="font-display text-base leading-snug mt-1" style={{ color: '#1A1A1A' }}>
               {pack.title}
             </h3>
           </div>
@@ -59,8 +59,8 @@ const PackCard = ({ pack }: Props) => {
                 setTimeout(() => setBookmarkTooltip(false), 2500);
               }}
               aria-label="Save pack"
-              className="p-1.5 rounded-lg hover:bg-[#f7f6f2] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a]"
-              style={{ color: '#c5c2bb' }}
+              className="p-1.5 rounded-lg hover:bg-[#F8F5F0] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#BEFF00]"
+              style={{ color: '#9C9690' }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 2h10a1 1 0 011 1v11l-6-3-6 3V3a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
@@ -69,7 +69,7 @@ const PackCard = ({ pack }: Props) => {
             {bookmarkTooltip && (
               <div
                 className="absolute right-0 top-8 z-10 px-2.5 py-1.5 rounded-lg text-[11px] font-medium whitespace-nowrap shadow-lg"
-                style={{ background: '#1c1a15', color: '#f7f6f2' }}
+                style={{ background: '#1A1A1A', color: '#F8F5F0' }}
               >
                 Sign in to save — coming soon
               </div>
@@ -78,7 +78,7 @@ const PackCard = ({ pack }: Props) => {
         </div>
 
         {/* Description */}
-        <p className="text-sm leading-relaxed line-clamp-2" style={{ color: '#6b6760' }}>
+        <p className="text-sm leading-relaxed line-clamp-2" style={{ color: '#4A4A4A' }}>
           {pack.description}
         </p>
 
@@ -94,7 +94,7 @@ const PackCard = ({ pack }: Props) => {
           {/* Prompt count */}
           <span
             className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium"
-            style={{ background: '#f7f6f2', color: '#6b6760', border: '1px solid #e8e6e0' }}
+            style={{ background: '#F8F5F0', color: '#4A4A4A', border: '1px solid #ECE7DD' }}
           >
             {pack.promptCount} prompts
           </span>
@@ -125,11 +125,11 @@ const PackCard = ({ pack }: Props) => {
         <div className="flex-1" />
 
         {/* Actions */}
-        <div className="flex items-center gap-2 pt-2 border-t flex-wrap" style={{ borderColor: '#e8e6e0' }}>
+        <div className="flex items-center gap-2 pt-2 border-t flex-wrap" style={{ borderColor: '#ECE7DD' }}>
           <Link
             to={`/prompts/pack/${pack.slug}`}
-            className="flex-1 text-center text-sm font-semibold px-3 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-            style={{ background: '#00808a', color: 'white' }}
+            className="flex-1 text-center text-sm font-semibold px-3 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+            style={{ background: '#BEFF00', color: '#0F1C1A' }}
           >
             View Pack →
           </Link>

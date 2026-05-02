@@ -1,34 +1,47 @@
 /**
  * api/lead-capture.ts
  *
- * Vercel Edge Function — lead capture endpoint.
- * Sends a resource email to the user and an admin notification to info@getpromptly.co.uk.
+ * Vercel Edge Function — lead-capture endpoint.
+ * Sends two emails per submission:
+ *   1. The resource email (offer-specific HTML) to the user.
+ *   2. An admin notification to info@getpromptly.co.uk so a human can
+ *      follow up if delivery is delayed or the offer key is unknown.
  *
- * Uses Brevo (same provider as brevo-subscribe.ts) for transactional email.
- * Alternatively, swap the sendEmail() call for Resend, Postmark or SendGrid.
+ * Brevo is the transactional email provider (same as api/brevo-subscribe.ts).
  *
- * Required environment variables in Vercel dashboard:
- *   BREVO_API_KEY          ← Brevo API key (server-side only, no VITE_ prefix)
- *   FROM_EMAIL             ← "GetPromptly <info@getpromptly.co.uk>" (optional, has default)
- *   ADMIN_EMAIL            ← info@getpromptly.co.uk (optional, has default)
+ * Required Vercel environment variables:
+ *   BREVO_API_KEY  — Brevo transactional key. Server-side only — never prefix with VITE_.
+ *   FROM_EMAIL     — optional. Defaults to "GetPromptly <info@getpromptly.co.uk>".
+ *   ADMIN_EMAIL    — optional. Defaults to "info@getpromptly.co.uk".
  *
- * DNS setup required before email delivery works:
- *   1. Verify getpromptly.co.uk in Brevo
- *   2. Add the SPF, DKIM and DMARC records Brevo provides
- *   3. Test each offer type before launch
+ * DNS setup (one-time, before launch):
+ *   1. Verify getpromptly.co.uk in the Brevo dashboard.
+ *   2. Add the SPF, DKIM and DMARC records Brevo provides.
+ *   3. Test each offer key end-to-end before exposing it on the site.
+ *
+ * Errors:
+ *   - Brevo non-2xx → throws with the Brevo error body in logs and
+ *     returns 502 so the front-end shows the fallback "email
+ *     info@getpromptly.co.uk" message.
+ *   - Unknown offer key → falls back to the free-prompt-pack content
+ *     and flags it in the admin notification so we can add it.
  */
 
 export const config = { runtime: 'edge' };
 
-const FROM_EMAIL  = 'GetPromptly <info@getpromptly.co.uk>';
-const ADMIN_EMAIL = 'info@getpromptly.co.uk';
-const BREVO_SEND_URL = 'https://api.brevo.com/v3/smtp/email';
+const FROM_EMAIL_DEFAULT  = 'GetPromptly <info@getpromptly.co.uk>';
+const ADMIN_EMAIL_DEFAULT = 'info@getpromptly.co.uk';
+const BREVO_SEND_URL      = 'https://api.brevo.com/v3/smtp/email';
 
 // ─── Offer content ────────────────────────────────────────────────────────────
+//
+// Add a new key here whenever you wire a new lead magnet on the site.
+// The key must match the `offer` value sent from the front-end.
 
 interface OfferContent { subject: string; html: string }
 
 const offerContent: Record<string, OfferContent> = {
+  // ── Generic packs ──────────────────────────────────────────────────────────
   'free-prompt-pack': {
     subject: 'Your free GetPromptly prompt pack',
     html: `<h1>Your free GetPromptly prompt pack</h1>
@@ -52,7 +65,7 @@ const offerContent: Record<string, OfferContent> = {
   <li>Tool review checklist — KCSIE 2025 and UK GDPR focused</li>
   <li>Policy and acceptable-use prompt starters for consultation</li>
 </ul>
-<p>To discuss your school's specific context, use the consultation request on <a href="https://www.getpromptly.co.uk/schools#consultation">getpromptly.co.uk/schools</a>.</p>`,
+<p>To discuss your school&apos;s specific context, use the consultation request on <a href="https://www.getpromptly.co.uk/schools#consultation">getpromptly.co.uk/schools</a>.</p>`,
   },
   'equipment-shortlist': {
     subject: 'Your GetPromptly equipment shortlist',
@@ -61,6 +74,8 @@ const offerContent: Record<string, OfferContent> = {
 <p>In the meantime, browse the full directory at <a href="https://www.getpromptly.co.uk/ai-equipment">getpromptly.co.uk/ai-equipment</a>.</p>
 <p>Questions? Reply to this email or contact <a href="mailto:info@getpromptly.co.uk">info@getpromptly.co.uk</a>.</p>`,
   },
+
+  // ── Role-specific prompt packs ─────────────────────────────────────────────
   'teacher-prompt-pack': {
     subject: 'Your teacher prompt pack — GetPromptly',
     html: `<h1>Teacher Prompt Pack</h1>
@@ -125,6 +140,19 @@ const offerContent: Record<string, OfferContent> = {
 </ol>
 <p>More prompts at <a href="https://www.getpromptly.co.uk/prompts/students">getpromptly.co.uk/prompts/students</a>.</p>`,
   },
+  'subject-leads-prompt-pack': {
+    subject: 'Your subject leads prompt pack — GetPromptly',
+    html: `<h1>Subject Leads Prompt Pack</h1>
+<ol>
+  <li>Build a curriculum map from National Curriculum strands, key concepts and assessment milestones.</li>
+  <li>Audit a scheme of work for stretch, scaffold and exam-board alignment.</li>
+  <li>Plan departmental CPD across a term using staff confidence data.</li>
+  <li>Draft an exam-board AI position for your department in line with JCQ guidance.</li>
+</ol>
+<p>More prompts at <a href="https://www.getpromptly.co.uk/prompts/subject-leads">getpromptly.co.uk/prompts/subject-leads</a>.</p>`,
+  },
+
+  // ── Learning pathways ──────────────────────────────────────────────────────
   'teacher-learning-pathway': {
     subject: 'Your AI for Teachers learning pathway — GetPromptly',
     html: `<h1>AI for Teachers Starter Path</h1>
@@ -144,7 +172,8 @@ const offerContent: Record<string, OfferContent> = {
   <li>Create a staff acceptable-use position.</li>
   <li>Map risks around safeguarding, data protection and assessment integrity.</li>
   <li>Plan staff CPD by role and confidence level.</li>
-</ol>`,
+</ol>
+<p>Full pathway at <a href="https://www.getpromptly.co.uk/ai-training/leaders">getpromptly.co.uk/ai-training/leaders</a>.</p>`,
   },
   'senco-learning-pathway': {
     subject: 'Your SENCO AI Toolkit pathway — GetPromptly',
@@ -154,27 +183,129 @@ const offerContent: Record<string, OfferContent> = {
   <li>Identify low-risk admin workflows to trial first.</li>
   <li>Create staff strategy sheets without entering identifiable pupil data.</li>
   <li>Use AI to support provision mapping, not replace professional judgement.</li>
-</ol>`,
+</ol>
+<p>Full pathway at <a href="https://www.getpromptly.co.uk/ai-training/send">getpromptly.co.uk/ai-training/send</a>.</p>`,
+  },
+  'send-learning-pathway': {
+    subject: 'Your Accessible AI for SEND pathway — GetPromptly',
+    html: `<h1>Accessible AI for SEND</h1>
+<ol>
+  <li>Start with NASEN&apos;s SEND-specific AI guidance.</li>
+  <li>Review the AbilityNet AI &amp; disability factsheet.</li>
+  <li>Complete free Texthelp educator CPD on Read&amp;Write.</li>
+  <li>Train staff on Microsoft accessibility AI tools (Immersive Reader, Seeing AI).</li>
+</ol>
+<p>Full pathway at <a href="https://www.getpromptly.co.uk/ai-training/send">getpromptly.co.uk/ai-training/send</a>.</p>`,
+  },
+  'parent-learning-pathway': {
+    subject: 'Your AI for Parents pathway — GetPromptly',
+    html: `<h1>AI Safety for Parents</h1>
+<ol>
+  <li>Read Internet Matters&apos; AI tools guide for parents.</li>
+  <li>Use Parent Zone&apos;s family-friendly AI conversation starters.</li>
+  <li>Check Childnet&apos;s deepfake and chatbot guidance.</li>
+  <li>Bookmark NSPCC Net Aware for the apps your child uses.</li>
+</ol>
+<p>Full pathway at <a href="https://www.getpromptly.co.uk/ai-training/parents">getpromptly.co.uk/ai-training/parents</a>.</p>`,
+  },
+  'student-learning-pathway': {
+    subject: 'Your AI Literacy for Students pathway — GetPromptly',
+    html: `<h1>AI Literacy for Students</h1>
+<ol>
+  <li>Complete Elements of AI (free, no maths required).</li>
+  <li>Try AI for Everyone on Coursera (free audit available).</li>
+  <li>Watch BBC Own It&apos;s AI safety videos.</li>
+  <li>Explore Code.org&apos;s AI literacy curriculum.</li>
+</ol>
+<p>Full pathway at <a href="https://www.getpromptly.co.uk/ai-training/students">getpromptly.co.uk/ai-training/students</a>.</p>`,
+  },
+  'admin-learning-pathway': {
+    subject: 'Your AI Productivity for Admin pathway — GetPromptly',
+    html: `<h1>AI Productivity for Admin Teams</h1>
+<ol>
+  <li>Complete the Microsoft 365 AI for Education training.</li>
+  <li>Work through Google Workspace AI for Education.</li>
+  <li>Read ISBL&apos;s AI guide for school business operations.</li>
+  <li>Review DfE Data Protection in Schools and ICO AI guidance.</li>
+</ol>
+<p>Full directory at <a href="https://www.getpromptly.co.uk/ai-training">getpromptly.co.uk/ai-training</a>.</p>`,
+  },
+  'subject-leads-learning-pathway': {
+    subject: 'Your Subject Leads AI pathway — GetPromptly',
+    html: `<h1>AI for Subject Leads</h1>
+<ol>
+  <li>Read the DfE AI in Education Guidance.</li>
+  <li>Review JCQ and Ofqual AI assessment policy for your subject.</li>
+  <li>Audit your scheme of work for AI-aware tasks and assessment integrity.</li>
+  <li>Plan a department CPD slot using AIfE&apos;s prompting course.</li>
+</ol>
+<p>Full directory at <a href="https://www.getpromptly.co.uk/ai-training">getpromptly.co.uk/ai-training</a>.</p>`,
+  },
+  'safeguarding-learning-pathway': {
+    subject: 'Your AI Safeguarding pathway — GetPromptly',
+    html: `<h1>AI Safeguarding Path</h1>
+<ol>
+  <li>Read KCSIE 2024 — annual statutory requirement for all staff.</li>
+  <li>Review ThinkUKnow&apos;s AI &amp; deepfake resources.</li>
+  <li>Use Safer Internet Centre lesson materials.</li>
+  <li>Read IWF and JCQ AI policy guidance.</li>
+</ol>
+<p>Full pathway at <a href="https://www.getpromptly.co.uk/ai-training/leaders">getpromptly.co.uk/ai-training/leaders</a>.</p>`,
+  },
+  'policy-learning-pathway': {
+    subject: 'Your AI Policy &amp; Governance pathway — GetPromptly',
+    html: `<h1>AI Policy &amp; Governance</h1>
+<ol>
+  <li>Read DfE generative AI guidance.</li>
+  <li>Review JCQ AI in assessments and Ofqual integrity guidance.</li>
+  <li>Read ICO AI &amp; data protection.</li>
+  <li>Use ASCL and AIfE strategy frameworks to draft policy.</li>
+</ol>
+<p>Full pathway at <a href="https://www.getpromptly.co.uk/ai-training/leaders">getpromptly.co.uk/ai-training/leaders</a>.</p>`,
   },
 };
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ─── Email send helper (Brevo transactional) ──────────────────────────────────
 
-async function sendEmail(apiKey: string, payload: {
-  to: string; replyTo?: string; subject: string; html: string;
-}): Promise<boolean> {
+interface BrevoPayload {
+  fromEmail: string;
+  fromName:  string;
+  to:        string;
+  replyTo?:  string;
+  subject:   string;
+  html:      string;
+}
+
+async function sendEmail(apiKey: string, payload: BrevoPayload): Promise<void> {
   const res = await fetch(BREVO_SEND_URL, {
-    method: 'POST',
+    method:  'POST',
     headers: { 'Content-Type': 'application/json', 'api-key': apiKey },
-    body: JSON.stringify({
-      sender:  { email: 'info@getpromptly.co.uk', name: 'GetPromptly' },
-      to:      [{ email: payload.to }],
-      replyTo: payload.replyTo ? { email: payload.replyTo } : undefined,
-      subject: payload.subject,
+    body:    JSON.stringify({
+      sender:      { email: payload.fromEmail, name: payload.fromName },
+      to:          [{ email: payload.to }],
+      replyTo:     payload.replyTo ? { email: payload.replyTo } : undefined,
+      subject:     payload.subject,
       htmlContent: payload.html,
     }),
   });
-  return res.ok;
+
+  if (!res.ok) {
+    let errBody = '';
+    try { errBody = await res.text(); } catch { /* ignore */ }
+    const message = `Brevo send failed (${res.status}) for ${payload.to}: ${errBody.slice(0, 500)}`;
+    // eslint-disable-next-line no-console
+    console.error('[lead-capture]', message);
+    throw new Error(message);
+  }
 }
 
 // ─── Handler ──────────────────────────────────────────────────────────────────
@@ -184,9 +315,9 @@ export default async function handler(request: Request): Promise<Response> {
     return json({ error: 'Method not allowed' }, 405);
   }
 
-  let body: Record<string, string>;
+  let body: Record<string, unknown>;
   try {
-    body = (await request.json()) as Record<string, string>;
+    body = (await request.json()) as Record<string, unknown>;
   } catch {
     return json({ error: 'Invalid JSON body' }, 400);
   }
@@ -195,41 +326,72 @@ export default async function handler(request: Request): Promise<Response> {
   const offer  = String(body.offer  ?? 'free-prompt-pack').trim();
   const role   = String(body.role   ?? '').trim();
   const page   = String(body.page   ?? '').trim();
+  const source = String(body.source ?? '').trim();
 
   if (!email || !/.+@.+\..+/.test(email)) {
     return json({ error: 'Valid email required' }, 400);
   }
 
-  const apiKey = process.env.BREVO_API_KEY;
+  const apiKey     = process.env.BREVO_API_KEY;
+  const fromHeader = process.env.FROM_EMAIL  || FROM_EMAIL_DEFAULT;
+  const adminEmail = process.env.ADMIN_EMAIL || ADMIN_EMAIL_DEFAULT;
+
+  // Parse "Name <email>" header into separate name/email parts for Brevo.
+  const fromMatch = fromHeader.match(/^(.*?)\s*<\s*(.+?)\s*>\s*$/);
+  const fromName  = fromMatch ? (fromMatch[1] || 'GetPromptly').trim() : 'GetPromptly';
+  const fromEmail = fromMatch ? fromMatch[2].trim() : fromHeader.trim();
+
   if (!apiKey) {
-    // In dev without the key, log and return a soft success so the UI works
-    console.warn('[lead-capture] BREVO_API_KEY not set — skipping email send');
+    // In dev without the key, log and return a soft success so the UI works.
+    // eslint-disable-next-line no-console
+    console.warn('[lead-capture] BREVO_API_KEY not set — skipping email send (dev mode)');
     return json({ ok: true, note: 'dev mode — no email sent' }, 200);
   }
 
-  const content = offerContent[offer] ?? offerContent['free-prompt-pack'];
+  const knownOffer = offer in offerContent;
+  const content    = knownOffer ? offerContent[offer] : offerContent['free-prompt-pack'];
 
   try {
-    // 1. Send resource email to the user
+    // 1. Send the resource email to the user.
     await sendEmail(apiKey, {
+      fromEmail,
+      fromName,
       to:      email,
-      replyTo: ADMIN_EMAIL,
+      replyTo: adminEmail,
       subject: content.subject,
       html:    content.html,
     });
 
-    // 2. Send admin notification
+    // 2. Send the admin notification.
     await sendEmail(apiKey, {
-      to:      ADMIN_EMAIL,
+      fromEmail,
+      fromName,
+      to:      adminEmail,
       replyTo: email,
-      subject: `New GetPromptly lead: ${offer}`,
-      html:    `<p><strong>Email:</strong> ${email}</p><p><strong>Offer:</strong> ${offer}</p><p><strong>Role:</strong> ${role || '—'}</p><p><strong>Page:</strong> ${page || '—'}</p>`,
+      subject: `New GetPromptly lead: ${offer}${knownOffer ? '' : ' (UNKNOWN OFFER)'}`,
+      html: `
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Offer:</strong> ${escapeHtml(offer)}${knownOffer ? '' : ' &nbsp;<em>⚠️ Not registered in offerContent — fell back to free-prompt-pack.</em>'}</p>
+        <p><strong>Role:</strong> ${escapeHtml(role) || '—'}</p>
+        <p><strong>Source:</strong> ${escapeHtml(source) || '—'}</p>
+        <p><strong>Page:</strong> ${escapeHtml(page) || '—'}</p>
+        <hr />
+        <p style="color:#9C9690;font-size:12px;">Sent automatically by api/lead-capture.ts</p>
+      `,
     });
 
     return json({ ok: true }, 200);
   } catch (err) {
-    console.error('[lead-capture] email send failed', err);
-    return json({ error: 'Email send failed' }, 500);
+    const detail = err instanceof Error ? err.message : 'unknown error';
+    // eslint-disable-next-line no-console
+    console.error('[lead-capture] email send failed', detail);
+    return json(
+      {
+        ok: false,
+        error: 'Email send failed. Please email info@getpromptly.co.uk and we will reply by hand.',
+      },
+      502,
+    );
   }
 }
 

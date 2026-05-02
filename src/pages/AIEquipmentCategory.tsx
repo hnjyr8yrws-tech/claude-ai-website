@@ -13,7 +13,7 @@ import {
 } from '../data/equipment';
 import { badgeStyle, reviewBadge, CAT_SLUG, catToSlug } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 const AUDIENCE_TABS: { label: string; value: EqAudience | 'All' }[] = [
   { label: 'All',      value: 'All' },
@@ -34,11 +34,11 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-2xl border flex flex-col"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>
             {product.subcategory || product.category}
           </span>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -52,7 +52,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           </h3>
         </Link>
         <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{product.brand}</p>
-        <p className="text-sm leading-relaxed mb-3 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
+        <p className="text-sm leading-relaxed mb-3 line-clamp-2" style={{ color: '#4A4A4A' }}>{product.desc}</p>
         <p className="text-xs italic mb-4" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
 
         {product.senCategory.length > 0 && (
@@ -78,7 +78,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
 
         <div
           className="flex items-center gap-2 px-3 py-2 rounded-xl border text-xs"
-          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#9ca3af' }}
+          style={{ borderColor: '#ECE7DD', background: '#F8F5F0', color: '#9ca3af' }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
@@ -97,7 +97,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           <Link
             to={`/ai-equipment/product/${product.slug}`}
             className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#0F1C1A' }}
           >
             View →
           </Link>
@@ -150,13 +150,13 @@ export default function AIEquipmentCategory() {
         />
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-24 text-center">
           <h1 className="font-display text-4xl mb-4" style={{ color: 'var(--text)' }}>Category not found</h1>
-          <p className="text-base mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8" style={{ color: '#4A4A4A' }}>
             This category doesn't exist. Browse all equipment instead.
           </p>
           <Link
             to="/ai-equipment"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#0F1C1A' }}
           >
             ← Back to Equipment Hub
           </Link>
@@ -183,7 +183,7 @@ export default function AIEquipmentCategory() {
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           {category}
         </h1>
-        <p className="text-base max-w-xl" style={{ color: '#6b6760' }}>
+        <p className="text-base max-w-xl" style={{ color: '#4A4A4A' }}>
           {totalInCategory} products in this category, independently reviewed for UK education.
         </p>
       </div>
@@ -198,9 +198,9 @@ export default function AIEquipmentCategory() {
               onClick={() => setAudienceFilter(t.value)}
               className="text-sm px-4 py-1.5 rounded-xl border transition-colors font-medium"
               style={{
-                borderColor: audienceFilter === t.value ? TEAL : '#e8e6e0',
+                borderColor: audienceFilter === t.value ? TEAL : '#ECE7DD',
                 background:  audienceFilter === t.value ? '#e0f5f6' : 'white',
-                color:       audienceFilter === t.value ? TEAL : '#6b6760',
+                color:       audienceFilter === t.value ? TEAL : '#4A4A4A',
               }}
             >
               {t.label}
@@ -215,9 +215,9 @@ export default function AIEquipmentCategory() {
             onClick={() => setPriceFilter('All')}
             className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
             style={{
-              borderColor: priceFilter === 'All' ? TEAL : '#e8e6e0',
+              borderColor: priceFilter === 'All' ? TEAL : '#ECE7DD',
               background:  priceFilter === 'All' ? '#e0f5f6' : 'white',
-              color:       priceFilter === 'All' ? TEAL : '#6b6760',
+              color:       priceFilter === 'All' ? TEAL : '#4A4A4A',
             }}
           >
             Any
@@ -228,9 +228,9 @@ export default function AIEquipmentCategory() {
               onClick={() => setPriceFilter(pb)}
               className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
               style={{
-                borderColor: priceFilter === pb ? TEAL : '#e8e6e0',
+                borderColor: priceFilter === pb ? TEAL : '#ECE7DD',
                 background:  priceFilter === pb ? '#e0f5f6' : 'white',
-                color:       priceFilter === pb ? TEAL : '#6b6760',
+                color:       priceFilter === pb ? TEAL : '#4A4A4A',
               }}
             >
               {pb}
@@ -245,9 +245,9 @@ export default function AIEquipmentCategory() {
             onClick={() => setReviewFilter('All')}
             className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
             style={{
-              borderColor: reviewFilter === 'All' ? TEAL : '#e8e6e0',
+              borderColor: reviewFilter === 'All' ? TEAL : '#ECE7DD',
               background:  reviewFilter === 'All' ? '#e0f5f6' : 'white',
-              color:       reviewFilter === 'All' ? TEAL : '#6b6760',
+              color:       reviewFilter === 'All' ? TEAL : '#4A4A4A',
             }}
           >
             Any
@@ -258,9 +258,9 @@ export default function AIEquipmentCategory() {
               onClick={() => setReviewFilter(rs)}
               className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
               style={{
-                borderColor: reviewFilter === rs ? TEAL : '#e8e6e0',
+                borderColor: reviewFilter === rs ? TEAL : '#ECE7DD',
                 background:  reviewFilter === rs ? '#e0f5f6' : 'white',
-                color:       reviewFilter === rs ? TEAL : '#6b6760',
+                color:       reviewFilter === rs ? TEAL : '#4A4A4A',
               }}
             >
               {rs}
@@ -270,14 +270,14 @@ export default function AIEquipmentCategory() {
             <button
               onClick={clearFilters}
               className="text-xs px-2.5 py-1 rounded-lg border transition-colors hover:bg-gray-50"
-              style={{ borderColor: '#e8e6e0', color: '#9ca3af' }}
+              style={{ borderColor: '#ECE7DD', color: '#9ca3af' }}
             >
               Clear filters
             </button>
           )}
         </div>
 
-        <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-sm mb-6" style={{ color: '#4A4A4A' }}>
           Showing <strong style={{ color: 'var(--text)' }}>{products.length}</strong> of {totalInCategory} products
         </p>
       </div>
@@ -290,7 +290,7 @@ export default function AIEquipmentCategory() {
           </div>
         ) : (
           <div className="py-16 text-center">
-            <p className="text-base mb-4" style={{ color: '#6b6760' }}>No products match your filters.</p>
+            <p className="text-base mb-4" style={{ color: '#4A4A4A' }}>No products match your filters.</p>
             <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: TEAL }}>
               Clear all filters
             </button>
@@ -299,9 +299,9 @@ export default function AIEquipmentCategory() {
       </div>
 
       {/* ADJACENT CATEGORIES */}
-      <div className="border-t py-10 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-10 px-5 sm:px-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#c5c2bb' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#9C9690' }}>
             Other categories
           </p>
           <div className="flex flex-wrap gap-2">
@@ -311,10 +311,10 @@ export default function AIEquipmentCategory() {
                 <Link
                   key={cat}
                   to={`/ai-equipment/category/${catToSlug(cat)}`}
-                  className="text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
-                  style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'var(--bg)' }}
+                  className="text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[#BEFF00] hover:text-[#BEFF00]"
+                  style={{ borderColor: '#ECE7DD', color: '#4A4A4A', background: 'var(--bg)' }}
                 >
-                  {cat} <span className="ml-1" style={{ color: '#c5c2bb' }}>({count})</span>
+                  {cat} <span className="ml-1" style={{ color: '#9C9690' }}>({count})</span>
                 </Link>
               );
             })}

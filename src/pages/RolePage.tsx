@@ -8,11 +8,16 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
+import LeadMagnet from '../components/LeadMagnet';
 
-const TEAL   = '#00808a';
-const DARK   = '#111210';
-const BG     = '#f7f6f2';
-const BORDER = '#e8e6e0';
+const LIME   = '#BEFF00';
+const CYAN   = '#00D1FF';
+const PURPLE = '#A78BFA';
+const YELLOW = '#FFEA00';
+const DARK   = '#0F1C1A';
+const BG     = '#F8F5F0';
+const BORDER = '#ECE7DD';
+const INK    = '#1A1A1A';
 
 function openWidgetWithRole(role: string) {
   window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: `I am a ${role}. What do you recommend for me?` }));
@@ -63,7 +68,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
   }, [d.slug]);
 
   return (
-    <div style={{ background: BG, color: '#1c1a15' }}>
+    <div style={{ background: BG, color: '#1A1A1A' }}>
       <SEO title={d.seoTitle} description={d.seoDesc} keywords={d.seoKeywords} path={`/${d.slug}`} />
 
       {/* ── Hero ───────────────────────────────────────────────────── */}
@@ -74,7 +79,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
         <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-14">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-6"
-              style={{ background: d.color, color: '#1c1a15', border: `1px solid ${BORDER}` }}>
+              style={{ background: d.color, color: '#1A1A1A', border: `1px solid ${BORDER}` }}>
               <span className="text-base" aria-hidden="true">{d.emoji}</span>
               GetPromptly for {d.title}
             </span>
@@ -82,24 +87,28 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             <h1 className="font-display leading-[1.08] mb-5" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}>
               {d.heroTitle}
             </h1>
-            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: '#6b6760' }}>
+            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: '#4A4A4A' }}>
               {d.heroSub}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
               <Link to={d.promptsTo}
                 onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'See prompts' })}
-                className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 text-center"
-                style={{ background: TEAL, color: 'white' }}>
+                className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5 text-center"
+                style={{
+                  background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+                  color: INK,
+                  boxShadow: '0 10px 24px rgba(190,255,0,0.28), inset 0 1px 0 rgba(255,255,255,0.45)',
+                }}>
                 {d.promptsLabel} &rarr;
               </Link>
               <button
                 onClick={() => { track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'Ask Promptly AI' }); openWidgetWithRole(d.agentRole); }}
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
-                style={{ borderColor: BORDER, color: '#1c1a15' }}>
+                style={{ borderColor: BORDER, color: INK, background: 'white' }}>
                 <span className="relative flex w-2 h-2" aria-hidden="true">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
-                  <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: LIME }} />
+                  <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: LIME }} />
                 </span>
                 Ask Promptly AI
               </button>
@@ -112,9 +121,9 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
       <section style={{ background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Top AI tools</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: LIME }}>Top AI tools</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">Best tools for {d.title}.</h2>
-            <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-8 max-w-md" style={{ color: '#4A4A4A' }}>
               Independently scored against KCSIE 2025, UK GDPR and DfE guidance.
             </p>
           </FadeIn>
@@ -125,20 +134,20 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                   <div className="flex items-center justify-between mb-3">
                     <p className="font-semibold text-sm">{t.name}</p>
                     <div className="flex items-center gap-1.5">
-                      <span className="font-display text-xl leading-none" style={{ color: TEAL }}>{t.score}</span>
+                      <span className="font-display text-xl leading-none" style={{ color: LIME }}>{t.score}</span>
                       <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
                         style={{ background: t.tier === 'Trusted' ? 'rgba(34,197,94,0.1)' : 'rgba(245,158,11,0.1)', color: t.tier === 'Trusted' ? '#22c55e' : '#f59e0b' }}>
                         {t.tier}
                       </span>
                     </div>
                   </div>
-                  <p className="text-xs leading-relaxed flex-1" style={{ color: '#6b6760' }}>{t.desc}</p>
+                  <p className="text-xs leading-relaxed flex-1" style={{ color: '#4A4A4A' }}>{t.desc}</p>
                 </div>
               </FadeIn>
             ))}
           </div>
           <FadeIn delay={0.15}>
-            <Link to="/tools" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+            <Link to="/tools" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: LIME }}>
               View all 155 tools &rarr;
             </Link>
           </FadeIn>
@@ -149,9 +158,9 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
       <section style={{ background: BG }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Prompt packs</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: LIME }}>Prompt packs</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">Ready-to-use prompts for {d.title}.</h2>
-            <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-8 max-w-md" style={{ color: '#4A4A4A' }}>
               Copy, paste and use immediately in Claude, ChatGPT or Gemini.
             </p>
           </FadeIn>
@@ -160,7 +169,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               <FadeIn key={p} delay={i * 0.05}>
                 <div className="flex items-center gap-3 p-4 rounded-xl border" style={{ background: 'white', borderColor: BORDER }}>
                   <span className="w-7 h-7 rounded-lg text-[10px] font-bold flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(0,128,138,0.1)', color: TEAL }}>
+                    style={{ background: 'rgba(190,255,0,0.22)', color: INK }}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="text-sm font-medium">{p}</span>
@@ -169,7 +178,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             ))}
           </div>
           <FadeIn delay={0.15}>
-            <Link to={d.promptsTo} className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+            <Link to={d.promptsTo} className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: LIME }}>
               See all {d.title} prompts &rarr;
             </Link>
           </FadeIn>
@@ -180,9 +189,9 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
       <section style={{ background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Training path</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: LIME }}>Training path</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">AI training for {d.title}.</h2>
-            <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-8 max-w-md" style={{ color: '#4A4A4A' }}>
               Free and paid courses curated for your role.
             </p>
           </FadeIn>
@@ -191,14 +200,14 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               <FadeIn key={t.title} delay={i * 0.05}>
                 <Link to={t.to}
                   onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}-training`, label: t.title })}
-                  className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[#00808a] group"
+                  className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[#BEFF00] group"
                   style={{ borderColor: BORDER, background: BG }}>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
                     style={t.free ? { background: '#dcfce7', color: '#15803d' } : { background: '#fef9c3', color: '#854d0e' }}>
                     {t.free ? 'Free' : 'Paid'}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium group-hover:text-[#00808a] transition-colors">{t.title}</p>
+                    <p className="text-sm font-medium group-hover:text-[#BEFF00] transition-colors">{t.title}</p>
                     <p className="text-xs" style={{ color: '#9ca3af' }}>{t.provider}</p>
                   </div>
                   <span className="text-xs flex-shrink-0" style={{ color: '#9ca3af' }}>&rarr;</span>
@@ -207,7 +216,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             ))}
           </div>
           <FadeIn delay={0.15}>
-            <Link to="/ai-training" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+            <Link to="/ai-training" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: LIME }}>
               See all training &rarr;
             </Link>
           </FadeIn>
@@ -219,9 +228,9 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
         <section style={{ background: BG }}>
           <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
             <FadeIn>
-              <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Equipment</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: LIME }}>Equipment</p>
               <h2 className="font-display text-2xl sm:text-3xl mb-2">Recommended tech for {d.title}.</h2>
-              <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+              <p className="text-sm mb-8 max-w-md" style={{ color: '#4A4A4A' }}>
                 Independently curated classroom and home technology.
               </p>
             </FadeIn>
@@ -230,19 +239,19 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                 <FadeIn key={e.name} delay={i * 0.05}>
                   <Link to={e.to}
                     onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}-equipment`, label: e.name })}
-                    className="flex items-center gap-3 p-4 rounded-xl border transition-colors hover:border-[#00808a] group"
+                    className="flex items-center gap-3 p-4 rounded-xl border transition-colors hover:border-[#BEFF00] group"
                     style={{ borderColor: BORDER, background: 'white' }}>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium group-hover:text-[#00808a] transition-colors">{e.name}</p>
+                      <p className="text-sm font-medium group-hover:text-[#BEFF00] transition-colors">{e.name}</p>
                       <p className="text-[10px]" style={{ color: '#9ca3af' }}>{e.category}</p>
                     </div>
-                    <span className="text-xs flex-shrink-0" style={{ color: TEAL }}>View &rarr;</span>
+                    <span className="text-xs flex-shrink-0" style={{ color: LIME }}>View &rarr;</span>
                   </Link>
                 </FadeIn>
               ))}
             </div>
             <FadeIn delay={0.15}>
-              <Link to="/ai-equipment" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+              <Link to="/ai-equipment" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: LIME }}>
                 See all equipment &rarr;
               </Link>
             </FadeIn>
@@ -250,52 +259,138 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
         </section>
       )}
 
-      {/* ── Agent CTA ──────────────────────────────────────────────── */}
-      <section style={{ background: DARK }}>
-        <div className="max-w-3xl mx-auto px-5 sm:px-8 py-14 text-center">
-          <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>24/7 AI guidance</p>
-            <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: 'white' }}>
-              Need personalised advice?
-            </h2>
-            <p className="text-sm mb-8 max-w-md mx-auto" style={{ color: '#9ca3af' }}>
-              Our AI agent knows the full GetPromptly database. Ask it anything about tools, training, equipment or prompts for {d.title.toLowerCase()}.
-            </p>
-            <button
-              onClick={() => { track({ name: 'agent_opened', section: `role-${d.slug}` }); openWidgetWithRole(d.agentRole); }}
-              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
-              style={{ background: TEAL, color: 'white' }}>
-              <span className="relative flex w-2 h-2" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: 'white' }} />
-                <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: 'white' }} />
-              </span>
-              Ask Promptly AI as a {d.agentRole} &rarr;
-            </button>
-          </FadeIn>
+      {/* ── Lead magnet: starter pack ─────────────────────────────── */}
+      <section style={{ background: BG }}>
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-4 pb-14">
+          <LeadMagnet
+            variant="light"
+            eyebrow={`${d.title} starter pack`}
+            headline={`Get the ${d.title.toLowerCase()} starter pack`}
+            description={`A free PDF bundle: 10 ready-to-use prompts, our top tool picks and the next CPD step for ${d.title.toLowerCase()}.`}
+            buttonLabel="Send me the pack →"
+            successMessage="Pack on its way. Check your inbox in the next minute."
+            analyticsSection={`role-${d.slug}-starter-pack`}
+            analyticsMeta={{ role: d.slug }}
+            trustNote="No spam. Unsubscribe anytime."
+            inputIdSuffix={`role-${d.slug}`}
+          />
         </div>
       </section>
 
-      {/* ── Cross-links ────────────────────────────────────────────── */}
+      {/* ── Agent CTA — premium dark band ─────────────────────────── */}
+      <section className="relative overflow-hidden" style={{ background: DARK }}>
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <div style={{ position: 'absolute', top: '-40%', right: '-10%', width: 520, height: 520, borderRadius: '50%', background: 'radial-gradient(circle, rgba(190,255,0,0.10) 0%, transparent 70%)' }} />
+          <div style={{ position: 'absolute', bottom: '-30%', left: '-10%', width: 460, height: 460, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,209,255,0.10) 0%, transparent 70%)' }} />
+        </div>
+        <div className="relative max-w-5xl mx-auto px-5 sm:px-8 py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+            <div className="lg:col-span-3">
+              <FadeIn>
+                <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] px-3 py-1.5 rounded-full mb-6"
+                  style={{ background: 'rgba(190,255,0,0.14)', color: LIME, border: '1px solid rgba(190,255,0,0.25)' }}>
+                  <span className="relative flex w-2 h-2" aria-hidden="true">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: LIME }} />
+                    <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: LIME }} />
+                  </span>
+                  24/7 personalised guidance
+                </span>
+                <h2 className="font-display text-4xl sm:text-5xl leading-[1.05] mb-5" style={{ color: 'white' }}>
+                  Your <em className="not-italic" style={{
+                    backgroundImage: 'linear-gradient(90deg, #BEFF00 0%, #00D1FF 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    fontStyle: 'italic',
+                  }}>{d.title.toLowerCase()} pathway,</em> mapped in seconds.
+                </h2>
+                <p className="text-base leading-relaxed mb-8 max-w-lg" style={{ color: 'rgba(255,255,255,0.72)' }}>
+                  Promptly AI knows every tool, course, product and prompt on the platform. Tell it about your context — class, budget, key stage, SEND profile — and get a {d.title.toLowerCase()}-shaped pathway back, free.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={() => { track({ name: 'agent_opened', section: `role-${d.slug}` }); openWidgetWithRole(d.agentRole); }}
+                    className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5"
+                    style={{
+                      background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+                      color: INK,
+                      boxShadow: '0 10px 28px rgba(190,255,0,0.32), inset 0 1px 0 rgba(255,255,255,0.45)',
+                    }}>
+                    Ask Promptly AI as a {d.agentRole} &rarr;
+                  </button>
+                  <Link
+                    to="/schools#consultation"
+                    onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'School consultation' })}
+                    className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors"
+                    style={{
+                      background: 'rgba(255,255,255,0.04)',
+                      color: 'white',
+                      border: '1px solid rgba(255,255,255,0.14)',
+                      backdropFilter: 'blur(10px)',
+                    }}>
+                    Request a school consultation &rarr;
+                  </Link>
+                </div>
+              </FadeIn>
+            </div>
+            <div className="lg:col-span-2">
+              <FadeIn delay={0.1}>
+                <div className="rounded-3xl p-6"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
+                  }}>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-4" style={{ color: LIME }}>What you&apos;ll get back</p>
+                  <ul className="space-y-3">
+                    {['Top 3 tools matched to your context', 'A free + paid CPD next step', `${d.equipment.length > 0 ? 'Equipment shortlist' : 'Prompt pack of the week'}`, 'A ready-to-copy starter prompt'].map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm" style={{ color: 'rgba(255,255,255,0.85)' }}>
+                        <span className="w-5 h-5 rounded-md flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ background: 'rgba(190,255,0,0.18)', color: LIME }}>✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </FadeIn>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Cross-links — premium multi-colour ────────────────────── */}
       <section style={{ background: BG }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Explore more</p>
-            <h2 className="font-display text-2xl mb-8">The full GetPromptly platform.</h2>
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] mb-3" style={{ color: PURPLE }}>The platform</p>
+            <h2 className="font-display text-3xl sm:text-4xl mb-3 max-w-2xl" style={{ color: INK }}>
+              The full GetPromptly stack for {d.title.toLowerCase()}.
+            </h2>
+            <p className="text-sm sm:text-base mb-10 max-w-xl" style={{ color: '#4A4A4A' }}>
+              Independent reviews, curated equipment, role-by-role prompt packs and free + paid CPD — all built around UK education standards.
+            </p>
           </FadeIn>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: 'AI Tools Hub',    stat: '155 tools',   to: '/tools',        color: '#e0f5f6' },
-              { label: 'AI Training',     stat: '26 courses',  to: '/ai-training',  color: '#fef9c3' },
-              { label: 'Equipment',       stat: '96 products', to: '/ai-equipment', color: '#ede9fe' },
-              { label: 'Prompts Library', stat: '440+ prompts',to: '/prompts',      color: '#dcfce7' },
+              { label: 'AI Tools Hub',    stat: '155 tools',    to: '/tools',        accent: LIME },
+              { label: 'AI Training',     stat: '26 courses',   to: '/ai-training',  accent: CYAN },
+              { label: 'Equipment',       stat: '96 products',  to: '/ai-equipment', accent: PURPLE },
+              { label: 'Prompts Library', stat: '440+ prompts', to: '/prompts',      accent: YELLOW },
             ].map((c, i) => (
               <FadeIn key={c.label} delay={i * 0.05}>
-                <Link to={c.to} className="group rounded-2xl border overflow-hidden transition-all hover:border-[#00808a] hover:shadow-sm"
-                  style={{ borderColor: BORDER, background: 'white' }}>
-                  <div className="h-2" style={{ background: c.color }} />
-                  <div className="p-4">
-                    <p className="text-sm font-semibold mb-0.5 group-hover:text-[#00808a] transition-colors">{c.label}</p>
-                    <p className="text-[10px] font-semibold" style={{ color: TEAL }}>{c.stat}</p>
+                <Link to={c.to}
+                  onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}-explore`, label: c.label })}
+                  className="group block rounded-2xl border overflow-hidden transition-all hover:-translate-y-0.5"
+                  style={{
+                    borderColor: BORDER,
+                    background: 'white',
+                    boxShadow: '0 1px 0 rgba(15,28,26,0.04), inset 0 1px 0 rgba(255,255,255,0.8)',
+                  }}>
+                  <div className="h-1.5" style={{ background: c.accent }} />
+                  <div className="p-5">
+                    <span className="inline-block w-2 h-2 rounded-full mb-3" style={{ background: c.accent }} />
+                    <p className="text-sm font-bold mb-1" style={{ color: INK }}>{c.label}</p>
+                    <p className="text-[11px] font-semibold uppercase tracking-wider" style={{ color: '#7A7A7A' }}>{c.stat}</p>
                   </div>
                 </Link>
               </FadeIn>

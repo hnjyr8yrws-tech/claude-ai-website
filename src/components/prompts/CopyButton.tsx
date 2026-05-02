@@ -36,12 +36,12 @@ const CopyButton = ({ text, size = 'md', onCopied }: Props) => {
       onClick={handleCopy}
       aria-label={copied ? 'Copied!' : 'Copy prompt to clipboard'}
       title={copied ? 'Copied!' : 'Copy to clipboard'}
-      className={`inline-flex items-center gap-1.5 rounded-md border font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] ${
+      className={`inline-flex items-center gap-1.5 rounded-md border font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] ${
         isSmall ? 'px-2 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'
       } ${
         copied
-          ? 'border-[#00808a] bg-[#e0f5f6] text-[#00808a]'
-          : 'border-[#e8e6e0] bg-white text-[#6b6760] hover:border-[#00808a] hover:text-[#00808a]'
+          ? 'border-[#BEFF00] bg-[#e0f5f6] text-[#BEFF00]'
+          : 'border-[#ECE7DD] bg-white text-[#4A4A4A] hover:border-[#BEFF00] hover:text-[#BEFF00]'
       }`}
     >
       {copied ? (

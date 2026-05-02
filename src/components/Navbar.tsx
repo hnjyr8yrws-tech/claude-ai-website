@@ -8,6 +8,8 @@ const LINKS = [
   { to: '/ai-training',  label: 'Training' },
   { to: '/ai-equipment', label: 'Equipment' },
   { to: '/prompts',      label: 'Prompts' },
+  { to: '/parents',      label: 'Parents' },
+  { to: '/students',     label: 'Students' },
 ];
 
 const DARK = '#0F1C1A';
@@ -75,14 +77,14 @@ const Navbar: FC = () => {
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1">
+          {/* Desktop nav (lg+ only — 7 links + CTA need the room) */}
+          <nav aria-label="Main navigation" className="hidden lg:flex items-center gap-0.5">
             {LINKS.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `relative px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                  `relative px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
                     isActive
                       ? 'text-white'
                       : 'text-[#1A1A1A] hover:bg-black/[0.04]'
@@ -126,7 +128,7 @@ const Navbar: FC = () => {
             {/* Hamburger — min 44×44px touch target */}
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="md:hidden flex items-center justify-center w-11 h-11 rounded-xl transition-colors hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+              className="lg:hidden flex items-center justify-center w-11 h-11 rounded-xl transition-colors hover:bg-black/[0.05] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
               aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
@@ -154,7 +156,7 @@ const Navbar: FC = () => {
             {/* Backdrop */}
             <motion.div
               aria-hidden="true"
-              className="fixed inset-0 z-30 md:hidden"
+              className="fixed inset-0 z-30 lg:hidden"
               style={{ background: 'rgba(15,28,26,0.45)', backdropFilter: 'blur(4px)' }}
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setMenuOpen(false)}
@@ -164,7 +166,7 @@ const Navbar: FC = () => {
               id="mobile-nav"
               role="navigation"
               aria-label="Mobile navigation"
-              className="fixed top-16 inset-x-0 z-40 md:hidden border-b"
+              className="fixed top-16 inset-x-0 z-40 lg:hidden border-b"
               style={{
                 background: CREAM,
                 borderColor: 'rgba(15,28,26,0.08)',

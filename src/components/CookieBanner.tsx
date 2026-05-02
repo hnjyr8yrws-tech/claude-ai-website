@@ -40,20 +40,30 @@ export default function CookieBanner() {
           className="fixed bottom-0 inset-x-0 z-[10000] px-4 pb-4 sm:px-6 sm:pb-6"
         >
           <div
-            className="max-w-3xl mx-auto rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 shadow-2xl"
-            style={{ background: '#111210', border: '1px solid #2a2825' }}
+            className="max-w-3xl mx-auto rounded-[22px] p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4"
+            style={{
+              background: 'linear-gradient(180deg, #142522 0%, #0F1C1A 100%)',
+              border: '1px solid rgba(255,255,255,0.10)',
+              boxShadow:
+                '0 1px 0 rgba(255,255,255,0.05) inset, 0 24px 48px rgba(0,0,0,0.45), 0 0 0 1px rgba(190,255,0,0.10)',
+            }}
           >
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold mb-1" style={{ color: 'white' }}>
-                We use cookies 🍪
+              <p className="text-sm font-semibold mb-1 flex items-center gap-2" style={{ color: 'white' }}>
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full"
+                  style={{ background: '#BEFF00', boxShadow: '0 0 8px #BEFF00' }}
+                  aria-hidden="true"
+                />
+                We use cookies
               </p>
-              <p className="text-xs leading-relaxed" style={{ color: '#9ca3af' }}>
+              <p className="text-xs leading-relaxed" style={{ color: 'rgba(255,255,255,0.55)' }}>
                 We use essential cookies to make this site work and analytics cookies to improve it.
                 No advertising cookies. No third-party tracking.{' '}
                 <a
-                  href="#"
-                  className="underline hover:text-white transition-colors"
-                  style={{ color: '#00808a' }}
+                  href="/legal#cookies"
+                  className="underline transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] rounded"
+                  style={{ color: '#BEFF00' }}
                 >
                   Cookie Policy
                 </a>
@@ -63,15 +73,20 @@ export default function CookieBanner() {
             <div className="flex gap-2 flex-shrink-0">
               <button
                 onClick={decline}
-                className="px-4 py-2 rounded-xl text-xs font-semibold border transition-colors hover:bg-white/5"
-                style={{ borderColor: '#374151', color: '#9ca3af' }}
+                className="px-4 py-2 rounded-xl text-xs font-semibold border transition-colors hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+                style={{ borderColor: 'rgba(255,255,255,0.18)', color: 'rgba(255,255,255,0.75)' }}
               >
                 Decline
               </button>
               <button
                 onClick={accept}
-                className="px-4 py-2 rounded-xl text-xs font-semibold transition-opacity hover:opacity-80"
-                style={{ background: '#00808a', color: 'white' }}
+                className="px-4 py-2 rounded-xl text-xs font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+                style={{
+                  background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+                  color: '#0F1C1A',
+                  border: '1px solid rgba(15,28,26,0.16)',
+                  boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+                }}
               >
                 Accept all
               </button>

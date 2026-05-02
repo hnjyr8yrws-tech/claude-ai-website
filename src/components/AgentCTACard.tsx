@@ -8,8 +8,13 @@
 
 import { motion } from 'framer-motion';
 import { track } from '../utils/analytics';
+import { BubbleLayer } from './Bubbles';
 
-const TEAL = '#00808a';
+const DARK = '#0F1C1A';
+const DARK_2 = '#142522';
+const LIME = '#BEFF00';
+const TEXT_DIM = 'rgba(255,255,255,0.55)';
+const TEXT_FAINT = 'rgba(255,255,255,0.32)';
 
 interface AgentCTACardProps {
   /** Section label shown above headline */
@@ -49,50 +54,66 @@ export default function AgentCTACard({
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="rounded-2xl overflow-hidden"
-      style={{ border: '1px solid #1f1f1c' }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.55, ease: [0.2, 0.7, 0.2, 1] }}
+      className="relative overflow-hidden rounded-[22px]"
+      style={{
+        border: '1px solid rgba(255,255,255,0.10)',
+        boxShadow:
+          '0 1px 0 rgba(255,255,255,0.05) inset, 0 24px 48px rgba(15,28,26,0.18), 0 0 0 1px rgba(190,255,0,0.10)',
+      }}
     >
-      {/* Dark header area */}
-      <div className="px-6 py-8 sm:py-10" style={{ background: '#111210' }}>
-        <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+      {/* Dark header area with bubbles */}
+      <div className="relative px-6 py-8 sm:py-10 overflow-hidden" style={{ background: `linear-gradient(180deg, ${DARK_2} 0%, ${DARK} 100%)` }}>
+        <BubbleLayer
+          bubbles={[
+            { variant: 'soft-lime', size: 240, top: '-30%', right: '-10%', anim: 'gp-float-a' },
+            { variant: 'soft-cyan', size: 200, bottom: '-30%', left: '-10%', anim: 'gp-float-b' },
+          ]}
+        />
+
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center gap-6">
           {/* Icon */}
           <div className="flex-shrink-0">
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center"
-              style={{ background: TEAL }}
+              style={{
+                background: DARK_2,
+                border: '1px solid rgba(190,255,0,0.30)',
+                boxShadow: '0 0 0 1px rgba(190,255,0,0.20), 0 8px 20px rgba(0,0,0,0.40)',
+              }}
             >
               {/* Chat bubble icon */}
               <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
                 <path
                   d="M14 3C7.38 3 2 7.48 2 13c0 2.88 1.34 5.46 3.5 7.3L4 27l6.94-3A13.4 13.4 0 0014 25c6.62 0 12-4.48 12-11S20.62 3 14 3Z"
-                  fill="white"
-                  opacity="0.9"
+                  fill={LIME}
+                  opacity="0.95"
                 />
-                <circle cx="9" cy="13" r="1.5" fill={TEAL} />
-                <circle cx="14" cy="13" r="1.5" fill={TEAL} />
-                <circle cx="19" cy="13" r="1.5" fill={TEAL} />
+                <circle cx="9" cy="13" r="1.5" fill={DARK} />
+                <circle cx="14" cy="13" r="1.5" fill={DARK} />
+                <circle cx="19" cy="13" r="1.5" fill={DARK} />
               </svg>
             </div>
-            {/* Green dot — online indicator */}
+            {/* Online indicator */}
             <div className="flex items-center gap-1.5 mt-2">
               <span className="relative flex-shrink-0">
-                <span className="w-2 h-2 rounded-full block" style={{ background: '#22c55e' }} />
+                <span className="w-2 h-2 rounded-full block" style={{ background: LIME, boxShadow: `0 0 6px ${LIME}` }} />
               </span>
-              <span className="text-[10px] font-medium" style={{ color: '#6b7280' }}>Online 24/7</span>
+              <span className="text-[10px] font-semibold tracking-wider uppercase" style={{ color: TEXT_DIM }}>Online 24/7</span>
             </div>
           </div>
 
           {/* Text content */}
           <div className="flex-1 min-w-0">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-1.5" style={{ color: TEAL }}>
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] mb-1.5" style={{ color: LIME }}>
               {section}
             </p>
             <h2 className="font-display text-xl sm:text-2xl leading-tight mb-2" style={{ color: 'white' }}>
               {headline}
             </h2>
             {description && (
-              <p className="text-sm leading-relaxed max-w-lg" style={{ color: '#9ca3af' }}>
+              <p className="text-sm leading-relaxed max-w-lg" style={{ color: TEXT_DIM }}>
                 {description}
               </p>
             )}
@@ -103,13 +124,18 @@ export default function AgentCTACard({
                 track({ name: 'agent_opened', section: analyticsSection });
                 openAgent();
               }}
-              className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{ background: TEAL, color: 'white' }}
+              className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0F1C1A]"
+              style={{
+                background: `linear-gradient(180deg, #D6FF4A 0%, ${LIME} 100%)`,
+                color: DARK,
+                border: '1px solid rgba(15,28,26,0.16)',
+                boxShadow: '0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 20px rgba(190,255,0,0.28)',
+              }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path
                   d="M8 1C4.13 1 1 3.69 1 7c0 1.66.77 3.16 2 4.23L2 15l4-1.73c.63.15 1.3.23 2 .23 3.87 0 7-2.69 7-6S11.87 1 8 1Z"
-                  fill="white"
+                  fill={DARK}
                 />
               </svg>
               Ask Promptly AI
@@ -118,10 +144,16 @@ export default function AgentCTACard({
         </div>
       </div>
 
-      {/* Suggested prompts — lighter strip */}
+      {/* Suggested prompts strip */}
       {prompts.length > 0 && (
-        <div className="px-6 py-4" style={{ background: '#1a1a17', borderTop: '1px solid #2a2825' }}>
-          <p className="text-[10px] font-semibold uppercase tracking-widest mb-2.5" style={{ color: '#6b7280' }}>
+        <div
+          className="relative px-6 py-4"
+          style={{
+            background: 'rgba(0,0,0,0.30)',
+            borderTop: '1px solid rgba(255,255,255,0.06)',
+          }}
+        >
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-2.5" style={{ color: TEXT_FAINT }}>
             Try asking
           </p>
           <div className="flex flex-wrap gap-2">
@@ -133,8 +165,8 @@ export default function AgentCTACard({
                   track({ name: 'agent_contextual_prompt_clicked', prompt: p, section: analyticsSection });
                   openAgentWithPrompt(p);
                 }}
-                className="text-left text-xs leading-relaxed px-3 py-2 rounded-xl border transition-all hover:border-[#00808a] hover:bg-[#111210]"
-                style={{ borderColor: '#2a2825', color: '#9ca3af', background: 'transparent' }}
+                className="text-left text-xs leading-relaxed px-3 py-2 rounded-xl border transition-all hover:border-[#BEFF00] hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+                style={{ borderColor: 'rgba(255,255,255,0.10)', color: TEXT_DIM, background: 'transparent' }}
               >
                 "{p}"
               </button>

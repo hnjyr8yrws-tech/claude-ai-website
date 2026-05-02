@@ -18,7 +18,7 @@ import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 // ─── Score bar ────────────────────────────────────────────────────────────────
 
@@ -28,7 +28,7 @@ function ScoreBar({ label, value, delay }: { label: string; value: number; delay
   return (
     <div>
       <div className="flex justify-between text-sm mb-1.5">
-        <span style={{ color: '#6b6760' }}>{label}</span>
+        <span style={{ color: '#4A4A4A' }}>{label}</span>
         <span className="font-bold tabular-nums" style={{ color: colour }}>{value}/10</span>
       </div>
       <div className="h-2.5 rounded-full overflow-hidden" style={{ background: '#f3f4f6' }}>
@@ -54,7 +54,7 @@ function TrainingCard({ item }: { item: (typeof TRAINING)[number] }) {
       rel="noopener noreferrer"
       onClick={() => track({ name: 'tool_detail_training_click', trainingId: item.id })}
       className="block rounded-xl border p-4 hover:shadow-sm transition-shadow"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="flex items-start justify-between gap-2 mb-1">
         <span className="text-sm font-semibold leading-snug" style={{ color: 'var(--text)' }}>{item.name}</span>
@@ -125,13 +125,13 @@ const ToolDetail = () => {
           path={`/tools/${slug}`}
         />
         <p className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>Tool not found</p>
-        <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-sm mb-6" style={{ color: '#4A4A4A' }}>
           We couldn't find a tool matching "{slug}". It may have been renamed or removed.
         </p>
         <Link
           to="/tools"
           className="inline-block px-5 py-2.5 rounded-xl text-sm font-semibold"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#0F1C1A' }}
         >
           Browse all tools
         </Link>
@@ -158,7 +158,7 @@ const ToolDetail = () => {
       <nav aria-label="Breadcrumb" className="px-5 sm:px-8 pt-6" style={{ background: 'var(--bg)' }}>
         <div className="max-w-3xl mx-auto">
           <ol className="flex items-center gap-1.5 text-xs flex-wrap" style={{ color: '#9ca3af' }}>
-            <li><Link to="/tools" className="hover:text-[#00808a] transition-colors">Tools</Link></li>
+            <li><Link to="/tools" className="hover:text-[#BEFF00] transition-colors">Tools</Link></li>
             <li aria-hidden="true">/</li>
             <li className="font-medium truncate max-w-[200px]" style={{ color: 'var(--text)' }}>{tool.name}</li>
           </ol>
@@ -201,12 +201,12 @@ const ToolDetail = () => {
               <h1 className="font-display text-3xl sm:text-4xl leading-tight mb-2" style={{ color: 'var(--text)' }}>
                 {tool.name}
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: '#6b6760' }}>{tool.desc}</p>
+              <p className="text-base leading-relaxed" style={{ color: '#4A4A4A' }}>{tool.desc}</p>
             </div>
           </div>
 
           {/* Quick facts row */}
-          <div className="mt-5 flex flex-wrap gap-4 text-sm" style={{ color: '#6b6760' }}>
+          <div className="mt-5 flex flex-wrap gap-4 text-sm" style={{ color: '#4A4A4A' }}>
             <span><strong style={{ color: 'var(--text)' }}>Category:</strong> {tool.subcategory}</span>
             <span><strong style={{ color: 'var(--text)' }}>Audience:</strong> {tool.audience.join(', ')}</span>
             <span><strong style={{ color: 'var(--text)' }}>Price:</strong> {tool.free ? 'Free tier available' : 'Paid only'}</span>
@@ -218,7 +218,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Safety breakdown ───────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#ECE7DD' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Safety score</SectionLabel>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
@@ -254,7 +254,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Best for / Not ideal for ───────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: '#ECE7DD' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Who is this for?</SectionLabel>
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -274,25 +274,25 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Age & safeguarding notes ───────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#ECE7DD' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Safeguarding & age</SectionLabel>
           <h2 className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>
             Safeguarding & age guidance
           </h2>
-          <div className="rounded-xl border p-5 mb-4" style={{ borderColor: '#e8e6e0', background: 'var(--bg)' }}>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{deriveAgeNotes(tool)}</p>
+          <div className="rounded-xl border p-5 mb-4" style={{ borderColor: '#ECE7DD', background: 'var(--bg)' }}>
+            <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{deriveAgeNotes(tool)}</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <div className="flex items-center gap-2 text-sm">
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: tool.ukReady === 'Yes' ? '#16a34a' : '#d97706' }} />
-              <span style={{ color: '#6b6760' }}>
+              <span style={{ color: '#4A4A4A' }}>
                 UK GDPR relevance: <strong style={{ color: 'var(--text)' }}>{tool.ukReady === 'Yes' ? 'Confirmed' : 'Partial — verify with your DPO'}</strong>
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: scoreColour }} />
-              <span style={{ color: '#6b6760' }}>
+              <span style={{ color: '#4A4A4A' }}>
                 KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{tool.safety >= 9 ? 'Strong' : tool.safety >= 7 ? 'Moderate — review policy' : 'Requires policy decision'}</strong>
               </span>
             </div>
@@ -301,7 +301,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Official CTA ───────────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: '#ECE7DD' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Access this tool</SectionLabel>
           <h2 className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>
@@ -326,7 +326,7 @@ const ToolDetail = () => {
                   }
                 }}
                 className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-bold transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: 'white' }}
+                style={{ background: TEAL, color: '#0F1C1A' }}
               >
                 {ctaLabel} →
               </a>
@@ -342,7 +342,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Ask Promptly AI ────────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#ECE7DD' }}>
         <div className="max-w-3xl mx-auto">
           <AgentCTACard
             section="Promptly AI · Tool Advisor"
@@ -361,13 +361,13 @@ const ToolDetail = () => {
 
       {/* ── Related prompt packs ───────────────────────────────────────────── */}
       {relatedPacks.length > 0 && (
-        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: '#ECE7DD' }}>
           <div className="max-w-3xl mx-auto">
             <SectionLabel>Prompt packs</SectionLabel>
             <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
               Get more from {tool.name}
             </h2>
-            <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-6" style={{ color: '#4A4A4A' }}>
               Ready-made prompts that work with {tool.name} and similar tools.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -386,13 +386,13 @@ const ToolDetail = () => {
 
       {/* ── Related training ───────────────────────────────────────────────── */}
       {relatedTraining.length > 0 && (
-        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'white', borderColor: '#ECE7DD' }}>
           <div className="max-w-3xl mx-auto">
             <SectionLabel>AI training</SectionLabel>
             <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
               Build your skills
             </h2>
-            <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-6" style={{ color: '#4A4A4A' }}>
               Training resources to help you use {tool.category.toLowerCase()} tools confidently and safely.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -411,13 +411,13 @@ const ToolDetail = () => {
 
       {/* ── Safer alternatives ─────────────────────────────────────────────── */}
       {alternatives.length > 0 && (
-        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: '#ECE7DD' }}>
           <div className="max-w-3xl mx-auto">
             <SectionLabel>Alternatives</SectionLabel>
             <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
               Similar tools in {tool.category}
             </h2>
-            <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-6" style={{ color: '#4A4A4A' }}>
               Other {tool.category.toLowerCase()} tools you might also consider.
             </p>
             <div className="space-y-3">
@@ -430,7 +430,7 @@ const ToolDetail = () => {
                     key={alt.slug}
                     to={`/tools/${alt.slug}`}
                     className="flex items-center gap-4 p-4 rounded-xl border transition-shadow hover:shadow-sm"
-                    style={{ borderColor: '#e8e6e0', background: 'white' }}
+                    style={{ borderColor: '#ECE7DD', background: 'white' }}
                   >
                     <div
                       className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black text-white"
@@ -461,9 +461,9 @@ const ToolDetail = () => {
 
       {/* ── Cross-sell inline ──────────────────────────────────────────────── */}
       {inlineItems.length > 0 && (
-        <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#ECE7DD' }}>
           <div className="max-w-3xl mx-auto">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#9C9690' }}>
               Recommended for you
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -476,11 +476,11 @@ const ToolDetail = () => {
       )}
 
       {/* ── Trust disclaimer ───────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#ECE7DD' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-              <strong style={{ color: '#1c1a15' }}>About our safety scores:</strong> Scores are assessed by the GetPromptly team against five pillars — Data Privacy, Age Appropriateness, Transparency, Safeguarding Alignment, and Accessibility — using publicly available information.
+          <div className="rounded-xl border p-5" style={{ borderColor: '#ECE7DD', background: 'white' }}>
+            <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>
+              <strong style={{ color: '#1A1A1A' }}>About our safety scores:</strong> Scores are assessed by the GetPromptly team against five pillars — Data Privacy, Age Appropriateness, Transparency, Safeguarding Alignment, and Accessibility — using publicly available information.
               {tool.lastReviewed && ` This page was last reviewed ${tool.lastReviewed}.`}
               {' '}Scores should be considered guidance only. Always conduct your own due diligence and consult your DPO before deploying any tool in school.
             </p>

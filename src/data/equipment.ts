@@ -45,7 +45,24 @@ export interface EquipmentProduct {
   reviewStatus: ReviewStatus;
   ukFocus: boolean;
   purchaseModel: PurchaseModel;
+  /**
+   * Legacy direct URL — kept as a fallback so unmapped suppliers still work.
+   * **Do not link to this directly from cards.** Use
+   * `resolveProductAffiliateUrl(product)` so tracking parameters are applied.
+   */
   affiliateLink: string;
+  /**
+   * Optional override pointing at a key in `supplierLinks` (see
+   * src/utils/affiliateLinks.ts). When set, the resolver routes through the
+   * registry entry rather than auto-deriving from `supplierName`.
+   */
+  supplierKey?: string;
+  /**
+   * Optional preferred route for suppliers that have both a direct store and
+   * an Amazon listing (e.g. Apple, Microsoft). Defaults to 'direct' unless the
+   * `supplierName` itself contains "Amazon".
+   */
+  preferredRoute?: 'direct' | 'amazon';
   featured: boolean;
   badges: EqBadge[];
   desc: string;
@@ -98,6 +115,10 @@ interface ProductRaw {
   ukFocus: boolean;
   purchaseModel: PurchaseModel;
   affiliateLink: string;
+  /** Optional override — see `EquipmentProduct.supplierKey`. */
+  supplierKey?: string;
+  /** Optional override — see `EquipmentProduct.preferredRoute`. */
+  preferredRoute?: 'direct' | 'amazon';
   featured: boolean;
   badges: EqBadge[];
   desc: string;

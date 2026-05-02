@@ -7,9 +7,10 @@ import {
   type EquipmentProduct,
   type EqBadge,
 } from '../data/equipment';
+import { resolveProductAffiliateUrl, AFFILIATE_LINK_ATTRS } from '../utils/affiliateLinks';
 import { badgeStyle, reviewBadge, catToSlug } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -27,10 +28,10 @@ function RelatedCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-xl border p-4 flex flex-col gap-2"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: '#ECE7DD', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#9C9690' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -43,13 +44,13 @@ function RelatedCard({ product }: { product: EquipmentProduct }) {
         </h3>
       </Link>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{product.brand}</p>
-      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
+      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#4A4A4A' }}>{product.desc}</p>
       <div className="flex items-center justify-between pt-1">
         <span className="text-xs font-bold" style={{ color: 'var(--text)' }}>{product.priceBand}</span>
         <Link
           to={`/ai-equipment/product/${product.slug}`}
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#0F1C1A' }}
         >
           View →
         </Link>
@@ -85,13 +86,13 @@ export default function AIEquipmentProduct() {
         />
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-24 text-center">
           <h1 className="font-display text-4xl mb-4" style={{ color: 'var(--text)' }}>Product not found</h1>
-          <p className="text-base mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8" style={{ color: '#4A4A4A' }}>
             This product doesn't exist or may have been removed. Browse all equipment instead.
           </p>
           <Link
             to="/ai-equipment"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#0F1C1A' }}
           >
             ← Back to Equipment Hub
           </Link>
@@ -122,7 +123,7 @@ export default function AIEquipmentProduct() {
       />
 
       {/* BREADCRUMB */}
-      <div className="border-b" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-b" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-2 text-xs flex-wrap" style={{ color: '#9ca3af' }}>
           <Link to="/ai-equipment" className="hover:underline" style={{ color: TEAL }}>Equipment</Link>
           <span>/</span>
@@ -130,7 +131,7 @@ export default function AIEquipmentProduct() {
             {product.category}
           </Link>
           <span>/</span>
-          <span style={{ color: '#6b6760' }}>{product.name}</span>
+          <span style={{ color: '#4A4A4A' }}>{product.name}</span>
         </div>
       </div>
 
@@ -144,8 +145,8 @@ export default function AIEquipmentProduct() {
             <div className="flex items-center gap-2 mb-4 flex-wrap">
               <Link
                 to={`/ai-equipment/category/${categorySlug}`}
-                className="text-[10px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full border transition-colors hover:border-[#00808a]"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+                className="text-[10px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full border transition-colors hover:border-[#BEFF00]"
+                style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}
               >
                 {product.category}
               </Link>
@@ -164,7 +165,7 @@ export default function AIEquipmentProduct() {
             <p className="text-base mb-6" style={{ color: '#9ca3af' }}>{product.brand}</p>
 
             {/* Description */}
-            <p className="text-base leading-relaxed mb-4" style={{ color: '#6b6760' }}>
+            <p className="text-base leading-relaxed mb-4" style={{ color: '#4A4A4A' }}>
               {product.desc}
             </p>
 
@@ -210,7 +211,7 @@ export default function AIEquipmentProduct() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {product.audience.map((a: string) => (
-                  <span key={a} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>
+                  <span key={a} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}>
                     {a}
                   </span>
                 ))}
@@ -225,7 +226,7 @@ export default function AIEquipmentProduct() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {product.educationLevel.map((l: string) => (
-                    <span key={l} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>
+                    <span key={l} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: '#ECE7DD', color: '#4A4A4A' }}>
                       {l}
                     </span>
                   ))}
@@ -234,7 +235,7 @@ export default function AIEquipmentProduct() {
             )}
 
             {/* Equipment Score */}
-            <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+            <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: '#ECE7DD', background: 'white' }}>
               <SectionLabel>Equipment Score</SectionLabel>
               <h2 className="font-display text-xl mb-4" style={{ color: 'var(--text)' }}>
                 Safety &amp; Suitability Score
@@ -244,9 +245,9 @@ export default function AIEquipmentProduct() {
                   <div
                     key={dim.key}
                     className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl border"
-                    style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
+                    style={{ borderColor: '#ECE7DD', background: '#F8F5F0' }}
                   >
-                    <span className="text-sm" style={{ color: '#6b6760' }}>{dim.label}</span>
+                    <span className="text-sm" style={{ color: '#4A4A4A' }}>{dim.label}</span>
                     <div className="flex items-center gap-2 text-xs" style={{ color: '#9ca3af' }}>
                       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                         <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
@@ -257,7 +258,7 @@ export default function AIEquipmentProduct() {
                   </div>
                 ))}
               </div>
-              <p className="text-xs mt-4" style={{ color: '#c5c2bb' }}>
+              <p className="text-xs mt-4" style={{ color: '#9C9690' }}>
                 Scoring for this product is in progress. Check back soon.
               </p>
             </div>
@@ -296,7 +297,7 @@ export default function AIEquipmentProduct() {
           {/* RIGHT: sidebar */}
           <div className="lg:col-span-1">
             {/* Details card */}
-            <div className="rounded-2xl border p-6 mb-6 sticky top-6" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+            <div className="rounded-2xl border p-6 mb-6 sticky top-6" style={{ borderColor: '#ECE7DD', background: 'white' }}>
               <h2 className="font-display text-lg mb-4" style={{ color: 'var(--text)' }}>Product Details</h2>
 
               <table className="w-full text-sm mb-6">
@@ -304,7 +305,7 @@ export default function AIEquipmentProduct() {
                   {detailRows.map((row, i) => (
                     <tr key={row.label} style={{ borderTop: i === 0 ? 'none' : '1px solid #f3f4f6' }}>
                       <td className="py-2.5 text-xs font-semibold" style={{ color: '#9ca3af' }}>{row.label}</td>
-                      <td className="py-2.5 text-xs text-right" style={{ color: '#1c1a15' }}>{String(row.value)}</td>
+                      <td className="py-2.5 text-xs text-right" style={{ color: '#1A1A1A' }}>{String(row.value)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -316,11 +317,10 @@ export default function AIEquipmentProduct() {
               </h3>
               <div className="space-y-3">
                 <a
-                  href={product.affiliateLink}
-                  target="_blank"
-                  rel="noopener noreferrer sponsored"
+                  href={resolveProductAffiliateUrl(product)}
+                  {...AFFILIATE_LINK_ATTRS}
                   className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  style={{ background: TEAL, color: '#0F1C1A' }}
                 >
                   View on {product.supplierName} →
                 </a>
@@ -339,7 +339,7 @@ export default function AIEquipmentProduct() {
                 )}
               </div>
 
-              <p className="text-[10px] leading-relaxed mt-4" style={{ color: '#c5c2bb' }}>
+              <p className="text-[10px] leading-relaxed mt-4" style={{ color: '#9C9690' }}>
                 Affiliate link — we may earn a small commission at no extra cost to you. All reviews are independent.
               </p>
             </div>

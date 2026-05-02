@@ -2,9 +2,10 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
+import { BubbleLayer } from '../components/Bubbles';
 import SafetyScore, { PILLARS, getTrustTier, getScoreColour, TrustTier } from '../components/SafetyScore';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 // ─── Tier comparison data ─────────────────────────────────────────────────────
 
@@ -90,24 +91,54 @@ export default function SafetyMethodology() {
       />
 
       {/* ── HERO ── */}
-      <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-16 pb-12">
-        <SectionLabel>How We Score</SectionLabel>
-        <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
-          Safety Score<br />
-          <span style={{ color: TEAL }}>Methodology.</span>
-        </h1>
-        <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
-          Every AI tool on GetPromptly is independently assessed across five pillars — grounded in KCSIE 2025, UK GDPR, and Ofsted's emerging AI expectations.
-        </p>
+      <section
+        className="relative overflow-hidden px-5 sm:px-8 pt-20 pb-16"
+        style={{ background: 'linear-gradient(180deg, #0F1C1A 0%, #142522 60%, #1B302C 100%)' }}
+      >
+        <BubbleLayer
+          bubbles={[
+            { variant: 'lime',        size: 220, top: '-50px',   left: '-50px',  anim: 'gp-float-a' },
+            { variant: 'cyan',        size: 180, top: '30px',    right: '-40px', anim: 'gp-float-b' },
+            { variant: 'soft-purple', size: 260, bottom: '-100px', left: '40%',  anim: 'gp-float-c' },
+          ]}
+        />
+        <div className="relative max-w-3xl mx-auto">
+          <SectionLabel variant="dark">How We Score</SectionLabel>
+          <h1
+            className="font-display text-5xl sm:text-6xl lg:text-7xl mb-4 mt-3 leading-[1.05] tracking-tight"
+            style={{ color: '#FFFFFF' }}
+          >
+            Safety Score<br />
+            <span
+              className="italic"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #BEFF00 0%, #00D1FF 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              methodology.
+            </span>
+          </h1>
+          <p className="text-base sm:text-lg max-w-xl leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            Every AI tool on GetPromptly is independently assessed across five pillars — grounded in KCSIE 2025, UK GDPR, and Ofsted's emerging AI expectations.
+          </p>
 
-        {/* Independence statement */}
-        <div
-          className="mt-8 px-5 py-4 rounded-2xl border text-sm leading-relaxed"
-          style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
-        >
-          <strong style={{ color: 'var(--text)' }}>GetPromptly is 100% independent.</strong> We are not affiliated with, funded by, or in commercial partnership with any AI vendor. No tool can pay for a higher score. Scores are reviewed every six months and when a product makes a significant policy or feature change.
+          {/* Independence statement */}
+          <div
+            className="mt-8 px-5 py-4 rounded-2xl border text-sm leading-relaxed"
+            style={{
+              background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%)',
+              borderColor: 'rgba(255,255,255,0.10)',
+              color: 'rgba(255,255,255,0.75)',
+              boxShadow: '0 1px 0 rgba(255,255,255,0.06) inset',
+            }}
+          >
+            <strong style={{ color: '#FFFFFF' }}>GetPromptly is 100% independent.</strong> We are not affiliated with, funded by, or in commercial partnership with any AI vendor. No tool can pay for a higher score. Scores are reviewed every six months and when a product makes a significant policy or feature change.
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* ── SCORE EXAMPLES ── */}
       <div className="max-w-3xl mx-auto px-5 sm:px-8 mb-14">
@@ -117,7 +148,7 @@ export default function SafetyMethodology() {
           </h2>
           <div
             className="grid grid-cols-3 gap-px"
-            style={{ background: '#e8e6e0' }}
+            style={{ background: '#ECE7DD' }}
           >
             {DEMO_SCORES.map(({ score, label }) => {
               const tier = getTrustTier(score);
@@ -129,7 +160,7 @@ export default function SafetyMethodology() {
                   style={{ background: 'white' }}
                 >
                   <SafetyScore score={score} size="lg" label={label} />
-                  <p className="text-xs font-medium text-center" style={{ color: '#6b6760' }}>{label}</p>
+                  <p className="text-xs font-medium text-center" style={{ color: '#4A4A4A' }}>{label}</p>
                   <span
                     className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
                     style={{ background: tierStyle.bg, color: tierStyle.text }}
@@ -140,7 +171,7 @@ export default function SafetyMethodology() {
               );
             })}
           </div>
-          <p className="text-xs mt-3 text-center" style={{ color: '#c5c2bb' }}>
+          <p className="text-xs mt-3 text-center" style={{ color: '#9C9690' }}>
             Hover or tap each score to see the pillar breakdown
           </p>
         </FadeIn>
@@ -152,7 +183,7 @@ export default function SafetyMethodology() {
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
             The five scoring pillars
           </h2>
-          <p className="text-sm mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-8" style={{ color: '#4A4A4A' }}>
             Each pillar is scored 1–10 by a GetPromptly reviewer. The final score is the weighted average.
           </p>
         </FadeIn>
@@ -162,7 +193,7 @@ export default function SafetyMethodology() {
             <FadeIn key={pillar.name} delay={i * 0.06}>
               <div
                 className="rounded-2xl border p-6"
-                style={{ borderColor: '#e8e6e0', background: 'white' }}
+                style={{ borderColor: '#ECE7DD', background: 'white' }}
               >
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <h3 className="font-display text-xl" style={{ color: 'var(--text)' }}>
@@ -170,17 +201,17 @@ export default function SafetyMethodology() {
                   </h3>
                   <span
                     className="flex-shrink-0 text-sm font-bold px-3 py-1 rounded-full"
-                    style={{ background: '#e0f5f6', color: TEAL }}
+                    style={{ background: 'rgba(190,255,0,0.18)', color: '#0F1C1A' }}
                   >
                     {pillar.weight}%
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+                <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>
                   {pillar.desc}
                 </p>
 
                 {/* Weight bar */}
-                <div className="mt-4 h-1.5 rounded-full overflow-hidden" style={{ background: '#e8e6e0' }}>
+                <div className="mt-4 h-1.5 rounded-full overflow-hidden" style={{ background: '#ECE7DD' }}>
                   <motion.div
                     className="h-full rounded-full"
                     style={{ background: TEAL }}
@@ -202,17 +233,17 @@ export default function SafetyMethodology() {
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
             Trusted vs Guided vs Emerging
           </h2>
-          <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-6" style={{ color: '#4A4A4A' }}>
             What each trust tier means in practice across the five dimensions.
           </p>
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <div className="rounded-2xl border overflow-hidden overflow-x-auto" style={{ borderColor: '#e8e6e0' }}>
+          <div className="rounded-2xl border overflow-hidden overflow-x-auto" style={{ borderColor: '#ECE7DD' }}>
             <table className="w-full text-sm min-w-[640px]">
               <thead>
-                <tr style={{ background: '#f7f6f2', borderBottom: '1px solid #e8e6e0' }}>
-                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb', width: '140px' }}>
+                <tr style={{ background: '#F8F5F0', borderBottom: '1px solid #ECE7DD' }}>
+                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: '#9C9690', width: '140px' }}>
                     Dimension
                   </th>
                   {(['Trusted', 'Guided', 'Emerging'] as TrustTier[]).map(tier => {
@@ -236,13 +267,13 @@ export default function SafetyMethodology() {
                     key={row.dimension}
                     style={{ borderBottom: i < TIER_TABLE.length - 1 ? '1px solid #f3f4f6' : 'none' }}
                   >
-                    <td className="px-5 py-4 text-xs font-semibold" style={{ color: '#6b6760', verticalAlign: 'top' }}>
+                    <td className="px-5 py-4 text-xs font-semibold" style={{ color: '#4A4A4A', verticalAlign: 'top' }}>
                       {row.dimension}
                     </td>
-                    <td className="px-5 py-4 text-xs leading-relaxed" style={{ color: '#1c1a15', background: '#f0fdf420', verticalAlign: 'top' }}>
+                    <td className="px-5 py-4 text-xs leading-relaxed" style={{ color: '#1A1A1A', background: '#f0fdf420', verticalAlign: 'top' }}>
                       {row.trusted}
                     </td>
-                    <td className="px-5 py-4 text-xs leading-relaxed" style={{ color: '#6b6760', verticalAlign: 'top' }}>
+                    <td className="px-5 py-4 text-xs leading-relaxed" style={{ color: '#4A4A4A', verticalAlign: 'top' }}>
                       {row.guided}
                     </td>
                     <td className="px-5 py-4 text-xs leading-relaxed" style={{ color: '#9ca3af', verticalAlign: 'top' }}>
@@ -259,7 +290,7 @@ export default function SafetyMethodology() {
       {/* ── REFERENCES ── */}
       <div
         className="border-t border-b"
-        style={{ borderColor: '#e8e6e0', background: 'white' }}
+        style={{ borderColor: '#ECE7DD', background: 'white' }}
       >
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-12">
           <FadeIn>
@@ -296,12 +327,12 @@ export default function SafetyMethodology() {
                 <div
                   key={ref.title}
                   className="p-5 rounded-xl border"
-                  style={{ borderColor: '#e8e6e0' }}
+                  style={{ borderColor: '#ECE7DD' }}
                 >
                   <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>
                     {ref.title}
                   </h3>
-                  <p className="text-sm leading-relaxed mb-2" style={{ color: '#6b6760' }}>
+                  <p className="text-sm leading-relaxed mb-2" style={{ color: '#4A4A4A' }}>
                     {ref.body}
                   </p>
                   <a
@@ -336,7 +367,7 @@ export default function SafetyMethodology() {
             <a
               href="mailto:reviews@getpromptly.co.uk"
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#0F1C1A' }}
             >
               Suggest a tool for review →
             </a>

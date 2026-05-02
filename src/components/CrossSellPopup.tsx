@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { track } from '../utils/analytics';
 import { markPopupShown, type CrossSellItem } from '../utils/crossSell';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 interface CrossSellPopupProps {
   items: CrossSellItem[];
@@ -84,7 +84,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
             rounded-t-2xl sm:rounded-2xl
             shadow-2xl overflow-hidden
           "
-          style={{ background: 'white', border: '1px solid #e8e6e0' }}
+          style={{ background: 'white', border: '1px solid #ECE7DD' }}
           initial={{ y: '100%', opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: '100%', opacity: 0 }}
@@ -93,7 +93,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
         >
           {/* Drag handle (mobile) */}
           <div className="sm:hidden flex justify-center pt-3 pb-1">
-            <div className="w-10 h-1 rounded-full" style={{ background: '#e8e6e0' }} />
+            <div className="w-10 h-1 rounded-full" style={{ background: '#ECE7DD' }} />
           </div>
 
           {/* Header */}
@@ -122,15 +122,15 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
                 key={item.id}
                 to={item.href}
                 onClick={() => handleItemClick(item)}
-                className="flex items-start gap-3 p-3 rounded-xl border transition-all hover:border-[#00808a] hover:shadow-sm group"
-                style={{ borderColor: '#e8e6e0' }}
+                className="flex items-start gap-3 p-3 rounded-xl border transition-all hover:border-[#BEFF00] hover:shadow-sm group"
+                style={{ borderColor: '#ECE7DD' }}
               >
                 <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#e0f5f6' }}>
                   <SectionIcon section={item.section} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <p className="text-xs font-semibold group-hover:text-[#00808a] transition-colors" style={{ color: 'var(--text)' }}>
+                    <p className="text-xs font-semibold group-hover:text-[#BEFF00] transition-colors" style={{ color: 'var(--text)' }}>
                       {item.title}
                     </p>
                     {item.badge && (
@@ -139,7 +139,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
                       </span>
                     )}
                   </div>
-                  <p className="text-[11px] leading-relaxed" style={{ color: '#6b6760' }}>
+                  <p className="text-[11px] leading-relaxed" style={{ color: '#4A4A4A' }}>
                     {item.description}
                   </p>
                   <span className="text-[11px] font-semibold mt-1 inline-block" style={{ color: TEAL }}>
@@ -155,7 +155,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
             <button
               onClick={handleDismiss}
               className="w-full text-center text-xs transition-opacity hover:opacity-60"
-              style={{ color: '#c5c2bb' }}
+              style={{ color: '#9C9690' }}
             >
               No thanks, keep browsing
             </button>

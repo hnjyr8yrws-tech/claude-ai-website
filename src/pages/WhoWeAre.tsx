@@ -2,8 +2,9 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
+import { BubbleLayer } from '../components/Bubbles';
 
-const TEAL = '#00808a';
+const TEAL = '#BEFF00';
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
@@ -176,35 +177,69 @@ export default function WhoWeAre() {
       />
 
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
-      <div className="max-w-4xl mx-auto px-5 sm:px-8 pt-16 pb-14">
-        <SectionLabel>About GetPromptly</SectionLabel>
-        <h1 className="font-display text-5xl sm:text-6xl mb-5 leading-tight" style={{ color: 'var(--text)' }}>
-          Helping UK Education<br />
-          <span style={{ color: TEAL }}>Make Smarter Decisions About AI.</span>
-        </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-8 leading-relaxed" style={{ color: '#6b6760' }}>
-          GetPromptly curates AI tools, training, equipment and prompts for every corner of UK education — teachers, leaders, parents, students, SENCOs and school teams.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Link
-            to="/tools"
-            className="inline-block px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+      <section
+        className="relative overflow-hidden px-5 sm:px-8 pt-20 pb-16"
+        style={{ background: 'linear-gradient(180deg, #0F1C1A 0%, #142522 60%, #1B302C 100%)' }}
+      >
+        <BubbleLayer
+          bubbles={[
+            { variant: 'lime',        size: 240, top: '-50px',   left: '-50px',  anim: 'gp-float-a' },
+            { variant: 'cyan',        size: 200, top: '40px',    right: '-50px', anim: 'gp-float-b' },
+            { variant: 'soft-purple', size: 280, bottom: '-110px', left: '35%',  anim: 'gp-float-c' },
+          ]}
+        />
+        <div className="relative max-w-4xl mx-auto">
+          <SectionLabel variant="dark">About GetPromptly</SectionLabel>
+          <h1
+            className="font-display text-5xl sm:text-6xl lg:text-7xl mb-5 mt-3 leading-[1.05] tracking-tight"
+            style={{ color: '#FFFFFF' }}
           >
-            Explore the Platform →
-          </Link>
-          <button
-            onClick={openWidget}
-            className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
-          >
-            Talk to Us
-          </button>
+            Helping UK Education<br />
+            <span
+              className="italic"
+              style={{
+                backgroundImage: 'linear-gradient(90deg, #BEFF00 0%, #00D1FF 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
+              make smarter decisions about AI.
+            </span>
+          </h1>
+          <p className="text-base sm:text-lg max-w-2xl mb-8 leading-relaxed" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            GetPromptly curates AI tools, training, equipment and prompts for every corner of UK education — teachers, leaders, parents, students, SENCOs and school teams.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              to="/tools"
+              className="inline-block px-6 py-3.5 rounded-xl text-sm font-semibold transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+              style={{
+                background: 'linear-gradient(180deg, #D6FF4A 0%, #BEFF00 100%)',
+                color: '#0F1C1A',
+                boxShadow: '0 1px 0 rgba(255,255,255,0.4) inset, 0 8px 24px rgba(190,255,0,0.25)',
+              }}
+            >
+              Explore the Platform →
+            </Link>
+            <button
+              onClick={openWidget}
+              className="px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#BEFF00]"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                color: '#FFFFFF',
+                border: '1px solid rgba(255,255,255,0.18)',
+                backdropFilter: 'blur(10px)',
+              }}
+            >
+              Talk to Us
+            </button>
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* ── WHY WE EXIST ─────────────────────────────────────────────────────── */}
-      <div className="border-t border-b" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t border-b" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
             <SectionLabel>Why we exist</SectionLabel>
@@ -213,7 +248,7 @@ export default function WhoWeAre() {
             </h2>
           </FadeIn>
 
-          <div className="space-y-5 text-base leading-relaxed" style={{ color: '#6b6760' }}>
+          <div className="space-y-5 text-base leading-relaxed" style={{ color: '#4A4A4A' }}>
             <FadeIn delay={0.05}>
               <p>
                 Schools, families and educators face a flood of AI tools, platforms and claims with very little trusted, UK-specific, education-first advice to guide them. Every week brings new products, new use cases and new risks — but very few independent voices explaining what any of it actually means for a classroom teacher, a SENCO, a school leader or a parent.
@@ -252,14 +287,14 @@ export default function WhoWeAre() {
             <FadeIn key={p.title} delay={i * 0.07}>
               <div
                 className="rounded-2xl border p-6 flex flex-col h-full"
-                style={{ borderColor: '#e8e6e0', background: 'white' }}
+                style={{ borderColor: '#ECE7DD', background: 'white' }}
               >
                 <div className="mb-4">
                   <div className="font-display text-3xl" style={{ color: TEAL }}>{p.stat}</div>
                   <div className="text-xs" style={{ color: '#9ca3af' }}>{p.statLabel}</div>
                 </div>
                 <h3 className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>{p.title}</h3>
-                <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: '#6b6760' }}>{p.desc}</p>
+                <p className="text-sm leading-relaxed flex-1 mb-4" style={{ color: '#4A4A4A' }}>{p.desc}</p>
                 <Link
                   to={p.link}
                   className="text-xs font-semibold transition-opacity hover:opacity-70"
@@ -274,14 +309,14 @@ export default function WhoWeAre() {
       </div>
 
       {/* ── WHO WE SERVE ─────────────────────────────────────────────────────── */}
-      <div className="border-t border-b" style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}>
+      <div className="border-t border-b" style={{ borderColor: '#ECE7DD', background: '#F8F5F0' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
             <SectionLabel>Who we serve</SectionLabel>
             <h2 className="font-display text-3xl mb-3" style={{ color: 'var(--text)' }}>
               For every role in education.
             </h2>
-            <p className="text-sm mb-10 max-w-xl" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-10 max-w-xl" style={{ color: '#4A4A4A' }}>
               GetPromptly isn't built for one audience. It's built for the whole school community — and for families navigating AI alongside their children.
             </p>
           </FadeIn>
@@ -291,7 +326,7 @@ export default function WhoWeAre() {
               <FadeIn key={a.role} delay={i * 0.05}>
                 <div
                   className="rounded-2xl border p-4"
-                  style={{ borderColor: '#e8e6e0', background: 'white' }}
+                  style={{ borderColor: '#ECE7DD', background: 'white' }}
                 >
                   <p className="font-semibold text-sm mb-1" style={{ color: 'var(--text)' }}>{a.role}</p>
                   <p className="text-xs leading-relaxed" style={{ color: '#9ca3af' }}>{a.desc}</p>
@@ -316,12 +351,12 @@ export default function WhoWeAre() {
             <FadeIn key={member.name} delay={i * 0.08}>
               <div
                 className="rounded-2xl border overflow-hidden"
-                style={{ borderColor: '#e8e6e0', background: 'white' }}
+                style={{ borderColor: '#ECE7DD', background: 'white' }}
               >
                 {/* Photo placeholder */}
                 <div
                   className="w-full aspect-square flex items-center justify-center"
-                  style={{ background: '#f7f6f2', borderBottom: '1px solid #e8e6e0' }}
+                  style={{ background: '#F8F5F0', borderBottom: '1px solid #ECE7DD' }}
                 >
                   <div
                     className="w-20 h-20 rounded-full flex items-center justify-center"
@@ -340,7 +375,7 @@ export default function WhoWeAre() {
                   <p className="text-xs font-semibold mb-3" style={{ color: TEAL }}>
                     {member.title}
                   </p>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+                  <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>
                     {member.bio}
                   </p>
                 </div>
@@ -351,7 +386,7 @@ export default function WhoWeAre() {
       </div>
 
       {/* ── HOW WE WORK ──────────────────────────────────────────────────────── */}
-      <div className="border-t border-b" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t border-b" style={{ borderColor: '#ECE7DD', background: 'white' }}>
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
             <SectionLabel>How we work</SectionLabel>
@@ -365,7 +400,7 @@ export default function WhoWeAre() {
               <FadeIn key={step.n} delay={i * 0.06}>
                 <div
                   className="flex gap-5 p-5 rounded-xl border"
-                  style={{ borderColor: '#e8e6e0' }}
+                  style={{ borderColor: '#ECE7DD' }}
                 >
                   <span
                     className="font-display text-2xl flex-shrink-0 w-10 text-center leading-none mt-0.5"
@@ -377,7 +412,7 @@ export default function WhoWeAre() {
                     <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>
                       {step.title}
                     </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+                    <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>
                       {step.desc}
                     </p>
                   </div>
@@ -402,7 +437,7 @@ export default function WhoWeAre() {
             <FadeIn key={item} delay={i * 0.05}>
               <div
                 className="flex items-start gap-3 p-5 rounded-xl border"
-                style={{ borderColor: '#e8e6e0', background: 'white' }}
+                style={{ borderColor: '#ECE7DD', background: 'white' }}
               >
                 <span
                   className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold"
@@ -410,7 +445,7 @@ export default function WhoWeAre() {
                 >
                   ✓
                 </span>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{item}</p>
+                <p className="text-sm leading-relaxed" style={{ color: '#4A4A4A' }}>{item}</p>
               </div>
             </FadeIn>
           ))}
