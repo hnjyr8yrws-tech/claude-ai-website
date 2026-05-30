@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import AgentCTACard from '../components/AgentCTACard';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 const STATS = [
   { value: '50', label: 'Prompt Packs' },
@@ -193,7 +193,7 @@ function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
         type="button"
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
-        className="w-full p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded-2xl"
+        className="w-full p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded-2xl"
       >
         <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>{pack.role}</p>
         <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{pack.headline}</h3>
@@ -215,7 +215,7 @@ function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
               <ul className="space-y-2 mb-5">
                 {pack.examples.map((ex, i) => (
                   <li key={i} className="flex gap-2 text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-                    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5" style={{ background: '#e0f5f6', color: TEAL }}>{i + 1}</span>
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5" style={{ background: 'var(--color-oat)', color: TEAL }}>{i + 1}</span>
                     {ex}
                   </li>
                 ))}
@@ -223,7 +223,7 @@ function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
               <button
                 type="button"
                 onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: pack.offer } }))}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{ background: TEAL }}
               >
                 {pack.ctaLabel}
@@ -284,15 +284,15 @@ const PromptsHub = () => {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               to="/prompts/library"
-              className="px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-              style={{ background: '#00808a', color: 'white' }}
+              className="px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
             >
               Browse All 50 Packs
             </Link>
             <button
               onClick={handleWidgetClick}
-              className="px-6 py-3 rounded-xl font-semibold text-sm border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-              style={{ borderColor: '#00808a', color: '#00808a', background: 'white' }}
+              className="px-6 py-3 rounded-xl font-semibold text-sm border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              style={{ borderColor: 'var(--color-promptly-lime)', color: 'var(--color-ink)', background: 'white' }}
             >
               Get Instant Prompt Help
             </button>
@@ -305,7 +305,7 @@ const PromptsHub = () => {
         <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {STATS.map((s) => (
             <div key={s.label} className="text-center p-4 rounded-xl border" style={{ borderColor: '#e8e6e0' }}>
-              <div className="font-display text-2xl font-bold mb-1" style={{ color: '#00808a' }}>{s.value}</div>
+              <div className="font-display text-2xl font-bold mb-1" style={{ color: 'var(--color-ink)' }}>{s.value}</div>
               <div className="text-[11px] font-medium uppercase tracking-wide" style={{ color: '#9ca3af' }}>{s.label}</div>
             </div>
           ))}
@@ -342,22 +342,22 @@ const PromptsHub = () => {
               <Link
                 key={r.to}
                 to={r.to}
-                className="group flex flex-col gap-3 p-5 rounded-2xl border bg-white transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                className="group flex flex-col gap-3 p-5 rounded-2xl border bg-white transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{ borderColor: '#e8e6e0' }}
               >
                 <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#00808a]"
-                  style={{ background: '#e0f5f6', color: '#00808a' }}
+                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[var(--color-promptly-lime)]"
+                  style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
                 >
                   <span className="group-hover:text-white transition-colors">{r.icon}</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-base mb-1 group-hover:text-[#00808a] transition-colors" style={{ color: 'var(--text)' }}>
+                  <h3 className="font-semibold text-base mb-1 group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: 'var(--text)' }}>
                     {r.title}
                   </h3>
                   <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{r.desc}</p>
                 </div>
-                <span className="text-sm font-medium mt-auto" style={{ color: '#00808a' }}>
+                <span className="text-sm font-medium mt-auto" style={{ color: 'var(--color-ink)' }}>
                   View prompts →
                 </span>
               </Link>
@@ -375,7 +375,7 @@ const PromptsHub = () => {
               <Link
                 key={c.label}
                 to={c.to}
-                className="flex-shrink-0 px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a]"
+                className="flex-shrink-0 px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
               >
                 {c.label}
@@ -397,7 +397,7 @@ const PromptsHub = () => {
               <li key={step.n} className="flex gap-4 p-4 rounded-xl bg-white border" style={{ borderColor: '#e8e6e0' }}>
                 <span
                   className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-                  style={{ background: '#e0f5f6', color: '#00808a' }}
+                  style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
                   aria-hidden="true"
                 >
                   {step.n}
@@ -454,7 +454,7 @@ const PromptsHub = () => {
                     onChange={e => setFreePackEmail(e.target.value)}
                     placeholder="Your school email"
                     required
-                    className="flex-1 px-4 py-2.5 rounded-xl text-sm border outline-none focus:ring-2 focus:ring-[#00808a]"
+                    className="flex-1 px-4 py-2.5 rounded-xl text-sm border outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
                     style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: 'var(--text)' }}
                   />
                   <button
@@ -491,7 +491,7 @@ const PromptsHub = () => {
               <Link
                 key={item.to}
                 to={item.to}
-                className="p-4 rounded-xl border transition-colors hover:border-[#00808a] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a]"
+                className="p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{ borderColor: '#1f1d1b' }}
               >
                 <p className="text-sm font-semibold text-white mb-1">{item.label}</p>

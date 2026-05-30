@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { EQUIPMENT, BUNDLES, type EquipmentProduct, type PurchaseModel } from '../data/equipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 // ─── School-relevant products ─────────────────────────────────────────────────
 
@@ -97,7 +97,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 function ProductRow({ product }: { product: EquipmentProduct }) {
   const purchaseColour: Record<PurchaseModel, { bg: string; color: string }> = {
     Buy:          { bg: '#f0fdf4', color: '#15803d' },
-    Quote:        { bg: '#e0f5f6', color: TEAL },
+    Quote:        { bg: 'var(--color-oat)', color: TEAL },
     Subscription: { bg: '#f5f3ff', color: '#7c3aed' },
     Lease:        { bg: '#fef9c3', color: '#854d0e' },
   };

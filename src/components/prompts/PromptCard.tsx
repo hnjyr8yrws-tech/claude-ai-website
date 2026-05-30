@@ -2,7 +2,7 @@ import CopyButton from './CopyButton';
 import type { StructuredPrompt } from '../../data/prompts';
 
 const LEVEL_STYLES: Record<string, { bg: string; color: string }> = {
-  Beginner: { bg: '#e0f5f6', color: '#00808a' },
+  Beginner: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
   Intermediate: { bg: '#fef3c7', color: '#92400e' },
   Advanced: { bg: '#fae8ff', color: '#7c3aed' },
 };
@@ -34,7 +34,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
         <div className="flex-shrink-0 pt-0.5">
           <span
             className="inline-flex items-center justify-center w-6 h-6 rounded-full text-[11px] font-bold"
-            style={{ background: '#e0f5f6', color: '#00808a' }}
+            style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
           >
             {index + 1}
           </span>
@@ -47,7 +47,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
             <CopyButton text={prompt} size="sm" onCopied={onCopy} />
             <button
               onClick={handleAskAgent}
-              className="text-[11px] font-medium transition-colors hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+              className="text-[11px] font-medium transition-colors hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
               style={{ color: '#6b6760' }}
             >
               Ask agent to adapt this &rarr;
@@ -69,7 +69,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
       <div className="flex items-start gap-3 px-4 pt-4 pb-2">
         <span
           className="flex-shrink-0 inline-flex items-center justify-center w-6 h-6 rounded-full text-[11px] font-bold mt-0.5"
-          style={{ background: '#e0f5f6', color: '#00808a' }}
+          style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
         >
           {index + 1}
         </span>
@@ -141,7 +141,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
       {prompt.followUp && (
         <div className="px-4 pb-2">
           <p className="text-[11px] leading-relaxed" style={{ color: '#6b6760' }}>
-            <strong style={{ color: '#00808a' }}>Follow-up:</strong> {prompt.followUp}
+            <strong style={{ color: 'var(--color-ink)' }}>Follow-up:</strong> {prompt.followUp}
           </p>
         </div>
       )}
@@ -163,7 +163,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
           <CopyButton text={copyText} size="sm" onCopied={onCopy} />
           <button
             onClick={handleAskAgent}
-            className="text-[11px] font-medium transition-colors hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+            className="text-[11px] font-medium transition-colors hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
             style={{ color: '#6b6760' }}
           >
             Ask agent to adapt this &rarr;

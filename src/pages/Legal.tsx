@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import SEO from '../components/SEO';
 
-const TEAL  = '#00808a';
+const TEAL  = 'var(--color-promptly-lime)';
 const MUTED = '#6b6760';
 
 export default function Legal() {

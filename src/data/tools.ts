@@ -81,7 +81,7 @@ export function deriveAgeNotes(tool: ToolRaw): string {
 }
 
 export const CAT_COLOURS: Record<string, { bg: string; text: string }> = {
-  'Teacher AI':       { bg: '#e0f5f6', text: '#00808a' },
+  'Teacher AI':       { bg: 'var(--color-oat)', text: 'var(--color-promptly-lime)' },
   'Student AI':       { bg: '#dbeafe', text: '#2563eb' },
   'SEND':             { bg: '#f3e8ff', text: '#7c3aed' },
   'Writing':          { bg: '#e0e7ff', text: '#4338ca' },

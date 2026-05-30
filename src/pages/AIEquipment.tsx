@@ -21,7 +21,7 @@ import {
   type EqBadge,
 } from '../data/equipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -245,7 +245,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
             style={{
               borderColor: inCompare ? TEAL : '#e8e6e0',
               color: inCompare ? TEAL : '#9ca3af',
-              background: inCompare ? '#e0f5f6' : 'white',
+              background: inCompare ? 'var(--color-oat)' : 'white',
               opacity: (compareDisabled && !inCompare) ? 0.4 : 1,
               cursor: (compareDisabled && !inCompare) ? 'not-allowed' : 'pointer',
             }}
@@ -286,7 +286,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
         type="button"
         onClick={() => setOpen(o => !o)}
         aria-expanded={open}
-        className="w-full flex items-start justify-between gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded-2xl"
+        className="w-full flex items-start justify-between gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded-2xl"
       >
         <div className="flex-1">
           <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
@@ -298,7 +298,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
           <p className="text-xs mt-1" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
           <div className="flex flex-wrap gap-1.5 mt-2">
             {bundle.senCategory.map((s: string) => (
-              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
                 {s}
               </span>
             ))}
@@ -321,7 +321,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
           <button
             type="button"
             onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: `${bundle.id}-equipment-set` } }))}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
             style={{ background: TEAL }}
           >
             Email me this equipment set
@@ -363,7 +363,7 @@ function CompareBar({
             <div
               key={p.id}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs"
-              style={{ borderColor: TEAL, color: TEAL, background: '#e0f5f6' }}
+              style={{ borderColor: TEAL, color: TEAL, background: 'var(--color-oat)' }}
             >
               <span className="font-medium truncate max-w-[120px]">{p.name}</span>
               <button
@@ -772,7 +772,7 @@ export default function AIEquipment() {
             <button
               type="button"
               onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: 'equipment-shortlist' } }))}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
             >
               Email me an equipment shortlist
@@ -783,7 +783,7 @@ export default function AIEquipment() {
               <button
                 key={col.label}
                 onClick={() => applyCollection(col)}
-                className="flex-shrink-0 text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
+                className="flex-shrink-0 text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
                 style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
               >
                 {col.label}
@@ -916,7 +916,7 @@ export default function AIEquipment() {
                 className="text-sm px-4 py-1.5 rounded-xl border transition-colors font-medium"
                 style={{
                   borderColor: audienceFilter === t.value ? TEAL : '#e8e6e0',
-                  background: audienceFilter === t.value ? '#e0f5f6' : 'white',
+                  background: audienceFilter === t.value ? 'var(--color-oat)' : 'white',
                   color: audienceFilter === t.value ? TEAL : '#6b6760',
                 }}
               >
@@ -932,7 +932,7 @@ export default function AIEquipment() {
               className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
               style={{
                 borderColor: categoryFilter === 'All' ? TEAL : '#e8e6e0',
-                background: categoryFilter === 'All' ? '#e0f5f6' : 'white',
+                background: categoryFilter === 'All' ? 'var(--color-oat)' : 'white',
                 color: categoryFilter === 'All' ? TEAL : '#6b6760',
               }}
             >
@@ -945,7 +945,7 @@ export default function AIEquipment() {
                 className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
                 style={{
                   borderColor: categoryFilter === cat ? TEAL : '#e8e6e0',
-                  background: categoryFilter === cat ? '#e0f5f6' : 'white',
+                  background: categoryFilter === cat ? 'var(--color-oat)' : 'white',
                   color: categoryFilter === cat ? TEAL : '#6b6760',
                 }}
               >
@@ -964,7 +964,7 @@ export default function AIEquipment() {
                 className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                 style={{
                   borderColor: priceFilter === 'All' ? TEAL : '#e8e6e0',
-                  background: priceFilter === 'All' ? '#e0f5f6' : 'white',
+                  background: priceFilter === 'All' ? 'var(--color-oat)' : 'white',
                   color: priceFilter === 'All' ? TEAL : '#6b6760',
                 }}
               >
@@ -977,7 +977,7 @@ export default function AIEquipment() {
                   className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                   style={{
                     borderColor: priceFilter === pb ? TEAL : '#e8e6e0',
-                    background: priceFilter === pb ? '#e0f5f6' : 'white',
+                    background: priceFilter === pb ? 'var(--color-oat)' : 'white',
                     color: priceFilter === pb ? TEAL : '#6b6760',
                   }}
                 >
@@ -993,7 +993,7 @@ export default function AIEquipment() {
                 className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                 style={{
                   borderColor: supplierFilter === 'All' ? TEAL : '#e8e6e0',
-                  background: supplierFilter === 'All' ? '#e0f5f6' : 'white',
+                  background: supplierFilter === 'All' ? 'var(--color-oat)' : 'white',
                   color: supplierFilter === 'All' ? TEAL : '#6b6760',
                 }}
               >
@@ -1006,7 +1006,7 @@ export default function AIEquipment() {
                   className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                   style={{
                     borderColor: supplierFilter === st ? TEAL : '#e8e6e0',
-                    background: supplierFilter === st ? '#e0f5f6' : 'white',
+                    background: supplierFilter === st ? 'var(--color-oat)' : 'white',
                     color: supplierFilter === st ? TEAL : '#6b6760',
                   }}
                 >
@@ -1022,7 +1022,7 @@ export default function AIEquipment() {
                 className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                 style={{
                   borderColor: reviewFilter === 'All' ? TEAL : '#e8e6e0',
-                  background: reviewFilter === 'All' ? '#e0f5f6' : 'white',
+                  background: reviewFilter === 'All' ? 'var(--color-oat)' : 'white',
                   color: reviewFilter === 'All' ? TEAL : '#6b6760',
                 }}
               >
@@ -1035,7 +1035,7 @@ export default function AIEquipment() {
                   className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                   style={{
                     borderColor: reviewFilter === rs ? TEAL : '#e8e6e0',
-                    background: reviewFilter === rs ? '#e0f5f6' : 'white',
+                    background: reviewFilter === rs ? 'var(--color-oat)' : 'white',
                     color: reviewFilter === rs ? TEAL : '#6b6760',
                   }}
                 >

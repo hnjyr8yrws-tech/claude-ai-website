@@ -22,7 +22,7 @@ import CrossSellPopup from '../components/CrossSellPopup';
 import { useCrossSell } from '../hooks/useCrossSell';
 import { linkLabel, inferLinkType } from '../utils/linkType';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -443,8 +443,8 @@ export default function AITraining() {
               slugs={PATHWAY_STUDENTS}
               to="/ai-training/students"
               pathwaySlug="students"
-              accentBg="#e0f5f6"
-              accentText="#00808a"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-promptly-lime)"
               accentBorder="#99d9de"
             />
             <PathwayCard

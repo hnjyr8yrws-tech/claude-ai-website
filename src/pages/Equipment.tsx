@@ -15,7 +15,7 @@ import {
   type ReviewStatus,
 } from '../data/equipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -189,7 +189,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
             style={{
               borderColor: inCompare ? TEAL : '#e8e6e0',
               color: inCompare ? TEAL : '#9ca3af',
-              background: inCompare ? '#e0f5f6' : 'white',
+              background: inCompare ? 'var(--color-oat)' : 'white',
               opacity: (compareDisabled && !inCompare) ? 0.4 : 1,
               cursor: (compareDisabled && !inCompare) ? 'not-allowed' : 'pointer',
             }}
@@ -233,7 +233,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map(s => (
-          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
             {s}
           </span>
         ))}
@@ -277,7 +277,7 @@ function CompareBar({
             <div
               key={p.id}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs"
-              style={{ borderColor: TEAL, color: TEAL, background: '#e0f5f6' }}
+              style={{ borderColor: TEAL, color: TEAL, background: 'var(--color-oat)' }}
             >
               <span className="font-medium truncate max-w-[120px]">{p.name}</span>
               <button
@@ -583,7 +583,7 @@ export default function Equipment() {
             <button
               key={col.label}
               onClick={() => applyCollection(col)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors hover:border-[#00808a] hover:text-[#00808a]"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
               style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
             >
               <span aria-hidden="true">{col.icon}</span>
@@ -603,7 +603,7 @@ export default function Equipment() {
                 Pre-selected product sets for common SEND and classroom needs.
               </p>
             </div>
-            <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+            <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
               {BUNDLES.length} bundles
             </span>
           </div>
@@ -717,7 +717,7 @@ export default function Equipment() {
                   onClick={() => setSupplierFilter(s as SupplierType | 'All')}
                   className="px-3 py-1 rounded-lg text-xs transition-colors border"
                   style={{
-                    background: supplierFilter === s ? '#e0f5f6' : 'white',
+                    background: supplierFilter === s ? 'var(--color-oat)' : 'white',
                     color: supplierFilter === s ? TEAL : '#6b6760',
                     borderColor: supplierFilter === s ? TEAL : '#e8e6e0',
                   }}

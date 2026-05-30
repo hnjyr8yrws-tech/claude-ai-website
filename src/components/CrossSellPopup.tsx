@@ -11,7 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { track } from '../utils/analytics';
 import { markPopupShown, type CrossSellItem } from '../utils/crossSell';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 interface CrossSellPopupProps {
   items: CrossSellItem[];
@@ -122,19 +122,19 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
                 key={item.id}
                 to={item.href}
                 onClick={() => handleItemClick(item)}
-                className="flex items-start gap-3 p-3 rounded-xl border transition-all hover:border-[#00808a] hover:shadow-sm group"
+                className="flex items-start gap-3 p-3 rounded-xl border transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-sm group"
                 style={{ borderColor: '#e8e6e0' }}
               >
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: '#e0f5f6' }}>
+                <div className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'var(--color-oat)' }}>
                   <SectionIcon section={item.section} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
-                    <p className="text-xs font-semibold group-hover:text-[#00808a] transition-colors" style={{ color: 'var(--text)' }}>
+                    <p className="text-xs font-semibold group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: 'var(--text)' }}>
                       {item.title}
                     </p>
                     {item.badge && (
-                      <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full flex-shrink-0" style={{ background: '#e0f5f6', color: TEAL }}>
+                      <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-oat)', color: TEAL }}>
                         {item.badge}
                       </span>
                     )}

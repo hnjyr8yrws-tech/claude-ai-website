@@ -92,9 +92,10 @@ export default {
         ring:    'hsl(var(--ring))',
       },
       fontFamily: {
-        sans:    ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Instrument Serif', 'Georgia', 'serif'],
-        mono:    ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans:    ['Satoshi', 'system-ui', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
+        serif:   ['Fraunces', 'Georgia', 'serif'],
+        mono:    ['JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       borderRadius: {
         lg:  'var(--radius)',

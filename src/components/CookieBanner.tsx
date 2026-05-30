@@ -53,7 +53,7 @@ export default function CookieBanner() {
                 <a
                   href="#"
                   className="underline hover:text-white transition-colors"
-                  style={{ color: '#00808a' }}
+                  style={{ color: 'var(--color-promptly-lime)' }}
                 >
                   Cookie Policy
                 </a>
@@ -71,7 +71,7 @@ export default function CookieBanner() {
               <button
                 onClick={accept}
                 className="px-4 py-2 rounded-xl text-xs font-semibold transition-opacity hover:opacity-80"
-                style={{ background: '#00808a', color: 'white' }}
+                style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
               >
                 Accept all
               </button>

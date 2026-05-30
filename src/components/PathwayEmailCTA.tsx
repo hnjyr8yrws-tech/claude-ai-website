@@ -6,7 +6,7 @@ interface Props {
   pathwaySlug: string;
 }
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 export default function PathwayEmailCTA({ pathwayName, pathwaySlug }: Props) {
   const [email, setEmail] = useState(() => {
@@ -64,7 +64,7 @@ export default function PathwayEmailCTA({ pathwayName, pathwaySlug }: Props) {
             placeholder="Your email address"
             value={email}
             onChange={e => setEmail(e.target.value)}
-            className="w-full px-3 py-2 rounded-lg border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
+            className="w-full px-3 py-2 rounded-lg border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
             style={{ borderColor: '#e8e6e0', background: 'white', color: '#1c1a15' }}
           />
         </div>

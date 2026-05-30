@@ -54,7 +54,7 @@ const Footer: FC = () => (
         <Link to="/" className="flex items-center gap-2.5 w-fit rounded" aria-label="GetPromptly – go to homepage">
           <div
             className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-            style={{ background: '#00808a' }}
+            style={{ background: 'var(--color-promptly-lime)' }}
             aria-hidden="true"
           >
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -84,7 +84,7 @@ const Footer: FC = () => (
             >
               <span
                 className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                style={{ background: '#00808a' }}
+                style={{ background: 'var(--color-promptly-lime)' }}
                 aria-hidden="true"
               />
               {c.label} {c.note}
@@ -103,7 +103,7 @@ const Footer: FC = () => (
             <li key={link.to}>
               <Link
                 to={link.to}
-                className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+                className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
                 style={{ color: '#6b6760' }}
               >
                 {link.label}
@@ -123,7 +123,7 @@ const Footer: FC = () => (
             <li key={link.to}>
               <Link
                 to={link.to}
-                className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+                className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
                 style={{ color: '#6b6760' }}
               >
                 {link.label}
@@ -143,7 +143,7 @@ const Footer: FC = () => (
             <li key={item.label}>
               <Link
                 to={item.to}
-                className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+                className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
                 style={{ color: '#6b6760' }}
               >
                 {item.label}
@@ -153,7 +153,7 @@ const Footer: FC = () => (
           <li>
             <a
               href="mailto:hello@getpromptly.co.uk"
-              className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] rounded"
+              className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
               style={{ color: '#6b6760' }}
             >
               Contact

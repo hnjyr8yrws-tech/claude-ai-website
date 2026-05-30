@@ -11,7 +11,7 @@
 import { FC, useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 const OFFER_LABELS: Record<string, { heading: string; body: string; cta: string }> = {
   'free-prompt-pack':       { heading: 'Get your free prompt pack',          body: "We'll email a role-specific starter pack you can copy into Claude, ChatGPT or Gemini today.",            cta: 'Send my free pack' },
@@ -128,7 +128,7 @@ const LeadCaptureModal: FC = () => {
             <button
               onClick={close}
               aria-label="Close"
-              className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ color: '#6b6760' }}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -144,7 +144,7 @@ const LeadCaptureModal: FC = () => {
                 <div className="text-center py-4">
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ background: '#e0f5f6' }}
+                    style={{ background: 'var(--color-oat)' }}
                     aria-hidden="true"
                   >
                     <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
@@ -184,7 +184,7 @@ const LeadCaptureModal: FC = () => {
                       value={email}
                       onChange={e => setEmail(e.target.value)}
                       placeholder="Your email address"
-                      className="w-full px-4 py-3 rounded-xl text-sm border outline-none focus:ring-2 focus:ring-[#00808a]"
+                      className="w-full px-4 py-3 rounded-xl text-sm border outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
                       style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: 'var(--text)' }}
                     />
                     <button

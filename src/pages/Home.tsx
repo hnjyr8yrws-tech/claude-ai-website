@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 
-const TEAL   = '#00808a';
+const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
 const BG     = '#f7f6f2';
 const BORDER = '#e8e6e0';
@@ -39,7 +39,7 @@ const ROLES = [
     id: 'teacher',
     label: 'Teacher',
     emoji: '\u{1F4DA}',
-    color: '#e0f5f6',
+    color: 'var(--color-oat)',
     tagline: 'Save hours every week',
     desc: 'Lesson plans, differentiation, marking feedback, CPD and classroom-safe AI tools.',
     to: '/prompts/teachers',
@@ -196,7 +196,7 @@ const Hero: FC = () => (
       <svg className="absolute right-0 top-0 opacity-[0.025]" width="400" height="400" aria-hidden="true">
         <defs>
           <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1.5" fill="#00808a"/>
+            <circle cx="2" cy="2" r="1.5" fill="var(--color-promptly-lime)"/>
           </pattern>
         </defs>
         <rect width="400" height="400" fill="url(#dots)"/>
@@ -230,14 +230,14 @@ const Hero: FC = () => (
                 track({ name: 'cta_clicked', section: 'home-hero', label: 'Start with your role' });
                 document.getElementById('role-selector')?.scrollIntoView({ behavior: 'smooth' });
               }}
-              className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2"
+              className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
               style={{ background: TEAL, color: 'white' }}
             >
               Start with your role &rarr;
             </button>
             <button
               onClick={() => { track({ name: 'cta_clicked', section: 'home-hero', label: 'Ask Promptly AI' }); openWidget(); }}
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2"
+              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
               style={{ borderColor: BORDER, color: '#1c1a15' }}
             >
               <span className="relative flex w-2 h-2" aria-hidden="true">
@@ -314,7 +314,7 @@ const RoleSelector: FC = () => {
             <button
               key={r.id}
               onClick={() => { setActive(r.id); track({ name: 'filter_applied', section: 'home-roles', filter: 'role', value: r.label }); }}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={active === r.id
                 ? { background: TEAL, color: 'white', borderColor: TEAL }
                 : { background: 'white', color: '#6b6760', borderColor: BORDER }
@@ -510,7 +510,7 @@ const ScoringPreview: FC = () => (
 
 const PATHWAYS = [
   {
-    role: 'Teacher', emoji: '\u{1F4DA}', color: '#e0f5f6',
+    role: 'Teacher', emoji: '\u{1F4DA}', color: 'var(--color-oat)',
     headline: 'Save hours every week',
     items: [
       { label: 'Lesson Planning Prompts', to: '/prompts/teachers', tag: 'Prompts' },
@@ -543,7 +543,7 @@ const PATHWAYS = [
 
 const TAG_COLORS: Record<string, { bg: string; text: string }> = {
   Prompts:   { bg: '#dcfce7', text: '#15803d' },
-  Tools:     { bg: '#e0f5f6', text: TEAL },
+  Tools:     { bg: 'var(--color-oat)', text: TEAL },
   Training:  { bg: '#fef9c3', text: '#854d0e' },
   Equipment: { bg: '#ede9fe', text: '#7c3aed' },
 };
@@ -642,7 +642,7 @@ const PromptCapture: FC = () => {
 // ─── 8. Platform nav ──────────────────────────────────────────────────────────
 
 const NAV_CARDS = [
-  { title: 'AI Tools Hub',     stat: '155 tools reviewed',  desc: 'Every tool scored against KCSIE 2025 and UK GDPR. Filter by role, safety tier and price.', to: '/tools',        color: '#e0f5f6' },
+  { title: 'AI Tools Hub',     stat: '155 tools reviewed',  desc: 'Every tool scored against KCSIE 2025 and UK GDPR. Filter by role, safety tier and price.', to: '/tools',        color: 'var(--color-oat)' },
   { title: 'AI Training',      stat: '26 courses',          desc: 'Free government-backed CPD and paid certification for teachers, leaders and SENCOs.',       to: '/ai-training',  color: '#fef9c3' },
   { title: 'Equipment',        stat: '96 products',         desc: 'Classroom tech, SEND assistive devices, coding robots and home learning hardware.',           to: '/ai-equipment', color: '#ede9fe' },
   { title: 'Prompts Library',  stat: '440+ prompts',        desc: 'Ready-to-copy prompts for teachers, SENCOs, leaders, parents and students.',                  to: '/prompts',      color: '#dcfce7' },
@@ -662,7 +662,7 @@ const PlatformNav: FC = () => (
         {NAV_CARDS.map((c, i) => (
           <FadeIn key={c.title} delay={i * 0.07}>
             <Link to={c.to} onClick={() => track({ name: 'cta_clicked', section: 'home-platform-nav', label: c.title })}
-              className="group flex flex-col h-full rounded-2xl border transition-all hover:border-[#00808a] hover:shadow-md overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="group flex flex-col h-full rounded-2xl border transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-md overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ borderColor: BORDER, background: 'white' }}>
               <div className="px-5 pt-5 pb-4" style={{ background: c.color }}>
                 <div className="w-8 h-8 rounded-xl flex items-center justify-center font-display text-lg" style={{ background: 'rgba(255,255,255,0.7)', color: TEAL }} aria-hidden="true">
@@ -670,7 +670,7 @@ const PlatformNav: FC = () => (
                 </div>
               </div>
               <div className="flex-1 flex flex-col p-5">
-                <p className="font-semibold text-sm mb-0.5 group-hover:text-[#00808a] transition-colors" style={{ color: '#1c1a15' }}>{c.title}</p>
+                <p className="font-semibold text-sm mb-0.5 group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: '#1c1a15' }}>{c.title}</p>
                 <p className="text-[10px] font-semibold mb-3" style={{ color: TEAL }}>{c.stat}</p>
                 <p className="text-xs leading-relaxed flex-1" style={{ color: '#6b6760' }}>{c.desc}</p>
                 <span className="mt-4 text-xs font-semibold" style={{ color: TEAL }}>Browse &rarr;</span>
@@ -716,11 +716,11 @@ const SchoolsCTA: FC = () => (
             { emoji: '\u{1F4DD}', label: 'Prompt Packs', desc: '440+ prompts for teachers, SENCOs and leaders', to: '/prompts' },
           ].map(item => (
             <Link key={item.label} to={item.to} onClick={() => track({ name: 'cta_clicked', section: 'home-schools-links', label: item.label })}
-              className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[#00808a] group"
+              className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] group"
               style={{ borderColor: BORDER, background: '#f7f6f2' }}>
               <span className="text-lg flex-shrink-0" aria-hidden="true">{item.emoji}</span>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold group-hover:text-[#00808a] transition-colors" style={{ color: '#1c1a15' }}>{item.label}</p>
+                <p className="text-sm font-semibold group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: '#1c1a15' }}>{item.label}</p>
                 <p className="text-xs" style={{ color: '#6b6760' }}>{item.desc}</p>
               </div>
               <span className="text-xs flex-shrink-0" style={{ color: '#a09d98' }} aria-hidden="true">&rarr;</span>

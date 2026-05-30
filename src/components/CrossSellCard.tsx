@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 import { track } from '../utils/analytics';
 import type { CrossSellItem } from '../utils/crossSell';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 const SECTION_ICONS: Record<string, React.ReactNode> = {
   prompts: (
@@ -70,19 +70,19 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
       <Link
         to={item.href}
         onClick={handleClick}
-        className="block rounded-xl border p-3 transition-all hover:border-[#00808a] hover:shadow-sm group"
+        className="block rounded-xl border p-3 transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-sm group"
         style={{ borderColor: '#e8e6e0', background: 'white' }}
       >
         <div className="flex items-start gap-2.5">
-          <div className="flex-shrink-0 mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: '#e0f5f6' }}>
+          <div className="flex-shrink-0 mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--color-oat)' }}>
             {SECTION_ICONS[item.section]}
           </div>
           <div className="min-w-0">
-            <p className="text-xs font-semibold leading-tight mb-0.5 group-hover:text-[#00808a] transition-colors" style={{ color: 'var(--text)' }}>
+            <p className="text-xs font-semibold leading-tight mb-0.5 group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: 'var(--text)' }}>
               {item.title}
             </p>
             {item.badge && (
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
                 {item.badge}
               </span>
             )}
@@ -101,20 +101,20 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
       <Link
         to={item.href}
         onClick={handleClick}
-        className="block rounded-2xl border p-5 transition-all hover:border-[#00808a] hover:shadow-md group"
+        className="block rounded-2xl border p-5 transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-md group"
         style={{ borderColor: '#e8e6e0', background: 'white' }}
       >
         <div className="flex items-start gap-4">
-          <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: '#e0f5f6' }}>
+          <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--color-oat)' }}>
             {SECTION_ICONS[item.section]}
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <h3 className="text-sm font-semibold group-hover:text-[#00808a] transition-colors" style={{ color: 'var(--text)' }}>
+              <h3 className="text-sm font-semibold group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: 'var(--text)' }}>
                 {item.title}
               </h3>
               {item.badge && (
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: '#e0f5f6', color: TEAL }}>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-oat)', color: TEAL }}>
                   {item.badge}
                 </span>
               )}

@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 
-const TEAL   = '#00808a';
+const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
 const BG     = '#f7f6f2';
 const BORDER = '#e8e6e0';
@@ -191,14 +191,14 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               <FadeIn key={t.title} delay={i * 0.05}>
                 <Link to={t.to}
                   onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}-training`, label: t.title })}
-                  className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[#00808a] group"
+                  className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] group"
                   style={{ borderColor: BORDER, background: BG }}>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
                     style={t.free ? { background: '#dcfce7', color: '#15803d' } : { background: '#fef9c3', color: '#854d0e' }}>
                     {t.free ? 'Free' : 'Paid'}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium group-hover:text-[#00808a] transition-colors">{t.title}</p>
+                    <p className="text-sm font-medium group-hover:text-[var(--color-promptly-lime)] transition-colors">{t.title}</p>
                     <p className="text-xs" style={{ color: '#9ca3af' }}>{t.provider}</p>
                   </div>
                   <span className="text-xs flex-shrink-0" style={{ color: '#9ca3af' }}>&rarr;</span>
@@ -230,10 +230,10 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                 <FadeIn key={e.name} delay={i * 0.05}>
                   <Link to={e.to}
                     onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}-equipment`, label: e.name })}
-                    className="flex items-center gap-3 p-4 rounded-xl border transition-colors hover:border-[#00808a] group"
+                    className="flex items-center gap-3 p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] group"
                     style={{ borderColor: BORDER, background: 'white' }}>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium group-hover:text-[#00808a] transition-colors">{e.name}</p>
+                      <p className="text-sm font-medium group-hover:text-[var(--color-promptly-lime)] transition-colors">{e.name}</p>
                       <p className="text-[10px]" style={{ color: '#9ca3af' }}>{e.category}</p>
                     </div>
                     <span className="text-xs flex-shrink-0" style={{ color: TEAL }}>View &rarr;</span>
@@ -284,17 +284,17 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
           </FadeIn>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { label: 'AI Tools Hub',    stat: '155 tools',   to: '/tools',        color: '#e0f5f6' },
+              { label: 'AI Tools Hub',    stat: '155 tools',   to: '/tools',        color: 'var(--color-oat)' },
               { label: 'AI Training',     stat: '26 courses',  to: '/ai-training',  color: '#fef9c3' },
               { label: 'Equipment',       stat: '96 products', to: '/ai-equipment', color: '#ede9fe' },
               { label: 'Prompts Library', stat: '440+ prompts',to: '/prompts',      color: '#dcfce7' },
             ].map((c, i) => (
               <FadeIn key={c.label} delay={i * 0.05}>
-                <Link to={c.to} className="group rounded-2xl border overflow-hidden transition-all hover:border-[#00808a] hover:shadow-sm"
+                <Link to={c.to} className="group rounded-2xl border overflow-hidden transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-sm"
                   style={{ borderColor: BORDER, background: 'white' }}>
                   <div className="h-2" style={{ background: c.color }} />
                   <div className="p-4">
-                    <p className="text-sm font-semibold mb-0.5 group-hover:text-[#00808a] transition-colors">{c.label}</p>
+                    <p className="text-sm font-semibold mb-0.5 group-hover:text-[var(--color-promptly-lime)] transition-colors">{c.label}</p>
                     <p className="text-[10px] font-semibold" style={{ color: TEAL }}>{c.stat}</p>
                   </div>
                 </Link>
@@ -310,7 +310,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
 // ─── Role data definitions ────────────────────────────────────────────────────
 
 const TEACHER_DATA: RoleData = {
-  slug: 'teachers', title: 'Teachers', emoji: '\u{1F4DA}', color: '#e0f5f6',
+  slug: 'teachers', title: 'Teachers', emoji: '\u{1F4DA}', color: 'var(--color-oat)',
   heroTitle: 'AI tools, prompts and training built for UK teachers.',
   heroSub: 'Save hours on lesson planning, marking and differentiation. Every recommendation independently reviewed against KCSIE 2025.',
   seoTitle: 'AI for UK Teachers — Tools, Prompts & CPD | GetPromptly',

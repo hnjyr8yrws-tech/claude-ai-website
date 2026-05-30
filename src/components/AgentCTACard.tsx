@@ -9,7 +9,7 @@
 import { motion } from 'framer-motion';
 import { track } from '../utils/analytics';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 interface AgentCTACardProps {
   /** Section label shown above headline */
@@ -133,7 +133,7 @@ export default function AgentCTACard({
                   track({ name: 'agent_contextual_prompt_clicked', prompt: p, section: analyticsSection });
                   openAgentWithPrompt(p);
                 }}
-                className="text-left text-xs leading-relaxed px-3 py-2 rounded-xl border transition-all hover:border-[#00808a] hover:bg-[#111210]"
+                className="text-left text-xs leading-relaxed px-3 py-2 rounded-xl border transition-all hover:border-[var(--color-promptly-lime)] hover:bg-[#111210]"
                 style={{ borderColor: '#2a2825', color: '#9ca3af', background: 'transparent' }}
               >
                 "{p}"

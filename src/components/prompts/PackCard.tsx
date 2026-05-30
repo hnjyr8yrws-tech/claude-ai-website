@@ -27,7 +27,7 @@ const PackCard = ({ pack }: Props) => {
       style={{ borderColor: '#e8e6e0' }}
     >
       {/* Top accent bar */}
-      <div className="h-1 w-full" style={{ background: '#00808a' }} />
+      <div className="h-1 w-full" style={{ background: 'var(--color-promptly-lime)' }} />
 
       <div className="flex flex-col flex-1 p-5 gap-3">
         {/* Header row */}
@@ -37,7 +37,7 @@ const PackCard = ({ pack }: Props) => {
             <div className="flex items-center gap-2 flex-wrap">
               <span
                 className="text-[11px] font-bold tracking-widest uppercase px-2 py-0.5 rounded"
-                style={{ background: '#e0f5f6', color: '#00808a' }}
+                style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
               >
                 Pack {packNum}
               </span>
@@ -59,7 +59,7 @@ const PackCard = ({ pack }: Props) => {
                 setTimeout(() => setBookmarkTooltip(false), 2500);
               }}
               aria-label="Save pack"
-              className="p-1.5 rounded-lg hover:bg-[#f7f6f2] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a]"
+              className="p-1.5 rounded-lg hover:bg-[#f7f6f2] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ color: '#c5c2bb' }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
@@ -128,8 +128,8 @@ const PackCard = ({ pack }: Props) => {
         <div className="flex items-center gap-2 pt-2 border-t flex-wrap" style={{ borderColor: '#e8e6e0' }}>
           <Link
             to={`/prompts/pack/${pack.slug}`}
-            className="flex-1 text-center text-sm font-semibold px-3 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
-            style={{ background: '#00808a', color: 'white' }}
+            className="flex-1 text-center text-sm font-semibold px-3 py-2 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+            style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
           >
             View Pack →
           </Link>

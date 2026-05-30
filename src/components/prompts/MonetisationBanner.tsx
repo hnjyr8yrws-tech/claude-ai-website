@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { track } from '../../utils/analytics';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const BORDER = '#e8e6e0';
 
 const ROLES = [
@@ -107,7 +107,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               placeholder="Your email address"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
+              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
               style={{ borderColor: BORDER, background: 'white', color: '#1c1a15' }}
             />
           </div>
@@ -119,7 +119,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               required
               value={role}
               onChange={e => setRole(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a] appearance-none"
+              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)] appearance-none"
               style={{
                 borderColor: BORDER,
                 background: 'white',
@@ -141,7 +141,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               placeholder="School or organisation (optional)"
               value={school}
               onChange={e => setSchool(e.target.value)}
-              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
+              className="w-full px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
               style={{ borderColor: BORDER, background: 'white', color: '#1c1a15' }}
             />
           </div>
@@ -152,7 +152,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
 
           <button
             type="submit"
-            className="w-full py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#00808a]"
+            className="w-full py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-promptly-lime)]"
             style={{ background: TEAL, color: 'white' }}
           >
             Send me the full pack
@@ -163,7 +163,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               type="checkbox"
               checked={marketingConsent}
               onChange={e => setMarketingConsent(e.target.checked)}
-              className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[#00808a] flex-shrink-0"
+              className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[var(--color-promptly-lime)] flex-shrink-0"
             />
             <span className="text-xs leading-relaxed" style={{ color: '#6b6760' }}>
               Send me future GetPromptly AI tools, training and prompt updates.

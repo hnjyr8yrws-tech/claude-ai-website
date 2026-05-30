@@ -12,7 +12,7 @@ import {
 } from '../data/equipment';
 import { badgeStyle, reviewBadge, catToSlug } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -74,7 +74,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
       {product.senCategory.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {product.senCategory.map((s: string) => (
-            <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+            <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
               {s}
             </span>
           ))}
@@ -120,7 +120,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map((s: string) => (
-          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
             {s}
           </span>
         ))}
@@ -236,7 +236,7 @@ export default function AIEquipmentSEND() {
               className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
               style={{
                 borderColor: categoryFilter === 'All' && senFilter === 'All' ? TEAL : '#e8e6e0',
-                background: categoryFilter === 'All' && senFilter === 'All' ? '#e0f5f6' : 'white',
+                background: categoryFilter === 'All' && senFilter === 'All' ? 'var(--color-oat)' : 'white',
                 color: categoryFilter === 'All' && senFilter === 'All' ? TEAL : '#6b6760',
               }}
             >
@@ -249,7 +249,7 @@ export default function AIEquipmentSEND() {
                 className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
                 style={{
                   borderColor: categoryFilter === card.category ? TEAL : '#e8e6e0',
-                  background: categoryFilter === card.category ? '#e0f5f6' : 'white',
+                  background: categoryFilter === card.category ? 'var(--color-oat)' : 'white',
                   color: categoryFilter === card.category ? TEAL : '#6b6760',
                 }}
               >
@@ -267,7 +267,7 @@ export default function AIEquipmentSEND() {
                 className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                 style={{
                   borderColor: senFilter === 'All' ? TEAL : '#e8e6e0',
-                  background: senFilter === 'All' ? '#e0f5f6' : 'white',
+                  background: senFilter === 'All' ? 'var(--color-oat)' : 'white',
                   color: senFilter === 'All' ? TEAL : '#6b6760',
                 }}
               >
@@ -280,7 +280,7 @@ export default function AIEquipmentSEND() {
                   className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                   style={{
                     borderColor: senFilter === s ? TEAL : '#e8e6e0',
-                    background: senFilter === s ? '#e0f5f6' : 'white',
+                    background: senFilter === s ? 'var(--color-oat)' : 'white',
                     color: senFilter === s ? TEAL : '#6b6760',
                   }}
                 >

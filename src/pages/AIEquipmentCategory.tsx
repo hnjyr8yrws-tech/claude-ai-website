@@ -13,7 +13,7 @@ import {
 } from '../data/equipment';
 import { badgeStyle, reviewBadge, CAT_SLUG, catToSlug } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 const AUDIENCE_TABS: { label: string; value: EqAudience | 'All' }[] = [
   { label: 'All',      value: 'All' },
@@ -58,7 +58,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         {product.senCategory.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
             {product.senCategory.map((s: string) => (
-              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
                 {s}
               </span>
             ))}
@@ -199,7 +199,7 @@ export default function AIEquipmentCategory() {
               className="text-sm px-4 py-1.5 rounded-xl border transition-colors font-medium"
               style={{
                 borderColor: audienceFilter === t.value ? TEAL : '#e8e6e0',
-                background:  audienceFilter === t.value ? '#e0f5f6' : 'white',
+                background:  audienceFilter === t.value ? 'var(--color-oat)' : 'white',
                 color:       audienceFilter === t.value ? TEAL : '#6b6760',
               }}
             >
@@ -216,7 +216,7 @@ export default function AIEquipmentCategory() {
             className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
             style={{
               borderColor: priceFilter === 'All' ? TEAL : '#e8e6e0',
-              background:  priceFilter === 'All' ? '#e0f5f6' : 'white',
+              background:  priceFilter === 'All' ? 'var(--color-oat)' : 'white',
               color:       priceFilter === 'All' ? TEAL : '#6b6760',
             }}
           >
@@ -229,7 +229,7 @@ export default function AIEquipmentCategory() {
               className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
               style={{
                 borderColor: priceFilter === pb ? TEAL : '#e8e6e0',
-                background:  priceFilter === pb ? '#e0f5f6' : 'white',
+                background:  priceFilter === pb ? 'var(--color-oat)' : 'white',
                 color:       priceFilter === pb ? TEAL : '#6b6760',
               }}
             >
@@ -246,7 +246,7 @@ export default function AIEquipmentCategory() {
             className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
             style={{
               borderColor: reviewFilter === 'All' ? TEAL : '#e8e6e0',
-              background:  reviewFilter === 'All' ? '#e0f5f6' : 'white',
+              background:  reviewFilter === 'All' ? 'var(--color-oat)' : 'white',
               color:       reviewFilter === 'All' ? TEAL : '#6b6760',
             }}
           >
@@ -259,7 +259,7 @@ export default function AIEquipmentCategory() {
               className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
               style={{
                 borderColor: reviewFilter === rs ? TEAL : '#e8e6e0',
-                background:  reviewFilter === rs ? '#e0f5f6' : 'white',
+                background:  reviewFilter === rs ? 'var(--color-oat)' : 'white',
                 color:       reviewFilter === rs ? TEAL : '#6b6760',
               }}
             >
@@ -311,7 +311,7 @@ export default function AIEquipmentCategory() {
                 <Link
                   key={cat}
                   to={`/ai-equipment/category/${catToSlug(cat)}`}
-                  className="text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
+                  className="text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
                   style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'var(--bg)' }}
                 >
                   {cat} <span className="ml-1" style={{ color: '#c5c2bb' }}>({count})</span>

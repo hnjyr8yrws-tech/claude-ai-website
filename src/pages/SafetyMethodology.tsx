@@ -4,7 +4,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import SafetyScore, { PILLARS, getTrustTier, getScoreColour, TrustTier } from '../components/SafetyScore';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 // ─── Tier comparison data ─────────────────────────────────────────────────────
 
@@ -170,7 +170,7 @@ export default function SafetyMethodology() {
                   </h3>
                   <span
                     className="flex-shrink-0 text-sm font-bold px-3 py-1 rounded-full"
-                    style={{ background: '#e0f5f6', color: TEAL }}
+                    style={{ background: 'var(--color-oat)', color: TEAL }}
                   >
                     {pillar.weight}%
                   </span>

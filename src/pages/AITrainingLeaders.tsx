@@ -3,7 +3,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { TRAINING, PATHWAY_LEADERS, type TrainingItem } from '../data/training';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 const pathwayItems: TrainingItem[] = PATHWAY_LEADERS
   .map(s => TRAINING.find(t => t.slug === s))

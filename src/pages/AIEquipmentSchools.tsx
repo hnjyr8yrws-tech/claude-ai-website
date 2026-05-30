@@ -10,7 +10,7 @@ import {
 } from '../data/equipment';
 import { badgeStyle, reviewBadge } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -338,7 +338,7 @@ export default function AIEquipmentSchools() {
               className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
               style={{
                 borderColor: purchaseFilter === opt.value ? TEAL : '#e8e6e0',
-                background: purchaseFilter === opt.value ? '#e0f5f6' : 'white',
+                background: purchaseFilter === opt.value ? 'var(--color-oat)' : 'white',
                 color: purchaseFilter === opt.value ? TEAL : '#6b6760',
               }}
             >

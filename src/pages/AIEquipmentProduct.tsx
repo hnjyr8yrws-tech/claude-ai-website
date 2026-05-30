@@ -9,7 +9,7 @@ import {
 } from '../data/equipment';
 import { badgeStyle, reviewBadge, catToSlug } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -144,7 +144,7 @@ export default function AIEquipmentProduct() {
             <div className="flex items-center gap-2 mb-4 flex-wrap">
               <Link
                 to={`/ai-equipment/category/${categorySlug}`}
-                className="text-[10px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full border transition-colors hover:border-[#00808a]"
+                className="text-[10px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full border transition-colors hover:border-[var(--color-promptly-lime)]"
                 style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
               >
                 {product.category}
@@ -195,7 +195,7 @@ export default function AIEquipmentProduct() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {product.senCategory.map((s: string) => (
-                    <span key={s} className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+                    <span key={s} className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
                       {s}
                     </span>
                   ))}

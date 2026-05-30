@@ -11,7 +11,7 @@ import {
 } from '../data/equipment';
 import { badgeStyle, reviewBadge } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -79,7 +79,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map((s: string) => (
-          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
             {s}
           </span>
         ))}

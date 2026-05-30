@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import SectionLabel from '../components/SectionLabel';
 import SEO from '../components/SEO';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -215,8 +215,8 @@ function RoleTags({ roles }: { roles: Role[] }) {
 
 function Badge({ label }: { label: PaidCourse['badge'] }) {
   const styles: Record<PaidCourse['badge'], { bg: string; text: string }> = {
-    'Promptly Recommended': { bg: '#e0f5f6', text: TEAL },
-    'Own Product':          { bg: '#e0f5f6', text: TEAL },
+    'Promptly Recommended': { bg: 'var(--color-oat)', text: TEAL },
+    'Own Product':          { bg: 'var(--color-oat)', text: TEAL },
     'Coming Soon':          { bg: '#f3f4f6', text: '#6b7280' },
   };
   const s = styles[label];
@@ -301,7 +301,7 @@ function LearningPathGenerator() {
             <select
               value={role}
               onChange={e => setRole(e.target.value as Role)}
-              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors appearance-none"
+              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors appearance-none"
               style={{ borderColor: '#e8e6e0', color: role ? 'var(--text)' : '#c5c2bb', background: 'white' }}
             >
               <option value="">Select your role…</option>
@@ -315,7 +315,7 @@ function LearningPathGenerator() {
             <select
               value={goal}
               onChange={e => setGoal(e.target.value as Goal)}
-              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors appearance-none"
+              className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors appearance-none"
               style={{ borderColor: '#e8e6e0', color: goal ? 'var(--text)' : '#c5c2bb', background: 'white' }}
             >
               <option value="">Select your goal…</option>
@@ -581,7 +581,7 @@ const Training: FC = () => {
                         className="text-xs font-medium px-2.5 py-1 rounded-lg border transition-all"
                         style={
                           summaryId === course.id
-                            ? { background: '#e0f5f6', color: TEAL, borderColor: TEAL }
+                            ? { background: 'var(--color-oat)', color: TEAL, borderColor: TEAL }
                             : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
                         }
                       >
@@ -731,7 +731,7 @@ const Training: FC = () => {
                   <span className="text-xl">{p.emoji}</span>
                   <span
                     className="text-[10px] font-semibold px-2 py-0.5 rounded"
-                    style={{ background: '#e0f5f6', color: TEAL }}
+                    style={{ background: 'var(--color-oat)', color: TEAL }}
                   >
                     {p.role}
                   </span>
@@ -778,7 +778,7 @@ const Training: FC = () => {
                   onChange={e => setPromptEmail(e.target.value)}
                   placeholder="your@school.ac.uk"
                   required
-                  className="flex-1 sm:w-52 px-3 py-2 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors"
+                  className="flex-1 sm:w-52 px-3 py-2 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors"
                   style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
                 />
                 <button

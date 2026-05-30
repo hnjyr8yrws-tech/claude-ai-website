@@ -8,7 +8,7 @@ import {
 } from '../data/equipment';
 import { reviewBadge } from './AIEquipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';
@@ -244,7 +244,7 @@ export default function AIEquipmentCompare() {
             <a
               key={item.label}
               href={item.href}
-              className="text-sm px-4 py-1.5 rounded-xl border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
+              className="text-sm px-4 py-1.5 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
               style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
             >
               {item.label}

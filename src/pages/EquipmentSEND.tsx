@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { EQUIPMENT, type EquipmentProduct, type EquipmentCategory } from '../data/equipment';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 // ─── SEND-specific data ───────────────────────────────────────────────────────
 
@@ -115,7 +115,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         {product.senCategory.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {product.senCategory.map(s => (
-              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
                 {s}
               </span>
             ))}
@@ -212,10 +212,10 @@ export default function EquipmentSEND() {
               <FadeIn key={col.title} delay={i * 0.06}>
                 <button
                   onClick={() => setCategoryFilter(col.category)}
-                  className="w-full text-left rounded-2xl border p-5 transition-colors hover:border-[#00808a] group"
+                  className="w-full text-left rounded-2xl border p-5 transition-colors hover:border-[var(--color-promptly-lime)] group"
                   style={{
                     borderColor: categoryFilter === col.category ? TEAL : '#e8e6e0',
-                    background: categoryFilter === col.category ? '#e0f5f6' : 'white',
+                    background: categoryFilter === col.category ? 'var(--color-oat)' : 'white',
                   }}
                 >
                   <div className="text-2xl mb-2" aria-hidden="true">{col.icon}</div>

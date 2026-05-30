@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
@@ -325,7 +325,7 @@ export default function WhoWeAre() {
                 >
                   <div
                     className="w-20 h-20 rounded-full flex items-center justify-center"
-                    style={{ background: '#e0f5f6' }}
+                    style={{ background: 'var(--color-oat)' }}
                   >
                     <span className="font-display text-3xl" style={{ color: TEAL }}>
                       {member.name[0]}
@@ -406,7 +406,7 @@ export default function WhoWeAre() {
               >
                 <span
                   className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold"
-                  style={{ background: '#e0f5f6', color: TEAL }}
+                  style={{ background: 'var(--color-oat)', color: TEAL }}
                 >
                   ✓
                 </span>

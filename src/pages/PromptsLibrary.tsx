@@ -81,7 +81,7 @@ const PromptsLibrary = () => {
         <div className="max-w-5xl mx-auto">
           <Link
             to="/prompts"
-            className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[#00808a] focus-visible:outline-none"
+            className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[var(--color-promptly-lime)] focus-visible:outline-none"
             style={{ color: '#9ca3af' }}
           >
             ← AI Prompts
@@ -111,7 +111,7 @@ const PromptsLibrary = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search packs..."
-                className="w-full pl-8 pr-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#00808a]"
+                className="w-full pl-8 pr-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
                 style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
                 aria-label="Search prompt packs"
               />
@@ -119,7 +119,7 @@ const PromptsLibrary = () => {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
-              className="px-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 focus:ring-[#00808a] cursor-pointer"
+              className="px-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)] cursor-pointer"
               style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#6b6760' }}
               aria-label="Sort packs"
             >
@@ -135,8 +135,8 @@ const PromptsLibrary = () => {
               <button
                 key={cat}
                 onClick={() => setCategoryFilter(cat)}
-                className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] ${
-                  categoryFilter === cat ? 'border-[#00808a] bg-[#e0f5f6] text-[#00808a]' : ''
+                className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] ${
+                  categoryFilter === cat ? 'border-[var(--color-promptly-lime)] bg-[var(--color-oat)] text-[var(--color-promptly-lime)]' : ''
                 }`}
                 style={
                   categoryFilter !== cat
@@ -158,8 +158,8 @@ const PromptsLibrary = () => {
                 <button
                   key={r}
                   onClick={() => setRoleFilter(r)}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] ${
-                    roleFilter === r ? 'border-[#00808a] bg-[#e0f5f6] text-[#00808a]' : ''
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] ${
+                    roleFilter === r ? 'border-[var(--color-promptly-lime)] bg-[var(--color-oat)] text-[var(--color-promptly-lime)]' : ''
                   }`}
                   style={
                     roleFilter !== r
@@ -179,8 +179,8 @@ const PromptsLibrary = () => {
                 <button
                   key={s}
                   onClick={() => setSenFilter(s)}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] ${
-                    senFilter === s ? 'border-[#00808a] bg-[#e0f5f6] text-[#00808a]' : ''
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] ${
+                    senFilter === s ? 'border-[var(--color-promptly-lime)] bg-[var(--color-oat)] text-[var(--color-promptly-lime)]' : ''
                   }`}
                   style={
                     senFilter !== s
@@ -200,8 +200,8 @@ const PromptsLibrary = () => {
                 <button
                   key={st}
                   onClick={() => setStageFilter(st)}
-                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] ${
-                    stageFilter === st ? 'border-[#00808a] bg-[#e0f5f6] text-[#00808a]' : ''
+                  className={`px-2.5 py-1 rounded-full text-[11px] font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] ${
+                    stageFilter === st ? 'border-[var(--color-promptly-lime)] bg-[var(--color-oat)] text-[var(--color-promptly-lime)]' : ''
                   }`}
                   style={
                     stageFilter !== st
@@ -228,7 +228,7 @@ const PromptsLibrary = () => {
             {isFiltered && (
               <button
                 onClick={clearFilters}
-                className="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a]"
+                className="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
               >
                 Clear filters
@@ -243,7 +243,7 @@ const PromptsLibrary = () => {
               <button
                 onClick={clearFilters}
                 className="text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-                style={{ background: '#00808a', color: 'white' }}
+                style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
               >
                 Clear all filters
               </button>

@@ -7,7 +7,7 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 
 const PromoTeaser: FC = () => (
-  <section id="prompts" aria-labelledby="prompts-teaser-heading" className="py-16 bg-teal-50">
+  <section id="prompts" aria-labelledby="prompts-teaser-heading" className="py-16 bg-[var(--color-oat)]">
     <div className="max-w-2xl mx-auto px-6 text-center">
       <motion.div
         className="space-y-6"
@@ -16,7 +16,7 @@ const PromoTeaser: FC = () => (
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <span className="inline-block bg-teal-100 text-teal-800 text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full border border-teal-200">
+        <span className="inline-block bg-[var(--color-oat)] text-[var(--color-ink)] text-[11px] font-bold tracking-[0.18em] uppercase px-4 py-1.5 rounded-full border border-[var(--color-oat)]">
           Free Bonus
         </span>
         <h2 id="prompts-teaser-heading" className="text-3xl font-bold text-gray-900">
@@ -29,9 +29,9 @@ const PromoTeaser: FC = () => (
           href="/prompts"
           whileHover={{ scale: 1.03, y: -2 }}
           whileTap={{ scale: 0.97 }}
-          className="inline-block px-8 py-3.5 rounded-xl border-2 border-teal-600 text-teal-700 font-semibold
-                     hover:bg-teal-600 hover:text-white transition-all
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
+          className="inline-block px-8 py-3.5 rounded-xl border-2 border-[var(--color-promptly-lime)] text-[var(--color-ink)] font-semibold
+                     hover:bg-[var(--color-promptly-lime)] hover:text-[var(--color-ink)] transition-all
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
         >
           Browse Prompts Free →
         </motion.a>

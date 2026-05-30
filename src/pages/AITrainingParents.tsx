@@ -3,7 +3,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { TRAINING, PATHWAY_PARENTS, type TrainingItem } from '../data/training';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
 const AMBER_TEXT = '#92400e';
 const AMBER_BORDER = '#fcd34d';

@@ -83,7 +83,7 @@ const PromptsPack = () => {
     return (
       <div className="px-5 sm:px-8 py-16 text-center" style={{ background: 'var(--bg)' }}>
         <p className="font-display text-xl mb-4" style={{ color: 'var(--text)' }}>Pack not found.</p>
-        <Link to="/prompts/library" style={{ color: '#00808a' }}>{'\u2190'} Browse all packs</Link>
+        <Link to="/prompts/library" style={{ color: 'var(--color-ink)' }}>{'\u2190'} Browse all packs</Link>
       </div>
     );
   }
@@ -112,13 +112,13 @@ const PromptsPack = () => {
         <div className="max-w-3xl mx-auto">
           <ol className="flex items-center gap-1.5 text-xs flex-wrap" style={{ color: '#9ca3af' }}>
             <li>
-              <Link to="/prompts" className="hover:text-[#00808a] transition-colors">Prompts</Link>
+              <Link to="/prompts" className="hover:text-[var(--color-promptly-lime)] transition-colors">Prompts</Link>
             </li>
             <li aria-hidden="true">/</li>
             <li>
               <Link
                 to={`/prompts/category/${pack.categorySlug}`}
-                className="hover:text-[#00808a] transition-colors"
+                className="hover:text-[var(--color-promptly-lime)] transition-colors"
               >
                 {pack.category}
               </Link>
@@ -135,7 +135,7 @@ const PromptsPack = () => {
           <div className="flex items-center gap-2 flex-wrap mb-3">
             <span
               className="text-[11px] font-bold tracking-widest uppercase px-2 py-0.5 rounded"
-              style={{ background: '#e0f5f6', color: '#00808a' }}
+              style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
             >
               Pack {String(pack.id).padStart(2, '0')}
             </span>
@@ -229,7 +229,7 @@ const PromptsPack = () => {
           {/* Show remaining prompts when unlocked */}
           {showAll && remainingPrompts.length > 0 && (
             <div className="space-y-3 mt-8 pt-8 border-t" style={{ borderColor: '#e8e6e0' }}>
-              <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#00808a' }}>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--color-ink)' }}>
                 Full pack
               </p>
               {remainingPrompts.map((prompt, i) => (
@@ -265,7 +265,7 @@ const PromptsPack = () => {
               <li key={step.n} className="flex gap-4 p-4 rounded-xl bg-white border" style={{ borderColor: '#e8e6e0' }}>
                 <span
                   className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold"
-                  style={{ background: '#e0f5f6', color: '#00808a' }}
+                  style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
                   aria-hidden="true"
                 >
                   {step.n}

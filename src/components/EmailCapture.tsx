@@ -10,7 +10,7 @@ import { FC, FormEvent, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBrevo } from '../hooks/useBrevo';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 const ROLES = [
   'Teacher', 'SLT', 'SEND Lead', 'DSL',

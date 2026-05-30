@@ -50,12 +50,12 @@ const Navbar: FC = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 flex-shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+            className="flex items-center gap-2.5 flex-shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
             aria-label="GetPromptly – go to homepage"
           >
             <div
               className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-              style={{ background: '#00808a' }}
+              style={{ background: 'var(--color-promptly-lime)' }}
               aria-hidden="true"
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -76,7 +76,7 @@ const Navbar: FC = () => {
                 className={({ isActive }) =>
                   `px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
-                      ? 'text-[#00808a] bg-[#e0f5f6]'
+                      ? 'text-[var(--color-promptly-lime)] bg-[var(--color-oat)]'
                       : 'text-[#6b6760] hover:text-[#1c1a15] hover:bg-[#eeece7]'
                   }`
                 }
@@ -91,8 +91,8 @@ const Navbar: FC = () => {
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
               aria-label="Open Promptly AI chat"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2"
-              style={{ background: '#00808a' }}
+              className="hidden sm:flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
+              style={{ background: 'var(--color-promptly-lime)' }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
                 <path
@@ -106,7 +106,7 @@ const Navbar: FC = () => {
             {/* Hamburger — min 44×44px touch target */}
             <button
               onClick={() => setMenuOpen((o) => !o)}
-              className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg transition-colors hover:bg-[#eeece7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="md:hidden flex items-center justify-center w-11 h-11 rounded-lg transition-colors hover:bg-[#eeece7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={menuOpen}
               aria-controls="mobile-nav"
@@ -156,7 +156,7 @@ const Navbar: FC = () => {
                     to={link.to}
                     className={({ isActive }) =>
                       `px-4 py-3 rounded-xl text-sm font-medium transition-colors min-h-[44px] flex items-center ${
-                        isActive ? 'text-[#00808a] bg-[#e0f5f6]' : 'text-[#6b6760] hover:bg-[#eeece7]'
+                        isActive ? 'text-[var(--color-promptly-lime)] bg-[var(--color-oat)]' : 'text-[#6b6760] hover:bg-[#eeece7]'
                       }`
                     }
                   >
@@ -169,7 +169,7 @@ const Navbar: FC = () => {
                     window.dispatchEvent(new CustomEvent('open-agent-chat'));
                   }}
                   className="mt-2 px-4 py-3 min-h-[44px] rounded-xl text-sm font-semibold text-white text-left flex items-center gap-2"
-                  style={{ background: '#00808a' }}
+                  style={{ background: 'var(--color-promptly-lime)' }}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
                     <path

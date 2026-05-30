@@ -18,7 +18,7 @@ import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 // ─── Score bar ────────────────────────────────────────────────────────────────
 
@@ -158,7 +158,7 @@ const ToolDetail = () => {
       <nav aria-label="Breadcrumb" className="px-5 sm:px-8 pt-6" style={{ background: 'var(--bg)' }}>
         <div className="max-w-3xl mx-auto">
           <ol className="flex items-center gap-1.5 text-xs flex-wrap" style={{ color: '#9ca3af' }}>
-            <li><Link to="/tools" className="hover:text-[#00808a] transition-colors">Tools</Link></li>
+            <li><Link to="/tools" className="hover:text-[var(--color-promptly-lime)] transition-colors">Tools</Link></li>
             <li aria-hidden="true">/</li>
             <li className="font-medium truncate max-w-[200px]" style={{ color: 'var(--text)' }}>{tool.name}</li>
           </ol>
@@ -177,7 +177,7 @@ const ToolDetail = () => {
               {tool.tier}
             </span>
             {tool.ukReady === 'Yes' && (
-              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
                 UK Ready
               </span>
             )}
@@ -307,7 +307,7 @@ const ToolDetail = () => {
           <h2 className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>
             {ctaLabel} {tool.name}
           </h2>
-          <div className="rounded-2xl border p-6" style={{ borderColor: TEAL, background: '#e0f5f6' }}>
+          <div className="rounded-2xl border p-6" style={{ borderColor: TEAL, background: 'var(--color-oat)' }}>
             <p className="text-sm leading-relaxed mb-4" style={{ color: '#374151' }}>
               {tool.desc}
             </p>

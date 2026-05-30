@@ -6,7 +6,7 @@ import { track } from '../utils/analytics';
 import AgentCTACard from '../components/AgentCTACard';
 
 // ─── Design tokens ─────────────────────────────────────────────────────────────
-const TEAL   = '#00808a';
+const TEAL   = 'var(--color-promptly-lime)';
 const BG     = '#f7f6f2';
 const DARK   = '#111210';
 const TEXT   = '#1c1a15';
@@ -262,7 +262,7 @@ const FaqItem: FC<{ q: string; a: string }> = ({ q, a }) => {
     <div className="border-b" style={{ borderColor: BORDER }}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full flex items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded"
+        className="w-full flex items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
         aria-expanded={open}
       >
         <span className="font-medium text-[15px]" style={{ color: TEXT }}>{q}</span>
@@ -359,7 +359,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.name}
             onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a]"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
             style={{ background: 'white', borderColor: BORDER, color: TEXT }}
             placeholder="Jane Smith"
           />
@@ -374,7 +374,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.school}
             onChange={e => setForm(f => ({ ...f, school: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a]"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
             style={{ background: 'white', borderColor: BORDER, color: TEXT }}
             placeholder="Oakfield Primary School"
           />
@@ -391,7 +391,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.role}
             onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a] appearance-none"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)] appearance-none"
             style={{ background: 'white', borderColor: BORDER, color: form.role ? TEXT : MUTED }}
           >
             <option value="" disabled>Select your role…</option>
@@ -407,7 +407,7 @@ const ConsultationForm: FC = () => {
             required
             value={form.need}
             onChange={e => setForm(f => ({ ...f, need: e.target.value }))}
-            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a] appearance-none"
+            className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)] appearance-none"
             style={{ background: 'white', borderColor: BORDER, color: form.need ? TEXT : MUTED }}
           >
             <option value="" disabled>Select a topic…</option>
@@ -425,7 +425,7 @@ const ConsultationForm: FC = () => {
           rows={4}
           value={form.message}
           onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-          className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[#00808a] resize-none"
+          className="w-full rounded-xl px-4 py-3 text-sm border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)] resize-none"
           style={{ background: 'white', borderColor: BORDER, color: TEXT }}
           placeholder="E.g. We are a two-form entry primary looking to improve AI literacy across Key Stage 2..."
         />
@@ -433,7 +433,7 @@ const ConsultationForm: FC = () => {
 
       <button
         type="submit"
-        className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2"
+        className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
         style={{ background: TEAL }}
       >
         Send consultation request
@@ -484,21 +484,21 @@ const Schools: FC = () => {
             <div className="flex flex-wrap gap-3">
               <a
                 href="#consultation"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
                 style={{ background: TEAL }}
               >
                 Request a Consultation
               </a>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: 'school-toolkit' } }))}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
                 style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
               >
                 Receive the school toolkit
               </button>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
                 style={{ background: 'transparent', color: '#d0cdc8', border: '1px solid #2a2825' }}
               >
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -554,7 +554,7 @@ const Schools: FC = () => {
                 aria-selected={activeTab === a.id}
                 aria-controls={`tab-panel-${a.id}`}
                 onClick={() => setActiveTab(a.id)}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{
                   background: activeTab === a.id ? TEAL : BG,
                   color: activeTab === a.id ? 'white' : MUTED,
@@ -587,7 +587,7 @@ const Schools: FC = () => {
                   <li key={pt} className="flex items-start gap-3">
                     <span
                       className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{ background: '#e0f5f6' }}
+                      style={{ background: 'var(--color-oat)' }}
                       aria-hidden="true"
                     >
                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -600,7 +600,7 @@ const Schools: FC = () => {
               </ul>
               <Link
                 to={active.cta.to}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{ background: TEAL }}
               >
                 {active.cta.label}
@@ -633,7 +633,7 @@ const Schools: FC = () => {
                   <div className="flex items-center gap-3 mb-5">
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center font-display text-sm font-bold flex-shrink-0"
-                      style={{ background: '#e0f5f6', color: TEAL }}
+                      style={{ background: 'var(--color-oat)', color: TEAL }}
                       aria-hidden="true"
                     >
                       {s.letter}
@@ -643,14 +643,14 @@ const Schools: FC = () => {
                   <ul className="space-y-2.5 flex-1 mb-5" role="list">
                     {s.items.map(item => (
                       <li key={item} className="flex items-start gap-2.5">
-                        <span className="text-[#00808a] flex-shrink-0 mt-0.5" aria-hidden="true">·</span>
+                        <span className="text-[var(--color-promptly-lime)] flex-shrink-0 mt-0.5" aria-hidden="true">·</span>
                         <span className="text-sm leading-relaxed" style={{ color: MUTED }}>{item}</span>
                       </li>
                     ))}
                   </ul>
                   <Link
                     to={s.to}
-                    className="text-sm font-semibold flex items-center gap-1.5 w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a] rounded"
+                    className="text-sm font-semibold flex items-center gap-1.5 w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
                     style={{ color: TEAL }}
                   >
                     Explore
@@ -784,7 +784,7 @@ const Schools: FC = () => {
                   <div key={item.label} className="flex items-start gap-3">
                     <span
                       className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{ background: '#e0f5f6' }}
+                      style={{ background: 'var(--color-oat)' }}
                       aria-hidden="true"
                     >
                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -846,7 +846,7 @@ const Schools: FC = () => {
               <FadeIn key={link.to} delay={i * 0.05}>
                 <Link
                   to={link.to}
-                  className="rounded-2xl p-4 text-center block transition-colors hover:border-[#00808a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                  className="rounded-2xl p-4 text-center block transition-colors hover:border-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                   style={{ background: 'white', border: `1px solid ${BORDER}` }}
                 >
                   <p className="text-sm font-semibold mb-1" style={{ color: TEXT }}>{link.label}</p>
@@ -876,7 +876,7 @@ const Schools: FC = () => {
           <div className="flex justify-center mt-6">
             <a
               href="#consultation"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
             >
               Or request a consultation →

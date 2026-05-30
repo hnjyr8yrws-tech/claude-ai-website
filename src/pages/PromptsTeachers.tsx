@@ -74,7 +74,7 @@ const PromptsTeachers = () => {
       {/* Hero */}
       <section className="px-5 sm:px-8 pt-16 pb-12" style={{ background: 'var(--bg)' }}>
         <div className="max-w-3xl mx-auto">
-          <Link to="/prompts" className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[#00808a]" style={{ color: '#9ca3af' }}>
+          <Link to="/prompts" className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[var(--color-promptly-lime)]" style={{ color: '#9ca3af' }}>
             ← AI Prompts
           </Link>
           <SectionLabel>For Teachers</SectionLabel>
@@ -88,13 +88,13 @@ const PromptsTeachers = () => {
             <Link
               to="/prompts/library"
               className="px-5 py-2.5 rounded-xl font-semibold text-sm transition-colors"
-              style={{ background: '#00808a', color: 'white' }}
+              style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
             >
               Browse All Packs →
             </Link>
             <Link
               to="/ai-training/teachers"
-              className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[#00808a] hover:text-[#00808a]"
+              className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
               style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
             >
               AI Training for Teachers
@@ -171,9 +171,9 @@ const PromptsTeachers = () => {
       {/* Cross-links */}
       <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
         <div className="max-w-3xl mx-auto flex flex-wrap gap-3">
-          <Link to="/ai-training/teachers" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Training for Teachers →</Link>
-          <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Tools Directory →</Link>
-          <Link to="/safety-methodology" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[#00808a] hover:text-[#00808a]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>Safety Methodology →</Link>
+          <Link to="/ai-training/teachers" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Training for Teachers →</Link>
+          <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Tools Directory →</Link>
+          <Link to="/safety-methodology" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>Safety Methodology →</Link>
         </div>
       </section>
     </>

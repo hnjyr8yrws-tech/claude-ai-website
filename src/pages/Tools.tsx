@@ -17,7 +17,7 @@ import {
   CAT_COLOURS, TIER_STYLE,
 } from '../data/tools';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -128,7 +128,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
               <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: '#c5c2bb' }}>Suitable For</p>
               <div className="flex flex-wrap gap-1.5">
                 {tool.audience.map(a => (
-                  <span key={a} className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+                  <span key={a} className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
                     {a}
                   </span>
                 ))}
@@ -256,7 +256,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
             required
             value={toolName}
             onChange={e => setToolName(e.target.value)}
-            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
+            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
             style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#1c1a15' }}
           />
         </div>
@@ -268,7 +268,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="you@school.ac.uk"
-            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
+            className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
             style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#1c1a15' }}
           />
         </div>
@@ -363,7 +363,7 @@ function ToolCard({
             </span>
           )}
           {tool.free && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#e0f5f6', color: TEAL }}>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
               Free tier
             </span>
           )}
@@ -721,7 +721,7 @@ export default function Tools() {
         </div>
 
         {/* ── SCORE A TOOL ── */}
-        <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: TEAL, background: '#e0f5f6' }}>
+        <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: TEAL, background: 'var(--color-oat)' }}>
           <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>Score a Tool</p>
           <h2 className="font-display text-xl sm:text-2xl mb-2" style={{ color: 'var(--text)' }}>
             Check any AI tool's safety score
@@ -737,7 +737,7 @@ export default function Tools() {
                 value={scoreQuery}
                 onChange={e => setScoreQuery(e.target.value)}
                 placeholder="e.g. ChatGPT, Canva, briskteaching.com…"
-                className="w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[#00808a]"
+                className="w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
                 style={{ borderColor: TEAL, background: 'white', color: 'var(--text)' }}
                 aria-label="Tool name or URL"
               />
@@ -802,14 +802,14 @@ export default function Tools() {
                 if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value });
               }}
               placeholder={`Search ${STAT_TOTAL} tools by name, category or description…`}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a] transition-colors"
+              className="w-full pl-9 pr-4 py-2.5 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors"
               style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
             />
           </div>
           <select
             value={sortOption}
             onChange={e => setSortOption(e.target.value as SortOption)}
-            className="px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[#00808a]"
+            className="px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)]"
             style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760', minWidth: '180px' }}
           >
             <option value="A-Z">Sort: A–Z</option>
@@ -908,7 +908,7 @@ export default function Tools() {
                 </p>
                 <a
                   href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                   style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
                 >
                   Suggest a tool at info@getpromptly.co.uk
@@ -1012,7 +1012,7 @@ export default function Tools() {
 
             {/* Compare shortcut */}
             {compareList.length > 0 && (
-              <div className="rounded-2xl border p-4" style={{ borderColor: TEAL, background: '#e0f5f6' }}>
+              <div className="rounded-2xl border p-4" style={{ borderColor: TEAL, background: 'var(--color-oat)' }}>
                 <p className="text-xs font-semibold mb-2" style={{ color: TEAL }}>
                   {compareList.length}/3 tools selected
                 </p>
@@ -1048,7 +1048,7 @@ export default function Tools() {
             </div>
             <a
               href="mailto:info@getpromptly.co.uk?subject=Suggest%20an%20AI%20tool%20for%20GetPromptly"
-              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00808a]"
+              className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ background: TEAL }}
             >
               info@getpromptly.co.uk

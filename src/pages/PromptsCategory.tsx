@@ -56,7 +56,7 @@ const PromptsCategory = () => {
     return (
       <div className="px-5 sm:px-8 py-16 text-center" style={{ background: 'var(--bg)' }}>
         <p className="text-lg font-display mb-4" style={{ color: 'var(--text)' }}>Category not found.</p>
-        <Link to="/prompts/library" style={{ color: '#00808a' }}>← Back to library</Link>
+        <Link to="/prompts/library" style={{ color: 'var(--color-ink)' }}>← Back to library</Link>
       </div>
     );
   }
@@ -75,7 +75,7 @@ const PromptsCategory = () => {
         <div className="max-w-5xl mx-auto">
           <Link
             to="/prompts/library"
-            className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[#00808a] focus-visible:outline-none"
+            className="inline-flex items-center gap-1 text-sm mb-4 transition-colors hover:text-[var(--color-promptly-lime)] focus-visible:outline-none"
             style={{ color: '#9ca3af' }}
           >
             ← Back to Library
@@ -108,8 +108,8 @@ const PromptsCategory = () => {
               <button
                 key={s}
                 onClick={() => setSenFilter(s)}
-                className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a] ${
-                  senFilter === s ? 'border-[#00808a] bg-[#e0f5f6] text-[#00808a]' : ''
+                className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] ${
+                  senFilter === s ? 'border-[var(--color-promptly-lime)] bg-[var(--color-oat)] text-[var(--color-ink)]' : ''
                 }`}
                 style={
                   senFilter !== s
@@ -134,7 +134,7 @@ const PromptsCategory = () => {
           {filtered.length === 0 ? (
             <div className="text-center py-12">
               <p className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>No packs match this filter.</p>
-              <button onClick={() => setSenFilter('All')} className="text-sm" style={{ color: '#00808a' }}>Clear filter</button>
+              <button onClick={() => setSenFilter('All')} className="text-sm" style={{ color: 'var(--color-ink)' }}>Clear filter</button>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -158,7 +158,7 @@ const PromptsCategory = () => {
                   <Link
                     key={slug}
                     to={`/prompts/category/${slug}`}
-                    className="px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[#00808a] hover:text-[#00808a] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00808a]"
+                    className="px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
                     style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
                   >
                     {name}

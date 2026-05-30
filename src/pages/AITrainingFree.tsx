@@ -4,7 +4,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { TRAINING, type TrainingItem } from '../data/training';
 
-const TEAL = '#00808a';
+const TEAL = 'var(--color-promptly-lime)';
 
 type AudienceFilter = 'All' | 'Teachers' | 'Parents' | 'Students' | 'SEND' | 'Leaders';
 

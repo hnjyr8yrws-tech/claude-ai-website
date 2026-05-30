@@ -10,12 +10,24 @@
 /* ── Design system CSS variables ──────────────────────────── */
 :root {
   /* Brand palette */
-  --bg:       #f7f6f2;   /* warm off-white */
-  --accent:   #00808a;   /* teal — headings and CTAs only */
-  --text:     #1c1a15;   /* near-black body text */
-  --dark-bg:  #111210;   /* agent / dark section */
-  --subtle:   #e8e6e0;   /* hairline borders */
-  --muted:    #6b6760;   /* secondary text */
+  --bg:                #F5F2EC;
+  --accent:            #C8E44A;
+  --text:              #1A1A0E;
+  --dark-bg:           #1E1E1E;
+  --subtle:            #E8E4DC;
+  --muted:             #9C9C8A;
+
+  --color-ground-black:    #1E1E1E;
+  --color-oat:             #F5F2EC;
+  --color-ink:             #1A1A0E;
+  --color-promptly-lime:   #C8E44A;
+  --color-fog:             #9C9C8A;
+  --color-rule:            #E8E4DC;
+  --color-pillar-privacy:       #6A8CAF;
+  --color-pillar-safeguarding:  #C8E44A;
+  --color-pillar-age:          #8C7A52;
+  --color-pillar-transparency: #4A4F5C;
+  --color-pillar-accessibility:#D97757;
 
   /* shadcn/ui tokens (keep for component compatibility) */
   --background:         40 30% 97%;
@@ -24,20 +36,20 @@
   --card-foreground:    30 10% 10%;
   --popover:            0 0% 100%;
   --popover-foreground: 30 10% 10%;
-  --primary:            183 100% 27%;   /* teal */
-  --primary-foreground: 0 0% 100%;
+  --primary:            0 0% 12%;
+  --primary-foreground: 60 30% 96%;
   --secondary:          40 15% 94%;
   --secondary-foreground: 30 10% 20%;
   --muted:              40 15% 94%;
-  --muted-foreground:   30 8% 42%;
-  --accent:             183 100% 27%;
-  --accent-foreground:  0 0% 100%;
+  --muted-foreground:   55 9% 58%;
+  --accent:             71 74% 59%;
+  --accent-foreground:  60 30% 8%;
   --destructive:        0 84% 60%;
   --destructive-foreground: 0 0% 100%;
-  --border:             40 12% 88%;
-  --input:              40 12% 88%;
-  --ring:               183 100% 27%;
-  --radius:             0.75rem;
+  --border:             40 20% 89%;
+  --input:              40 20% 89%;
+  --ring:               71 74% 59%;
+  --radius:             0.5rem;
 }
 
 /* ── Reset ───────────────────────────────────────────────── */
@@ -60,16 +72,16 @@ html, body, #root {
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Satoshi', system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   color-scheme: light;
 }
 
-/* ── Typography: Instrument Serif for display headings ───── */
+/* ── Typography: Fraunces for display headings ─────────── */
 h1, h2, h3,
 .font-display {
-  font-family: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
   font-weight: 400;
   letter-spacing: -0.01em;
 }
@@ -85,7 +97,7 @@ h1, h2, h3,
 
 /* ── Focus ring ──────────────────────────────────────────── */
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--color-promptly-lime);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -106,7 +118,7 @@ h1, h2, h3,
   left: 1rem;
   z-index: 99999;
   padding: 10px 20px;
-  background: #00808a;
+  background: var(--color-promptly-lime);
   color: white;
   font-family: 'Inter', system-ui, sans-serif;
   font-size: 14px;
@@ -158,12 +170,12 @@ h1, h2, h3,
 /* ── Utilities ───────────────────────────────────────────── */
 @layer utilities {
   .font-display {
-    font-family: 'Instrument Serif', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
   }
-  .text-accent { color: var(--accent); }
+  .text-accent { color: var(--color-promptly-lime); }
   .bg-site    { background-color: var(--bg); }
   .bg-dark    { background-color: var(--dark-bg); }
-  .text-muted-site { color: var(--muted); }
+  .text-muted-site { color: var(--color-fog); }
   .border-subtle { border-color: var(--subtle); }
 
   /* Clean editorial card */
