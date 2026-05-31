@@ -69,7 +69,7 @@ const SUPPLIER_NOTES = [
     type: 'School Reseller',
     title: 'School Resellers (LGfL, Computacenter etc.)',
     desc: 'Volume resellers operating on education framework contracts. Best for devices, AV equipment, and large-scale procurement. Offer leasing and asset management.',
-    pros: ['Framework compliance', 'Leasing options', 'Account management', 'Volume pricing'],
+    pros: ['Framework-aligned', 'Leasing options', 'Account management', 'Volume pricing'],
     cons: ['Minimum order thresholds', 'Less suitable for small one-off items'],
   },
   {
@@ -169,7 +169,7 @@ export default function EquipmentSchools() {
           <span style={{ color: 'var(--color-ink-accent)' }}>Procurement.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
-          {SCHOOL_PRODUCTS.length} products available for school procurement — with supplier types, purchase models, VAT notes, and framework compliance guidance.
+          {SCHOOL_PRODUCTS.length} products available for school procurement — with supplier types, purchase models, VAT notes, and framework guidance.
         </p>
       </div>
 

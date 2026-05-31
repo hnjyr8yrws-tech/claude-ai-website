@@ -226,7 +226,7 @@ export default function WhoWeAre() {
             </FadeIn>
             <FadeIn delay={0.15}>
               <p>
-                We are the only UK EdTech advisory platform with live 24/7 AI agents embedded throughout the site — combining independent human expertise with real-time intelligent guidance. Ask the agent about any tool, training course or product and it draws on our full reviewed database to give you a relevant, honest answer.
+                We are the only UK EdTech advisory platform with live 24/7 AI agents embedded throughout the site — combining independent human expertise with real-time guidance. Ask the agent about any tool, training course or product and it draws on our full reviewed database to give you a relevant, honest answer.
               </p>
             </FadeIn>
             <FadeIn delay={0.2}>

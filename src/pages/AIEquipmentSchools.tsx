@@ -18,7 +18,7 @@ const AMBER_BORDER = '#fcd34d';
 const ROLE_CARDS = [
   {
     title: 'Senior Leadership Team',
-    desc: 'Strategy, budget, compliance and digital vision for the whole school.',
+    desc: 'Strategy, budget, governance and digital vision for the whole school.',
     icon: '👔',
   },
   {

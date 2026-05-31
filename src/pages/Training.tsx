@@ -760,7 +760,7 @@ const Training: FC = () => {
                 Get the full prompt library — free
               </p>
               <p className="text-sm" style={{ color: '#6b6760' }}>
-                200+ prompts for every role. Enter your email to unlock instantly.
+                200+ prompts for every role. Enter your email to get them instantly.
               </p>
             </div>
             {promptEmailDone ? (

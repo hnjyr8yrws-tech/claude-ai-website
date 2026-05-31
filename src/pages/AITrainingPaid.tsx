@@ -42,7 +42,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             {item.affiliate && (
               <span
                 className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-                style={{ background: '#f5f3ff', color: '#7c3aed' }}
+                style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
               >
                 Affiliate
               </span>
@@ -133,7 +133,7 @@ export default function AITrainingPaid() {
               <path d="M8 5v4M8 11v.5" stroke="#92400e" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
             <p className="text-sm" style={{ color: AMBER_TEXT }}>
-              <strong>Affiliate disclosure:</strong> Some links below are affiliate links, marked with a purple "Affiliate" badge.
+              <strong>Affiliate disclosure:</strong> Some links below are affiliate links, marked with an "Affiliate" badge.
               We may earn a small commission at no extra cost to you. All reviews are independent — we never accept payment for positive coverage.
             </p>
           </div>

@@ -47,7 +47,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#fffbeb', color: '#92400e' }}>Paid</span>
             )}
             {item.affiliate && (
-              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f5f3ff', color: '#7c3aed' }}>Affiliate</span>
+              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Affiliate</span>
             )}
           </div>
         </div>

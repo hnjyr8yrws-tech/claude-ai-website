@@ -34,8 +34,8 @@ const CopyButton = ({ text, size = 'md', onCopied }: Props) => {
   return (
     <button
       onClick={handleCopy}
-      aria-label={copied ? 'Copied!' : 'Copy prompt to clipboard'}
-      title={copied ? 'Copied!' : 'Copy to clipboard'}
+      aria-label={copied ? 'Copied' : 'Copy prompt to clipboard'}
+      title={copied ? 'Copied' : 'Copy to clipboard'}
       className={`inline-flex items-center gap-1.5 rounded-md border font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] ${
         isSmall ? 'px-2 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'
       } ${
@@ -49,7 +49,7 @@ const CopyButton = ({ text, size = 'md', onCopied }: Props) => {
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
             <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Copied!
+          Copied
         </>
       ) : (
         <>

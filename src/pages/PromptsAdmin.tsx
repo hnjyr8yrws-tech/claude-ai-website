@@ -128,7 +128,7 @@ const PromptsAdmin = () => (
       <div className="max-w-3xl mx-auto">
         <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
           <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-            <strong style={{ color: '#1c1a15' }}>Important:</strong> Always review AI-generated letters and documents before sending. Ensure compliance with your school's data protection policy, GDPR obligations, and any applicable statutory requirements. AI outputs are a starting point — not a finished document.
+            <strong style={{ color: '#1c1a15' }}>Important:</strong> Always review AI-generated letters and documents before sending. Make sure they meet your school's data protection policy, GDPR obligations, and any applicable statutory requirements. AI outputs are a starting point — not a finished document.
           </p>
         </div>
       </div>

@@ -729,7 +729,7 @@ export default function Tools() {
           <AgentCTACard
             section="Luna · Tool Advisor"
             headline="Tell us your role and we'll shortlist 3 safe tools."
-            description="Our AI advisor knows every tool in the directory — safety scores, KCSIE compliance, free tiers — and matches them to your needs."
+            description="Our AI advisor knows every tool in the directory — safety scores, KCSIE alignment, free tiers — and matches them to your needs."
             prompts={[
               "What's the safest AI tool for a Year 5 classroom?",
               "Compare ChatGPT and Gemini for secondary school use",

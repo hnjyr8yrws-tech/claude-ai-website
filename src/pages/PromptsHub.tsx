@@ -443,7 +443,7 @@ const PromptsHub = () => {
               <h3 className="font-semibold text-base mb-1" style={{ color: 'var(--text)' }}>Start with the free pack</h3>
               <p className="text-sm mb-3" style={{ color: '#6b6760' }}>We'll email a role-specific starter pack you can copy into Claude, ChatGPT or Gemini today.</p>
               {freePackSent ? (
-                <p className="text-sm font-semibold py-2" style={{ color: 'var(--color-ink-accent)' }}>✓ Check your inbox — pack sent!</p>
+                <p className="text-sm font-semibold py-2" style={{ color: 'var(--color-ink-accent)' }}>✓ Check your inbox — pack sent.</p>
               ) : (
                 <form onSubmit={handleFreePackSubmit} className="flex flex-col sm:flex-row gap-2">
                   <label htmlFor="free-pack-email" className="sr-only">Email address</label>

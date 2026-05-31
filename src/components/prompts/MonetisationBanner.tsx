@@ -69,7 +69,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
       >
         <div className="text-3xl mb-3" aria-hidden="true">{'\u2705'}</div>
         <h3 className="font-display text-xl mb-2" style={{ color: '#15803d' }}>
-          Pack unlocked!
+          Pack ready.
         </h3>
         <p className="text-sm leading-relaxed mb-1" style={{ color: '#6b6760' }}>
           All {totalCount} prompts from <strong style={{ color: '#1c1a15' }}>{packTitle}</strong> are now visible below.
@@ -94,7 +94,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
           Get all {totalCount} prompts — free
         </h3>
         <p className="text-sm mb-5" style={{ color: '#6b6760' }}>
-          Enter your email to unlock the remaining {hiddenCount} prompts. We&rsquo;ll send the full pack to your inbox too.
+          Enter your email to see the remaining {hiddenCount} prompts. We&rsquo;ll send the full pack to your inbox too.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-3">

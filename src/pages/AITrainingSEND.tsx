@@ -12,7 +12,7 @@ const pathwayItems: TrainingItem[] = PATHWAY_SEND
 const GUIDANCE_BLOCKS = [
   {
     title: 'Screen reader compatible',
-    description: 'AbilityNet reviews AI tools for accessibility and has factsheets on using AI with visual impairments. Microsoft\'s platform is fully WCAG 2.1 compliant.',
+    description: 'AbilityNet reviews AI tools for accessibility and has factsheets on using AI with visual impairments. Microsoft\'s platform meets WCAG 2.1 AA.',
     slugs: ['abilitynet-ai-resources', 'microsoft-accessibility-ai'],
     note: 'AbilityNet is a UK charity. Their free advice line supports disabled people using technology.',
   },

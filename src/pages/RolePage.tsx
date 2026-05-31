@@ -354,7 +354,7 @@ const LEADER_DATA: RoleData = {
   heroTitle: 'Lead your school\'s AI strategy with confidence.',
   heroSub: 'From AI policy to Ofsted readiness, staff CPD to procurement. GetPromptly gives you the evidence and tools to lead.',
   seoTitle: 'AI for School Leaders — Strategy & CPD | GetPromptly',
-  seoDesc: 'AI strategy, policy templates and CPD for UK headteachers and SLT. Independent tool reviews and KCSIE 2025 compliance guidance.',
+  seoDesc: 'AI strategy, policy templates and CPD for UK headteachers and SLT. Independent tool reviews and KCSIE 2025 guidance.',
   seoKeywords: 'ai for school leaders, ai policy schools uk, headteacher ai strategy, school ai cpd',
   promptsTo: '/prompts/school-leaders', promptsLabel: 'Leadership prompts', agentRole: 'school leader',
   promptHighlights: ['AI policy drafting', 'Ofsted self-evaluation', 'Staff communication', 'School improvement planning', 'Governor reports', 'Budget proposals'],

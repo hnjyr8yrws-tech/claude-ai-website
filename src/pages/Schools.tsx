@@ -76,7 +76,7 @@ const AUDIENCES = [
         <path d="M7 8l-3 4m6-4l3 4m-3-4v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
       </svg>
     ),
-    heading: 'Evaluate tools against real compliance requirements',
+    heading: 'Evaluate tools against real safeguarding and data requirements',
     points: [
       'Check 120+ tools against KCSIE 2025, UK GDPR and ICO guidance',
       'Compare UK data residency, DPA availability and MDM compatibility',
