@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
+import { TOOLS } from '../data/tools';
+import { ScorePill } from '../components/trust/PillarCard';
 
 const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
@@ -26,6 +28,18 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
       {children}
     </motion.div>
   );
+}
+
+// Best-effort resolve a role tool-pick name to a real tool slug, so its Score
+// Pill can link to the tool's Pillar Card (§04 — a Score Pill must lead to one).
+function findToolSlug(name: string): string | undefined {
+  const n = name.toLowerCase();
+  return (
+    TOOLS.find((x) => x.name.toLowerCase() === n) ??
+    TOOLS.find(
+      (x) => x.name.toLowerCase().startsWith(n) || n.startsWith(x.name.toLowerCase()),
+    )
+  )?.slug;
 }
 
 // ─── Role data ────────────────────────────────────────────────────────────────
@@ -119,13 +133,15 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             </p>
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {d.tools.map((t, i) => (
+            {d.tools.map((t, i) => {
+              const slug = findToolSlug(t.name);
+              return (
               <FadeIn key={t.name} delay={i * 0.06}>
                 <div className="rounded-2xl border p-5 h-full flex flex-col" style={{ borderColor: BORDER, background: BG }}>
                   <div className="flex items-center justify-between mb-3">
                     <p className="font-semibold text-sm">{t.name}</p>
                     <div className="flex items-center gap-1.5">
-                      <span className="font-display text-xl leading-none" style={{ color: TEAL }}>{t.score}</span>
+                      <ScorePill score={t.score} to={slug ? `/tools/${slug}` : undefined} />
                       <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
                         style={{ background: t.tier === 'Trusted' ? 'rgba(34,197,94,0.1)' : 'rgba(245,158,11,0.1)', color: t.tier === 'Trusted' ? '#22c55e' : '#f59e0b' }}>
                         {t.tier}
@@ -135,7 +151,8 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                   <p className="text-xs leading-relaxed flex-1" style={{ color: '#6b6760' }}>{t.desc}</p>
                 </div>
               </FadeIn>
-            ))}
+              );
+            })}
           </div>
           <FadeIn delay={0.15}>
             <Link to="/tools" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>

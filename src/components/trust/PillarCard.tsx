@@ -1,0 +1,469 @@
+// GetPromptly — The Pillar Card (Brand Bible §04, "The Signature")
+//
+// A self-contained dark artefact: the 5-pillar trust ring + composite Promptly
+// Score + legend + methodology mark. The brand rule is "never show a score
+// naked" — wherever a Promptly Score appears, the Pillar Card (or a Score Pill
+// that links to one) must carry it.
+//
+// Colour comes from the CSS variables in src/index.css (--color-* ); fonts come
+// from the Tailwind families (font-serif/sans/mono). No hardcoded hex, no
+// hardcoded font names.
+//
+// CRITICAL: the ring geometry is COMPUTED with a polar(r, deg) trig helper so
+// every endpoint sits exactly on its radius. Arc coordinates are never
+// hardcoded — hardcoding makes the ring render oval.
+
+import { Link } from 'react-router-dom';
+
+// ----- Pillar model (fixed order, top-clockwise, never reordered) -----
+
+export interface PillarScores {
+  dataPrivacy: number; // 0–10
+  safeguarding: number; // 0–10
+  ageSuitability: number; // 0–10
+  transparency: number; // 0–10
+  accessibility: number; // 0–10
+}
+
+export type PillarCardState =
+  | 'active'
+  | 'provisional'
+  | 'updated'
+  | 'withdrawn'
+  | 'historic';
+
+interface Pillar {
+  key: keyof PillarScores;
+  label: string; // legend abbreviation (Brand Bible §04)
+  cssVar: string; // CSS custom property in src/index.css
+}
+
+// Top (12 o'clock) → clockwise: Privacy → Safeguarding → Age → Transparency → Accessibility.
+const PILLARS: Pillar[] = [
+  { key: 'dataPrivacy', label: 'Privacy', cssVar: '--color-pillar-privacy' },
+  { key: 'safeguarding', label: 'Safeguard', cssVar: '--color-pillar-safeguarding' },
+  { key: 'ageSuitability', label: 'Age Suit', cssVar: '--color-pillar-age' },
+  { key: 'transparency', label: 'Transp', cssVar: '--color-pillar-transparency' },
+  { key: 'accessibility', label: 'Access', cssVar: '--color-pillar-accessibility' },
+];
+
+const SEGMENTS = PILLARS.length; // 5
+const SEGMENT_DEG = 360 / SEGMENTS; // 72°
+
+// Geometry constants, in viewBox units. A fixed 240×240 viewBox keeps these
+// stable while the rendered px size scales via width/height.
+const VB = 240;
+const CX = VB / 2;
+const CY = VB / 2;
+const R_OUTER = 110;
+const R_INNER = 86;
+const R_BG = 118; // background disc
+const R_CENTRE = 78; // centre disc (carries the composite score)
+
+// ----- Trig helpers: every endpoint computed, never hardcoded -----
+
+interface Point {
+  x: number;
+  y: number;
+}
+
+/** Polar → cartesian, with 0° at 12 o'clock and degrees increasing clockwise. */
+function polar(cx: number, cy: number, r: number, deg: number): Point {
+  const rad = ((deg - 90) * Math.PI) / 180;
+  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+}
+
+/** A donut wedge path between two radii and two angles (drawn clockwise). */
+function wedgePath(
+  rOuter: number,
+  rInner: number,
+  startDeg: number,
+  endDeg: number,
+): string {
+  const oStart = polar(CX, CY, rOuter, startDeg);
+  const oEnd = polar(CX, CY, rOuter, endDeg);
+  const iEnd = polar(CX, CY, rInner, endDeg);
+  const iStart = polar(CX, CY, rInner, startDeg);
+  const largeArc = endDeg - startDeg > 180 ? 1 : 0;
+  return [
+    `M ${oStart.x} ${oStart.y}`,
+    `A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${oEnd.x} ${oEnd.y}`, // outer arc, clockwise
+    `L ${iEnd.x} ${iEnd.y}`,
+    `A ${rInner} ${rInner} 0 ${largeArc} 0 ${iStart.x} ${iStart.y}`, // inner arc, back
+    'Z',
+  ].join(' ');
+}
+
+const cssVar = (name: string) => `var(${name})`;
+
+// ----- Helpers to build PillarScores from the app's data shapes -----
+
+/**
+ * Map the array returned by derivePillars() in src/data/tools.ts — whose order
+ * is [Data Privacy, Age Appropriateness, Transparency, Safeguarding, Accessibility]
+ * — into the §04 PillarScores shape. Keeps the data model and the brand model
+ * decoupled.
+ */
+export function pillarScoresFromData(arr: number[]): PillarScores {
+  return {
+    dataPrivacy: arr[0],
+    ageSuitability: arr[1],
+    transparency: arr[2],
+    safeguarding: arr[3],
+    accessibility: arr[4],
+  };
+}
+
+/** Build PillarScores from values already in §04 order (Privacy, Safeguarding, Age, Transparency, Accessibility). */
+export function pillarScores(
+  dataPrivacy: number,
+  safeguarding: number,
+  ageSuitability: number,
+  transparency: number,
+  accessibility: number,
+): PillarScores {
+  return { dataPrivacy, safeguarding, ageSuitability, transparency, accessibility };
+}
+
+// ----- Component -----
+
+export interface PillarCardProps {
+  /** Tool name shown above the ring (omit on pages that already show it). */
+  toolName?: string;
+  /** Composite Promptly Score, 0–10. Optional for provisional cards. */
+  score?: number;
+  /** Per-pillar scores, 0–10. Optional for provisional cards. */
+  pillars?: PillarScores;
+  /** One-line Plain Verdict (§14). */
+  verdict?: string;
+  state?: PillarCardState;
+  /** Rendered ring size in px (default 240, the §04 reference). */
+  size?: number;
+  showName?: boolean;
+  showVerdict?: boolean;
+  showLegend?: boolean;
+  /** Methodology mark fields (§16). Version is always shown. */
+  methodologyVersion?: string;
+  verifiedDate?: string;
+  reviewer?: string;
+  /** For the "updated" state — the score change to stamp. */
+  change?: { from: number; to: number; date?: string };
+  className?: string;
+}
+
+export function PillarCard({
+  toolName,
+  score,
+  pillars,
+  verdict,
+  state = 'active',
+  size = 240,
+  showName = true,
+  showVerdict = true,
+  showLegend = true,
+  methodologyVersion = '2.1',
+  verifiedDate,
+  reviewer,
+  change,
+  className,
+}: PillarCardProps) {
+  const isProvisional = state === 'provisional';
+  const isWithdrawn = state === 'withdrawn';
+  const isHistoric = state === 'historic';
+  const hasData = !!pillars;
+
+  // Methodology mark text (§16 long form when fully attributed).
+  let mark: string;
+  if (isWithdrawn) {
+    mark = 'WITHDRAWN — SEE NOTES';
+  } else if (isProvisional) {
+    mark = `METHODOLOGY v${methodologyVersion} · PROVISIONAL`;
+  } else {
+    const parts = [`METHODOLOGY v${methodologyVersion}`];
+    if (verifiedDate) parts.push(`VERIFIED ${verifiedDate}`);
+    if (reviewer) parts.push(`REVIEWER ${reviewer}`);
+    if (isHistoric) parts.push('ARCHIVED');
+    mark = parts.join(' · ');
+  }
+
+  const centreLabel = isProvisional || score == null ? '—' : score.toFixed(1);
+
+  // Wedge fill colour: greyscale when withdrawn, otherwise the pillar colour.
+  const wedgeColour = (p: Pillar) =>
+    isWithdrawn ? cssVar('--color-fog') : cssVar(p.cssVar);
+
+  const wrapStyle: React.CSSProperties = {
+    background: cssVar('--color-ground-black'),
+    color: cssVar('--color-oat'),
+    opacity: isHistoric ? 0.6 : 1,
+    maxWidth: size + 48,
+  };
+
+  return (
+    <div
+      className={`inline-flex flex-col items-center gap-3.5 rounded-[10px] p-6 font-sans${
+        className ? ` ${className}` : ''
+      }`}
+      style={wrapStyle}
+    >
+      {showName && toolName && (
+        <div className="font-serif text-2xl leading-tight text-center">
+          {toolName}
+        </div>
+      )}
+
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${VB} ${VB}`}
+        role="img"
+        aria-label={
+          isProvisional || score == null
+            ? `${toolName ?? 'Tool'} — Promptly Score provisional`
+            : `${toolName ?? 'Tool'} — Promptly Score ${score.toFixed(1)} of 10`
+        }
+      >
+        {/* Background disc */}
+        <circle cx={CX} cy={CY} r={R_BG} fill={cssVar('--color-ground-black')} />
+
+        {/* Dim track behind the segments (shows the full ring) */}
+        <g opacity={0.18}>
+          {PILLARS.map((p, i) => (
+            <path
+              key={`track-${p.key}`}
+              d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
+              fill={wedgeColour(p)}
+            />
+          ))}
+        </g>
+
+        {/* Scored fills — opacity = pillar score / 10. */}
+        {hasData && !isProvisional && (
+          <g>
+            {PILLARS.map((p, i) => {
+              const sc = pillars![p.key];
+              return (
+                <path
+                  key={`fill-${p.key}`}
+                  d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
+                  fill={wedgeColour(p)}
+                  opacity={Math.max(0, Math.min(10, sc)) / 10}
+                />
+              );
+            })}
+          </g>
+        )}
+
+        {/* Provisional: stippled outer ring instead of solid fills */}
+        {isProvisional && (
+          <g fill="none" strokeDasharray="2 3" strokeWidth={1.5}>
+            {PILLARS.map((p, i) => (
+              <path
+                key={`prov-${p.key}`}
+                d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
+                stroke={cssVar(p.cssVar)}
+                opacity={0.6}
+              />
+            ))}
+          </g>
+        )}
+
+        {/* Hairline dividers between segments (computed radial lines) */}
+        <g stroke={cssVar('--color-ground-black')} strokeWidth={1.5}>
+          {PILLARS.map((_, i) => {
+            const deg = i * SEGMENT_DEG;
+            const a = polar(CX, CY, R_INNER, deg);
+            const b = polar(CX, CY, R_OUTER, deg);
+            return <line key={`div-${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />;
+          })}
+        </g>
+
+        {/* 12 o'clock orientation tick (§04) */}
+        <text
+          className="font-mono"
+          x={CX}
+          y={9}
+          textAnchor="middle"
+          fontSize={7}
+          letterSpacing={1.5}
+          fill={cssVar('--color-fog')}
+        >
+          PRIVACY ▾
+        </text>
+
+        {/* Centre disc with a thin lime ring */}
+        <circle
+          cx={CX}
+          cy={CY}
+          r={R_CENTRE}
+          fill={cssVar('--color-ground-black')}
+          stroke={cssVar('--color-promptly-lime')}
+          strokeWidth={1.5}
+        />
+
+        {/* Composite Promptly Score (Satoshi / font-sans) */}
+        <text
+          className="font-sans"
+          x={CX}
+          y={CY + 8}
+          textAnchor="middle"
+          fontWeight={700}
+          fontSize={58}
+          fontStyle={isProvisional ? 'italic' : 'normal'}
+          letterSpacing={-2}
+          fill={cssVar('--color-oat')}
+        >
+          {centreLabel}
+        </text>
+        <text
+          className="font-mono"
+          x={CX}
+          y={CY + 36}
+          textAnchor="middle"
+          fontSize={9}
+          letterSpacing={2}
+          fill={cssVar('--color-fog')}
+        >
+          PROMPTLY SCORE
+        </text>
+
+        {/* Withdrawn: redaction bar across the centre score */}
+        {isWithdrawn && (
+          <rect
+            x={CX - 50}
+            y={CY - 22}
+            width={100}
+            height={34}
+            fill={cssVar('--color-ground-black')}
+            stroke={cssVar('--color-promptly-lime')}
+            strokeWidth={1}
+          />
+        )}
+      </svg>
+
+      {showVerdict && verdict && (
+        <div
+          className="font-serif italic text-center leading-snug opacity-90"
+          style={{ fontSize: 16, maxWidth: size }}
+        >
+          {verdict}
+        </div>
+      )}
+
+      {showLegend && (
+        <div
+          className="grid w-full"
+          style={{
+            gridTemplateColumns: `repeat(${SEGMENTS}, 1fr)`,
+            gap: 8,
+            maxWidth: size,
+          }}
+        >
+          {PILLARS.map((p) => {
+            const sc = pillars?.[p.key];
+            const display = isProvisional || sc == null ? '—' : sc.toFixed(1);
+            return (
+              <div
+                key={`legend-${p.key}`}
+                className="font-mono uppercase"
+                style={{
+                  borderTop: `2px solid ${
+                    isWithdrawn ? cssVar('--color-fog') : cssVar(p.cssVar)
+                  }`,
+                  paddingTop: 4,
+                  fontSize: 9,
+                  letterSpacing: 0.5,
+                  color: cssVar('--color-oat'),
+                }}
+              >
+                {p.label}
+                <span
+                  className="font-sans block"
+                  style={{
+                    marginTop: 2,
+                    fontWeight: 700,
+                    fontSize: 16,
+                    letterSpacing: 0,
+                    textTransform: 'none',
+                  }}
+                >
+                  {display}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Methodology mark (§16) */}
+      <div
+        className="font-mono uppercase text-center"
+        style={{ fontSize: 10, letterSpacing: 1, color: cssVar('--color-fog') }}
+      >
+        {mark}
+      </div>
+
+      {/* Change-stamp for the "updated" state (§05/§12) */}
+      {state === 'updated' && change && (
+        <div
+          className="inline-flex items-center gap-2 font-mono rounded"
+          style={{
+            fontSize: 11,
+            padding: '5px 10px',
+            background: cssVar('--color-ground-black'),
+            border: `1px solid ${cssVar('--color-fog')}`,
+            color: cssVar('--color-oat'),
+          }}
+        >
+          {change.from.toFixed(1)}
+          <span style={{ color: cssVar('--color-promptly-lime') }}>→</span>
+          {change.to.toFixed(1)}
+          <span style={{ color: cssVar('--color-promptly-lime') }}>
+            {change.to >= change.from ? '↑' : '↓'}
+          </span>
+          {change.date && <span style={{ color: cssVar('--color-fog') }}>{change.date}</span>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ----- The legacy Score Pill (§04) -----
+// 28px lime-on-black. Allowed ONLY in dense lists, and must lead to the
+// underlying Pillar Card. Pass `to` to make it a router link; otherwise the
+// caller must ensure the surrounding row/card reveals the Pillar Card.
+
+export interface ScorePillProps {
+  score: number;
+  to?: string;
+  className?: string;
+}
+
+export function ScorePill({ score, to, className }: ScorePillProps) {
+  const pill = (
+    <span
+      className={`inline-flex items-center justify-center font-sans font-bold rounded-full${
+        className ? ` ${className}` : ''
+      }`}
+      style={{
+        background: cssVar('--color-ground-black'),
+        color: cssVar('--color-promptly-lime'),
+        fontSize: 12.5,
+        lineHeight: 1,
+        padding: '5px 11px',
+        letterSpacing: 0.2,
+      }}
+      aria-label={`Promptly Score ${score.toFixed(1)} of 10 — view Pillar Card`}
+    >
+      {score.toFixed(1)}
+    </span>
+  );
+
+  return to ? (
+    <Link to={to} className="no-underline">
+      {pill}
+    </Link>
+  ) : (
+    pill
+  );
+}

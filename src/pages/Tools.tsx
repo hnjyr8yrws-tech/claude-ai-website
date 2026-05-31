@@ -16,6 +16,7 @@ import {
   PILLARS, derivePillars, tierAction,
   CAT_COLOURS, TIER_STYLE,
 } from '../data/tools';
+import { PillarCard, ScorePill, pillarScoresFromData } from '../components/trust/PillarCard';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -59,12 +60,6 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4" style={{ background: '#111210' }}>
         <div className="flex items-center gap-3">
-          <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold text-white flex-shrink-0"
-            style={{ background: tool.safety >= 9 ? '#16a34a' : tool.safety >= 7 ? '#d97706' : tool.safety >= 5 ? '#ea580c' : '#dc2626' }}
-          >
-            {tool.reviewNeeded ? '?' : tool.safety}
-          </div>
           <div>
             <h3 className="font-display text-lg" style={{ color: 'white' }}>{tool.name}</h3>
             <div className="flex items-center gap-2 mt-0.5">
@@ -94,33 +89,16 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
           </div>
         ) : (
           <>
-            {/* Five pillar breakdown */}
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide mb-3" style={{ color: '#c5c2bb' }}>Safety Pillar Breakdown</p>
-              <div className="space-y-2.5">
-                {PILLARS.map((pillar, i) => {
-                  const val = pillars[i];
-                  const pct = (val / 10) * 100;
-                  const barColour = val >= 8 ? '#16a34a' : val >= 6 ? '#d97706' : val >= 4 ? '#ea580c' : '#dc2626';
-                  return (
-                    <div key={pillar}>
-                      <div className="flex justify-between text-xs mb-1">
-                        <span style={{ color: '#6b6760' }}>{pillar}</span>
-                        <span className="font-semibold" style={{ color: barColour }}>{val}/10</span>
-                      </div>
-                      <div className="h-2 rounded-full overflow-hidden" style={{ background: '#f3f4f6' }}>
-                        <motion.div
-                          className="h-full rounded-full"
-                          style={{ background: barColour }}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${pct}%` }}
-                          transition={{ duration: 0.6, delay: i * 0.08 }}
-                        />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+            {/* Pillar Card — the full §04 reveal for this tool's Promptly Score. */}
+            <div className="flex justify-center">
+              <PillarCard
+                score={tool.safety}
+                pillars={pillarScoresFromData(pillars)}
+                showName={false}
+                showVerdict={false}
+                size={220}
+                verifiedDate={tool.lastReviewed ? tool.lastReviewed.toUpperCase() : undefined}
+              />
             </div>
 
             {/* Role suitability */}
@@ -297,43 +275,6 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
   );
 }
 
-// ─── Safety badge (simple for grid performance) ───────────────────────────────
-
-function SafetyBadge({ score, tier, reviewNeeded }: { score: number; tier: string; reviewNeeded?: true }) {
-  if (reviewNeeded) {
-    return (
-      <div className="flex items-center gap-2">
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-[9px] font-bold text-white flex-shrink-0"
-          style={{ background: '#9ca3af' }}
-          aria-label="Review needed"
-        >
-          ?
-        </div>
-        <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f3f4f6', color: '#6b7280' }}>
-          Review needed
-        </span>
-      </div>
-    );
-  }
-  const colour = score >= 9 ? '#16a34a' : score >= 7 ? '#d97706' : score >= 5 ? '#ea580c' : '#dc2626';
-  const ts = TIER_STYLE[tier as Tier] ?? { bg: '#f3f4f6', text: '#374151' };
-  return (
-    <div className="flex items-center gap-2">
-      <div
-        className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-        style={{ background: colour }}
-        aria-label={`Safety score ${score} out of 10`}
-      >
-        {score}
-      </div>
-      <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: ts.bg, color: ts.text }}>
-        {tier}
-      </span>
-    </div>
-  );
-}
-
 // ─── Tool card ────────────────────────────────────────────────────────────────
 
 function ToolCard({
@@ -342,6 +283,7 @@ function ToolCard({
   tool: Tool; inCompare: boolean; onToggleCompare: () => void; compareDisabled: boolean; onTryDemo?: (tool: Tool) => void;
 }) {
   const catStyle = CAT_COLOURS[tool.category] ?? { bg: '#f3f4f6', text: '#374151' };
+  const ts = TIER_STYLE[tool.tier] ?? { bg: '#f3f4f6', text: '#374151' };
   return (
     <div
       className="flex flex-col rounded-2xl border overflow-hidden transition-shadow hover:shadow-md"
@@ -387,11 +329,22 @@ function ToolCard({
           ))}
         </div>
 
-        {/* Safety score */}
-        <div className="mb-4">
-          <SafetyBadge score={tool.safety} tier={tool.tier} reviewNeeded={tool.reviewNeeded} />
+        {/* Promptly Score — dense grid → Score Pill linking to the tool's Pillar Card (§04). */}
+        <div className="mb-4 flex items-center gap-2">
+          {tool.reviewNeeded ? (
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f3f4f6', color: '#6b7280' }}>
+              Review needed
+            </span>
+          ) : (
+            <>
+              <ScorePill score={tool.safety} to={`/tools/${tool.slug}`} />
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: ts.bg, color: ts.text }}>
+                {tool.tier}
+              </span>
+            </>
+          )}
           {tool.lastReviewed && (
-            <p className="text-[9px] mt-1" style={{ color: '#c5c2bb' }}>Reviewed {tool.lastReviewed}</p>
+            <p className="text-[9px] ml-auto" style={{ color: '#c5c2bb' }}>Reviewed {tool.lastReviewed}</p>
           )}
         </div>
 
@@ -474,7 +427,9 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
   const rows: { label: string; render: (t: Tool) => React.ReactNode }[] = [
     { label: 'Category',    render: t => t.category },
     { label: 'Subcategory', render: t => t.subcategory },
-    { label: 'Safety',      render: t => <SafetyBadge score={t.safety} tier={t.tier} reviewNeeded={t.reviewNeeded} /> },
+    { label: 'Safety',      render: t => t.reviewNeeded
+      ? <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f3f4f6', color: '#6b7280' }}>Review needed</span>
+      : <ScorePill score={t.safety} to={`/tools/${t.slug}`} /> },
     { label: 'UK Ready',    render: t => (
       <span className="text-xs font-bold px-2 py-0.5 rounded-full"
         style={t.ukReady === 'Yes' ? { background: '#dcfce7', color: '#166534' } : { background: '#f3f4f6', color: '#6b7280' }}>

@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
+import { PillarCard, ScorePill, pillarScores } from '../components/trust/PillarCard';
 
 const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
@@ -147,7 +148,7 @@ const AgentMockup: FC = () => (
             <div key={t.name} className="flex items-center justify-between gap-3">
               <span className="text-[11px] font-semibold" style={{ color: 'white' }}>{t.name}</span>
               <div className="flex items-center gap-1.5">
-                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ background: 'rgba(0,128,138,0.2)', color: TEAL }}>{t.score}</span>
+                <ScorePill score={t.score} />
                 <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.15)', color: '#22c55e' }}>Trusted</span>
               </div>
             </div>
@@ -167,24 +168,19 @@ const AgentMockup: FC = () => (
       </div>
     </div>
 
-    {/* Floating scorecard */}
-    <div
-      className="absolute -bottom-4 -left-6 rounded-2xl shadow-xl p-3.5"
-      style={{ background: 'white', border: `1px solid ${BORDER}`, minWidth: 160 }}
-    >
-      <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#9ca3af' }}>Safety Score</p>
-      <div className="flex items-center gap-2 mb-2.5">
-        <span className="font-display text-2xl leading-none" style={{ color: TEAL }}>9.1</span>
-        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', color: '#15803d' }}>Trusted</span>
-      </div>
-      {[{ label: 'Data Privacy', w: 90 }, { label: 'Safeguarding', w: 95 }, { label: 'Accessibility', w: 85 }].map(r => (
-        <div key={r.label} className="mb-1">
-          <span className="text-[9px]" style={{ color: '#9ca3af' }}>{r.label}</span>
-          <div className="h-1 rounded-full mt-0.5" style={{ background: BORDER }}>
-            <div className="h-1 rounded-full" style={{ width: `${r.w}%`, background: TEAL }} />
-          </div>
-        </div>
-      ))}
+    {/* Floating Pillar Card — the signature artefact (§04). Never a naked score. */}
+    <div className="absolute -bottom-8 -left-10 shadow-xl rounded-[10px]">
+      <PillarCard
+        toolName="MagicSchool AI"
+        score={9.1}
+        pillars={pillarScores(8.5, 9.6, 9.0, 9.2, 9.0)}
+        size={128}
+        showName={false}
+        showVerdict={false}
+        showLegend={false}
+        verifiedDate="14 MAY 2026"
+        reviewer="MS"
+      />
     </div>
   </div>
 );
@@ -466,37 +462,18 @@ const ScoringPreview: FC = () => (
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <div className="space-y-3">
+          <div className="flex flex-wrap justify-center gap-5">
             {SAMPLE_TOOLS.map((tool, i) => (
-              <motion.div key={tool.name} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.4 }}
-                className="rounded-2xl p-5" style={{ background: 'white', border: `1px solid ${BORDER}` }}>
-                <div className="flex items-center justify-between mb-4">
-                  <div>
-                    <p className="font-semibold text-sm" style={{ color: '#1c1a15' }}>{tool.name}</p>
-                    <p className="text-[10px]" style={{ color: '#9ca3af' }}>{tool.category}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-display text-2xl leading-none" style={{ color: TEAL }}>{tool.overall}</span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: tool.tierBg, color: tool.tierColor }}>{tool.tier}</span>
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  {PILLARS.map((label, j) => (
-                    <div key={label} className="flex items-center gap-3">
-                      <span className="text-[10px] w-24 flex-shrink-0" style={{ color: '#9ca3af' }}>{label}</span>
-                      <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: BORDER }}>
-                        <motion.div className="h-full rounded-full"
-                          style={{ background: tool.scores[j] >= 8 ? TEAL : tool.scores[j] >= 6 ? '#f59e0b' : '#ef4444' }}
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${tool.scores[j] * 10}%` }}
-                          viewport={{ once: true }}
-                          transition={{ delay: i * 0.1 + 0.2, duration: 0.6, ease: 'easeOut' }}
-                        />
-                      </div>
-                      <span className="text-[10px] font-semibold w-4 text-right" style={{ color: '#6b6760' }}>{tool.scores[j]}</span>
-                    </div>
-                  ))}
-                </div>
+              <motion.div key={tool.name} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.4 }}>
+                <PillarCard
+                  toolName={tool.name}
+                  score={tool.overall}
+                  pillars={pillarScores(tool.scores[0], tool.scores[1], tool.scores[2], tool.scores[3], tool.scores[4])}
+                  size={172}
+                  showVerdict={false}
+                  verifiedDate="14 MAY 2026"
+                  reviewer="MS"
+                />
               </motion.div>
             ))}
           </div>

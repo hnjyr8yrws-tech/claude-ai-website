@@ -17,6 +17,7 @@ import {
 import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
+import { PillarCard, ScorePill, pillarScoresFromData } from '../components/trust/PillarCard';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -188,20 +189,27 @@ const ToolDetail = () => {
             )}
           </div>
 
-          <div className="flex items-start gap-5">
-            {/* Safety score */}
-            <div
-              className="flex-shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black text-white shadow-sm"
-              style={{ background: scoreColour }}
-              aria-label={`Safety score: ${tool.reviewNeeded ? 'pending' : tool.safety} out of 10`}
-            >
-              {tool.reviewNeeded ? '?' : tool.safety}
-            </div>
-            <div>
+          <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+            <div className="flex-1 order-2 sm:order-1">
               <h1 className="font-display text-3xl sm:text-4xl leading-tight mb-2" style={{ color: 'var(--text)' }}>
                 {tool.name}
               </h1>
               <p className="text-base leading-relaxed" style={{ color: '#6b6760' }}>{tool.desc}</p>
+            </div>
+            {/* Pillar Card — the signature artefact (§04/§07). Never a naked score. */}
+            <div className="order-1 sm:order-2 mx-auto sm:mx-0 flex-shrink-0">
+              {tool.reviewNeeded ? (
+                <PillarCard state="provisional" showName={false} showVerdict={false} size={208} />
+              ) : (
+                <PillarCard
+                  score={tool.safety}
+                  pillars={pillarScoresFromData(pillars)}
+                  showName={false}
+                  showVerdict={false}
+                  size={208}
+                  verifiedDate={tool.lastReviewed ? tool.lastReviewed.toUpperCase() : undefined}
+                />
+              )}
             </div>
           </div>
 
@@ -222,9 +230,7 @@ const ToolDetail = () => {
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Safety score</SectionLabel>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
-            {tool.reviewNeeded
-              ? 'Under review'
-              : `${tool.safety}/10 — ${tool.tier}`}
+            {tool.reviewNeeded ? 'Under review' : `Promptly Score breakdown — ${tool.tier}`}
           </h2>
 
           {tool.reviewNeeded ? (
@@ -424,7 +430,6 @@ const ToolDetail = () => {
               {alternatives.map(alt => {
                 const altCatStyle = CAT_COLOURS[alt.category] ?? { bg: '#f3f4f6', text: '#374151' };
                 const altTs = TIER_STYLE[alt.tier];
-                const altScore = alt.safety >= 9 ? '#16a34a' : alt.safety >= 7 ? '#d97706' : alt.safety >= 5 ? '#ea580c' : '#dc2626';
                 return (
                   <Link
                     key={alt.slug}
@@ -432,11 +437,18 @@ const ToolDetail = () => {
                     className="flex items-center gap-4 p-4 rounded-xl border transition-shadow hover:shadow-sm"
                     style={{ borderColor: '#e8e6e0', background: 'white' }}
                   >
-                    <div
-                      className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center text-sm font-black text-white"
-                      style={{ background: altScore }}
-                    >
-                      {alt.reviewNeeded ? '?' : alt.safety}
+                    {/* Dense list → Score Pill; the row links to the tool's Pillar Card. */}
+                    <div className="flex-shrink-0">
+                      {alt.reviewNeeded ? (
+                        <span
+                          className="inline-flex items-center justify-center font-sans font-bold rounded-full"
+                          style={{ background: 'var(--color-ground-black)', color: 'var(--color-fog)', fontSize: 12.5, padding: '5px 11px' }}
+                        >
+                          —
+                        </span>
+                      ) : (
+                        <ScorePill score={alt.safety} />
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-sm" style={{ color: 'var(--text)' }}>{alt.name}</p>
