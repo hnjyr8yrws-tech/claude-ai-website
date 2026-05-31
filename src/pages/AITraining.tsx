@@ -393,9 +393,9 @@ export default function AITraining() {
               slugs={PATHWAY_TEACHERS}
               to="/ai-training/teachers"
               pathwaySlug="teachers"
-              accentBg="#f0fdf4"
-              accentText="#15803d"
-              accentBorder="#bbf7d0"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="AI Safety for Parents"
@@ -403,9 +403,9 @@ export default function AITraining() {
               slugs={PATHWAY_PARENTS}
               to="/ai-training/parents"
               pathwaySlug="parents"
-              accentBg={AMBER_BG}
-              accentText={AMBER_TEXT}
-              accentBorder={AMBER_BORDER}
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="Accessible AI for SEND"
@@ -444,7 +444,7 @@ export default function AITraining() {
               to="/ai-training/students"
               pathwaySlug="students"
               accentBg="var(--color-oat)"
-              accentText="var(--color-promptly-lime)"
+              accentText="var(--color-ink)"
               accentBorder="var(--color-rule)"
             />
             <PathwayCard
@@ -453,9 +453,9 @@ export default function AITraining() {
               slugs={PATHWAY_ADMIN}
               to="/ai-training"
               pathwaySlug="admin"
-              accentBg="#fff7ed"
-              accentText="#c2410c"
-              accentBorder="#fed7aa"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="AI Safeguarding Path"
@@ -463,9 +463,9 @@ export default function AITraining() {
               slugs={PATHWAY_SAFEGUARDING}
               to="/ai-training/leaders"
               pathwaySlug="safeguarding"
-              accentBg="#fef2f2"
-              accentText="#991b1b"
-              accentBorder="#fecaca"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="AI Policy & Governance"
@@ -473,9 +473,9 @@ export default function AITraining() {
               slugs={PATHWAY_POLICY}
               to="/ai-training/leaders"
               pathwaySlug="policy"
-              accentBg="#f0fdf4"
-              accentText="#166534"
-              accentBorder="#bbf7d0"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
           </div>
         </div>
