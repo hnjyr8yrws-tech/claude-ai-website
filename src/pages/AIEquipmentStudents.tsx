@@ -22,7 +22,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
       style={{ borderColor: '#e8e6e0', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -54,7 +54,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           View →
         </a>

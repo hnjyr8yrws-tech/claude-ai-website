@@ -38,7 +38,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {product.subcategory || product.category}
           </span>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -78,7 +78,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
 
         <div
           className="flex items-center gap-2 px-3 py-2 rounded-xl border text-xs"
-          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#9ca3af' }}
+          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#6b6760' }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
@@ -97,7 +97,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           <Link
             to={`/ai-equipment/product/${product.slug}`}
             className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             View →
           </Link>
@@ -156,7 +156,7 @@ export default function AIEquipmentCategory() {
           <Link
             to="/ai-equipment"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             ← Back to Equipment Hub
           </Link>
@@ -301,7 +301,7 @@ export default function AIEquipmentCategory() {
       {/* ADJACENT CATEGORIES */}
       <div className="border-t py-10 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#c5c2bb' }}>
+          <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: '#6b6760' }}>
             Other categories
           </p>
           <div className="flex flex-wrap gap-2">
@@ -314,7 +314,7 @@ export default function AIEquipmentCategory() {
                   className="text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
                   style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'var(--bg)' }}
                 >
-                  {cat} <span className="ml-1" style={{ color: '#c5c2bb' }}>({count})</span>
+                  {cat} <span className="ml-1" style={{ color: '#6b6760' }}>({count})</span>
                 </Link>
               );
             })}

@@ -96,7 +96,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {product.category}
           </span>
           {product.badges.includes('SEND Friendly') && (
@@ -144,7 +144,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           View →
         </a>
@@ -343,7 +343,7 @@ export default function EquipmentSEND() {
                 if (widget) (widget as HTMLButtonElement).click();
               }}
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               Get a personalised recommendation →
             </button>

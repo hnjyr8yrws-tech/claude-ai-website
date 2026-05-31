@@ -71,13 +71,13 @@ export default function PathwayEmailCTA({ pathwayName, pathwaySlug }: Props) {
         <button
           type="submit"
           className="flex-shrink-0 px-4 py-2 rounded-lg text-sm font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           Send pathway →
         </button>
       </form>
       {error && <p className="text-xs mt-2" style={{ color: '#dc2626' }}>{error}</p>}
-      <p className="text-[10px] mt-2" style={{ color: '#c5c2bb' }}>
+      <p className="text-[10px] mt-2" style={{ color: '#6b6760' }}>
         No spam. Unsubscribe any time.
       </p>
     </div>

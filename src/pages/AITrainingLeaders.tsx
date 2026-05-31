@@ -42,7 +42,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
     <div className="rounded-2xl border flex flex-col" style={{ borderColor: '#e8e6e0', background: 'white' }}>
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>{item.provider}</span>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.provider}</span>
           <div className="flex gap-1.5">
             {item.type === 'Free' ? (
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#15803d' }}>Free</span>
@@ -60,7 +60,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
       </div>
       <div className="px-5 pb-5 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#f3f4f6' }}>
         <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.cost}</span>
-        <a href={item.url} target="_blank" rel={linkRel} className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: 'white' }}>Visit →</a>
+        <a href={item.url} target="_blank" rel={linkRel} className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: '#1A1A0E' }}>Visit →</a>
       </div>
     </div>
   );
@@ -108,7 +108,7 @@ export default function AITrainingLeaders() {
             {pathwayItems.map((item, index) => (
               <div key={item.slug} className="rounded-2xl border flex flex-col p-5" style={{ borderColor: '#1f2937', background: '#111210' }}>
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: TEAL, color: 'white' }}>{index + 1}</span>
+                  <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: TEAL, color: '#1A1A0E' }}>{index + 1}</span>
                   <span className="text-xs font-medium" style={{ color: '#6b6760' }}>{item.provider}</span>
                 </div>
                 <h3 className="font-display text-base leading-snug mb-2" style={{ color: 'white' }}>{item.name}</h3>

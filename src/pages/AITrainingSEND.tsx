@@ -35,7 +35,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
     <div className="rounded-2xl border flex flex-col" style={{ borderColor: '#e8e6e0', background: 'white' }}>
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>{item.provider}</span>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.provider}</span>
           <div className="flex gap-1.5">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#15803d' }}>Free</span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#eff6ff', color: '#1d4ed8' }}>SEND</span>
@@ -47,7 +47,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
       </div>
       <div className="px-5 pb-5 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#f3f4f6' }}>
         <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>Free</span>
-        <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: 'white' }}>Visit →</a>
+        <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: '#1A1A0E' }}>Visit →</a>
       </div>
     </div>
   );

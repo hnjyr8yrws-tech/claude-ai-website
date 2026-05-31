@@ -191,7 +191,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {product.category}
           </span>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -221,7 +221,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
 
         <div
           className="flex items-center gap-2 px-3 py-2 rounded-xl border text-xs"
-          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#9ca3af' }}
+          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#6b6760' }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
@@ -260,11 +260,11 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
               target="_blank"
               rel="noopener noreferrer sponsored"
               className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               View →
             </a>
-            <span className="text-[9px]" style={{ color: '#c5c2bb' }}>Affiliate link</span>
+            <span className="text-[9px]" style={{ color: '#6b6760' }}>Affiliate link</span>
           </div>
         </div>
       </div>
@@ -379,7 +379,7 @@ function CompareBar({
             <div
               key={i}
               className="px-3 py-1 rounded-lg border text-xs"
-              style={{ borderColor: '#e8e6e0', color: '#c5c2bb', borderStyle: 'dashed' }}
+              style={{ borderColor: '#e8e6e0', color: '#6b6760', borderStyle: 'dashed' }}
             >
               + slot
             </div>
@@ -399,7 +399,7 @@ function CompareBar({
             className="text-xs px-4 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
             style={{
               background: items.length >= 2 ? TEAL : '#e8e6e0',
-              color: items.length >= 2 ? 'white' : '#9ca3af',
+              color: items.length >= 2 ? 'white' : '#6b6760',
               cursor: items.length < 2 ? 'not-allowed' : 'pointer',
             }}
           >
@@ -459,7 +459,7 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
           <table className="w-full text-sm">
             <thead>
               <tr style={{ background: '#f7f6f2' }}>
-                <th className="px-5 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb', width: 140 }}>Feature</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760', width: 140 }}>Feature</th>
                 {items.map(p => (
                   <th key={p.id} className="px-5 py-3 text-left">
                     <div className="font-display text-base leading-snug" style={{ color: 'var(--text)' }}>{p.name}</div>
@@ -503,7 +503,7 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       className="inline-block text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-                      style={{ background: TEAL, color: 'white' }}
+                      style={{ background: TEAL, color: '#1A1A0E' }}
                     >
                       View product →
                     </a>
@@ -528,7 +528,7 @@ function MiniProductCard({ product }: { product: EquipmentProduct }) {
       style={{ borderColor: '#e8e6e0', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -549,7 +549,7 @@ function MiniProductCard({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           View →
         </a>
@@ -681,7 +681,7 @@ export default function AIEquipment() {
           <a
             href="#equipment-grid"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             Browse All Equipment
           </a>
@@ -766,7 +766,7 @@ export default function AIEquipment() {
       <div className="border-y py-6 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#c5c2bb' }}>
+            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#6b6760' }}>
               Featured collections
             </p>
             <button
@@ -1115,7 +1115,7 @@ export default function AIEquipment() {
               <Link
                 to="/ai-equipment/schools"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: 'white' }}
+                style={{ background: TEAL, color: '#1A1A0E' }}
               >
                 School buying guide
               </Link>
@@ -1134,7 +1134,7 @@ export default function AIEquipment() {
       {/* ── CROSS-SELL RECOMMENDATIONS ────────────────────────────────────────── */}
       {inlineItems.length > 0 && (
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
-          <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+          <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
             You might also like
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">

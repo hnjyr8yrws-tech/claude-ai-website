@@ -30,7 +30,7 @@ function RelatedCard({ product }: { product: EquipmentProduct }) {
       style={{ borderColor: '#e8e6e0', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -49,7 +49,7 @@ function RelatedCard({ product }: { product: EquipmentProduct }) {
         <Link
           to={`/ai-equipment/product/${product.slug}`}
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           View →
         </Link>
@@ -91,7 +91,7 @@ export default function AIEquipmentProduct() {
           <Link
             to="/ai-equipment"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             ← Back to Equipment Hub
           </Link>
@@ -257,7 +257,7 @@ export default function AIEquipmentProduct() {
                   </div>
                 ))}
               </div>
-              <p className="text-xs mt-4" style={{ color: '#c5c2bb' }}>
+              <p className="text-xs mt-4" style={{ color: '#6b6760' }}>
                 Scoring for this product is in progress. Check back soon.
               </p>
             </div>
@@ -320,7 +320,7 @@ export default function AIEquipmentProduct() {
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  style={{ background: TEAL, color: '#1A1A0E' }}
                 >
                   View on {product.supplierName} →
                 </a>
@@ -339,7 +339,7 @@ export default function AIEquipmentProduct() {
                 )}
               </div>
 
-              <p className="text-[10px] leading-relaxed mt-4" style={{ color: '#c5c2bb' }}>
+              <p className="text-[10px] leading-relaxed mt-4" style={{ color: '#6b6760' }}>
                 Affiliate link — we may earn a small commission at no extra cost to you. All reviews are independent.
               </p>
             </div>

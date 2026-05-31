@@ -104,7 +104,7 @@ export default function AgentCTACard({
                 openAgent();
               }}
               className="mt-4 inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path

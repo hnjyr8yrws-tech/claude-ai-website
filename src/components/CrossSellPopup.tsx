@@ -108,10 +108,11 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
             </div>
             <button
               onClick={handleDismiss}
-              className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors hover:bg-[#f3f4f6]"
+              type="button"
+              className="w-11 h-11 flex items-center justify-center rounded-lg transition-colors hover:bg-[#f3f4f6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               aria-label="Dismiss"
             >
-              <span className="text-lg leading-none" style={{ color: '#9ca3af' }}>✕</span>
+              <span className="text-lg leading-none" style={{ color: '#6b6760' }} aria-hidden="true">✕</span>
             </button>
           </div>
 
@@ -155,7 +156,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
             <button
               onClick={handleDismiss}
               className="w-full text-center text-xs transition-opacity hover:opacity-60"
-              style={{ color: '#c5c2bb' }}
+              style={{ color: '#6b6760' }}
             >
               No thanks, keep browsing
             </button>

@@ -47,16 +47,16 @@ function ComparisonTable({
             <tr style={{ background: '#f7f6f2' }}>
               <th
                 className="px-5 py-3 text-left text-xs font-semibold"
-                style={{ color: '#c5c2bb', minWidth: 200 }}
+                style={{ color: '#6b6760', minWidth: 200 }}
               >
                 Product
               </th>
               {cols.map(c => (
-                <th key={c.header} className="px-4 py-3 text-left text-xs font-semibold whitespace-nowrap" style={{ color: '#c5c2bb' }}>
+                <th key={c.header} className="px-4 py-3 text-left text-xs font-semibold whitespace-nowrap" style={{ color: '#6b6760' }}>
                   {c.header}
                 </th>
               ))}
-              <th className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb' }}>Status</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760' }}>Status</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>

@@ -60,7 +60,7 @@ const PackCard = ({ pack }: Props) => {
               }}
               aria-label="Save pack"
               className="p-1.5 rounded-lg hover:bg-[#f7f6f2] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
-              style={{ color: '#c5c2bb' }}
+              style={{ color: '#6b6760' }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <path d="M3 2h10a1 1 0 011 1v11l-6-3-6 3V3a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />

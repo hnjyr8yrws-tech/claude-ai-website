@@ -72,7 +72,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
         <div className="flex items-start justify-between gap-2 mb-3">
           <span
             className="text-[10px] font-semibold uppercase tracking-wide"
-            style={{ color: '#c5c2bb' }}
+            style={{ color: '#6b6760' }}
           >
             {item.category}
           </span>
@@ -149,12 +149,12 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             target="_blank"
             rel={linkRel}
             className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             {linkLabel(item.linkType ?? inferLinkType(item.url))} →
           </a>
           {item.affiliate && (
-            <span className="text-[9px]" style={{ color: '#c5c2bb' }}>Affiliate link</span>
+            <span className="text-[9px]" style={{ color: '#6b6760' }}>Affiliate link</span>
           )}
         </div>
       </div>
@@ -748,7 +748,7 @@ export default function AITraining() {
       {inlineItems.length > 0 && (
         <section className="px-5 sm:px-8 py-10" style={{ background: 'var(--bg)' }}>
           <div className="max-w-4xl mx-auto">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
               You might also like
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">

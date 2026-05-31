@@ -284,7 +284,7 @@ const PromptsPack = () => {
       {inlineItems.length > 0 && (
         <section className="px-5 sm:px-8 py-10" style={{ background: 'var(--bg)' }}>
           <div className="max-w-3xl mx-auto">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
               Recommended for you
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

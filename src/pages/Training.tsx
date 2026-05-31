@@ -302,7 +302,7 @@ function LearningPathGenerator() {
               value={role}
               onChange={e => setRole(e.target.value as Role)}
               className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors appearance-none"
-              style={{ borderColor: '#e8e6e0', color: role ? 'var(--text)' : '#c5c2bb', background: 'white' }}
+              style={{ borderColor: '#e8e6e0', color: role ? 'var(--text)' : '#6b6760', background: 'white' }}
             >
               <option value="">Select your role…</option>
               {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
@@ -316,7 +316,7 @@ function LearningPathGenerator() {
               value={goal}
               onChange={e => setGoal(e.target.value as Goal)}
               className="w-full px-3 py-2.5 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors appearance-none"
-              style={{ borderColor: '#e8e6e0', color: goal ? 'var(--text)' : '#c5c2bb', background: 'white' }}
+              style={{ borderColor: '#e8e6e0', color: goal ? 'var(--text)' : '#6b6760', background: 'white' }}
             >
               <option value="">Select your goal…</option>
               {GOALS.map(g => <option key={g} value={g}>{g}</option>)}
@@ -328,7 +328,7 @@ function LearningPathGenerator() {
           onClick={generate}
           disabled={!role || !goal || loading}
           className="w-full py-2.5 rounded-xl text-sm font-semibold transition-opacity disabled:opacity-40"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           {loading ? 'Building your path…' : 'Build my learning path →'}
         </button>
@@ -347,7 +347,7 @@ function LearningPathGenerator() {
                 <div key={i} className="flex gap-3">
                   <span
                     className="flex-shrink-0 w-6 h-6 rounded-full text-xs font-bold flex items-center justify-center mt-0.5"
-                    style={{ background: TEAL, color: 'white' }}
+                    style={{ background: TEAL, color: '#1A1A0E' }}
                   >
                     {i + 1}
                   </span>
@@ -407,7 +407,7 @@ function EmailCapture() {
               className="px-3 py-1 rounded-full text-xs font-medium border transition-all"
               style={
                 activeRole === r
-                  ? { background: TEAL, color: 'white', borderColor: TEAL }
+                  ? { background: TEAL, color: '#1A1A0E', borderColor: TEAL }
                   : { background: 'transparent', color: '#6b7280', borderColor: '#374151' }
               }
             >
@@ -447,7 +447,7 @@ function EmailCapture() {
               <button
                 type="submit"
                 className="px-4 py-2.5 rounded-xl text-sm font-semibold flex-shrink-0 transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: 'white' }}
+                style={{ background: TEAL, color: '#1A1A0E' }}
               >
                 Subscribe →
               </button>
@@ -529,7 +529,7 @@ const Training: FC = () => {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-xs mb-5" style={{ color: '#c5c2bb' }}>
+              <p className="text-xs mb-5" style={{ color: '#6b6760' }}>
                 {FREE_COURSES.length} free resources · DfE-aligned · Updated April 2026
               </p>
               <div
@@ -555,14 +555,14 @@ const Training: FC = () => {
                         >
                           Free
                         </span>
-                        <p className="text-[10px] mt-0.5" style={{ color: '#c5c2bb' }}>{course.provider}</p>
+                        <p className="text-[10px] mt-0.5" style={{ color: '#6b6760' }}>{course.provider}</p>
                       </div>
                     </div>
 
                     <h2 className="font-display text-lg leading-snug mb-1" style={{ color: 'var(--text)' }}>
                       {course.title}
                     </h2>
-                    <p className="text-xs mb-3" style={{ color: '#c5c2bb' }}>{course.duration}</p>
+                    <p className="text-xs mb-3" style={{ color: '#6b6760' }}>{course.duration}</p>
                     <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b6760' }}>{course.desc}</p>
 
                     <RoleTags roles={course.roles} />
@@ -623,7 +623,7 @@ const Training: FC = () => {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
             >
-              <p className="text-xs mb-5" style={{ color: '#c5c2bb' }}>
+              <p className="text-xs mb-5" style={{ color: '#6b6760' }}>
                 {PAID_COURSES.length} premium courses · Affiliate links may apply · Promptly-verified only
               </p>
               <div
@@ -645,12 +645,12 @@ const Training: FC = () => {
                         <span className="text-2xl">{course.logo}</span>
                         <div>
                           <Badge label={course.badge} />
-                          <p className="text-[10px] mt-0.5" style={{ color: '#c5c2bb' }}>{course.provider}</p>
+                          <p className="text-[10px] mt-0.5" style={{ color: '#6b6760' }}>{course.provider}</p>
                         </div>
                       </div>
                       <span
                         className="text-sm font-bold flex-shrink-0 tabular-nums"
-                        style={{ color: course.comingSoon ? '#c5c2bb' : '#92400e' }}
+                        style={{ color: course.comingSoon ? '#6b6760' : '#92400e' }}
                       >
                         {course.price}
                       </span>
@@ -664,7 +664,7 @@ const Training: FC = () => {
                       <div className="flex items-center gap-3 mb-2">
                         <Stars n={course.stars} />
                         {course.students && (
-                          <span className="text-xs" style={{ color: '#c5c2bb' }}>{course.students} enrolled</span>
+                          <span className="text-xs" style={{ color: '#6b6760' }}>{course.students} enrolled</span>
                         )}
                       </div>
                     )}
@@ -686,7 +686,7 @@ const Training: FC = () => {
                         <a
                           href={course.url}
                           className="inline-block text-xs font-semibold px-3 py-1.5 rounded-xl transition-opacity hover:opacity-80"
-                          style={{ background: TEAL, color: 'white' }}
+                          style={{ background: TEAL, color: '#1A1A0E' }}
                         >
                           Enrol now →
                         </a>
@@ -784,7 +784,7 @@ const Training: FC = () => {
                 <button
                   type="submit"
                   className="flex-shrink-0 px-4 py-2 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  style={{ background: TEAL, color: '#1A1A0E' }}
                 >
                   Get library →
                 </button>

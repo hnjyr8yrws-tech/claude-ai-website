@@ -29,7 +29,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {item.category}
           </span>
           <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -71,7 +71,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           target="_blank"
           rel={linkRel}
           className="text-sm font-semibold px-3 py-1.5 rounded-lg"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           Visit →
         </a>

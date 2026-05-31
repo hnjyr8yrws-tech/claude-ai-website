@@ -35,7 +35,7 @@ function TypingDots() {
         <motion.span
           key={i}
           className="w-1.5 h-1.5 rounded-full"
-          style={{ background: '#c5c2bb' }}
+          style={{ background: '#6b6760' }}
           animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
           transition={{ duration: 0.8, delay: i * 0.15, repeat: Infinity }}
         />
@@ -82,7 +82,7 @@ function RoleSelector({
       </div>
 
       {/* Conversation starters */}
-      <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#c5c2bb' }}>
+      <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#6b6760' }}>
         Or jump straight in
       </p>
       <div className="space-y-1.5">
@@ -153,7 +153,7 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
           type="submit"
           disabled={status === 'loading'}
           className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 disabled:opacity-50"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           {status === 'loading' ? '…' : 'Yes →'}
         </button>
@@ -370,7 +370,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           <div className="relative">
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               L
             </div>
@@ -408,10 +408,12 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           )}
           <button
             onClick={onClose}
-            className="text-lg leading-none transition-opacity hover:opacity-60"
-            style={{ color: '#6b6760' }}
+            type="button"
+            aria-label="Close chat"
+            className="flex items-center justify-center w-11 h-11 -mr-2 rounded-lg text-lg leading-none transition-opacity hover:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+            style={{ color: '#9ca3af' }}
           >
-            ✕
+            <span aria-hidden="true">✕</span>
           </button>
         </div>
       </div>
@@ -482,7 +484,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                   className="px-4 py-3 rounded-2xl text-sm leading-relaxed max-w-[86%] whitespace-pre-wrap"
                   style={
                     msg.role === 'user'
-                      ? { background: TEAL, color: 'white', borderRadius: '16px 16px 4px 16px' }
+                      ? { background: TEAL, color: '#1A1A0E', borderRadius: '16px 16px 4px 16px' }
                       : { background: 'white', color: '#1c1a15', borderRadius: '4px 16px 16px 16px' }
                   }
                 >
@@ -517,7 +519,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           {showLeadCapture && <LeadCapture agentRole={role} />}
 
           {/* Disclaimer */}
-          <p className="text-[10px] text-center px-3 pt-1 flex-shrink-0" style={{ color: '#c5c2bb' }}>
+          <p className="text-[10px] text-center px-3 pt-1 flex-shrink-0" style={{ color: '#6b6760' }}>
             Powered by Claude · Responses may be inaccurate. Verify important information.
           </p>
 
@@ -544,12 +546,13 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             <button
               onClick={handleSend}
               disabled={!input.trim() || loading}
-              className="w-9 h-9 rounded-xl flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30"
+              className="w-11 h-11 rounded-xl flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E] focus-visible:ring-offset-1"
               style={{ background: TEAL }}
               aria-label="Send message"
+              type="button"
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="white" />
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="#1A1A0E" />
               </svg>
             </button>
           </div>
@@ -613,7 +616,7 @@ const AgentWidget: FC = () => {
       <motion.button
         onClick={openWidget}
         className="fixed bottom-4 right-4 z-[9998] flex items-center gap-2 px-4 py-2.5 rounded-full shadow-lg"
-        style={{ background: TEAL, color: 'white' }}
+        style={{ background: TEAL, color: '#1A1A0E' }}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.97 }}
         aria-label="Open Luna"
@@ -631,7 +634,7 @@ const AgentWidget: FC = () => {
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0" aria-hidden="true">
           <path
             d="M7 1C3.69 1 1 3.24 1 6c0 1.44.67 2.73 1.75 3.65L2 13l3.47-1.5C5.93 11.82 6.45 12 7 12c3.31 0 6-2.24 6-5S10.31 1 7 1Z"
-            fill="white"
+            fill="#1A1A0E"
           />
         </svg>
       </motion.button>

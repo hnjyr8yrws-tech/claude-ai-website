@@ -140,7 +140,7 @@ export default function SafetyMethodology() {
               );
             })}
           </div>
-          <p className="text-xs mt-3 text-center" style={{ color: '#c5c2bb' }}>
+          <p className="text-xs mt-3 text-center" style={{ color: '#6b6760' }}>
             Hover or tap each score to see the pillar breakdown
           </p>
         </FadeIn>
@@ -212,7 +212,7 @@ export default function SafetyMethodology() {
             <table className="w-full text-sm min-w-[640px]">
               <thead>
                 <tr style={{ background: '#f7f6f2', borderBottom: '1px solid #e8e6e0' }}>
-                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb', width: '140px' }}>
+                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide" style={{ color: '#6b6760', width: '140px' }}>
                     Dimension
                   </th>
                   {(['Trusted', 'Guided', 'Emerging'] as TrustTier[]).map(tier => {
@@ -336,7 +336,7 @@ export default function SafetyMethodology() {
             <a
               href="mailto:reviews@getpromptly.co.uk"
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               Suggest a tool for review →
             </a>

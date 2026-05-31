@@ -41,7 +41,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
     >
       <div className="px-4 pt-4 pb-3 flex-1">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {item.provider}
           </span>
           <span

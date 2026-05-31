@@ -133,7 +133,7 @@ Hi — what's your role in education? Tell me and I'll point you to the right to
           </div>
         </div>
         <div className="flex justify-end">
-          <div className="rounded-xl rounded-tr-sm px-3 py-2.5 text-xs" style={{ background: TEAL, color: 'white' }}>
+          <div className="rounded-xl rounded-tr-sm px-3 py-2.5 text-xs" style={{ background: TEAL, color: '#1A1A0E' }}>
             I am a primary school teacher
           </div>
         </div>
@@ -231,7 +231,7 @@ const Hero: FC = () => (
                 document.getElementById('role-selector')?.scrollIntoView({ behavior: 'smooth' });
               }}
               className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               Start with your role &rarr;
             </button>
@@ -316,7 +316,7 @@ const RoleSelector: FC = () => {
               onClick={() => { setActive(r.id); track({ name: 'filter_applied', section: 'home-roles', filter: 'role', value: r.label }); }}
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={active === r.id
-                ? { background: TEAL, color: 'white', borderColor: TEAL }
+                ? { background: TEAL, color: '#1A1A0E', borderColor: TEAL }
                 : { background: 'white', color: '#6b6760', borderColor: BORDER }
               }
               aria-pressed={active === r.id}
@@ -350,7 +350,7 @@ const RoleSelector: FC = () => {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to={role.to} onClick={() => track({ name: 'cta_clicked', section: 'home-roles', label: `${role.label} prompts` })}
                   className="flex-1 text-center px-5 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
-                  style={{ background: TEAL, color: 'white' }}>
+                  style={{ background: TEAL, color: '#1A1A0E' }}>
                   See {role.label} prompts &rarr;
                 </Link>
                 <Link to="/tools" onClick={() => track({ name: 'cta_clicked', section: 'home-roles', label: `${role.label} tools` })}
@@ -678,7 +678,7 @@ const SchoolsCTA: FC = () => (
         <div className="flex flex-col sm:flex-row gap-3">
           <Link to="/schools" onClick={() => track({ name: 'cta_clicked', section: 'home-schools-cta', label: 'For Schools page' })}
             className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 text-center"
-            style={{ background: TEAL, color: 'white' }}>
+            style={{ background: TEAL, color: '#1A1A0E' }}>
             GetPromptly for Schools &rarr;
           </Link>
           <button onClick={() => { track({ name: 'cta_clicked', section: 'home-schools-cta', label: 'Request consultation' }); openWidget(); }}

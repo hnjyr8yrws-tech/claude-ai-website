@@ -219,9 +219,17 @@ export function PillarCard({
         viewBox={`0 0 ${VB} ${VB}`}
         role="img"
         aria-label={
-          isProvisional || score == null
-            ? `${toolName ?? 'Tool'} — Promptly Score provisional`
-            : `${toolName ?? 'Tool'} — Promptly Score ${score.toFixed(1)} of 10`
+          isWithdrawn
+            ? `${toolName ?? 'Tool'} — Promptly Score withdrawn. ${verdict ?? ''}`.trim()
+            : isProvisional || score == null
+            ? `${toolName ?? 'Tool'} — Promptly Score provisional, review in progress. ${verdict ?? ''}`.trim()
+            : `${toolName ?? 'Tool'} — Promptly Score ${score.toFixed(1)} out of 10.${
+                verdict ? ` Verdict: ${verdict}` : ''
+              }${
+                pillars
+                  ? ` Pillars — Data Privacy ${pillars.dataPrivacy}, Safeguarding ${pillars.safeguarding}, Age Suitability ${pillars.ageSuitability}, Transparency ${pillars.transparency}, Accessibility ${pillars.accessibility}, each out of 10.`
+                  : ''
+              }`
         }
       >
         {/* Background disc */}

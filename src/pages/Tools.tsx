@@ -74,7 +74,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
             </div>
           </div>
         </div>
-        <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60" style={{ color: '#6b6760' }} aria-label="Close">
+        <button onClick={onClose} type="button" className="flex items-center justify-center w-11 h-11 -mr-2 rounded-lg text-lg leading-none transition-opacity hover:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]" style={{ color: '#6b6760' }} aria-label="Close">
           ✕
         </button>
       </div>
@@ -103,7 +103,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
 
             {/* Role suitability */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: '#c5c2bb' }}>Suitable For</p>
+              <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: '#6b6760' }}>Suitable For</p>
               <div className="flex flex-wrap gap-1.5">
                 {tool.audience.map(a => (
                   <span key={a} className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
@@ -131,7 +131,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             {linkLabel(tool.linkType ?? inferLinkType(tool.url))} →
           </a>
@@ -152,7 +152,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
         </div>
 
         {tool.lastReviewed && (
-          <p className="text-[10px] text-center" style={{ color: '#c5c2bb' }}>Last reviewed: {tool.lastReviewed}</p>
+          <p className="text-[10px] text-center" style={{ color: '#6b6760' }}>Last reviewed: {tool.lastReviewed}</p>
         )}
       </div>
     </motion.div>
@@ -219,7 +219,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
               </p>
             </div>
           </div>
-          <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60" style={{ color: '#6b6760' }} aria-label="Close">
+          <button onClick={onClose} type="button" className="flex items-center justify-center w-11 h-11 -mr-2 rounded-lg text-lg leading-none transition-opacity hover:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]" style={{ color: '#6b6760' }} aria-label="Close">
             ✕
           </button>
         </div>
@@ -254,7 +254,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
           <button
             type="submit"
             className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             Submit for Review
           </button>
@@ -267,7 +267,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
             Ask Luna about this tool
           </button>
         </div>
-        <p className="text-[10px] text-center" style={{ color: '#c5c2bb' }}>
+        <p className="text-[10px] text-center" style={{ color: '#6b6760' }}>
           We review tools against KCSIE 2025. No fake scores — ever.
         </p>
       </form>
@@ -314,7 +314,7 @@ function ToolCard({
         <h2 className="font-display text-base leading-tight mb-0.5" style={{ color: 'var(--text)' }}>
           {tool.name}
         </h2>
-        <p className="text-[10px] mb-3" style={{ color: '#c5c2bb' }}>{tool.subcategory}</p>
+        <p className="text-[10px] mb-3" style={{ color: '#6b6760' }}>{tool.subcategory}</p>
 
         {/* Description */}
         <p className="text-xs leading-relaxed mb-3 flex-1" style={{ color: '#6b6760' }}>{tool.desc}</p>
@@ -339,7 +339,7 @@ function ToolCard({
             <ScorePill score={tool.safety} to={`/tools/${tool.slug}`} />
           )}
           {tool.lastReviewed && (
-            <p className="text-[9px] ml-auto" style={{ color: '#c5c2bb' }}>Reviewed {tool.lastReviewed}</p>
+            <p className="text-[9px] ml-auto" style={{ color: '#6b6760' }}>Reviewed {tool.lastReviewed}</p>
           )}
         </div>
 
@@ -351,7 +351,7 @@ function ToolCard({
             rel="noopener noreferrer"
             onClick={() => onTryDemo?.(tool)}
             className="flex-1 text-center text-xs font-semibold py-2 rounded-lg transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             {linkLabel(tool.linkType ?? inferLinkType(tool.url))} →
           </a>
@@ -360,8 +360,8 @@ function ToolCard({
             disabled={compareDisabled && !inCompare}
             className="text-[10px] font-semibold px-2 py-2 rounded-lg border transition-all disabled:opacity-30 flex-shrink-0"
             style={inCompare
-              ? { background: TEAL, color: 'white', borderColor: TEAL }
-              : { background: 'white', color: '#9ca3af', borderColor: '#e8e6e0' }
+              ? { background: TEAL, color: '#1A1A0E', borderColor: TEAL }
+              : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
             }
             aria-label={inCompare ? 'Remove from compare' : 'Add to compare'}
           >
@@ -401,7 +401,7 @@ function CompareBar({ count, onCompare, onClear }: { count: number; onCompare: (
         onClick={onCompare}
         disabled={count < 2}
         className="px-4 py-1.5 rounded-lg text-xs font-semibold transition-opacity disabled:opacity-40 hover:opacity-80"
-        style={{ background: TEAL, color: 'white' }}
+        style={{ background: TEAL, color: '#1A1A0E' }}
       >
         Compare Now ▶
       </button>
@@ -443,7 +443,7 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
     { label: 'Try',         render: t => (
       <a href={t.url} target="_blank" rel="noopener noreferrer"
         className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
-        style={{ background: TEAL, color: 'white' }}>
+        style={{ background: TEAL, color: '#1A1A0E' }}>
         {linkLabel(t.linkType ?? inferLinkType(t.url))} →
       </a>
     )},
@@ -472,7 +472,7 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
           <p className="text-sm font-semibold" style={{ color: 'white' }}>
             Comparing {tools.length} tools
           </p>
-          <button onClick={onClose} className="text-lg leading-none transition-opacity hover:opacity-60"
+          <button onClick={onClose} type="button" className="flex items-center justify-center w-11 h-11 -mr-2 rounded-lg text-lg leading-none transition-opacity hover:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
             style={{ color: '#6b6760' }} aria-label="Close">✕</button>
         </div>
 
@@ -482,7 +482,7 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
           {tools.map(t => (
             <div key={t.slug} className="px-4 py-3 border-l" style={{ background: '#f7f6f2', borderColor: '#e8e6e0' }}>
               <p className="font-display text-sm font-bold" style={{ color: 'var(--text)' }}>{t.name}</p>
-              <p className="text-[10px] mt-0.5" style={{ color: '#c5c2bb' }}>{t.category}</p>
+              <p className="text-[10px] mt-0.5" style={{ color: '#6b6760' }}>{t.category}</p>
             </div>
           ))}
         </div>
@@ -695,7 +695,7 @@ export default function Tools() {
             <button
               type="submit"
               className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               Score this tool
             </button>
@@ -743,7 +743,7 @@ export default function Tools() {
         {/* Search + sort */}
         <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mb-5">
           <div className="relative flex-1">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: '#c5c2bb' }}>🔍</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: '#6b6760' }}>🔍</span>
             <input
               type="search"
               value={search}
@@ -780,7 +780,7 @@ export default function Tools() {
               }}
               className="px-4 py-1.5 rounded-full text-sm font-medium border transition-all"
               style={roleTab === r
-                ? { background: TEAL, color: 'white', borderColor: TEAL }
+                ? { background: TEAL, color: '#1A1A0E', borderColor: TEAL }
                 : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
               }
             >
@@ -838,7 +838,7 @@ export default function Tools() {
               </button>
             );
           })}
-          <span className="ml-auto text-xs" style={{ color: '#c5c2bb' }}>
+          <span className="ml-auto text-xs" style={{ color: '#6b6760' }}>
             Showing <strong style={{ color: 'var(--text)' }}>{filtered.length}</strong> of {STAT_TOTAL} tools
           </span>
         </div>
@@ -896,17 +896,17 @@ export default function Tools() {
                 <button
                   onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
                   className="w-full py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  style={{ background: TEAL, color: '#1A1A0E' }}
                 >
                   Ask Luna →
                 </button>
-                <p className="text-[10px] text-center mt-2" style={{ color: '#c5c2bb' }}>Powered by Claude · Free</p>
+                <p className="text-[10px] text-center mt-2" style={{ color: '#6b6760' }}>Powered by Claude · Free</p>
               </div>
             </div>
 
             {/* Stats */}
             <div className="rounded-2xl border p-4" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-              <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#c5c2bb' }}>Directory</p>
+              <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#6b6760' }}>Directory</p>
               <div className="space-y-2.5">
                 {[
                   ['Tools reviewed', STAT_TOTAL.toString()],
@@ -926,7 +926,7 @@ export default function Tools() {
             {/* Safety key */}
             <div className="rounded-2xl border p-4" style={{ borderColor: '#e8e6e0', background: 'white' }}>
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>Safety Tiers</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>Safety Tiers</p>
                 <Link to="/safety-methodology" className="text-[10px] font-semibold hover:opacity-70 transition-opacity" style={{ color: TEAL }}>
                   How? →
                 </Link>
@@ -951,7 +951,7 @@ export default function Tools() {
             {/* Cross-sell recommendations */}
             {inlineItems.length > 0 && (
               <div className="rounded-2xl border p-4" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#c5c2bb' }}>Recommended</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wide mb-3" style={{ color: '#6b6760' }}>Recommended</p>
                 <div className="space-y-2">
                   {inlineItems.slice(0, 2).map(item => (
                     <CrossSellCard key={item.id} item={item} sourceSection="tools" compact />
@@ -970,7 +970,7 @@ export default function Tools() {
                   onClick={() => compareList.length >= 2 && setCompareOpen(true)}
                   disabled={compareList.length < 2}
                   className="w-full py-2 rounded-lg text-xs font-semibold transition-opacity disabled:opacity-40 hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  style={{ background: TEAL, color: '#1A1A0E' }}
                 >
                   Compare Now →
                 </button>

@@ -42,7 +42,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
     >
       <div className="px-4 pt-4 pb-3 flex-1">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {item.provider}
           </span>
           {item.type === 'Free' ? (
@@ -124,7 +124,7 @@ export default function AITrainingTeachers() {
                 <div className="flex items-center gap-3 mb-3">
                   <span
                     className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-                    style={{ background: TEAL, color: 'white' }}
+                    style={{ background: TEAL, color: '#1A1A0E' }}
                   >
                     {index + 1}
                   </span>
@@ -206,7 +206,7 @@ export default function AITrainingTeachers() {
                 >
                   <div className="px-5 pt-5 pb-4 flex-1">
                     <div className="flex items-start justify-between gap-2 mb-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>{item.category}</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.category}</span>
                       <span
                         className="text-[10px] font-bold px-2 py-0.5 rounded-full"
                         style={item.type === 'Free' ? { background: '#f0fdf4', color: '#15803d' } : { background: '#fffbeb', color: '#92400e' }}
@@ -220,7 +220,7 @@ export default function AITrainingTeachers() {
                   </div>
                   <div className="px-5 pb-5 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#f3f4f6' }}>
                     <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.cost}</span>
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: 'white' }}>Visit →</a>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: '#1A1A0E' }}>Visit →</a>
                   </div>
                 </div>
               ))}

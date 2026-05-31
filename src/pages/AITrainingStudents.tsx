@@ -37,7 +37,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {item.category}
           </span>
           <div className="flex gap-1.5">
@@ -63,7 +63,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
       </div>
       <div className="px-5 pb-5 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#f3f4f6' }}>
         <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.cost}</span>
-        <a href={item.url} target="_blank" rel={linkRel} className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: 'white' }}>
+        <a href={item.url} target="_blank" rel={linkRel} className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: '#1A1A0E' }}>
           Visit →
         </a>
       </div>
@@ -139,7 +139,7 @@ export default function AITrainingStudents() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm font-semibold px-4 py-2 rounded-xl inline-block"
-                    style={{ background: TEAL, color: 'white' }}
+                    style={{ background: TEAL, color: '#1A1A0E' }}
                   >
                     Start learning →
                   </a>

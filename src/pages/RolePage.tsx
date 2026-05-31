@@ -104,7 +104,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               <Link to={d.promptsTo}
                 onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'See prompts' })}
                 className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 text-center"
-                style={{ background: TEAL, color: 'white' }}>
+                style={{ background: TEAL, color: '#1A1A0E' }}>
                 {d.promptsLabel} &rarr;
               </Link>
               <button
@@ -278,7 +278,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             <button
               onClick={() => { track({ name: 'agent_opened', section: `role-${d.slug}` }); openWidgetWithRole(d.agentRole); }}
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
-              style={{ background: TEAL, color: 'white' }}>
+              style={{ background: TEAL, color: '#1A1A0E' }}>
               <span className="relative flex w-2 h-2" aria-hidden="true">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: 'white' }} />
                 <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: 'white' }} />

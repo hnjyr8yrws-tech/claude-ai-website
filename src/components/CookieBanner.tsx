@@ -63,15 +63,17 @@ export default function CookieBanner() {
             <div className="flex gap-2 flex-shrink-0">
               <button
                 onClick={decline}
-                className="px-4 py-2 rounded-xl text-xs font-semibold border transition-colors hover:bg-white/5"
-                style={{ borderColor: '#374151', color: '#9ca3af' }}
+                type="button"
+                className="px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold border transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
+                style={{ borderColor: '#374151', color: '#cbd0d8' }}
               >
                 Decline
               </button>
               <button
                 onClick={accept}
-                className="px-4 py-2 rounded-xl text-xs font-semibold transition-opacity hover:opacity-80"
-                style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
+                type="button"
+                className="px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
+                style={{ background: 'var(--color-promptly-lime)', color: '#1A1A0E' }}
               >
                 Accept all
               </button>

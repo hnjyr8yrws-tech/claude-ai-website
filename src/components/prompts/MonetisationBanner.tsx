@@ -153,7 +153,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
           <button
             type="submit"
             className="w-full py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--color-promptly-lime)]"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             Send me the full pack
           </button>
@@ -170,7 +170,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
             </span>
           </label>
 
-          <p className="text-[10px] leading-relaxed" style={{ color: '#c5c2bb' }}>
+          <p className="text-[10px] leading-relaxed" style={{ color: '#6b6760' }}>
             We&rsquo;ll only email your pack. No spam, ever. Unsubscribe any time.
           </p>
         </form>
@@ -199,7 +199,7 @@ const MonetisationBanner = ({ variant: _variant }: { variant: 'pack' | 'bundle' 
     <div>
       <button
         className="w-full sm:w-auto px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90"
-        style={{ background: TEAL, color: 'white' }}
+        style={{ background: TEAL, color: '#1A1A0E' }}
         onClick={() => {
           const w = document.getElementById('promptly-widget-trigger');
           if (w) (w as HTMLButtonElement).click();

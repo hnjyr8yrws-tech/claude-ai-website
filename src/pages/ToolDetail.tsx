@@ -123,6 +123,7 @@ const ToolDetail = () => {
         <SEO
           title="Tool not found | GetPromptly"
           description="This tool page doesn't exist. Browse our full AI tools directory."
+          keywords="ai tools directory, uk education ai tools"
           path={`/tools/${slug}`}
         />
         <p className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>Tool not found</p>
@@ -132,7 +133,7 @@ const ToolDetail = () => {
         <Link
           to="/tools"
           className="inline-block px-5 py-2.5 rounded-xl text-sm font-semibold"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           Browse all tools
         </Link>
@@ -332,7 +333,7 @@ const ToolDetail = () => {
                   }
                 }}
                 className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-bold transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: 'white' }}
+                style={{ background: TEAL, color: '#1A1A0E' }}
               >
                 {ctaLabel} →
               </a>
@@ -474,7 +475,7 @@ const ToolDetail = () => {
       {inlineItems.length > 0 && (
         <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
           <div className="max-w-3xl mx-auto">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#c5c2bb' }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
               Recommended for you
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

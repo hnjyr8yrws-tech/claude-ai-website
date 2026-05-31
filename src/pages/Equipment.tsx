@@ -124,7 +124,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
       <div className="px-5 pt-5 pb-4 flex-1">
         {/* Category + review status */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#c5c2bb' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
             {product.category}
           </span>
           {product.reviewStatus === 'Reviewed' && (
@@ -165,7 +165,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
         {/* Score — always pending */}
         <div
           className="flex items-center gap-2 px-3 py-2 rounded-xl border text-xs"
-          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#9ca3af' }}
+          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#6b6760' }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
@@ -203,7 +203,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             View →
           </a>
@@ -293,7 +293,7 @@ function CompareBar({
             <div
               key={i}
               className="px-3 py-1 rounded-lg border text-xs"
-              style={{ borderColor: '#e8e6e0', color: '#c5c2bb', borderStyle: 'dashed' }}
+              style={{ borderColor: '#e8e6e0', color: '#6b6760', borderStyle: 'dashed' }}
             >
               + slot
             </div>
@@ -314,7 +314,7 @@ function CompareBar({
             className="text-xs px-4 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
             style={{
               background: items.length >= 2 ? TEAL : '#e8e6e0',
-              color: items.length >= 2 ? 'white' : '#9ca3af',
+              color: items.length >= 2 ? 'white' : '#6b6760',
               cursor: items.length < 2 ? 'not-allowed' : 'pointer',
             }}
           >
@@ -375,7 +375,7 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
           <table className="w-full text-sm">
             <thead>
               <tr style={{ background: '#f7f6f2' }}>
-                <th className="px-5 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb', width: 140 }}>
+                <th className="px-5 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760', width: 140 }}>
                   Feature
                 </th>
                 {items.map(p => (
@@ -423,7 +423,7 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       className="inline-block text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-                      style={{ background: TEAL, color: 'white' }}
+                      style={{ background: TEAL, color: '#1A1A0E' }}
                     >
                       View product →
                     </a>
@@ -692,7 +692,7 @@ export default function Equipment() {
           {/* Price + supplier + review */}
           <div className="flex flex-wrap gap-x-6 gap-y-3">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-semibold" style={{ color: '#c5c2bb' }}>Price:</span>
+              <span className="text-xs font-semibold" style={{ color: '#6b6760' }}>Price:</span>
               {(['All', ...PRICE_BANDS] as const).map(p => (
                 <button
                   key={p}
@@ -710,7 +710,7 @@ export default function Equipment() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-semibold" style={{ color: '#c5c2bb' }}>Supplier:</span>
+              <span className="text-xs font-semibold" style={{ color: '#6b6760' }}>Supplier:</span>
               {(['All', ...SUPPLIER_TYPES] as const).map(s => (
                 <button
                   key={s}
@@ -728,7 +728,7 @@ export default function Equipment() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-semibold" style={{ color: '#c5c2bb' }}>Status:</span>
+              <span className="text-xs font-semibold" style={{ color: '#6b6760' }}>Status:</span>
               {(['All', 'Reviewed', 'In Progress', 'Needs Review'] as const).map(r => (
                 <button
                   key={r}
@@ -799,7 +799,7 @@ export default function Equipment() {
               <Link
                 to="/equipment/schools"
                 className="inline-block px-5 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: 'white' }}
+                style={{ background: TEAL, color: '#1A1A0E' }}
               >
                 School procurement guide →
               </Link>

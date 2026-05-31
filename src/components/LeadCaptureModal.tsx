@@ -128,7 +128,8 @@ const LeadCaptureModal: FC = () => {
             <button
               onClick={close}
               aria-label="Close"
-              className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 rounded-full transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              type="button"
+              className="absolute top-3 right-3 flex items-center justify-center w-11 h-11 rounded-full transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ color: '#6b6760' }}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -203,7 +204,7 @@ const LeadCaptureModal: FC = () => {
                     )}
                   </form>
 
-                  <p className="text-[11px] mt-3 text-center" style={{ color: '#c5c2bb' }}>
+                  <p className="text-[11px] mt-3 text-center" style={{ color: '#6b6760' }}>
                     No spam. Unsubscribe any time. We respect UK GDPR.
                   </p>
                 </>

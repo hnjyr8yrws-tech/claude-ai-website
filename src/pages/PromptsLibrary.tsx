@@ -163,7 +163,7 @@ const PromptsLibrary = () => {
                   }`}
                   style={
                     roleFilter !== r
-                      ? { borderColor: '#e8e6e0', color: '#9ca3af', background: 'white' }
+                      ? { borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }
                       : {}
                   }
                   aria-pressed={roleFilter === r}
@@ -184,7 +184,7 @@ const PromptsLibrary = () => {
                   }`}
                   style={
                     senFilter !== s
-                      ? { borderColor: '#e8e6e0', color: '#9ca3af', background: 'white' }
+                      ? { borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }
                       : {}
                   }
                   aria-pressed={senFilter === s}
@@ -205,7 +205,7 @@ const PromptsLibrary = () => {
                   }`}
                   style={
                     stageFilter !== st
-                      ? { borderColor: '#e8e6e0', color: '#9ca3af', background: 'white' }
+                      ? { borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }
                       : {}
                   }
                   aria-pressed={stageFilter === st}

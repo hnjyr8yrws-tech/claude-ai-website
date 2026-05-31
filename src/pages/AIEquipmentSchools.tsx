@@ -98,7 +98,7 @@ function SchoolProductRow({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: 'white' }}
+          style={{ background: TEAL, color: '#1A1A0E' }}
         >
           View →
         </a>
@@ -156,7 +156,7 @@ export default function AIEquipmentSchools() {
               if (widget) (widget as HTMLButtonElement).click();
             }}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             Request a School Quote
           </button>
@@ -287,7 +287,7 @@ export default function AIEquipmentSchools() {
                     if (widget) (widget as HTMLButtonElement).click();
                   }}
                   className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: 'white' }}
+                  style={{ background: TEAL, color: '#1A1A0E' }}
                 >
                   Get a Quote →
                 </button>
@@ -352,7 +352,7 @@ export default function AIEquipmentSchools() {
             <thead>
               <tr style={{ background: '#f7f6f2' }}>
                 {['Product', 'Category', 'Price', 'Purchase Model', 'Supplier', 'Status', ''].map(h => (
-                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb' }}>
+                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760' }}>
                     {h}
                   </th>
                 ))}

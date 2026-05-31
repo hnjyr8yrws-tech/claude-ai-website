@@ -318,7 +318,7 @@ export default function EquipmentSchools() {
             <thead>
               <tr style={{ background: '#f7f6f2', borderBottom: '1px solid #e8e6e0' }}>
                 {['Product', 'Category', 'Price', 'Purchase', 'Supplier', ''].map(h => (
-                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#c5c2bb' }}>
+                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760' }}>
                     {h}
                   </th>
                 ))}
@@ -358,7 +358,7 @@ export default function EquipmentSchools() {
                 if (widget) (widget as HTMLButtonElement).click();
               }}
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: 'white' }}
+              style={{ background: TEAL, color: '#1A1A0E' }}
             >
               Get procurement advice →
             </button>

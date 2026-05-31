@@ -189,7 +189,7 @@ export default function WhoWeAre() {
           <Link
             to="/tools"
             className="inline-block px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: 'white' }}
+            style={{ background: TEAL, color: '#1A1A0E' }}
           >
             Explore the Platform →
           </Link>
