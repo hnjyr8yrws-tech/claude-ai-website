@@ -3,17 +3,17 @@ interface Props {
 }
 
 const COLOR_MAP: Record<string, { bg: string; color: string }> = {
-  Dyslexia: { bg: '#dbeafe', color: '#1d4ed8' },
-  ADHD: { bg: '#fef3c7', color: '#92400e' },
+  Dyslexia: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
+  ADHD: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
   Autism: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
-  Anxiety: { bg: '#fce7f3', color: '#be185d' },
-  Dyscalculia: { bg: '#f3e8ff', color: '#7c3aed' },
-  'Executive Dysfunction': { bg: '#fff7ed', color: '#c2410c' },
-  'All SEN': { bg: '#f0fdf4', color: '#15803d' },
-  'Mixed SEN': { bg: '#f0fdf4', color: '#15803d' },
+  Anxiety: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
+  Dyscalculia: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
+  'Executive Dysfunction': { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
+  'All SEN': { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
+  'Mixed SEN': { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
 };
 
-const DEFAULT = { bg: '#f3f4f6', color: '#6b7280' };
+const DEFAULT = { bg: 'var(--color-oat)', color: 'var(--color-ink)' };
 
 const SENBadge = ({ tag }: Props) => {
   const colors = COLOR_MAP[tag] ?? DEFAULT;

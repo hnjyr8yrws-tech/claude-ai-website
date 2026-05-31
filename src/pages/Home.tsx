@@ -51,7 +51,7 @@ const ROLES = [
     id: 'leader',
     label: 'School Leader',
     emoji: '\u{1F3EB}',
-    color: '#fef9c3',
+    color: 'var(--color-oat)',
     tagline: 'Lead with confidence',
     desc: 'AI strategy, Ofsted prep, staff comms, policy drafting and school improvement prompts.',
     to: '/prompts/school-leaders',
@@ -62,7 +62,7 @@ const ROLES = [
     id: 'senco',
     label: 'SENCO',
     emoji: '\u{1F91D}',
-    color: '#ede9fe',
+    color: 'var(--color-oat)',
     tagline: 'SEND-specific guidance',
     desc: 'EHCP support, SEND reviews, assistive technology and provision mapping prompts.',
     to: '/prompts/senco',
@@ -73,7 +73,7 @@ const ROLES = [
     id: 'parent',
     label: 'Parent',
     emoji: '\u{1F3E0}',
-    color: '#fce7f3',
+    color: 'var(--color-oat)',
     tagline: 'Support at home',
     desc: 'Homework help, revision support, school communication and SEN advocacy prompts.',
     to: '/prompts/parents',
@@ -84,7 +84,7 @@ const ROLES = [
     id: 'student',
     label: 'Student',
     emoji: '\u{1F393}',
-    color: '#dcfce7',
+    color: 'var(--color-oat)',
     tagline: 'Study smarter',
     desc: 'Essay writing, exam prep, revision prompts and study skill techniques.',
     to: '/prompts/students',
@@ -95,7 +95,7 @@ const ROLES = [
     id: 'admin',
     label: 'School Admin',
     emoji: '\u{1F4CB}',
-    color: '#fff7ed',
+    color: 'var(--color-oat)',
     tagline: 'Cut admin time',
     desc: 'Letters, templates, timetabling, data and communication prompts for office staff.',
     to: '/prompts/admin',
@@ -490,7 +490,7 @@ const PATHWAYS = [
     cta: { label: 'Teacher pathway', to: '/prompts/teachers' },
   },
   {
-    role: 'SENCO', emoji: '\u{1F91D}', color: '#ede9fe',
+    role: 'SENCO', emoji: '\u{1F91D}', color: 'var(--color-oat)',
     headline: 'SEND-specific guidance in one place',
     items: [
       { label: 'EHCP and SEND Prompts', to: '/prompts/senco', tag: 'Prompts' },
@@ -500,7 +500,7 @@ const PATHWAYS = [
     cta: { label: 'SENCO pathway', to: '/prompts/senco' },
   },
   {
-    role: 'School Leader', emoji: '\u{1F3EB}', color: '#fef9c3',
+    role: 'School Leader', emoji: '\u{1F3EB}', color: 'var(--color-oat)',
     headline: 'Lead your school AI strategy',
     items: [
       { label: 'AI Strategy and Policy Prompts', to: '/prompts/school-leaders', tag: 'Prompts' },
@@ -512,10 +512,10 @@ const PATHWAYS = [
 ];
 
 const TAG_COLORS: Record<string, { bg: string; text: string }> = {
-  Prompts:   { bg: '#dcfce7', text: '#15803d' },
-  Tools:     { bg: 'var(--color-oat)', text: TEAL },
-  Training:  { bg: '#fef9c3', text: '#854d0e' },
-  Equipment: { bg: '#ede9fe', text: '#7c3aed' },
+  Prompts:   { bg: 'var(--color-oat)', text: 'var(--color-ink)' },
+  Tools:     { bg: 'var(--color-oat)', text: 'var(--color-ink)' },
+  Training:  { bg: 'var(--color-oat)', text: 'var(--color-ink)' },
+  Equipment: { bg: 'var(--color-oat)', text: 'var(--color-ink)' },
 };
 
 const CuratedPathways: FC = () => (
@@ -613,9 +613,9 @@ const PromptCapture: FC = () => {
 
 const NAV_CARDS = [
   { title: 'AI Tools Hub',     stat: '155 tools reviewed',  desc: 'Every tool reviewed against KCSIE 2025, with an eye on UK GDPR. Filter by role, tier and price.', to: '/tools',        color: 'var(--color-oat)' },
-  { title: 'AI Training',      stat: '26 courses',          desc: 'Free government-backed CPD and paid certification for teachers, leaders and SENCOs.',       to: '/ai-training',  color: '#fef9c3' },
-  { title: 'Equipment',        stat: '96 products',         desc: 'Classroom tech, SEND assistive devices, coding robots and home learning hardware.',           to: '/ai-equipment', color: '#ede9fe' },
-  { title: 'Prompts Library',  stat: '440+ prompts',        desc: 'Ready-to-copy prompts for teachers, SENCOs, leaders, parents and students.',                  to: '/prompts',      color: '#dcfce7' },
+  { title: 'AI Training',      stat: '26 courses',          desc: 'Free government-backed CPD and paid certification for teachers, leaders and SENCOs.',       to: '/ai-training',  color: 'var(--color-oat)' },
+  { title: 'Equipment',        stat: '96 products',         desc: 'Classroom tech, SEND assistive devices, coding robots and home learning hardware.',           to: '/ai-equipment', color: 'var(--color-oat)' },
+  { title: 'Prompts Library',  stat: '440+ prompts',        desc: 'Ready-to-copy prompts for teachers, SENCOs, leaders, parents and students.',                  to: '/prompts',      color: 'var(--color-oat)' },
 ];
 
 const PlatformNav: FC = () => (

@@ -3,8 +3,8 @@ import type { StructuredPrompt } from '../../data/prompts';
 
 const LEVEL_STYLES: Record<string, { bg: string; color: string }> = {
   Beginner: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
-  Intermediate: { bg: '#fef3c7', color: '#92400e' },
-  Advanced: { bg: '#fae8ff', color: '#7c3aed' },
+  Intermediate: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
+  Advanced: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
 };
 
 interface Props {

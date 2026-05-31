@@ -79,10 +79,10 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 
 function badgeStyle(badge: string): { bg: string; color: string } {
   switch (badge) {
-    case 'SEND Friendly':    return { bg: '#e0f2fe', color: '#0369a1' };
+    case 'SEND Friendly':    return { bg: 'var(--color-oat)', color: 'var(--color-ink)' };
     case 'UK Specialist':    return { bg: '#f0fdf4', color: '#15803d' };
     case 'Amazon Available': return { bg: '#fff7ed', color: '#c2410c' };
-    case 'School Quote':     return { bg: '#f5f3ff', color: '#7c3aed' };
+    case 'School Quote':     return { bg: 'var(--color-oat)', color: 'var(--color-ink)' };
     case 'Research Based':   return { bg: '#fef9c3', color: '#854d0e' };
     default:                 return { bg: '#f3f4f6', color: '#6b7280' };
   }
@@ -100,7 +100,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
             {product.category}
           </span>
           {product.badges.includes('SEND Friendly') && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#e0f2fe', color: '#0369a1' }}>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>
               SEND Friendly
             </span>
           )}

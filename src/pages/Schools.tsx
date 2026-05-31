@@ -216,7 +216,7 @@ const PROCUREMENT_ROUTES = [
   {
     route: 'Specialist SEND Suppliers',
     speed: 'Consultative',
-    speedColor: '#7c3aed',
+    speedColor: 'var(--color-ink)',
     description: 'Specialist suppliers for AAC devices, eye-gaze technology, sensory rooms and complex assistive tech. These require direct contact and often an assessment.',
     examples: 'Tobii Dynavox, Smartbox, SpaceKraft, Inclusive Technology',
     note: 'EHCP funding and specialist assessment may be required.',
@@ -327,7 +327,7 @@ const ConsultationForm: FC = () => {
 
   if (submitted) {
     return (
-      <div className="rounded-2xl p-8 text-center" style={{ background: '#e6f7f8', border: `1px solid #b3e8eb` }}>
+      <div className="rounded-2xl p-8 text-center" style={{ background: 'var(--color-oat)', border: `1px solid var(--color-rule)` }}>
         <div
           className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
           style={{ background: TEAL }}

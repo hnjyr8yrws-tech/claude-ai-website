@@ -37,10 +37,10 @@ export const PRICE_ORDER: Record<PriceBand, number> = {
 
 export function badgeStyle(badge: string): { bg: string; color: string } {
   switch (badge) {
-    case 'SEND Friendly':    return { bg: '#e0f2fe', color: '#0369a1' };
+    case 'SEND Friendly':    return { bg: 'var(--color-oat)', color: 'var(--color-ink)' };
     case 'UK Specialist':    return { bg: '#f0fdf4', color: '#15803d' };
     case 'Amazon Available': return { bg: '#fff7ed', color: '#c2410c' };
-    case 'School Quote':     return { bg: '#f5f3ff', color: '#7c3aed' };
+    case 'School Quote':     return { bg: 'var(--color-oat)', color: 'var(--color-ink)' };
     case 'Research Based':   return { bg: '#fef9c3', color: '#854d0e' };
     case 'Needs Review':     return { bg: '#fef3c7', color: '#92400e' };
     default:                 return { bg: '#f3f4f6', color: '#6b7280' };

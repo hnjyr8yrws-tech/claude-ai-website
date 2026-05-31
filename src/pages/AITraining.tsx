@@ -88,7 +88,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             {item.ukRelevant && (
               <span
                 className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ background: '#e0f2fe', color: '#0369a1' }}
+                style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
               >
                 UK
               </span>
@@ -413,9 +413,9 @@ export default function AITraining() {
               slugs={PATHWAY_SEND}
               to="/ai-training/send"
               pathwaySlug="send"
-              accentBg="#eff6ff"
-              accentText="#1d4ed8"
-              accentBorder="#bfdbfe"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="School Leadership AI Readiness"
@@ -423,9 +423,9 @@ export default function AITraining() {
               slugs={PATHWAY_LEADERS}
               to="/ai-training/leaders"
               pathwaySlug="leaders"
-              accentBg="#faf5ff"
-              accentText="#7c3aed"
-              accentBorder="#e9d5ff"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="SENCO AI Toolkit"
@@ -433,9 +433,9 @@ export default function AITraining() {
               slugs={PATHWAY_SENCO}
               to="/ai-training/send"
               pathwaySlug="senco"
-              accentBg="#fdf4ff"
-              accentText="#86198f"
-              accentBorder="#f0abfc"
+              accentBg="var(--color-oat)"
+              accentText="var(--color-ink)"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="AI Literacy for Students"
@@ -445,7 +445,7 @@ export default function AITraining() {
               pathwaySlug="students"
               accentBg="var(--color-oat)"
               accentText="var(--color-promptly-lime)"
-              accentBorder="#99d9de"
+              accentBorder="var(--color-rule)"
             />
             <PathwayCard
               title="AI Productivity for Admin Teams"
@@ -674,9 +674,9 @@ export default function AITraining() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div
               className="rounded-2xl border p-5"
-              style={{ borderColor: '#e0f2fe', background: '#f0f9ff' }}
+              style={{ borderColor: 'var(--color-oat)', background: 'var(--color-oat)' }}
             >
-              <p className="text-sm font-bold mb-3" style={{ color: '#0369a1' }}>
+              <p className="text-sm font-bold mb-3" style={{ color: 'var(--color-ink)' }}>
                 Start as a Beginner if...
               </p>
               <ul className="space-y-2 text-sm" style={{ color: '#1c1a15' }}>
@@ -687,9 +687,9 @@ export default function AITraining() {
             </div>
             <div
               className="rounded-2xl border p-5"
-              style={{ borderColor: '#e0e7ff', background: '#eef2ff' }}
+              style={{ borderColor: 'var(--color-oat)', background: 'var(--color-oat)' }}
             >
-              <p className="text-sm font-bold mb-3" style={{ color: '#4338ca' }}>
+              <p className="text-sm font-bold mb-3" style={{ color: 'var(--color-ink)' }}>
                 Jump to Intermediate if...
               </p>
               <ul className="space-y-2 text-sm" style={{ color: '#1c1a15' }}>

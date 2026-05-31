@@ -38,7 +38,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.provider}</span>
           <div className="flex gap-1.5">
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#15803d' }}>Free</span>
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#eff6ff', color: '#1d4ed8' }}>SEND</span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>SEND</span>
           </div>
         </div>
         <h3 className="font-display text-lg leading-snug mb-0.5" style={{ color: 'var(--text)' }}>{item.name}</h3>
@@ -95,11 +95,11 @@ export default function AITrainingSEND() {
             {['abilitynet-ai-resources', 'microsoft-accessibility-ai'].map(slug => {
               const item = TRAINING.find(t => t.slug === slug)!;
               return (
-                <div key={slug} className="rounded-2xl border p-6" style={{ borderColor: '#bfdbfe', background: '#eff6ff' }}>
-                  <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#1d4ed8' }}>{item.provider}</p>
+                <div key={slug} className="rounded-2xl border p-6" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
+                  <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>{item.provider}</p>
                   <h3 className="font-display text-xl leading-snug mb-2" style={{ color: 'var(--text)' }}>{item.name}</h3>
                   <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b6760' }}>{item.notes}</p>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-4 py-2 rounded-xl inline-block" style={{ background: '#1d4ed8', color: 'white' }}>Visit →</a>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-4 py-2 rounded-xl inline-block" style={{ background: 'var(--color-ink)', color: 'white' }}>Visit →</a>
                 </div>
               );
             })}
@@ -109,14 +109,14 @@ export default function AITrainingSEND() {
           <h2 className="font-display text-3xl mb-8" style={{ color: 'var(--text)' }}>Accessible AI for SEND — full path</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {pathwayItems.map((item, index) => (
-              <div key={item.slug} className="rounded-2xl border p-5" style={{ borderColor: '#bfdbfe', background: '#eff6ff' }}>
+              <div key={item.slug} className="rounded-2xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
                 <div className="flex items-center gap-3 mb-3">
-                  <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: '#1d4ed8', color: 'white' }}>{index + 1}</span>
-                  <span className="text-xs font-medium" style={{ color: '#1d4ed8' }}>{item.provider}</span>
+                  <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: 'var(--color-ink)', color: 'white' }}>{index + 1}</span>
+                  <span className="text-xs font-medium" style={{ color: 'var(--color-ink)' }}>{item.provider}</span>
                 </div>
                 <h3 className="font-display text-base leading-snug mb-2" style={{ color: 'var(--text)' }}>{item.name}</h3>
                 <p className="text-xs mb-4" style={{ color: '#6b6760' }}>{item.notes}</p>
-                <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold" style={{ color: '#1d4ed8' }}>Visit →</a>
+                <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold" style={{ color: 'var(--color-ink)' }}>Visit →</a>
               </div>
             ))}
           </div>
@@ -164,8 +164,8 @@ export default function AITrainingSEND() {
 
       <section className="px-5 sm:px-8 py-12" style={{ background: 'var(--bg)' }}>
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row gap-5">
-          <Link to="/equipment/send" className="flex-1 rounded-2xl border p-6" style={{ borderColor: '#bfdbfe', background: '#eff6ff' }}>
-            <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1d4ed8' }}>Related</p>
+          <Link to="/equipment/send" className="flex-1 rounded-2xl border p-6" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
+            <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>Related</p>
             <p className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>SEND Equipment →</p>
             <p className="text-sm" style={{ color: '#6b6760' }}>Hardware, AAC devices and accessibility equipment for SEND learners</p>
           </Link>

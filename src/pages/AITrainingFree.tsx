@@ -40,7 +40,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             {item.ukRelevant && (
               <span
                 className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ background: '#e0f2fe', color: '#0369a1' }}
+                style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
               >
                 UK
               </span>

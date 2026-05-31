@@ -296,9 +296,9 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { label: 'AI Tools Hub',    stat: '155 tools',   to: '/tools',        color: 'var(--color-oat)' },
-              { label: 'AI Training',     stat: '26 courses',  to: '/ai-training',  color: '#fef9c3' },
-              { label: 'Equipment',       stat: '96 products', to: '/ai-equipment', color: '#ede9fe' },
-              { label: 'Prompts Library', stat: '440+ prompts',to: '/prompts',      color: '#dcfce7' },
+              { label: 'AI Training',     stat: '26 courses',  to: '/ai-training',  color: 'var(--color-oat)' },
+              { label: 'Equipment',       stat: '96 products', to: '/ai-equipment', color: 'var(--color-oat)' },
+              { label: 'Prompts Library', stat: '440+ prompts',to: '/prompts',      color: 'var(--color-oat)' },
             ].map((c, i) => (
               <FadeIn key={c.label} delay={i * 0.05}>
                 <Link to={c.to} className="group rounded-2xl border overflow-hidden transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-sm"
@@ -350,7 +350,7 @@ const TEACHER_DATA: RoleData = {
 };
 
 const LEADER_DATA: RoleData = {
-  slug: 'school-leaders', title: 'School Leaders', emoji: '\u{1F3EB}', color: '#fef9c3',
+  slug: 'school-leaders', title: 'School Leaders', emoji: '\u{1F3EB}', color: 'var(--color-oat)',
   heroTitle: 'Lead your school\'s AI strategy with confidence.',
   heroSub: 'From AI policy to Ofsted readiness, staff CPD to procurement. GetPromptly gives you the evidence and tools to lead.',
   seoTitle: 'AI for School Leaders — Strategy & CPD | GetPromptly',
@@ -375,7 +375,7 @@ const LEADER_DATA: RoleData = {
 };
 
 const SENCO_DATA: RoleData = {
-  slug: 'senco', title: 'SENCOs', emoji: '\u{1F91D}', color: '#ede9fe',
+  slug: 'senco', title: 'SENCOs', emoji: '\u{1F91D}', color: 'var(--color-oat)',
   heroTitle: 'SEND-specific AI guidance for UK SENCOs.',
   heroSub: 'EHCP support, assistive technology reviews, provision mapping prompts and SEND-focused training. All in one place.',
   seoTitle: 'AI for SENCOs — SEND Tools & Prompts | GetPromptly',
@@ -403,7 +403,7 @@ const SENCO_DATA: RoleData = {
 };
 
 const PARENT_DATA: RoleData = {
-  slug: 'parents', title: 'Parents', emoji: '\u{1F3E0}', color: '#fce7f3',
+  slug: 'parents', title: 'Parents', emoji: '\u{1F3E0}', color: 'var(--color-oat)',
   heroTitle: 'Help your child learn safely with AI.',
   heroSub: 'Homework support, revision tools, safe AI guidance and SEN advocacy prompts. Trusted recommendations from UK education experts.',
   seoTitle: 'AI for Parents — Safe Tools & Revision Help | GetPromptly',
@@ -427,7 +427,7 @@ const PARENT_DATA: RoleData = {
 };
 
 const STUDENT_DATA: RoleData = {
-  slug: 'students', title: 'Students', emoji: '\u{1F393}', color: '#dcfce7',
+  slug: 'students', title: 'Students', emoji: '\u{1F393}', color: 'var(--color-oat)',
   heroTitle: 'Study smarter with AI that is safe to use.',
   heroSub: 'Revision prompts, exam prep tools and study techniques. Every recommendation checked for safety by UK education experts.',
   seoTitle: 'AI for Students — Revision & Study Tools | GetPromptly',
@@ -450,7 +450,7 @@ const STUDENT_DATA: RoleData = {
 };
 
 const ADMIN_DATA: RoleData = {
-  slug: 'admin', title: 'School Admin', emoji: '\u{1F4CB}', color: '#fff7ed',
+  slug: 'admin', title: 'School Admin', emoji: '\u{1F4CB}', color: 'var(--color-oat)',
   heroTitle: 'Cut admin hours with AI that works.',
   heroSub: 'Letters, templates, timetabling and data prompts. Practical AI tools reviewed for school office use.',
   seoTitle: 'AI for School Admin — Templates & Tools | GetPromptly',

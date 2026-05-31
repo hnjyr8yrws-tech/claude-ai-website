@@ -250,7 +250,7 @@ export default function AIEquipmentSchools() {
               badge: 'School Quote',
               title: 'School Resellers',
               desc: 'Education framework pricing, school invoicing and VAT handling.',
-              bg: '#f5f3ff', color: '#7c3aed',
+              bg: 'var(--color-oat)', color: 'var(--color-ink)',
             },
             {
               badge: 'UK Specialist',

@@ -98,7 +98,7 @@ function ProductRow({ product }: { product: EquipmentProduct }) {
   const purchaseColour: Record<PurchaseModel, { bg: string; color: string }> = {
     Buy:          { bg: '#f0fdf4', color: '#15803d' },
     Quote:        { bg: 'var(--color-oat)', color: 'var(--color-ink-accent)' },
-    Subscription: { bg: '#f5f3ff', color: '#7c3aed' },
+    Subscription: { bg: 'var(--color-oat)', color: 'var(--color-ink)' },
     Lease:        { bg: '#fef9c3', color: '#854d0e' },
   };
   const ps = purchaseColour[product.purchaseModel];
