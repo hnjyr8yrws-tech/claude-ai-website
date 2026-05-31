@@ -87,7 +87,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
       style={{ borderColor: BORDER, background: '#f7f6f2' }}
     >
       <div className="max-w-md mx-auto">
-        <p className="text-[11px] font-semibold tracking-widest uppercase mb-2" style={{ color: TEAL }}>
+        <p className="text-[11px] font-semibold tracking-widest uppercase mb-2" style={{ color: 'var(--color-ink-accent)' }}>
           Full Pack
         </p>
         <h3 className="font-display text-xl mb-1" style={{ color: '#1c1a15' }}>
@@ -186,7 +186,7 @@ const MonetisationBanner = ({ variant: _variant }: { variant: 'pack' | 'bundle' 
     style={{ borderColor: BORDER, background: '#f7f6f2' }}
   >
     <div className="flex-1">
-      <p className="text-[11px] font-semibold tracking-widest uppercase mb-1" style={{ color: TEAL }}>
+      <p className="text-[11px] font-semibold tracking-widest uppercase mb-1" style={{ color: 'var(--color-ink-accent)' }}>
         School Bundle
       </p>
       <h3 className="font-display text-xl mb-1" style={{ color: '#1c1a15' }}>

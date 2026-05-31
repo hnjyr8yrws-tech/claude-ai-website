@@ -314,7 +314,7 @@ export default function AITraining() {
           <SectionLabel>AI Training Hub</SectionLabel>
           <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: 'var(--text)' }}>
             Learn{' '}
-            <span style={{ color: TEAL }}>AI.</span>
+            <span style={{ color: 'var(--color-ink-accent)' }}>AI.</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl mb-10" style={{ color: '#6b6760' }}>
             {STAT_TOTAL} free and paid resources curated for UK educators, parents, students
@@ -334,7 +334,7 @@ export default function AITraining() {
                 className="rounded-2xl border p-5 text-center"
                 style={{ borderColor: '#e8e6e0', background: 'white' }}
               >
-                <p className="font-display text-3xl mb-1" style={{ color: TEAL }}>
+                <p className="font-display text-3xl mb-1" style={{ color: 'var(--color-ink-accent)' }}>
                   {stat.value}
                 </p>
                 <p className="text-xs" style={{ color: '#9ca3af' }}>
@@ -577,7 +577,7 @@ export default function AITraining() {
                   setAudienceFilter('All');
                 }}
                 className="text-sm font-semibold"
-                style={{ color: TEAL }}
+                style={{ color: 'var(--color-ink-accent)' }}
               >
                 Clear all filters
               </button>
@@ -715,7 +715,7 @@ export default function AITraining() {
               className="rounded-2xl border p-6 flex flex-col gap-2 transition-colors group"
               style={{ borderColor: '#e8e6e0', background: 'white' }}
             >
-              <span className="text-sm font-bold uppercase tracking-widest" style={{ color: TEAL }}>
+              <span className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-ink-accent)' }}>
                 AI Tools
               </span>
               <h3 className="font-display text-xl" style={{ color: 'var(--text)' }}>
@@ -730,7 +730,7 @@ export default function AITraining() {
               className="rounded-2xl border p-6 flex flex-col gap-2 transition-colors"
               style={{ borderColor: '#e8e6e0', background: 'white' }}
             >
-              <span className="text-sm font-bold uppercase tracking-widest" style={{ color: TEAL }}>
+              <span className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-ink-accent)' }}>
                 Equipment
               </span>
               <h3 className="font-display text-xl" style={{ color: 'var(--text)' }}>

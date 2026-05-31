@@ -179,7 +179,7 @@ const ToolDetail = () => {
               {tool.tier}
             </span>
             {tool.ukReady === 'Yes' && (
-              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                 UK Ready
               </span>
             )}
@@ -383,7 +383,7 @@ const ToolDetail = () => {
               ))}
             </div>
             <div className="mt-4">
-              <Link to="/prompts/library" className="text-sm font-semibold" style={{ color: TEAL }}>
+              <Link to="/prompts/library" className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
                 Browse all prompt packs →
               </Link>
             </div>
@@ -408,7 +408,7 @@ const ToolDetail = () => {
               ))}
             </div>
             <div className="mt-4">
-              <Link to="/ai-training" className="text-sm font-semibold" style={{ color: TEAL }}>
+              <Link to="/ai-training" className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
                 Browse all training →
               </Link>
             </div>
@@ -463,7 +463,7 @@ const ToolDetail = () => {
               })}
             </div>
             <div className="mt-4">
-              <Link to="/tools" className="text-sm font-semibold" style={{ color: TEAL }}>
+              <Link to="/tools" className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
                 View all {tool.category} tools →
               </Link>
             </div>

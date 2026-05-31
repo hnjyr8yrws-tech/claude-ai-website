@@ -82,7 +82,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
               {item.title}
             </p>
             {item.badge && (
-              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+              <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                 {item.badge}
               </span>
             )}
@@ -114,7 +114,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
                 {item.title}
               </h3>
               {item.badge && (
-                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-oat)', color: TEAL }}>
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                   {item.badge}
                 </span>
               )}
@@ -122,7 +122,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
             <p className="text-xs leading-relaxed mb-2" style={{ color: '#6b6760' }}>
               {item.description}
             </p>
-            <span className="text-xs font-semibold" style={{ color: TEAL }}>
+            <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
               {item.cta}
             </span>
           </div>

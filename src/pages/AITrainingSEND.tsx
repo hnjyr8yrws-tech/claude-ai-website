@@ -65,7 +65,7 @@ export default function AITrainingSEND() {
 
       <div className="px-5 sm:px-8 pt-8" style={{ background: 'var(--bg)' }}>
         <div className="max-w-4xl mx-auto">
-          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: TEAL }}>
+          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: 'var(--color-ink-accent)' }}>
             ← Back to Training Hub
           </Link>
         </div>
@@ -75,7 +75,7 @@ export default function AITrainingSEND() {
         <div className="max-w-4xl mx-auto">
           <SectionLabel>SEND &amp; Accessibility</SectionLabel>
           <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: 'var(--text)' }}>
-            Accessible <span style={{ color: TEAL }}>AI Training.</span>
+            Accessible <span style={{ color: 'var(--color-ink-accent)' }}>AI Training.</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
             AI training for learners with disabilities, their teachers, parents and support staff.
@@ -141,7 +141,7 @@ export default function AITrainingSEND() {
                         <p className="text-xs font-semibold mb-1" style={{ color: '#9ca3af' }}>{item.provider}</p>
                         <h4 className="font-display text-base leading-snug mb-1" style={{ color: 'var(--text)' }}>{item.name}</h4>
                         <p className="text-xs mb-2" style={{ color: '#6b6760' }}>{item.notes}</p>
-                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold" style={{ color: TEAL }}>Visit →</a>
+                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Visit →</a>
                       </div>
                     ))}
                   </div>

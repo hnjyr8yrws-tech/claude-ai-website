@@ -115,7 +115,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         {product.senCategory.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-3">
             {product.senCategory.map(s => (
-              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                 {s}
               </span>
             ))}
@@ -188,7 +188,7 @@ export default function EquipmentSEND() {
           <Link
             to="/equipment"
             className="text-xs font-medium transition-opacity hover:opacity-70"
-            style={{ color: TEAL }}
+            style={{ color: 'var(--color-ink-accent)' }}
           >
             ← Equipment Hub
           </Link>
@@ -196,7 +196,7 @@ export default function EquipmentSEND() {
         <SectionLabel>SEND Assistive Tech</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           SEND<br />
-          <span style={{ color: TEAL }}>Equipment.</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Equipment.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
           {SEND_PRODUCTS.length} products independently assessed for special educational needs — from low-tech AAC to sensory regulation tools and hearing supports.
@@ -221,7 +221,7 @@ export default function EquipmentSEND() {
                   <div className="text-2xl mb-2" aria-hidden="true">{col.icon}</div>
                   <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>{col.title}</h3>
                   <p className="text-xs leading-relaxed mb-3" style={{ color: '#6b6760' }}>{col.desc}</p>
-                  <span className="text-xs font-semibold" style={{ color: TEAL }}>{col.count} products →</span>
+                  <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>{col.count} products →</span>
                 </button>
               </FadeIn>
             ))}
@@ -275,7 +275,7 @@ export default function EquipmentSEND() {
               <button
                 onClick={() => { setSenFilter('All'); setCategoryFilter('All'); setSearch(''); }}
                 className="text-sm font-semibold"
-                style={{ color: TEAL }}
+                style={{ color: 'var(--color-ink-accent)' }}
               >
                 Clear filters
               </button>

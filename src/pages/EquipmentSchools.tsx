@@ -97,7 +97,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 function ProductRow({ product }: { product: EquipmentProduct }) {
   const purchaseColour: Record<PurchaseModel, { bg: string; color: string }> = {
     Buy:          { bg: '#f0fdf4', color: '#15803d' },
-    Quote:        { bg: 'var(--color-oat)', color: TEAL },
+    Quote:        { bg: 'var(--color-oat)', color: 'var(--color-ink-accent)' },
     Subscription: { bg: '#f5f3ff', color: '#7c3aed' },
     Lease:        { bg: '#fef9c3', color: '#854d0e' },
   };
@@ -123,7 +123,7 @@ function ProductRow({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs font-semibold transition-opacity hover:opacity-70"
-          style={{ color: TEAL }}
+          style={{ color: 'var(--color-ink-accent)' }}
         >
           View →
         </a>
@@ -159,14 +159,14 @@ export default function EquipmentSchools() {
       {/* ── HERO ─────────────────────────────────────────────────────────────── */}
       <div className="max-w-3xl mx-auto px-5 sm:px-8 pt-16 pb-12">
         <div className="mb-4">
-          <Link to="/equipment" className="text-xs font-medium transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+          <Link to="/equipment" className="text-xs font-medium transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
             ← Equipment Hub
           </Link>
         </div>
         <SectionLabel>For Schools</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           School<br />
-          <span style={{ color: TEAL }}>Procurement.</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Procurement.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
           {SCHOOL_PRODUCTS.length} products available for school procurement — with supplier types, purchase models, VAT notes, and framework compliance guidance.
@@ -187,7 +187,7 @@ export default function EquipmentSchools() {
                 <div className="flex gap-5 p-5 rounded-xl border" style={{ borderColor: '#e8e6e0' }}>
                   <span
                     className="font-display text-2xl flex-shrink-0 w-10 text-center leading-none mt-0.5"
-                    style={{ color: TEAL }}
+                    style={{ color: 'var(--color-ink-accent)' }}
                   >
                     {item.step}
                   </span>
@@ -257,13 +257,13 @@ export default function EquipmentSchools() {
               {SCHOOL_BUNDLES.map((bundle, i) => (
                 <FadeIn key={bundle.id} delay={i * 0.06}>
                   <div className="rounded-2xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-                    <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
+                    <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>
                       Bundle · {bundle.totalPriceBand}
                     </p>
                     <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>{bundle.name}</h3>
                     <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
                     <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{bundle.desc}</p>
-                    <p className="text-xs mt-3 font-semibold" style={{ color: TEAL }}>
+                    <p className="text-xs mt-3 font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
                       {bundle.productSlugs.length} products included
                     </p>
                   </div>

@@ -72,7 +72,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       className="rounded-xl border p-5 flex flex-col gap-3"
       style={{ borderColor: '#e8e6e0', background: 'white' }}
     >
-      <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: TEAL }}>
+      <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-accent)' }}>
         Bundle · {bundle.totalPriceBand}
       </p>
       <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{bundle.name}</h3>
@@ -80,7 +80,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map((s: string) => (
-          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
             {s}
           </span>
         ))}
@@ -136,13 +136,13 @@ export default function AIEquipmentParents() {
 
       {/* HERO */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
-        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
           ← Equipment Hub
         </Link>
         <SectionLabel>For Parents</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           Equipment for<br />
-          <span style={{ color: TEAL }}>Home Learning</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Home Learning</span>
         </h1>
         <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
           Tablets, reading pens, sensory tools and study accessories for supporting your child at home.
@@ -207,7 +207,7 @@ export default function AIEquipmentParents() {
             {sendFriendlyHome.map(p => <ProductCard key={p.id} product={p} />)}
           </div>
           <div className="mt-6">
-            <Link to="/ai-equipment/send" className="text-sm font-semibold" style={{ color: TEAL }}>
+            <Link to="/ai-equipment/send" className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
               View all SEND equipment →
             </Link>
           </div>
@@ -243,19 +243,19 @@ export default function AIEquipmentParents() {
           </p>
           <ul className="space-y-2 text-sm" style={{ color: '#6b6760' }}>
             <li className="flex items-start gap-2">
-              <span style={{ color: TEAL }}>•</span>
+              <span style={{ color: 'var(--color-ink-accent)' }}>•</span>
               Talking to your child's school and SENCO before purchasing
             </li>
             <li className="flex items-start gap-2">
-              <span style={{ color: TEAL }}>•</span>
+              <span style={{ color: 'var(--color-ink-accent)' }}>•</span>
               Requesting an assessment through an occupational therapist or speech and language therapist
             </li>
             <li className="flex items-start gap-2">
-              <span style={{ color: TEAL }}>•</span>
+              <span style={{ color: 'var(--color-ink-accent)' }}>•</span>
               Checking whether equipment may be funded through an EHCP
             </li>
             <li className="flex items-start gap-2">
-              <span style={{ color: TEAL }}>•</span>
+              <span style={{ color: 'var(--color-ink-accent)' }}>•</span>
               Trialling before committing to high-cost items where possible
             </li>
           </ul>

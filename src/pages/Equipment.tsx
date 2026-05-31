@@ -222,7 +222,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       style={{ borderColor: '#e8e6e0', background: 'white' }}
     >
       <div>
-        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
+        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>
           Bundle · {bundle.totalPriceBand}
         </p>
         <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>
@@ -233,7 +233,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map(s => (
-          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
             {s}
           </span>
         ))}
@@ -277,7 +277,7 @@ function CompareBar({
             <div
               key={p.id}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs"
-              style={{ borderColor: TEAL, color: TEAL, background: 'var(--color-oat)' }}
+              style={{ borderColor: TEAL, color: 'var(--color-ink-accent)', background: 'var(--color-oat)' }}
             >
               <span className="font-medium truncate max-w-[120px]">{p.name}</span>
               <button
@@ -521,7 +521,7 @@ export default function Equipment() {
         <SectionLabel>Equipment Hub</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           Education<br />
-          <span style={{ color: TEAL }}>Equipment.</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Equipment.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl mb-10" style={{ color: '#6b6760' }}>
           96 independently assessed products for UK schools and families — from SEND assistive tech to classroom coding robots and AAC devices.
@@ -539,7 +539,7 @@ export default function Equipment() {
               className="rounded-2xl border px-5 py-4"
               style={{ borderColor: '#e8e6e0', background: 'white' }}
             >
-              <div className="font-display text-3xl" style={{ color: TEAL }}>{s.value}</div>
+              <div className="font-display text-3xl" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</div>
               <div className="text-xs mt-1" style={{ color: '#6b6760' }}>{s.label}</div>
             </div>
           ))}
@@ -603,7 +603,7 @@ export default function Equipment() {
                 Pre-selected product sets for common SEND and classroom needs.
               </p>
             </div>
-            <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+            <span className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
               {BUNDLES.length} bundles
             </span>
           </div>
@@ -752,7 +752,7 @@ export default function Equipment() {
               Showing <strong style={{ color: 'var(--text)' }}>{filtered.length}</strong> of {STAT_TOTAL} products
             </p>
             {hasActiveFilters && (
-              <button onClick={clearFilters} className="text-xs font-medium transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+              <button onClick={clearFilters} className="text-xs font-medium transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
                 Clear filters ×
               </button>
             )}
@@ -764,7 +764,7 @@ export default function Equipment() {
           <div className="py-20 text-center">
             <p className="text-lg font-display mb-2" style={{ color: 'var(--text)' }}>No products found</p>
             <p className="text-sm mb-4" style={{ color: '#9ca3af' }}>Try adjusting your filters or search term.</p>
-            <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: TEAL }}>
+            <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
               Clear all filters
             </button>
           </div>
@@ -790,7 +790,7 @@ export default function Equipment() {
             <SectionLabel>For Schools</SectionLabel>
             <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: 'var(--text)' }}>
               Procurement<br />
-              <span style={{ color: TEAL }}>made easier.</span>
+              <span style={{ color: 'var(--color-ink-accent)' }}>made easier.</span>
             </h2>
             <p className="text-sm leading-relaxed max-w-sm" style={{ color: '#6b6760' }}>
               All products include supplier details, purchase model (buy/quote/lease) and compatibility notes for mainstream and SEND provision. Use the compare feature to shortlist up to four products side by side.
@@ -822,7 +822,7 @@ export default function Equipment() {
               'Equipment scoring underway — scores published as reviews complete',
             ].map(text => (
               <div key={text} className="flex items-start gap-3">
-                <span className="mt-0.5 text-sm font-bold flex-shrink-0" style={{ color: TEAL }}>✓</span>
+                <span className="mt-0.5 text-sm font-bold flex-shrink-0" style={{ color: 'var(--color-ink-accent)' }}>✓</span>
                 <p className="text-sm" style={{ color: '#6b6760' }}>{text}</p>
               </div>
             ))}

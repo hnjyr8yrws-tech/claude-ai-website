@@ -74,7 +74,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
       {product.senCategory.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {product.senCategory.map((s: string) => (
-            <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+            <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
               {s}
             </span>
           ))}
@@ -112,7 +112,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       className="rounded-xl border p-5 flex flex-col gap-3"
       style={{ borderColor: '#e8e6e0', background: 'white' }}
     >
-      <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: TEAL }}>
+      <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-accent)' }}>
         Bundle · {bundle.totalPriceBand}
       </p>
       <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{bundle.name}</h3>
@@ -120,7 +120,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
       <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map((s: string) => (
-          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+          <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
             {s}
           </span>
         ))}
@@ -170,13 +170,13 @@ export default function AIEquipmentSEND() {
 
       {/* HERO */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
-        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
           ← Equipment Hub
         </Link>
         <SectionLabel>For SEND Provision</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           SEND &amp; Assistive<br />
-          <span style={{ color: TEAL }}>Technology</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Technology</span>
         </h1>
         <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
           AAC devices, sensory tools, hearing supports, assistive literacy and classroom adaptations for SEND pupils.
@@ -213,7 +213,7 @@ export default function AIEquipmentSEND() {
                 <p className="text-sm flex-1" style={{ color: '#6b6760' }}>{card.desc}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs" style={{ color: '#9ca3af' }}>{count} products</span>
-                  <span className="text-xs font-semibold" style={{ color: TEAL }}>Browse →</span>
+                  <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse →</span>
                 </div>
               </Link>
             );

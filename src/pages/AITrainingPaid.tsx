@@ -100,7 +100,7 @@ export default function AITrainingPaid() {
       {/* Back link */}
       <div className="px-5 sm:px-8 pt-8" style={{ background: 'var(--bg)' }}>
         <div className="max-w-4xl mx-auto">
-          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: TEAL }}>
+          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: 'var(--color-ink-accent)' }}>
             ← Back to Training Hub
           </Link>
         </div>
@@ -112,7 +112,7 @@ export default function AITrainingPaid() {
           <SectionLabel>Premium Courses</SectionLabel>
           <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: 'var(--text)' }}>
             Premium{' '}
-            <span style={{ color: TEAL }}>AI Courses.</span>
+            <span style={{ color: 'var(--color-ink-accent)' }}>AI Courses.</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
             {PAID_ITEMS.length} paid courses with certificates, expert mentors and structured

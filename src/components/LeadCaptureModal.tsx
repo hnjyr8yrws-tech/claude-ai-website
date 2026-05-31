@@ -158,7 +158,7 @@ const LeadCaptureModal: FC = () => {
                   <p className="text-sm" style={{ color: '#6b6760' }}>
                     Check your inbox — we've sent the resource to <strong>{email}</strong>.
                     If it doesn't arrive, email{' '}
-                    <a href="mailto:info@getpromptly.co.uk" className="underline" style={{ color: TEAL }}>info@getpromptly.co.uk</a>.
+                    <a href="mailto:info@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>info@getpromptly.co.uk</a>.
                   </p>
                   <button
                     onClick={close}

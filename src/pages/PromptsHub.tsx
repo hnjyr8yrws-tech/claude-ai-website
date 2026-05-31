@@ -195,10 +195,10 @@ function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
         aria-expanded={open}
         className="w-full p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded-2xl"
       >
-        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>{pack.role}</p>
+        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>{pack.role}</p>
         <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{pack.headline}</h3>
         <p className="text-sm mt-1.5 leading-relaxed" style={{ color: '#6b6760' }}>{pack.desc}</p>
-        <span className="inline-block mt-3 text-xs font-bold" style={{ color: TEAL }}>
+        <span className="inline-block mt-3 text-xs font-bold" style={{ color: 'var(--color-ink-accent)' }}>
           {open ? '▲ Less' : '▼ See example prompts'}
         </span>
       </button>
@@ -215,7 +215,7 @@ function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
               <ul className="space-y-2 mb-5">
                 {pack.examples.map((ex, i) => (
                   <li key={i} className="flex gap-2 text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-                    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5" style={{ background: 'var(--color-oat)', color: TEAL }}>{i + 1}</span>
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>{i + 1}</span>
                     {ex}
                   </li>
                 ))}
@@ -443,7 +443,7 @@ const PromptsHub = () => {
               <h3 className="font-semibold text-base mb-1" style={{ color: 'var(--text)' }}>Start with the free pack</h3>
               <p className="text-sm mb-3" style={{ color: '#6b6760' }}>We'll email a role-specific starter pack you can copy into Claude, ChatGPT or Gemini today.</p>
               {freePackSent ? (
-                <p className="text-sm font-semibold py-2" style={{ color: TEAL }}>✓ Check your inbox — pack sent!</p>
+                <p className="text-sm font-semibold py-2" style={{ color: 'var(--color-ink-accent)' }}>✓ Check your inbox — pack sent!</p>
               ) : (
                 <form onSubmit={handleFreePackSubmit} className="flex flex-col sm:flex-row gap-2">
                   <label htmlFor="free-pack-email" className="sr-only">Email address</label>

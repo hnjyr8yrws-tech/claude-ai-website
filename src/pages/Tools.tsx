@@ -106,7 +106,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
               <p className="text-xs font-semibold uppercase tracking-wide mb-2" style={{ color: '#6b6760' }}>Suitable For</p>
               <div className="flex flex-wrap gap-1.5">
                 {tool.audience.map(a => (
-                  <span key={a} className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+                  <span key={a} className="text-xs font-medium px-2.5 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                     {a}
                   </span>
                 ))}
@@ -138,7 +138,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
           <button
             onClick={onCompare}
             className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl border transition-all hover:opacity-80"
-            style={{ background: 'white', color: TEAL, borderColor: TEAL }}
+            style={{ background: 'white', color: 'var(--color-ink-accent)', borderColor: TEAL }}
           >
             Compare with alternatives
           </button>
@@ -191,7 +191,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
             We'll notify you at {email} when the review is complete.
           </p>
         )}
-        <button onClick={onClose} className="mt-4 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <button onClick={onClose} className="mt-4 text-xs font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
           Search another tool →
         </button>
       </motion.div>
@@ -304,7 +304,7 @@ function ToolCard({
             </span>
           )}
           {tool.free && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
               Free tier
             </span>
           )}
@@ -649,7 +649,7 @@ export default function Tools() {
         <SectionLabel>AI Tools Directory</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           AI Tools for<br />
-          <span style={{ color: TEAL }}>UK Education.</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>UK Education.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl mb-8" style={{ color: '#6b6760' }}>
           {STAT_TOTAL} tools independently safety-scored against KCSIE 2025. Filtered by your role. No paid placements. Last updated Apr 2026.
@@ -664,7 +664,7 @@ export default function Tools() {
             { label: 'Free Tier',    value: STAT_FREE     },
           ].map(s => (
             <div key={s.label} className="px-6 py-5" style={{ background: 'white' }}>
-              <p className="font-display text-3xl font-bold mb-0.5" style={{ color: TEAL }}>{s.value}</p>
+              <p className="font-display text-3xl font-bold mb-0.5" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</p>
               <p className="text-xs" style={{ color: '#6b6760' }}>{s.label}</p>
             </div>
           ))}
@@ -672,7 +672,7 @@ export default function Tools() {
 
         {/* ── SCORE A TOOL ── */}
         <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: TEAL, background: 'var(--color-oat)' }}>
-          <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>Score a Tool</p>
+          <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>Score a Tool</p>
           <h2 className="font-display text-xl sm:text-2xl mb-2" style={{ color: 'var(--text)' }}>
             Check any AI tool's safety score
           </h2>
@@ -681,7 +681,7 @@ export default function Tools() {
           </p>
           <form onSubmit={handleScoreTool} className="flex flex-col sm:flex-row gap-2 max-w-xl">
             <div className="relative flex-1">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: TEAL }}>🔍</span>
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: 'var(--color-ink-accent)' }}>🔍</span>
               <input
                 type="text"
                 value={scoreQuery}
@@ -927,7 +927,7 @@ export default function Tools() {
             <div className="rounded-2xl border p-4" style={{ borderColor: '#e8e6e0', background: 'white' }}>
               <div className="flex items-center justify-between mb-3">
                 <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>Safety Tiers</p>
-                <Link to="/safety-methodology" className="text-[10px] font-semibold hover:opacity-70 transition-opacity" style={{ color: TEAL }}>
+                <Link to="/safety-methodology" className="text-[10px] font-semibold hover:opacity-70 transition-opacity" style={{ color: 'var(--color-ink-accent)' }}>
                   How? →
                 </Link>
               </div>
@@ -963,7 +963,7 @@ export default function Tools() {
             {/* Compare shortcut */}
             {compareList.length > 0 && (
               <div className="rounded-2xl border p-4" style={{ borderColor: TEAL, background: 'var(--color-oat)' }}>
-                <p className="text-xs font-semibold mb-2" style={{ color: TEAL }}>
+                <p className="text-xs font-semibold mb-2" style={{ color: 'var(--color-ink-accent)' }}>
                   {compareList.length}/3 tools selected
                 </p>
                 <button
@@ -990,7 +990,7 @@ export default function Tools() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
           <div className="rounded-2xl border p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-5" style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}>
             <div className="flex-1">
-              <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: TEAL }}>Suggest a tool</p>
+              <p className="text-xs font-semibold uppercase tracking-widest mb-1" style={{ color: 'var(--color-ink-accent)' }}>Suggest a tool</p>
               <h2 className="font-display text-xl mb-1.5" style={{ color: 'var(--text)' }}>Know a tool we should review?</h2>
               <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
                 Email the GetPromptly team with the tool name, website and the school role it supports.

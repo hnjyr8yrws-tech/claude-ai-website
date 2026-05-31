@@ -123,7 +123,7 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
 
   if (status === 'success') {
     return (
-      <div className="mx-3 mb-3 px-4 py-3 rounded-xl text-xs text-center" style={{ background: 'var(--color-oat)', color: TEAL }}>
+      <div className="mx-3 mb-3 px-4 py-3 rounded-xl text-xs text-center" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
         ✓ You're subscribed. Personalised picks are on the way.
       </div>
     );
@@ -240,7 +240,7 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
   return (
     <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: '#f7f6f2' }}>
       <div className="flex items-center justify-between mb-4">
-        <p className="text-xs font-semibold" style={{ color: TEAL }}>
+        <p className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
           {QUIZ_LABELS[quizKey]} · Step {step + 1}/{steps.length}
         </p>
         <button onClick={onCancel} className="text-xs" style={{ color: '#9ca3af' }}>Cancel</button>
@@ -451,7 +451,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                     className="w-full text-left px-4 py-3 rounded-2xl border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)]"
                     style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
                   >
-                    ✦ <span style={{ color: TEAL }}>Quick quiz:</span> {QUIZ_LABELS[quizKey]} for me →
+                    ✦ <span style={{ color: 'var(--color-ink-accent)' }}>Quick quiz:</span> {QUIZ_LABELS[quizKey]} for me →
                   </button>
                 )}
 

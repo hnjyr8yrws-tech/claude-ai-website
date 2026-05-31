@@ -180,7 +180,7 @@ export default function WhoWeAre() {
         <SectionLabel>About GetPromptly</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-5 leading-tight" style={{ color: 'var(--text)' }}>
           Helping UK Education<br />
-          <span style={{ color: TEAL }}>Make Smarter Decisions About AI.</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Make Smarter Decisions About AI.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-2xl mb-8 leading-relaxed" style={{ color: '#6b6760' }}>
           GetPromptly curates AI tools, training, equipment and prompts for every corner of UK education — teachers, leaders, parents, students, SENCOs and school teams.
@@ -255,7 +255,7 @@ export default function WhoWeAre() {
                 style={{ borderColor: '#e8e6e0', background: 'white' }}
               >
                 <div className="mb-4">
-                  <div className="font-display text-3xl" style={{ color: TEAL }}>{p.stat}</div>
+                  <div className="font-display text-3xl" style={{ color: 'var(--color-ink-accent)' }}>{p.stat}</div>
                   <div className="text-xs" style={{ color: '#9ca3af' }}>{p.statLabel}</div>
                 </div>
                 <h3 className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>{p.title}</h3>
@@ -263,7 +263,7 @@ export default function WhoWeAre() {
                 <Link
                   to={p.link}
                   className="text-xs font-semibold transition-opacity hover:opacity-70"
-                  style={{ color: TEAL }}
+                  style={{ color: 'var(--color-ink-accent)' }}
                 >
                   {p.linkLabel}
                 </Link>
@@ -327,7 +327,7 @@ export default function WhoWeAre() {
                     className="w-20 h-20 rounded-full flex items-center justify-center"
                     style={{ background: 'var(--color-oat)' }}
                   >
-                    <span className="font-display text-3xl" style={{ color: TEAL }}>
+                    <span className="font-display text-3xl" style={{ color: 'var(--color-ink-accent)' }}>
                       {member.name[0]}
                     </span>
                   </div>
@@ -337,7 +337,7 @@ export default function WhoWeAre() {
                   <h3 className="font-display text-xl mb-0.5" style={{ color: 'var(--text)' }}>
                     {member.name}
                   </h3>
-                  <p className="text-xs font-semibold mb-3" style={{ color: TEAL }}>
+                  <p className="text-xs font-semibold mb-3" style={{ color: 'var(--color-ink-accent)' }}>
                     {member.title}
                   </p>
                   <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
@@ -369,7 +369,7 @@ export default function WhoWeAre() {
                 >
                   <span
                     className="font-display text-2xl flex-shrink-0 w-10 text-center leading-none mt-0.5"
-                    style={{ color: TEAL }}
+                    style={{ color: 'var(--color-ink-accent)' }}
                   >
                     {step.n}
                   </span>
@@ -406,7 +406,7 @@ export default function WhoWeAre() {
               >
                 <span
                   className="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-bold"
-                  style={{ background: 'var(--color-oat)', color: TEAL }}
+                  style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}
                 >
                   ✓
                 </span>

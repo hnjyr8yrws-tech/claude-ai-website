@@ -94,7 +94,7 @@ export default function SafetyMethodology() {
         <SectionLabel>How We Score</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           Safety Score<br />
-          <span style={{ color: TEAL }}>Methodology.</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Methodology.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
           Every AI tool on GetPromptly is independently assessed across five pillars — grounded in KCSIE 2025, UK GDPR, and Ofsted's emerging AI expectations.
@@ -170,7 +170,7 @@ export default function SafetyMethodology() {
                   </h3>
                   <span
                     className="flex-shrink-0 text-sm font-bold px-3 py-1 rounded-full"
-                    style={{ background: 'var(--color-oat)', color: TEAL }}
+                    style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}
                   >
                     {pillar.weight}%
                   </span>
@@ -309,7 +309,7 @@ export default function SafetyMethodology() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs font-semibold hover:opacity-70 transition-opacity"
-                    style={{ color: TEAL }}
+                    style={{ color: 'var(--color-ink-accent)' }}
                   >
                     {ref.cta}
                   </a>

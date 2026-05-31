@@ -78,7 +78,7 @@ export default function AITrainingLeaders() {
 
       <div className="px-5 sm:px-8 pt-8" style={{ background: 'var(--bg)' }}>
         <div className="max-w-4xl mx-auto">
-          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: TEAL }}>
+          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: 'var(--color-ink-accent)' }}>
             ← Back to Training Hub
           </Link>
         </div>
@@ -88,7 +88,7 @@ export default function AITrainingLeaders() {
         <div className="max-w-4xl mx-auto">
           <SectionLabel>For School Leaders</SectionLabel>
           <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: 'var(--text)' }}>
-            AI for School <span style={{ color: TEAL }}>Leaders.</span>
+            AI for School <span style={{ color: 'var(--color-ink-accent)' }}>Leaders.</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
             For headteachers, deputy heads and governors. Build your own AI literacy, create
@@ -144,7 +144,7 @@ export default function AITrainingLeaders() {
                         </div>
                         <h4 className="font-display text-base leading-snug mb-1" style={{ color: 'var(--text)' }}>{item.name}</h4>
                         <p className="text-xs mb-2" style={{ color: '#6b6760' }}>{item.notes}</p>
-                        <a href={item.url} target="_blank" rel={item.affiliate ? 'noopener noreferrer sponsored' : 'noopener noreferrer'} className="text-xs font-semibold" style={{ color: TEAL }}>Visit →</a>
+                        <a href={item.url} target="_blank" rel={item.affiliate ? 'noopener noreferrer sponsored' : 'noopener noreferrer'} className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Visit →</a>
                       </div>
                     ))}
                   </div>

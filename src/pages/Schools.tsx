@@ -350,7 +350,7 @@ const ConsultationForm: FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="cons-name" className="block text-xs font-semibold mb-1.5" style={{ color: MUTED }}>
-            Your name <span aria-hidden="true" style={{ color: TEAL }}>*</span>
+            Your name <span aria-hidden="true" style={{ color: 'var(--color-ink-accent)' }}>*</span>
           </label>
           <input
             ref={nameRef}
@@ -366,7 +366,7 @@ const ConsultationForm: FC = () => {
         </div>
         <div>
           <label htmlFor="cons-school" className="block text-xs font-semibold mb-1.5" style={{ color: MUTED }}>
-            School / Organisation <span aria-hidden="true" style={{ color: TEAL }}>*</span>
+            School / Organisation <span aria-hidden="true" style={{ color: 'var(--color-ink-accent)' }}>*</span>
           </label>
           <input
             id="cons-school"
@@ -384,7 +384,7 @@ const ConsultationForm: FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="cons-role" className="block text-xs font-semibold mb-1.5" style={{ color: MUTED }}>
-            Your role <span aria-hidden="true" style={{ color: TEAL }}>*</span>
+            Your role <span aria-hidden="true" style={{ color: 'var(--color-ink-accent)' }}>*</span>
           </label>
           <select
             id="cons-role"
@@ -400,7 +400,7 @@ const ConsultationForm: FC = () => {
         </div>
         <div>
           <label htmlFor="cons-need" className="block text-xs font-semibold mb-1.5" style={{ color: MUTED }}>
-            What do you need help with? <span aria-hidden="true" style={{ color: TEAL }}>*</span>
+            What do you need help with? <span aria-hidden="true" style={{ color: 'var(--color-ink-accent)' }}>*</span>
           </label>
           <select
             id="cons-need"
@@ -535,7 +535,7 @@ const Schools: FC = () => {
       <section style={{ background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Who this is for</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Who this is for</p>
             <h2 className="font-display text-3xl mb-10" style={{ color: TEXT }}>
               Built for every role in your school
             </h2>
@@ -617,7 +617,7 @@ const Schools: FC = () => {
       <section style={{ background: BG }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>What we cover</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>What we cover</p>
             <h2 className="font-display text-3xl mb-12" style={{ color: TEXT }}>
               Everything your school needs in one place
             </h2>
@@ -633,7 +633,7 @@ const Schools: FC = () => {
                   <div className="flex items-center gap-3 mb-5">
                     <div
                       className="w-9 h-9 rounded-lg flex items-center justify-center font-display text-sm font-bold flex-shrink-0"
-                      style={{ background: 'var(--color-oat)', color: TEAL }}
+                      style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}
                       aria-hidden="true"
                     >
                       {s.letter}
@@ -651,7 +651,7 @@ const Schools: FC = () => {
                   <Link
                     to={s.to}
                     className="text-sm font-semibold flex items-center gap-1.5 w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-                    style={{ color: TEAL }}
+                    style={{ color: 'var(--color-ink-accent)' }}
                   >
                     Explore
                     <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true">
@@ -669,7 +669,7 @@ const Schools: FC = () => {
       <section style={{ background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Procurement</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Procurement</p>
             <h2 className="font-display text-3xl mb-4" style={{ color: TEXT }}>
               Buying for schools is not straightforward
             </h2>
@@ -765,7 +765,7 @@ const Schools: FC = () => {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             <FadeIn className="lg:col-span-2">
-              <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Get in touch</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Get in touch</p>
               <h2 className="font-display text-3xl mb-5" style={{ color: TEXT }}>
                 Request a school consultation
               </h2>
@@ -816,7 +816,7 @@ const Schools: FC = () => {
       <section style={{ background: 'white' }}>
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-16">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>FAQ</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>FAQ</p>
             <h2 className="font-display text-3xl mb-10" style={{ color: TEXT }}>Common questions from schools</h2>
           </FadeIn>
           <div>

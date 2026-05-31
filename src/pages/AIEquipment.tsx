@@ -289,7 +289,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
         className="w-full flex items-start justify-between gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded-2xl"
       >
         <div className="flex-1">
-          <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
+          <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>
             Ready-to-Use Equipment Set · {bundle.totalPriceBand}
           </p>
           <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>
@@ -298,7 +298,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
           <p className="text-xs mt-1" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
           <div className="flex flex-wrap gap-1.5 mt-2">
             {bundle.senCategory.map((s: string) => (
-              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                 {s}
               </span>
             ))}
@@ -363,7 +363,7 @@ function CompareBar({
             <div
               key={p.id}
               className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs"
-              style={{ borderColor: TEAL, color: TEAL, background: 'var(--color-oat)' }}
+              style={{ borderColor: TEAL, color: 'var(--color-ink-accent)', background: 'var(--color-oat)' }}
             >
               <span className="font-medium truncate max-w-[120px]">{p.name}</span>
               <button
@@ -671,7 +671,7 @@ export default function AIEquipment() {
         <SectionLabel>Equipment Hub</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           AI Equipment for<br />
-          <span style={{ color: TEAL }}>UK Education</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>UK Education</span>
         </h1>
         <p className="text-base sm:text-lg max-w-2xl mb-8" style={{ color: '#6b6760' }}>
           Find the right technology for your classroom, school, home or SEND provision. 96 products reviewed and curated for UK education.
@@ -714,7 +714,7 @@ export default function AIEquipment() {
               className="rounded-2xl border px-5 py-4"
               style={{ borderColor: '#e8e6e0', background: 'white' }}
             >
-              <div className="font-display text-3xl" style={{ color: TEAL }}>{s.value}</div>
+              <div className="font-display text-3xl" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</div>
               <div className="text-xs mt-1" style={{ color: '#6b6760' }}>{s.label}</div>
             </div>
           ))}
@@ -756,7 +756,7 @@ export default function AIEquipment() {
                 {card.title}
               </h3>
               <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{card.desc}</p>
-              <span className="text-sm font-semibold" style={{ color: TEAL }}>Browse →</span>
+              <span className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse →</span>
             </Link>
           ))}
         </div>
@@ -805,7 +805,7 @@ export default function AIEquipment() {
           <Link
             to="/ai-equipment/teachers"
             className="text-sm font-semibold hidden sm:inline-flex items-center gap-1 transition-opacity hover:opacity-70"
-            style={{ color: TEAL }}
+            style={{ color: 'var(--color-ink-accent)' }}
           >
             View all classroom tech →
           </Link>
@@ -819,7 +819,7 @@ export default function AIEquipment() {
           <Link
             to="/ai-equipment/teachers"
             className="text-sm font-semibold"
-            style={{ color: TEAL }}
+            style={{ color: 'var(--color-ink-accent)' }}
           >
             View all classroom tech →
           </Link>
@@ -839,7 +839,7 @@ export default function AIEquipment() {
             <Link
               to="/ai-equipment/send"
               className="text-sm font-semibold hidden sm:inline-flex items-center gap-1 transition-opacity hover:opacity-70"
-              style={{ color: TEAL }}
+              style={{ color: 'var(--color-ink-accent)' }}
             >
               View all SEND equipment →
             </Link>
@@ -856,7 +856,7 @@ export default function AIEquipment() {
             <Link
               to="/ai-equipment/send"
               className="text-sm font-semibold"
-              style={{ color: TEAL }}
+              style={{ color: 'var(--color-ink-accent)' }}
             >
               View all SEND equipment →
             </Link>
@@ -1092,7 +1092,7 @@ export default function AIEquipment() {
           {filtered.length === 0 && (
             <div className="py-16 text-center">
               <p className="text-base mb-2" style={{ color: '#6b6760' }}>No products match your filters.</p>
-              <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: TEAL }}>
+              <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
                 Clear all filters
               </button>
             </div>

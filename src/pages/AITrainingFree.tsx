@@ -101,7 +101,7 @@ export default function AITrainingFree() {
           <Link
             to="/ai-training"
             className="inline-flex items-center gap-1.5 text-sm"
-            style={{ color: TEAL }}
+            style={{ color: 'var(--color-ink-accent)' }}
           >
             ← Back to Training Hub
           </Link>
@@ -114,7 +114,7 @@ export default function AITrainingFree() {
           <SectionLabel>Free Resources</SectionLabel>
           <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: 'var(--text)' }}>
             Free{' '}
-            <span style={{ color: TEAL }}>AI Training.</span>
+            <span style={{ color: 'var(--color-ink-accent)' }}>AI Training.</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
             {FREE_ITEMS.length} completely free resources — no subscription, no credit card. Many are

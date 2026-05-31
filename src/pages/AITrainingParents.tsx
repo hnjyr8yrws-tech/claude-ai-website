@@ -62,7 +62,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           target="_blank"
           rel="noopener noreferrer"
           className="text-xs font-semibold"
-          style={{ color: TEAL }}
+          style={{ color: 'var(--color-ink-accent)' }}
         >
           Visit →
         </a>
@@ -84,7 +84,7 @@ export default function AITrainingParents() {
       {/* Back link */}
       <div className="px-5 sm:px-8 pt-8" style={{ background: 'var(--bg)' }}>
         <div className="max-w-4xl mx-auto">
-          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: TEAL }}>
+          <Link to="/ai-training" className="inline-flex items-center gap-1.5 text-sm" style={{ color: 'var(--color-ink-accent)' }}>
             ← Back to Training Hub
           </Link>
         </div>
@@ -96,7 +96,7 @@ export default function AITrainingParents() {
           <SectionLabel>For Parents</SectionLabel>
           <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: 'var(--text)' }}>
             AI Safety for{' '}
-            <span style={{ color: TEAL }}>Parents.</span>
+            <span style={{ color: 'var(--color-ink-accent)' }}>Parents.</span>
           </h1>
           <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
             Practical, jargon-free guidance on AI for families. Understand what AI is, how it
@@ -210,7 +210,7 @@ export default function AITrainingParents() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-semibold"
-                style={{ color: TEAL }}
+                style={{ color: 'var(--color-ink-accent)' }}
               >
                 Visit Internet Matters →
               </a>
@@ -232,7 +232,7 @@ export default function AITrainingParents() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-semibold"
-                style={{ color: TEAL }}
+                style={{ color: 'var(--color-ink-accent)' }}
               >
                 Visit Common Sense AI →
               </a>

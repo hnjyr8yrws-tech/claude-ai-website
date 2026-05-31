@@ -138,13 +138,13 @@ export default function AIEquipmentSchools() {
 
       {/* HERO */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
-        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
           ← Equipment Hub
         </Link>
         <SectionLabel>For Schools</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           Equipment Solutions<br />
-          <span style={{ color: TEAL }}>for UK Schools</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>for UK Schools</span>
         </h1>
         <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
           Procurement support, class packs, interactive displays, AV, hearing loops and SEND provision — all in one place.
@@ -223,7 +223,7 @@ export default function AIEquipmentSchools() {
                   <p className="text-xs flex-1" style={{ color: '#6b6760' }}>{cat.desc}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs" style={{ color: '#9ca3af' }}>{count} products</span>
-                    <span className="text-xs font-semibold" style={{ color: TEAL }}>Browse →</span>
+                    <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse →</span>
                   </div>
                 </Link>
               );

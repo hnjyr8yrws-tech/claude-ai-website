@@ -99,7 +99,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
           {/* Header */}
           <div className="flex items-center justify-between px-5 py-4">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: TEAL }}>
+              <p className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: 'var(--color-ink-accent)' }}>
                 Recommended for you
               </p>
               <p className="text-sm font-semibold mt-0.5" style={{ color: 'var(--text)' }}>
@@ -135,7 +135,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
                       {item.title}
                     </p>
                     {item.badge && (
-                      <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-oat)', color: TEAL }}>
+                      <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                         {item.badge}
                       </span>
                     )}
@@ -143,7 +143,7 @@ export default function CrossSellPopup({ items, trigger, sourceSection, onClose 
                   <p className="text-[11px] leading-relaxed" style={{ color: '#6b6760' }}>
                     {item.description}
                   </p>
-                  <span className="text-[11px] font-semibold mt-1 inline-block" style={{ color: TEAL }}>
+                  <span className="text-[11px] font-semibold mt-1 inline-block" style={{ color: 'var(--color-ink-accent)' }}>
                     {item.cta}
                   </span>
                 </div>

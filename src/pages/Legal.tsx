@@ -29,7 +29,7 @@ export default function Legal() {
 
         {/* Page header */}
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>
+          <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--color-ink-accent)' }}>
             Legal &amp; Policies
           </p>
           <h1 className="font-display text-4xl mb-4" style={{ color: '#1c1a15' }}>
@@ -69,7 +69,7 @@ export default function Legal() {
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
             Under UK GDPR you have the right to access, correct or delete your personal data.
             To exercise these rights, contact us at{' '}
-            <a href="mailto:hello@getpromptly.co.uk" className="underline" style={{ color: TEAL }}>
+            <a href="mailto:hello@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>
               hello@getpromptly.co.uk
             </a>.
           </p>
@@ -139,7 +139,7 @@ export default function Legal() {
             <li>We never accept payment for positive reviews or higher rankings</li>
             <li>Affiliate relationships have no influence on our safety scores or editorial ratings</li>
             <li>Products and tools are assessed using our published{' '}
-              <a href="/safety-methodology" className="underline" style={{ color: TEAL }}>safety methodology</a>
+              <a href="/safety-methodology" className="underline" style={{ color: 'var(--color-ink-accent)' }}>safety methodology</a>
             </li>
             <li>We disclose affiliate relationships clearly where relevant</li>
           </ul>
@@ -153,7 +153,7 @@ export default function Legal() {
 
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
             Questions about our commercial relationships?{' '}
-            <a href="mailto:hello@getpromptly.co.uk" className="underline" style={{ color: TEAL }}>
+            <a href="mailto:hello@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>
               Contact us
             </a>.
           </p>

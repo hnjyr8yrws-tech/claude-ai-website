@@ -95,7 +95,7 @@ function ComparisonTable({
                     <Link
                       to={`/ai-equipment/product/${p.slug}`}
                       className="text-xs font-semibold whitespace-nowrap transition-opacity hover:opacity-70"
-                      style={{ color: TEAL }}
+                      style={{ color: 'var(--color-ink-accent)' }}
                     >
                       View →
                     </Link>
@@ -219,13 +219,13 @@ export default function AIEquipmentCompare() {
 
       {/* HERO */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
-        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
           ← Equipment Hub
         </Link>
         <SectionLabel>Compare</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           Compare Education<br />
-          <span style={{ color: TEAL }}>Equipment</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>Equipment</span>
         </h1>
         <p className="text-base sm:text-lg max-w-2xl mb-8" style={{ color: '#6b6760' }}>
           Side-by-side comparisons for tablets, interactive displays, reading pens, visualisers, AAC devices and coding robots for UK education.

@@ -124,9 +124,9 @@ export default function AIEquipmentProduct() {
       {/* BREADCRUMB */}
       <div className="border-b" style={{ borderColor: '#e8e6e0', background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-2 text-xs flex-wrap" style={{ color: '#9ca3af' }}>
-          <Link to="/ai-equipment" className="hover:underline" style={{ color: TEAL }}>Equipment</Link>
+          <Link to="/ai-equipment" className="hover:underline" style={{ color: 'var(--color-ink-accent)' }}>Equipment</Link>
           <span>/</span>
-          <Link to={`/ai-equipment/category/${categorySlug}`} className="hover:underline" style={{ color: TEAL }}>
+          <Link to={`/ai-equipment/category/${categorySlug}`} className="hover:underline" style={{ color: 'var(--color-ink-accent)' }}>
             {product.category}
           </Link>
           <span>/</span>
@@ -195,7 +195,7 @@ export default function AIEquipmentProduct() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {product.senCategory.map((s: string) => (
-                    <span key={s} className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+                    <span key={s} className="text-xs font-semibold px-3 py-1 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                       {s}
                     </span>
                   ))}
@@ -332,7 +332,7 @@ export default function AIEquipmentProduct() {
                       if (widget) (widget as HTMLButtonElement).click();
                     }}
                     className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
-                    style={{ borderColor: TEAL, color: TEAL }}
+                    style={{ borderColor: TEAL, color: 'var(--color-ink-accent)' }}
                   >
                     Ask Luna about pricing
                   </button>
@@ -360,7 +360,7 @@ export default function AIEquipmentProduct() {
               <Link
                 to={`/ai-equipment/category/${categorySlug}`}
                 className="text-sm font-semibold transition-opacity hover:opacity-70"
-                style={{ color: TEAL }}
+                style={{ color: 'var(--color-ink-accent)' }}
               >
                 View all {product.category} →
               </Link>

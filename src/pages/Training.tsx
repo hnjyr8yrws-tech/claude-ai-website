@@ -358,7 +358,7 @@ function LearningPathGenerator() {
                 <button
                   onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
                   className="text-xs font-semibold transition-opacity hover:opacity-70"
-                  style={{ color: TEAL }}
+                  style={{ color: 'var(--color-ink-accent)' }}
                 >
                   Ask Luna to refine this path →
                 </button>
@@ -485,7 +485,7 @@ const Training: FC = () => {
         <SectionLabel>Training & CPD Hub</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           Training & CPD for<br />
-          <span style={{ color: TEAL }}>AI in Education.</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>AI in Education.</span>
         </h1>
         <p className="text-base sm:text-lg max-w-xl mb-8" style={{ color: '#6b6760' }}>
           Free UK trusted CPD and premium courses to build AI confidence — for every education role.
@@ -572,7 +572,7 @@ const Training: FC = () => {
                       <a
                         href={course.url}
                         className="text-xs font-semibold transition-opacity hover:opacity-70"
-                        style={{ color: TEAL }}
+                        style={{ color: 'var(--color-ink-accent)' }}
                       >
                         Start free →
                       </a>
@@ -581,7 +581,7 @@ const Training: FC = () => {
                         className="text-xs font-medium px-2.5 py-1 rounded-lg border transition-all"
                         style={
                           summaryId === course.id
-                            ? { background: 'var(--color-oat)', color: TEAL, borderColor: TEAL }
+                            ? { background: 'var(--color-oat)', color: 'var(--color-ink-accent)', borderColor: TEAL }
                             : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
                         }
                       >
@@ -603,7 +603,7 @@ const Training: FC = () => {
                             className="mt-3 p-3 rounded-xl text-xs leading-relaxed"
                             style={{ background: '#f7f6f2', color: '#6b6760', borderLeft: `3px solid ${TEAL}` }}
                           >
-                            <strong style={{ color: TEAL }}>Luna says:</strong> This is one of the best free resources for your role. It covers the core concepts in under half a day and leaves you with practical actions you can use in your next lesson or team meeting.
+                            <strong style={{ color: 'var(--color-ink-accent)' }}>Luna says:</strong> This is one of the best free resources for your role. It covers the core concepts in under half a day and leaves you with practical actions you can use in your next lesson or team meeting.
                           </div>
                         </motion.div>
                       )}
@@ -706,7 +706,7 @@ const Training: FC = () => {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
+              <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>
                 Prompt Library
               </p>
               <h2 className="font-display text-2xl sm:text-3xl" style={{ color: 'var(--text)' }}>
@@ -731,7 +731,7 @@ const Training: FC = () => {
                   <span className="text-xl">{p.emoji}</span>
                   <span
                     className="text-[10px] font-semibold px-2 py-0.5 rounded"
-                    style={{ background: 'var(--color-oat)', color: TEAL }}
+                    style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}
                   >
                     {p.role}
                   </span>
@@ -742,7 +742,7 @@ const Training: FC = () => {
                 <button
                   onClick={() => navigator.clipboard?.writeText(p.prompt)}
                   className="mt-3 text-xs font-semibold transition-opacity hover:opacity-70"
-                  style={{ color: TEAL }}
+                  style={{ color: 'var(--color-ink-accent)' }}
                 >
                   Copy prompt →
                 </button>
@@ -764,7 +764,7 @@ const Training: FC = () => {
               </p>
             </div>
             {promptEmailDone ? (
-              <p className="text-sm font-semibold flex-shrink-0" style={{ color: TEAL }}>
+              <p className="text-sm font-semibold flex-shrink-0" style={{ color: 'var(--color-ink-accent)' }}>
                 ✓ Check your inbox!
               </p>
             ) : (
@@ -797,7 +797,7 @@ const Training: FC = () => {
       {/* ── LEARNING PATH GENERATOR ── */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
         <div className="mb-6">
-          <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: TEAL }}>
+          <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>
             Learning Path Generator
           </p>
           <h2 className="font-display text-2xl sm:text-3xl" style={{ color: 'var(--text)' }}>

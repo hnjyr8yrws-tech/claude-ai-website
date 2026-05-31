@@ -181,7 +181,7 @@ export default function SafetyScore({
                     {/* Weight dot */}
                     <span
                       className="flex-shrink-0 text-[10px] font-bold mt-0.5 w-7 text-right tabular-nums"
-                      style={{ color: '#00808a' }}
+                      style={{ color: 'var(--color-promptly-lime)' }}
                     >
                       {p.weight}%
                     </span>

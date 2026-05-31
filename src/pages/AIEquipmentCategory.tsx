@@ -58,7 +58,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         {product.senCategory.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
             {product.senCategory.map((s: string) => (
-              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: TEAL }}>
+              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
                 {s}
               </span>
             ))}
@@ -176,7 +176,7 @@ export default function AIEquipmentCategory() {
 
       {/* HERO */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
-        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
           ← Equipment Hub
         </Link>
         <SectionLabel>Category</SectionLabel>
@@ -291,7 +291,7 @@ export default function AIEquipmentCategory() {
         ) : (
           <div className="py-16 text-center">
             <p className="text-base mb-4" style={{ color: '#6b6760' }}>No products match your filters.</p>
-            <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: TEAL }}>
+            <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
               Clear all filters
             </button>
           </div>

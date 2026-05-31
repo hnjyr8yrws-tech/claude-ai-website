@@ -127,7 +127,7 @@ const AgentMockup: FC = () => (
 
       <div className="p-4 space-y-3">
         <div className="flex gap-2.5">
-          <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(0,128,138,0.25)', color: TEAL }}>P</div>
+          <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(200,228,74,0.25)', color: TEAL }}>P</div>
           <div className="rounded-xl rounded-tl-sm px-3 py-2.5 text-xs leading-relaxed max-w-[240px]" style={{ background: '#1a1815', color: '#d1cec8' }}>
 Hi — what's your role in education? Tell me and I'll point you to the right tools, training and prompts.
           </div>
@@ -138,7 +138,7 @@ Hi — what's your role in education? Tell me and I'll point you to the right to
           </div>
         </div>
         <div className="flex gap-2.5">
-          <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(0,128,138,0.25)', color: TEAL }}>P</div>
+          <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(200,228,74,0.25)', color: TEAL }}>P</div>
           <div className="rounded-xl rounded-tl-sm px-3 py-2.5 text-xs leading-relaxed max-w-[240px]" style={{ background: '#1a1815', color: '#d1cec8' }}>
 Right — here are my top picks for primary teachers, with the Pillar Card behind each score.
           </div>
@@ -191,17 +191,6 @@ Right — here are my top picks for primary teachers, with the Pillar Card behin
 
 const Hero: FC = () => (
   <section className="relative overflow-hidden" style={{ background: BG }}>
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div style={{ position: 'absolute', top: '-10%', right: '-5%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,128,138,0.06) 0%, transparent 70%)' }} />
-      <svg className="absolute right-0 top-0 opacity-[0.025]" width="400" height="400" aria-hidden="true">
-        <defs>
-          <pattern id="dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="2" cy="2" r="1.5" fill="var(--color-promptly-lime)"/>
-          </pattern>
-        </defs>
-        <rect width="400" height="400" fill="url(#dots)"/>
-      </svg>
-    </div>
 
     <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-12 sm:pb-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -209,7 +198,7 @@ const Hero: FC = () => (
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
           <span
             className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-6"
-            style={{ background: 'rgba(0,128,138,0.08)', color: TEAL, border: '1px solid rgba(0,128,138,0.18)' }}
+            style={{ background: 'rgba(200,228,74,0.08)', color: 'var(--color-ink-accent)', border: '1px solid rgba(200,228,74,0.18)' }}
           >
             <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: TEAL }} aria-hidden="true" />
             UK Education &middot; KCSIE 2025 &middot; Independent
@@ -217,7 +206,7 @@ const Hero: FC = () => (
 
           <h1 className="font-display leading-[1.08] mb-5" style={{ fontSize: 'clamp(2.2rem, 4.8vw, 3.8rem)', color: '#1c1a15' }}>
             Stop Guessing with AI.<br />
-            <em style={{ color: TEAL, fontStyle: 'italic' }}>Start Getting Promptly.</em>
+            <em style={{ color: 'var(--color-ink-accent)', fontStyle: 'italic' }}>Start Getting Promptly.</em>
           </h1>
 
           <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#6b6760' }}>
@@ -268,7 +257,7 @@ const Hero: FC = () => (
           { n: '24/7', label: 'AI agent support' },
         ].map(s => (
           <div key={s.label}>
-            <div className="font-display text-2xl sm:text-3xl leading-none mb-0.5" style={{ color: TEAL }}>{s.n}</div>
+            <div className="font-display text-2xl sm:text-3xl leading-none mb-0.5" style={{ color: 'var(--color-ink-accent)' }}>{s.n}</div>
             <div className="text-[11px]" style={{ color: '#9ca3af' }}>{s.label}</div>
           </div>
         ))}
@@ -302,7 +291,7 @@ const RoleSelector: FC = () => {
     <section id="role-selector" style={{ background: BG }}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
         <FadeIn>
-          <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Start here</p>
+          <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Start here</p>
           <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>Which role are you?</h2>
           <p className="text-sm mb-10 max-w-lg" style={{ color: '#6b6760' }}>
             Choose your role and we will show you exactly where to start on GetPromptly.
@@ -337,7 +326,7 @@ const RoleSelector: FC = () => {
                   </span>
                   <div>
                     <p className="font-semibold text-base" style={{ color: '#1c1a15' }}>{role.label}</p>
-                    <p className="text-xs font-medium" style={{ color: TEAL }}>{role.tagline}</p>
+                    <p className="text-xs font-medium" style={{ color: 'var(--color-ink-accent)' }}>{role.tagline}</p>
                   </div>
                 </div>
                 <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b6760' }}>{role.desc}</p>
@@ -368,7 +357,7 @@ const RoleSelector: FC = () => {
               <div className="flex-1 space-y-3">
                 {role.tools.map((t, i) => (
                   <div key={t} className="flex items-center gap-3 p-3 rounded-xl" style={{ background: '#1a1815' }}>
-                    <span className="w-6 h-6 rounded-lg text-[10px] font-bold flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(0,128,138,0.2)', color: TEAL }}>
+                    <span className="w-6 h-6 rounded-lg text-[10px] font-bold flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(200,228,74,0.2)', color: TEAL }}>
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="text-xs font-medium flex-1" style={{ color: '#d1cec8' }}>{t}</span>
@@ -378,7 +367,7 @@ const RoleSelector: FC = () => {
               </div>
               <Link to="/tools" onClick={() => track({ name: 'cta_clicked', section: 'home-roles-tools', label: 'View all tools' })}
                 className="mt-5 text-center text-xs font-semibold py-2.5 rounded-xl transition-opacity hover:opacity-80"
-                style={{ background: 'rgba(0,128,138,0.15)', color: TEAL }}>
+                style={{ background: 'rgba(200,228,74,0.15)', color: TEAL }}>
                 View all 155 tools &rarr;
               </Link>
             </div>
@@ -403,7 +392,7 @@ const HowItWorks: FC = () => (
   <section style={{ background: 'white' }}>
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
       <FadeIn>
-        <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>How it works</p>
+        <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>How it works</p>
         <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>GetPromptly guides you end to end.</h2>
         <p className="text-sm mb-12 max-w-lg" style={{ color: '#6b6760' }}>
           From choosing your role to copying your first prompt, everything is designed to save time and give you confidence.
@@ -414,7 +403,7 @@ const HowItWorks: FC = () => (
           <FadeIn key={step.n} delay={i * 0.07}>
             <div className="rounded-2xl p-5 h-full flex flex-col" style={{ background: BG, border: `1px solid ${BORDER}` }}>
               <div className="flex items-start justify-between mb-3">
-                <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold" style={{ background: 'rgba(0,128,138,0.1)', color: TEAL }}>
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold" style={{ background: 'rgba(200,228,74,0.1)', color: 'var(--color-ink-accent)' }}>
                   {step.n}
                 </div>
                 <span className="font-display text-2xl leading-none" style={{ color: BORDER }} aria-hidden="true">{step.n}</span>
@@ -443,7 +432,7 @@ const ScoringPreview: FC = () => (
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         <FadeIn>
-          <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Our trust framework</p>
+          <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Our trust framework</p>
           <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: '#1c1a15' }}>
             Every tool scored across<br />five UK safety pillars.
           </h2>
@@ -453,14 +442,14 @@ const ScoringPreview: FC = () => (
           <div className="space-y-2.5 mb-8">
             {PILLARS.map((label, i) => (
               <div key={label} className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: 'rgba(0,128,138,0.1)', color: TEAL }}>{i + 1}</div>
+                <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: 'rgba(200,228,74,0.1)', color: 'var(--color-ink-accent)' }}>{i + 1}</div>
                 <span className="text-sm font-medium" style={{ color: '#1c1a15' }}>{label}</span>
               </div>
             ))}
           </div>
           <Link to="/safety-methodology" onClick={() => track({ name: 'cta_clicked', section: 'home-scoring', label: 'See methodology' })}
             className="inline-flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-70"
-            style={{ color: TEAL }}>
+            style={{ color: 'var(--color-ink-accent)' }}>
             See our full methodology &rarr;
           </Link>
         </FadeIn>
@@ -533,7 +522,7 @@ const CuratedPathways: FC = () => (
   <section style={{ background: 'white' }}>
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
       <FadeIn>
-        <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Curated pathways</p>
+        <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Curated pathways</p>
         <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>Ready-made starting points.</h2>
         <p className="text-sm mb-12 max-w-lg" style={{ color: '#6b6760' }}>
           Three curated journeys for the most common roles, each combining tools, training and prompts.
@@ -562,7 +551,7 @@ const CuratedPathways: FC = () => (
               <div className="px-5 pb-5" style={{ background: 'white' }}>
                 <Link to={p.cta.to} onClick={() => track({ name: 'cta_clicked', section: 'home-pathways', label: p.cta.label })}
                   className="block w-full text-center py-2.5 rounded-xl text-xs font-semibold border transition-colors hover:bg-[#f7f6f2]"
-                  style={{ borderColor: BORDER, color: TEAL }}>
+                  style={{ borderColor: BORDER, color: 'var(--color-ink-accent)' }}>
                   {p.cta.label} &rarr;
                 </Link>
               </div>
@@ -633,7 +622,7 @@ const PlatformNav: FC = () => (
   <section style={{ background: BG }}>
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
       <FadeIn>
-        <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>The platform</p>
+        <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>The platform</p>
         <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>Four sections. One trusted source.</h2>
         <p className="text-sm mb-10 max-w-lg" style={{ color: '#6b6760' }}>
           Tools, training, equipment and prompts, all independently reviewed for UK education.
@@ -646,15 +635,15 @@ const PlatformNav: FC = () => (
               className="group flex flex-col h-full rounded-2xl border transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-md overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{ borderColor: BORDER, background: 'white' }}>
               <div className="px-5 pt-5 pb-4" style={{ background: c.color }}>
-                <div className="w-8 h-8 rounded-xl flex items-center justify-center font-display text-lg" style={{ background: 'rgba(255,255,255,0.7)', color: TEAL }} aria-hidden="true">
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center font-display text-lg" style={{ background: 'rgba(255,255,255,0.7)', color: 'var(--color-ink-accent)' }} aria-hidden="true">
                   {c.title[3]}
                 </div>
               </div>
               <div className="flex-1 flex flex-col p-5">
                 <p className="font-semibold text-sm mb-0.5 group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: '#1c1a15' }}>{c.title}</p>
-                <p className="text-[10px] font-semibold mb-3" style={{ color: TEAL }}>{c.stat}</p>
+                <p className="text-[10px] font-semibold mb-3" style={{ color: 'var(--color-ink-accent)' }}>{c.stat}</p>
                 <p className="text-xs leading-relaxed flex-1" style={{ color: '#6b6760' }}>{c.desc}</p>
-                <span className="mt-4 text-xs font-semibold" style={{ color: TEAL }}>Browse &rarr;</span>
+                <span className="mt-4 text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse &rarr;</span>
               </div>
             </Link>
           </FadeIn>
@@ -670,7 +659,7 @@ const SchoolsCTA: FC = () => (
   <section style={{ background: 'white' }}>
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
       <FadeIn>
-        <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: TEAL }}>For schools &amp; trusts</p>
+        <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--color-ink-accent)' }}>For schools &amp; trusts</p>
         <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: '#1c1a15' }}>Whole-school AI advisory, without the jargon.</h2>
         <p className="text-sm leading-relaxed max-w-md mb-8" style={{ color: '#6b6760' }}>
           GetPromptly helps headteachers, SENCOs, IT leads and business managers make informed decisions about AI tools, staff training, SEND technology and procurement.

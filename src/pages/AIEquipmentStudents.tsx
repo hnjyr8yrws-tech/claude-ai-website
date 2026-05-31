@@ -114,13 +114,13 @@ export default function AIEquipmentStudents() {
 
       {/* HERO */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
-        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+        <Link to="/ai-equipment" className="text-sm mb-4 inline-flex items-center gap-1 transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
           ← Equipment Hub
         </Link>
         <SectionLabel>For Students</SectionLabel>
         <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
           Study Better with<br />
-          <span style={{ color: TEAL }}>the Right Equipment</span>
+          <span style={{ color: 'var(--color-ink-accent)' }}>the Right Equipment</span>
         </h1>
         <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
           Laptops, tablets, reading pens, noise-cancelling headphones and study accessories for UK students.

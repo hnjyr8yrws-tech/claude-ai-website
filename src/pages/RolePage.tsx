@@ -82,9 +82,6 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
 
       {/* ── Hero ───────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden" style={{ background: BG }}>
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-          <div style={{ position: 'absolute', top: '-15%', right: '-8%', width: 420, height: 420, borderRadius: '50%', background: 'radial-gradient(circle, rgba(0,128,138,0.06) 0%, transparent 70%)' }} />
-        </div>
         <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-14">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-6"
@@ -126,7 +123,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
       <section style={{ background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Top AI tools</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Top AI tools</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">Best tools for {d.title}.</h2>
             <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
               Independently scored against KCSIE 2025, UK GDPR and DfE guidance.
@@ -152,7 +149,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             })}
           </div>
           <FadeIn delay={0.15}>
-            <Link to="/tools" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+            <Link to="/tools" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
               View all 155 tools &rarr;
             </Link>
           </FadeIn>
@@ -163,7 +160,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
       <section style={{ background: BG }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Prompt packs</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Prompt packs</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">Ready-to-use prompts for {d.title}.</h2>
             <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
               Copy, paste and use immediately in Claude, ChatGPT or Gemini.
@@ -174,7 +171,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               <FadeIn key={p} delay={i * 0.05}>
                 <div className="flex items-center gap-3 p-4 rounded-xl border" style={{ background: 'white', borderColor: BORDER }}>
                   <span className="w-7 h-7 rounded-lg text-[10px] font-bold flex items-center justify-center flex-shrink-0"
-                    style={{ background: 'rgba(0,128,138,0.1)', color: TEAL }}>
+                    style={{ background: 'rgba(200,228,74,0.1)', color: 'var(--color-ink-accent)' }}>
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="text-sm font-medium">{p}</span>
@@ -183,7 +180,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             ))}
           </div>
           <FadeIn delay={0.15}>
-            <Link to={d.promptsTo} className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+            <Link to={d.promptsTo} className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
               See all {d.title} prompts &rarr;
             </Link>
           </FadeIn>
@@ -194,7 +191,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
       <section style={{ background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Training path</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Training path</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">AI training for {d.title}.</h2>
             <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
               Free and paid courses curated for your role.
@@ -221,7 +218,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             ))}
           </div>
           <FadeIn delay={0.15}>
-            <Link to="/ai-training" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+            <Link to="/ai-training" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
               See all training &rarr;
             </Link>
           </FadeIn>
@@ -233,7 +230,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
         <section style={{ background: BG }}>
           <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
             <FadeIn>
-              <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Equipment</p>
+              <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Equipment</p>
               <h2 className="font-display text-2xl sm:text-3xl mb-2">Recommended tech for {d.title}.</h2>
               <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
                 Independently curated classroom and home technology.
@@ -250,13 +247,13 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                       <p className="text-sm font-medium group-hover:text-[var(--color-promptly-lime)] transition-colors">{e.name}</p>
                       <p className="text-[10px]" style={{ color: '#9ca3af' }}>{e.category}</p>
                     </div>
-                    <span className="text-xs flex-shrink-0" style={{ color: TEAL }}>View &rarr;</span>
+                    <span className="text-xs flex-shrink-0" style={{ color: 'var(--color-ink-accent)' }}>View &rarr;</span>
                   </Link>
                 </FadeIn>
               ))}
             </div>
             <FadeIn delay={0.15}>
-              <Link to="/ai-equipment" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: TEAL }}>
+              <Link to="/ai-equipment" className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold transition-opacity hover:opacity-70" style={{ color: 'var(--color-ink-accent)' }}>
                 See all equipment &rarr;
               </Link>
             </FadeIn>
@@ -293,7 +290,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
       <section style={{ background: BG }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
           <FadeIn>
-            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: TEAL }}>Explore more</p>
+            <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Explore more</p>
             <h2 className="font-display text-2xl mb-8">The full GetPromptly platform.</h2>
           </FadeIn>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -309,7 +306,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                   <div className="h-2" style={{ background: c.color }} />
                   <div className="p-4">
                     <p className="text-sm font-semibold mb-0.5 group-hover:text-[var(--color-promptly-lime)] transition-colors">{c.label}</p>
-                    <p className="text-[10px] font-semibold" style={{ color: TEAL }}>{c.stat}</p>
+                    <p className="text-[10px] font-semibold" style={{ color: 'var(--color-ink-accent)' }}>{c.stat}</p>
                   </div>
                 </Link>
               </FadeIn>
