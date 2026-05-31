@@ -589,14 +589,14 @@ const PromptCapture: FC = () => {
     <section style={{ background: TEAL }}>
       <div className="max-w-3xl mx-auto px-5 sm:px-8 py-14 sm:py-16 text-center">
         <FadeIn>
-          <p className="text-[11px] font-semibold uppercase tracking-widest mb-3 opacity-70" style={{ color: 'white' }}>Free prompt pack</p>
-          <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: 'white' }}>Get 20 free prompts for your role.</h2>
-          <p className="text-sm mb-8 opacity-80 max-w-md mx-auto" style={{ color: 'white' }}>
+          <p className="text-[11px] font-semibold uppercase tracking-widest mb-3 opacity-70" style={{ color: 'var(--color-ink)' }}>Free prompt pack</p>
+          <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: 'var(--color-ink)' }}>Get 20 free prompts for your role.</h2>
+          <p className="text-sm mb-8 opacity-80 max-w-md mx-auto" style={{ color: 'var(--color-ink)' }}>
             Enter your email and we will send you 20 ready-to-use AI prompts tailored for UK education, free, no account needed.
           </p>
           {done ? (
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold" style={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold" style={{ background: 'rgba(255,255,255,0.4)', color: 'var(--color-ink)' }}>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-6" stroke="#1A1A0E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               Sent. Check your inbox.
             </div>
           ) : (
@@ -613,7 +613,7 @@ const PromptCapture: FC = () => {
               </button>
             </form>
           )}
-          <p className="mt-4 text-[11px] opacity-60" style={{ color: 'white' }}>No spam. Unsubscribe anytime. We respect UK GDPR.</p>
+          <p className="mt-4 text-[11px] opacity-70" style={{ color: 'var(--color-ink)' }}>No spam. Unsubscribe anytime. We respect UK GDPR.</p>
         </FadeIn>
       </div>
     </section>
