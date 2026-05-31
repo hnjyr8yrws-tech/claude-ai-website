@@ -142,13 +142,10 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                     <p className="font-semibold text-sm">{t.name}</p>
                     <div className="flex items-center gap-1.5">
                       <ScorePill score={t.score} to={slug ? `/tools/${slug}` : undefined} />
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full"
-                        style={{ background: t.tier === 'Trusted' ? 'rgba(34,197,94,0.1)' : 'rgba(245,158,11,0.1)', color: t.tier === 'Trusted' ? '#22c55e' : '#f59e0b' }}>
-                        {t.tier}
-                      </span>
                     </div>
                   </div>
-                  <p className="text-xs leading-relaxed flex-1" style={{ color: '#6b6760' }}>{t.desc}</p>
+                  {/* Plain Verdict (§14) in Fraunces italic, in place of a one-word tier badge */}
+                  <p className="font-serif italic text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{t.desc}</p>
                 </div>
               </FadeIn>
               );
@@ -338,7 +335,7 @@ const TEACHER_DATA: RoleData = {
   tools: [
     { name: 'MagicSchool', score: 9.1, tier: 'Trusted', desc: 'Lesson plans, rubrics, IEPs and 50+ AI tools purpose-built for teachers.' },
     { name: 'Curipod', score: 8.4, tier: 'Trusted', desc: 'Interactive lesson builder with AI-generated slides, polls and formative assessment.' },
-    { name: 'Canva AI', score: 8.2, tier: 'Trusted', desc: 'AI-powered design for worksheets, presentations and classroom materials.' },
+    { name: 'Canva AI', score: 8.2, tier: 'Trusted', desc: 'Quick, tidy design for worksheets, presentations and classroom materials.' },
     { name: 'Diffit', score: 8.0, tier: 'Trusted', desc: 'Differentiate any text by reading level. Generate questions, vocabulary and summaries.' },
     { name: 'Quizlet', score: 7.8, tier: 'Guided', desc: 'AI flashcards and study sets. Good for revision but requires guided use with students.' },
     { name: 'Brisk Teaching', score: 8.5, tier: 'Trusted', desc: 'Chrome extension that works inside Google Docs for feedback, rubrics and lesson plans.' },
@@ -419,7 +416,7 @@ const PARENT_DATA: RoleData = {
   promptHighlights: ['Homework help prompts', 'Revision techniques', 'School communication', 'SEN advocacy letters', 'Reading support', 'Exam preparation'],
   tools: [
     { name: 'Khan Academy', score: 9.2, tier: 'Trusted', desc: 'Free maths, science and computing courses with AI tutoring. Safe and age-appropriate.' },
-    { name: 'Duolingo', score: 8.5, tier: 'Trusted', desc: 'AI-powered language learning. Gamified, engaging and safe for all ages.' },
+    { name: 'Duolingo', score: 8.5, tier: 'Trusted', desc: 'Language learning that adapts as you go. Gamified, engaging and safe for all ages.' },
     { name: 'Quizlet', score: 7.8, tier: 'Guided', desc: 'Flashcard-based revision with AI study modes. Good with parental guidance.' },
   ],
   training: [

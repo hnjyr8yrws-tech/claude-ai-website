@@ -19,7 +19,7 @@ const TIER_TABLE: TierRow[] = [
   {
     dimension: 'UK GDPR',
     trusted:  'Full UK GDPR compliance, DPA 2018 registered, UK data residency confirmed',
-    guided:   'GDPR compliant but data may be processed outside the UK/EEA',
+    guided:   'UK GDPR-aware, but data may be processed outside the UK/EEA',
     emerging: 'GDPR status unconfirmed or self-declared only',
   },
   {

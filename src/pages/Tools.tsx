@@ -184,7 +184,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
       >
         <p className="text-xl mb-2">✅</p>
         <p className="text-sm font-semibold" style={{ color: '#15803d' }}>
-          Thanks! We've added <strong>{toolName}</strong> to our review queue.
+          Thanks — we've added <strong>{toolName}</strong> to our review queue.
         </p>
         {email && (
           <p className="text-xs mt-1" style={{ color: '#16a34a' }}>
@@ -283,7 +283,6 @@ function ToolCard({
   tool: Tool; inCompare: boolean; onToggleCompare: () => void; compareDisabled: boolean; onTryDemo?: (tool: Tool) => void;
 }) {
   const catStyle = CAT_COLOURS[tool.category] ?? { bg: '#f3f4f6', text: '#374151' };
-  const ts = TIER_STYLE[tool.tier] ?? { bg: '#f3f4f6', text: '#374151' };
   return (
     <div
       className="flex flex-col rounded-2xl border overflow-hidden transition-shadow hover:shadow-md"
@@ -336,12 +335,8 @@ function ToolCard({
               Review needed
             </span>
           ) : (
-            <>
-              <ScorePill score={tool.safety} to={`/tools/${tool.slug}`} />
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full" style={{ background: ts.bg, color: ts.text }}>
-                {tool.tier}
-              </span>
-            </>
+            // Dense directory list → Score Pill alone (§04); no one-word tier verdict.
+            <ScorePill score={tool.safety} to={`/tools/${tool.slug}`} />
           )}
           {tool.lastReviewed && (
             <p className="text-[9px] ml-auto" style={{ color: '#c5c2bb' }}>Reviewed {tool.lastReviewed}</p>

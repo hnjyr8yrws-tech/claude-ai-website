@@ -1535,7 +1535,7 @@ const PRODUCTS_RAW: ProductRaw[] = [
     affiliateLink: 'https://www.aver.com/uk/',
     featured: false,
     badges: ['School Quote', 'Needs Review'],
-    desc: 'AI-powered auto-tracking camera that follows the teacher around the room — ideal for hybrid and flipped learning.',
+    desc: 'AI auto-tracking camera that follows the teacher around the room — ideal for hybrid and flipped learning.',
   },
   {
     name: 'Huion Kamvas 13 Drawing Tablet',

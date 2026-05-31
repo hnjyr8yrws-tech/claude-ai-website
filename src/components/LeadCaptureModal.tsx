@@ -204,7 +204,7 @@ const LeadCaptureModal: FC = () => {
                   </form>
 
                   <p className="text-[11px] mt-3 text-center" style={{ color: '#c5c2bb' }}>
-                    No spam. Unsubscribe any time. GDPR compliant.
+                    No spam. Unsubscribe any time. We respect UK GDPR.
                   </p>
                 </>
               )}

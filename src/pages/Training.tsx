@@ -456,7 +456,7 @@ function EmailCapture() {
         </AnimatePresence>
 
         <p className="text-[10px] mt-4" style={{ color: '#4b5563' }}>
-          No spam. Unsubscribe anytime. GDPR compliant.
+          No spam. Unsubscribe anytime. We respect UK GDPR.
         </p>
       </div>
     </div>

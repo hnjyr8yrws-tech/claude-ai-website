@@ -151,7 +151,7 @@ export default function EquipmentSchools() {
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <SEO
         title="School Equipment Procurement Guide – UK Education | GetPromptly"
-        description="Independent procurement guidance for UK schools — how to buy education equipment compliantly, VAT exemptions, supplier frameworks, and SEND equipment funding."
+        description="Independent procurement guidance for UK schools — how to buy education equipment properly, VAT exemptions, supplier frameworks, and SEND equipment funding."
         keywords="school equipment procurement UK, education equipment buying guide, SEND equipment funding, VAT exemption education, school reseller UK"
         path="/equipment/schools"
       />

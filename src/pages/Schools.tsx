@@ -151,7 +151,7 @@ const HELP_SECTIONS = [
     title: 'AI Tools Advisory',
     to: '/tools',
     items: [
-      'Shortlist tools that are KCSIE 2025 compliant and UK-safe',
+      'Shortlist tools reviewed against KCSIE 2025 and safe for UK schools',
       'Compare independent safety scores across 120+ reviewed tools',
       'Get role-based recommendations for teachers, students and admin staff',
       'Identify AI tools suitable for SEND learners and complex needs',
@@ -223,7 +223,7 @@ const PROCUREMENT_ROUTES = [
   },
   {
     route: 'Crown Commercial Service / ESFA Frameworks',
-    speed: 'Compliant',
+    speed: 'Framework route',
     speedColor: '#b45309',
     description: 'Procurement frameworks that meet UK public sector requirements. Best for larger investments where governance and audit trails are required.',
     examples: 'CCS RM6098 (Technology Products), ESFA Technology Products 2',
@@ -239,7 +239,7 @@ const FAQS = [
   },
   {
     q: 'How are tools and equipment reviewed?',
-    a: "Our team applies a transparent UK safety and suitability framework to each tool and product. Criteria include KCSIE 2025 alignment, UK GDPR compliance, ICO registration, data residency and Ofsted-readiness. Scores are updated regularly and no vendor pays for inclusion or ranking.",
+    a: "Our team applies a transparent UK safety and suitability framework to each tool and product. Criteria include KCSIE 2025 alignment, UK GDPR posture, ICO registration, data residency and Ofsted-readiness. Scores are updated regularly and no vendor pays for inclusion or ranking.",
   },
   {
     q: 'Is GetPromptly just for SEND schools?',
@@ -456,7 +456,7 @@ const Schools: FC = () => {
       <SEO
         title="AI Advisory for UK Schools | GetPromptly"
         description="From classroom AI tools to SEND technology, staff training to AI policy — GetPromptly helps UK schools make confident decisions about AI."
-        keywords="ai advisory for uk schools, school ai procurement uk, kcsie compliant ai tools schools"
+        keywords="ai advisory for uk schools, school ai procurement uk, kcsie-aware ai tools schools"
         path="/schools"
       />
 
@@ -516,8 +516,8 @@ const Schools: FC = () => {
       <div className="border-b border-t" style={{ borderColor: BORDER, background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-2">
           {[
-            'KCSIE 2025 Aligned',
-            'UK GDPR Compliant',
+            'KCSIE-aware',
+            'UK GDPR-aware',
             '120+ Reviewed Tools',
             '96 Equipment Products',
             '26 Training Resources',
@@ -675,7 +675,7 @@ const Schools: FC = () => {
             </h2>
             <p className="text-base max-w-2xl mb-12 leading-relaxed" style={{ color: MUTED }}>
               Different equipment requires different routes. We help you understand which path is right
-              for each purchase — so you save time, stay compliant and get the right outcome.
+              for each purchase — so you save time, stay on top of your duties and get the right outcome.
             </p>
           </FadeIn>
 

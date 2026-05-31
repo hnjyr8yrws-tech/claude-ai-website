@@ -7,7 +7,7 @@ const BORDER = '#e8e6e0';
 const ROLES = [
   'Teacher',
   'School Leader',
-  'SENDCO',
+  'SENCO',
   'Teaching Assistant',
   'Parent / Carer',
   'Student',

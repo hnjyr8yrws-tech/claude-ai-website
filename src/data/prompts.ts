@@ -57,7 +57,7 @@ export const CATEGORIES: { name: string; slug: string; description: string }[] =
   {
     name: 'Parent & Caregiver Tools',
     slug: 'parent-caregiver',
-    description: 'Scripts, routines and advocacy prompts empowering parents to support their child with SEN at home and school.',
+    description: 'Scripts, routines and advocacy prompts helping parents support their child with SEN at home and school.',
   },
   {
     name: 'Language Learning & Vocabulary',
@@ -369,7 +369,7 @@ const RAW = [
     title: 'Parent Support Tools for SEN Maths & Science',
     desc: 'Practical prompts for UK parents to support their child with SEN at home during GCSE/A-Level Maths and Science revision and homework.',
     count: 10,
-    sen: 'All SEN — parent-friendly, empowering, non-judgmental',
+    sen: 'All SEN — parent-friendly, supportive, non-judgmental',
     prompts: "1. Help me explain [science concept] to my child with dyslexia in a calm, visual way.\n2. Create a supportive script for supporting my child with ADHD during a 20-minute maths revision session.\n3. Give me gentle ways to help my autistic child when they get stuck on a GCSE Science question.\n4. Design a gentle home routine prompt for revising [topic] that works for a child with anxiety.\n5. Turn this confusing GCSE Maths homework [paste question] into parent-friendly steps I can guide my child through.\n6. Create encouraging phrases I can use when my child with SEN feels overwhelmed by science revision.\n7. Help me make a visual timetable for science revision that my child can actually follow.\n8. Provide a script for discussing reasonable adjustments with school for my child's maths exams.\n9. Create a strength-based feedback prompt I can use after my child completes a science task.\n10. Design a low-pressure \"parent + child\" revision game for [maths topic].",
   },
   {
@@ -423,7 +423,7 @@ const RAW = [
   {
     id: 22, cat: 'Exam & Test Preparation',
     title: 'Parent Support for SEN Exam Preparation',
-    desc: 'Empowering prompts and scripts for UK parents supporting their child with SEN through GCSE and A-Level exam preparation at home.',
+    desc: 'Practical prompts and scripts for UK parents supporting their child with SEN through GCSE and A-Level exam preparation at home.',
     count: 10,
     sen: 'All SEN — parent guidance, advocacy, home support',
     prompts: "1. Help me create a calm home revision routine for my child with ADHD preparing for GCSEs.\n2. Write a supportive script for when my child with dyslexia feels overwhelmed by revision.\n3. Design a gentle weekly check-in conversation for discussing study progress without pressure.\n4. Create a low-pressure reward system prompt for revision sessions at home.\n5. Help me explain reasonable adjustments to my autistic child.\n6. Provide encouraging phrases for when my child struggles with executive function during study.\n7. Design a simple visual timetable I can use with my child for GCSE revision.\n8. Create a parent prompt for turning messy notes into organised revision materials.\n9. Write a calm script for talking to my anxious child about upcoming mock exams.\n10. Make a simple home \"exam day morning\" routine prompt for parents.",
@@ -463,7 +463,7 @@ const RAW = [
   {
     id: 27, cat: 'Study Skills & Executive Function',
     title: 'Parent Tools for Supporting SEN Study at Home',
-    desc: 'Empowering, practical prompts and scripts for UK parents helping their child with SEN develop effective study habits at home.',
+    desc: 'Practical, supportive prompts and scripts for UK parents helping their child with SEN develop effective study habits at home.',
     count: 10,
     sen: 'All SEN — parent guidance, calm support, home routines',
     prompts: "1. Help me create a calm, realistic home study routine for my child with ADHD.\n2. Write a supportive script for when my child with dyslexia feels overwhelmed by revision.\n3. Design a gentle weekly check-in conversation for discussing study progress without pressure.\n4. Create a low-pressure reward system prompt for home revision sessions.\n5. Help me explain reasonable adjustments to my child in a reassuring way.\n6. Provide encouraging phrases for when my child struggles with executive function during study.\n7. Design a simple visual timetable I can use with my child for GCSE revision.\n8. Create a parent prompt for turning messy notes into organised revision materials.\n9. Write a calm script for talking to my anxious child about upcoming mock exams.\n10. Make a simple home \"exam day morning\" routine prompt for parents.",
@@ -553,13 +553,13 @@ const RAW = [
     title: 'Creating Effective Home Learning Plans for SEN',
     desc: 'Practical prompts for UK parents to build realistic, sustainable home learning plans that work for children with SEN.',
     count: 10,
-    sen: 'All SEN — realistic planning, parent empowerment',
+    sen: 'All SEN — realistic planning, parent confidence',
     prompts: "1. Help me create a realistic weekly home learning plan for my child with ADHD.\n2. Design a flexible revision timetable that accounts for my child's energy fluctuations.\n3. Provide a prompt for balancing schoolwork with my child's sensory or emotional needs.\n4. Create a parent-friendly checklist for building a successful home study environment.\n5. Help me set achievable daily goals for GCSE revision without causing overwhelm.\n6. Design a system for tracking progress that celebrates small wins.\n7. Provide a script for discussing home learning expectations with my child calmly.\n8. Create a contingency plan prompt for when the usual routine breaks down.\n9. Make a balanced weekly schedule that includes rest and fun activities.\n10. Generate a gentle review prompt to evaluate how the home learning plan is working.",
   },
   {
     id: 39, cat: 'Parent & Caregiver Tools',
     title: "Advocating for Your Child's SEN Needs at School",
-    desc: "Empowering scripts and prompts for UK parents to confidently advocate for their child's SEN support, reasonable adjustments, and EHCP needs.",
+    desc: "Practical scripts and prompts for UK parents to confidently advocate for their child's SEN support, reasonable adjustments, and EHCP needs.",
     count: 10,
     sen: 'All SEN — advocacy, EHCP, reasonable adjustments',
     prompts: "1. Help me write a clear, professional email to the SENCo requesting additional support.\n2. Create a script for a meeting with teachers about my child's access arrangements.\n3. Provide a checklist of evidence I should gather to support an EHCP application.\n4. Write a calm but firm script for discussing my child's need for extra time in exams.\n5. Design a prompt for preparing questions to ask at an annual EHCP review meeting.\n6. Help me explain my child's SEN needs to a new teacher in a positive way.\n7. Create a parent advocacy checklist for GCSE exam access arrangements.\n8. Provide a script for when school says \"we don't have the resources\".\n9. Make a strength-based letter template highlighting my child's needs and strengths.\n10. Design a follow-up email template after a meeting about SEN support.",

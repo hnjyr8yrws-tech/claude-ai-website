@@ -129,7 +129,7 @@ const AgentMockup: FC = () => (
         <div className="flex gap-2.5">
           <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(0,128,138,0.25)', color: TEAL }}>P</div>
           <div className="rounded-xl rounded-tl-sm px-3 py-2.5 text-xs leading-relaxed max-w-[240px]" style={{ background: '#1a1815', color: '#d1cec8' }}>
-            Hi! What is your role in education? I will find the right tools, training and prompts for you.
+Hi — what's your role in education? Tell me and I'll point you to the right tools, training and prompts.
           </div>
         </div>
         <div className="flex justify-end">
@@ -140,17 +140,21 @@ const AgentMockup: FC = () => (
         <div className="flex gap-2.5">
           <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(0,128,138,0.25)', color: TEAL }}>P</div>
           <div className="rounded-xl rounded-tl-sm px-3 py-2.5 text-xs leading-relaxed max-w-[240px]" style={{ background: '#1a1815', color: '#d1cec8' }}>
-            Great! Here are my top picks for primary teachers right now...
+Right — here are my top picks for primary teachers, with the Pillar Card behind each score.
           </div>
         </div>
         <div className="ml-8 rounded-xl border p-3 space-y-2.5" style={{ background: '#111210', borderColor: '#2a2825' }}>
-          {[{ name: 'MagicSchool', score: 9.1 }, { name: 'Curipod', score: 8.4 }].map(t => (
+          {[
+            { name: 'MagicSchool', score: 9.1, verdict: 'Genuinely useful for primary planning.' },
+            { name: 'Curipod', score: 8.4, verdict: 'Fun, and overpriced at full RRP. Negotiate.' },
+          ].map(t => (
             <div key={t.name} className="flex items-center justify-between gap-3">
-              <span className="text-[11px] font-semibold" style={{ color: 'white' }}>{t.name}</span>
-              <div className="flex items-center gap-1.5">
-                <ScorePill score={t.score} />
-                <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.15)', color: '#22c55e' }}>Trusted</span>
+              <div className="min-w-0 flex-1">
+                <span className="text-[11px] font-semibold block" style={{ color: 'white' }}>{t.name}</span>
+                {/* Plain Verdict (§14) in Fraunces italic, in place of a one-word tier badge */}
+                <span className="font-serif italic text-[10px] leading-snug block" style={{ color: '#d1cec8' }}>{t.verdict}</span>
               </div>
+              <ScorePill score={t.score} />
             </div>
           ))}
         </div>
@@ -278,7 +282,7 @@ const Hero: FC = () => (
 const TrustStrip: FC = () => (
   <div style={{ background: 'white', borderTop: `1px solid ${BORDER}`, borderBottom: `1px solid ${BORDER}` }}>
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-4 flex flex-wrap items-center justify-center gap-5 sm:gap-10">
-      {['KCSIE 2025 Aligned', 'UK GDPR Compliant', '100% Independent', 'No Sponsored Rankings', 'Free to use'].map(label => (
+      {['KCSIE-aware', 'UK GDPR-aware', '100% Independent', 'No Sponsored Rankings', 'Free to use'].map(label => (
         <span key={label} className="flex items-center gap-1.5 text-[11px] font-medium" style={{ color: '#9ca3af' }}>
           <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: TEAL }} aria-hidden="true" />
           {label}
@@ -444,7 +448,7 @@ const ScoringPreview: FC = () => (
             Every tool scored across<br />five UK safety pillars.
           </h2>
           <p className="text-sm leading-relaxed mb-6 max-w-md" style={{ color: '#6b6760' }}>
-            We assess every AI tool against KCSIE 2025, UK GDPR and DfE guidance. No paid placements, no sponsored rankings.
+            We review every AI tool against KCSIE 2025, with an eye on UK GDPR and DfE guidance. No paid placements, no sponsored rankings.
           </p>
           <div className="space-y-2.5 mb-8">
             {PILLARS.map((label, i) => (
@@ -593,7 +597,7 @@ const PromptCapture: FC = () => {
           {done ? (
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold" style={{ background: 'rgba(255,255,255,0.2)', color: 'white' }}>
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              Sent! Check your inbox.
+              Sent. Check your inbox.
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
@@ -619,7 +623,7 @@ const PromptCapture: FC = () => {
 // ─── 8. Platform nav ──────────────────────────────────────────────────────────
 
 const NAV_CARDS = [
-  { title: 'AI Tools Hub',     stat: '155 tools reviewed',  desc: 'Every tool scored against KCSIE 2025 and UK GDPR. Filter by role, safety tier and price.', to: '/tools',        color: 'var(--color-oat)' },
+  { title: 'AI Tools Hub',     stat: '155 tools reviewed',  desc: 'Every tool reviewed against KCSIE 2025, with an eye on UK GDPR. Filter by role, tier and price.', to: '/tools',        color: 'var(--color-oat)' },
   { title: 'AI Training',      stat: '26 courses',          desc: 'Free government-backed CPD and paid certification for teachers, leaders and SENCOs.',       to: '/ai-training',  color: '#fef9c3' },
   { title: 'Equipment',        stat: '96 products',         desc: 'Classroom tech, SEND assistive devices, coding robots and home learning hardware.',           to: '/ai-equipment', color: '#ede9fe' },
   { title: 'Prompts Library',  stat: '440+ prompts',        desc: 'Ready-to-copy prompts for teachers, SENCOs, leaders, parents and students.',                  to: '/prompts',      color: '#dcfce7' },

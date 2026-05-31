@@ -178,7 +178,7 @@ const EmailCapture: FC = () => {
 
             {/* GDPR notice */}
             <p className="text-[11px]" style={{ color: '#4b5563' }}>
-              No spam. Unsubscribe anytime. GDPR compliant. Double opt-in.
+              No spam. Unsubscribe anytime. We respect UK GDPR. Double opt-in.
             </p>
           </motion.form>
           )}

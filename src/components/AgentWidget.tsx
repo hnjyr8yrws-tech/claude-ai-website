@@ -124,7 +124,7 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
   if (status === 'success') {
     return (
       <div className="mx-3 mb-3 px-4 py-3 rounded-xl text-xs text-center" style={{ background: 'var(--color-oat)', color: TEAL }}>
-        ✓ You're subscribed! Personalised picks coming your way.
+        ✓ You're subscribed. Personalised picks are on the way.
       </div>
     );
   }
@@ -173,7 +173,7 @@ const QUIZZES: Record<string, QuizStep[]> = {
   tool: [
     { question: "What's your role?", options: ['Teacher', 'School Leader', 'SENCO', 'Parent', 'Student', 'Admin'] },
     { question: 'What do you need the tool for?', options: ['Lesson planning', 'Marking & feedback', 'SEND support', 'Parent comms', 'Revision help', 'Admin tasks'] },
-    { question: 'What matters most?', options: ['KCSIE 2025 aligned', 'Free to use', 'GDPR compliant', 'Works offline', 'Has a certificate'] },
+    { question: 'What matters most?', options: ['KCSIE-aware', 'Free to use', 'UK GDPR-aware', 'Works offline', 'Has a certificate'] },
   ],
   equipment: [
     { question: "Who is it for?", options: ['Teachers / classroom', 'Schools (bulk)', 'Parents / home', 'Students', 'SEND provision'] },

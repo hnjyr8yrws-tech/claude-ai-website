@@ -47,7 +47,7 @@ export const CONVERSATION_STARTERS: Record<AgentMode, string[]> = {
     "What's the safest AI tool for a Year 5 classroom?",
     "Compare ChatGPT and Gemini for secondary school use",
     "What AI tools work best for reducing teacher workload?",
-    "Which tools are KCSIE 2025 compliant?",
+    "Which tools are KCSIE-aware?",
   ],
   equipment: [
     "What's the best visualiser for a primary classroom?",

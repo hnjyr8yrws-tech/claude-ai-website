@@ -14,15 +14,15 @@ const NAV = [
 const ROLES = [
   { label: 'Teachers',        to: '/teachers' },
   { label: 'School Leaders',  to: '/school-leaders' },
-  { label: 'SENDCOs',         to: '/senco' },
+  { label: 'SENCOs',          to: '/senco' },
   { label: 'Parents',         to: '/parents' },
   { label: 'Students',        to: '/students' },
   { label: 'Admin Staff',     to: '/admin' },
 ];
 
 const COMPLIANCE = [
-  { label: 'KCSIE 2025', note: 'Aligned' },
-  { label: 'GDPR',       note: 'Compliant' },
+  { label: 'KCSIE 2025', note: 'Aware' },
+  { label: 'UK GDPR',    note: 'Aware' },
   { label: 'ICO',        note: 'Registered' },
 ];
 
@@ -66,7 +66,7 @@ const Footer: FC = () => (
 
         <p className="text-sm leading-relaxed max-w-xs" style={{ color: '#6b6760' }}>
           The UK's independent resource for safe AI in education. Trusted by teachers,
-          parents, school leaders and SEND coordinators across the country.
+          parents, school leaders and SENCOs across the country.
         </p>
 
         {/* AI Transparency Notice */}

@@ -429,7 +429,6 @@ const ToolDetail = () => {
             <div className="space-y-3">
               {alternatives.map(alt => {
                 const altCatStyle = CAT_COLOURS[alt.category] ?? { bg: '#f3f4f6', text: '#374151' };
-                const altTs = TIER_STYLE[alt.tier];
                 return (
                   <Link
                     key={alt.slug}
@@ -455,7 +454,7 @@ const ToolDetail = () => {
                       <p className="text-xs truncate mt-0.5" style={{ color: '#9ca3af' }}>{alt.desc}</p>
                     </div>
                     <div className="flex-shrink-0 flex flex-col items-end gap-1">
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: altTs.bg, color: altTs.text }}>{alt.tier}</span>
+                      {/* No one-word tier verdict (§14); the Score Pill carries the verdict. */}
                       <span className="text-[10px] font-medium px-2 py-0.5 rounded-full" style={{ background: altCatStyle.bg, color: altCatStyle.text }}>{alt.subcategory}</span>
                     </div>
                   </Link>
@@ -492,9 +491,9 @@ const ToolDetail = () => {
         <div className="max-w-3xl mx-auto">
           <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
             <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-              <strong style={{ color: '#1c1a15' }}>About our safety scores:</strong> Scores are assessed by the GetPromptly team against five pillars — Data Privacy, Age Appropriateness, Transparency, Safeguarding Alignment, and Accessibility — using publicly available information.
-              {tool.lastReviewed && ` This page was last reviewed ${tool.lastReviewed}.`}
-              {' '}Scores should be considered guidance only. Always conduct your own due diligence and consult your DPO before deploying any tool in school.
+              <strong style={{ color: '#1c1a15' }}>About our verdicts:</strong> Every Promptly Score is reviewed against KCSIE 2025 across five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — per our methodology v2.1, using publicly available information.
+              {tool.lastReviewed && ` Last verified ${tool.lastReviewed}.`}
+              {' '}We have never changed a score for payment; our methodology and our record of score changes are public. A score is independent guidance, not approval — do your own due diligence and check with your DPO and DSL before using any tool in school.
             </p>
           </div>
         </div>
