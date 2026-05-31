@@ -118,7 +118,7 @@ const AgentMockup: FC = () => (
             <path d="M7 1v12M1 7h12" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
           </svg>
         </div>
-        <span className="text-xs font-semibold" style={{ color: 'white' }}>Promptly AI</span>
+        <span className="text-xs font-semibold" style={{ color: 'white' }}>Luna</span>
         <span className="ml-auto flex items-center gap-1.5 text-[10px]" style={{ color: '#22c55e' }}>
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} aria-hidden="true" />
           Online now
@@ -232,7 +232,7 @@ const Hero: FC = () => (
               Start with your role &rarr;
             </button>
             <button
-              onClick={() => { track({ name: 'cta_clicked', section: 'home-hero', label: 'Ask Promptly AI' }); openWidget(); }}
+              onClick={() => { track({ name: 'cta_clicked', section: 'home-hero', label: 'Ask Luna' }); openWidget(); }}
               className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
               style={{ borderColor: BORDER, color: '#1c1a15' }}
             >
@@ -240,7 +240,7 @@ const Hero: FC = () => (
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
                 <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
               </span>
-              Ask Promptly AI
+              Ask Luna
             </button>
           </div>
 

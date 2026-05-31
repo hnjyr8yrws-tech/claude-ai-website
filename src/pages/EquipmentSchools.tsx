@@ -346,7 +346,7 @@ export default function EquipmentSchools() {
             Need tailored advice?
           </p>
           <h2 className="font-display text-2xl sm:text-3xl mb-3" style={{ color: 'white' }}>
-            Ask the Promptly AI
+            Ask the Luna
           </h2>
           <p className="text-sm mb-8 max-w-md mx-auto" style={{ color: '#9ca3af' }}>
             Describe your school's budget, year group, and what you're trying to support — the AI will suggest specific products and procurement routes.

@@ -24,7 +24,7 @@ const HOW_TO_USE = [
   { n: '02', title: 'Open your AI tool', desc: 'Paste into Claude, ChatGPT, Gemini or Perplexity \u2014 they all work.' },
   { n: '03', title: 'Fill in the brackets', desc: 'Replace [topic], [year group], [student name] etc. with your own details.' },
   { n: '04', title: 'Adapt as needed', desc: 'Add extra context about the child, class or situation for better results.' },
-  { n: '05', title: 'Use the agent', desc: 'Use the Promptly AI agent for a fully personalised version of any prompt.' },
+  { n: '05', title: 'Use the agent', desc: 'Use the Luna agent for a fully personalised version of any prompt.' },
 ];
 
 function isPackUnlocked(slug: string): boolean {
@@ -212,7 +212,7 @@ const PromptsPack = () => {
 
           {/* Agent CTA */}
           <div className="mb-6">
-            <AgentCTA context="Paste any prompt into the chat and ask the Promptly AI to adapt it for your specific student or class." />
+            <AgentCTA context="Paste any prompt into the chat and ask the Luna to adapt it for your specific student or class." />
           </div>
 
           {/* Email gate or unlocked remaining prompts */}
@@ -330,7 +330,7 @@ const PromptsPack = () => {
       {/* Bottom agent CTA */}
       <section className="px-5 sm:px-8 pb-12" style={{ background: 'var(--bg)' }}>
         <div className="max-w-3xl mx-auto">
-          <AgentCTA context="Tell the Promptly AI about your student, subject and situation for a personalised prompt." />
+          <AgentCTA context="Tell the Luna about your student, subject and situation for a personalised prompt." />
         </div>
       </section>
 

@@ -182,7 +182,7 @@ const STEPS = [
   { n: '02', title: 'Browse or search', desc: 'Filter by category, SEN focus area or key stage to find the right pack instantly.' },
   { n: '03', title: 'Copy the prompt', desc: 'Hit the copy button and paste straight into Claude, ChatGPT, Gemini or Perplexity.' },
   { n: '04', title: 'Adapt for your context', desc: 'Replace the bracketed placeholders — [topic], [child\'s name], [year group] — with your own details.' },
-  { n: '05', title: 'Get better results', desc: 'Use the Promptly AI agent for a personalised prompt tailored to your exact situation.' },
+  { n: '05', title: 'Get better results', desc: 'Use the Luna agent for a personalised prompt tailored to your exact situation.' },
 ];
 
 function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
@@ -316,7 +316,7 @@ const PromptsHub = () => {
       <section className="px-5 sm:px-8 py-6" style={{ background: 'var(--bg)' }}>
         <div className="max-w-5xl mx-auto">
           <AgentCTACard
-            section="Promptly AI · Prompt Personaliser"
+            section="Luna · Prompt Personaliser"
             headline="Create a prompt pack for my situation."
             description="Tell us your role, subject and what you need — our AI will craft the right prompts for you to copy and use instantly."
             prompts={[

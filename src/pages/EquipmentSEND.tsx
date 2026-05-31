@@ -331,7 +331,7 @@ export default function EquipmentSEND() {
             Need a recommendation?
           </p>
           <h2 className="font-display text-2xl sm:text-3xl mb-3" style={{ color: 'white' }}>
-            Ask the Promptly AI
+            Ask the Luna
           </h2>
           <p className="text-sm mb-8 max-w-md mx-auto" style={{ color: '#9ca3af' }}>
             Describe the pupil's needs, budget and setting — the AI will suggest specific products from our database.

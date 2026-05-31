@@ -136,7 +136,7 @@ const PromptsParents = () => {
       {/* Agent CTA */}
       <section className="px-5 sm:px-8 py-8" style={{ background: 'white' }}>
         <div className="max-w-3xl mx-auto">
-          <AgentCTA context="Tell the Promptly AI about your child's age, SEN needs and the situation you need help with." />
+          <AgentCTA context="Tell the Luna about your child's age, SEN needs and the situation you need help with." />
         </div>
       </section>
 

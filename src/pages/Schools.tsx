@@ -247,7 +247,7 @@ const FAQS = [
   },
   {
     q: 'How does the 24/7 agent work?',
-    a: "Our embedded Promptly AI agent is powered by Anthropic Claude and trained on our full database. It can answer questions, compare options and recommend tools, training or equipment in real time — completely free to use on the site. It is an AI assistant, not a human advisor.",
+    a: "Our embedded Luna agent is powered by Anthropic Claude and trained on our full database. It can answer questions, compare options and recommend tools, training or equipment in real time — completely free to use on the site. It is an AI assistant, not a human advisor.",
   },
   {
     q: 'Can we get a tailored recommendation for our school?',
@@ -862,7 +862,7 @@ const Schools: FC = () => {
       <section style={{ background: DARK }}>
         <div className="max-w-4xl mx-auto px-5 sm:px-8 py-16">
           <AgentCTACard
-            section="Promptly AI · School Advisor"
+            section="Luna · School Advisor"
             headline="Build a school AI readiness plan."
             description="Our AI advisor helps school leaders, IT leads and SENCOs navigate AI strategy, procurement and policy — no sign-up needed."
             prompts={[

@@ -62,8 +62,9 @@ function RoleSelector({
         className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed mb-4"
         style={{ background: 'white', color: '#6b6760' }}
       >
-        Hi! I'm Promptly AI — your {MODE_PERSONA[mode].toLowerCase()} for UK education.
-        {' '}Select your role so I can give you the most relevant advice.
+        Hi — I'm Luna. I help you find AI tools, training and equipment that are
+        actually safe for UK schools. Tell me your role and what you're trying to do,
+        and I'll be useful in under three minutes. (Conversations may be logged for quality.)
       </div>
 
       {/* Role grid */}
@@ -352,7 +353,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
     <motion.div
       role="dialog"
       aria-modal="true"
-      aria-label="Promptly AI chat"
+      aria-label="Luna chat"
       initial={{ opacity: 0, y: 16, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       exit={{ opacity: 0, y: 16, scale: 0.97 }}
@@ -371,7 +372,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
               className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
               style={{ background: TEAL, color: 'white' }}
             >
-              P
+              L
             </div>
             <span
               className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2"
@@ -379,7 +380,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             />
           </div>
           <div>
-            <p className="text-xs font-semibold leading-none" style={{ color: 'white' }}>Promptly AI</p>
+            <p className="text-xs font-semibold leading-none" style={{ color: 'white' }}>Luna</p>
             <p className="text-[10px] mt-0.5" style={{ color: '#6b6760' }}>
               {role ? `${role} · ${MODE_PERSONA[mode]}` : MODE_PERSONA[mode] + ' · 24/7'}
             </p>
@@ -436,8 +437,9 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                   className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed"
                   style={{ background: 'white', color: '#6b6760' }}
                 >
-                  Hi! I'm your {MODE_PERSONA[mode].toLowerCase()} — ask me anything about AI tools,
-                  equipment, training or prompts for UK education.
+                  Right — what are you trying to do? I'll point you to AI tools, training,
+                  equipment or prompts that are safe for UK schools, and show you the
+                  Pillar Card behind any score I quote. I'll keep it to three at a time.
                 </div>
 
                 {/* Quick-find quiz button */}
@@ -603,7 +605,7 @@ const AgentWidget: FC = () => {
         id="promptly-widget-trigger"
         onClick={openWidget}
         className="sr-only"
-        aria-label="Open Promptly AI chat"
+        aria-label="Open Luna chat"
         tabIndex={-1}
       />
 
@@ -614,7 +616,7 @@ const AgentWidget: FC = () => {
         style={{ background: TEAL, color: 'white' }}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.97 }}
-        aria-label="Open Promptly AI"
+        aria-label="Open Luna"
       >
         <span className="relative flex-shrink-0">
           <span className="w-2 h-2 rounded-full block" style={{ background: '#22c55e' }} />
@@ -625,7 +627,7 @@ const AgentWidget: FC = () => {
             transition={{ duration: 2, repeat: Infinity }}
           />
         </span>
-        <span className="text-xs font-semibold whitespace-nowrap">Promptly AI · 24/7</span>
+        <span className="text-xs font-semibold whitespace-nowrap">Luna · 24/7</span>
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0" aria-hidden="true">
           <path
             d="M7 1C3.69 1 1 3.24 1 6c0 1.44.67 2.73 1.75 3.65L2 13l3.47-1.5C5.93 11.82 6.45 12 7 12c3.31 0 6-2.24 6-5S10.31 1 7 1Z"

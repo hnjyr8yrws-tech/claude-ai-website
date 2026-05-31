@@ -347,11 +347,11 @@ const ToolDetail = () => {
         </div>
       </section>
 
-      {/* ── Ask Promptly AI ────────────────────────────────────────────────── */}
+      {/* ── Ask Luna ────────────────────────────────────────────────── */}
       <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
         <div className="max-w-3xl mx-auto">
           <AgentCTACard
-            section="Promptly AI · Tool Advisor"
+            section="Luna · Tool Advisor"
             headline={`Ask anything about ${tool.name}`}
             description={`Our AI advisor knows the full safety profile, use cases and school context for ${tool.name}. Ask about alternatives, policy implications, or how to get started.`}
             prompts={[

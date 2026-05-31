@@ -700,7 +700,7 @@ export default function AIEquipment() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
             style={{ borderColor: '#e8e6e0', color: 'var(--text)' }}
           >
-            Ask Promptly for advice
+            Ask Luna for advice
           </button>
         </div>
       </div>
@@ -724,7 +724,7 @@ export default function AIEquipment() {
       {/* ── AGENT CTA ───────────────────────────────────────────────────────── */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6">
         <AgentCTACard
-          section="Promptly AI · Equipment Guide"
+          section="Luna · Equipment Guide"
           headline="Find equipment for this learner need."
           description="Tell us who it's for, what you need and your budget — our AI advisor will recommend the right products and procurement routes."
           prompts={[

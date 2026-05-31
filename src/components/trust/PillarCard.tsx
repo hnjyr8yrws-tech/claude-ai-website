@@ -34,17 +34,18 @@ export type PillarCardState =
 
 interface Pillar {
   key: keyof PillarScores;
-  label: string; // legend abbreviation (Brand Bible §04)
+  label: string; // full pillar label
+  legendShort: string; // single-token caps abbreviation for the 5-col legend
   cssVar: string; // CSS custom property in src/index.css
 }
 
 // Top (12 o'clock) → clockwise: Privacy → Safeguarding → Age → Transparency → Accessibility.
 const PILLARS: Pillar[] = [
-  { key: 'dataPrivacy', label: 'Privacy', cssVar: '--color-pillar-privacy' },
-  { key: 'safeguarding', label: 'Safeguard', cssVar: '--color-pillar-safeguarding' },
-  { key: 'ageSuitability', label: 'Age Suit', cssVar: '--color-pillar-age' },
-  { key: 'transparency', label: 'Transp', cssVar: '--color-pillar-transparency' },
-  { key: 'accessibility', label: 'Access', cssVar: '--color-pillar-accessibility' },
+  { key: 'dataPrivacy', label: 'Privacy', legendShort: 'PRIV', cssVar: '--color-pillar-privacy' },
+  { key: 'safeguarding', label: 'Safeguard', legendShort: 'SAFE', cssVar: '--color-pillar-safeguarding' },
+  { key: 'ageSuitability', label: 'Age Suit', legendShort: 'AGE', cssVar: '--color-pillar-age' },
+  { key: 'transparency', label: 'Transp', legendShort: 'TRANS', cssVar: '--color-pillar-transparency' },
+  { key: 'accessibility', label: 'Access', legendShort: 'ACC', cssVar: '--color-pillar-accessibility' },
 ];
 
 const SEGMENTS = PILLARS.length; // 5
@@ -354,9 +355,14 @@ export function PillarCard({
         <div
           className="grid w-full"
           style={{
-            gridTemplateColumns: `repeat(${SEGMENTS}, 1fr)`,
-            gap: 8,
+            // minmax(0, 1fr) lets every column shrink to its true share, so no
+            // column can push the legend past the card edge. px padding keeps the
+            // outer columns (Privacy, Access) clear of the card border.
+            gridTemplateColumns: `repeat(${SEGMENTS}, minmax(0, 1fr))`,
+            gap: 4,
             maxWidth: size,
+            paddingLeft: 4,
+            paddingRight: 4,
           }}
         >
           {PILLARS.map((p) => {
@@ -367,22 +373,34 @@ export function PillarCard({
                 key={`legend-${p.key}`}
                 className="font-mono uppercase"
                 style={{
+                  minWidth: 0,
+                  textAlign: 'center',
                   borderTop: `2px solid ${
                     isWithdrawn ? cssVar('--color-fog') : cssVar(p.cssVar)
                   }`,
                   paddingTop: 4,
-                  fontSize: 9,
-                  letterSpacing: 0.5,
                   color: cssVar('--color-oat'),
                 }}
               >
-                {p.label}
+                <span
+                  className="block"
+                  style={{
+                    // Short caps abbreviation, forced onto one line; shrunk to fit
+                    // the column at the smallest card size.
+                    fontSize: 8,
+                    lineHeight: 1.2,
+                    letterSpacing: 0,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {p.legendShort}
+                </span>
                 <span
                   className="font-sans block"
                   style={{
                     marginTop: 2,
                     fontWeight: 700,
-                    fontSize: 16,
+                    fontSize: 15,
                     letterSpacing: 0,
                     textTransform: 'none',
                   }}

@@ -238,7 +238,7 @@ const LEARNING_PATHS: Partial<Record<Goal, string[]>> = {
   'Lead AI strategy for my school': [
     'Read the DfE Generative AI Guidance reading path (free, 3 hrs) — the policy foundation every SLT needs.',
     'Enrol in Udemy AI for Educators (£12.99) — strong on school-wide implementation and staff buy-in.',
-    'Join the waitlist for Promptly AI Strategy for SLT — our flagship leadership course, launching soon.',
+    'Join the waitlist for Luna Strategy for SLT — our flagship leadership course, launching soon.',
   ],
   'Support SEND pupils with AI': [
     'Complete the Microsoft Educator Centre accessibility AI path (free) — covers Immersive Reader, Seeing AI, and dictation.',
@@ -360,7 +360,7 @@ function LearningPathGenerator() {
                   className="text-xs font-semibold transition-opacity hover:opacity-70"
                   style={{ color: TEAL }}
                 >
-                  Ask Promptly AI to refine this path →
+                  Ask Luna to refine this path →
                 </button>
               </div>
             </motion.div>
@@ -585,7 +585,7 @@ const Training: FC = () => {
                             : { background: 'white', color: '#6b6760', borderColor: '#e8e6e0' }
                         }
                       >
-                        ✦ Promptly AI Summary
+                        ✦ Luna Summary
                       </button>
                     </div>
 
@@ -603,7 +603,7 @@ const Training: FC = () => {
                             className="mt-3 p-3 rounded-xl text-xs leading-relaxed"
                             style={{ background: '#f7f6f2', color: '#6b6760', borderLeft: `3px solid ${TEAL}` }}
                           >
-                            <strong style={{ color: TEAL }}>Promptly AI says:</strong> This is one of the best free resources for your role. It covers the core concepts in under half a day and leaves you with practical actions you can use in your next lesson or team meeting.
+                            <strong style={{ color: TEAL }}>Luna says:</strong> This is one of the best free resources for your role. It covers the core concepts in under half a day and leaves you with practical actions you can use in your next lesson or team meeting.
                           </div>
                         </motion.div>
                       )}

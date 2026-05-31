@@ -274,7 +274,7 @@ export default function AIEquipmentProduct() {
             >
               <div>
                 <p className="text-sm font-semibold" style={{ color: AMBER_TEXT }}>
-                  Ask the GetPromptly AI about this product →
+                  Ask Luna about this product →
                 </p>
                 <p className="text-xs mt-0.5" style={{ color: '#78350f' }}>
                   Get a recommendation based on your specific need, budget or SEND requirement.
@@ -334,7 +334,7 @@ export default function AIEquipmentProduct() {
                     className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
                     style={{ borderColor: TEAL, color: TEAL }}
                   >
-                    Ask Promptly about pricing
+                    Ask Luna about pricing
                   </button>
                 )}
               </div>

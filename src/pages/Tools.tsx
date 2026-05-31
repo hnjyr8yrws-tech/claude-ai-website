@@ -147,7 +147,7 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
             className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl border transition-all hover:opacity-80"
             style={{ background: '#111210', color: 'white', borderColor: '#111210' }}
           >
-            Ask Promptly AI
+            Ask Luna
           </button>
         </div>
 
@@ -264,7 +264,7 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
             className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl border transition-all hover:opacity-80"
             style={{ background: '#111210', color: 'white', borderColor: '#111210' }}
           >
-            Ask Promptly AI about this tool
+            Ask Luna about this tool
           </button>
         </div>
         <p className="text-[10px] text-center" style={{ color: '#c5c2bb' }}>
@@ -732,7 +732,7 @@ export default function Tools() {
         {/* ── AGENT CTA ── */}
         <div className="mb-8">
           <AgentCTACard
-            section="Promptly AI · Tool Advisor"
+            section="Luna · Tool Advisor"
             headline="Tell us your role and we'll shortlist 3 safe tools."
             description="Our AI advisor knows every tool in the directory — safety scores, KCSIE compliance, free tiers — and matches them to your needs."
             prompts={[
@@ -891,7 +891,7 @@ export default function Tools() {
             {/* Agent panel */}
             <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#e8e6e0' }}>
               <div className="px-4 py-3 border-b" style={{ background: '#111210', borderColor: '#1f1f1c' }}>
-                <p className="text-[10px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: '#6b6760' }}>Promptly AI</p>
+                <p className="text-[10px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: '#6b6760' }}>Luna</p>
                 <p className="text-sm font-medium" style={{ color: 'white' }}>Ask about any tool</p>
               </div>
               <div className="p-4" style={{ background: 'white' }}>
@@ -903,7 +903,7 @@ export default function Tools() {
                   className="w-full py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
                   style={{ background: TEAL, color: 'white' }}
                 >
-                  Ask Promptly AI →
+                  Ask Luna →
                 </button>
                 <p className="text-[10px] text-center mt-2" style={{ color: '#c5c2bb' }}>Powered by Claude · Free</p>
               </div>

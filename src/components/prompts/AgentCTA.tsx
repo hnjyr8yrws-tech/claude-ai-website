@@ -15,7 +15,7 @@ const AgentCTA = ({ context }: Props) => {
     >
       <div className="flex-1">
         <p className="text-sm font-semibold" style={{ color: '#92400e' }}>
-          Ask the GetPromptly AI to personalise this prompt
+          Ask Luna to personalise this prompt
         </p>
         {context && (
           <p className="text-xs mt-0.5" style={{ color: '#b45309' }}>{context}</p>

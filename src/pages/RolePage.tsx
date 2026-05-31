@@ -108,14 +108,14 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                 {d.promptsLabel} &rarr;
               </Link>
               <button
-                onClick={() => { track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'Ask Promptly AI' }); openWidgetWithRole(d.agentRole); }}
+                onClick={() => { track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'Ask Luna' }); openWidgetWithRole(d.agentRole); }}
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
                 style={{ borderColor: BORDER, color: '#1c1a15' }}>
                 <span className="relative flex w-2 h-2" aria-hidden="true">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
                   <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
                 </span>
-                Ask Promptly AI
+                Ask Luna
               </button>
             </div>
           </motion.div>
@@ -286,7 +286,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: 'white' }} />
                 <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: 'white' }} />
               </span>
-              Ask Promptly AI as a {d.agentRole} &rarr;
+              Ask Luna as a {d.agentRole} &rarr;
             </button>
           </FadeIn>
         </div>

@@ -154,7 +154,7 @@ const PromptsStudents = () => {
       {/* Agent CTA */}
       <section className="px-5 sm:px-8 py-8" style={{ background: 'white' }}>
         <div className="max-w-3xl mx-auto">
-          <AgentCTA context="Tell the Promptly AI your subject, year group and what you're struggling with for a personalised prompt." />
+          <AgentCTA context="Tell the Luna your subject, year group and what you're struggling with for a personalised prompt." />
         </div>
       </section>
 

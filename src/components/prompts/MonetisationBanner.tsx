@@ -166,7 +166,7 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
               className="mt-0.5 w-4 h-4 rounded border-gray-300 accent-[var(--color-promptly-lime)] flex-shrink-0"
             />
             <span className="text-xs leading-relaxed" style={{ color: '#6b6760' }}>
-              Send me future GetPromptly AI tools, training and prompt updates.
+              Send me future GetPromptly tools, training and prompt updates.
             </span>
           </label>
 

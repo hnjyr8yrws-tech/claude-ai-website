@@ -90,7 +90,7 @@ const Navbar: FC = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
-              aria-label="Open Promptly AI chat"
+              aria-label="Open Luna chat"
               className="hidden sm:flex items-center gap-2 px-4 py-2 min-h-[44px] rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
               style={{ background: 'var(--color-promptly-lime)' }}
             >
@@ -100,7 +100,7 @@ const Navbar: FC = () => {
                   fill="white"
                 />
               </svg>
-              Ask Promptly AI
+              Ask Luna
             </button>
 
             {/* Hamburger — min 44×44px touch target */}
@@ -177,7 +177,7 @@ const Navbar: FC = () => {
                       fill="white"
                     />
                   </svg>
-                  Ask Promptly AI
+                  Ask Luna
                 </button>
               </div>
             </motion.div>

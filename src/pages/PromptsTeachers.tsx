@@ -146,7 +146,7 @@ const PromptsTeachers = () => {
       {/* Agent CTA */}
       <section className="px-5 sm:px-8 py-8" style={{ background: 'var(--bg)' }}>
         <div className="max-w-3xl mx-auto">
-          <AgentCTA context="Tell the Promptly AI about your class, subject and any specific SEN needs for a tailored teacher prompt." />
+          <AgentCTA context="Tell the Luna about your class, subject and any specific SEN needs for a tailored teacher prompt." />
         </div>
       </section>
 

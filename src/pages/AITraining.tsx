@@ -350,7 +350,7 @@ export default function AITraining() {
       <section className="px-5 sm:px-8 pb-10" style={{ background: 'var(--bg)' }}>
         <div className="max-w-4xl mx-auto">
           <AgentCTACard
-            section="Promptly AI · Learning Pathfinder"
+            section="Luna · Learning Pathfinder"
             headline="Build my AI learning path."
             description="Tell us your role and experience level — our AI advisor will recommend the right courses, certifications and free resources for you."
             prompts={[
@@ -771,7 +771,7 @@ export default function AITraining() {
             Get a personalised recommendation
           </h2>
           <p className="text-base mb-8" style={{ color: '#6b6760' }}>
-            Tell the Promptly AI what you're trying to achieve and it will suggest the best
+            Tell the Luna what you're trying to achieve and it will suggest the best
             training path for your role and experience level.
           </p>
           <button
@@ -779,7 +779,7 @@ export default function AITraining() {
             style={{ background: TEAL }}
             onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
           >
-            Ask the Promptly AI →
+            Ask the Luna →
           </button>
         </div>
       </section>

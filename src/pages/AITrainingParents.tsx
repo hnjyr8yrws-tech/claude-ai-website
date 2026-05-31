@@ -249,7 +249,7 @@ export default function AITrainingParents() {
             Have a specific question about AI and your child?
           </h2>
           <p className="text-base mb-8" style={{ color: '#6b6760' }}>
-            The Promptly AI assistant can answer questions about AI safety, school use policies
+            The Luna assistant can answer questions about AI safety, school use policies
             and what to look out for — in plain English.
           </p>
           <button
@@ -260,7 +260,7 @@ export default function AITrainingParents() {
               if (w) w.click();
             }}
           >
-            Ask the Promptly AI →
+            Ask the Luna →
           </button>
         </div>
       </section>

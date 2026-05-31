@@ -557,7 +557,7 @@ export default function Equipment() {
               Not sure what equipment your school needs?
             </p>
             <p className="text-xs mt-0.5" style={{ color: '#78350f' }}>
-              Ask the Promptly AI assistant — it can recommend products based on your specific SEND needs, budget, and year group.
+              Ask the Luna assistant — it can recommend products based on your specific SEND needs, budget, and year group.
             </p>
           </div>
           <button

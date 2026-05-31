@@ -112,7 +112,7 @@ export default function AgentCTACard({
                   fill="white"
                 />
               </svg>
-              Ask Promptly AI
+              Ask Luna
             </button>
           </div>
         </div>

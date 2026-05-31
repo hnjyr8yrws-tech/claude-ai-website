@@ -71,7 +71,7 @@ const Footer: FC = () => (
 
         {/* AI Transparency Notice */}
         <p className="text-xs leading-relaxed max-w-xs" style={{ color: '#4b5563' }}>
-          <strong style={{ color: '#6b6760' }}>AI transparency:</strong> The Promptly AI chat widget is powered by Anthropic Claude. It is an AI assistant, not a human. Responses may be inaccurate — always verify important information.
+          <strong style={{ color: '#6b6760' }}>AI transparency:</strong> The Luna chat widget is powered by Anthropic Claude. It is an AI assistant, not a human. Responses may be inaccurate — always verify important information.
         </p>
 
         {/* Compliance badges */}

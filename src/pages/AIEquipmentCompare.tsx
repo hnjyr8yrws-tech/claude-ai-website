@@ -122,7 +122,7 @@ function ComparisonTable({
           className="flex-shrink-0 text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
           style={{ background: AMBER_TEXT, color: 'white' }}
         >
-          Ask the Promptly AI →
+          Ask the Luna →
         </button>
       </div>
     </section>

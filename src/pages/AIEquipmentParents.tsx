@@ -269,7 +269,7 @@ export default function AIEquipmentParents() {
       >
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-3 justify-between">
           <p className="text-sm font-semibold" style={{ color: AMBER_TEXT }}>
-            Need help choosing? Ask the Promptly AI or explore our parent resources.
+            Need help choosing? Ask the Luna or explore our parent resources.
           </p>
           <div className="flex flex-wrap gap-3">
             <button

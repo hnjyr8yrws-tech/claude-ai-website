@@ -141,7 +141,7 @@ const PromptsSENCO = () => {
       {/* Agent CTA */}
       <section className="px-5 sm:px-8 py-8" style={{ background: 'white' }}>
         <div className="max-w-3xl mx-auto">
-          <AgentCTA context="Tell the Promptly AI about your school's SEND context for personalised SENCO prompts." />
+          <AgentCTA context="Tell the Luna about your school's SEND context for personalised SENCO prompts." />
         </div>
       </section>
 

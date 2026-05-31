@@ -261,7 +261,7 @@ export default function AIEquipmentSchools() {
             {
               badge: null,
               title: 'Request a Quote',
-              desc: 'Tell us what you need — the Promptly AI will help you find the right supplier.',
+              desc: 'Tell us what you need — the Luna will help you find the right supplier.',
               bg: AMBER_BG, color: AMBER_TEXT,
             },
           ].map(item => (

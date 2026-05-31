@@ -112,7 +112,7 @@ const PromptsAdmin = () => (
     {/* Agent CTA */}
     <section className="px-5 sm:px-8 py-8" style={{ background: 'var(--bg)' }}>
       <div className="max-w-3xl mx-auto">
-        <AgentCTA context="Tell the Promptly AI what letter, template or document you need and it will help you create it." />
+        <AgentCTA context="Tell the Luna what letter, template or document you need and it will help you create it." />
       </div>
     </section>
 
