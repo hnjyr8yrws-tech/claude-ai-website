@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
-import SafetyScore, { PILLARS, getTrustTier, getScoreColour, TrustTier } from '../components/SafetyScore';
+import SafetyScore, { PILLARS, getTrustTier, TrustTier } from '../components/SafetyScore';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -48,10 +48,12 @@ const TIER_TABLE: TierRow[] = [
   },
 ];
 
+// §09: Trusted wears the one allowed accent (lime on dark); Guided/Emerging are
+// neutral oat/ink. No green/amber/red — quality is the Pillar Card's job.
 const TIER_STYLES: Record<TrustTier, { bg: string; text: string; border: string }> = {
-  Trusted:  { bg: '#f0fdf4', text: '#15803d', border: '#bbf7d0' },
-  Guided:   { bg: '#fefce8', text: '#92400e', border: '#fef08a' },
-  Emerging: { bg: '#fff7ed', text: '#9a3412', border: '#fed7aa' },
+  Trusted:  { bg: 'var(--color-ground-black)', text: 'var(--color-promptly-lime)', border: 'var(--color-ground-black)' },
+  Guided:   { bg: 'var(--color-oat)',          text: 'var(--color-ink)',           border: 'var(--color-rule)' },
+  Emerging: { bg: 'var(--color-oat)',          text: 'var(--color-ink)',           border: 'var(--color-rule)' },
 };
 
 // ─── Demo scores for visual examples ─────────────────────────────────────────

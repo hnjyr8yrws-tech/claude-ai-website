@@ -100,10 +100,13 @@ export const CAT_COLOURS: Record<string, { bg: string; text: string }> = {
   'Literacy': { bg: 'var(--color-oat)', text: 'var(--color-ink)' },
 };
 
+// §09: the primary verdict (Trusted) wears the one allowed accent — lime on
+// dark. Guided/Emerging are neutral oat/ink; the tier word carries the meaning.
+// No green/amber/red traffic-light: quality is signalled by the Pillar Card.
 export const TIER_STYLE: Record<Tier, { bg: string; text: string }> = {
-  Trusted:  { bg: '#dcfce7', text: '#166534' },
-  Guided:   { bg: '#fef9c3', text: '#854d0e' },
-  Emerging: { bg: '#ffedd5', text: '#9a3412' },
+  Trusted:  { bg: 'var(--color-ground-black)', text: 'var(--color-promptly-lime)' },
+  Guided:   { bg: 'var(--color-oat)',          text: 'var(--color-ink)' },
+  Emerging: { bg: 'var(--color-oat)',          text: 'var(--color-ink)' },
 };
 
 // ─── 155-tool database ────────────────────────────────────────────────────────

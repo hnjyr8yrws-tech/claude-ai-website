@@ -21,16 +21,28 @@ import { PillarCard, ScorePill, pillarScoresFromData } from '../components/trust
 
 const TEAL = 'var(--color-promptly-lime)';
 
+// Pillar bar colours, in the same order as PILLARS (data/tools.ts):
+// [Data Privacy, Age Appropriateness, Transparency, Safeguarding, Accessibility].
+// The five reserved §09 pillar colours — the one sanctioned use in a breakdown.
+const PILLAR_BAR_COLOURS = [
+  'var(--color-pillar-privacy)',
+  'var(--color-pillar-age)',
+  'var(--color-pillar-transparency)',
+  'var(--color-pillar-safeguarding)',
+  'var(--color-pillar-accessibility)',
+];
+
 // ─── Score bar ────────────────────────────────────────────────────────────────
 
-function ScoreBar({ label, value, delay }: { label: string; value: number; delay: number }) {
+function ScoreBar({ label, value, colour, delay }: { label: string; value: number; colour: string; delay: number }) {
   const pct = (value / 10) * 100;
-  const colour = value >= 8 ? '#16a34a' : value >= 6 ? '#d97706' : value >= 4 ? '#ea580c' : '#dc2626';
+  // Bar fill = the pillar's reserved §09 colour; the numeral stays neutral ink
+  // for legibility (never recoloured by value).
   return (
     <div>
       <div className="flex justify-between text-sm mb-1.5">
         <span style={{ color: '#6b6760' }}>{label}</span>
-        <span className="font-bold tabular-nums" style={{ color: colour }}>{value}/10</span>
+        <span className="font-bold tabular-nums" style={{ color: '#1c1a15' }}>{value}/10</span>
       </div>
       <div className="h-2.5 rounded-full overflow-hidden" style={{ background: '#f3f4f6' }}>
         <motion.div
@@ -143,7 +155,6 @@ const ToolDetail = () => {
 
   const ts = TIER_STYLE[tool.tier];
   const catStyle = CAT_COLOURS[tool.category] ?? { bg: '#f3f4f6', text: '#374151' };
-  const scoreColour = tool.safety >= 9 ? '#16a34a' : tool.safety >= 7 ? '#d97706' : tool.safety >= 5 ? '#ea580c' : '#dc2626';
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
 
@@ -244,7 +255,7 @@ const ToolDetail = () => {
             <>
               <div className="space-y-4 mb-6">
                 {PILLARS.map((pillar, i) => (
-                  <ScoreBar key={pillar} label={pillar} value={pillars[i]} delay={i * 0.1} />
+                  <ScoreBar key={pillar} label={pillar} value={pillars[i]} colour={PILLAR_BAR_COLOURS[i]} delay={i * 0.1} />
                 ))}
               </div>
 
@@ -292,13 +303,13 @@ const ToolDetail = () => {
           </div>
           <div className="flex flex-wrap gap-3">
             <div className="flex items-center gap-2 text-sm">
-              <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: tool.ukReady === 'Yes' ? '#16a34a' : '#d97706' }} />
+              <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-ink-accent)' }} />
               <span style={{ color: '#6b6760' }}>
                 UK GDPR relevance: <strong style={{ color: 'var(--text)' }}>{tool.ukReady === 'Yes' ? 'Confirmed' : 'Partial — verify with your DPO'}</strong>
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm">
-              <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: scoreColour }} />
+              <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-ink-accent)' }} />
               <span style={{ color: '#6b6760' }}>
                 KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{tool.safety >= 9 ? 'Strong' : tool.safety >= 7 ? 'Moderate — review policy' : 'Requires policy decision'}</strong>
               </span>

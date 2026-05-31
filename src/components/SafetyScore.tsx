@@ -9,6 +9,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { TIER_STYLE } from '../data/tools';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -23,26 +24,16 @@ export interface SafetyScoreProps {
   label?: string;
 }
 
-// ─── Score → colour + tier ────────────────────────────────────────────────────
-
-export function getScoreColour(score: number): string {
-  if (score >= 9)  return '#16a34a';   // green
-  if (score >= 7)  return '#d97706';   // amber
-  if (score >= 5)  return '#ea580c';   // orange
-  return '#dc2626';                     // red
-}
+// ─── Score → tier ──────────────────────────────────────────────────────────────
+// Threshold logic only — no value-by-colour. Quality is signalled by the Pillar
+// Card / tier word, never by recolouring the digits (§04/§09). Tier chip colours
+// come from the single source of truth in data/tools.ts (TIER_STYLE).
 
 export function getTrustTier(score: number): TrustTier {
   if (score >= 8) return 'Trusted';
   if (score >= 6) return 'Guided';
   return 'Emerging';
 }
-
-const TIER_STYLES: Record<TrustTier, { bg: string; text: string }> = {
-  Trusted:  { bg: '#dcfce7', text: '#15803d' },
-  Guided:   { bg: '#fef9c3', text: '#92400e' },
-  Emerging: { bg: '#ffedd5', text: '#9a3412' },
-};
 
 // ─── Five scoring pillars ─────────────────────────────────────────────────────
 
@@ -74,9 +65,8 @@ export default function SafetyScore({
   const [hovered, setHovered] = useState(false);
 
   const { r, stroke, fontSize, wh } = SIZE[size];
-  const colour       = getScoreColour(score);
   const tier         = getTrustTier(score);
-  const tierStyle    = TIER_STYLES[tier];
+  const tierStyle    = TIER_STYLE[tier];
   const centre       = wh / 2;
   const circumference = 2 * Math.PI * r;
   const offset       = circumference * (1 - Math.min(score, 10) / 10);
@@ -99,18 +89,23 @@ export default function SafetyScore({
         viewBox={`0 0 ${wh} ${wh}`}
         aria-hidden="true"
       >
-        {/* Background track */}
+        {/* Dark medallion — lime sits on dark, never on white (§09) */}
+        <circle
+          cx={centre} cy={centre} r={wh / 2}
+          fill="var(--color-ground-black)"
+        />
+        {/* Background track (dim lime) */}
         <circle
           cx={centre} cy={centre} r={r}
           fill="none"
-          stroke="#e8e6e0"
+          stroke="rgba(200,228,74,0.18)"
           strokeWidth={stroke}
         />
-        {/* Score arc */}
+        {/* Score arc — lime */}
         <motion.circle
           cx={centre} cy={centre} r={r}
           fill="none"
-          stroke={colour}
+          stroke="var(--color-promptly-lime)"
           strokeWidth={stroke}
           strokeLinecap="round"
           strokeDasharray={circumference}
@@ -119,15 +114,15 @@ export default function SafetyScore({
           transition={{ duration: 0.9, ease: 'easeOut' }}
           style={{ transformOrigin: `${centre}px ${centre}px`, rotate: '-90deg' }}
         />
-        {/* Score text */}
+        {/* Score text — oat on dark (Satoshi / font-sans) */}
         <text
+          className="font-sans"
           x={centre} y={centre}
           textAnchor="middle"
           dominantBaseline="central"
           fontSize={fontSize}
           fontWeight="700"
-          fill={colour}
-          fontFamily="Inter, system-ui, sans-serif"
+          fill="var(--color-oat)"
         >
           {score.toFixed(1)}
         </text>

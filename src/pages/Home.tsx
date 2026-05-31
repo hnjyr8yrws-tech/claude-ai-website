@@ -361,7 +361,7 @@ const RoleSelector: FC = () => {
                       {String(i + 1).padStart(2, '0')}
                     </span>
                     <span className="text-xs font-medium flex-1" style={{ color: '#d1cec8' }}>{t}</span>
-                    <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(34,197,94,0.12)', color: '#22c55e' }}>Safe</span>
+                    <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-full" style={{ background: 'rgba(200,228,74,0.14)', color: 'var(--color-promptly-lime)' }}>Safe</span>
                   </div>
                 ))}
               </div>
@@ -421,9 +421,9 @@ const HowItWorks: FC = () => (
 // ─── 5. Safety scoring preview ────────────────────────────────────────────────
 
 const SAMPLE_TOOLS = [
-  { name: 'MagicSchool', category: 'Teacher AI',  overall: 9.1, tier: 'Trusted', tierColor: '#22c55e', tierBg: 'rgba(34,197,94,0.1)',  scores: [9, 9, 9, 8, 9] },
-  { name: 'Curipod',     category: 'Lesson Design', overall: 8.4, tier: 'Trusted', tierColor: '#22c55e', tierBg: 'rgba(34,197,94,0.1)',  scores: [8, 9, 8, 8, 8] },
-  { name: 'ChatGPT',     category: 'General AI',  overall: 6.8, tier: 'Guided',  tierColor: '#f59e0b', tierBg: 'rgba(245,158,11,0.1)', scores: [7, 6, 5, 8, 8] },
+  { name: 'MagicSchool', category: 'Teacher AI',  overall: 9.1, tier: 'Trusted', tierColor: 'var(--color-promptly-lime)', tierBg: 'rgba(200,228,74,0.14)', scores: [9, 9, 9, 8, 9] },
+  { name: 'Curipod',     category: 'Lesson Design', overall: 8.4, tier: 'Trusted', tierColor: 'var(--color-promptly-lime)', tierBg: 'rgba(200,228,74,0.14)', scores: [8, 9, 8, 8, 8] },
+  { name: 'ChatGPT',     category: 'General AI',  overall: 6.8, tier: 'Guided',  tierColor: 'var(--color-oat)', tierBg: 'rgba(245,242,236,0.12)', scores: [7, 6, 5, 8, 8] },
 ];
 const PILLARS = ['Data Privacy', 'Safeguarding', 'Age Suitability', 'Transparency', 'Accessibility'];
 
