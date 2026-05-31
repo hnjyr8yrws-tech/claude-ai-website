@@ -46,9 +46,9 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             {item.provider}
           </span>
           {item.type === 'Free' ? (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#15803d' }}>Free</span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Free</span>
           ) : (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#fffbeb', color: '#92400e' }}>Paid</span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Paid</span>
           )}
         </div>
         <h4 className="font-display text-base leading-snug mb-1" style={{ color: 'var(--text)' }}>{item.name}</h4>
@@ -137,7 +137,7 @@ export default function AITrainingTeachers() {
                 <div className="flex items-center justify-between">
                   <span
                     className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                    style={item.type === 'Free' ? { background: '#f0fdf4', color: '#15803d' } : { background: '#fffbeb', color: '#92400e' }}
+                    style={item.type === 'Free' ? { background: 'var(--color-oat)', color: 'var(--color-ink)' } : { background: 'var(--color-oat)', color: 'var(--color-ink)' }}
                   >
                     {item.cost}
                   </span>
@@ -209,7 +209,7 @@ export default function AITrainingTeachers() {
                       <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.category}</span>
                       <span
                         className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                        style={item.type === 'Free' ? { background: '#f0fdf4', color: '#15803d' } : { background: '#fffbeb', color: '#92400e' }}
+                        style={item.type === 'Free' ? { background: 'var(--color-oat)', color: 'var(--color-ink)' } : { background: 'var(--color-oat)', color: 'var(--color-ink)' }}
                       >
                         {item.type}
                       </span>

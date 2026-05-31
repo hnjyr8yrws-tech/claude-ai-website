@@ -205,7 +205,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                   className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] group"
                   style={{ borderColor: BORDER, background: BG }}>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
-                    style={t.free ? { background: '#dcfce7', color: '#15803d' } : { background: '#fef9c3', color: '#854d0e' }}>
+                    style={t.free ? { background: 'var(--color-oat)', color: 'var(--color-ink)' } : { background: 'var(--color-oat)', color: 'var(--color-ink)' }}>
                     {t.free ? 'Free' : 'Paid'}
                   </span>
                   <div className="flex-1 min-w-0">

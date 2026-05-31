@@ -37,7 +37,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
         <div className="flex items-start justify-between gap-2 mb-3">
           <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.provider}</span>
           <div className="flex gap-1.5">
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#15803d' }}>Free</span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Free</span>
             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>SEND</span>
           </div>
         </div>

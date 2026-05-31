@@ -65,10 +65,10 @@ const PackEmailGate = ({ packSlug, packTitle, hiddenCount, totalCount, onUnlock 
     return (
       <div
         className="rounded-2xl border p-6 sm:p-8 text-center"
-        style={{ borderColor: '#bbf7d0', background: '#f0fdf4' }}
+        style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
       >
         <div className="text-3xl mb-3" aria-hidden="true">{'\u2705'}</div>
-        <h3 className="font-display text-xl mb-2" style={{ color: '#15803d' }}>
+        <h3 className="font-display text-xl mb-2" style={{ color: 'var(--color-ink)' }}>
           Pack ready.
         </h3>
         <p className="text-sm leading-relaxed mb-1" style={{ color: '#6b6760' }}>

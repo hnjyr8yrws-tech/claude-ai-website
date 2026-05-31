@@ -42,9 +42,9 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           </span>
           <div className="flex gap-1.5">
             {item.type === 'Free' ? (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#15803d' }}>Free</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Free</span>
             ) : (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#fffbeb', color: '#92400e' }}>Paid</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Paid</span>
             )}
             {item.affiliate && (
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Affiliate</span>
@@ -127,7 +127,7 @@ export default function AITrainingStudents() {
                 >
                   <span
                     className="text-[10px] font-bold px-2 py-0.5 rounded-full mb-3 inline-block"
-                    style={{ background: '#f0fdf4', color: '#15803d' }}
+                    style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
                   >
                     Free
                   </span>

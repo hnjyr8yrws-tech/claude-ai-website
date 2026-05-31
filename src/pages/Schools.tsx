@@ -466,7 +466,7 @@ const Schools: FC = () => {
           <FadeIn>
             <p
               className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest mb-6 px-3 py-1.5 rounded-full border"
-              style={{ color: TEAL, borderColor: '#1a3f42' }}
+              style={{ color: TEAL, borderColor: 'var(--color-rule)' }}
             >
               <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: TEAL }} aria-hidden="true" />
               For Schools &amp; Trusts

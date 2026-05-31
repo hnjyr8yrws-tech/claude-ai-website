@@ -45,9 +45,9 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.provider}</span>
           <div className="flex gap-1.5">
             {item.type === 'Free' ? (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#15803d' }}>Free</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Free</span>
             ) : (
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#fffbeb', color: '#92400e' }}>Paid</span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Paid</span>
             )}
             {item.affiliate && (
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>Affiliate</span>
@@ -114,7 +114,7 @@ export default function AITrainingLeaders() {
                 <h3 className="font-display text-base leading-snug mb-2" style={{ color: 'white' }}>{item.name}</h3>
                 <p className="text-xs flex-1 mb-4" style={{ color: '#6b6760' }}>{item.notes}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold" style={{ color: item.type === 'Free' ? '#4ade80' : '#fcd34d' }}>{item.cost}</span>
+                  <span className="text-xs font-bold" style={{ color: item.type === 'Free' ? 'var(--color-oat)' : 'var(--color-oat)' }}>{item.cost}</span>
                   <a href={item.url} target="_blank" rel={item.affiliate ? 'noopener noreferrer sponsored' : 'noopener noreferrer'} className="text-xs font-semibold" style={{ color: TEAL }}>Start →</a>
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function AITrainingLeaders() {
                       <div key={item.slug} className="rounded-xl border p-4" style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}>
                         <div className="flex items-center justify-between mb-1">
                           <p className="text-xs font-semibold" style={{ color: '#9ca3af' }}>{item.provider}</p>
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={item.type === 'Free' ? { background: '#f0fdf4', color: '#15803d' } : { background: '#fffbeb', color: '#92400e' }}>{item.type}</span>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={item.type === 'Free' ? { background: 'var(--color-oat)', color: 'var(--color-ink)' } : { background: 'var(--color-oat)', color: 'var(--color-ink)' }}>{item.type}</span>
                         </div>
                         <h4 className="font-display text-base leading-snug mb-1" style={{ color: 'var(--text)' }}>{item.name}</h4>
                         <p className="text-xs mb-2" style={{ color: '#6b6760' }}>{item.notes}</p>

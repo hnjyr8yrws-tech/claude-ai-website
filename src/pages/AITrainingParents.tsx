@@ -4,9 +4,9 @@ import SectionLabel from '../components/SectionLabel';
 import { TRAINING, PATHWAY_PARENTS, type TrainingItem } from '../data/training';
 
 const TEAL = 'var(--color-promptly-lime)';
-const AMBER_BG = '#fef3c7';
-const AMBER_TEXT = '#92400e';
-const AMBER_BORDER = '#fcd34d';
+const AMBER_BG = 'var(--color-oat)';
+const AMBER_TEXT = 'var(--color-ink)';
+const AMBER_BORDER = 'var(--color-rule)';
 
 const pathwayItems: TrainingItem[] = PATHWAY_PARENTS
   .map(s => TRAINING.find(t => t.slug === s))
@@ -46,7 +46,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           </span>
           <span
             className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-            style={{ background: '#f0fdf4', color: '#15803d' }}
+            style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
           >
             Free
           </span>

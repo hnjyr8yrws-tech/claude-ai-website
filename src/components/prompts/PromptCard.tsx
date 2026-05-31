@@ -112,7 +112,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
               <span
                 key={v}
                 className="px-1.5 py-0.5 rounded text-[10px] font-mono"
-                style={{ background: '#fef3c7', color: '#92400e' }}
+                style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
               >
                 [{v}]
               </span>

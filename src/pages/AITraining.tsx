@@ -23,9 +23,9 @@ import { useCrossSell } from '../hooks/useCrossSell';
 import { linkLabel, inferLinkType } from '../utils/linkType';
 
 const TEAL = 'var(--color-promptly-lime)';
-const AMBER_BG = '#fef3c7';
-const AMBER_TEXT = '#92400e';
-const AMBER_BORDER = '#fcd34d';
+const AMBER_BG = 'var(--color-oat)';
+const AMBER_TEXT = 'var(--color-ink)';
+const AMBER_BORDER = 'var(--color-rule)';
 
 // ─── Derived stats ────────────────────────────────────────────────────────────
 
@@ -80,7 +80,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             {item.type === 'Free' && (
               <span
                 className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-                style={{ background: '#f0fdf4', color: '#15803d' }}
+                style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
               >
                 Free
               </span>
@@ -128,7 +128,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           {item.certificate && (
             <span
               className="text-[10px] font-semibold px-2 py-0.5 rounded-full"
-              style={{ background: '#fef3c7', color: '#92400e' }}
+              style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
             >
               🎓 Certificate
             </span>
@@ -597,26 +597,26 @@ export default function AITraining() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
             <div
               className="rounded-2xl border p-6"
-              style={{ borderColor: '#bbf7d0', background: '#f0fdf4' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
             >
-              <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: '#15803d' }}>
+              <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--color-ink)' }}>
                 Free courses
               </p>
               <ul className="space-y-2.5 text-sm" style={{ color: '#1c1a15' }}>
                 <li className="flex items-start gap-2">
-                  <span style={{ color: '#15803d' }}>✓</span>
+                  <span style={{ color: 'var(--color-ink)' }}>✓</span>
                   UK Government-backed with no cost barrier
                 </li>
                 <li className="flex items-start gap-2">
-                  <span style={{ color: '#15803d' }}>✓</span>
+                  <span style={{ color: 'var(--color-ink)' }}>✓</span>
                   Ideal for beginners exploring AI
                 </li>
                 <li className="flex items-start gap-2">
-                  <span style={{ color: '#15803d' }}>✓</span>
+                  <span style={{ color: 'var(--color-ink)' }}>✓</span>
                   No time pressure — learn at your pace
                 </li>
                 <li className="flex items-start gap-2">
-                  <span style={{ color: '#15803d' }}>✓</span>
+                  <span style={{ color: 'var(--color-ink)' }}>✓</span>
                   Good for CPD evidence in schools
                 </li>
               </ul>
@@ -624,7 +624,7 @@ export default function AITraining() {
                 <Link
                   to="/ai-training/free"
                   className="text-sm font-semibold"
-                  style={{ color: '#15803d' }}
+                  style={{ color: 'var(--color-ink)' }}
                 >
                   View free resources →
                 </Link>

@@ -5,9 +5,9 @@ import SectionLabel from '../components/SectionLabel';
 import { TRAINING, type TrainingItem } from '../data/training';
 
 const TEAL = 'var(--color-promptly-lime)';
-const AMBER_BG = '#fef3c7';
-const AMBER_TEXT = '#92400e';
-const AMBER_BORDER = '#fcd34d';
+const AMBER_BG = 'var(--color-oat)';
+const AMBER_TEXT = 'var(--color-ink)';
+const AMBER_BORDER = 'var(--color-rule)';
 
 type LevelFilter = 'All' | 'Beginner' | 'Intermediate' | 'Advanced';
 
@@ -35,7 +35,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           <div className="flex items-center gap-1.5 flex-shrink-0">
             <span
               className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-              style={{ background: '#fffbeb', color: '#92400e' }}
+              style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
             >
               Paid
             </span>
@@ -129,8 +129,8 @@ export default function AITrainingPaid() {
             style={{ background: AMBER_BG, borderColor: AMBER_BORDER }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0 mt-0.5">
-              <circle cx="8" cy="8" r="7" stroke="#92400e" strokeWidth="1.5"/>
-              <path d="M8 5v4M8 11v.5" stroke="#92400e" strokeWidth="1.5" strokeLinecap="round"/>
+              <circle cx="8" cy="8" r="7" stroke="var(--color-ink)" strokeWidth="1.5"/>
+              <path d="M8 5v4M8 11v.5" stroke="var(--color-ink)" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
             <p className="text-sm" style={{ color: AMBER_TEXT }}>
               <strong>Affiliate disclosure:</strong> Some links below are affiliate links, marked with an "Affiliate" badge.
@@ -211,12 +211,12 @@ export default function AITrainingPaid() {
           <Link
             to="/ai-training/free"
             className="flex-1 rounded-2xl border p-5 text-center"
-            style={{ borderColor: '#bbf7d0', background: '#f0fdf4' }}
+            style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
           >
-            <p className="font-display text-lg mb-1" style={{ color: '#15803d' }}>
+            <p className="font-display text-lg mb-1" style={{ color: 'var(--color-ink)' }}>
               View free resources →
             </p>
-            <p className="text-sm" style={{ color: '#15803d', opacity: 0.7 }}>
+            <p className="text-sm" style={{ color: 'var(--color-ink)', opacity: 0.7 }}>
               No cost, government-backed options
             </p>
           </Link>

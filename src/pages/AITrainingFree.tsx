@@ -33,7 +33,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           <div className="flex items-center gap-1.5 flex-shrink-0">
             <span
               className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-              style={{ background: '#f0fdf4', color: '#15803d' }}
+              style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
             >
               Free
             </span>
@@ -128,9 +128,9 @@ export default function AITrainingFree() {
         <div className="max-w-4xl mx-auto">
           <div
             className="rounded-2xl border p-6 sm:p-8"
-            style={{ borderColor: '#bbf7d0', background: '#f0fdf4' }}
+            style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
           >
-            <h2 className="font-display text-2xl mb-5" style={{ color: '#15803d' }}>
+            <h2 className="font-display text-2xl mb-5" style={{ color: 'var(--color-ink)' }}>
               Why free AI training matters in the UK
             </h2>
             <ul className="space-y-3">
@@ -143,7 +143,7 @@ export default function AITrainingFree() {
                 <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#1c1a15' }}>
                   <span
                     className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5"
-                    style={{ background: '#15803d', color: 'white' }}
+                    style={{ background: 'var(--color-ink)', color: 'white' }}
                   >
                     {i + 1}
                   </span>
@@ -204,12 +204,12 @@ export default function AITrainingFree() {
           <Link
             to="/ai-training/paid"
             className="flex-1 rounded-2xl border p-5 text-center"
-            style={{ borderColor: '#fcd34d', background: '#fef3c7' }}
+            style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
           >
-            <p className="font-display text-lg mb-1" style={{ color: '#92400e' }}>
+            <p className="font-display text-lg mb-1" style={{ color: 'var(--color-ink)' }}>
               View paid courses →
             </p>
-            <p className="text-sm" style={{ color: '#92400e', opacity: 0.7 }}>
+            <p className="text-sm" style={{ color: 'var(--color-ink)', opacity: 0.7 }}>
               Certificates and structured learning
             </p>
           </Link>

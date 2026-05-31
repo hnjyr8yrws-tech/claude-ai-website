@@ -182,7 +182,7 @@ const PromptsPack = () => {
             ))}
             <span
               className="ml-2 px-2.5 py-0.5 rounded-full text-[11px] font-medium"
-              style={{ background: '#f0fdf4', color: '#15803d' }}
+              style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
             >
               {pack.promptCount} prompts
             </span>

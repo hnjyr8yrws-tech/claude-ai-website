@@ -180,14 +180,14 @@ function ToolNotFoundPanel({ query, onClose }: { query: string; onClose: () => v
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         className="rounded-2xl border px-6 py-8 text-center"
-        style={{ borderColor: '#bbf7d0', background: '#f0fdf4' }}
+        style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
       >
         <p className="text-xl mb-2">✅</p>
-        <p className="text-sm font-semibold" style={{ color: '#15803d' }}>
+        <p className="text-sm font-semibold" style={{ color: 'var(--color-ink)' }}>
           Thanks — we've added <strong>{toolName}</strong> to our review queue.
         </p>
         {email && (
-          <p className="text-xs mt-1" style={{ color: '#16a34a' }}>
+          <p className="text-xs mt-1" style={{ color: 'var(--color-ink)' }}>
             We'll notify you at {email} when the review is complete.
           </p>
         )}
@@ -299,7 +299,7 @@ function ToolCard({
             {tool.category}
           </span>
           {tool.ukReady === 'Yes' && (
-            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: '#dcfce7', color: '#166534' }}>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>
               🇬🇧 UK Ready
             </span>
           )}
@@ -427,7 +427,7 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
       : <ScorePill score={t.safety} to={`/tools/${t.slug}`} /> },
     { label: 'UK Ready',    render: t => (
       <span className="text-xs font-bold px-2 py-0.5 rounded-full"
-        style={t.ukReady === 'Yes' ? { background: '#dcfce7', color: '#166534' } : { background: '#f3f4f6', color: '#6b7280' }}>
+        style={t.ukReady === 'Yes' ? { background: 'var(--color-oat)', color: 'var(--color-ink)' } : { background: '#f3f4f6', color: '#6b7280' }}>
         {t.ukReady}
       </span>
     )},

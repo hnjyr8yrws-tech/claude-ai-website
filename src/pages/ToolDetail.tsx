@@ -73,7 +73,7 @@ function TrainingCard({ item }: { item: (typeof TRAINING)[number] }) {
         <span className="text-sm font-semibold leading-snug" style={{ color: 'var(--text)' }}>{item.name}</span>
         <span
           className="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full"
-          style={item.type === 'Free' ? { background: '#dcfce7', color: '#166534' } : { background: '#fef9c3', color: '#854d0e' }}
+          style={item.type === 'Free' ? { background: 'var(--color-oat)', color: 'var(--color-ink)' } : { background: 'var(--color-oat)', color: 'var(--color-ink)' }}
         >
           {item.cost}
         </span>
@@ -195,7 +195,7 @@ const ToolDetail = () => {
               </span>
             )}
             {tool.free && (
-              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: '#f0fdf4', color: '#166534' }}>
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}>
                 Free tier
               </span>
             )}
@@ -279,13 +279,13 @@ const ToolDetail = () => {
             Is this the right tool for you?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="rounded-xl border p-5" style={{ borderColor: '#bbf7d0', background: '#f0fdf4' }}>
-              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#166534' }}>Best for</p>
-              <p className="text-sm leading-relaxed" style={{ color: '#166534' }}>{deriveBestFor(tool)}</p>
+            <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
+              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>Best for</p>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink)' }}>{deriveBestFor(tool)}</p>
             </div>
-            <div className="rounded-xl border p-5" style={{ borderColor: '#fecaca', background: '#fef2f2' }}>
-              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: '#991b1b' }}>Not ideal for</p>
-              <p className="text-sm leading-relaxed" style={{ color: '#991b1b' }}>{deriveNotIdealFor(tool)}</p>
+            <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
+              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>Not ideal for</p>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink)' }}>{deriveNotIdealFor(tool)}</p>
             </div>
           </div>
         </div>

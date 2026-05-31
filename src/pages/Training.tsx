@@ -551,7 +551,7 @@ const Training: FC = () => {
                       <div>
                         <span
                           className="text-[10px] font-semibold px-2 py-0.5 rounded"
-                          style={{ background: '#dcfce7', color: '#15803d' }}
+                          style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
                         >
                           Free
                         </span>
@@ -650,7 +650,7 @@ const Training: FC = () => {
                       </div>
                       <span
                         className="text-sm font-bold flex-shrink-0 tabular-nums"
-                        style={{ color: course.comingSoon ? '#6b6760' : '#92400e' }}
+                        style={{ color: course.comingSoon ? '#6b6760' : 'var(--color-ink)' }}
                       >
                         {course.price}
                       </span>

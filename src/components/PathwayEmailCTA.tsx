@@ -33,10 +33,10 @@ export default function PathwayEmailCTA({ pathwayName, pathwaySlug }: Props) {
     return (
       <div
         className="rounded-xl border px-5 py-4 flex items-center gap-3"
-        style={{ borderColor: '#bbf7d0', background: '#f0fdf4' }}
+        style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
       >
         <span className="text-xl" aria-hidden="true">✅</span>
-        <p className="text-sm font-medium" style={{ color: '#15803d' }}>
+        <p className="text-sm font-medium" style={{ color: 'var(--color-ink)' }}>
           We'll send the <strong>{pathwayName}</strong> pathway to your inbox.
         </p>
       </div>
