@@ -16,6 +16,7 @@ import { track } from '../utils/analytics';
 import { TOOLS, derivePillars, type Tool } from '../data/tools';
 import { PillarCard, pillarScoresFromData } from '../components/trust/PillarCard';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
+import { inferLinkType, linkLabel } from '../utils/linkType';
 
 const LIME = 'var(--color-promptly-lime)';
 const INK  = '#1E1E1E';
@@ -73,6 +74,9 @@ function openLuna(prompt?: string) {
 function ToolTile({ tool }: { tool: Tool }) {
   const scores = useMemo(() => derivePillars(tool), [tool]);
   const badges = topPillars(scores);
+  // Outbound CTA to the tool itself — label reflects what the link opens
+  // ("Try demo", "Start free trial", "Visit website", …).
+  const demoLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
 
   return (
     <div
@@ -129,16 +133,38 @@ function ToolTile({ tool }: { tool: Tool }) {
         </div>
       </div>
 
-      {/* "Read the review →" lime text link, no button box. Full-width-left on
-          mobile (its own row), right-aligned and vertically centred from sm up. */}
-      <Link
-        to={`/tools/${tool.slug}`}
-        onClick={() => track({ name: 'cta_clicked', section: 'tools-directory', label: `Read review: ${tool.name}` })}
-        className="font-sans flex-shrink-0 self-start sm:self-center whitespace-nowrap transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-        style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-ink-accent)' }}
-      >
-        Read the review &rarr;
-      </Link>
+      {/* CTAs — verdict first (Read the review), then an outbound link to the
+          tool's demo/site. Their own row on mobile; stacked at the right from sm. */}
+      <div className="flex flex-row sm:flex-col items-start gap-x-5 gap-y-1.5 flex-shrink-0 self-start sm:self-center">
+        <Link
+          to={`/tools/${tool.slug}`}
+          onClick={() => track({ name: 'cta_clicked', section: 'tools-directory', label: `Read review: ${tool.name}` })}
+          className="font-sans whitespace-nowrap transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
+          style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-ink-accent)' }}
+        >
+          Read the review &rarr;
+        </Link>
+        {!tool.reviewNeeded && (
+          <a
+            href={tool.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track({
+              name: 'outbound_tool_click',
+              toolSlug: tool.slug,
+              toolName: tool.name,
+              category: tool.category,
+              linkType: demoLabel,
+              source: 'direct',
+              pageType: 'tools-directory',
+            })}
+            className="font-sans whitespace-nowrap transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
+            style={{ fontSize: 14, fontWeight: 500, color: '#6b6760' }}
+          >
+            {demoLabel} &rarr;
+          </a>
+        )}
+      </div>
     </div>
   );
 }
