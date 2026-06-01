@@ -515,7 +515,6 @@ const Schools: FC = () => {
                 style={{ fontSize: 15, fontWeight: 500, background: 'transparent', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.35)' }}
               >
                 <span className="relative flex w-2 h-2" aria-hidden="true">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
                   <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
                 </span>
                 Ask Luna

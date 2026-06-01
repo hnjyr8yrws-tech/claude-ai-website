@@ -238,7 +238,6 @@ const PromptsHub = () => {
               style={{ fontSize: 15, fontWeight: 500, borderColor: INK, color: INK, background: 'transparent' }}
             >
               <span className="relative flex w-2 h-2" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: LIME }} />
                 <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: LIME }} />
               </span>
               Ask Luna

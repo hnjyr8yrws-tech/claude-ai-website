@@ -116,7 +116,6 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
                 style={{ borderColor: BORDER, color: '#1c1a15' }}>
                 <span className="relative flex w-2 h-2" aria-hidden="true">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
                   <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
                 </span>
                 Ask Luna
@@ -284,7 +283,6 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
               style={{ background: TEAL, color: '#1A1A0E' }}>
               <span className="relative flex w-2 h-2" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: 'white' }} />
                 <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: 'white' }} />
               </span>
               Ask Luna as a {d.agentRole} &rarr;

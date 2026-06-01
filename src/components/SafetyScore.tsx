@@ -37,12 +37,15 @@ export function getTrustTier(score: number): TrustTier {
 
 // ─── Five scoring pillars ─────────────────────────────────────────────────────
 
+// Brand Bible §spine — fixed order (Privacy → Safeguarding → Age → Transparency
+// → Accessibility), with the canonical pillar names. Order is display-only here;
+// no score mapping depends on it.
 export const PILLARS = [
-  { name: 'Data Privacy',            weight: 25, desc: 'UK GDPR posture, data residency, parental consent mechanisms' },
-  { name: 'Age Appropriateness',     weight: 20, desc: 'Age gating enforcement, content moderation, minimum age policies' },
-  { name: 'Transparency',            weight: 20, desc: 'Clear AI disclosure, hallucination warnings, explainability' },
-  { name: 'Safeguarding Alignment',  weight: 20, desc: 'KCSIE 2025 compatibility, DSL controls, reporting pathways' },
-  { name: 'Accessibility',           weight: 15, desc: 'WCAG 2.1 AA alignment, SEND adaptations, assistive tech support' },
+  { name: 'Data Privacy',     weight: 25, desc: 'UK GDPR posture, data residency, parental consent mechanisms' },
+  { name: 'Safeguarding',     weight: 20, desc: 'KCSIE 2025 compatibility, DSL controls, reporting pathways' },
+  { name: 'Age Suitability',  weight: 20, desc: 'Age gating enforcement, content moderation, minimum age policies' },
+  { name: 'Transparency',     weight: 20, desc: 'Clear AI disclosure, hallucination warnings, explainability' },
+  { name: 'Accessibility',    weight: 15, desc: 'WCAG 2.1 AA alignment, SEND adaptations, assistive tech support' },
 ];
 
 // ─── Size config ──────────────────────────────────────────────────────────────

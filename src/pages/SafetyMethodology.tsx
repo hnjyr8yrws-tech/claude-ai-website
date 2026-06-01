@@ -86,7 +86,7 @@ export default function SafetyMethodology() {
     <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <SEO
         title="AI Safety Score Methodology – How We Rate Tools | GetPromptly"
-        description="GetPromptly's independent AI safety scoring system for UK schools. Five pillars: Data Privacy, Age Appropriateness, Transparency, Safeguarding Alignment, and Accessibility."
+        description="GetPromptly's independent AI safety scoring system for UK schools. Five pillars: Data Privacy, Safeguarding, Age Suitability, Transparency, and Accessibility."
         keywords="AI safety score UK schools, KCSIE AI assessment, AI tool safety rating, school AI review methodology, EdTech safety UK"
         path="/safety-methodology"
       />
@@ -316,7 +316,7 @@ export default function SafetyMethodology() {
               {[
                 {
                   title: 'Keeping Children Safe in Education (KCSIE) 2025',
-                  body:  'The statutory guidance for schools and colleges in England. GetPromptly\'s Safeguarding Alignment pillar maps directly to Section 5 (online safety) and the updated AI annex published in the 2025 edition.',
+                  body:  'The statutory guidance for schools and colleges in England. GetPromptly\'s Safeguarding pillar maps directly to Section 5 (online safety) and the updated AI annex published in the 2025 edition.',
                   href:  'https://www.gov.uk/government/publications/keeping-children-safe-in-education--2',
                   cta:   'Read KCSIE 2025 →',
                 },
