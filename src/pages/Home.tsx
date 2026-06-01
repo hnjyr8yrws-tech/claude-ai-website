@@ -10,6 +10,7 @@ import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { PillarCard, ScorePill, pillarScores } from '../components/trust/PillarCard';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
+import { RoleIcon, CategoryIcon } from '../components/icons';
 
 const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
@@ -158,7 +159,7 @@ const Hero: FC = () => {
           KCSIE-AWARE · UK GDPR-AWARE · INDEPENDENT
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16 items-stretch">
 
           {/* ── Left column (≈60%) ── */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -210,64 +211,87 @@ const Hero: FC = () => {
             </button>
           </motion.div>
 
-          {/* ── Right column (≈40%) — Luna panel ── */}
+          {/* ── Right column (≈40%) — Luna panel: full height, lime left rule ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.12 }}
-            className="rounded-xl p-6"
-            style={{ background: '#2A2A2A' }}
+            className="flex flex-col p-7"
+            style={{ background: '#2A2A2A', borderLeft: '1px solid #C8E44A', borderRadius: 0 }}
           >
-            {/* Header — green presence dot + Satoshi Medium 13px */}
-            <div className="flex items-center gap-2 font-sans" style={{ fontSize: 13, fontWeight: 500, color: '#FFFFFF' }}>
-              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#22c55e' }} aria-hidden="true" />
-              Luna · Online 24/7
+            {/* Header — animated green pulse dot + "Luna" (Fraunces 28px) + lime online tag */}
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex-shrink-0" style={{ width: 10, height: 10 }} aria-hidden="true">
+                <span className="absolute inset-0 rounded-full" style={{ background: '#22C55E' }} />
+                <motion.span
+                  className="absolute inset-0 rounded-full"
+                  style={{ background: '#22C55E' }}
+                  animate={{ opacity: [1, 0.4, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                />
+              </span>
+              <span className="font-display" style={{ fontSize: 28, fontWeight: 400, color: '#FFFFFF', lineHeight: 1 }}>Luna</span>
+              <span className="font-mono" style={{ fontSize: 11, letterSpacing: '0.08em', color: TEAL }}>· Online 24/7</span>
             </div>
 
-            {/* Subtitle — Fraunces italic 18px */}
-            <p className="font-display italic mt-3" style={{ fontStyle: 'italic', fontSize: 18, lineHeight: 1.4, color: 'var(--color-oat)' }}>
+            {/* Subtitle — Plain Verdict variant: Fraunces italic 20px, lime on dark */}
+            <p className="font-display italic mt-4" style={{ fontStyle: 'italic', fontSize: 20, lineHeight: 1.4, color: TEAL }}>
               Tell me your role — I'll find what you need.
             </p>
 
-            {/* Input */}
-            <div className="mt-5">
-              <input
-                type="text"
-                value={draft}
-                onChange={e => setDraft(e.target.value)}
-                onKeyDown={e => { if (e.key === 'Enter') sendDraft(); }}
-                placeholder="I am a teacher and I need..."
-                aria-label="Tell Luna what you need"
-                className="font-sans w-full rounded-xl px-4 py-3 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ fontSize: 14, background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.18)' }}
-              />
+            {/* Role quick-select — 2×3 grid */}
+            <p className="font-sans mt-7" style={{ fontSize: 13, fontWeight: 500, color: '#9C9C8A' }}>I am a...</p>
+            <div className="grid grid-cols-3 gap-2 mt-3">
+              {HERO_ROLES.map(r => {
+                const active = roleSlug === r.slug;
+                return (
+                  <button
+                    key={r.slug}
+                    onClick={() => {
+                      setRole(r.slug);          // cookie + role:changed broadcast
+                      setRoleSlug(r.slug);
+                      track({ name: 'role_selected', role: r.label, pageType: 'home' });
+                    }}
+                    aria-pressed={active}
+                    className="font-sans border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                    style={{
+                      fontSize: 12, fontWeight: 500, padding: '8px 10px', borderRadius: 20,
+                      color: active ? '#1A1A0E' : '#FFFFFF',
+                      background: active ? TEAL : 'transparent',
+                      borderColor: active ? TEAL : 'rgba(255,255,255,0.5)',
+                    }}
+                  >
+                    {r.label}
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Quick-select chips */}
-            <div className="flex flex-wrap gap-2 mt-3">
-              {[
-                { label: 'Find tools',    prompt: 'Help me find safe AI tools' },
-                { label: 'Find training', prompt: 'Help me find AI training' },
-                { label: 'Find equipment',prompt: 'Help me find education equipment' },
-                { label: 'Build a prompt',prompt: 'Help me build a prompt' },
-              ].map(q => (
-                <button
-                  key={q.label}
-                  onClick={() => openLunaWith(selected ? `I am a ${selected.luna}. ${q.prompt}.` : `${q.prompt}.`)}
-                  className="font-sans rounded-full px-3 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                  style={{ fontSize: 12, fontWeight: 500, color: '#FFFFFF', background: 'transparent', borderColor: 'rgba(255,255,255,0.3)' }}
-                >
-                  {q.label}
-                </button>
-              ))}
-            </div>
+            {/* Input — dark, lime focus border */}
+            <input
+              type="text"
+              value={draft}
+              onChange={e => setDraft(e.target.value)}
+              onKeyDown={e => { if (e.key === 'Enter') sendDraft(); }}
+              onFocus={e => { e.currentTarget.style.borderColor = '#C8E44A'; }}
+              onBlur={e => { e.currentTarget.style.borderColor = '#3A3A3A'; }}
+              placeholder="Or describe what you need..."
+              aria-label="Describe what you need"
+              className="font-sans w-full mt-5 outline-none"
+              style={{ fontSize: 14, padding: '12px 14px', background: '#1E1E1E', color: '#FFFFFF', border: '1px solid #3A3A3A', borderRadius: 6 }}
+            />
 
-            {/* Send button — lime pill */}
+            {/* Send button — full width, height 44, radius 6 */}
             <button
               onClick={sendDraft}
-              className="font-sans mt-5 w-full rounded-full px-5 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
-              style={{ fontSize: 14, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
+              className="font-sans w-full mt-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
+              style={{ height: 44, fontSize: 14, fontWeight: 500, background: TEAL, color: '#1A1A0E', borderRadius: 6 }}
             >
               Ask Luna &rarr;
             </button>
+
+            {/* Footer — agent ID, methodology register */}
+            <p className="font-mono mt-auto pt-7" style={{ fontSize: 10, letterSpacing: '0.1em', color: '#9C9C8A' }}>
+              LUNA · GETPROMPTLY AGENT · V2.1
+            </p>
           </motion.div>
         </div>
 
@@ -324,7 +348,7 @@ const RoleSelector: FC = () => {
               }
               aria-pressed={active === r.id}
             >
-              <span aria-hidden="true">{r.emoji}</span>
+              <RoleIcon name={r.id} size={20} color={active === r.id ? '#1A1A0E' : '#6b6760'} />
               {r.label}
             </button>
           ))}
@@ -335,9 +359,8 @@ const RoleSelector: FC = () => {
             <div className="lg:col-span-2 rounded-2xl p-7 flex flex-col justify-between" style={{ background: 'white', border: `1px solid ${BORDER}` }}>
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="w-12 h-12 rounded-2xl text-2xl flex items-center justify-center flex-shrink-0" style={{ background: role.color }} aria-hidden="true">
-                    {role.emoji}
-                  </span>
+                  {/* §12: outline icon, no coloured container (retired AI-startup pattern) */}
+                  <RoleIcon name={role.id} size={24} color="#1E1E1E" />
                   <div>
                     <p className="font-semibold text-base" style={{ color: '#1c1a15' }}>{role.label}</p>
                     <p className="text-xs font-medium" style={{ color: 'var(--color-ink-accent)' }}>{role.tagline}</p>
@@ -504,7 +527,7 @@ const ScoringPreview: FC = () => (
 
 const PATHWAYS = [
   {
-    role: 'Teacher', emoji: '\u{1F4DA}', color: 'var(--color-oat)',
+    role: 'Teacher', icon: 'teacher', color: 'var(--color-oat)',
     headline: 'Save hours every week',
     items: [
       { label: 'Lesson Planning Prompts', to: '/prompts/teachers', tag: 'Prompts' },
@@ -514,7 +537,7 @@ const PATHWAYS = [
     cta: { label: 'Teacher pathway', to: '/prompts/teachers' },
   },
   {
-    role: 'SENCO', emoji: '\u{1F91D}', color: 'var(--color-oat)',
+    role: 'SENCO', icon: 'senco', color: 'var(--color-oat)',
     headline: 'SEND-specific guidance in one place',
     items: [
       { label: 'EHCP and SEND Prompts', to: '/prompts/senco', tag: 'Prompts' },
@@ -524,7 +547,7 @@ const PATHWAYS = [
     cta: { label: 'SENCO pathway', to: '/prompts/senco' },
   },
   {
-    role: 'School Leader', emoji: '\u{1F3EB}', color: 'var(--color-oat)',
+    role: 'School Leader', icon: 'leader', color: 'var(--color-oat)',
     headline: 'Lead your school AI strategy',
     items: [
       { label: 'AI Strategy and Policy Prompts', to: '/prompts/school-leaders', tag: 'Prompts' },
@@ -557,7 +580,7 @@ const CuratedPathways: FC = () => (
           <FadeIn key={p.role} delay={i * 0.08}>
             <div className="rounded-2xl flex flex-col h-full overflow-hidden" style={{ border: `1px solid ${BORDER}` }}>
               <div className="p-6 pb-5" style={{ background: p.color }}>
-                <div className="text-3xl mb-3" aria-hidden="true">{p.emoji}</div>
+                <div className="mb-3"><RoleIcon name={p.icon} size={24} color="#1E1E1E" /></div>
                 <p className="font-semibold text-sm mb-0.5" style={{ color: '#1c1a15' }}>{p.role}</p>
                 <p className="text-xs leading-snug" style={{ color: '#4b5563' }}>{p.headline}</p>
               </div>
@@ -704,15 +727,15 @@ const SchoolsCTA: FC = () => (
       <FadeIn delay={0.1}>
         <div className="space-y-3">
           {[
-            { emoji: '\u{1F512}', label: 'AI Tools',     desc: '155 tools reviewed against KCSIE 2025', to: '/tools' },
-            { emoji: '\u{1F393}', label: 'Staff CPD',    desc: 'Free and paid training for all school roles', to: '/ai-training' },
-            { emoji: '\u{1F5A5}', label: 'Equipment',    desc: 'Procurement guidance and SEND assistive tech', to: '/ai-equipment/schools' },
-            { emoji: '\u{1F4DD}', label: 'Prompt Packs', desc: '440+ prompts for teachers, SENCOs and leaders', to: '/prompts' },
+            { icon: 'tools',     label: 'AI Tools',     desc: '155 tools reviewed against KCSIE 2025', to: '/tools' },
+            { icon: 'training',  label: 'Staff CPD',    desc: 'Free and paid training for all school roles', to: '/ai-training' },
+            { icon: 'equipment', label: 'Equipment',    desc: 'Procurement guidance and SEND assistive tech', to: '/ai-equipment/schools' },
+            { icon: 'prompts',   label: 'Prompt Packs', desc: '440+ prompts for teachers, SENCOs and leaders', to: '/prompts' },
           ].map(item => (
             <Link key={item.label} to={item.to} onClick={() => track({ name: 'cta_clicked', section: 'home-schools-links', label: item.label })}
               className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] group"
               style={{ borderColor: BORDER, background: '#f7f6f2' }}>
-              <span className="text-lg flex-shrink-0" aria-hidden="true">{item.emoji}</span>
+              <CategoryIcon name={item.icon} size={20} color="#1E1E1E" className="flex-shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-semibold group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: '#1c1a15' }}>{item.label}</p>
                 <p className="text-xs" style={{ color: '#6b6760' }}>{item.desc}</p>

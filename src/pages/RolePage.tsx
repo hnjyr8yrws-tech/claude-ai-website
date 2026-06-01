@@ -10,6 +10,13 @@ import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { TOOLS } from '../data/tools';
 import { ScorePill } from '../components/trust/PillarCard';
+import { RoleIcon } from '../components/icons';
+
+// Map this page's role slug → the §12 icon key.
+const ROLE_ICON_KEY: Record<string, string> = {
+  teachers: 'teacher', 'school-leaders': 'leader', senco: 'senco',
+  parents: 'parent', students: 'student', admin: 'admin',
+};
 
 const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
@@ -86,7 +93,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-6"
               style={{ background: d.color, color: '#1c1a15', border: `1px solid ${BORDER}` }}>
-              <span className="text-base" aria-hidden="true">{d.emoji}</span>
+              <RoleIcon name={ROLE_ICON_KEY[d.slug] ?? ''} size={16} color="#1E1E1E" />
               GetPromptly for {d.title}
             </span>
 

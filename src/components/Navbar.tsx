@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
-import { NavLink, Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from './Logo';
 
 const LINKS = [
   { to: '/schools',      label: 'For Schools' },
@@ -51,25 +52,8 @@ const Navbar: FC = () => {
       >
         <div className="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between gap-6">
 
-          {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center gap-2.5 flex-shrink-0 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-            aria-label="GetPromptly – go to homepage"
-          >
-            <div
-              className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-              style={{ background: 'var(--color-promptly-lime)' }}
-              aria-hidden="true"
-            >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <path d="M7 1v12M1 7h12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-              </svg>
-            </div>
-            <span className="font-display text-lg leading-none" style={{ color: onDarkHero ? '#FFFFFF' : 'var(--text)' }}>
-              GetPromptly
-            </span>
-          </Link>
+          {/* Logo — §11 starburst mark; dark variant over the dark hero */}
+          <Logo variant={onDarkHero ? 'dark' : 'light'} className="flex-shrink-0" />
 
           {/* Desktop nav — Satoshi Medium 13px */}
           <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1">

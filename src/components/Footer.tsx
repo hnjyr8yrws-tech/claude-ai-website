@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const NAV = [
   { label: 'AI Tools',         to: '/tools' },
@@ -51,18 +52,7 @@ const Footer: FC = () => (
 
       {/* Brand */}
       <div className="lg:col-span-2 space-y-4">
-        <Link to="/" className="flex items-center gap-2.5 w-fit rounded" aria-label="GetPromptly – go to homepage">
-          <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0"
-            style={{ background: 'var(--color-promptly-lime)' }}
-            aria-hidden="true"
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-              <path d="M7 1v12M1 7h12" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </div>
-          <span className="font-display text-lg text-white leading-none">GetPromptly</span>
-        </Link>
+        <Logo variant="dark" className="w-fit" />
 
         <p className="text-sm leading-relaxed max-w-xs" style={{ color: '#6b6760' }}>
           The UK's independent resource for safe AI in education. Trusted by teachers,

@@ -612,44 +612,54 @@ const AgentWidget: FC = () => {
         tabIndex={-1}
       />
 
-      {/* Floating bubble — desktop only (mobile uses the pinned bar below) */}
+      {/* Desktop: dark pill widget (180×44) — Luna as the site's front door */}
       <motion.button
         onClick={openWidget}
-        className="hidden md:flex fixed bottom-4 right-4 z-[9998] items-center gap-2 px-4 py-2.5 rounded-full shadow-lg font-sans"
-        style={{ background: TEAL, color: '#1A1A0E' }}
-        whileHover={{ scale: 1.04 }}
-        whileTap={{ scale: 0.97 }}
-        aria-label="Open Luna"
+        className="hidden md:flex fixed bottom-5 right-5 z-[9998] items-center gap-2.5 pl-4 pr-2.5 font-sans shadow-lg"
+        style={{ background: '#1E1E1E', width: 180, height: 44, borderRadius: 22 }}
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.98 }}
+        aria-label="Open Luna — online 24/7"
       >
-        <span className="relative flex-shrink-0">
-          <span className="w-2 h-2 rounded-full block" style={{ background: '#22c55e' }} />
+        {/* Green pulse dot (opacity loop) */}
+        <span className="relative flex-shrink-0" style={{ width: 10, height: 10 }} aria-hidden="true">
+          <span className="absolute inset-0 rounded-full" style={{ background: '#22C55E' }} />
           <motion.span
             className="absolute inset-0 rounded-full"
-            style={{ background: '#22c55e' }}
-            animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            style={{ background: '#22C55E' }}
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           />
         </span>
-        <span className="text-xs font-semibold whitespace-nowrap">Luna · 24/7</span>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="flex-shrink-0" aria-hidden="true">
-          <path
-            d="M7 1C3.69 1 1 3.24 1 6c0 1.44.67 2.73 1.75 3.65L2 13l3.47-1.5C5.93 11.82 6.45 12 7 12c3.31 0 6-2.24 6-5S10.31 1 7 1Z"
-            fill="#1A1A0E"
-          />
-        </svg>
+        {/* Name */}
+        <span className="flex-1 text-left" style={{ fontSize: 13, fontWeight: 500, color: '#FFFFFF' }}>Luna</span>
+        {/* Lime arrow circle (24px, ink arrow) */}
+        <span className="flex-shrink-0 flex items-center justify-center rounded-full" style={{ width: 24, height: 24, background: TEAL }} aria-hidden="true">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="#1A1A0E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
       </motion.button>
 
-      {/* Mobile: full-width pinned Luna pill, above the foot of the viewport */}
+      {/* Mobile: full-width dark bottom bar, above the mobile nav */}
       <button
         onClick={openWidget}
-        className="md:hidden fixed bottom-4 inset-x-4 z-[9998] flex items-center justify-center gap-2 py-3.5 rounded-full shadow-lg font-sans"
-        style={{ background: TEAL, color: '#1A1A0E', fontSize: 14, fontWeight: 500 }}
-        aria-label="Open Luna"
+        className="md:hidden fixed bottom-4 inset-x-4 z-[9998] flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 font-sans shadow-lg"
+        style={{ background: '#1E1E1E', height: 52, borderRadius: 26 }}
+        aria-label="Open Luna — online 24/7"
       >
-        <span className="relative flex-shrink-0">
-          <span className="w-2 h-2 rounded-full block" style={{ background: '#22c55e' }} />
+        <span className="relative flex-shrink-0 w-2 h-2" aria-hidden="true">
+          <span className="absolute inset-0 rounded-full" style={{ background: '#22c55e' }} />
         </span>
-        Ask Luna &rarr;
+        <span className="flex flex-col items-start leading-tight flex-1">
+          <span style={{ fontSize: 14, fontWeight: 500, color: '#FFFFFF' }}>Ask Luna</span>
+          <span style={{ fontSize: 11, color: '#9C9C8A' }}>Online · 24/7</span>
+        </span>
+        <span className="flex-shrink-0 flex items-center justify-center rounded-full" style={{ width: 40, height: 40, background: TEAL }} aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="#1A1A0E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
       </button>
 
       {/* Chat panel */}
