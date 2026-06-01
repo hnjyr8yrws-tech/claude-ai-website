@@ -6,7 +6,7 @@ import {
   EQUIPMENT,
   type EquipmentProduct,
 } from '../data/equipment';
-import { reviewBadge } from './AIEquipment';
+import { reviewBadge } from './equipmentHelpers';
 
 const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';

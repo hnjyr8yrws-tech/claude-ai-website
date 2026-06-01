@@ -9,7 +9,7 @@ import {
   type EquipmentBundle,
   type EqBadge,
 } from '../data/equipment';
-import { badgeStyle, reviewBadge } from './AIEquipment';
+import { badgeStyle, reviewBadge } from './equipmentHelpers';
 
 const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';

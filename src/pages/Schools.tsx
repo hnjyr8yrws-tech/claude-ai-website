@@ -4,11 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import AgentCTACard from '../components/AgentCTACard';
+import { setRole } from '../utils/role';
+import { RoleIcon } from '../components/icons';
 
 // ─── Design tokens ─────────────────────────────────────────────────────────────
 const TEAL   = 'var(--color-promptly-lime)';
 const BG     = '#f7f6f2';
 const DARK   = '#111210';
+const INK    = '#1E1E1E';
 const TEXT   = '#1c1a15';
 const MUTED  = '#6b6760';
 const BORDER = '#e8e6e0';
@@ -33,11 +36,6 @@ const AUDIENCES = [
   {
     id: 'slt',
     label: 'Headteachers / SLT',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M10 2a4 4 0 100 8 4 4 0 000-8zm-7 14c0-3.314 3.134-6 7-6s7 2.686 7 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-      </svg>
-    ),
     heading: 'Lead your school into AI with confidence',
     points: [
       'Build a whole-school AI strategy aligned to DfE and Ofsted expectations',
@@ -51,12 +49,6 @@ const AUDIENCES = [
   {
     id: 'senco',
     label: 'SENCOs',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M4 10h12M10 4v12" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-        <circle cx="10" cy="10" r="8" stroke="currentColor" strokeWidth="1.6"/>
-      </svg>
-    ),
     heading: 'Find the right technology for every learner',
     points: [
       'Browse 96 products including AAC devices, eye-gaze tech, sensory tools and hearing support',
@@ -70,12 +62,6 @@ const AUDIENCES = [
   {
     id: 'it',
     label: 'IT / Digital Leads',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <rect x="2" y="4" width="16" height="12" rx="2" stroke="currentColor" strokeWidth="1.6"/>
-        <path d="M7 8l-3 4m6-4l3 4m-3-4v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-      </svg>
-    ),
     heading: 'Evaluate tools against real safeguarding and data requirements',
     points: [
       'Check 120+ tools against KCSIE 2025, UK GDPR and ICO guidance',
@@ -89,12 +75,6 @@ const AUDIENCES = [
   {
     id: 'sbm',
     label: 'Business Managers',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M3 7h14M3 7V5a1 1 0 011-1h12a1 1 0 011 1v2M3 7v9a1 1 0 001 1h12a1 1 0 001-1V7" stroke="currentColor" strokeWidth="1.6"/>
-        <path d="M8 11h4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-      </svg>
-    ),
     heading: 'Navigate procurement clearly and confidently',
     points: [
       'Understand the difference between Amazon, reseller and specialist procurement routes',
@@ -108,11 +88,6 @@ const AUDIENCES = [
   {
     id: 'cpd',
     label: 'CPD Leads',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.5L10 14.5l-4.9 2.7.9-5.5L2 7.8l5.5-.8L10 2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
-      </svg>
-    ),
     heading: 'Build a staff training plan that actually works',
     points: [
       'Access 26 curated training resources — free and paid',
@@ -126,12 +101,6 @@ const AUDIENCES = [
   {
     id: 'governors',
     label: 'Governors / Trustees',
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-        <path d="M2 16l8-12 8 12H2z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round"/>
-        <path d="M10 10v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-      </svg>
-    ),
     heading: 'Ask the right questions about AI in your school',
     points: [
       'Understand your strategic oversight role in whole-school AI adoption',
@@ -142,6 +111,16 @@ const AUDIENCES = [
     ],
     cta: { label: 'Read AI Tools Safety Guide', to: '/safety-methodology' },
   },
+];
+
+// ─── Hero role chips (6) — drive the audience tab, role cookie, and a Luna pre-prompt ──
+const HERO_ROLES: { label: string; tab: string; roleSlug: string; luna: string }[] = [
+  { label: 'Headteachers / SLT',  tab: 'slt',       roleSlug: 'school-leader', luna: 'headteacher' },
+  { label: 'SENCOs',              tab: 'senco',     roleSlug: 'senco',         luna: 'SENCO' },
+  { label: 'IT / Digital Leads',  tab: 'it',        roleSlug: 'school-leader', luna: 'school IT lead' },
+  { label: 'Business Managers',   tab: 'sbm',       roleSlug: 'admin',         luna: 'school business manager' },
+  { label: 'CPD Leads',           tab: 'cpd',       roleSlug: 'school-leader', luna: 'CPD lead' },
+  { label: 'Governors / Trustees',tab: 'governors', roleSlug: 'school-leader', luna: 'school governor' },
 ];
 
 // ─── What we help with sections ────────────────────────────────────────────────
@@ -433,8 +412,8 @@ const ConsultationForm: FC = () => {
 
       <button
         type="submit"
-        className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
-        style={{ background: TEAL }}
+        className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
+        style={{ background: TEAL, color: '#1A1A0E' }}
       >
         Send consultation request
       </button>
@@ -447,9 +426,23 @@ const ConsultationForm: FC = () => {
 };
 
 // ─── Main page ─────────────────────────────────────────────────────────────────
+function openLuna(prompt?: string) {
+  window.dispatchEvent(new CustomEvent('open-agent-chat'));
+  if (prompt) setTimeout(() => window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: prompt })), 120);
+}
+
 const Schools: FC = () => {
   const [activeTab, setActiveTab] = useState('slt');
+  const [heroRole, setHeroRole] = useState('');
+  const [lunaDraft, setLunaDraft] = useState('');
   const active = AUDIENCES.find(a => a.id === activeTab)!;
+  const selectedHero = HERO_ROLES.find(r => r.tab === heroRole);
+
+  const sendLuna = () => {
+    const base = selectedHero ? `We're a school. As a ${selectedHero.luna}, ` : '';
+    openLuna(`${base}${lunaDraft.trim() || "tell Luna your school's challenge."}`);
+    track({ name: 'agent_opened', section: 'schools-luna' });
+  };
 
   return (
     <div style={{ background: BG, color: TEXT }}>
@@ -460,54 +453,79 @@ const Schools: FC = () => {
         path="/schools"
       />
 
-      {/* ── Hero ──────────────────────────────────────────────────────────────── */}
-      <section style={{ background: DARK }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-20 sm:py-28">
+      {/* ── Hero (mandatory dark #1E1E1E) ─────────────────────────────────────── */}
+      <section style={{ background: 'var(--color-ground-black)' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-12">
           <FadeIn>
-            <p
-              className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest mb-6 px-3 py-1.5 rounded-full border"
-              style={{ color: TEAL, borderColor: 'var(--color-rule)' }}
-            >
-              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: TEAL }} aria-hidden="true" />
-              For Schools &amp; Trusts
+            {/* Trust-trio stamp — JetBrains Mono 11px, fog */}
+            <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: 'var(--color-fog)' }}>
+              KCSIE-AWARE · UK GDPR-AWARE · INDEPENDENT
             </p>
-            <h1
-              className="font-display text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6"
-              style={{ color: 'white' }}
-            >
-              AI Advisory<br />for UK Schools
+
+            <h1 className="font-display mt-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 400, color: '#FFFFFF' }}>
+              AI Advisory for UK Schools.
             </h1>
-            <p className="text-lg sm:text-xl max-w-2xl leading-relaxed mb-10" style={{ color: '#a09d98' }}>
-              From classroom tools to SEND technology, staff training to AI policy —
-              GetPromptly helps schools make confident, well-informed decisions about AI.
+            {/* Subhead — Fraunces italic, fog */}
+            <p className="font-display italic mt-4 max-w-2xl" style={{ fontStyle: 'italic', fontSize: 'clamp(1.1rem, 2vw, 1.5rem)', lineHeight: 1.4, color: 'var(--color-fog)' }}>
+              Independent. KCSIE-aligned. No sponsored recommendations.
             </p>
-            <div className="flex flex-wrap gap-3">
+
+            {/* Role chips (6) — inside the hero; filter content + pre-prompt Luna */}
+            <div className="flex flex-wrap gap-2 mt-8">
+              {HERO_ROLES.map(r => {
+                const activeChip = heroRole === r.tab;
+                return (
+                  <button
+                    key={r.tab}
+                    onClick={() => {
+                      const next = activeChip ? '' : r.tab;
+                      setHeroRole(next);
+                      if (next) {
+                        setActiveTab(r.tab);                 // filter page content
+                        setRole(r.roleSlug);                 // cookie + role:changed
+                        document.getElementById('audiences')?.scrollIntoView({ behavior: 'smooth' });
+                        track({ name: 'role_selected', role: r.label, pageType: 'schools' });
+                      }
+                    }}
+                    aria-pressed={activeChip}
+                    className="font-sans rounded-full px-4 py-2 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                    style={activeChip
+                      ? { fontSize: 13, fontWeight: 500, background: TEAL, color: '#1A1A0E', borderColor: TEAL }
+                      : { fontSize: 13, fontWeight: 500, background: 'transparent', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.35)' }}
+                  >
+                    {r.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* 2 CTAs only */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-8">
               <a
                 href="#consultation"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: TEAL }}
+                onClick={() => track({ name: 'cta_clicked', section: 'schools-hero', label: 'Request a Consultation' })}
+                className="font-sans inline-flex items-center justify-center rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+                style={{ fontSize: 15, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
               >
                 Request a Consultation
               </a>
               <button
-                onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: 'school-toolkit' } }))}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: '#1f1d1b', color: '#d0cdc8', border: '1px solid #2a2825' }}
+                onClick={() => { openLuna(selectedHero ? `We're a school. As a ${selectedHero.luna}, help me with AI.` : undefined); track({ name: 'agent_opened', section: 'schools-hero' }); }}
+                className="font-sans inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+                style={{ fontSize: 15, fontWeight: 500, background: 'transparent', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.35)' }}
               >
-                Receive the school toolkit
-              </button>
-              <button
-                onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: 'transparent', color: '#d0cdc8', border: '1px solid #2a2825' }}
-              >
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M1 7a6 6 0 1012 0A6 6 0 001 7z" stroke={TEAL} strokeWidth="1.5"/>
-                  <path d="M7 4v3l2 1" stroke={TEAL} strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-                Talk to Our Agent
+                <span className="relative flex w-2 h-2" aria-hidden="true">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
+                  <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
+                </span>
+                Ask Luna
               </button>
             </div>
+
+            {/* Methodology mark — JetBrains Mono 10px, fog */}
+            <p className="font-mono mt-10" style={{ fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-fog)' }}>
+              METHODOLOGY V2.1 · VERIFIED MAY 2026 · REVIEWER GP
+            </p>
           </FadeIn>
         </div>
       </section>
@@ -531,8 +549,58 @@ const Schools: FC = () => {
         </div>
       </div>
 
+      {/* ── Luna panel (school advisor) ───────────────────────────────────────── */}
+      <section style={{ background: BG }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-12">
+          <div className="rounded-2xl p-6 sm:p-8" style={{ background: '#2A2A2A' }}>
+            <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: TEAL }}>LUNA · SCHOOL ADVISOR</p>
+            <p className="font-display italic mt-2" style={{ fontStyle: 'italic', fontSize: 22, color: '#FFFFFF' }}>
+              Tell Luna your school's challenge — get a recommendation in 30 seconds.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3 mt-4">
+              <input
+                type="text"
+                value={lunaDraft}
+                onChange={e => setLunaDraft(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') sendLuna(); }}
+                placeholder="We're a primary school looking for..."
+                aria-label="Tell Luna your school's challenge"
+                className="font-sans flex-1 rounded-xl px-4 py-3 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                style={{ fontSize: 14, background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.18)' }}
+              />
+              <button
+                onClick={sendLuna}
+                className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
+                style={{ fontSize: 14, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
+              >
+                Ask Luna &rarr;
+              </button>
+            </div>
+
+            <p className="font-mono mt-5 mb-2.5" style={{ fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-fog)' }}>TRY ASKING</p>
+            <div className="flex flex-wrap gap-2">
+              {[
+                'We need a KCSIE-compliant AI policy for staff',
+                'What tools work for Year 6 SATs prep?',
+                'We have a £2,000 equipment budget for a SEND unit',
+              ].map(q => (
+                <button
+                  key={q}
+                  onClick={() => { openLuna(q); track({ name: 'agent_contextual_prompt_clicked', prompt: q, section: 'schools' }); }}
+                  className="font-sans text-left rounded-xl px-3 py-2 border transition-colors hover:border-[var(--color-promptly-lime)]"
+                  style={{ fontSize: 12, color: '#d1cec8', background: 'transparent', borderColor: 'rgba(255,255,255,0.25)' }}
+                >
+                  "{q}"
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Audience tabs ─────────────────────────────────────────────────────── */}
-      <section style={{ background: 'white' }}>
+      <section id="audiences" style={{ background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16">
           <FadeIn>
             <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Who this is for</p>
@@ -556,12 +624,12 @@ const Schools: FC = () => {
                 onClick={() => setActiveTab(a.id)}
                 className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                 style={{
-                  background: activeTab === a.id ? TEAL : BG,
-                  color: activeTab === a.id ? 'white' : MUTED,
-                  border: `1px solid ${activeTab === a.id ? TEAL : BORDER}`,
+                  background: activeTab === a.id ? INK : BG,
+                  color: activeTab === a.id ? TEAL : MUTED,
+                  border: `1px solid ${activeTab === a.id ? INK : BORDER}`,
                 }}
               >
-                <span style={{ color: activeTab === a.id ? 'white' : TEAL }}>{a.icon}</span>
+                <RoleIcon name={a.id} size={20} color={activeTab === a.id ? TEAL : '#1E1E1E'} />
                 {a.label}
               </button>
             ))}
@@ -600,12 +668,12 @@ const Schools: FC = () => {
               </ul>
               <Link
                 to={active.cta.to}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ background: TEAL }}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                style={{ background: TEAL, color: '#1A1A0E' }}
               >
                 {active.cta.label}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M3 7h8M7 3l4 4-4 4" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 7h8M7 3l4 4-4 4" stroke="#1A1A0E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </Link>
             </motion.div>
@@ -756,6 +824,22 @@ const Schools: FC = () => {
                 </div>
               </FadeIn>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Score Integrity Record (Brand Bible §05) ──────────────────────────── */}
+      <section style={{ background: BG }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-4">
+          <div className="rounded-2xl p-6 sm:p-8" style={{ background: INK, borderTop: `2px solid ${TEAL}` }}>
+            <p className="font-mono" style={{ fontSize: 12, lineHeight: 1.7, color: '#d1cec8' }}>
+              GetPromptly has never raised a tool's Promptly Score in response to vendor pressure,
+              payment, threat, or commercial inducement. Every score change is on the record. The
+              methodology is public. The reviewer is named.
+            </p>
+            <p className="font-mono mt-4" style={{ fontSize: 10, letterSpacing: '0.12em', color: 'var(--color-fog)' }}>
+              — SCORE INTEGRITY RECORD · METHODOLOGY V2.1
+            </p>
           </div>
         </div>
       </section>

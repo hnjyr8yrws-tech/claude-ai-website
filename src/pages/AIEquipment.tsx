@@ -1,941 +1,356 @@
-import { useState, useMemo } from 'react';
+/**
+ * AIEquipment.tsx — /ai-equipment (Equipment directory)
+ *
+ * Rebuilt to the brand directory spec: dark hero with a Luna equipment-guide
+ * panel, a stat strip anchored by pillar colours, the shared sticky role filter
+ * (+ category chips), and flat product tiles each flagged with a primary pillar.
+ *
+ * Pillar colours here do structural work (§03): each equipment category maps to
+ * one of the five pillars, so the colour tells you what the category is *about*.
+ * Brand (CLAUDE.md): no gradients; Fraunces / Satoshi / JetBrains Mono only.
+ */
+
+import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
-import SectionLabel from '../components/SectionLabel';
 import { track } from '../utils/analytics';
-import AgentCTACard from '../components/AgentCTACard';
-import { useRoleSync } from '../hooks/useRoleSync';
-import CrossSellCard from '../components/CrossSellCard';
-import CrossSellPopup from '../components/CrossSellPopup';
-import { useCrossSell } from '../hooks/useCrossSell';
-import {
-  EQUIPMENT,
-  type EquipmentProduct,
-  type EquipmentCategory,
-  type EqAudience,
-  type PriceBand,
-  type SupplierType,
-  type ReviewStatus,
-  type EqBadge,
-} from '../data/equipment';
+import { EQUIPMENT, type EquipmentProduct, type EquipmentCategory } from '../data/equipment';
+import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 
-const TEAL = 'var(--color-promptly-lime)';
-const AMBER_BG = '#fef3c7';
-const AMBER_TEXT = '#92400e';
-const AMBER_BORDER = '#fcd34d';
+const LIME = 'var(--color-promptly-lime)';
+const INK  = '#1E1E1E';
+const FOG  = 'var(--color-fog)';
+const RULE = 'var(--color-rule)';
 
-// ─── Shared utilities ─────────────────────────────────────────────────────────
+// ── Pillar colours (the five reserved §09 tokens) ───────────────────────────────
+const PILLAR = {
+  privacy:       { name: 'Data Privacy',    colour: 'var(--color-pillar-privacy)' },
+  safeguarding:  { name: 'Safeguarding',    colour: 'var(--color-pillar-safeguarding)' },
+  age:           { name: 'Age Suitability', colour: 'var(--color-pillar-age)' },
+  transparency:  { name: 'Transparency',    colour: 'var(--color-pillar-transparency)' },
+  accessibility: { name: 'Accessibility',   colour: 'var(--color-pillar-accessibility)' },
+} as const;
 
-export const PRICE_ORDER: Record<PriceBand, number> = {
-  'Under £50': 0,
-  '£50–150':   1,
-  '£150–500':  2,
-  '£500+':     3,
+// Each equipment category carries a pillar — its structural meaning.
+const CATEGORY_PILLAR: Record<EquipmentCategory, keyof typeof PILLAR> = {
+  'AAC & Communication':          'accessibility',
+  'Sensory & Regulation':         'accessibility',
+  'Audio & Hearing':              'accessibility',
+  'Screens & Classroom Hardware': 'safeguarding',
+  'Robots & Coding':              'safeguarding',
+  'Games & Cognitive':            'age',
+  'Stationery & Literacy':        'age',
+  'Devices':                      'privacy',
+  'Furniture & Environment':      'transparency',
+  'Wearables & Safety':           'privacy',
 };
 
-export function badgeStyle(badge: string): { bg: string; color: string } {
-  switch (badge) {
-    case 'SEND Friendly':    return { bg: 'var(--color-oat)', color: 'var(--color-ink)' };
-    case 'UK Specialist':    return { bg: '#f0fdf4', color: '#15803d' };
-    case 'Amazon Available': return { bg: '#fff7ed', color: '#c2410c' };
-    case 'School Quote':     return { bg: 'var(--color-oat)', color: 'var(--color-ink)' };
-    case 'Research Based':   return { bg: '#fef9c3', color: '#854d0e' };
-    case 'Needs Review':     return { bg: '#fef3c7', color: '#92400e' };
-    default:                 return { bg: '#f3f4f6', color: '#6b7280' };
-  }
+/** The product's primary pillar — SEND audience always reads as Accessibility. */
+function primaryPillar(p: EquipmentProduct): { name: string; colour: string } {
+  if (p.audience.includes('SEND')) return PILLAR.accessibility;
+  return PILLAR[CATEGORY_PILLAR[p.category]];
 }
 
-export function reviewBadge(status: string) {
-  if (status === 'Reviewed')   return { bg: '#f0fdf4', color: '#15803d', label: 'Reviewed' };
-  if (status === 'In Progress') return { bg: '#fef9c3', color: '#854d0e', label: 'In Progress' };
-  return { bg: '#fef3c7', color: '#92400e', label: 'Needs Review' };
+// ── Category chip groups → the data's 10 categories ─────────────────────────────
+interface CategoryGroup { label: string; pillar: keyof typeof PILLAR; cats: EquipmentCategory[] }
+const CATEGORY_GROUPS: CategoryGroup[] = [
+  { label: 'SEND & AAC',            pillar: 'accessibility', cats: ['AAC & Communication', 'Sensory & Regulation', 'Audio & Hearing'] },
+  { label: 'Classroom Tech',        pillar: 'safeguarding',  cats: ['Screens & Classroom Hardware', 'Robots & Coding', 'Devices'] },
+  { label: 'Home Learning',         pillar: 'age',           cats: ['Games & Cognitive', 'Stationery & Literacy'] },
+  { label: 'School Infrastructure', pillar: 'transparency',  cats: ['Furniture & Environment', 'Wearables & Safety'] },
+];
+
+// ── Role filter (slugs match utils/role) ────────────────────────────────────────
+const ROLE_FILTERS: { slug: string; label: string; audience?: string }[] = [
+  { slug: '',              label: 'All' },
+  { slug: 'teacher',       label: 'Teacher',       audience: 'Teachers' },
+  { slug: 'senco',         label: 'SENCO',         audience: 'SEND' },
+  { slug: 'school-leader', label: 'School Leader', audience: 'Schools' },
+  { slug: 'parent',        label: 'Parent',        audience: 'Parents' },
+  { slug: 'student',       label: 'Student',       audience: 'Students' },
+];
+
+function openLuna(prompt?: string) {
+  window.dispatchEvent(new CustomEvent('open-agent-chat'));
+  if (prompt) setTimeout(() => window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: prompt })), 120);
 }
 
-export const CAT_SLUG: Record<string, EquipmentCategory> = {
-  'devices':               'Devices',
-  'stationery-literacy':   'Stationery & Literacy',
-  'robots-coding':         'Robots & Coding',
-  'games-cognitive':       'Games & Cognitive',
-  'aac-communication':     'AAC & Communication',
-  'sensory-regulation':    'Sensory & Regulation',
-  'screens-hardware':      'Screens & Classroom Hardware',
-  'audio-hearing':         'Audio & Hearing',
-  'furniture-environment': 'Furniture & Environment',
-  'wearables-safety':      'Wearables & Safety',
-};
+// ── Equipment tile ──────────────────────────────────────────────────────────────
+function EquipmentTile({ product }: { product: EquipmentProduct }) {
+  const pillar = primaryPillar(product);
+  const quote = product.purchaseModel === 'Quote' || product.badges.includes('School Quote');
 
-export function catToSlug(cat: EquipmentCategory): string {
-  return Object.entries(CAT_SLUG).find(([, v]) => v === cat)?.[0] ?? cat.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-}
-
-// ─── Filter options ───────────────────────────────────────────────────────────
-
-const AUDIENCE_TABS: { label: string; value: EqAudience | 'All' }[] = [
-  { label: 'All',      value: 'All' },
-  { label: 'Teachers', value: 'Teachers' },
-  { label: 'Schools',  value: 'Schools' },
-  { label: 'SEND',     value: 'SEND' },
-  { label: 'Parents',  value: 'Parents' },
-  { label: 'Students', value: 'Students' },
-];
-
-const CATEGORIES: EquipmentCategory[] = [
-  'Devices',
-  'Stationery & Literacy',
-  'Robots & Coding',
-  'Games & Cognitive',
-  'AAC & Communication',
-  'Sensory & Regulation',
-  'Screens & Classroom Hardware',
-  'Audio & Hearing',
-  'Furniture & Environment',
-  'Wearables & Safety',
-];
-
-const CAT_SHORT: Record<EquipmentCategory, string> = {
-  'Devices':                    'Devices',
-  'Stationery & Literacy':      'Stationery',
-  'Robots & Coding':            'Coding',
-  'Games & Cognitive':          'Games',
-  'AAC & Communication':        'AAC',
-  'Sensory & Regulation':       'Sensory',
-  'Screens & Classroom Hardware': 'Screens',
-  'Audio & Hearing':            'Audio',
-  'Furniture & Environment':    'Furniture',
-  'Wearables & Safety':         'Wearables',
-};
-
-// Visual category tiles — the primary browse affordance (emoji-led).
-const CATEGORY_TILES: { label: string; value: EquipmentCategory; emoji: string }[] = [
-  { label: 'Devices',            value: 'Devices',                       emoji: '\u{1F4BB}' },
-  { label: 'Stationery & Literacy', value: 'Stationery & Literacy',      emoji: '\u{270F}\u{FE0F}' },
-  { label: 'Robots & Coding',    value: 'Robots & Coding',               emoji: '\u{1F916}' },
-  { label: 'Games & Cognitive',  value: 'Games & Cognitive',             emoji: '\u{1F9E9}' },
-  { label: 'AAC & Communication', value: 'AAC & Communication',          emoji: '\u{1F5E3}\u{FE0F}' },
-  { label: 'Sensory & Regulation', value: 'Sensory & Regulation',        emoji: '\u{1F300}' },
-  { label: 'Screens & Hardware', value: 'Screens & Classroom Hardware',  emoji: '\u{1F4FA}' },
-  { label: 'Audio & Hearing',    value: 'Audio & Hearing',               emoji: '\u{1F3A7}' },
-  { label: 'Furniture & Environment', value: 'Furniture & Environment',  emoji: '\u{1FA91}' },
-  { label: 'Wearables & Safety', value: 'Wearables & Safety',            emoji: '\u{231A}' },
-];
-
-const PRICE_BANDS: PriceBand[] = ['Under £50', '£50–150', '£150–500', '£500+'];
-const SUPPLIER_TYPES: SupplierType[] = ['Amazon', 'UK Specialist', 'School Reseller', 'Direct'];
-const REVIEW_STATUSES: ReviewStatus[] = ['Reviewed', 'Needs Review', 'In Progress'];
-
-const SORT_OPTIONS = [
-  { label: 'Featured',       value: 'featured' },
-  { label: 'A–Z',            value: 'alpha' },
-  { label: 'Price low–high', value: 'price-asc' },
-  { label: 'Price high–low', value: 'price-desc' },
-];
-
-// ─── Product card ─────────────────────────────────────────────────────────────
-
-interface CardProps {
-  product: EquipmentProduct;
-  inCompare: boolean;
-  onToggleCompare: () => void;
-  compareDisabled: boolean;
-}
-
-function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }: CardProps) {
-  const rb = reviewBadge(product.reviewStatus);
   return (
-    <div
-      className="rounded-2xl border flex flex-col"
-      style={{
-        borderColor: inCompare ? TEAL : '#e8e6e0',
-        background: 'white',
-        outline: inCompare ? `2px solid ${TEAL}` : 'none',
-      }}
-    >
-      <div className="px-5 pt-5 pb-4 flex-1">
-        <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
-            {product.category}
-          </span>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
-            {rb.label}
-          </span>
-        </div>
-
-        <Link to={`/ai-equipment/product/${product.slug}`}>
-          <h3 className="font-display text-lg leading-snug mb-0.5 hover:underline" style={{ color: 'var(--text)' }}>
-            {product.name}
-          </h3>
-        </Link>
-        <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{product.brand}</p>
-        <p className="text-sm leading-relaxed mb-3 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
-        <p className="text-xs italic mb-4" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
-
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {product.badges.slice(0, 2).map((b: EqBadge) => {
-            const s = badgeStyle(b);
-            return (
-              <span key={b} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: s.bg, color: s.color }}>
-                {b}
-              </span>
-            );
-          })}
-        </div>
-
-        <div
-          className="flex items-center gap-2 px-3 py-2 rounded-xl border text-xs"
-          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#6b6760' }}
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
-            <path d="M7 4v3.5l2 1.5" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/>
-          </svg>
-          Scoring in progress
-        </div>
+    <div className="flex items-start gap-5 p-5" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
+      {/* Left — image placeholder (data has no images): pillar-coloured monogram */}
+      <div
+        className="flex-shrink-0 flex items-center justify-center"
+        style={{ width: 72, height: 72, borderRadius: 4, background: 'var(--color-oat)', border: `1px solid ${RULE}` }}
+        aria-hidden="true"
+      >
+        <span className="w-4 h-4 rounded-full" style={{ background: pillar.colour }} />
       </div>
 
-      <div className="px-5 pb-5 pt-3 border-t flex items-center justify-between gap-3" style={{ borderColor: '#f3f4f6' }}>
-        <div>
-          <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>{product.priceBand}</span>
-          <span className="text-xs ml-2" style={{ color: '#9ca3af' }}>{product.supplierName}</span>
+      {/* Centre */}
+      <div className="flex-1 min-w-0">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="font-display" style={{ fontSize: 20, fontWeight: 400, color: INK }}>
+            {product.name}
+          </h3>
+          {/* Primary pillar badge top-right */}
+          <span className="font-mono inline-flex items-center gap-1.5 uppercase flex-shrink-0 mt-1" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: pillar.colour }} aria-hidden="true" />
+            {pillar.name}
+          </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={onToggleCompare}
-            disabled={compareDisabled && !inCompare}
-            className="text-xs px-2.5 py-1.5 rounded-lg border transition-colors"
-            style={{
-              borderColor: inCompare ? TEAL : '#e8e6e0',
-              color: inCompare ? TEAL : '#9ca3af',
-              background: inCompare ? 'var(--color-oat)' : 'white',
-              opacity: (compareDisabled && !inCompare) ? 0.4 : 1,
-              cursor: (compareDisabled && !inCompare) ? 'not-allowed' : 'pointer',
-            }}
-            aria-label={inCompare ? `Remove ${product.name} from compare` : `Add ${product.name} to compare`}
-          >
-            {inCompare ? '✓ Added' : '+ Compare'}
-          </button>
+        {/* One-line verdict */}
+        <p className="font-sans italic mt-1.5" style={{ fontSize: 14, lineHeight: 1.5, color: FOG }}>
+          {product.bestFor || product.desc}
+        </p>
 
-          <div className="flex flex-col items-end gap-0.5">
-            <a
-              href={product.affiliateLink}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="text-xs px-3 py-1.5 rounded-lg font-semibold border transition-colors hover:border-[var(--color-promptly-lime)]"
-              style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}
-            >
-              View →
-            </a>
-            <span className="text-[9px]" style={{ color: '#6b6760' }}>Affiliate link</span>
-          </div>
-        </div>
+        {/* Price + school-quote note */}
+        <p className="font-sans mt-2" style={{ fontSize: 12, color: '#6b6760' }}>
+          {product.priceBand}
+          {quote && <span style={{ color: FOG }}> · School quote available</span>}
+        </p>
+
+        {/* See product link */}
+        <Link
+          to={`/ai-equipment/product/${product.slug}`}
+          onClick={() => track({ name: 'cta_clicked', section: 'equipment-directory', label: `See product: ${product.name}` })}
+          className="font-sans inline-block mt-3 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
+          style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-ink-accent)' }}
+        >
+          See product &rarr;
+        </Link>
       </div>
     </div>
   );
 }
 
-// ─── Compare bar ──────────────────────────────────────────────────────────────
+// ── Page ────────────────────────────────────────────────────────────────────────
+export default function AIEquipment() {
+  const [roleSlug, setRoleSlug] = useState<string>(() => getRole());
+  const [group, setGroup] = useState<string>('All'); // category-group label
+  const [search, setSearch] = useState('');
 
-function CompareBar({
-  items,
-  onRemove,
-  onClear,
-  onOpen,
-}: {
-  items: EquipmentProduct[];
-  onRemove: (id: string) => void;
-  onClear: () => void;
-  onOpen: () => void;
-}) {
-  return (
-    <motion.div
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      exit={{ y: 100, opacity: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-      className="fixed bottom-0 left-0 right-0 z-40 border-t shadow-2xl"
-      style={{ background: 'white', borderColor: '#e8e6e0' }}
-    >
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-4 flex-wrap">
-        <span className="text-xs font-semibold" style={{ color: 'var(--text)' }}>
-          Compare ({items.length}/4):
-        </span>
-        <div className="flex items-center gap-2 flex-1 flex-wrap">
-          {items.map(p => (
-            <div
-              key={p.id}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border text-xs"
-              style={{ borderColor: TEAL, color: 'var(--color-ink-accent)', background: 'var(--color-oat)' }}
-            >
-              <span className="font-medium truncate max-w-[120px]">{p.name}</span>
-              <button
-                onClick={() => onRemove(p.id)}
-                className="ml-1 hover:opacity-60 transition-opacity leading-none"
-                aria-label={`Remove ${p.name}`}
-              >
-                ×
-              </button>
-            </div>
-          ))}
-          {Array.from({ length: 4 - items.length }).map((_, i) => (
-            <div
-              key={i}
-              className="px-3 py-1 rounded-lg border text-xs"
-              style={{ borderColor: '#e8e6e0', color: '#6b6760', borderStyle: 'dashed' }}
-            >
-              + slot
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center gap-2 ml-auto">
-          <button
-            onClick={onClear}
-            className="text-xs px-3 py-1.5 rounded-lg border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: '#9ca3af' }}
-          >
-            Clear
-          </button>
-          <button
-            onClick={onOpen}
-            disabled={items.length < 2}
-            className="text-xs px-4 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-            style={{
-              background: items.length >= 2 ? TEAL : '#e8e6e0',
-              color: items.length >= 2 ? 'white' : '#6b6760',
-              cursor: items.length < 2 ? 'not-allowed' : 'pointer',
-            }}
-          >
-            Compare →
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
+  useEffect(() => {
+    const sync = (e: Event) => setRoleSlug((e as CustomEvent<string>).detail ?? getRole());
+    window.addEventListener(ROLE_CHANGED, sync);
+    return () => window.removeEventListener(ROLE_CHANGED, sync);
+  }, []);
 
-// ─── Compare modal ────────────────────────────────────────────────────────────
+  const activeRole = ROLE_FILTERS.find(r => r.slug === roleSlug) ?? ROLE_FILTERS[0];
 
-function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: () => void }) {
-  const rows: { label: string; render: (p: EquipmentProduct) => string }[] = [
-    { label: 'Category',       render: p => p.category },
-    { label: 'Best for',       render: p => p.bestFor },
-    { label: 'Price band',     render: p => p.priceBand },
-    { label: 'Supplier',       render: p => p.supplierName },
-    { label: 'Supplier type',  render: p => p.supplierType },
-    { label: 'Purchase model', render: p => p.purchaseModel },
-    { label: 'UK focus',       render: p => p.ukFocus ? '✓ Yes' : '—' },
-    { label: 'SEND',           render: p => p.audience.includes('SEND') ? '✓ Yes' : '—' },
-    { label: 'SEN categories', render: p => p.senCategory.join(', ') || '—' },
-    { label: 'Review status',  render: p => p.reviewStatus },
-    { label: 'Score',          render: () => 'Scoring in progress' },
+  // Live stats (kept accurate from the data, anchored by pillar colours).
+  const stats = useMemo(() => [
+    { value: EQUIPMENT.length,                                          label: 'Products Reviewed', dot: undefined },
+    { value: EQUIPMENT.filter(p => p.audience.includes('SEND')).length, label: 'SEND Friendly',      dot: PILLAR.accessibility.colour },
+    { value: EQUIPMENT.filter(p => p.audience.includes('Schools')).length, label: 'School Ready',     dot: PILLAR.safeguarding.colour },
+    { value: EQUIPMENT.filter(p => p.ukFocus).length,                   label: 'UK Education Focused', dot: PILLAR.privacy.colour },
+    { value: EQUIPMENT.filter(p => p.supplierType === 'UK Specialist').length, label: 'UK Specialists', dot: PILLAR.transparency.colour },
+  ], []);
+
+  const filtered = useMemo(() => {
+    let r = EQUIPMENT;
+    if (activeRole.audience) r = r.filter(p => p.audience.includes(activeRole.audience as EquipmentProduct['audience'][number]));
+    if (group !== 'All') {
+      const g = CATEGORY_GROUPS.find(x => x.label === group);
+      if (g) r = r.filter(p => g.cats.includes(p.category));
+    }
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      r = r.filter(p =>
+        [p.name, p.brand, p.bestFor, p.desc, p.category, p.subcategory, ...(p.senCategory ?? [])].join(' ').toLowerCase().includes(q),
+      );
+    }
+    return r;
+  }, [activeRole, group, search]);
+
+  const chooseRole = (slug: string) => {
+    setRoleSlug(slug);
+    setRole(slug);
+    track({ name: 'tool_filter_used', filterType: 'role', value: slug || 'All', pageType: 'equipment' });
+  };
+
+  const TRY_ASKING = [
+    "What's the best visualiser for a primary classroom?",
+    'What SEND equipment helps with AAC communication?',
+    'Help me build a home learning setup for £300',
   ];
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4"
-      style={{ background: 'rgba(0,0,0,0.55)' }}
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 40 }}
-        transition={{ duration: 0.2 }}
-        className="w-full max-w-5xl max-h-[90vh] rounded-2xl border overflow-hidden flex flex-col"
-        style={{ background: 'white', borderColor: '#e8e6e0' }}
-        onClick={e => e.stopPropagation()}
-      >
-        <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: '#e8e6e0' }}>
-          <h2 className="font-display text-xl" style={{ color: 'var(--text)' }}>
-            Comparing {items.length} products
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-sm px-3 py-1.5 rounded-lg border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
-          >
-            Close
-          </button>
-        </div>
-        <div className="overflow-auto flex-1">
-          <table className="w-full text-sm">
-            <thead>
-              <tr style={{ background: '#f7f6f2' }}>
-                <th className="px-5 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760', width: 140 }}>Feature</th>
-                {items.map(p => (
-                  <th key={p.id} className="px-5 py-3 text-left">
-                    <div className="font-display text-base leading-snug" style={{ color: 'var(--text)' }}>{p.name}</div>
-                    <div className="text-xs font-normal" style={{ color: '#9ca3af' }}>{p.brand}</div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row, i) => (
-                <tr key={row.label} style={{ borderTop: '1px solid #f3f4f6', background: i % 2 === 0 ? 'white' : '#fafaf9' }}>
-                  <td className="px-5 py-3 text-xs font-semibold" style={{ color: '#6b6760' }}>{row.label}</td>
-                  {items.map(p => (
-                    <td key={p.id} className="px-5 py-3 text-xs" style={{ color: '#1c1a15' }}>{row.render(p)}</td>
-                  ))}
-                </tr>
-              ))}
-              <tr style={{ borderTop: '1px solid #f3f4f6' }}>
-                <td className="px-5 py-3 text-xs font-semibold" style={{ color: '#6b6760' }}>Badges</td>
-                {items.map(p => (
-                  <td key={p.id} className="px-5 py-3">
-                    <div className="flex flex-wrap gap-1">
-                      {p.badges.map((b: EqBadge) => {
-                        const s = badgeStyle(b);
-                        return (
-                          <span key={b} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: s.bg, color: s.color }}>
-                            {b}
-                          </span>
-                        );
-                      })}
-                    </div>
-                  </td>
-                ))}
-              </tr>
-              <tr style={{ borderTop: '1px solid #e8e6e0' }}>
-                <td className="px-5 py-3 text-xs font-semibold" style={{ color: '#6b6760' }}>View</td>
-                {items.map(p => (
-                  <td key={p.id} className="px-5 py-3">
-                    <a
-                      href={p.affiliateLink}
-                      target="_blank"
-                      rel="noopener noreferrer sponsored"
-                      className="inline-block text-xs px-3 py-1.5 rounded-lg font-semibold border transition-colors hover:border-[var(--color-promptly-lime)]"
-                      style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}
-                    >
-                      View product →
-                    </a>
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-// ─── Main page ─────────────────────────────────────────────────────────────────
-
-export default function AIEquipment() {
-  const [audienceFilter, setAudienceFilter] = useState<EqAudience | 'All'>('All');
-  useRoleSync<EqAudience | 'All'>(
-    { teacher: 'Teachers', senco: 'SEND', 'school-leader': 'Schools', parent: 'Parents', student: 'Students', admin: 'Schools' },
-    setAudienceFilter,
-  );
-  const [categoryFilter, setCategoryFilter] = useState<EquipmentCategory | 'All'>('All');
-  const [priceFilter,    setPriceFilter]    = useState<PriceBand | 'All'>('All');
-  const [supplierFilter, setSupplierFilter] = useState<SupplierType | 'All'>('All');
-  const [reviewFilter,   setReviewFilter]   = useState<ReviewStatus | 'All'>('All');
-  const [sort,           setSort]           = useState('featured');
-  const [search,         setSearch]         = useState('');
-  const [compareIds,     setCompareIds]     = useState<string[]>([]);
-  const [compareOpen,    setCompareOpen]    = useState(false);
-
-  const compareItems = useMemo(() => EQUIPMENT.filter(p => compareIds.includes(p.id)), [compareIds]);
-
-  // Cross-sell
-  const { inlineItems, popupItems, popupOpen, popupTrigger, closePopup } = useCrossSell({
-    currentSection: 'equipment',
-    roles: audienceFilter !== 'All' ? [audienceFilter] : undefined,
-    category: categoryFilter !== 'All' ? categoryFilter : undefined,
-  });
-
-  function toggleCompare(id: string) {
-    setCompareIds(prev =>
-      prev.includes(id) ? prev.filter(x => x !== id) : prev.length < 4 ? [...prev, id] : prev
-    );
-  }
-
-  const filtered = useMemo(() => {
-    let results = EQUIPMENT;
-    if (audienceFilter !== 'All') results = results.filter(p => p.audience.includes(audienceFilter));
-    if (categoryFilter !== 'All') results = results.filter(p => p.category === categoryFilter);
-    if (priceFilter    !== 'All') results = results.filter(p => p.priceBand === priceFilter);
-    if (supplierFilter !== 'All') results = results.filter(p => p.supplierType === supplierFilter);
-    if (reviewFilter   !== 'All') results = results.filter(p => p.reviewStatus === reviewFilter);
-    if (search.trim()) {
-      const q = search.toLowerCase().trim();
-      // Synonym groups so a common word finds the right products even when the
-      // data uses a different label (e.g. "laptop" → Chromebooks/notebooks; the
-      // device family is interchangeable in everyday search).
-      const SYNONYMS: Record<string, string[]> = {
-        laptop:     ['laptop', 'chromebook', 'notebook', 'device', 'computer'],
-        chromebook: ['chromebook', 'laptop', 'notebook'],
-        tablet:     ['tablet', 'ipad', 'device'],
-        ipad:       ['ipad', 'tablet'],
-        device:     ['device', 'laptop', 'tablet', 'chromebook', 'ipad', 'computer'],
-        computer:   ['computer', 'laptop', 'chromebook', 'device'],
-        headphones: ['headphone', 'headset', 'ear defender', 'audio'],
-        whiteboard: ['whiteboard', 'display', 'screen', 'panel'],
-        robot:      ['robot', 'coding', 'bee-bot', 'programmable'],
-      };
-      const terms = SYNONYMS[q] ?? [q];
-      results = results.filter(p => {
-        const haystack = [
-          p.name, p.brand, p.bestFor, p.desc,
-          p.category, p.subcategory,
-          ...(p.senCategory ?? []),
-          ...(p.badges ?? []),
-        ].join(' ').toLowerCase();
-        return terms.some(t => haystack.includes(t));
-      });
-    }
-    return [...results].sort((a, b) => {
-      if (sort === 'featured')   return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
-      if (sort === 'price-asc')  return PRICE_ORDER[a.priceBand] - PRICE_ORDER[b.priceBand];
-      if (sort === 'price-desc') return PRICE_ORDER[b.priceBand] - PRICE_ORDER[a.priceBand];
-      if (sort === 'alpha')      return a.name.localeCompare(b.name);
-      return 0;
-    });
-  }, [audienceFilter, categoryFilter, priceFilter, supplierFilter, reviewFilter, sort, search]);
-
-  function scrollToGrid() {
-    document.getElementById('equipment-grid')?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function clearFilters() {
-    setAudienceFilter('All');
-    setCategoryFilter('All');
-    setPriceFilter('All');
-    setSupplierFilter('All');
-    setReviewFilter('All');
-    setSort('featured');
-    setSearch('');
-  }
-
-  const hasActiveFilters =
-    audienceFilter !== 'All' || categoryFilter !== 'All' || priceFilter !== 'All' ||
-    supplierFilter !== 'All' || reviewFilter !== 'All' || search.trim() !== '';
-
-  // Live stats
-  const stats = useMemo(() => [
-    { value: EQUIPMENT.length,                                                     label: 'Products Reviewed' },
-    { value: EQUIPMENT.filter(p => p.ukFocus).length,                             label: 'UK Education Focused' },
-    { value: EQUIPMENT.filter(p => p.audience.includes('SEND')).length,           label: 'SEND Friendly' },
-    { value: EQUIPMENT.filter(p => p.audience.includes('Schools')).length,        label: 'School Ready' },
-    { value: EQUIPMENT.filter(p => p.supplierType === 'UK Specialist').length,    label: 'UK Specialists' },
-  ], []);
-
-  return (
-    <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <div style={{ background: 'var(--color-oat)', minHeight: '100vh' }}>
       <SEO
         title="AI Equipment for UK Education — 96 Products Reviewed | GetPromptly"
-        description="Find the right classroom technology, SEND assistive tech and school equipment. 96 products independently curated for UK education."
-        keywords="AI equipment UK education, classroom technology, SEND assistive tech, school equipment, educational devices UK"
+        description="96 products reviewed for UK classrooms, SEND settings and home learning — classroom tech, assistive technology and school infrastructure."
+        keywords="AI equipment UK education, classroom technology, SEND assistive tech, AAC communication, school equipment, educational devices UK"
         path="/ai-equipment"
       />
 
-      {/* ── COMPACT HEADER ────────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-6">
-        <SectionLabel>Equipment Hub</SectionLabel>
-        <h1 className="font-display text-4xl sm:text-5xl mb-2" style={{ color: 'var(--text)' }}>
-          AI Equipment for <span style={{ color: 'var(--color-ink-accent)' }}>UK Education</span>
-        </h1>
-        <p className="text-base max-w-2xl" style={{ color: '#6b6760' }}>
-          The right classroom, SEND and home-learning technology — {EQUIPMENT.length} products reviewed for UK education.
-        </p>
-      </div>
+      {/* ── 1. HERO (dark) ─────────────────────────────────────────────────────── */}
+      <section style={{ background: 'var(--color-ground-black)' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-12">
+          <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: FOG }}>AI EQUIPMENT</p>
+          <h1 className="font-display mt-5" style={{ fontSize: 'clamp(2rem, 4.5vw, 2.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
+            The right kit. Reviewed honestly.
+          </h1>
+          <p className="font-sans mt-4 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>
+            {EQUIPMENT.length} products reviewed for UK classrooms, SEND settings and home learning.
+          </p>
 
-      {/* ── STATS STRIP (thin single row) ─────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8">
-        <div className="flex flex-wrap gap-x-8 gap-y-2 rounded-2xl border px-5 py-3" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+          {/* Luna panel — same dark card pattern as the Training page */}
+          <div className="mt-8 rounded-2xl p-6 sm:p-7" style={{ background: '#2A2A2A' }}>
+            <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: LIME }}>LUNA · EQUIPMENT GUIDE</p>
+            <p className="font-display mt-2" style={{ fontSize: 22, color: '#FFFFFF' }}>
+              Tell Luna the need — get the right kit and how to buy it.
+            </p>
+
+            <LunaInput />
+
+            <p className="font-mono mt-5 mb-2.5" style={{ fontSize: 10, letterSpacing: '0.1em', color: FOG }}>TRY ASKING</p>
+            <div className="flex flex-wrap gap-2">
+              {TRY_ASKING.map(q => (
+                <button
+                  key={q}
+                  onClick={() => { openLuna(q); track({ name: 'agent_contextual_prompt_clicked', prompt: q, section: 'equipment' }); }}
+                  className="font-sans text-left rounded-xl px-3 py-2 border transition-colors hover:border-[var(--color-promptly-lime)]"
+                  style={{ fontSize: 12, color: '#d1cec8', background: 'transparent', borderColor: 'rgba(255,255,255,0.25)' }}
+                >
+                  "{q}"
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <p className="font-mono mt-8" style={{ fontSize: 10, letterSpacing: '0.1em', color: FOG }}>
+            METHODOLOGY V2.1 · VERIFIED MAY 2026 · REVIEWER GP
+          </p>
+        </div>
+      </section>
+
+      {/* ── 2. STAT STRIP (oat, pillar-anchored) ───────────────────────────────── */}
+      <div style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
           {stats.map(s => (
-            <div key={s.label} className="flex items-baseline gap-2">
-              <span className="font-display text-xl" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</span>
-              <span className="text-xs" style={{ color: '#6b6760' }}>{s.label}</span>
+            <div key={s.label}>
+              <p className="font-display" style={{ fontSize: 32, fontWeight: 700, color: INK }}>{s.value}</p>
+              <p className="font-sans flex items-center gap-1.5 mt-0.5" style={{ fontSize: 12, color: FOG }}>
+                {s.dot && <span className="rounded-full flex-shrink-0" style={{ width: 8, height: 8, background: s.dot }} aria-hidden="true" />}
+                {s.label}
+              </p>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ── LUNA HERO — the visual centrepiece, directly below the header ──────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8">
-        <AgentCTACard
-          section="Luna · Equipment Guide"
-          headline="Tell Luna the need — get the right kit and how to buy it."
-          description="Describe who it's for, what you need and your budget. Luna searches every product and recommends the right kit and procurement route."
-          prompts={[
-            "What's the best visualiser for a primary classroom?",
-            "Compare interactive whiteboards for a 30-pupil class",
-            "What SEND equipment helps with AAC communication?",
-            "Help me build a home learning setup for £300",
-          ]}
-          analyticsSection="equipment"
-        />
-      </div>
+      {/* ── 3. ROLE + CATEGORY FILTER (sticky oat) ─────────────────────────────── */}
+      <div className="sticky top-28 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex flex-col gap-3">
 
-      {/* ── Plain search (for browsers) ──────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8">
-        <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-base" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
-          <input
-            type="search"
-            value={search}
-            onChange={e => {
-              setSearch(e.target.value);
-              if (e.target.value.length > 2) track({ name: 'search_performed', section: 'equipment', query: e.target.value });
-              if (e.target.value.trim()) scrollToGrid();
-            }}
-            placeholder={`Or search ${EQUIPMENT.length} products by name, brand, category or use case…`}
-            aria-label="Search equipment"
-            className="w-full pl-11 pr-4 py-3.5 rounded-xl border text-base font-sans outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-            style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)', color: 'var(--color-ink)' }}
-          />
-        </div>
-      </div>
-
-      {/* ── VISUAL CATEGORY TILES — primary browse ────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-14">
-        <SectionLabel>Browse by category</SectionLabel>
-        <h2 className="font-display text-2xl sm:text-3xl mb-6" style={{ color: 'var(--text)' }}>
-          What are you looking for?
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-          {CATEGORY_TILES.map(tile => {
-            const active = categoryFilter === tile.value;
-            return (
-              <button
-                key={tile.value}
-                onClick={() => {
-                  setCategoryFilter(tile.value);
-                  track({ name: 'tool_filter_used', filterType: 'category', value: tile.value, pageType: 'equipment' });
-                  scrollToGrid();
-                }}
-                className="rounded-2xl border p-5 flex flex-col items-center text-center gap-2 transition-shadow hover:shadow-md"
-                style={{
-                  borderColor: active ? 'var(--color-ink)' : 'var(--color-rule)',
-                  background: 'var(--color-oat)',
-                  color: 'var(--color-ink)',
-                }}
-                aria-pressed={active}
-              >
-                <span className="text-3xl" aria-hidden="true">{tile.emoji}</span>
-                <span className="text-xs font-semibold font-sans leading-snug">{tile.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* ── FULL FILTERABLE GRID ──────────────────────────────────────────────── */}
-      <div id="equipment-grid" className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-8">
-            <SectionLabel>All products</SectionLabel>
-            <h2 className="font-display text-3xl mb-2" style={{ color: 'var(--text)' }}>
-              Browse All 96 Products
-            </h2>
-          </div>
-
-          {/* Refine within results (kept in sync with the top discovery search) */}
-          <div className="mb-5">
-            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#6b6760' }}>
-              Refine these results
-            </label>
-            <input
-              type="search"
-              placeholder="Filter by name, brand or use case…"
-              value={search}
-              onChange={e => {
-                setSearch(e.target.value);
-                if (e.target.value.length > 2) track({ name: 'search_performed', section: 'equipment', query: e.target.value });
-              }}
-              className="w-full sm:max-w-sm px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2"
-              style={{
-                borderColor: '#e8e6e0',
-                background: 'var(--bg)',
-                color: 'var(--text)',
-                '--tw-ring-color': TEAL,
-              } as React.CSSProperties}
-            />
-          </div>
-
-          {/* Audience tabs */}
-          <div className="flex gap-2 flex-wrap mb-4">
-            {AUDIENCE_TABS.map(t => (
-              <button
-                key={t.value}
-                onClick={() => setAudienceFilter(t.value)}
-                className="text-sm px-4 py-1.5 rounded-xl border transition-colors font-medium"
-                style={{
-                  borderColor: audienceFilter === t.value ? TEAL : '#e8e6e0',
-                  background: audienceFilter === t.value ? 'var(--color-oat)' : 'white',
-                  color: audienceFilter === t.value ? TEAL : '#6b6760',
-                }}
-              >
-                {t.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Category pills */}
-          <div className="flex gap-2 flex-wrap mb-4">
-            <button
-              onClick={() => setCategoryFilter('All')}
-              className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
-              style={{
-                borderColor: categoryFilter === 'All' ? TEAL : '#e8e6e0',
-                background: categoryFilter === 'All' ? 'var(--color-oat)' : 'white',
-                color: categoryFilter === 'All' ? TEAL : '#6b6760',
-              }}
-            >
-              All Categories
-            </button>
-            {CATEGORIES.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setCategoryFilter(cat)}
-                className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
-                style={{
-                  borderColor: categoryFilter === cat ? TEAL : '#e8e6e0',
-                  background: categoryFilter === cat ? 'var(--color-oat)' : 'white',
-                  color: categoryFilter === cat ? TEAL : '#6b6760',
-                }}
-              >
-                <span className="sm:hidden">{CAT_SHORT[cat]}</span>
-                <span className="hidden sm:inline">{cat}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Price / Supplier / Status filters */}
-          <div className="flex flex-wrap gap-4 mb-6">
-            <div className="flex gap-2 flex-wrap items-center">
-              <span className="text-xs font-semibold" style={{ color: '#9ca3af' }}>Price:</span>
-              <button
-                onClick={() => setPriceFilter('All')}
-                className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
-                style={{
-                  borderColor: priceFilter === 'All' ? TEAL : '#e8e6e0',
-                  background: priceFilter === 'All' ? 'var(--color-oat)' : 'white',
-                  color: priceFilter === 'All' ? TEAL : '#6b6760',
-                }}
-              >
-                Any
-              </button>
-              {PRICE_BANDS.map(pb => (
+          {/* Role filter */}
+          <div className="flex flex-wrap items-center gap-2">
+            {ROLE_FILTERS.map(r => {
+              const active = roleSlug === r.slug;
+              return (
                 <button
-                  key={pb}
-                  onClick={() => setPriceFilter(pb)}
-                  className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
-                  style={{
-                    borderColor: priceFilter === pb ? TEAL : '#e8e6e0',
-                    background: priceFilter === pb ? 'var(--color-oat)' : 'white',
-                    color: priceFilter === pb ? TEAL : '#6b6760',
-                  }}
+                  key={r.label}
+                  onClick={() => chooseRole(r.slug)}
+                  aria-pressed={active}
+                  className="font-sans rounded-full px-3.5 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                  style={active
+                    ? { fontSize: 12, fontWeight: 500, background: INK, color: LIME, borderColor: INK }
+                    : { fontSize: 12, fontWeight: 500, background: 'white', color: INK, borderColor: RULE }}
                 >
-                  {pb}
+                  {r.label}
                 </button>
-              ))}
-            </div>
-
-            <div className="flex gap-2 flex-wrap items-center">
-              <span className="text-xs font-semibold" style={{ color: '#9ca3af' }}>Supplier:</span>
-              <button
-                onClick={() => setSupplierFilter('All')}
-                className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
-                style={{
-                  borderColor: supplierFilter === 'All' ? TEAL : '#e8e6e0',
-                  background: supplierFilter === 'All' ? 'var(--color-oat)' : 'white',
-                  color: supplierFilter === 'All' ? TEAL : '#6b6760',
-                }}
-              >
-                Any
-              </button>
-              {SUPPLIER_TYPES.map(st => (
-                <button
-                  key={st}
-                  onClick={() => setSupplierFilter(st)}
-                  className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
-                  style={{
-                    borderColor: supplierFilter === st ? TEAL : '#e8e6e0',
-                    background: supplierFilter === st ? 'var(--color-oat)' : 'white',
-                    color: supplierFilter === st ? TEAL : '#6b6760',
-                  }}
-                >
-                  {st}
-                </button>
-              ))}
-            </div>
-
-            <div className="flex gap-2 flex-wrap items-center">
-              <span className="text-xs font-semibold" style={{ color: '#9ca3af' }}>Status:</span>
-              <button
-                onClick={() => setReviewFilter('All')}
-                className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
-                style={{
-                  borderColor: reviewFilter === 'All' ? TEAL : '#e8e6e0',
-                  background: reviewFilter === 'All' ? 'var(--color-oat)' : 'white',
-                  color: reviewFilter === 'All' ? TEAL : '#6b6760',
-                }}
-              >
-                Any
-              </button>
-              {REVIEW_STATUSES.map(rs => (
-                <button
-                  key={rs}
-                  onClick={() => setReviewFilter(rs)}
-                  className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
-                  style={{
-                    borderColor: reviewFilter === rs ? TEAL : '#e8e6e0',
-                    background: reviewFilter === rs ? 'var(--color-oat)' : 'white',
-                    color: reviewFilter === rs ? TEAL : '#6b6760',
-                  }}
-                >
-                  {rs}
-                </button>
-              ))}
-            </div>
-
-            {/* Sort */}
-            <div className="flex gap-2 items-center">
-              <span className="text-xs font-semibold" style={{ color: '#9ca3af' }}>Sort:</span>
-              <select
-                value={sort}
-                onChange={e => setSort(e.target.value)}
-                className="text-xs px-2.5 py-1 rounded-lg border outline-none"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
-              >
-                {SORT_OPTIONS.map(o => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
-                ))}
-              </select>
-            </div>
+              );
+            })}
           </div>
 
-          {/* Result count + clear */}
-          <div className="flex items-center justify-between mb-6">
-            <p className="text-sm" style={{ color: '#6b6760' }}>
-              Showing <strong style={{ color: 'var(--text)' }}>{filtered.length}</strong> of {EQUIPMENT.length} products
-            </p>
-            {hasActiveFilters && (
-              <button
-                onClick={clearFilters}
-                className="text-xs px-3 py-1.5 rounded-lg border transition-colors hover:bg-gray-50"
-                style={{ borderColor: '#e8e6e0', color: '#9ca3af' }}
-              >
-                Clear filters
-              </button>
-            )}
-          </div>
+          {/* Category chips (pillar-coloured dots) + search */}
+          <div className="flex flex-col lg:flex-row lg:items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2 flex-1">
+              {[{ label: 'All', colour: FOG }, ...CATEGORY_GROUPS.map(g => ({ label: g.label, colour: PILLAR[g.pillar].colour }))].map(c => {
+                const active = group === c.label;
+                return (
+                  <button
+                    key={c.label}
+                    onClick={() => { setGroup(c.label); track({ name: 'tool_filter_used', filterType: 'category', value: c.label, pageType: 'equipment' }); }}
+                    aria-pressed={active}
+                    className="font-sans inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                    style={active
+                      ? { fontSize: 12, fontWeight: 500, background: INK, color: '#FFFFFF', borderColor: INK }
+                      : { fontSize: 12, fontWeight: 500, background: 'white', color: INK, borderColor: RULE }}
+                  >
+                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: c.colour }} aria-hidden="true" />
+                    {c.label}
+                  </button>
+                );
+              })}
+            </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filtered.map(p => (
-              <EquipmentCard
-                key={p.id}
-                product={p}
-                inCompare={compareIds.includes(p.id)}
-                onToggleCompare={() => toggleCompare(p.id)}
-                compareDisabled={compareIds.length >= 4}
+            <div className="relative lg:w-64 flex-shrink-0">
+              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
+              <input
+                type="search"
+                value={search}
+                onChange={e => { setSearch(e.target.value); if (e.target.value.length > 2) track({ name: 'search_performed', section: 'equipment', query: e.target.value }); }}
+                placeholder={`Search ${EQUIPMENT.length} products...`}
+                aria-label="Search equipment"
+                className="font-sans w-full pl-9 pr-4 py-2.5 rounded-xl border outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                style={{ fontSize: 14, background: 'white', color: INK, borderColor: RULE }}
               />
-            ))}
-          </div>
-
-          {filtered.length === 0 && (
-            <div className="py-16 text-center">
-              <p className="text-base mb-2" style={{ color: '#6b6760' }}>No products match your filters.</p>
-              <button onClick={clearFilters} className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
-                Clear all filters
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* ── PROCUREMENT CTA ───────────────────────────────────────────────────── */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="rounded-2xl border p-8 sm:p-10" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-            <SectionLabel>School procurement</SectionLabel>
-            <h2 className="font-display text-3xl mb-4" style={{ color: 'var(--text)' }}>
-              Procurement made easier.
-            </h2>
-            <p className="text-base mb-6 max-w-lg" style={{ color: '#6b6760' }}>
-              Whether you're buying for a whole school, a SEND pupil or a single classroom — we can help you navigate suppliers, quotes and frameworks.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                to="/ai-equipment/schools"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: '#1A1A0E' }}
-              >
-                School buying guide
-              </Link>
-              <Link
-                to="/ai-equipment/send"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
-                style={{ borderColor: '#e8e6e0', color: 'var(--text)' }}
-              >
-                SEND equipment guide
-              </Link>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── CROSS-SELL RECOMMENDATIONS ────────────────────────────────────────── */}
-      {inlineItems.length > 0 && (
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
-          <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
-            You might also like
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {inlineItems.map(item => (
-              <CrossSellCard key={item.id} item={item} sourceSection="equipment" />
-            ))}
+      {/* ── 4. TILES ───────────────────────────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
+        <p className="font-sans mb-5" style={{ fontSize: 13, color: '#6b6760' }}>
+          Showing <strong style={{ color: INK }}>{filtered.length}</strong> of {EQUIPMENT.length} products
+        </p>
+
+        {filtered.length === 0 ? (
+          <div className="p-10 text-center" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
+            <p className="font-display" style={{ fontSize: 20, color: INK }}>No products match those filters.</p>
+            <p className="font-sans mt-2" style={{ fontSize: 14, color: FOG }}>Clear a filter, or ask Luna in the hero above.</p>
           </div>
-        </div>
-      )}
-      <div style={{ background: '#111210' }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
-          <p className="font-display text-xl text-white">More from GetPromptly</p>
-          <div className="flex flex-wrap gap-4">
-            <Link to="/tools" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
-              AI Tools →
-            </Link>
-            <Link to="/ai-training" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
-              AI Training →
-            </Link>
-            <Link to="/prompts" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
-              Prompt Library →
-            </Link>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {filtered.map(p => <EquipmentTile key={p.id} product={p} />)}
           </div>
-        </div>
+        )}
       </div>
+    </div>
+  );
+}
 
-      {/* ── COMPARE BAR / MODAL ───────────────────────────────────────────────── */}
-      <AnimatePresence>
-        {compareItems.length > 0 && !compareOpen && (
-          <CompareBar
-            items={compareItems}
-            onRemove={id => setCompareIds(prev => prev.filter(x => x !== id))}
-            onClear={() => setCompareIds([])}
-            onOpen={() => setCompareOpen(true)}
-          />
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {compareOpen && (
-          <CompareModal items={compareItems} onClose={() => setCompareOpen(false)} />
-        )}
-      </AnimatePresence>
-
-      {/* Cross-sell popup */}
-      {popupOpen && popupItems.length > 0 && (
-        <CrossSellPopup
-          items={popupItems}
-          trigger={popupTrigger}
-          sourceSection="equipment"
-          onClose={closePopup}
-        />
-      )}
+// ── Hero Luna input (kept local so the page stays self-contained) ───────────────
+function LunaInput() {
+  const [draft, setDraft] = useState('');
+  const send = () => { openLuna(draft.trim() || undefined); track({ name: 'agent_opened', section: 'equipment-hero' }); };
+  return (
+    <div className="flex flex-col sm:flex-row gap-3 mt-4">
+      <input
+        type="text"
+        value={draft}
+        onChange={e => setDraft(e.target.value)}
+        onKeyDown={e => { if (e.key === 'Enter') send(); }}
+        placeholder="Describe the learner need and your budget…"
+        aria-label="Ask Luna about equipment"
+        className="font-sans flex-1 rounded-xl px-4 py-3 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+        style={{ fontSize: 14, background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.18)' }}
+      />
+      <button
+        onClick={send}
+        className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
+        style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
+      >
+        Ask Luna &rarr;
+      </button>
     </div>
   );
 }

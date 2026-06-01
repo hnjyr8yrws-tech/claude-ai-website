@@ -143,6 +143,8 @@ export interface PillarCardProps {
   showName?: boolean;
   showVerdict?: boolean;
   showLegend?: boolean;
+  /** Suppress the built-in methodology mark (e.g. when the host renders its own). */
+  showMark?: boolean;
   /** Methodology mark fields (§16). Version is always shown. */
   methodologyVersion?: string;
   verifiedDate?: string;
@@ -162,6 +164,7 @@ export function PillarCard({
   showName = true,
   showVerdict = true,
   showLegend = true,
+  showMark = true,
   methodologyVersion = '2.1',
   verifiedDate,
   reviewer,
@@ -422,12 +425,14 @@ export function PillarCard({
       )}
 
       {/* Methodology mark (§16) */}
-      <div
-        className="font-mono uppercase text-center"
-        style={{ fontSize: 10, letterSpacing: 1, color: cssVar('--color-fog') }}
-      >
-        {mark}
-      </div>
+      {showMark && (
+        <div
+          className="font-mono uppercase text-center"
+          style={{ fontSize: 10, letterSpacing: 1, color: cssVar('--color-fog') }}
+        >
+          {mark}
+        </div>
+      )}
 
       {/* Change-stamp for the "updated" state (§05/§12) */}
       {state === 'updated' && change && (

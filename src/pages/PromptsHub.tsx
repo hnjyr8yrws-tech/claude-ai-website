@@ -1,269 +1,209 @@
-import { useState } from 'react';
+/**
+ * PromptsHub.tsx — /prompts (Prompt Library)
+ *
+ * Rebuilt to the brand directory spec: left-aligned oat hero, a dark Luna
+ * personaliser panel ABOVE the stat strip (it's the primary action), a stat
+ * strip, a pillar-coloured subject filter, and flat prompt-pack tiles.
+ *
+ * Pillar colours do structural work here (§03): each subject focus maps to one
+ * of the five pillars, so the dot tells you what the pack is about.
+ * Brand (CLAUDE.md): no gradients; Fraunces / Satoshi / JetBrains Mono only;
+ * left-aligned (no centred layout); lime reserved for CTAs + pack links.
+ */
+
+import { useMemo, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
-import SectionLabel from '../components/SectionLabel';
-import AgentCTACard from '../components/AgentCTACard';
+import { track } from '../utils/analytics';
+import { PROMPT_PACKS, type PromptPack } from '../data/prompts';
+import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 
-const TEAL = 'var(--color-promptly-lime)';
+const LIME = 'var(--color-promptly-lime)';
+const INK  = '#1E1E1E';
+const FOG  = 'var(--color-fog)';
+const RULE = 'var(--color-rule)';
 
-const STATS = [
-  { value: '50', label: 'Prompt Packs' },
-  { value: '440+', label: 'Ready-to-Copy Prompts' },
-  { value: '9', label: 'Subject Categories' },
-  { value: '8', label: 'SEN Focus Areas' },
-  { value: 'Claude, ChatGPT & Gemini', label: 'Works With' },
-];
+// ── Pillars (reserved §09 tokens) ───────────────────────────────────────────────
+const PILLAR = {
+  safeguarding:  { name: 'Safeguarding',    colour: 'var(--color-pillar-safeguarding)' },
+  accessibility: { name: 'Accessibility',   colour: 'var(--color-pillar-accessibility)' },
+  privacy:       { name: 'Data Privacy',    colour: 'var(--color-pillar-privacy)' },
+  age:           { name: 'Age Suitability', colour: 'var(--color-pillar-age)' },
+  transparency:  { name: 'Transparency',    colour: 'var(--color-pillar-transparency)' },
+} as const;
+type PillarKey = keyof typeof PILLAR;
 
-const ROLES = [
+// ── Filter config — maps REAL pack data values → display label + pillar colour ──
+// (Audited from src/data/prompts.ts: packs carry `categorySlug`, `senFocus`,
+// `stages`, `roles` — there is no `tags` field. A pack matches a filter if any
+// of those real values appears in the filter's `values` array, all lowercased.)
+interface SubjectFilter {
+  key: PillarKey;
+  label: string;
+  values: string[];
+}
+const SUBJECT_FILTERS: SubjectFilter[] = [
   {
-    title: 'For Teachers',
-    desc: 'Lesson planning, feedback, differentiation, marking and CPD prompts.',
-    to: '/prompts/teachers',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-        <rect x="2" y="4" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M7 8h8M7 12h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    key: 'safeguarding',
+    label: 'Safeguarding & Safety',
+    values: ['safeguarding', 'safety', 'kcsie', 'online-safety', 'wellbeing', 'school-leadership', 'senco-management'],
   },
   {
-    title: 'For School Leaders',
-    desc: 'Strategy, staff communication, Ofsted prep, policy drafting and school improvement.',
-    to: '/prompts/school-leaders',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-        <circle cx="11" cy="8" r="3" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M5 18c0-3.314 2.686-6 6-6s6 2.686 6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M15 4l2 2-2 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    key: 'accessibility',
+    label: 'SEND & Accessibility',
+    values: ['send', 'sen', 'all sen', 'accessibility', 'aac', 'inclusion', 'dyslexia', 'adhd',
+             'autism', 'anxiety', 'executive dysfunction', 'study-skills', 'senco-management', 'sencos'],
   },
   {
-    title: 'For SENCOs',
-    desc: 'EHCP support, SEND reviews, parent letters, access arrangements and provision mapping.',
-    to: '/prompts/senco',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-        <path d="M11 2L4 6v5c0 4.418 3.134 7.9 7 9 3.866-1.1 7-4.582 7-9V6l-7-4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M8 11l2 2 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    key: 'privacy',
+    label: 'Data Privacy & GDPR',
+    values: ['data-privacy', 'gdpr', 'data', 'privacy'],
   },
   {
-    title: 'For Parents',
-    desc: 'Homework help, revision support, communication with school and SEN advocacy.',
-    to: '/prompts/parents',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-        <circle cx="8" cy="8" r="3" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="15" cy="8" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M2 18c0-2.761 2.686-5 6-5s6 2.239 6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M17 13c1.657 0 3 1.343 3 3v2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    key: 'age',
+    label: 'Age & Key Stage',
+    values: ['ks1', 'ks2', 'ks3', 'ks4', 'eyfs', 'gcse', 'a-level', 'all ages', 'primary', 'secondary',
+             'exam-preparation', 'essay-writing', 'maths-science', 'language-vocabulary', 'project-helpers', 'parent-caregiver'],
   },
   {
-    title: 'For Students',
-    desc: 'Essay writing, revision, exam prep, study skills and focus techniques.',
-    to: '/prompts/students',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-        <path d="M11 3L2 8l9 5 9-5-9-5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M2 14l9 5 9-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
-  },
-  {
-    title: 'For School Admin',
-    desc: 'Letters, templates, timetabling, data and communication prompts.',
-    to: '/prompts/admin',
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-        <rect x="4" y="3" width="14" height="16" rx="2" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M8 8h6M8 12h6M8 16h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
+    key: 'transparency',
+    label: 'Transparency & Critical Thinking',
+    values: ['transparency', 'critical-thinking', 'ai-literacy', 'media-literacy',
+             'creative-thinking', 'teacher-practice', 'reading-literacy'],
   },
 ];
 
-const COLLECTIONS = [
-  { label: 'Most Popular', to: '/prompts/library' },
-  { label: 'Best for GCSE Students', to: '/prompts/students' },
-  { label: 'Best for Primary Teachers', to: '/prompts/teachers' },
-  { label: 'Best for SEND Support', to: '/prompts/senco' },
-  { label: 'Best for Busy Parents', to: '/prompts/parents' },
-  { label: 'Free Resources', to: '/prompts/library' },
+/** All real, lowercased data values for a pack — the haystack a filter matches against. */
+function packValues(pack: PromptPack): string[] {
+  return [
+    pack.categorySlug,
+    ...(pack.senFocus ?? []),
+    ...(pack.stages ?? []),
+    ...(pack.roles ?? []),
+  ].filter(Boolean).map(v => v.toLowerCase());
+}
+
+/** A pack's display pillar (for the tile badge) — first filter whose values it matches. */
+function pillarFor(pack: PromptPack): PillarKey {
+  const vals = packValues(pack);
+  const hit = SUBJECT_FILTERS.find(f => f.values.some(v => vals.includes(v)));
+  return hit ? hit.key : 'age';
+}
+
+// ── Role chips (slugs match utils/role) ─────────────────────────────────────────
+const ROLE_CHIPS: { slug: string; label: string; role: string }[] = [
+  { slug: 'teacher',       label: 'Teacher',       role: 'Teachers' },
+  { slug: 'senco',         label: 'SENCO',         role: 'SENCO' },
+  { slug: 'school-leader', label: 'School Leader', role: 'School Leaders' },
+  { slug: 'parent',        label: 'Parent',        role: 'Parents' },
+  { slug: 'student',       label: 'Student',       role: 'Students' },
 ];
 
-const ROLE_PACKS = [
-  {
-    id: 'teachers',
-    role: 'For teachers',
-    headline: 'Plan, adapt and feedback faster',
-    desc: 'Lesson planning, differentiation, retrieval practice, whole-class feedback, parent updates and CPD reflection.',
-    offer: 'teacher-prompt-pack',
-    ctaLabel: 'Email me the teacher pack',
-    examples: [
-      'Create a lesson plan from a learning objective, class profile and likely misconceptions.',
-      'Adapt this task for stretch, scaffold, EAL and dyslexia-friendly access.',
-      'Turn common marking errors into a whole-class feedback slide and next-step task.',
-    ],
-  },
-  {
-    id: 'leaders',
-    role: 'For school leaders',
-    headline: 'Lead AI safely across your school',
-    desc: 'Policy drafting, staff briefings, governor updates, risk registers, Ofsted preparation and implementation planning.',
-    offer: 'leader-prompt-pack',
-    ctaLabel: 'Email me the leadership pack',
-    examples: [
-      'Draft a one-page AI acceptable-use policy for staff consultation.',
-      'Create a governor briefing that explains benefits, risks and safeguards.',
-      'Build a phased AI rollout plan with owners, milestones and review points.',
-    ],
-  },
-  {
-    id: 'senco',
-    role: 'For SENCOs',
-    headline: 'Reduce SEND paperwork without losing professional judgement',
-    desc: 'Provision mapping, EHCP review preparation, access arrangements, parent letters and classroom strategy sheets.',
-    offer: 'senco-prompt-pack',
-    ctaLabel: 'Email me the SENCO pack',
-    examples: [
-      'Summarise staff observations into neutral annual-review preparation notes.',
-      'Generate classroom strategies from a learner profile and known barriers.',
-      'Create an access-arrangements evidence checklist from assessment notes.',
-    ],
-  },
-  {
-    id: 'admin',
-    role: 'For school admin',
-    headline: 'Handle routine communication and templates faster',
-    desc: 'Parent letters, meeting summaries, policy drafts, timetable notices and internal updates.',
-    offer: 'admin-prompt-pack',
-    ctaLabel: 'Email me the admin pack',
-    examples: [
-      'Rewrite a parent email so it is clear, calm and school-appropriate.',
-      'Turn meeting notes into actions, owners and deadlines.',
-      'Draft a concise reminder for attendance, trips or deadline communication.',
-    ],
-  },
-  {
-    id: 'parents',
-    role: 'For parents',
-    headline: 'Support learning at home without doing the work for them',
-    desc: 'Homework help, revision plans, SEN advocacy, school communication and confidence-building routines.',
-    offer: 'parent-prompt-pack',
-    ctaLabel: 'Email me the parents pack',
-    examples: [
-      'Create a 20-minute revision routine for a reluctant GCSE learner.',
-      'Rewrite a school email so it is firm, polite and evidence-based.',
-      'Explain this homework task in simpler steps without giving the answer.',
-    ],
-  },
-  {
-    id: 'students',
-    role: 'For students',
-    headline: 'Use AI to study better, not shortcut learning',
-    desc: 'Revision, essay planning, exam practice, feedback reflection, focus routines and study confidence.',
-    offer: 'student-prompt-pack',
-    ctaLabel: 'Email me the student pack',
-    examples: [
-      'Create a revision plan from my exam date, topics and confidence scores.',
-      'Ask me Socratic questions to improve my essay argument.',
-      'Turn this mark scheme into a checklist I can use before submitting.',
-    ],
-  },
-];
+function openLuna(prompt?: string) {
+  window.dispatchEvent(new CustomEvent('open-agent-chat'));
+  if (prompt) setTimeout(() => window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: prompt })), 120);
+}
 
-const STEPS = [
-  { n: '01', title: 'Choose your role', desc: 'Pick the section that matches you — teacher, parent, student, SENCO or school leader.' },
-  { n: '02', title: 'Browse or search', desc: 'Filter by category, SEN focus area or key stage to find the right pack instantly.' },
-  { n: '03', title: 'Copy the prompt', desc: 'Hit the copy button and paste straight into Claude, ChatGPT, Gemini or Perplexity.' },
-  { n: '04', title: 'Adapt for your context', desc: 'Replace the bracketed placeholders — [topic], [child\'s name], [year group] — with your own details.' },
-  { n: '05', title: 'Get better results', desc: 'Use the Luna agent for a personalised prompt tailored to your exact situation.' },
-];
-
-function ExpandablePackCard({ pack }: { pack: typeof ROLE_PACKS[number] }) {
-  const [open, setOpen] = useState(false);
+// ── Pack tile ───────────────────────────────────────────────────────────────────
+function PackTile({ pack }: { pack: PromptPack }) {
+  const pillar = PILLAR[pillarFor(pack)];
   return (
-    <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-      <button
-        type="button"
-        onClick={() => setOpen(o => !o)}
-        aria-expanded={open}
-        className="w-full p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded-2xl"
+    <div className="flex flex-col p-5" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
+      <div className="flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="font-display" style={{ fontSize: 20, fontWeight: 400, color: INK }}>
+            {pack.title}
+          </h3>
+          {/* Subject badge top-right */}
+          <span className="font-mono inline-flex items-center gap-1.5 uppercase flex-shrink-0 mt-1.5" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+            <span className="rounded-full flex-shrink-0" style={{ width: 8, height: 8, background: pillar.colour }} aria-hidden="true" />
+            {pillar.name}
+          </span>
+        </div>
+
+        {/* Count */}
+        <p className="font-sans mt-1" style={{ fontSize: 13, fontWeight: 500, color: '#6b6760' }}>
+          {pack.promptCount} prompts{pack.free ? ' · Free' : ''}
+        </p>
+
+        {/* One-line description */}
+        <p className="font-sans italic mt-2.5" style={{ fontSize: 14, lineHeight: 1.5, color: FOG }}>
+          {pack.description}
+        </p>
+      </div>
+
+      <Link
+        to={`/prompts/pack/${pack.slug}`}
+        onClick={() => track({ name: 'cta_clicked', section: 'prompts-grid', label: `View pack: ${pack.title}` })}
+        className="font-sans inline-block mt-4 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
+        style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-ink-accent)' }}
       >
-        <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>{pack.role}</p>
-        <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{pack.headline}</h3>
-        <p className="text-sm mt-1.5 leading-relaxed" style={{ color: '#6b6760' }}>{pack.desc}</p>
-        <span className="inline-block mt-3 text-xs font-bold" style={{ color: 'var(--color-ink-accent)' }}>
-          {open ? '▲ Less' : '▼ See example prompts'}
-        </span>
-      </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.22 }}
-            style={{ overflow: 'hidden' }}
-          >
-            <div className="border-t px-5 pb-5 pt-4" style={{ borderColor: '#e8e6e0' }}>
-              <ul className="space-y-2 mb-5">
-                {pack.examples.map((ex, i) => (
-                  <li key={i} className="flex gap-2 text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-                    <span className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold mt-0.5" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>{i + 1}</span>
-                    {ex}
-                  </li>
-                ))}
-              </ul>
-              <button
-                type="button"
-                onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: pack.offer } }))}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ background: TEAL }}
-              >
-                {pack.ctaLabel}
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        View pack &rarr;
+      </Link>
     </div>
   );
 }
 
+// ── Page ────────────────────────────────────────────────────────────────────────
 const PromptsHub = () => {
-  const [freePackEmail, setFreePackEmail] = useState('');
-  const [freePackSent, setFreePackSent] = useState(false);
-  const [freePackSending, setFreePackSending] = useState(false);
+  const [roleSlug, setRoleSlug] = useState<string>(() => getRole());
+  const [subject, setSubject] = useState<PillarKey | 'All'>('All');
+  const [draft, setDraft] = useState('');
 
-  const handleWidgetClick = () => {
-    const trigger = document.getElementById('promptly-widget-trigger');
-    if (trigger) trigger.click();
+  useEffect(() => {
+    const sync = (e: Event) => setRoleSlug((e as CustomEvent<string>).detail ?? getRole());
+    window.addEventListener(ROLE_CHANGED, sync);
+    return () => window.removeEventListener(ROLE_CHANGED, sync);
+  }, []);
+
+  // Dev audit (Step 1): log the real data values the filters must align to.
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      console.log('Available categorySlugs:', [...new Set(PROMPT_PACKS.map(p => p.categorySlug))]);
+      console.log('Available senFocus:', [...new Set(PROMPT_PACKS.flatMap(p => p.senFocus))]);
+      console.log('Available stages:', [...new Set(PROMPT_PACKS.flatMap(p => p.stages))]);
+      console.log('Filter coverage:', SUBJECT_FILTERS.map(f => ({
+        label: f.label,
+        count: PROMPT_PACKS.filter(p => f.values.some(v => packValues(p).includes(v))).length,
+      })));
+    }
+  }, []);
+
+  const activeRole = ROLE_CHIPS.find(r => r.slug === roleSlug);
+
+  const stats = [
+    { value: '50',   label: 'Prompt Packs' },
+    { value: '440+', label: 'Prompts' },
+    { value: '9',    label: 'Subject Categories' },
+    { value: '8',    label: 'SEN Focus Areas' },
+  ];
+
+  const filtered = useMemo(() => {
+    let r = PROMPT_PACKS;
+    if (activeRole) r = r.filter(p => p.roles.some(role => role.toLowerCase().includes(activeRole.role.toLowerCase().split(' ')[0])));
+    if (subject !== 'All') {
+      // Match the selected filter's REAL data values against each pack's values.
+      const f = SUBJECT_FILTERS.find(x => x.key === subject);
+      if (f) r = r.filter(p => { const vals = packValues(p); return f.values.some(v => vals.includes(v)); });
+    }
+    return r;
+  }, [activeRole, subject]);
+
+  const chooseRole = (slug: string) => {
+    const next = roleSlug === slug ? '' : slug;
+    setRoleSlug(next);
+    setRole(next); // cookie + role:changed broadcast
+    track({ name: 'tool_filter_used', filterType: 'role', value: slug || 'All', pageType: 'prompts-hub' });
   };
 
-  const handleFreePackSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const email = freePackEmail.trim();
-    if (!email) return;
-    setFreePackSending(true);
-    try {
-      await fetch('/api/lead-capture', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, offer: 'free-prompt-pack', page: '/prompts', source: 'getpromptly-site' }),
-      });
-    } catch { /* fail silently — still show success */ }
-    setFreePackSent(true);
-    setFreePackSending(false);
+  const buildPrompts = () => {
+    const base = activeRole ? `I am a ${activeRole.label.toLowerCase()}. ` : '';
+    openLuna(`${base}${draft.trim() || 'Create a prompt pack for my situation.'}`);
+    track({ name: 'agent_opened', section: 'prompts-personaliser' });
   };
 
   return (
-    <>
+    <div style={{ background: 'var(--color-oat)', minHeight: '100vh' }}>
       <SEO
         title="440+ AI Prompts for UK Education | GetPromptly"
         description="Free AI prompts for teachers, parents, students, SENCOs and school leaders. Copy-ready prompts for Claude, ChatGPT and Gemini."
@@ -271,237 +211,167 @@ const PromptsHub = () => {
         path="/prompts"
       />
 
-      {/* Hero */}
-      <section className="px-5 sm:px-8 pt-16 pb-12" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-3xl mx-auto text-center">
-          <SectionLabel>AI Prompts Library</SectionLabel>
-          <h1 className="font-display text-4xl sm:text-5xl leading-tight mb-4" style={{ color: 'var(--text)' }}>
-            440+ Ready-to-Use AI Prompts for UK Education
+      {/* ── 1. HERO (oat, LEFT-ALIGNED) ────────────────────────────────────────── */}
+      <section style={{ background: 'var(--color-oat)' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-12">
+          <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: FOG }}>PROMPT LIBRARY</p>
+          <h1 className="font-display mt-5" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 400, color: INK }}>
+            440+ prompts. Ready to use.
           </h1>
-          <p className="text-lg leading-relaxed mb-8 max-w-2xl mx-auto" style={{ color: '#6b6760' }}>
-            For teachers, parents, students, SENCOs and school leaders. Copy, adapt and use instantly with Claude, ChatGPT or Gemini.
+          <p className="font-sans mt-4 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>
+            Copy, adapt, use instantly — with Claude, ChatGPT or Gemini.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+
+          {/* CTAs — keep the 2-CTA pattern */}
+          <div className="flex flex-col sm:flex-row gap-3 mt-8">
             <Link
               to="/prompts/library"
-              className="px-6 py-3 rounded-xl font-semibold text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-              style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
+              onClick={() => track({ name: 'cta_clicked', section: 'prompts-hero', label: 'Browse All 50 Packs' })}
+              className="font-sans inline-flex items-center justify-center rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
+              style={{ fontSize: 15, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
             >
               Browse All 50 Packs
             </Link>
             <button
-              onClick={handleWidgetClick}
-              className="px-6 py-3 rounded-xl font-semibold text-sm border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-              style={{ borderColor: 'var(--color-promptly-lime)', color: 'var(--color-ink)', background: 'white' }}
+              onClick={() => { openLuna(); track({ name: 'agent_opened', section: 'prompts-hero' }); }}
+              className="font-sans inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 border transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              style={{ fontSize: 15, fontWeight: 500, borderColor: INK, color: INK, background: 'transparent' }}
             >
-              Get Instant Prompt Help
+              <span className="relative flex w-2 h-2" aria-hidden="true">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: LIME }} />
+                <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: LIME }} />
+              </span>
+              Ask Luna
             </button>
+          </div>
+
+          {/* Role chips directly below CTAs */}
+          <div className="flex flex-wrap gap-2 mt-6">
+            {ROLE_CHIPS.map(r => {
+              const active = roleSlug === r.slug;
+              return (
+                <button
+                  key={r.slug}
+                  onClick={() => chooseRole(r.slug)}
+                  aria-pressed={active}
+                  className="font-sans rounded-full px-4 py-2 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                  style={active
+                    ? { fontSize: 13, fontWeight: 500, background: INK, color: LIME, borderColor: INK }
+                    : { fontSize: 13, fontWeight: 500, background: 'white', color: INK, borderColor: RULE }}
+                >
+                  {r.label}
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="px-5 sm:px-8 py-6 border-y" style={{ background: 'white', borderColor: '#e8e6e0' }}>
-        <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {STATS.map((s) => (
-            <div key={s.label} className="text-center p-4 rounded-xl border" style={{ borderColor: '#e8e6e0' }}>
-              <div className="font-display text-2xl font-bold mb-1" style={{ color: 'var(--color-ink)' }}>{s.value}</div>
-              <div className="text-[11px] font-medium uppercase tracking-wide" style={{ color: '#9ca3af' }}>{s.label}</div>
+      {/* ── 2. LUNA PANEL (before the stats — the primary action) ──────────────── */}
+      <section style={{ background: 'var(--color-oat)' }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-12">
+          <div className="rounded-2xl p-6 sm:p-8" style={{ background: INK }}>
+            <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: LIME }}>LUNA · PROMPT PERSONALISER</p>
+            <p className="font-display italic mt-2" style={{ fontStyle: 'italic', fontSize: 22, color: '#FFFFFF' }}>
+              Create a prompt pack for my situation.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 mt-4">
+              <input
+                type="text"
+                value={draft}
+                onChange={e => setDraft(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') buildPrompts(); }}
+                placeholder="Tell me your role, subject and what you need..."
+                aria-label="Tell Luna your role, subject and what you need"
+                className="font-sans flex-1 rounded-xl px-4 py-3 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                style={{ fontSize: 14, background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.18)' }}
+              />
+              <button
+                onClick={buildPrompts}
+                className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+                style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
+              >
+                Build my prompts &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. STAT STRIP ──────────────────────────────────────────────────────── */}
+      <div style={{ background: 'white', borderTop: `1px solid ${RULE}`, borderBottom: `1px solid ${RULE}` }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-7 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          {stats.map(s => (
+            <div key={s.label}>
+              <p className="font-display" style={{ fontSize: 32, fontWeight: 700, color: INK }}>{s.value}</p>
+              <p className="font-sans mt-0.5" style={{ fontSize: 12, color: FOG }}>{s.label}</p>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* ── Agent CTA ── */}
-      <section className="px-5 sm:px-8 py-6" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-5xl mx-auto">
-          <AgentCTACard
-            section="Luna · Prompt Personaliser"
-            headline="Create a prompt pack for my situation."
-            description="Tell us your role, subject and what you need — our AI will craft the right prompts for you to copy and use instantly."
-            prompts={[
-              "Give me a differentiated lesson plan prompt for Year 9 English",
-              "I'm a SENCO — show me EHCP review prompts",
-              "Help me write a parent email about a behaviour concern",
-              "Give my GCSE student a revision prompt for tomorrow's exam",
-            ]}
-            analyticsSection="prompts"
-          />
-        </div>
-      </section>
-
-      {/* Role entry grid */}
-      <section className="px-5 sm:px-8 py-16" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <SectionLabel>Find Your Prompts</SectionLabel>
-            <h2 className="font-display text-3xl" style={{ color: 'var(--text)' }}>Choose your role</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {ROLES.map((r) => (
-              <Link
-                key={r.to}
-                to={r.to}
-                className="group flex flex-col gap-3 p-5 rounded-2xl border bg-white transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#e8e6e0' }}
+      {/* ── 4. SUBJECT FILTER — oat, sticky; no-wrap on desktop, h-scroll on mobile ─ */}
+      <div className="sticky top-28 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-2 overflow-x-auto scrollbar-hide lg:flex-wrap">
+          <span className="font-mono flex-shrink-0 mr-1" style={{ fontSize: 10, letterSpacing: '0.1em', color: FOG }}>FILTER BY FOCUS:</span>
+          {[{ key: 'All' as const, label: 'All', colour: FOG }, ...SUBJECT_FILTERS.map(s => ({ key: s.key, label: s.label, colour: PILLAR[s.key].colour }))].map(c => {
+            const active = subject === c.key;
+            // Selected: ink bg, lime text + lime dot. Default: white bg, rule border, ink text + pillar dot.
+            return (
+              <button
+                key={c.key}
+                onClick={() => { setSubject(c.key); track({ name: 'tool_filter_used', filterType: 'category', value: c.label, pageType: 'prompts-hub' }); }}
+                aria-pressed={active}
+                className="font-sans inline-flex items-center gap-2 rounded-full px-3 py-1.5 border transition-colors flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                style={active
+                  ? { fontSize: 12, fontWeight: 500, background: INK, color: LIME, borderColor: INK }
+                  : { fontSize: 12, fontWeight: 500, background: 'white', color: INK, borderColor: '#E8E4DC' }}
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[var(--color-promptly-lime)]"
-                  style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
-                >
-                  <span className="group-hover:text-white transition-colors">{r.icon}</span>
-                </div>
-                <div>
-                  <h3 className="font-semibold text-base mb-1 group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: 'var(--text)' }}>
-                    {r.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{r.desc}</p>
-                </div>
-                <span className="text-sm font-medium mt-auto" style={{ color: 'var(--color-ink)' }}>
-                  View prompts →
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured collections */}
-      <section className="px-5 sm:px-8 py-10 border-y" style={{ background: 'white', borderColor: '#e8e6e0' }}>
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-semibold tracking-widest uppercase mb-4" style={{ color: '#9ca3af' }}>Collections</p>
-          <div className="flex gap-3 overflow-x-auto pb-2 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
-            {COLLECTIONS.map((c) => (
-              <Link
-                key={c.label}
-                to={c.to}
-                className="flex-shrink-0 px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
-              >
+                <span className="rounded-full flex-shrink-0" style={{ width: 8, height: 8, background: active ? LIME : c.colour }} aria-hidden="true" />
                 {c.label}
-              </Link>
-            ))}
-          </div>
+              </button>
+            );
+          })}
         </div>
-      </section>
+      </div>
 
-      {/* How it works */}
-      <section className="px-5 sm:px-8 py-16" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-10">
-            <SectionLabel>How It Works</SectionLabel>
-            <h2 className="font-display text-3xl" style={{ color: 'var(--text)' }}>From prompt to result in seconds</h2>
-          </div>
-          <ol className="space-y-4" role="list">
-            {STEPS.map((step) => (
-              <li key={step.n} className="flex gap-4 p-4 rounded-xl bg-white border" style={{ borderColor: '#e8e6e0' }}>
-                <span
-                  className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-                  style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
-                  aria-hidden="true"
+      {/* ── 5. PACK TILES ──────────────────────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
+        <p className="font-sans mb-5" style={{ fontSize: 13, color: '#6b6760' }}>
+          Showing <strong style={{ color: INK }}>{filtered.length}</strong> of {PROMPT_PACKS.length} packs
+        </p>
+        {filtered.length === 0 ? (
+          (() => {
+            const catLabel = subject === 'All' ? 'these' : (SUBJECT_FILTERS.find(f => f.key === subject)?.label ?? 'these');
+            const roleLabel = activeRole ? activeRole.label.toLowerCase() : 'your school';
+            return (
+              <div className="p-8 sm:p-10" style={{ background: INK, borderRadius: 4 }}>
+                <p className="font-display" style={{ fontSize: 22, fontWeight: 400, color: '#FFFFFF' }}>
+                  No {catLabel} prompts yet.
+                </p>
+                <p className="font-display italic mt-2" style={{ fontStyle: 'italic', fontSize: 18, color: FOG }}>
+                  Luna can build one for you right now.
+                </p>
+                <button
+                  onClick={() => {
+                    openLuna(`Create a prompt pack for ${catLabel} for a ${roleLabel}.`);
+                    track({ name: 'agent_opened', section: 'prompts-empty-state' });
+                  }}
+                  className="font-sans inline-flex items-center mt-5 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+                  style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
                 >
-                  {step.n}
-                </span>
-                <div>
-                  <h3 className="font-semibold text-sm mb-0.5" style={{ color: 'var(--text)' }}>{step.title}</h3>
-                  <p className="text-sm" style={{ color: '#6b6760' }}>{step.desc}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* Trust note */}
-      <section className="px-5 sm:px-8 py-8" style={{ background: 'white' }}>
-        <div className="max-w-3xl mx-auto">
-          <div
-            className="rounded-xl border p-5"
-            style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
-          >
-            <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-              <strong style={{ color: '#1c1a15' }}>Important:</strong> These prompts support educators, families and learners. They do not replace professional teacher judgment, SEN support plans, EHCPs or clinical advice. Always adapt for the individual child's needs and school context.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Ready-to-Use Prompt Packs */}
-      <section className="px-5 sm:px-8 py-16" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-5xl mx-auto">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start mb-10">
-            <div>
-              <SectionLabel>Ready-to-Use Prompt Packs</SectionLabel>
-              <h2 className="font-display text-3xl mt-2 mb-3" style={{ color: 'var(--text)' }}>
-                Practical prompts for the work educators actually do.
-              </h2>
-              <p className="text-base leading-relaxed" style={{ color: '#6b6760' }}>
-                Choose a role, open a pack and get prompts for planning, feedback, SEND support, leadership, parent communication and admin workflows.
-              </p>
-            </div>
-            <div className="rounded-2xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-              <h3 className="font-semibold text-base mb-1" style={{ color: 'var(--text)' }}>Start with the free pack</h3>
-              <p className="text-sm mb-3" style={{ color: '#6b6760' }}>We'll email a role-specific starter pack you can copy into Claude, ChatGPT or Gemini today.</p>
-              {freePackSent ? (
-                <p className="text-sm font-semibold py-2" style={{ color: 'var(--color-ink-accent)' }}>✓ Check your inbox — pack sent.</p>
-              ) : (
-                <form onSubmit={handleFreePackSubmit} className="flex flex-col sm:flex-row gap-2">
-                  <label htmlFor="free-pack-email" className="sr-only">Email address</label>
-                  <input
-                    id="free-pack-email"
-                    type="email"
-                    value={freePackEmail}
-                    onChange={e => setFreePackEmail(e.target.value)}
-                    placeholder="Your school email"
-                    required
-                    className="flex-1 px-4 py-2.5 rounded-xl text-sm border outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
-                    style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: 'var(--text)' }}
-                  />
-                  <button
-                    type="submit"
-                    disabled={freePackSending}
-                    className="flex-shrink-0 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-                    style={{ background: TEAL }}
-                  >
-                    {freePackSending ? 'Sending…' : 'Get your free prompt pack'}
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-
+                  Build a prompt &rarr;
+                </button>
+              </div>
+            );
+          })()
+        ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {ROLE_PACKS.map(pack => (
-              <ExpandablePackCard key={pack.id} pack={pack} />
-            ))}
+            {filtered.map(pack => <PackTile key={pack.id} pack={pack} />)}
           </div>
-        </div>
-      </section>
-
-      {/* Cross-sell strip */}
-      <section className="px-5 sm:px-8 py-12" style={{ background: '#0d0d0b' }}>
-        <div className="max-w-5xl mx-auto">
-          <p className="text-[11px] font-semibold tracking-widest uppercase mb-6 text-center" style={{ color: '#3a3835' }}>Also from GetPromptly</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {[
-              { label: 'AI Tools Directory', desc: 'Reviewed, safe AI tools for UK education.', to: '/tools' },
-              { label: 'Equipment & Gear', desc: 'Assistive tech and classroom hardware.', to: '/equipment' },
-              { label: 'AI Training', desc: 'Courses and CPD for educators using AI.', to: '/ai-training' },
-            ].map((item) => (
-              <Link
-                key={item.to}
-                to={item.to}
-                className="p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#1f1d1b' }}
-              >
-                <p className="text-sm font-semibold text-white mb-1">{item.label}</p>
-                <p className="text-xs" style={{ color: '#6b6760' }}>{item.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
+        )}
+      </div>
+    </div>
   );
 };
 

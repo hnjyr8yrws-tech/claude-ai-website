@@ -11,7 +11,7 @@ import {
   type ReviewStatus,
   type EqBadge,
 } from '../data/equipment';
-import { badgeStyle, reviewBadge, CAT_SLUG, catToSlug } from './AIEquipment';
+import { badgeStyle, reviewBadge, CAT_SLUG, catToSlug } from './equipmentHelpers';
 
 const TEAL = 'var(--color-promptly-lime)';
 

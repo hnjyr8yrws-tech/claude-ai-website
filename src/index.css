@@ -95,6 +95,10 @@ h1, h2, h3,
 ::-webkit-scrollbar-thumb { background: var(--subtle); border-radius: 9999px; }
 ::-webkit-scrollbar-thumb:hover { background: #c5c2bb; }
 
+/* Hide scrollbar on horizontal chip rows (filter strips) while keeping scroll. */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+
 /* ── Text selection ──────────────────────────────────────── */
 ::selection { background: rgba(0,128,138,0.15); color: var(--text); }
 

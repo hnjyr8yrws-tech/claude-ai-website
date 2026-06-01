@@ -10,7 +10,7 @@ import {
   type EquipmentCategory,
   type EqBadge,
 } from '../data/equipment';
-import { badgeStyle, reviewBadge, catToSlug } from './AIEquipment';
+import { badgeStyle, reviewBadge, catToSlug } from './equipmentHelpers';
 
 const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = '#fef3c7';
