@@ -6,6 +6,7 @@ import { Lock } from "lucide-react";
 import type { PromptEntry } from "@/lib/prompts-data";
 import { audienceColor } from "@/lib/audience-colors";
 import { useTier } from "@/components/dev/DevTierSwitcher";
+import { useLead } from "@/hooks/useLead";
 import PromptModal from "@/components/prompts/PromptModal";
 
 const LIME = "var(--color-promptly-lime)";
@@ -42,6 +43,7 @@ function expandKeyStage(value: string): string[] {
 
 export default function PromptsPageClient({ prompts }: { prompts: PromptEntry[] }) {
   const tier = useTier();
+  const { hasLead } = useLead();
   const initialParams = useSearchParams();
 
   // ── Filter state is LOCAL React state (the source of truth), seeded once from
@@ -148,10 +150,11 @@ export default function PromptsPageClient({ prompts }: { prompts: PromptEntry[] 
     setPage(1);
   };
 
-  // ── Card access gating (tier-driven, never user-filterable) ──
+  // ── Card access gating ──
+  // A captured email (lead) unlocks all FREE prompts; Premium stays paid (Tier 2+).
   const cardLock = (p: PromptEntry): { locked: boolean; cta: string } => {
-    if (tier === 0) return { locked: true, cta: "Sign up free" };
-    if (tier === 1 && p.access === "Premium") return { locked: true, cta: "Upgrade to Premium" };
+    if (p.access === "Premium" && tier < 2) return { locked: true, cta: "Premium — £5.99/mo" };
+    if (p.access !== "Premium" && tier < 1 && !hasLead) return { locked: true, cta: "Enter email to unlock" };
     return { locked: false, cta: "" };
   };
 

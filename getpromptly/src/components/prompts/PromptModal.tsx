@@ -5,6 +5,11 @@ import { Lock, Copy, Check, X } from "lucide-react";
 import type { PromptEntry } from "@/lib/prompts-data";
 import type { Tier } from "@/components/dev/DevTierSwitcher";
 import { audienceColor } from "@/lib/audience-colors";
+import EmailCapture from "@/components/prompts/EmailCapture";
+import { useLead } from "@/hooks/useLead";
+import { PREMIUM_CHECKOUT_URL } from "@/config";
+
+const INK = "var(--color-ink)";
 
 interface Props {
   prompt: PromptEntry | null;
@@ -44,6 +49,7 @@ function Chip({ children, color }: { children: ReactNode; color?: string }) {
 
 export default function PromptModal({ prompt, tier, onClose }: Props) {
   const [copied, setCopied] = useState(false);
+  const { hasLead, captureLead } = useLead();
 
   // Close on ESC.
   useEffect(() => {
@@ -67,9 +73,13 @@ export default function PromptModal({ prompt, tier, onClose }: Props) {
 
   if (!prompt) return null;
 
-  const isPremiumLocked = tier === 1 && prompt.access === "Premium";
-  const isAnonLocked = tier === 0;
-  const canCopy = tier >= 2 && !isPremiumLocked;
+  // Access model: a captured email (lead) unlocks all FREE prompts; Premium stays
+  // paid (Tier 2+). Copying remains a Tier 2+ benefit.
+  const isPremium = prompt.access === "Premium";
+  const canReadFree = tier >= 1 || hasLead;
+  const premiumLocked = isPremium && tier < 2;
+  const freeGated = !isPremium && !canReadFree;
+  const canCopy = tier >= 2 && !premiumLocked;
 
   const copy = async () => {
     try {
@@ -126,7 +136,47 @@ export default function PromptModal({ prompt, tier, onClose }: Props) {
 
         {/* Prompt body / gating */}
         <div className="mt-6">
-          {isAnonLocked ? (
+          {premiumLocked ? (
+            <div className="text-center">
+              <div className="flex justify-center mb-3" style={{ color: LIME }}>
+                <Lock size={28} />
+              </div>
+              <p className="font-sans" style={{ color: OAT }}>
+                This is a Premium prompt — £5.99/month unlocks 500+ reviewed prompts.
+              </p>
+              <div className="mt-4">
+                {PREMIUM_CHECKOUT_URL ? (
+                  <a
+                    href={PREMIUM_CHECKOUT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center rounded-full px-6 py-2.5 font-sans"
+                    style={{ fontSize: 14, fontWeight: 600, background: LIME, color: INK }}
+                  >
+                    Buy Premium →
+                  </a>
+                ) : (
+                  <button
+                    disabled
+                    title="Checkout link not configured yet — set PREMIUM_CHECKOUT_URL in src/config.ts"
+                    className="inline-flex items-center rounded-full px-6 py-2.5 font-sans cursor-not-allowed opacity-60"
+                    style={{ fontSize: 14, fontWeight: 600, background: LIME, color: INK }}
+                  >
+                    Buy Premium →
+                  </button>
+                )}
+              </div>
+              <p className="font-sans mt-5" style={{ color: FOG, fontSize: 13 }}>
+                Not ready to buy? Leave your email and we&apos;ll keep you posted.
+              </p>
+              <EmailCapture
+                ctaLabel="Email me about Premium"
+                roles={[prompt.audience, "Premium interest"]}
+                onSuccess={captureLead}
+                successText="Thanks — you're on the list."
+              />
+            </div>
+          ) : freeGated ? (
             <div className="text-center">
               <pre
                 aria-hidden="true"
@@ -135,22 +185,16 @@ export default function PromptModal({ prompt, tier, onClose }: Props) {
               >
                 {prompt.prompt.slice(0, 280)}
               </pre>
-              <p className="font-sans mt-4" style={{ color: OAT }}>Create a free account to read this prompt</p>
-              <button className="mt-3 rounded-full px-5 py-2.5 font-sans" style={{ fontSize: 14, fontWeight: 500, background: LIME, color: "var(--color-ink)" }}>
-                Sign Up
-              </button>
-            </div>
-          ) : isPremiumLocked ? (
-            <div className="text-center">
-              <div className="flex justify-center mb-3" style={{ color: LIME }}>
-                <Lock size={28} />
-              </div>
-              <p className="font-sans" style={{ color: OAT }}>
-                This is a Premium prompt. Upgrade for £5.99/month to unlock 500+ prompts.
+              <p className="font-sans mt-4" style={{ color: OAT }}>Enter your email to read this prompt — free.</p>
+              <p className="font-sans mt-1" style={{ color: FOG, fontSize: 13 }}>
+                We&apos;ll add you to our list so we can share new prompts. Unsubscribe anytime.
               </p>
-              <button className="mt-3 rounded-full px-5 py-2.5 font-sans" style={{ fontSize: 14, fontWeight: 500, background: LIME, color: "var(--color-ink)" }}>
-                Upgrade to Premium
-              </button>
+              <EmailCapture
+                ctaLabel="Unlock this prompt"
+                roles={[prompt.audience]}
+                onSuccess={captureLead}
+                successText="Unlocking…"
+              />
             </div>
           ) : (
             <>
