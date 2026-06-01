@@ -12,19 +12,13 @@ const LINKS = [
 ];
 
 const Navbar: FC = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
 
-  // Transparent over the dark hero (home, top of page); oat/blur once scrolled.
-  // On every non-home route the bar is solid from the start.
-  const onDarkHero = pathname === '/' && !scrolled;
-
-  useEffect(() => {
-    const h = () => setScrolled(window.scrollY > 12);
-    window.addEventListener('scroll', h, { passive: true });
-    return () => window.removeEventListener('scroll', h);
-  }, []);
+  // The nav always sits on a light surface (the oat role strip is directly
+  // below it on every route), so it is always solid oat with ink text — never
+  // transparent/white (that would be invisible over the oat strip).
+  const onDarkHero = false;
 
   // Close mobile menu on route change
   useEffect(() => { setMenuOpen(false); }, [pathname]);

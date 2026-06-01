@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import RoleStrip from './components/RoleStrip';
 import Footer from './components/Footer';
 import AgentWidget from './components/AgentWidget';
 import ScrollToTop from './components/ScrollToTop';
@@ -80,7 +79,6 @@ const App = () => (
     </a>
 
     <Navbar />
-    <RoleStrip />
 
     <main id="main-content" tabIndex={-1} role="main">
       <Suspense fallback={<PageLoader />}>

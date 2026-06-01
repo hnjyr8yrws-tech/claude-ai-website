@@ -311,7 +311,7 @@ const PromptsHub = () => {
       </div>
 
       {/* ── 4. SUBJECT FILTER — oat, sticky; no-wrap on desktop, h-scroll on mobile ─ */}
-      <div className="sticky top-28 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
+      <div className="sticky top-16 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-2 overflow-x-auto scrollbar-hide lg:flex-wrap">
           <span className="font-mono flex-shrink-0 mr-1" style={{ fontSize: 10, letterSpacing: '0.1em', color: FOG }}>FILTER BY FOCUS:</span>
           {[{ key: 'All' as const, label: 'All', colour: FOG }, ...SUBJECT_FILTERS.map(s => ({ key: s.key, label: s.label, colour: PILLAR[s.key].colour }))].map(c => {

@@ -246,7 +246,7 @@ export default function AIEquipment() {
       </div>
 
       {/* ── 3. ROLE + CATEGORY FILTER (sticky oat) ─────────────────────────────── */}
-      <div className="sticky top-28 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
+      <div className="sticky top-16 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex flex-col gap-3">
 
           {/* Role filter */}
