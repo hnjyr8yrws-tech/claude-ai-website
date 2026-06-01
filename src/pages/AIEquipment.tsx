@@ -5,15 +5,12 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { track } from '../utils/analytics';
 import AgentCTACard from '../components/AgentCTACard';
-import DiscoveryBar from '../components/DiscoveryBar';
 import CrossSellCard from '../components/CrossSellCard';
 import CrossSellPopup from '../components/CrossSellPopup';
 import { useCrossSell } from '../hooks/useCrossSell';
 import {
   EQUIPMENT,
-  BUNDLES,
   type EquipmentProduct,
-  type EquipmentBundle,
   type EquipmentCategory,
   type EqAudience,
   type PriceBand,
@@ -108,6 +105,20 @@ const CAT_SHORT: Record<EquipmentCategory, string> = {
   'Wearables & Safety':         'Wearables',
 };
 
+// Visual category tiles — the primary browse affordance (emoji-led).
+const CATEGORY_TILES: { label: string; value: EquipmentCategory; emoji: string }[] = [
+  { label: 'Devices',            value: 'Devices',                       emoji: '\u{1F4BB}' },
+  { label: 'Stationery & Literacy', value: 'Stationery & Literacy',      emoji: '\u{270F}\u{FE0F}' },
+  { label: 'Robots & Coding',    value: 'Robots & Coding',               emoji: '\u{1F916}' },
+  { label: 'Games & Cognitive',  value: 'Games & Cognitive',             emoji: '\u{1F9E9}' },
+  { label: 'AAC & Communication', value: 'AAC & Communication',          emoji: '\u{1F5E3}\u{FE0F}' },
+  { label: 'Sensory & Regulation', value: 'Sensory & Regulation',        emoji: '\u{1F300}' },
+  { label: 'Screens & Hardware', value: 'Screens & Classroom Hardware',  emoji: '\u{1F4FA}' },
+  { label: 'Audio & Hearing',    value: 'Audio & Hearing',               emoji: '\u{1F3A7}' },
+  { label: 'Furniture & Environment', value: 'Furniture & Environment',  emoji: '\u{1FA91}' },
+  { label: 'Wearables & Safety', value: 'Wearables & Safety',            emoji: '\u{231A}' },
+];
+
 const PRICE_BANDS: PriceBand[] = ['Under £50', '£50–150', '£150–500', '£500+'];
 const SUPPLIER_TYPES: SupplierType[] = ['Amazon', 'UK Specialist', 'School Reseller', 'Direct'];
 const REVIEW_STATUSES: ReviewStatus[] = ['Reviewed', 'Needs Review', 'In Progress'];
@@ -117,57 +128,6 @@ const SORT_OPTIONS = [
   { label: 'A–Z',            value: 'alpha' },
   { label: 'Price low–high', value: 'price-asc' },
   { label: 'Price high–low', value: 'price-desc' },
-];
-
-type CollectionFilter = {
-  audience?: EqAudience;
-  price?: PriceBand;
-  supplier?: SupplierType;
-  category?: EquipmentCategory;
-};
-
-const COLLECTIONS: { label: string; filter: CollectionFilter }[] = [
-  { label: 'Best Classroom Technology', filter: { audience: 'Teachers' } },
-  { label: 'Best Home Learning',        filter: { audience: 'Parents' } },
-  { label: 'Best for Primary Schools',  filter: { audience: 'Schools' } },
-  { label: 'Best for SEND',            filter: { audience: 'SEND' } },
-  { label: 'Budget Picks Under £100',   filter: { price: 'Under £50' } },
-  { label: 'Coding & Robotics',         filter: { category: 'Robots & Coding' } },
-  { label: 'School Procurement',        filter: { audience: 'Schools' } },
-  { label: 'Audio & Hearing',           filter: { category: 'Audio & Hearing' } },
-];
-
-const AUDIENCE_CARDS = [
-  {
-    title: 'For Teachers',
-    desc: 'Classroom tech, visualisers, coding robots and study tools',
-    to: '/ai-equipment/teachers',
-    icon: '📚',
-  },
-  {
-    title: 'For Schools',
-    desc: 'Interactive displays, class packs, AV equipment and procurement support',
-    to: '/ai-equipment/schools',
-    icon: '🏫',
-  },
-  {
-    title: 'For Parents',
-    desc: 'Home learning devices, literacy tools, sensory and study kits',
-    to: '/ai-equipment/parents',
-    icon: '🏠',
-  },
-  {
-    title: 'For Students',
-    desc: 'Laptops, tablets, reading pens and study accessories',
-    to: '/ai-equipment/students',
-    icon: '🎒',
-  },
-  {
-    title: 'For SEND Provision',
-    desc: 'AAC, eye-gaze, sensory, assistive literacy and regulation tools',
-    to: '/ai-equipment/send',
-    icon: '♿',
-  },
 ];
 
 // ─── Product card ─────────────────────────────────────────────────────────────
@@ -260,8 +220,8 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
               href={product.affiliateLink}
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: '#1A1A0E' }}
+              className="text-xs px-3 py-1.5 rounded-lg font-semibold border transition-colors hover:border-[var(--color-promptly-lime)]"
+              style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}
             >
               View →
             </a>
@@ -269,66 +229,6 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-// ─── Bundle card (expandable) ─────────────────────────────────────────────────
-
-function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <div
-      className="rounded-2xl border overflow-hidden"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen(o => !o)}
-        aria-expanded={open}
-        className="w-full flex items-start justify-between gap-4 p-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded-2xl"
-      >
-        <div className="flex-1">
-          <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>
-            Ready-to-Use Equipment Set · {bundle.totalPriceBand}
-          </p>
-          <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>
-            {bundle.name}
-          </h3>
-          <p className="text-xs mt-1" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
-          <div className="flex flex-wrap gap-1.5 mt-2">
-            {bundle.senCategory.map((s: string) => (
-              <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
-                {s}
-              </span>
-            ))}
-            <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: '#f3f4f6', color: '#6b7280' }}>
-              {bundle.productSlugs.length} products
-            </span>
-          </div>
-        </div>
-        <span
-          className="flex-shrink-0 text-xs font-bold px-3 py-1 rounded-full border mt-1"
-          style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
-        >
-          {open ? 'Close' : 'Open'}
-        </span>
-      </button>
-
-      {open && (
-        <div className="border-t px-5 pb-5 pt-4" style={{ borderColor: '#e8e6e0' }}>
-          <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>{bundle.desc}</p>
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: `${bundle.id}-equipment-set` } }))}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-            style={{ background: TEAL }}
-          >
-            Email me this equipment set
-          </button>
-        </div>
-      )}
     </div>
   );
 }
@@ -503,8 +403,8 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
                       href={p.affiliateLink}
                       target="_blank"
                       rel="noopener noreferrer sponsored"
-                      className="inline-block text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-                      style={{ background: TEAL, color: '#1A1A0E' }}
+                      className="inline-block text-xs px-3 py-1.5 rounded-lg font-semibold border transition-colors hover:border-[var(--color-promptly-lime)]"
+                      style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}
                     >
                       View product →
                     </a>
@@ -515,46 +415,6 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
           </table>
         </div>
       </motion.div>
-    </div>
-  );
-}
-
-// ─── Mini product card (for section previews) ─────────────────────────────────
-
-function MiniProductCard({ product }: { product: EquipmentProduct }) {
-  const rb = reviewBadge(product.reviewStatus);
-  return (
-    <div
-      className="rounded-xl border p-4 flex flex-col gap-2"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
-    >
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
-          {product.category}
-        </span>
-        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
-          {rb.label}
-        </span>
-      </div>
-      <Link to={`/ai-equipment/product/${product.slug}`}>
-        <h4 className="font-display text-base leading-snug hover:underline" style={{ color: 'var(--text)' }}>
-          {product.name}
-        </h4>
-      </Link>
-      <p className="text-xs" style={{ color: '#9ca3af' }}>{product.brand}</p>
-      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
-      <div className="flex items-center justify-between pt-1">
-        <span className="text-xs font-bold" style={{ color: 'var(--text)' }}>{product.priceBand}</span>
-        <a
-          href={product.affiliateLink}
-          target="_blank"
-          rel="noopener noreferrer sponsored"
-          className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: '#1A1A0E' }}
-        >
-          View →
-        </a>
-      </div>
     </div>
   );
 }
@@ -594,12 +454,33 @@ export default function AIEquipment() {
     if (priceFilter    !== 'All') results = results.filter(p => p.priceBand === priceFilter);
     if (supplierFilter !== 'All') results = results.filter(p => p.supplierType === supplierFilter);
     if (reviewFilter   !== 'All') results = results.filter(p => p.reviewStatus === reviewFilter);
-    if (search.trim())
-      results = results.filter(p =>
-        p.name.toLowerCase().includes(search.toLowerCase()) ||
-        p.brand.toLowerCase().includes(search.toLowerCase()) ||
-        p.bestFor.toLowerCase().includes(search.toLowerCase())
-      );
+    if (search.trim()) {
+      const q = search.toLowerCase().trim();
+      // Synonym groups so a common word finds the right products even when the
+      // data uses a different label (e.g. "laptop" → Chromebooks/notebooks; the
+      // device family is interchangeable in everyday search).
+      const SYNONYMS: Record<string, string[]> = {
+        laptop:     ['laptop', 'chromebook', 'notebook', 'device', 'computer'],
+        chromebook: ['chromebook', 'laptop', 'notebook'],
+        tablet:     ['tablet', 'ipad', 'device'],
+        ipad:       ['ipad', 'tablet'],
+        device:     ['device', 'laptop', 'tablet', 'chromebook', 'ipad', 'computer'],
+        computer:   ['computer', 'laptop', 'chromebook', 'device'],
+        headphones: ['headphone', 'headset', 'ear defender', 'audio'],
+        whiteboard: ['whiteboard', 'display', 'screen', 'panel'],
+        robot:      ['robot', 'coding', 'bee-bot', 'programmable'],
+      };
+      const terms = SYNONYMS[q] ?? [q];
+      results = results.filter(p => {
+        const haystack = [
+          p.name, p.brand, p.bestFor, p.desc,
+          p.category, p.subcategory,
+          ...(p.senCategory ?? []),
+          ...(p.badges ?? []),
+        ].join(' ').toLowerCase();
+        return terms.some(t => haystack.includes(t));
+      });
+    }
     return [...results].sort((a, b) => {
       if (sort === 'featured')   return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
       if (sort === 'price-asc')  return PRICE_ORDER[a.priceBand] - PRICE_ORDER[b.priceBand];
@@ -608,18 +489,6 @@ export default function AIEquipment() {
       return 0;
     });
   }, [audienceFilter, categoryFilter, priceFilter, supplierFilter, reviewFilter, sort, search]);
-
-  function applyCollection(col: typeof COLLECTIONS[number]) {
-    setAudienceFilter('All');
-    setCategoryFilter('All');
-    setPriceFilter('All');
-    setSupplierFilter('All');
-    if (col.filter.audience) setAudienceFilter(col.filter.audience);
-    if (col.filter.price)    setPriceFilter(col.filter.price);
-    if (col.filter.supplier) setSupplierFilter(col.filter.supplier);
-    if (col.filter.category) setCategoryFilter(col.filter.category);
-    document.getElementById('equipment-grid')?.scrollIntoView({ behavior: 'smooth' });
-  }
 
   function scrollToGrid() {
     document.getElementById('equipment-grid')?.scrollIntoView({ behavior: 'smooth' });
@@ -639,20 +508,6 @@ export default function AIEquipment() {
     audienceFilter !== 'All' || categoryFilter !== 'All' || priceFilter !== 'All' ||
     supplierFilter !== 'All' || reviewFilter !== 'All' || search.trim() !== '';
 
-  // Section data
-  const classroomProducts = useMemo(() =>
-    EQUIPMENT.filter(p =>
-      ['Devices', 'Screens & Classroom Hardware', 'Robots & Coding', 'Audio & Hearing'].includes(p.category) &&
-      (p.audience.includes('Schools') || p.audience.includes('Teachers'))
-    ).slice(0, 6),
-    []
-  );
-
-  const sendProducts = useMemo(() =>
-    EQUIPMENT.filter(p => p.audience.includes('SEND')).slice(0, 6),
-    []
-  );
-
   // Live stats
   const stats = useMemo(() => [
     { value: EQUIPMENT.length,                                                     label: 'Products Reviewed' },
@@ -671,81 +526,35 @@ export default function AIEquipment() {
         path="/ai-equipment"
       />
 
-      {/* ── HERO ──────────────────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
+      {/* ── COMPACT HEADER ────────────────────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-6">
         <SectionLabel>Equipment Hub</SectionLabel>
-        <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
-          AI Equipment for<br />
-          <span style={{ color: 'var(--color-ink-accent)' }}>UK Education</span>
+        <h1 className="font-display text-4xl sm:text-5xl mb-2" style={{ color: 'var(--text)' }}>
+          AI Equipment for <span style={{ color: 'var(--color-ink-accent)' }}>UK Education</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-8" style={{ color: '#6b6760' }}>
-          Find the right technology for your classroom, school, home or SEND provision. 96 products reviewed and curated for UK education.
+        <p className="text-base max-w-2xl" style={{ color: '#6b6760' }}>
+          The right classroom, SEND and home-learning technology — {EQUIPMENT.length} products reviewed for UK education.
         </p>
-
-        <div className="flex flex-wrap gap-3">
-          <a
-            href="#equipment-grid"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: '#1A1A0E' }}
-          >
-            Browse All Equipment
-          </a>
-          <Link
-            to="/ai-equipment/compare"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: 'var(--text)' }}
-          >
-            Compare Products
-          </Link>
-          <button
-            onClick={() => {
-              const widget = document.getElementById('promptly-widget-trigger');
-              if (widget) (widget as HTMLButtonElement).click();
-            }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: 'var(--text)' }}
-          >
-            Ask Luna for advice
-          </button>
-        </div>
       </div>
 
-      {/* ── STATS BAR ─────────────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-10">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      {/* ── STATS STRIP (thin single row) ─────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8">
+        <div className="flex flex-wrap gap-x-8 gap-y-2 rounded-2xl border px-5 py-3" style={{ borderColor: '#e8e6e0', background: 'white' }}>
           {stats.map(s => (
-            <div
-              key={s.label}
-              className="rounded-2xl border px-5 py-4"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
-            >
-              <div className="font-display text-3xl" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</div>
-              <div className="text-xs mt-1" style={{ color: '#6b6760' }}>{s.label}</div>
+            <div key={s.label} className="flex items-baseline gap-2">
+              <span className="font-display text-xl" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</span>
+              <span className="text-xs" style={{ color: '#6b6760' }}>{s.label}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ── GUIDED DISCOVERY: prominent search + Ask Luna (shared pattern) ──────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-6">
-        <DiscoveryBar
-          value={search}
-          onChange={s => { setSearch(s); if (s.trim()) scrollToGrid(); }}
-          placeholder="Search 96 products by name, brand or use case…"
-          lunaPrompt="Describe what you need and Luna will find it"
-          section="equipment"
-          resultCount={filtered.length}
-          total={EQUIPMENT.length}
-          noun="products"
-        />
-      </div>
-
-      {/* ── AGENT CTA ───────────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-6">
+      {/* ── LUNA HERO — the visual centrepiece, directly below the header ──────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8">
         <AgentCTACard
           section="Luna · Equipment Guide"
-          headline="Find equipment for this learner need."
-          description="Tell us who it's for, what you need and your budget — our AI advisor will recommend the right products and procurement routes."
+          headline="Tell Luna the need — get the right kit and how to buy it."
+          description="Describe who it's for, what you need and your budget. Luna searches every product and recommends the right kit and procurement route."
           prompts={[
             "What's the best visualiser for a primary classroom?",
             "Compare interactive whiteboards for a 30-pupil class",
@@ -756,143 +565,56 @@ export default function AIEquipment() {
         />
       </div>
 
-      {/* ── AUDIENCE ENTRY CARDS ──────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
-        <SectionLabel>Browse by audience</SectionLabel>
-        <h2 className="font-display text-3xl mb-8" style={{ color: 'var(--text)' }}>
-          Who are you buying for?
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {AUDIENCE_CARDS.map(card => (
-            <Link
-              key={card.to}
-              to={card.to}
-              className="rounded-2xl border p-6 flex flex-col gap-3 transition-shadow hover:shadow-md group"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
-            >
-              <div className="text-3xl">{card.icon}</div>
-              <h3 className="font-display text-xl group-hover:underline" style={{ color: 'var(--text)' }}>
-                {card.title}
-              </h3>
-              <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{card.desc}</p>
-              <span className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse →</span>
-            </Link>
-          ))}
+      {/* ── Plain search (for browsers) ──────────────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8">
+        <div className="relative">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-base" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
+          <input
+            type="search"
+            value={search}
+            onChange={e => {
+              setSearch(e.target.value);
+              if (e.target.value.length > 2) track({ name: 'search_performed', section: 'equipment', query: e.target.value });
+              if (e.target.value.trim()) scrollToGrid();
+            }}
+            placeholder={`Or search ${EQUIPMENT.length} products by name, brand, category or use case…`}
+            aria-label="Search equipment"
+            className="w-full pl-11 pr-4 py-3.5 rounded-xl border text-base font-sans outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+            style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)', color: 'var(--color-ink)' }}
+          />
         </div>
       </div>
 
-      {/* ── FEATURED COLLECTIONS ──────────────────────────────────────────────── */}
-      <div className="border-y py-6 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
-            <p className="text-xs font-semibold uppercase tracking-widest" style={{ color: '#6b6760' }}>
-              Featured collections
-            </p>
-            <button
-              type="button"
-              onClick={() => window.dispatchEvent(new CustomEvent('open-lead-modal', { detail: { offer: 'equipment-shortlist' } }))}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-              style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
-            >
-              Email me an equipment shortlist
-            </button>
-          </div>
-          <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide flex-nowrap">
-            {COLLECTIONS.map(col => (
+      {/* ── VISUAL CATEGORY TILES — primary browse ────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-14">
+        <SectionLabel>Browse by category</SectionLabel>
+        <h2 className="font-display text-2xl sm:text-3xl mb-6" style={{ color: 'var(--text)' }}>
+          What are you looking for?
+        </h2>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {CATEGORY_TILES.map(tile => {
+            const active = categoryFilter === tile.value;
+            return (
               <button
-                key={col.label}
-                onClick={() => applyCollection(col)}
-                className="flex-shrink-0 text-sm px-4 py-2 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+                key={tile.value}
+                onClick={() => {
+                  setCategoryFilter(tile.value);
+                  track({ name: 'tool_filter_used', filterType: 'category', value: tile.value, pageType: 'equipment' });
+                  scrollToGrid();
+                }}
+                className="rounded-2xl border p-5 flex flex-col items-center text-center gap-2 transition-shadow hover:shadow-md"
+                style={{
+                  borderColor: active ? 'var(--color-ink)' : 'var(--color-rule)',
+                  background: 'var(--color-oat)',
+                  color: 'var(--color-ink)',
+                }}
+                aria-pressed={active}
               >
-                {col.label}
+                <span className="text-3xl" aria-hidden="true">{tile.emoji}</span>
+                <span className="text-xs font-semibold font-sans leading-snug">{tile.label}</span>
               </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── CLASSROOM TECH SECTION ────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <SectionLabel>Classroom essentials</SectionLabel>
-            <h2 className="font-display text-3xl" style={{ color: 'var(--text)' }}>
-              Classroom Technology Essentials
-            </h2>
-          </div>
-          <Link
-            to="/ai-equipment/teachers"
-            className="text-sm font-semibold hidden sm:inline-flex items-center gap-1 transition-opacity hover:opacity-70"
-            style={{ color: 'var(--color-ink-accent)' }}
-          >
-            View all classroom tech →
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {classroomProducts.map(p => (
-            <MiniProductCard key={p.id} product={p} />
-          ))}
-        </div>
-        <div className="mt-6 sm:hidden">
-          <Link
-            to="/ai-equipment/teachers"
-            className="text-sm font-semibold"
-            style={{ color: 'var(--color-ink-accent)' }}
-          >
-            View all classroom tech →
-          </Link>
-        </div>
-      </div>
-
-      {/* ── SEND SECTION ──────────────────────────────────────────────────────── */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <SectionLabel>Assistive technology</SectionLabel>
-              <h2 className="font-display text-3xl" style={{ color: 'var(--text)' }}>
-                SEND &amp; Assistive Technology
-              </h2>
-            </div>
-            <Link
-              to="/ai-equipment/send"
-              className="text-sm font-semibold hidden sm:inline-flex items-center gap-1 transition-opacity hover:opacity-70"
-              style={{ color: 'var(--color-ink-accent)' }}
-            >
-              View all SEND equipment →
-            </Link>
-          </div>
-          <p className="text-sm mb-8 max-w-2xl" style={{ color: '#6b6760' }}>
-            Some products are specialist and may require school, therapist or family discussion before purchase.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {sendProducts.map(p => (
-              <MiniProductCard key={p.id} product={p} />
-            ))}
-          </div>
-          <div className="mt-6 sm:hidden">
-            <Link
-              to="/ai-equipment/send"
-              className="text-sm font-semibold"
-              style={{ color: 'var(--color-ink-accent)' }}
-            >
-              View all SEND equipment →
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* ── BUNDLES ───────────────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14">
-        <SectionLabel>Ready-to-Use Equipment Sets</SectionLabel>
-        <h2 className="font-display text-3xl mb-8" style={{ color: 'var(--text)' }}>
-          Practical starter sets for real classroom needs
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {BUNDLES.map(b => (
-            <BundleCard key={b.id} bundle={b} />
-          ))}
+            );
+          })}
         </div>
       </div>
 

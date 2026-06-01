@@ -4,24 +4,14 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import {
   TRAINING,
-  PATHWAY_TEACHERS,
-  PATHWAY_PARENTS,
-  PATHWAY_SEND,
-  PATHWAY_LEADERS,
-  PATHWAY_SENCO,
-  PATHWAY_STUDENTS,
-  PATHWAY_ADMIN,
-  PATHWAY_SAFEGUARDING,
-  PATHWAY_POLICY,
   type TrainingItem,
 } from '../data/training';
-import PathwayEmailCTA from '../components/PathwayEmailCTA';
 import AgentCTACard from '../components/AgentCTACard';
-import DiscoveryBar from '../components/DiscoveryBar';
 import CrossSellCard from '../components/CrossSellCard';
 import CrossSellPopup from '../components/CrossSellPopup';
 import { useCrossSell } from '../hooks/useCrossSell';
 import { linkLabel, inferLinkType } from '../utils/linkType';
+import { track } from '../utils/analytics';
 
 const TEAL = 'var(--color-promptly-lime)';
 const AMBER_BG = 'var(--color-oat)';
@@ -54,6 +44,16 @@ const AUDIENCE_PILLS: { label: string; value: AudienceFilter }[] = [
   { label: 'SEND',        value: 'SEND' },
   { label: 'Leaders',     value: 'Leaders' },
   { label: 'Admin',       value: 'Admin' },
+];
+
+// Visual category tiles — the primary browse affordance (emoji-led).
+const AUDIENCE_TILES: { label: string; value: AudienceFilter; emoji: string }[] = [
+  { label: 'Teachers', value: 'Teachers', emoji: '\u{1F4DA}' },
+  { label: 'Parents',  value: 'Parents',  emoji: '\u{1F3E0}' },
+  { label: 'Students', value: 'Students', emoji: '\u{1F393}' },
+  { label: 'SEND',     value: 'SEND',     emoji: '\u{1F91D}' },
+  { label: 'Leaders',  value: 'Leaders',  emoji: '\u{1F3EB}' },
+  { label: 'Admin',    value: 'Admin',    emoji: '\u{1F4CB}' },
 ];
 
 // ─── Card component ───────────────────────────────────────────────────────────
@@ -149,8 +149,8 @@ function TrainingCard({ item }: { item: TrainingItem }) {
             href={item.url}
             target="_blank"
             rel={linkRel}
-            className="text-sm font-semibold px-3 py-1.5 rounded-lg transition-colors"
-            style={{ background: TEAL, color: '#1A1A0E' }}
+            className="text-sm font-semibold px-3 py-1.5 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)]"
+            style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}
           >
             {linkLabel(item.linkType ?? inferLinkType(item.url))} →
           </a>
@@ -163,114 +163,12 @@ function TrainingCard({ item }: { item: TrainingItem }) {
   );
 }
 
-// ─── Pathway card component ───────────────────────────────────────────────────
-
-interface PathwayCardProps {
-  title: string;
-  description: string;
-  slugs: string[];
-  to: string;
-  pathwaySlug: string;
-  accentBg: string;
-  accentText: string;
-  accentBorder: string;
-}
-
-function PathwayCard({
-  title,
-  description,
-  slugs,
-  to,
-  pathwaySlug,
-  accentBg,
-  accentText,
-  accentBorder,
-}: PathwayCardProps) {
-  const items = slugs
-    .map(s => TRAINING.find(t => t.slug === s))
-    .filter(Boolean) as TrainingItem[];
-
-  return (
-    <div
-      className="rounded-2xl border flex flex-col p-6"
-      style={{ borderColor: accentBorder, background: accentBg }}
-    >
-      <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: accentText }}>
-        Pathway · {items.length} resources
-      </p>
-      <h3 className="font-display text-xl leading-snug mb-2" style={{ color: 'var(--text)' }}>
-        {title}
-      </h3>
-      <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>
-        {description}
-      </p>
-      <ul className="space-y-1.5 mb-5 flex-1">
-        {items.map(item => (
-          <li key={item.slug} className="flex items-center gap-2 text-sm" style={{ color: '#1c1a15' }}>
-            <span
-              className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-              style={{ background: accentText }}
-              aria-hidden="true"
-            />
-            <span className="font-medium">{item.provider}</span>
-            <span style={{ color: '#9ca3af' }}>— {item.name}</span>
-          </li>
-        ))}
-      </ul>
-      <Link
-        to={to}
-        className="inline-flex items-center gap-1 text-sm font-semibold rounded-lg transition-colors self-start mb-4"
-        style={{ color: accentText }}
-      >
-        View pathway →
-      </Link>
-      <PathwayEmailCTA pathwayName={title} pathwaySlug={pathwaySlug} />
-    </div>
-  );
-}
-
-// ─── Horizontal scroll section ────────────────────────────────────────────────
-
-function FeaturedSection({ title, items }: { title: string; items: TrainingItem[] }) {
-  if (items.length === 0) return null;
-  return (
-    <div className="mb-10">
-      <h2 className="font-display text-xl mb-4" style={{ color: 'var(--text)' }}>
-        {title}
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {items.slice(0, 4).map(item => (
-          <TrainingCard key={item.slug} item={item} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function AITraining() {
   const [typeFilter, setTypeFilter]     = useState<TypeFilter>('All');
   const [audienceFilter, setAudienceFilter] = useState<AudienceFilter>('All');
   const [search, setSearch]             = useState('');
-
-  // Featured collections — not filtered by state
-  const bestFreeUK = useMemo(
-    () => TRAINING.filter(t => t.ukRelevant && t.type === 'Free').slice(0, 4),
-    [],
-  );
-  const bestTeachers = useMemo(
-    () => TRAINING.filter(t => t.tags.includes('Teachers')),
-    [],
-  );
-  const bestParents = useMemo(
-    () => TRAINING.filter(t => t.tags.includes('Parents')),
-    [],
-  );
-  const paidAffiliate = useMemo(
-    () => TRAINING.filter(t => t.type === 'Paid' && t.affiliate),
-    [],
-  );
 
   // Cross-sell
   const { inlineItems, popupItems, popupOpen, popupTrigger, closePopup } = useCrossSell({
@@ -285,13 +183,15 @@ export default function AITraining() {
       if (audienceFilter !== 'All' && !item.tags.includes(audienceFilter)) return false;
       if (search.trim()) {
         const q = search.toLowerCase();
-        if (
-          !item.name.toLowerCase().includes(q) &&
-          !item.provider.toLowerCase().includes(q) &&
-          !item.notes.toLowerCase().includes(q)
-        ) {
-          return false;
-        }
+        const haystack = [
+          item.name,
+          item.provider,
+          item.notes,
+          item.category,
+          item.level,
+          ...(item.tags ?? []),
+        ].join(' ').toLowerCase();
+        if (!haystack.includes(q)) return false;
       }
       return true;
     });
@@ -347,13 +247,13 @@ export default function AITraining() {
         </div>
       </section>
 
-      {/* ── Agent CTA ─────────────────────────────────────────────────────── */}
+      {/* ── LUNA HERO — the visual centrepiece, directly below the header ────── */}
       <section className="px-5 sm:px-8 pb-10" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <AgentCTACard
             section="Luna · Learning Pathfinder"
-            headline="Build my AI learning path."
-            description="Tell us your role and experience level — our AI advisor will recommend the right courses, certifications and free resources for you."
+            headline="Tell Luna your role — get a learning path in seconds."
+            description="Describe who you are and what you want to learn. Luna searches every course and certification and builds the right path for you."
             prompts={[
               "What free AI training is available for UK teachers?",
               "Which course gives the best certification for school leaders?",
@@ -365,138 +265,59 @@ export default function AITraining() {
         </div>
       </section>
 
-      {/* ── GUIDED DISCOVERY: prominent search + Ask Luna (shared pattern) ────── */}
-      <section className="px-5 sm:px-8 pb-12" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-4xl mx-auto">
-          <DiscoveryBar
-            value={search}
-            onChange={s => {
-              setSearch(s);
-              if (s.trim()) document.getElementById('all-resources')?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            placeholder={`Search ${STAT_TOTAL} courses by name, provider or topic…`}
-            lunaPrompt="Describe what you want to learn and Luna will find it"
-            section="training"
-            resultCount={filtered.length}
-            total={STAT_TOTAL}
-            noun="resources"
-          />
+      {/* ── Plain search (for browsers) ──────────────────────────────────────── */}
+      <section className="px-5 sm:px-8 pb-8" style={{ background: 'var(--bg)' }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="relative">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-base" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
+            <input
+              type="search"
+              value={search}
+              onChange={e => {
+                setSearch(e.target.value);
+                if (e.target.value.length > 2) track({ name: 'search_performed', section: 'training', query: e.target.value });
+                if (e.target.value.trim()) document.getElementById('all-resources')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              placeholder={`Or search ${STAT_TOTAL} courses by name, provider, topic or audience…`}
+              aria-label="Search training resources"
+              className="w-full pl-11 pr-4 py-3.5 rounded-xl border text-base font-sans outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)', color: 'var(--color-ink)' }}
+            />
+          </div>
         </div>
       </section>
 
-      {/* ── Featured sections ────────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 pb-12" style={{ background: 'var(--bg)' }}>
-        <div className="max-w-6xl mx-auto">
-          <FeaturedSection title="Best free UK-backed training" items={bestFreeUK} />
-          <FeaturedSection title="Best for teachers" items={bestTeachers} />
-          <FeaturedSection title="Best for parents &amp; families" items={bestParents} />
-          <FeaturedSection title="Paid &amp; premium courses" items={paidAffiliate} />
-        </div>
-      </section>
-
-      {/* ── Pathways ─────────────────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-16" style={{ background: '#f0f4f5' }}>
-        <div className="max-w-6xl mx-auto">
-          <SectionLabel>Curated Pathways</SectionLabel>
-          <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: 'var(--text)' }}>
-            Guided learning paths
+      {/* ── VISUAL CATEGORY TILES — primary browse ───────────────────────────── */}
+      <section className="px-5 sm:px-8 pb-14" style={{ background: 'var(--bg)' }}>
+        <div className="max-w-5xl mx-auto">
+          <SectionLabel>Browse by audience</SectionLabel>
+          <h2 className="font-display text-2xl sm:text-3xl mb-6" style={{ color: 'var(--text)' }}>
+            Who is the training for?
           </h2>
-          <p className="text-base mb-10 max-w-2xl" style={{ color: '#6b6760' }}>
-            We've sequenced the best resources into focused pathways for each audience. Start
-            anywhere — each path is independently completable.
-          </p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <PathwayCard
-              title="AI for Teachers Starter Path"
-              description="From understanding what AI is to using it safely in the classroom. Government-backed resources plus Google and Microsoft essentials."
-              slugs={PATHWAY_TEACHERS}
-              to="/ai-training/teachers"
-              pathwaySlug="teachers"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="AI Safety for Parents"
-              description="Practical guidance on AI at home, keeping children safe online, and understanding AI tools your children may use."
-              slugs={PATHWAY_PARENTS}
-              to="/ai-training/parents"
-              pathwaySlug="parents"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="Accessible AI for SEND"
-              description="Resources that work for learners with disabilities, focusing on accessibility features, screen readers and neurodiversity."
-              slugs={PATHWAY_SEND}
-              to="/ai-training/send"
-              pathwaySlug="send"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="School Leadership AI Readiness"
-              description="For headteachers and governors: policy, implementation, safeguarding and whole-school CPD planning."
-              slugs={PATHWAY_LEADERS}
-              to="/ai-training/leaders"
-              pathwaySlug="leaders"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="SENCO AI Toolkit"
-              description="SEND-specialist resources for SENCOs covering assistive tech, AAC, autism support and EHCP documentation."
-              slugs={PATHWAY_SENCO}
-              to="/ai-training/send"
-              pathwaySlug="senco"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="AI Literacy for Students"
-              description="Age-appropriate resources helping students understand how AI works, stay safe online and use AI tools responsibly."
-              slugs={PATHWAY_STUDENTS}
-              to="/ai-training/students"
-              pathwaySlug="students"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="AI Productivity for Admin Teams"
-              description="Practical training for school business managers and admin staff on AI in Microsoft 365, Google Workspace and GDPR."
-              slugs={PATHWAY_ADMIN}
-              to="/ai-training"
-              pathwaySlug="admin"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="AI Safeguarding Path"
-              description="Essential reading for DSLs and SLT: KCSIE 2024, JCQ policy, online harms and AI risk management."
-              slugs={PATHWAY_SAFEGUARDING}
-              to="/ai-training/leaders"
-              pathwaySlug="safeguarding"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
-            <PathwayCard
-              title="AI Policy & Governance"
-              description="For policy leads: ICO guidance, Ofqual AI integrity, ASCL briefings and building a whole-school AI policy."
-              slugs={PATHWAY_POLICY}
-              to="/ai-training/leaders"
-              pathwaySlug="policy"
-              accentBg="var(--color-oat)"
-              accentText="var(--color-ink)"
-              accentBorder="var(--color-rule)"
-            />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            {AUDIENCE_TILES.map(tile => {
+              const active = audienceFilter === tile.value;
+              return (
+                <button
+                  key={tile.value}
+                  onClick={() => {
+                    setAudienceFilter(tile.value);
+                    track({ name: 'tool_filter_used', filterType: 'role', value: tile.value, pageType: 'training' });
+                    document.getElementById('all-resources')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="rounded-2xl border p-5 flex flex-col items-center text-center gap-2 transition-shadow hover:shadow-md"
+                  style={{
+                    borderColor: active ? 'var(--color-ink)' : 'var(--color-rule)',
+                    background: 'var(--color-oat)',
+                    color: 'var(--color-ink)',
+                  }}
+                  aria-pressed={active}
+                >
+                  <span className="text-3xl" aria-hidden="true">{tile.emoji}</span>
+                  <span className="text-sm font-semibold font-sans">{tile.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </section>

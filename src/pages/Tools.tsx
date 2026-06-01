@@ -17,7 +17,6 @@ import {
   CAT_COLOURS, TIER_STYLE,
 } from '../data/tools';
 import { PillarCard, ScorePill, pillarScoresFromData } from '../components/trust/PillarCard';
-import DiscoveryBar from '../components/DiscoveryBar';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -131,8 +130,8 @@ function ScoreResultPanel({ tool, onClose, onCompare, onAsk }: {
             href={tool.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: '#1A1A0E' }}
+            className="flex-1 text-center text-sm font-semibold py-2.5 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)]"
+            style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}
           >
             {linkLabel(tool.linkType ?? inferLinkType(tool.url))} →
           </a>
@@ -351,8 +350,8 @@ function ToolCard({
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onTryDemo?.(tool)}
-            className="flex-1 text-center text-xs font-semibold py-2 rounded-lg transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: '#1A1A0E' }}
+            className="flex-1 text-center text-xs font-semibold py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)]"
+            style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}
           >
             {linkLabel(tool.linkType ?? inferLinkType(tool.url))} →
           </a>
@@ -443,8 +442,8 @@ function CompareModal({ tools, onClose }: { tools: Tool[]; onClose: () => void }
     { label: 'Description', render: t => <span className="text-xs leading-relaxed" style={{ color: '#6b6760' }}>{t.desc}</span> },
     { label: 'Try',         render: t => (
       <a href={t.url} target="_blank" rel="noopener noreferrer"
-        className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
-        style={{ background: TEAL, color: '#1A1A0E' }}>
+        className="inline-block text-xs font-semibold px-3 py-1.5 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)]"
+        style={{ background: 'var(--color-oat)', color: 'var(--color-ink)', borderColor: 'var(--color-rule)' }}>
         {linkLabel(t.linkType ?? inferLinkType(t.url))} →
       </a>
     )},
@@ -609,10 +608,10 @@ export default function Tools() {
     if (search.trim()) {
       const q = search.toLowerCase();
       r = r.filter(t =>
-        t.name.toLowerCase().includes(q) ||
-        t.desc.toLowerCase().includes(q) ||
-        t.category.toLowerCase().includes(q) ||
-        t.subcategory.toLowerCase().includes(q)
+        [
+          t.name, t.desc, t.category, t.subcategory,
+          ...(t.audience ?? []),
+        ].join(' ').toLowerCase().includes(q)
       );
     }
 
@@ -645,34 +644,53 @@ export default function Tools() {
         path="/tools"
       />
 
-      {/* ── HERO ── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-10">
+      {/* ── COMPACT HEADER ── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-6">
         <SectionLabel>AI Tools Directory</SectionLabel>
-        <h1 className="font-display text-5xl sm:text-6xl mb-4" style={{ color: 'var(--text)' }}>
-          AI Tools for<br />
-          <span style={{ color: 'var(--color-ink-accent)' }}>UK Education.</span>
+        <h1 className="font-display text-4xl sm:text-5xl mb-2" style={{ color: 'var(--text)' }}>
+          AI Tools for <span style={{ color: 'var(--color-ink-accent)' }}>UK Education.</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-xl mb-8" style={{ color: '#6b6760' }}>
-          {STAT_TOTAL} tools independently safety-scored against KCSIE 2025. Filtered by your role. No paid placements. Last updated Apr 2026.
+        <p className="text-base max-w-xl" style={{ color: '#6b6760' }}>
+          {STAT_TOTAL} tools independently safety-scored against KCSIE 2025. No paid placements.
         </p>
+      </div>
 
-        {/* Stat boxes */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-px mb-10" style={{ background: '#e8e6e0' }}>
+      {/* ── STATS STRIP (thin single row) ── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-8">
+        <div className="flex flex-wrap gap-x-8 gap-y-2 rounded-2xl border px-5 py-3" style={{ borderColor: '#e8e6e0', background: 'white' }}>
           {[
             { label: 'Total Tools',  value: STAT_TOTAL   },
             { label: 'Trusted Tier', value: STAT_TRUSTED  },
             { label: 'SEND Tools',   value: STAT_SEND     },
             { label: 'Free Tier',    value: STAT_FREE     },
           ].map(s => (
-            <div key={s.label} className="px-6 py-5" style={{ background: 'white' }}>
-              <p className="font-display text-3xl font-bold mb-0.5" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</p>
-              <p className="text-xs" style={{ color: '#6b6760' }}>{s.label}</p>
+            <div key={s.label} className="flex items-baseline gap-2">
+              <span className="font-display text-xl" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</span>
+              <span className="text-xs" style={{ color: '#6b6760' }}>{s.label}</span>
             </div>
           ))}
         </div>
+      </div>
 
-        {/* ── SCORE A TOOL ── */}
-        <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: TEAL, background: 'var(--color-oat)' }}>
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-10">
+        {/* ── LUNA HERO — the visual centrepiece, directly below the header ── */}
+        <div className="mb-8">
+          <AgentCTACard
+            section="Luna · Tool Advisor"
+            headline="Tell Luna your role — get 3 safe tools, shortlisted."
+            description="Luna knows every tool in the directory — safety scores, KCSIE alignment, free tiers — and matches them to exactly what you need."
+            prompts={[
+              "What's the safest AI tool for a Year 5 classroom?",
+              "Compare ChatGPT and Gemini for secondary school use",
+              "Which SEND tools work with Google Classroom?",
+              "What free AI tools reduce teacher workload?",
+            ]}
+            analyticsSection="tools"
+          />
+        </div>
+
+        {/* ── SCORE A TOOL (utility) ── */}
+        <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: '#e8e6e0', background: 'var(--color-oat)' }}>
           <p className="text-xs font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>Score a Tool</p>
           <h2 className="font-display text-xl sm:text-2xl mb-2" style={{ color: 'var(--text)' }}>
             Check any AI tool's safety score
@@ -689,13 +707,13 @@ export default function Tools() {
                 onChange={e => setScoreQuery(e.target.value)}
                 placeholder="e.g. ChatGPT, Canva, briskteaching.com…"
                 className="w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
-                style={{ borderColor: TEAL, background: 'white', color: 'var(--text)' }}
+                style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--text)' }}
                 aria-label="Tool name or URL"
               />
             </div>
             <button
               type="submit"
-              className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
+              className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90"
               style={{ background: TEAL, color: '#1A1A0E' }}
             >
               Score this tool
@@ -725,35 +743,23 @@ export default function Tools() {
           )}
         </AnimatePresence>
 
-        {/* ── AGENT CTA ── */}
-        <div className="mb-8">
-          <AgentCTACard
-            section="Luna · Tool Advisor"
-            headline="Tell us your role and we'll shortlist 3 safe tools."
-            description="Our AI advisor knows every tool in the directory — safety scores, KCSIE alignment, free tiers — and matches them to your needs."
-            prompts={[
-              "What's the safest AI tool for a Year 5 classroom?",
-              "Compare ChatGPT and Gemini for secondary school use",
-              "Which SEND tools work with Google Classroom?",
-              "What free AI tools reduce teacher workload?",
-            ]}
-            analyticsSection="tools"
-          />
-        </div>
-
-        {/* ── GUIDED DISCOVERY: prominent search + Ask Luna (shared pattern) ── */}
-        <div className="mb-5">
-          <DiscoveryBar
-            value={search}
-            onChange={setSearch}
-            placeholder={`Search ${STAT_TOTAL} tools by name, category or description…`}
-            lunaPrompt="Describe what you need and Luna will find it"
-            section="tools"
-          />
-        </div>
-
-        {/* Sort */}
-        <div className="flex justify-end mb-5">
+        {/* ── Plain search (for browsers) + sort ── */}
+        <div className="flex flex-col sm:flex-row gap-3 mb-5">
+          <div className="relative flex-1">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none text-base" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
+            <input
+              type="search"
+              value={search}
+              onChange={e => {
+                setSearch(e.target.value);
+                if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value });
+              }}
+              placeholder={`Or search ${STAT_TOTAL} tools by name, category, description or tag…`}
+              aria-label="Search tools"
+              className="w-full pl-11 pr-4 py-3.5 rounded-xl border text-base font-sans outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)', color: 'var(--color-ink)' }}
+            />
+          </div>
           <select
             value={sortOption}
             onChange={e => setSortOption(e.target.value as SortOption)}
