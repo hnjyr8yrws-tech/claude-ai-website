@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/* ── GetPromptly design tokens (ported from the Vite app, Brand Bible §09) ── */
+:root {
+  --color-ground-black:        #1E1E1E;
+  --color-surface-dark:        #2A2A2A;
+  --color-oat:                 #F5F2EC;
+  --color-ink:                 #1A1A0E;
+  --color-promptly-lime:       #C8E44A;
+  --color-fog:                 #9C9C8A;
+  --color-rule:                #E8E4DC;
+  --color-ink-accent:          #46540E;
+  /* Five pillar colours (reserved, structural) */
+  --color-pillar-privacy:       #6A8CAF;
+  --color-pillar-safeguarding:  #C8E44A;
+  --color-pillar-age:           #8C7A52;
+  --color-pillar-transparency:  #4A4F5C;
+  --color-pillar-accessibility: #D97757;
+}
+
+/* Map tokens + brand fonts into Tailwind v4's theme so utilities resolve
+   (font-serif = Fraunces, font-sans = Satoshi, font-mono = JetBrains Mono). */
+@theme inline {
+  --color-ground-black:        var(--color-ground-black);
+  --color-surface-dark:        var(--color-surface-dark);
+  --color-oat:                 var(--color-oat);
+  --color-ink:                 var(--color-ink);
+  --color-promptly-lime:       var(--color-promptly-lime);
+  --color-fog:                 var(--color-fog);
+  --color-rule:                var(--color-rule);
+  --color-ink-accent:          var(--color-ink-accent);
+  --color-pillar-privacy:       var(--color-pillar-privacy);
+  --color-pillar-safeguarding:  var(--color-pillar-safeguarding);
+  --color-pillar-age:           var(--color-pillar-age);
+  --color-pillar-transparency:  var(--color-pillar-transparency);
+  --color-pillar-accessibility: var(--color-pillar-accessibility);
+
+  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans:  var(--font-satoshi), system-ui, sans-serif;
+  --font-mono:  var(--font-jetbrains), ui-monospace, monospace;
+}
+
+body {
+  background: var(--color-oat);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
