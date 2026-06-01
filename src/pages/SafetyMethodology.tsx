@@ -109,6 +109,11 @@ export default function SafetyMethodology() {
         >
           <strong style={{ color: 'var(--text)' }}>GetPromptly is 100% independent.</strong> We are not affiliated with, funded by, or in commercial partnership with any AI vendor. No tool can pay for a higher score. Scores are reviewed every six months and when a product makes a significant policy or feature change.
         </div>
+
+        {/* Methodology mark — version · verified date · reviewer (JetBrains Mono) */}
+        <p className="font-mono mt-4 uppercase" style={{ fontSize: 11, letterSpacing: '0.08em', color: '#6b6760' }}>
+          Methodology v2.1 · Last verified 1 June 2026 · GetPromptly review team
+        </p>
       </div>
 
       {/* ── SCORE EXAMPLES ── */}
@@ -148,6 +153,45 @@ export default function SafetyMethodology() {
         </FadeIn>
       </div>
 
+      {/* ── THE PROMPTLY SCORE (composite) ── */}
+      <div className="max-w-3xl mx-auto px-5 sm:px-8 mb-16">
+        <FadeIn>
+          <SectionLabel>The composite</SectionLabel>
+          <h2 className="font-display text-2xl mb-3" style={{ color: 'var(--text)' }}>
+            The Promptly Score
+          </h2>
+          <p className="text-sm sm:text-base leading-relaxed mb-4" style={{ color: '#6b6760' }}>
+            The <strong style={{ color: 'var(--text)' }}>Promptly Score</strong> is a single number from 0 to 10 that
+            summarises how ready an AI tool is for UK education. It is the <strong style={{ color: 'var(--text)' }}>weighted
+            average of the five pillar scores</strong> below — not an average of opinion, and never paid for. Each pillar
+            tells you where a tool is strong and where it falls short; the composite gives you the one-glance verdict.
+          </p>
+          <p className="text-sm leading-relaxed mb-6" style={{ color: '#6b6760' }}>
+            How a score is produced:
+          </p>
+          <ol className="space-y-3 mb-2">
+            {[
+              'A named GetPromptly reviewer assesses the tool against each of the five pillars, using public documentation, the product itself, and vendor responses.',
+              'Each pillar is scored 0–10 from that evidence — the individual pillar scores you see on every Pillar Card.',
+              'The pillar scores are combined as a weighted average to produce the composite Promptly Score.',
+              'The composite maps to a trust tier: Trusted (8–10), Guided (6–7), Emerging (≤5).',
+              'Every score is published with a methodology version, the reviewer, and the date it was verified — and re-checked every six months or on a significant product change.',
+            ].map((step, i) => (
+              <li key={i} className="flex gap-3 text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+                <span
+                  className="font-mono flex-shrink-0 flex items-center justify-center rounded-full"
+                  style={{ width: 22, height: 22, fontSize: 11, background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}
+                  aria-hidden="true"
+                >
+                  {i + 1}
+                </span>
+                <span>{step}</span>
+              </li>
+            ))}
+          </ol>
+        </FadeIn>
+      </div>
+
       {/* ── FIVE PILLARS ── */}
       <div className="max-w-3xl mx-auto px-5 sm:px-8 mb-16">
         <FadeIn>
@@ -155,7 +199,7 @@ export default function SafetyMethodology() {
             The five scoring pillars
           </h2>
           <p className="text-sm mb-8" style={{ color: '#6b6760' }}>
-            Each pillar is scored 1–10 by a GetPromptly reviewer. The final score is the weighted average.
+            Each pillar is scored 0–10 by a named GetPromptly reviewer; their weighted average is the Promptly Score.
           </p>
         </FadeIn>
 
