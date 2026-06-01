@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Logo from './Logo';
 
 const LINKS = [
-  { to: '/schools',      label: 'For Schools' },
-  { to: '/tools',        label: 'Reviewed Tools' },
-  { to: '/ai-training',  label: 'Learn AI' },
-  { to: '/ai-equipment', label: 'AI Equipment' },
-  { to: '/prompts',      label: 'Prompt Library' },
+  { to: '/schools',            label: 'For Schools' },
+  { to: '/tools',              label: 'Reviewed Tools' },
+  { to: '/ai-training',        label: 'Learn AI' },
+  { to: '/ai-equipment',       label: 'AI Equipment' },
+  { to: '/prompts',            label: 'Prompt Library' },
+  { to: '/safety-methodology', label: 'Methodology' },
+  { to: '/who-we-are',         label: 'About' },
 ];
 
 const Navbar: FC = () => {
@@ -50,12 +52,12 @@ const Navbar: FC = () => {
           <Logo variant={onDarkHero ? 'dark' : 'light'} className="flex-shrink-0" />
 
           {/* Desktop nav — Satoshi Medium 13px */}
-          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-1">
+          <nav aria-label="Main navigation" className="hidden md:flex items-center gap-0.5 lg:gap-1">
             {LINKS.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
-                className="font-sans px-4 py-2 rounded-lg transition-colors"
+                className="font-sans px-2.5 lg:px-3 py-2 rounded-lg transition-colors whitespace-nowrap"
                 style={({ isActive }) => ({
                   fontSize: 13,
                   fontWeight: 500,

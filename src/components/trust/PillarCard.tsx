@@ -249,17 +249,21 @@ export function PillarCard({
           ))}
         </g>
 
-        {/* Scored fills — opacity = pillar score / 10. */}
+        {/* Scored fills — arc length = score / 10 of the segment. A higher score
+            sweeps further round its 72° wedge; the dim track behind shows the
+            remainder, so 9.6 reads as a near-full wedge and 5.0 as a half wedge. */}
         {hasData && !isProvisional && (
           <g>
             {PILLARS.map((p, i) => {
-              const sc = pillars![p.key];
+              const sc = Math.max(0, Math.min(10, pillars![p.key]));
+              const startDeg = i * SEGMENT_DEG;
+              const fillDeg = (sc / 10) * SEGMENT_DEG;
+              if (fillDeg <= 0) return null;
               return (
                 <path
                   key={`fill-${p.key}`}
-                  d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
+                  d={wedgePath(R_OUTER, R_INNER, startDeg, startDeg + fillDeg)}
                   fill={wedgeColour(p)}
-                  opacity={Math.max(0, Math.min(10, sc)) / 10}
                 />
               );
             })}

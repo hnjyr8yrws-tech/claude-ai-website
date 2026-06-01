@@ -75,58 +75,66 @@ function ToolTile({ tool }: { tool: Tool }) {
   const badges = topPillars(scores);
 
   return (
-    <div className="flex items-start gap-5 p-5" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
-      {/* Left — 96px Pillar Card (flat colour, five arcs, score-proportional) */}
-      <div className="flex-shrink-0">
-        {tool.reviewNeeded ? (
-          <PillarCard state="provisional" size={96} showName={false} showVerdict={false} showLegend={false} showMark={false} />
-        ) : (
-          <PillarCard
-            score={tool.safety}
-            pillars={pillarScoresFromData(scores)}
-            size={96}
-            showName={false}
-            showVerdict={false}
-            showLegend={false}
-            showMark={false}
-          />
-        )}
+    <div
+      className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5 p-4 sm:p-5"
+      style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}
+    >
+      {/* Pillar card + content stay side-by-side on every width; the CTA drops
+          below on mobile and sits on the right from sm up. */}
+      <div className="flex items-start gap-4 sm:gap-5 flex-1 min-w-0">
+        {/* Left — Pillar Card (flat colour, five arcs, score-proportional) */}
+        <div className="flex-shrink-0">
+          {tool.reviewNeeded ? (
+            <PillarCard state="provisional" size={96} showName={false} showVerdict={false} showLegend={false} showMark={false} />
+          ) : (
+            <PillarCard
+              score={tool.safety}
+              pillars={pillarScoresFromData(scores)}
+              size={96}
+              showName={false}
+              showVerdict={false}
+              showLegend={false}
+              showMark={false}
+            />
+          )}
+        </div>
+
+        {/* Centre */}
+        <div className="flex-1 min-w-0">
+          <h3 className="font-display" style={{ fontSize: 'clamp(1.0625rem, 4.5vw, 1.25rem)', fontWeight: 400, color: INK, lineHeight: 1.2 }}>
+            {tool.name}
+          </h3>
+
+          {/* Pillar badges — top-scoring pillars only, max 2 */}
+          {!tool.reviewNeeded && (
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5">
+              {badges.map(b => (
+                <span key={b.name} className="font-mono inline-flex items-center gap-1.5 uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: b.colour }} aria-hidden="true" />
+                  {b.name}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Plain Verdict — Satoshi italic, one sentence */}
+          <p className="font-sans italic mt-2" style={{ fontSize: 14, lineHeight: 1.5, color: FOG }}>
+            {tool.desc}
+          </p>
+
+          {/* Methodology mark */}
+          <p className="font-mono mt-2.5 uppercase break-words" style={{ fontSize: 10, letterSpacing: '0.06em', color: FOG }}>
+            {tool.reviewNeeded ? 'METHODOLOGY V2.1 · REVIEW IN PROGRESS' : methodologyMark(tool)}
+          </p>
+        </div>
       </div>
 
-      {/* Centre */}
-      <div className="flex-1 min-w-0">
-        <h3 className="font-display" style={{ fontSize: 20, fontWeight: 400, color: INK }}>
-          {tool.name}
-        </h3>
-
-        {/* Pillar badges — top-scoring pillars only, max 2 */}
-        {!tool.reviewNeeded && (
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5">
-            {badges.map(b => (
-              <span key={b.name} className="font-mono inline-flex items-center gap-1.5 uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
-                <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: b.colour }} aria-hidden="true" />
-                {b.name}
-              </span>
-            ))}
-          </div>
-        )}
-
-        {/* Plain Verdict — Satoshi italic, one sentence */}
-        <p className="font-sans italic mt-2" style={{ fontSize: 14, lineHeight: 1.5, color: FOG }}>
-          {tool.desc}
-        </p>
-
-        {/* Methodology mark */}
-        <p className="font-mono mt-2.5 uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: FOG }}>
-          {tool.reviewNeeded ? 'METHODOLOGY V2.1 · REVIEW IN PROGRESS' : methodologyMark(tool)}
-        </p>
-      </div>
-
-      {/* Right — "Read the review →" lime text link, no button box */}
+      {/* "Read the review →" lime text link, no button box. Full-width-left on
+          mobile (its own row), right-aligned and vertically centred from sm up. */}
       <Link
         to={`/tools/${tool.slug}`}
         onClick={() => track({ name: 'cta_clicked', section: 'tools-directory', label: `Read review: ${tool.name}` })}
-        className="font-sans flex-shrink-0 self-center whitespace-nowrap transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
+        className="font-sans flex-shrink-0 self-start sm:self-center whitespace-nowrap transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
         style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-ink-accent)' }}
       >
         Read the review &rarr;
