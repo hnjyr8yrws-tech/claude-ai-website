@@ -335,8 +335,8 @@ export default function Tools() {
       <div className="sticky top-16 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex flex-col gap-3">
 
-          {/* Role filter */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* Role filter — single scroll-row on mobile, wraps from sm up */}
+          <div className="flex items-center gap-2 overflow-x-auto sm:flex-wrap -mx-5 px-5 sm:mx-0 sm:px-0">
             {ROLE_FILTERS.map(r => {
               const active = roleSlug === r.slug;
               return (
@@ -344,7 +344,7 @@ export default function Tools() {
                   key={r.label}
                   onClick={() => chooseRole(r.slug)}
                   aria-pressed={active}
-                  className="font-sans rounded-full px-3.5 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                  className="font-sans flex-shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                   style={active
                     ? { fontSize: 12, fontWeight: 500, background: INK, color: LIME, borderColor: INK }
                     : { fontSize: 12, fontWeight: 500, background: 'white', color: INK, borderColor: RULE }}
@@ -357,7 +357,8 @@ export default function Tools() {
 
           {/* Pillar filter + search */}
           <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-            <div className="flex flex-wrap items-center gap-2 flex-1">
+            {/* Pillar filter — single scroll-row on mobile, wraps from lg up */}
+            <div className="flex items-center gap-2 flex-1 overflow-x-auto lg:flex-wrap -mx-5 px-5 sm:mx-0 sm:px-0">
               {[{ name: 'All', colour: FOG }, ...PILLAR_META].map(p => {
                 const active = pillarFilter === p.name;
                 return (
@@ -365,7 +366,7 @@ export default function Tools() {
                     key={p.name}
                     onClick={() => { setPillarFilter(p.name); track({ name: 'tool_filter_used', filterType: 'category', value: p.name, pageType: 'tools-directory' }); }}
                     aria-pressed={active}
-                    className="font-sans inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                    className="font-sans flex-shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                     style={active
                       ? { fontSize: 12, fontWeight: 500, background: INK, color: '#FFFFFF', borderColor: INK }
                       : { fontSize: 12, fontWeight: 500, background: 'white', color: INK, borderColor: RULE }}
