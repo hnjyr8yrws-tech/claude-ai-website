@@ -17,6 +17,7 @@ import {
   CAT_COLOURS, TIER_STYLE,
 } from '../data/tools';
 import { PillarCard, ScorePill, pillarScoresFromData } from '../components/trust/PillarCard';
+import DiscoveryBar from '../components/DiscoveryBar';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -740,22 +741,19 @@ export default function Tools() {
           />
         </div>
 
-        {/* Search + sort */}
-        <div className="flex flex-col sm:flex-row gap-3 max-w-2xl mb-5">
-          <div className="relative flex-1">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: '#6b6760' }}>🔍</span>
-            <input
-              type="search"
-              value={search}
-              onChange={e => {
-                setSearch(e.target.value);
-                if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value });
-              }}
-              placeholder={`Search ${STAT_TOTAL} tools by name, category or description…`}
-              className="w-full pl-9 pr-4 py-2.5 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors"
-              style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
-            />
-          </div>
+        {/* ── GUIDED DISCOVERY: prominent search + Ask Luna (shared pattern) ── */}
+        <div className="mb-5">
+          <DiscoveryBar
+            value={search}
+            onChange={setSearch}
+            placeholder={`Search ${STAT_TOTAL} tools by name, category or description…`}
+            lunaPrompt="Describe what you need and Luna will find it"
+            section="tools"
+          />
+        </div>
+
+        {/* Sort */}
+        <div className="flex justify-end mb-5">
           <select
             value={sortOption}
             onChange={e => setSortOption(e.target.value as SortOption)}

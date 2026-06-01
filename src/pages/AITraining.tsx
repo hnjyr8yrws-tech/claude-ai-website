@@ -17,6 +17,7 @@ import {
 } from '../data/training';
 import PathwayEmailCTA from '../components/PathwayEmailCTA';
 import AgentCTACard from '../components/AgentCTACard';
+import DiscoveryBar from '../components/DiscoveryBar';
 import CrossSellCard from '../components/CrossSellCard';
 import CrossSellPopup from '../components/CrossSellPopup';
 import { useCrossSell } from '../hooks/useCrossSell';
@@ -364,6 +365,25 @@ export default function AITraining() {
         </div>
       </section>
 
+      {/* ── GUIDED DISCOVERY: prominent search + Ask Luna (shared pattern) ────── */}
+      <section className="px-5 sm:px-8 pb-12" style={{ background: 'var(--bg)' }}>
+        <div className="max-w-4xl mx-auto">
+          <DiscoveryBar
+            value={search}
+            onChange={s => {
+              setSearch(s);
+              if (s.trim()) document.getElementById('all-resources')?.scrollIntoView({ behavior: 'smooth' });
+            }}
+            placeholder={`Search ${STAT_TOTAL} courses by name, provider or topic…`}
+            lunaPrompt="Describe what you want to learn and Luna will find it"
+            section="training"
+            resultCount={filtered.length}
+            total={STAT_TOTAL}
+            noun="resources"
+          />
+        </div>
+      </section>
+
       {/* ── Featured sections ────────────────────────────────────────────────── */}
       <section className="px-5 sm:px-8 pb-12" style={{ background: 'var(--bg)' }}>
         <div className="max-w-6xl mx-auto">
@@ -495,19 +515,19 @@ export default function AITraining() {
 
           {/* Filters */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
-            {/* Search */}
+            {/* Refine within results (kept in sync with the top discovery search) */}
             <input
               type="search"
-              placeholder="Search courses..."
+              placeholder="Filter these resources…"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="w-full sm:w-64 px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2"
+              className="w-full sm:w-64 px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{
                 borderColor: '#e8e6e0',
                 background: 'white',
                 color: 'var(--text)',
               }}
-              aria-label="Search training resources"
+              aria-label="Filter training resources"
             />
 
             {/* Type tabs */}

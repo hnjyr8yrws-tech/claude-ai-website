@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { track } from '../utils/analytics';
 import AgentCTACard from '../components/AgentCTACard';
+import DiscoveryBar from '../components/DiscoveryBar';
 import CrossSellCard from '../components/CrossSellCard';
 import CrossSellPopup from '../components/CrossSellPopup';
 import { useCrossSell } from '../hooks/useCrossSell';
@@ -620,6 +621,10 @@ export default function AIEquipment() {
     document.getElementById('equipment-grid')?.scrollIntoView({ behavior: 'smooth' });
   }
 
+  function scrollToGrid() {
+    document.getElementById('equipment-grid')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   function clearFilters() {
     setAudienceFilter('All');
     setCategoryFilter('All');
@@ -719,6 +724,20 @@ export default function AIEquipment() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* ── GUIDED DISCOVERY: prominent search + Ask Luna (shared pattern) ──────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pb-6">
+        <DiscoveryBar
+          value={search}
+          onChange={s => { setSearch(s); if (s.trim()) scrollToGrid(); }}
+          placeholder="Search 96 products by name, brand or use case…"
+          lunaPrompt="Describe what you need and Luna will find it"
+          section="equipment"
+          resultCount={filtered.length}
+          total={EQUIPMENT.length}
+          noun="products"
+        />
       </div>
 
       {/* ── AGENT CTA ───────────────────────────────────────────────────────── */}
@@ -887,11 +906,14 @@ export default function AIEquipment() {
             </h2>
           </div>
 
-          {/* Search */}
+          {/* Refine within results (kept in sync with the top discovery search) */}
           <div className="mb-5">
+            <label className="block text-xs font-semibold mb-1.5" style={{ color: '#6b6760' }}>
+              Refine these results
+            </label>
             <input
               type="search"
-              placeholder="Search by name, brand or use case…"
+              placeholder="Filter by name, brand or use case…"
               value={search}
               onChange={e => {
                 setSearch(e.target.value);
