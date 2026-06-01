@@ -3,12 +3,13 @@
  * Redesigned homepage: role-first, warm, guided.
  */
 
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { PillarCard, ScorePill, pillarScores } from '../components/trust/PillarCard';
+import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 
 const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
@@ -104,167 +105,180 @@ const ROLES = [
   },
 ];
 
-// ─── 1. Hero ──────────────────────────────────────────────────────────────────
+// ─── 1. Hero (dark, Luna-led — §17 dark hero, §09 lime on ground-black) ─────────
 
-const AgentMockup: FC = () => (
-  <div className="relative select-none">
-    <div
-      className="rounded-2xl shadow-2xl overflow-hidden"
-      style={{ background: DARK, border: '1px solid #2a2825', maxWidth: 380 }}
-    >
-      <div className="flex items-center gap-2.5 px-4 py-3" style={{ borderBottom: '1px solid #1f1d1b' }}>
-        <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: TEAL }}>
-          <svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M7 1v12M1 7h12" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-          </svg>
-        </div>
-        <span className="text-xs font-semibold" style={{ color: 'white' }}>Luna</span>
-        <span className="ml-auto flex items-center gap-1.5 text-[10px]" style={{ color: '#22c55e' }}>
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background: '#22c55e' }} aria-hidden="true" />
-          Online now
-        </span>
-      </div>
+const HERO_ROLES = [
+  { label: 'Teacher',       slug: 'teacher',       luna: 'teacher' },
+  { label: 'SENCO',         slug: 'senco',         luna: 'SENCO' },
+  { label: 'School Leader', slug: 'school-leader', luna: 'school leader' },
+  { label: 'Parent',        slug: 'parent',        luna: 'parent' },
+  { label: 'Student',       slug: 'student',       luna: 'student' },
+  { label: 'Admin',         slug: 'admin',         luna: 'school administrator' },
+] as const;
 
-      <div className="p-4 space-y-3">
-        <div className="flex gap-2.5">
-          <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(200,228,74,0.25)', color: TEAL }}>P</div>
-          <div className="rounded-xl rounded-tl-sm px-3 py-2.5 text-xs leading-relaxed max-w-[240px]" style={{ background: '#1a1815', color: '#d1cec8' }}>
-Hi — what's your role in education? Tell me and I'll point you to the right tools, training and prompts.
-          </div>
-        </div>
-        <div className="flex justify-end">
-          <div className="rounded-xl rounded-tr-sm px-3 py-2.5 text-xs" style={{ background: TEAL, color: '#1A1A0E' }}>
-            I am a primary school teacher
-          </div>
-        </div>
-        <div className="flex gap-2.5">
-          <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[10px] font-bold" style={{ background: 'rgba(200,228,74,0.25)', color: TEAL }}>P</div>
-          <div className="rounded-xl rounded-tl-sm px-3 py-2.5 text-xs leading-relaxed max-w-[240px]" style={{ background: '#1a1815', color: '#d1cec8' }}>
-Right — here are my top picks for primary teachers, with the Pillar Card behind each score.
-          </div>
-        </div>
-        <div className="ml-8 rounded-xl border p-3 space-y-2.5" style={{ background: '#111210', borderColor: '#2a2825' }}>
-          {[
-            { name: 'MagicSchool', score: 9.1, verdict: 'Genuinely useful for primary planning.' },
-            { name: 'Curipod', score: 8.4, verdict: 'Fun, and overpriced at full RRP. Negotiate.' },
-          ].map(t => (
-            <div key={t.name} className="flex items-center justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <span className="text-[11px] font-semibold block" style={{ color: 'white' }}>{t.name}</span>
-                {/* Plain Verdict (§14) in Fraunces italic, in place of a one-word tier badge */}
-                <span className="font-serif italic text-[10px] leading-snug block" style={{ color: '#d1cec8' }}>{t.verdict}</span>
-              </div>
-              <ScorePill score={t.score} />
+/** Open the Luna chat widget, optionally pre-filling a starter prompt. */
+function openLunaWith(prompt?: string) {
+  window.dispatchEvent(new CustomEvent('open-agent-chat'));
+  if (prompt && prompt.trim()) {
+    // Small delay so the widget mounts before the starter event fires.
+    setTimeout(() => window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: prompt })), 120);
+  }
+}
+
+const Hero: FC = () => {
+  // Role state is shared site-wide via the role cookie + `role:changed` event
+  // (see utils/role). The hero chips and the nav role strip stay in lockstep.
+  const [roleSlug, setRoleSlug] = useState<string>(() => getRole());
+  const [draft, setDraft] = useState('');
+
+  useEffect(() => {
+    const sync = (e: Event) => setRoleSlug((e as CustomEvent<string>).detail ?? getRole());
+    window.addEventListener(ROLE_CHANGED, sync);
+    return () => window.removeEventListener(ROLE_CHANGED, sync);
+  }, []);
+
+  const selected = HERO_ROLES.find(r => r.slug === roleSlug);
+
+  const askLuna = () => {
+    track({ name: 'cta_clicked', section: 'home-hero', label: 'Tell Luna your role' });
+    openLunaWith(selected ? `I am a ${selected.luna}, help me find ` : undefined);
+  };
+
+  const sendDraft = () => {
+    track({ name: 'agent_opened', section: 'home-hero-panel' });
+    openLunaWith(draft.trim() || (selected ? `I am a ${selected.luna}, help me find ` : undefined));
+  };
+
+  return (
+    <section className="relative" style={{ background: 'var(--color-ground-black)' }}>
+      <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-12 sm:pt-16 pb-12 sm:pb-16">
+
+        {/* Trust-trio stamp — JetBrains Mono 11px, fog */}
+        <p className="font-mono mb-10" style={{ fontSize: 11, letterSpacing: '0.14em', color: 'var(--color-fog)' }}>
+          KCSIE-AWARE · UK GDPR-AWARE · INDEPENDENT
+        </p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 lg:gap-16 items-start">
+
+          {/* ── Left column (≈60%) ── */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <h1 className="font-display leading-[1.05]" style={{ fontSize: 'clamp(3.5rem, 6vw, 5rem)', fontWeight: 400, color: '#FFFFFF' }}>
+              Stop Guessing with AI.<br />
+              <em className="italic" style={{ color: TEAL, fontStyle: 'italic' }}>Start Getting Promptly.</em>
+            </h1>
+
+            {/* Plain Verdict — Satoshi 16px, fog */}
+            <p className="font-sans mt-6 max-w-md" style={{ fontSize: 16, lineHeight: 1.6, color: 'var(--color-fog)' }}>
+              The UK's independent guide to AI in education — every tool scored against KCSIE 2025.
+            </p>
+
+            {/* Role chips — Satoshi Medium 13px, white border on dark */}
+            <div className="flex flex-wrap gap-2 mt-8">
+              {HERO_ROLES.map(r => {
+                const active = roleSlug === r.slug;
+                return (
+                  <Link
+                    key={r.slug}
+                    to={`/role/${r.slug}`}
+                    onClick={() => {
+                      setRole(r.slug);            // cookie + role:changed broadcast
+                      setRoleSlug(r.slug);
+                      track({ name: 'role_selected', role: r.label, pageType: 'home' });
+                    }}
+                    className="font-sans rounded-full px-4 py-2 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                    style={{
+                      fontSize: 13, fontWeight: 500,
+                      color: active ? '#1A1A0E' : '#FFFFFF',
+                      background: active ? TEAL : 'transparent',
+                      borderColor: active ? TEAL : 'rgba(255,255,255,0.35)',
+                    }}
+                    aria-current={active ? 'true' : undefined}
+                  >
+                    {r.label}
+                  </Link>
+                );
+              })}
             </div>
-          ))}
-        </div>
-      </div>
 
-      <div className="px-4 pb-4">
-        <div className="flex items-center gap-2 px-3 py-2.5 rounded-xl" style={{ background: '#1a1815', border: '1px solid #2a2825' }}>
-          <span className="text-xs flex-1" style={{ color: '#4b5563' }}>Ask anything about AI in education...</span>
-          <div className="w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: TEAL }}>
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-              <path d="M2 6h8M7 3l3 3-3 3" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
+            {/* Primary CTA — lime fill, ink text, Satoshi Medium pill */}
+            <button
+              onClick={askLuna}
+              className="font-sans mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+              style={{ fontSize: 15, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
+            >
+              Tell Luna your role &rarr;
+            </button>
+          </motion.div>
 
-    {/* Floating Pillar Card — the signature artefact (§04). Never a naked score. */}
-    <div className="absolute -bottom-8 -left-10 shadow-xl rounded-[10px]">
-      <PillarCard
-        toolName="MagicSchool AI"
-        score={9.1}
-        pillars={pillarScores(8.5, 9.6, 9.0, 9.2, 9.0)}
-        size={128}
-        showName={false}
-        showVerdict={false}
-        showLegend={false}
-        verifiedDate="14 MAY 2026"
-        reviewer="MS"
-      />
-    </div>
-  </div>
-);
-
-const Hero: FC = () => (
-  <section className="relative overflow-hidden" style={{ background: BG }}>
-
-    <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-12 sm:pb-20">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-          <span
-            className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-6"
-            style={{ background: 'rgba(200,228,74,0.08)', color: 'var(--color-ink-accent)', border: '1px solid rgba(200,228,74,0.18)' }}
+          {/* ── Right column (≈40%) — Luna panel ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.12 }}
+            className="rounded-xl p-6"
+            style={{ background: '#2A2A2A' }}
           >
-            <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: TEAL }} aria-hidden="true" />
-            UK Education &middot; KCSIE 2025 &middot; Independent
-          </span>
+            {/* Header — green presence dot + Satoshi Medium 13px */}
+            <div className="flex items-center gap-2 font-sans" style={{ fontSize: 13, fontWeight: 500, color: '#FFFFFF' }}>
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: '#22c55e' }} aria-hidden="true" />
+              Luna · Online 24/7
+            </div>
 
-          <h1 className="font-display leading-[1.08] mb-5" style={{ fontSize: 'clamp(2.2rem, 4.8vw, 3.8rem)', color: '#1c1a15' }}>
-            Stop Guessing with AI.<br />
-            <em style={{ color: 'var(--color-ink-accent)', fontStyle: 'italic' }}>Start Getting Promptly.</em>
-          </h1>
+            {/* Subtitle — Fraunces italic 18px */}
+            <p className="font-display italic mt-3" style={{ fontStyle: 'italic', fontSize: 18, lineHeight: 1.4, color: 'var(--color-oat)' }}>
+              Tell me your role — I'll find what you need.
+            </p>
 
-          <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-md" style={{ color: '#6b6760' }}>
-            The UK's trusted platform for AI in education. Tools, training, equipment and prompts &mdash; curated for teachers, leaders, SENCOs, parents and students.
-          </p>
+            {/* Input */}
+            <div className="mt-5">
+              <input
+                type="text"
+                value={draft}
+                onChange={e => setDraft(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') sendDraft(); }}
+                placeholder="I am a teacher and I need..."
+                aria-label="Tell Luna what you need"
+                className="font-sans w-full rounded-xl px-4 py-3 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                style={{ fontSize: 14, background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.18)' }}
+              />
+            </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
+            {/* Quick-select chips */}
+            <div className="flex flex-wrap gap-2 mt-3">
+              {[
+                { label: 'Find tools',    prompt: 'Help me find safe AI tools' },
+                { label: 'Find training', prompt: 'Help me find AI training' },
+                { label: 'Find equipment',prompt: 'Help me find education equipment' },
+                { label: 'Build a prompt',prompt: 'Help me build a prompt' },
+              ].map(q => (
+                <button
+                  key={q.label}
+                  onClick={() => openLunaWith(selected ? `I am a ${selected.luna}. ${q.prompt}.` : `${q.prompt}.`)}
+                  className="font-sans rounded-full px-3 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                  style={{ fontSize: 12, fontWeight: 500, color: '#FFFFFF', background: 'transparent', borderColor: 'rgba(255,255,255,0.3)' }}
+                >
+                  {q.label}
+                </button>
+              ))}
+            </div>
+
+            {/* Send button — lime pill */}
             <button
-              onClick={() => {
-                track({ name: 'cta_clicked', section: 'home-hero', label: 'Start with your role' });
-                document.getElementById('role-selector')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-              className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
-              style={{ background: TEAL, color: '#1A1A0E' }}
+              onClick={sendDraft}
+              className="font-sans mt-5 w-full rounded-full px-5 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
+              style={{ fontSize: 14, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
             >
-              Start with your role &rarr;
+              Ask Luna &rarr;
             </button>
-            <button
-              onClick={() => { track({ name: 'cta_clicked', section: 'home-hero', label: 'Ask Luna' }); openWidget(); }}
-              className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
-              style={{ borderColor: BORDER, color: '#1c1a15' }}
-            >
-              <span className="relative flex w-2 h-2" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-60" style={{ background: TEAL }} />
-                <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
-              </span>
-              Ask Luna
-            </button>
-          </div>
+          </motion.div>
+        </div>
 
-          <p className="mt-5 text-xs" style={{ color: '#9ca3af' }}>Free to use &middot; No account required &middot; UK-focused</p>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.65, delay: 0.15 }} className="hidden lg:flex justify-end" aria-hidden="true">
-          <AgentMockup />
-        </motion.div>
+        {/* Methodology mark — JetBrains Mono 10px, fog */}
+        <p className="font-mono mt-12" style={{ fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-fog)' }}>
+          METHODOLOGY V2.1 · VERIFIED MAY 2026 · REVIEWER GP
+        </p>
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }}
-        className="mt-14 pt-8 flex flex-wrap gap-8 sm:gap-12"
-        style={{ borderTop: `1px solid ${BORDER}` }}
-      >
-        {[
-          { n: '155',  label: 'AI tools reviewed' },
-          { n: '96',   label: 'equipment products' },
-          { n: '440+', label: 'prompts ready to use' },
-          { n: '24/7', label: 'AI agent support' },
-        ].map(s => (
-          <div key={s.label}>
-            <div className="font-display text-2xl sm:text-3xl leading-none mb-0.5" style={{ color: 'var(--color-ink-accent)' }}>{s.n}</div>
-            <div className="text-[11px]" style={{ color: '#9ca3af' }}>{s.label}</div>
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // ─── 2. Trust strip ────────────────────────────────────────────────────────────
 
@@ -418,58 +432,68 @@ const HowItWorks: FC = () => (
   </section>
 );
 
-// ─── 5. Safety scoring preview ────────────────────────────────────────────────
+// ─── 5. How we score (light §F5F2EC section — the Pillar Card artefact) ────────
 
-const SAMPLE_TOOLS = [
-  { name: 'MagicSchool', category: 'Teacher AI',  overall: 9.1, tier: 'Trusted', tierColor: 'var(--color-promptly-lime)', tierBg: 'rgba(200,228,74,0.14)', scores: [9, 9, 9, 8, 9] },
-  { name: 'Curipod',     category: 'Lesson Design', overall: 8.4, tier: 'Trusted', tierColor: 'var(--color-promptly-lime)', tierBg: 'rgba(200,228,74,0.14)', scores: [8, 9, 8, 8, 8] },
-  { name: 'ChatGPT',     category: 'General AI',  overall: 6.8, tier: 'Guided',  tierColor: 'var(--color-oat)', tierBg: 'rgba(245,242,236,0.12)', scores: [7, 6, 5, 8, 8] },
+// Fixed §04 order, top-clockwise: Privacy → Safeguarding → Age → Transparency →
+// Accessibility. Each row's dot uses the pillar's reserved §09 colour.
+const SCORE_PILLARS = [
+  { name: 'Data Privacy',   colour: 'var(--color-pillar-privacy)',       desc: 'UK GDPR posture, data residency and parental-consent mechanisms.' },
+  { name: 'Safeguarding',   colour: 'var(--color-pillar-safeguarding)',  desc: 'KCSIE 2025 alignment, DSL controls and reporting pathways.' },
+  { name: 'Age Suitability',colour: 'var(--color-pillar-age)',           desc: 'Age-gating, content moderation and minimum-age policy.' },
+  { name: 'Transparency',   colour: 'var(--color-pillar-transparency)',  desc: 'Clear AI disclosure, hallucination warnings and explainability.' },
+  { name: 'Accessibility',  colour: 'var(--color-pillar-accessibility)', desc: 'WCAG 2.2 AA alignment, SEND adaptations and assistive-tech support.' },
 ];
-const PILLARS = ['Data Privacy', 'Safeguarding', 'Age Suitability', 'Transparency', 'Accessibility'];
 
 const ScoringPreview: FC = () => (
-  <section style={{ background: BG }}>
+  <section style={{ background: 'var(--color-oat)' }}>
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <FadeIn>
-          <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Our trust framework</p>
-          <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: '#1c1a15' }}>
-            Every tool scored across<br />five UK safety pillars.
+      <FadeIn>
+        {/* Section label — JetBrains Mono 11px */}
+        <p className="font-mono mb-8" style={{ fontSize: 11, letterSpacing: '0.14em', color: 'var(--color-fog)' }}>
+          HOW WE SCORE EVERY TOOL
+        </p>
+      </FadeIn>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-16 items-center">
+        {/* Pillar Card — the signature §04 artefact, 240px, computed arcs, flat colour */}
+        <FadeIn className="flex justify-center lg:justify-start">
+          <PillarCard
+            toolName="MagicSchool AI"
+            score={9.1}
+            pillars={pillarScores(8.5, 9.6, 9.0, 9.2, 9.0)}
+            size={240}
+            showName={false}
+            showVerdict={false}
+            showLegend={false}
+            verifiedDate="14 MAY 2026"
+            reviewer="GP"
+          />
+        </FadeIn>
+
+        {/* Five pillar rows — coloured dot + name + one-line description */}
+        <FadeIn delay={0.1}>
+          <h2 className="font-display mb-2" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.4rem)', color: '#1c1a15' }}>
+            Five published pillars. One <em className="italic" style={{ color: 'var(--color-ink-accent)' }}>Promptly Score.</em>
           </h2>
-          <p className="text-sm leading-relaxed mb-6 max-w-md" style={{ color: '#6b6760' }}>
-            We review every AI tool against KCSIE 2025, with an eye on UK GDPR and DfE guidance. No paid placements, no sponsored rankings.
+          <p className="font-sans text-sm mb-7 max-w-md" style={{ color: '#6b6760' }}>
+            Every tool is scored 0–10 on each pillar, against KCSIE 2025. The composite is the Promptly Score — no paid placements, no sponsored rankings.
           </p>
-          <div className="space-y-2.5 mb-8">
-            {PILLARS.map((label, i) => (
-              <div key={label} className="flex items-center gap-3">
-                <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0" style={{ background: 'rgba(200,228,74,0.1)', color: 'var(--color-ink-accent)' }}>{i + 1}</div>
-                <span className="text-sm font-medium" style={{ color: '#1c1a15' }}>{label}</span>
-              </div>
+          <ul className="space-y-4">
+            {SCORE_PILLARS.map(p => (
+              <li key={p.name} className="flex items-start gap-3">
+                <span className="w-3 h-3 rounded-full flex-shrink-0 mt-1" style={{ background: p.colour }} aria-hidden="true" />
+                <div>
+                  <p className="font-sans font-semibold text-sm" style={{ color: '#1c1a15' }}>{p.name}</p>
+                  <p className="font-sans text-sm leading-relaxed" style={{ color: '#6b6760' }}>{p.desc}</p>
+                </div>
+              </li>
             ))}
-          </div>
+          </ul>
           <Link to="/safety-methodology" onClick={() => track({ name: 'cta_clicked', section: 'home-scoring', label: 'See methodology' })}
-            className="inline-flex items-center gap-1.5 text-sm font-semibold transition-opacity hover:opacity-70"
+            className="font-sans inline-flex items-center gap-1.5 text-sm font-semibold mt-7 transition-opacity hover:opacity-70"
             style={{ color: 'var(--color-ink-accent)' }}>
             See our full methodology &rarr;
           </Link>
-        </FadeIn>
-
-        <FadeIn delay={0.1}>
-          <div className="flex flex-wrap justify-center gap-5">
-            {SAMPLE_TOOLS.map((tool, i) => (
-              <motion.div key={tool.name} initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.4 }}>
-                <PillarCard
-                  toolName={tool.name}
-                  score={tool.overall}
-                  pillars={pillarScores(tool.scores[0], tool.scores[1], tool.scores[2], tool.scores[3], tool.scores[4])}
-                  size={172}
-                  showVerdict={false}
-                  verifiedDate="14 MAY 2026"
-                  reviewer="MS"
-                />
-              </motion.div>
-            ))}
-          </div>
         </FadeIn>
       </div>
     </div>
