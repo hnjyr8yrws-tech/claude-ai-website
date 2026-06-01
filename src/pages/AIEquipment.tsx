@@ -5,6 +5,7 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { track } from '../utils/analytics';
 import AgentCTACard from '../components/AgentCTACard';
+import { useRoleSync } from '../hooks/useRoleSync';
 import CrossSellCard from '../components/CrossSellCard';
 import CrossSellPopup from '../components/CrossSellPopup';
 import { useCrossSell } from '../hooks/useCrossSell';
@@ -423,6 +424,10 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
 
 export default function AIEquipment() {
   const [audienceFilter, setAudienceFilter] = useState<EqAudience | 'All'>('All');
+  useRoleSync<EqAudience | 'All'>(
+    { teacher: 'Teachers', senco: 'SEND', 'school-leader': 'Schools', parent: 'Parents', student: 'Students', admin: 'Schools' },
+    setAudienceFilter,
+  );
   const [categoryFilter, setCategoryFilter] = useState<EquipmentCategory | 'All'>('All');
   const [priceFilter,    setPriceFilter]    = useState<PriceBand | 'All'>('All');
   const [supplierFilter, setSupplierFilter] = useState<SupplierType | 'All'>('All');

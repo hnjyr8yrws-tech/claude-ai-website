@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import RoleStrip from './components/RoleStrip';
 import Footer from './components/Footer';
 import AgentWidget from './components/AgentWidget';
 import ScrollToTop from './components/ScrollToTop';
@@ -9,6 +10,7 @@ import LeadCaptureModal from './components/LeadCaptureModal';
 
 // ── Eagerly loaded (above the fold on first visit) ──────────────────────────
 import Home from './pages/Home';
+import RoleEntry from './pages/RoleEntry';
 
 // ── Lazy-loaded pages ───────────────────────────────────────────────────────
 const Tools               = lazy(() => import('./pages/Tools'));
@@ -78,6 +80,7 @@ const App = () => (
     </a>
 
     <Navbar />
+    <RoleStrip />
 
     <main id="main-content" tabIndex={-1} role="main">
       <Suspense fallback={<PageLoader />}>
@@ -130,6 +133,7 @@ const App = () => (
           <Route path="/prompts/admin"                  element={<PromptsAdmin />} />
 
           {/* Role-first pages */}
+          <Route path="/role/:slug"                      element={<RoleEntry />} />
           <Route path="/teachers"                        element={<TeachersPage />} />
           <Route path="/school-leaders"                  element={<LeadersPage />} />
           <Route path="/senco"                           element={<SencoPage />} />

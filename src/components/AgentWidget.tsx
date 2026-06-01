@@ -612,10 +612,10 @@ const AgentWidget: FC = () => {
         tabIndex={-1}
       />
 
-      {/* Floating bubble */}
+      {/* Floating bubble — desktop only (mobile uses the pinned bar below) */}
       <motion.button
         onClick={openWidget}
-        className="fixed bottom-4 right-4 z-[9998] flex items-center gap-2 px-4 py-2.5 rounded-full shadow-lg"
+        className="hidden md:flex fixed bottom-4 right-4 z-[9998] items-center gap-2 px-4 py-2.5 rounded-full shadow-lg font-sans"
         style={{ background: TEAL, color: '#1A1A0E' }}
         whileHover={{ scale: 1.04 }}
         whileTap={{ scale: 0.97 }}
@@ -638,6 +638,19 @@ const AgentWidget: FC = () => {
           />
         </svg>
       </motion.button>
+
+      {/* Mobile: full-width pinned Luna pill, above the foot of the viewport */}
+      <button
+        onClick={openWidget}
+        className="md:hidden fixed bottom-4 inset-x-4 z-[9998] flex items-center justify-center gap-2 py-3.5 rounded-full shadow-lg font-sans"
+        style={{ background: TEAL, color: '#1A1A0E', fontSize: 14, fontWeight: 500 }}
+        aria-label="Open Luna"
+      >
+        <span className="relative flex-shrink-0">
+          <span className="w-2 h-2 rounded-full block" style={{ background: '#22c55e' }} />
+        </span>
+        Ask Luna &rarr;
+      </button>
 
       {/* Chat panel */}
       <AnimatePresence>

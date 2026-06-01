@@ -7,6 +7,7 @@ import {
   type TrainingItem,
 } from '../data/training';
 import AgentCTACard from '../components/AgentCTACard';
+import { useRoleSync } from '../hooks/useRoleSync';
 import CrossSellCard from '../components/CrossSellCard';
 import CrossSellPopup from '../components/CrossSellPopup';
 import { useCrossSell } from '../hooks/useCrossSell';
@@ -168,6 +169,10 @@ function TrainingCard({ item }: { item: TrainingItem }) {
 export default function AITraining() {
   const [typeFilter, setTypeFilter]     = useState<TypeFilter>('All');
   const [audienceFilter, setAudienceFilter] = useState<AudienceFilter>('All');
+  useRoleSync<AudienceFilter>(
+    { teacher: 'Teachers', senco: 'SEND', 'school-leader': 'Leaders', parent: 'Parents', student: 'Students', admin: 'Admin' },
+    setAudienceFilter,
+  );
   const [search, setSearch]             = useState('');
 
   // Cross-sell

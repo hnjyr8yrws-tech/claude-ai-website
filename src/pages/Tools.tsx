@@ -17,6 +17,7 @@ import {
   CAT_COLOURS, TIER_STYLE,
 } from '../data/tools';
 import { PillarCard, ScorePill, pillarScoresFromData } from '../components/trust/PillarCard';
+import { useRoleSync } from '../hooks/useRoleSync';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -519,8 +520,15 @@ const STAT_TRUSTED = TOOLS.filter(t => t.tier === 'Trusted').length;
 const STAT_SEND    = TOOLS.filter(t => t.category === 'SEND').length;
 const STAT_FREE    = TOOLS.filter(t => t.free).length;
 
+// Map the global role slug → this page's role tab.
+const ROLE_TO_TAB: Record<string, RoleTab> = {
+  teacher: 'Teachers', senco: 'SENCO', 'school-leader': 'SLT',
+  parent: 'Parents', student: 'Students', admin: 'Admin',
+};
+
 export default function Tools() {
   const [roleTab,      setRoleTab]      = useState<RoleTab>('All');
+  useRoleSync(ROLE_TO_TAB, setRoleTab);
   const [catFilter,    setCatFilter]    = useState<string>('All');
   const [safetyFilter, setSafetyFilter] = useState<SafetyFilter>('All');
   const [sortOption,   setSortOption]   = useState<SortOption>('A-Z');
