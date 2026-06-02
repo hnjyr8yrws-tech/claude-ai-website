@@ -34,18 +34,17 @@ export type PillarCardState =
 
 interface Pillar {
   key: keyof PillarScores;
-  label: string; // full pillar label
-  legendShort: string; // single-token caps abbreviation for the 5-col legend
+  name: string; // canonical full pillar name (Brand Bible) — never abbreviated
   cssVar: string; // CSS custom property in src/index.css
 }
 
-// Top (12 o'clock) → clockwise: Privacy → Safeguarding → Age → Transparency → Accessibility.
+// Top (12 o'clock) → clockwise: Data Privacy → Safeguarding → Age Suitability → Transparency → Accessibility.
 const PILLARS: Pillar[] = [
-  { key: 'dataPrivacy', label: 'Privacy', legendShort: 'PRIV', cssVar: '--color-pillar-privacy' },
-  { key: 'safeguarding', label: 'Safeguard', legendShort: 'SAFE', cssVar: '--color-pillar-safeguarding' },
-  { key: 'ageSuitability', label: 'Age Suit', legendShort: 'AGE', cssVar: '--color-pillar-age' },
-  { key: 'transparency', label: 'Transp', legendShort: 'TRANS', cssVar: '--color-pillar-transparency' },
-  { key: 'accessibility', label: 'Access', legendShort: 'ACC', cssVar: '--color-pillar-accessibility' },
+  { key: 'dataPrivacy', name: 'Data Privacy', cssVar: '--color-pillar-privacy' },
+  { key: 'safeguarding', name: 'Safeguarding', cssVar: '--color-pillar-safeguarding' },
+  { key: 'ageSuitability', name: 'Age Suitability', cssVar: '--color-pillar-age' },
+  { key: 'transparency', name: 'Transparency', cssVar: '--color-pillar-transparency' },
+  { key: 'accessibility', name: 'Accessibility', cssVar: '--color-pillar-accessibility' },
 ];
 
 const SEGMENTS = PILLARS.length; // 5
@@ -239,15 +238,16 @@ export function PillarCard({
         <circle cx={CX} cy={CY} r={R_BG} fill={cssVar('--color-ground-black')} />
 
         {/* Muted full-circle track — five equal 72° zones covering the whole 360°,
-            in one uniform muted tone. This is ALWAYS a complete ring, so any
-            unfilled part of a pillar's zone reads as track, never an empty gap, and
-            the card stays a complete circle even at low scores. */}
+            each in a MUTED version of its OWN pillar colour. The ring is therefore
+            always a complete circle made entirely of the five pillar colours: full
+            colour where scored, muted same-colour where not. No black, no gaps. */}
         <g>
           {PILLARS.map((p, i) => (
             <path
               key={`track-${p.key}`}
               d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
-              fill="rgba(245,242,236,0.2)"
+              fill={wedgeColour(p)}
+              opacity={0.32}
             />
           ))}
         </g>
@@ -288,15 +288,6 @@ export function PillarCard({
           </g>
         )}
 
-        {/* Hairline dividers between segments (computed radial lines) */}
-        <g stroke={cssVar('--color-ground-black')} strokeWidth={1.5}>
-          {PILLARS.map((_, i) => {
-            const deg = i * SEGMENT_DEG;
-            const a = polar(CX, CY, R_INNER, deg);
-            const b = polar(CX, CY, R_OUTER, deg);
-            return <line key={`div-${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />;
-          })}
-        </g>
 
         {/* 12 o'clock orientation tick (§04) */}
         <text
@@ -308,7 +299,7 @@ export function PillarCard({
           letterSpacing={1.5}
           fill={cssVar('--color-fog')}
         >
-          PRIVACY ▾
+          DATA PRIVACY ▾
         </text>
 
         {/* Centre disc with a thin lime ring */}
@@ -390,7 +381,7 @@ export function PillarCard({
             return (
               <div
                 key={`legend-${p.key}`}
-                className="font-mono uppercase"
+                className="font-sans"
                 style={{
                   minWidth: 0,
                   textAlign: 'center',
@@ -404,15 +395,16 @@ export function PillarCard({
                 <span
                   className="block"
                   style={{
-                    // Short caps abbreviation, forced onto one line; shrunk to fit
-                    // the column at the smallest card size.
-                    fontSize: 8,
-                    lineHeight: 1.2,
+                    // Full canonical pillar name; wraps within its column so even
+                    // the longest names stay legible and never abbreviated.
+                    fontSize: 9,
+                    lineHeight: 1.15,
                     letterSpacing: 0,
-                    whiteSpace: 'nowrap',
+                    overflowWrap: 'break-word',
+                    hyphens: 'auto',
                   }}
                 >
-                  {p.legendShort}
+                  {p.name}
                 </span>
                 <span
                   className="font-sans block"

@@ -218,6 +218,7 @@ const ToolDetail = () => {
                   pillars={pillarScoresFromData(pillars)}
                   showName={false}
                   showVerdict={false}
+                  showLegend={false}
                   size={208}
                   verifiedDate={tool.lastReviewed ? tool.lastReviewed.toUpperCase() : undefined}
                 />

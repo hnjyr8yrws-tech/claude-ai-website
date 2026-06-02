@@ -73,7 +73,6 @@ function openLuna(prompt?: string) {
 // ── Tool tile ───────────────────────────────────────────────────────────────────
 function ToolTile({ tool }: { tool: Tool }) {
   const scores = useMemo(() => derivePillars(tool), [tool]);
-  const badges = topPillars(scores);
   // Outbound CTA to the tool itself — label reflects what the link opens
   // ("Try demo", "Start free trial", "Visit website", …).
   const demoLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
@@ -108,18 +107,6 @@ function ToolTile({ tool }: { tool: Tool }) {
           <h3 className="font-display" style={{ fontSize: 'clamp(1.0625rem, 4.5vw, 1.25rem)', fontWeight: 400, color: INK, lineHeight: 1.2 }}>
             {tool.name}
           </h3>
-
-          {/* Pillar badges — top-scoring pillars only, max 2 */}
-          {!tool.reviewNeeded && (
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1.5">
-              {badges.map(b => (
-                <span key={b.name} className="font-mono inline-flex items-center gap-1.5 uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
-                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: b.colour }} aria-hidden="true" />
-                  {b.name}
-                </span>
-              ))}
-            </div>
-          )}
 
           {/* Plain Verdict — Satoshi italic, one sentence */}
           <p className="font-sans italic mt-2" style={{ fontSize: 14, lineHeight: 1.5, color: FOG }}>

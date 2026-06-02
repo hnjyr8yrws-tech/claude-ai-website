@@ -23,11 +23,13 @@ export function toSlug(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
+// Canonical pillar names (Brand Bible). ORDER is the data/score-index order and
+// must not change (derivePillars + pillarScoresFromData map by position).
 export const PILLARS = [
   'Data Privacy',
-  'Age Appropriateness',
+  'Age Suitability',
   'Transparency',
-  'Safeguarding Alignment',
+  'Safeguarding',
   'Accessibility',
 ] as const;
 
