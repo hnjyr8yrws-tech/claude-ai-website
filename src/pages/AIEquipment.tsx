@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { EQUIPMENT, type EquipmentProduct, type EquipmentCategory } from '../data/equipment';
+import { ScorePill } from '../components/trust/PillarCard';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 
 const LIME = 'var(--color-promptly-lime)';
@@ -97,11 +98,16 @@ function EquipmentTile({ product }: { product: EquipmentProduct }) {
           <h3 className="font-display" style={{ fontSize: 20, fontWeight: 400, color: INK }}>
             {product.name}
           </h3>
-          {/* Primary pillar badge top-right */}
-          <span className="font-mono inline-flex items-center gap-1.5 uppercase flex-shrink-0 mt-1" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
-            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: pillar.colour }} aria-hidden="true" />
-            {pillar.name}
-          </span>
+          {/* Score pill + primary pillar badge top-right */}
+          <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+            {product.safetyScore.total != null && (
+              <ScorePill score={product.safetyScore.total} to={`/ai-equipment/product/${product.slug}`} />
+            )}
+            <span className="font-mono inline-flex items-center gap-1.5 uppercase mt-0.5" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: pillar.colour }} aria-hidden="true" />
+              {pillar.name}
+            </span>
+          </div>
         </div>
 
         {/* One-line verdict */}

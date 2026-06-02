@@ -247,3 +247,79 @@ Displayed score is **derived** from the pillars (single source of truth), so Dis
 | IDL Literacy | 8.3 | 7.8 | 8.6 | 8.6 | 8.2 | 8.6 | 8.3 | 8.3 | PASS |
 | Lexia PowerUp | 8.0 | 8.4 | 8.0 | 6.8 | 8.8 | 8.0 | 8.0 | 8.0 | PASS |
 | Phonics Hero | 8.2 | 7.8 | 7.8 | 7.8 | 8.6 | 9.4 | 8.2 | 8.2 | PASS |
+
+## Equipment
+
+Composite = equal-weighted average of five dimensions (Accessibility, SEND Suitability, Durability, Procurement, Setup). Reviewed products only.
+
+| Product | Promptly | Calculated | Displayed | Result |
+|------|---------:|---:|---:|:--:|
+| Apple iPad (10th Gen) | 8.9 | 8.9 | 8.9 | PASS |
+| Lenovo Chromebook Flex 5i | 8.1 | 8.1 | 8.1 | PASS |
+| Microsoft Surface Go 3 | 8.2 | 8.2 | 8.2 | PASS |
+| Amazon Fire HD 10 Kids Pro | 7.8 | 7.8 | 7.8 | PASS |
+| Samsung Galaxy Tab A9+ | 7.6 | 7.6 | 7.6 | PASS |
+| Kindle Paperwhite Kids | 8.1 | 8.1 | 8.1 | PASS |
+| Lenovo Tab M10 Plus (3rd Gen) | 8.6 | 8.6 | 8.6 | PASS |
+| Boogie Board Jot 8.5 LCD Tablet | 8.0 | 8.0 | 8.0 | PASS |
+| C-Pen Reader 2 | 8.1 | 8.1 | 8.1 | PASS |
+| C-Pen Exam Reader | 8.0 | 8.0 | 8.0 | PASS |
+| OrCam Read 3 | 8.1 | 8.1 | 8.1 | PASS |
+| Stabilo EASYgraph Pencil | 7.4 | 7.4 | 7.4 | PASS |
+| Crossbow Education Dyslexia Ruler | 7.7 | 7.7 | 7.7 | PASS |
+| Time Timer 12-Inch Visual Timer | 7.7 | 7.7 | 7.7 | PASS |
+| Time Timer MOD (60 Minute) | 8.4 | 8.4 | 8.4 | PASS |
+| Coloured Overlay Sheets (Pack of 10) | 8.6 | 8.6 | 8.6 | PASS |
+| Dyslexia Reading Ruler with Tinted Windows | 7.8 | 7.8 | 7.8 | PASS |
+| TTS Bee-Bot Programmable Robot | 9.0 | 9.0 | 9.0 | PASS |
+| TTS Blue-Bot Bluetooth Robot | 8.0 | 8.0 | 8.0 | PASS |
+| Wonder Workshop Dash Robot | 8.6 | 8.6 | 8.6 | PASS |
+| Sphero BOLT Programmable Robot | 8.8 | 8.8 | 8.8 | PASS |
+| LEGO Education SPIKE Prime Set | 8.3 | 8.3 | 8.3 | PASS |
+| BBC micro:bit Go Kit | 8.8 | 8.8 | 8.8 | PASS |
+| Ozobot Evo Classroom Kit | 7.5 | 7.5 | 7.5 | PASS |
+| Botley 2.0 Coding Robot | 7.8 | 7.8 | 7.8 | PASS |
+| Learning Resources Coding Caterpillar | 7.9 | 7.9 | 7.9 | PASS |
+| Osmo Genius Starter Kit (iPad) | 7.8 | 7.8 | 7.8 | PASS |
+| SmartGames IQ Stars | 7.4 | 7.4 | 7.4 | PASS |
+| ThinkFun Gravity Maze | 8.3 | 8.3 | 8.3 | PASS |
+| Learning Resources Code & Go Mouse | 8.2 | 8.2 | 8.2 | PASS |
+| Qwirkle Board Game | 8.0 | 8.0 | 8.0 | PASS |
+| ThinkFun Rush Hour Traffic Jam | 7.1 | 7.1 | 7.1 | PASS |
+| Perplexus Epic 3D Maze | 8.6 | 8.6 | 8.6 | PASS |
+| GoTalk 9+ Communication Device | 8.5 | 8.5 | 8.5 | PASS |
+| GoTalk ONE | 7.8 | 7.8 | 7.8 | PASS |
+| AbleNet Step-by-Step Communicator | 8.8 | 8.8 | 8.8 | PASS |
+| AbleNet BigMack Communicator | 8.1 | 8.1 | 8.1 | PASS |
+| PODD Communication Book (32-location) | 9.2 | 9.2 | 9.2 | PASS |
+| TTS Talking Photo Album | 7.8 | 7.8 | 7.8 | PASS |
+| Antsy Labs Fidget Cube | 7.9 | 7.9 | 7.9 | PASS |
+| Tangle Jr Fidget Tool | 7.6 | 7.6 | 7.6 | PASS |
+| TFH Weighted Lap Pad 1kg | 8.0 | 8.0 | 8.0 | PASS |
+| Weighted Blanket 2kg (Child) | 8.7 | 8.7 | 8.7 | PASS |
+| 3M Peltor Kid Ear Defenders | 7.5 | 7.5 | 7.5 | PASS |
+| Hope Education Calming Sensory Bottles | 8.0 | 8.0 | 8.0 | PASS |
+| Liquid Motion Bubbler (Calming) | 8.5 | 8.5 | 8.5 | PASS |
+| TTS Stretchy Band for Chair Legs | 8.1 | 8.1 | 8.1 | PASS |
+| Mindful Breathing Ball | 6.9 | 6.9 | 6.9 | PASS |
+| Thera-Band Therapy Putty Set | 8.2 | 8.2 | 8.2 | PASS |
+| Epson EB-770Fi Interactive Projector | 7.2 | 7.2 | 7.2 | PASS |
+| IPEVO V4K Ultra HD Document Camera | 7.9 | 7.9 | 7.9 | PASS |
+| ELMO MO-2L Document Camera | 7.6 | 7.6 | 7.6 | PASS |
+| Phonak Roger Select iN Microphone | 7.2 | 7.2 | 7.2 | PASS |
+| Sarabec Edulink FM Soundfield System | 7.7 | 7.7 | 7.7 | PASS |
+| Jabra Speak 750 USB Conference Speaker | 7.4 | 7.4 | 7.4 | PASS |
+| Logitech Zone Vibe Wireless Headset | 7.7 | 7.7 | 7.7 | PASS |
+| Sony WH-1000XM5 Headphones | 7.3 | 7.3 | 7.3 | PASS |
+| Bose QuietComfort 45 | 8.6 | 8.6 | 8.6 | PASS |
+| VIVO Electric Height-Adjustable Desk | 8.2 | 8.2 | 8.2 | PASS |
+| Safco Hokki Active Seating Stool | 8.2 | 8.2 | 8.2 | PASS |
+| Kore Kids Wave Wobble Chair | 9.0 | 9.0 | 9.0 | PASS |
+| TFH Pop-Up Sensory Den | 7.2 | 7.2 | 7.2 | PASS |
+| TTS Seat Cushion Class Pack (Set 6) | 7.4 | 7.4 | 7.4 | PASS |
+| TTS 30-Device Charging Trolley | 8.3 | 8.3 | 8.3 | PASS |
+| Floor Cushion Seating Set (6) | 8.5 | 8.5 | 8.5 | PASS |
+| Invoxia Kids GPS Tracker | 7.9 | 7.9 | 7.9 | PASS |
+| Garmin Bounce Kids Smartwatch | 7.9 | 7.9 | 7.9 | PASS |
+| VTech Kidizoom Smart Watch DX2 | 8.2 | 8.2 | 8.2 | PASS |
+| Road iD Wrist ID Elite | 7.0 | 7.0 | 7.0 | PASS |

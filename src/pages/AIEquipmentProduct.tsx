@@ -4,9 +4,11 @@ import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import {
   EQUIPMENT,
+  EQUIPMENT_PILLARS,
   type EquipmentProduct,
   type EqBadge,
 } from '../data/equipment';
+import ScoreRing from '../components/trust/ScoreRing';
 import { badgeStyle, reviewBadge, catToSlug } from './equipmentHelpers';
 
 const TEAL = 'var(--color-promptly-lime)';
@@ -233,33 +235,66 @@ export default function AIEquipmentProduct() {
               </div>
             )}
 
-            {/* Equipment Score */}
+            {/* Equipment Promptly Score — same derived-composite system as the tools */}
             <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-              <SectionLabel>Equipment Score</SectionLabel>
-              <h2 className="font-display text-xl mb-4" style={{ color: 'var(--text)' }}>
-                Safety &amp; Suitability Score
-              </h2>
-              <div className="space-y-3">
-                {SCORE_DIMENSIONS.map(dim => (
-                  <div
-                    key={dim.key}
-                    className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl border"
-                    style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
-                  >
-                    <span className="text-sm" style={{ color: '#6b6760' }}>{dim.label}</span>
-                    <div className="flex items-center gap-2 text-xs" style={{ color: '#9ca3af' }}>
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                        <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
-                        <path d="M7 4v3.5l2 1.5" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/>
-                      </svg>
-                      In progress
-                    </div>
+              <SectionLabel>Promptly Score</SectionLabel>
+              {product.safetyScore.total != null ? (
+                <div className="flex flex-col sm:flex-row sm:items-center gap-6 mt-2">
+                  {/* The ring — composite = weighted average of the five dimensions */}
+                  <div className="flex-shrink-0 mx-auto sm:mx-0">
+                    <ScoreRing
+                      size={180}
+                      caption="PROMPTLY SCORE"
+                      segments={EQUIPMENT_PILLARS.map(p => ({
+                        name: p.name,
+                        hex: p.hex,
+                        score: (product.safetyScore[p.key] as number) ?? 0,
+                      }))}
+                    />
                   </div>
-                ))}
-              </div>
-              <p className="text-xs mt-4" style={{ color: '#6b6760' }}>
-                Scoring for this product is in progress. Check back soon.
-              </p>
+                  {/* Inspectable dimension breakdown — full names, real scores */}
+                  <div className="flex-1 min-w-0 w-full">
+                    {EQUIPMENT_PILLARS.map(p => {
+                      const v = (product.safetyScore[p.key] as number) ?? 0;
+                      return (
+                        <div key={p.key} className="flex items-center gap-3 py-1.5">
+                          <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: p.hex }} aria-hidden="true" />
+                          <span className="text-sm flex-1" style={{ color: '#6b6760' }}>{p.name}</span>
+                          <span className="text-sm font-semibold tabular-nums" style={{ color: 'var(--text)' }}>{v.toFixed(1)}</span>
+                        </div>
+                      );
+                    })}
+                    <p className="font-mono mt-3 pt-3 border-t text-[11px] uppercase" style={{ borderColor: '#e8e6e0', color: '#9ca3af', letterSpacing: '0.05em' }}>
+                      Composite = equal-weighted average of the five dimensions
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <h2 className="font-display text-xl mb-4 mt-1" style={{ color: 'var(--text)' }}>Review in progress</h2>
+                  <div className="space-y-3">
+                    {SCORE_DIMENSIONS.map(dim => (
+                      <div
+                        key={dim.key}
+                        className="flex items-center justify-between gap-4 px-4 py-3 rounded-xl border"
+                        style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
+                      >
+                        <span className="text-sm" style={{ color: '#6b6760' }}>{dim.label}</span>
+                        <div className="flex items-center gap-2 text-xs" style={{ color: '#9ca3af' }}>
+                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                            <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
+                            <path d="M7 4v3.5l2 1.5" stroke="#d1d5db" strokeWidth="1.5" strokeLinecap="round"/>
+                          </svg>
+                          In progress
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs mt-4" style={{ color: '#6b6760' }}>
+                    Scoring for this product is in progress. Check back soon.
+                  </p>
+                </>
+              )}
             </div>
 
             {/* Trust disclaimer */}
