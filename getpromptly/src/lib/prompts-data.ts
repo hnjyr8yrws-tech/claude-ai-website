@@ -1,12 +1,13 @@
 import "server-only";
 import fs from 'fs'
 import path from 'path'
+import type { PromptCategory } from './taxonomy'
 
 export interface PromptEntry {
   id: string
   title: string
   audience: string
-  category: string
+  category: PromptCategory // controlled taxonomy (see src/lib/taxonomy.ts); enforced by the prebuild gate
   subcategory: string
   keyStage: string
   subject: string
@@ -59,7 +60,7 @@ export function getAllPrompts(): PromptEntry[] {
       id: cols[0] ?? '',
       title: cols[1] ?? '',
       audience: cols[2] ?? '',
-      category: cols[3] ?? '',
+      category: (cols[3] ?? '') as PromptCategory, // validated by the build gate
       subcategory: cols[4] ?? '',
       keyStage: cols[5] ?? '',
       subject: cols[6] ?? '',

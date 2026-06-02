@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "audit:categories": "node scripts/audit-prompt-categories.mjs",
+    "prebuild": "node scripts/audit-prompt-categories.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
