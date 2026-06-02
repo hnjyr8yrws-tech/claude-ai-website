@@ -64,6 +64,20 @@ const SETTINGS: { label: string; match: (p: EquipmentProduct) => boolean }[] = [
   { label: 'Whole School',   match: p => p.audience.includes('Schools') || p.educationLevel.includes('All') },
 ];
 
+// ── Problem-first entry points — a school adviser starts from the need ──────────
+interface Need { title: string; blurb: string; colour: string; type?: string; budget?: string; setting?: string; search?: string }
+const NEEDS: Need[] = [
+  { title: 'A pupil needs help to communicate', blurb: 'Non-verbal or emerging communication — AAC devices, symbol boards and apps that give every learner a voice.', colour: 'var(--color-pillar-accessibility)', type: 'SEND & AAC' },
+  { title: 'Sensory & self-regulation support', blurb: 'Helping pupils stay calm, focused and regulated — fidgets, weighted items and calm-space kit.', colour: 'var(--color-pillar-safeguarding)', type: 'Sensory Equipment' },
+  { title: 'A learner struggles to read or write', blurb: 'Assistive reading and writing support for dyslexia and literacy difficulties.', colour: 'var(--color-pillar-age)', search: 'literacy reading dyslexia' },
+  { title: 'Noise sensitivity & focus', blurb: 'Ear defenders and audio support for noise-sensitive pupils and busy classrooms.', colour: '#6b6760', search: 'noise headphones ear defender' },
+  { title: 'Movement & active seating', blurb: 'Wobble stools, posture support and active seating for pupils who need to move.', colour: 'var(--color-pillar-transparency)', type: 'Furniture', search: 'seating' },
+  { title: 'Equipping a classroom for teaching', blurb: 'Displays, visualisers and classroom hardware for confident whole-class teaching.', colour: 'var(--color-pillar-privacy)', type: 'Classroom Tech' },
+  { title: 'Setting up a SEND provision', blurb: 'Building out a SEND base — accessibility, sensory and communication essentials in one place.', colour: 'var(--color-pillar-accessibility)', setting: 'SEND Provision' },
+  { title: 'Home learning on a budget', blurb: 'Practical, affordable kit for learning at home without overspending.', colour: 'var(--color-pillar-age)', type: 'Home Learning', budget: 'Under £50' },
+  { title: 'Hearing support in class', blurb: 'Audio and hearing support for pupils with hearing needs.', colour: 'var(--color-pillar-privacy)', search: 'hearing audio' },
+];
+
 // ── Intent search: synonyms + budget extraction (match on meaning, not just words)
 const SYNONYMS: Record<string, string[]> = {
   visualiser: ['visualiser', 'visualizer', 'document camera', 'screens & classroom'],
@@ -204,14 +218,6 @@ export default function AIEquipment() {
 
   const activeRole = ROLE_FILTERS.find(r => r.slug === roleSlug) ?? ROLE_FILTERS[0];
 
-  const stats = useMemo(() => [
-    { value: EQUIPMENT.length, label: 'Products Reviewed', dot: undefined },
-    { value: EQUIPMENT.filter(p => p.audience.includes('SEND')).length, label: 'SEND Friendly', dot: 'var(--color-pillar-accessibility)' },
-    { value: EQUIPMENT.filter(p => p.audience.includes('Schools')).length, label: 'School Ready', dot: 'var(--color-pillar-privacy)' },
-    { value: EQUIPMENT.filter(p => p.ukFocus).length, label: 'UK Education Focused', dot: 'var(--color-pillar-safeguarding)' },
-    { value: EQUIPMENT.filter(p => p.supplierType === 'UK Specialist').length, label: 'UK Specialists', dot: 'var(--color-pillar-transparency)' },
-  ], []);
-
   const filtered = useMemo(() => {
     let r = EQUIPMENT;
     if (activeRole.audience) r = r.filter(p => p.audience.includes(activeRole.audience as EquipmentProduct['audience'][number]));
@@ -237,10 +243,21 @@ export default function AIEquipment() {
     track({ name: 'tool_filter_used', filterType: 'role', value: slug || 'All', pageType: 'equipment' });
   };
 
+  // Problem-first → apply a need's filters and scroll to the (now pre-filtered) list.
+  const applyNeed = (need: Need) => {
+    setRoleSlug(''); setRole('');
+    setType(need.type ?? 'All');
+    setBudget(need.budget ?? 'All');
+    setSetting(need.setting ?? 'All');
+    setSearch(need.search ?? '');
+    track({ name: 'cta_clicked', section: 'equipment-needs', label: need.title });
+    setTimeout(() => document.getElementById('browse')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
+  };
+
   const TRY_ASKING = [
-    "What's the best visualiser for a primary classroom?",
-    'What SEND equipment helps with AAC communication?',
-    'Help me build a home learning setup for £300',
+    'How do I support a non-verbal pupil to communicate?',
+    'What helps a pupil who finds it hard to sit still and focus?',
+    'Recommend a calm-corner setup for under £200',
   ];
 
   return (
@@ -255,18 +272,18 @@ export default function AIEquipment() {
       {/* ── 1. HERO (dark) ─────────────────────────────────────────────────────── */}
       <section style={{ background: 'var(--color-ground-black)' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-12">
-          <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: FOG }}>AI EQUIPMENT</p>
+          <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: FOG }}>EQUIPMENT ADVICE · UK SCHOOLS</p>
           <h1 className="font-display mt-5" style={{ fontSize: 'clamp(2rem, 4.5vw, 2.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
-            The right kit. Reviewed honestly.
+            Independent equipment advice for UK schools.
           </h1>
           <p className="font-sans mt-4 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>
-            A buying guide for UK classrooms, SEND settings and home learning. Search by the problem you need to solve — then ask Luna whether a product fits your context.
+            We help schools and families choose the right equipment for the learner's need, the setting and the budget. Start with the problem, not the product — independent, KCSIE-aware, and never sponsored.
           </p>
 
           <div className="mt-8 rounded-2xl p-6 sm:p-7" style={{ background: '#2A2A2A' }}>
-            <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: LIME }}>LUNA · EQUIPMENT GUIDE</p>
+            <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: LIME }}>ASK THE ADVISER</p>
             <p className="font-display mt-2" style={{ fontSize: 22, color: '#FFFFFF' }}>
-              Tell Luna the need — get the right kit and how to buy it.
+              Tell us the problem — we'll advise on what fits and how to buy it.
             </p>
 
             <LunaInput />
@@ -288,22 +305,62 @@ export default function AIEquipment() {
         </div>
       </section>
 
-      {/* ── 2. STAT STRIP ──────────────────────────────────────────────────────── */}
+      {/* ── 2. HOW WE ADVISE (principles, not product counts) ──────────────────── */}
       <div style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
-          {stats.map(s => (
-            <div key={s.label}>
-              <p className="font-display" style={{ fontSize: 32, fontWeight: 700, color: INK }}>{s.value}</p>
-              <p className="font-sans flex items-center gap-1.5 mt-0.5" style={{ fontSize: 12, color: FOG }}>
-                {s.dot && <span className="rounded-full flex-shrink-0" style={{ width: 8, height: 8, background: s.dot }} aria-hidden="true" />}
-                {s.label}
-              </p>
-            </div>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8">
+          <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.14em', color: '#9c9c8a' }}>How we advise</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
+            {[
+              { h: 'Independent', b: "We don't sell equipment and take no payment for placement. The advice is the product." },
+              { h: 'Context-first', b: 'We start from the learner’s need, your setting and your budget — not a catalogue.' },
+              { h: 'KCSIE-aware', b: 'Suitability is considered through a UK safeguarding and education lens.' },
+              { h: 'Honest about fit', b: 'If something isn’t right for your context, we’ll say so and suggest alternatives.' },
+            ].map(p => (
+              <div key={p.h}>
+                <p className="font-display" style={{ fontSize: 18, fontWeight: 400, color: INK }}>{p.h}</p>
+                <p className="font-sans mt-1" style={{ fontSize: 13, lineHeight: 1.55, color: FOG }}>{p.b}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── 3. START WITH THE NEED (problem-first) ─────────────────────────────── */}
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-12 pb-2">
+        <h2 className="font-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 400, color: INK }}>
+          Start with the need
+        </h2>
+        <p className="font-sans mt-2 max-w-2xl" style={{ fontSize: 15, lineHeight: 1.6, color: '#6b6760' }}>
+          Schools don't shop for products — they solve problems. Pick the challenge you're facing and we'll point you to suitable equipment, then help you judge what fits.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-7">
+          {NEEDS.map(need => (
+            <button
+              key={need.title}
+              onClick={() => applyNeed(need)}
+              className="text-left rounded-2xl border p-5 h-full transition-colors hover:border-[var(--color-ink-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              style={{ background: 'white', borderColor: RULE }}
+            >
+              <span className="w-2.5 h-2.5 rounded-full inline-block mb-3" style={{ background: need.colour }} aria-hidden="true" />
+              <p className="font-display" style={{ fontSize: 18, fontWeight: 400, color: INK, lineHeight: 1.25 }}>{need.title}</p>
+              <p className="font-sans mt-2" style={{ fontSize: 13.5, lineHeight: 1.55, color: FOG }}>{need.blurb}</p>
+              <span className="font-sans inline-block mt-3" style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-ink-accent)' }}>See suitable equipment &rarr;</span>
+            </button>
           ))}
         </div>
       </div>
 
-      {/* ── 3. FILTERS (sticky) — buying intent, not scoring ───────────────────── */}
+      {/* ── 4. BROWSE ALL (secondary to the need-led entry above) ──────────────── */}
+      <div id="browse" className="max-w-6xl mx-auto px-5 sm:px-8 pt-12 pb-1" style={{ scrollMarginTop: 72 }}>
+        <h2 className="font-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 400, color: INK }}>
+          Browse all equipment
+        </h2>
+        <p className="font-sans mt-2 max-w-2xl" style={{ fontSize: 15, lineHeight: 1.6, color: '#6b6760' }}>
+          Or explore the full list and narrow by audience, type, budget and setting — then ask Luna whether a product fits your context.
+        </p>
+      </div>
+
+      {/* ── 5. FILTERS (sticky) — buying intent, not scoring ───────────────────── */}
       <div className="sticky top-16 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex flex-col gap-3">
 
@@ -439,8 +496,8 @@ function LunaInput() {
         value={draft}
         onChange={e => setDraft(e.target.value)}
         onKeyDown={e => { if (e.key === 'Enter') send(); }}
-        placeholder="Describe the learner need and your budget…"
-        aria-label="Ask Luna about equipment"
+        placeholder="Describe the pupil's need, your setting and your budget…"
+        aria-label="Ask the equipment adviser"
         className="font-sans flex-1 rounded-xl px-4 py-3 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
         style={{ fontSize: 14, background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.18)' }}
       />
