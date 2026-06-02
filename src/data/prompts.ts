@@ -1,3 +1,5 @@
+import type { PromptCategory } from './taxonomy';
+
 export interface StructuredPrompt {
   title: string;
   level: 'Beginner' | 'Intermediate' | 'Advanced';
@@ -13,7 +15,7 @@ export interface StructuredPrompt {
 export interface PromptPack {
   id: number;
   slug: string;
-  category: string;
+  category: PromptCategory; // controlled taxonomy (see src/data/taxonomy.ts)
   categorySlug: string;
   title: string;
   description: string;
@@ -144,7 +146,7 @@ function deriveRoles(title: string, category: string, senFocus: string[]): strin
     roles.add('SENCOs');
   }
 
-  if (category === 'Math & Science Support') {
+  if (category === 'Maths & Science Support') {
     roles.add('Students');
     roles.add('Teachers');
   }
@@ -208,7 +210,7 @@ function parsePrompts(raw: string): string[] {
 function categorySlugFor(cat: string): string {
   const map: Record<string, string> = {
     'Essay & Writing Support': 'essay-writing',
-    'Math & Science Support': 'maths-science',
+    'Maths & Science Support': 'maths-science',
     'Exam & Test Preparation': 'exam-preparation',
     'Study Skills & Executive Function': 'study-skills',
     'Reading Comprehension & Literacy': 'reading-literacy',
@@ -317,7 +319,7 @@ const RAW = [
     prompts: "1. Create an adaptable essay plan for [topic] that offers three versions: visual, written, and voice-first.\n2. Write a GCSE essay introduction for [question] that can be easily simplified or extended depending on the student's needs.\n3. Generate a flexible PEEL paragraph template for [theme] with optional sentence starters for different ability levels.\n4. Help me turn [student's rough ideas] into a coherent essay section while preserving their unique voice.\n5. Create a parent-friendly prompt sequence to support a child with [specific SEN] when writing an essay on [topic].\n6. Provide three different ways to structure a conclusion for [question]: simple, balanced, and evaluative.\n7. Make an inclusive checklist for self-reviewing an essay that works for both dyslexic and non-dyslexic students.\n8. Generate alternative wording options for this sentence [paste sentence] at three different complexity levels.",
   },
   {
-    id: 9, cat: 'Math & Science Support',
+    id: 9, cat: 'Maths & Science Support',
     title: 'Dyscalculia-Friendly GCSE Maths Problem Solving',
     desc: 'Gentle, visual, and step-by-step prompts that reduce number anxiety and support students with dyscalculia in GCSE Maths.',
     count: 10,
@@ -325,7 +327,7 @@ const RAW = [
     prompts: "1. Break down this GCSE Maths question [paste question] into very small visual steps using drawings or objects.\n2. Help me solve [maths problem] using real-life examples and colour-coding instead of abstract numbers.\n3. Create a dyscalculia-friendly checklist for checking my working in a GCSE algebra question.\n4. Turn this wordy GCSE Maths problem into a simple visual story with drawings.\n5. Give me a 5-step visual method to solve percentage questions without feeling overwhelmed.\n6. Rewrite this confusing GCSE Maths explanation [paste text] using everyday language and pictures.\n7. Create a \"concrete before abstract\" prompt sequence for learning [maths topic].\n8. Help me check my answer for [question] using estimation and common-sense checks first.\n9. Generate 3 different visual ways to understand and solve ratio problems for GCSE.\n10. Make a calming prompt for when I get stuck on a maths question during revision.",
   },
   {
-    id: 10, cat: 'Math & Science Support',
+    id: 10, cat: 'Maths & Science Support',
     title: 'ADHD-Friendly Science Explanation & Revision',
     desc: 'Short-burst, engaging prompts with movement breaks and real-world links for students with ADHD studying GCSE/A-Level Science.',
     count: 10,
@@ -333,7 +335,7 @@ const RAW = [
     prompts: "1. Explain [science topic] to me in 5-minute chunks with a fun real-world example each time.\n2. Break down the process of [science concept] into 6 tiny tasks I can do with movement breaks.\n3. Create a \"quick win\" revision prompt for GCSE Biology on [topic] that feels achievable.\n4. Help me turn boring GCSE Chemistry facts about [topic] into a short story or analogy.\n5. Give me a 10-minute active revision task for Physics [topic] that involves standing or gesturing.\n6. Create a reward-based prompt sequence for revising [science topic] when my attention wanders.\n7. Explain the difference between [two science concepts] using everyday objects I can see around me.\n8. Turn this GCSE Science diagram description [paste text] into a simple spoken explanation.\n9. Design a 25-minute Pomodoro revision session for A-Level [science topic].\n10. Help me make a \"one-page wonder\" summary sheet for [topic] that I can actually use.",
   },
   {
-    id: 11, cat: 'Math & Science Support',
+    id: 11, cat: 'Maths & Science Support',
     title: 'Autism-Friendly Literal Science & Maths Prompts',
     desc: 'Clear, literal, rule-based prompts with no ambiguity for autistic students studying GCSE/A-Level Science and Maths.',
     count: 10,
@@ -341,7 +343,7 @@ const RAW = [
     prompts: "1. Explain [science concept] using only literal facts and a numbered list of rules.\n2. Create a strict step-by-step method for solving GCSE Maths problems on [topic] with no exceptions.\n3. Give me a literal definition and exact examples for [science term] without any metaphors.\n4. Build a predictable checklist for answering GCSE Science 6-mark questions on [topic].\n5. Turn the process of [science experiment] into a numbered instruction list with exact order.\n6. Create a clear comparison table for [two science concepts] using only facts and data.\n7. Provide a rule-based prompt for balancing chemical equations in GCSE Chemistry.\n8. Explain the graph for [maths/science topic] using only literal descriptions of what each axis shows.\n9. Make a strict template for writing a GCSE Science method section with every step labelled.\n10. Generate literal exam-style answers for common misconceptions in [science topic].",
   },
   {
-    id: 12, cat: 'Math & Science Support',
+    id: 12, cat: 'Maths & Science Support',
     title: 'Anxiety-Reducing Maths & Science Revision',
     desc: 'Gentle, confidence-building prompts that reduce panic and overwhelm during GCSE/A-Level Maths and Science revision.',
     count: 10,
@@ -349,7 +351,7 @@ const RAW = [
     prompts: "1. Help me start revising [topic] with one tiny, safe task that builds confidence.\n2. Create a calming 15-minute revision plan for GCSE Maths on [topic] with breathing breaks.\n3. Give me permission to get questions wrong while learning [science concept].\n4. Turn my fear of [specific maths topic] into a gentle starting prompt.\n5. Write a kind explanation of [difficult concept] that feels safe and slow-paced.\n6. Create a \"one thing at a time\" revision prompt for A-Level Physics on [topic].\n7. Help me celebrate small wins after completing a short revision task on [subject].\n8. Provide 3 gentle ways to approach a scary-looking GCSE Science calculation.\n9. Make a positive self-talk prompt I can use when I feel stuck on [maths question].\n10. Design a low-pressure end-of-session reflection for science revision that focuses on effort.",
   },
   {
-    id: 13, cat: 'Math & Science Support',
+    id: 13, cat: 'Maths & Science Support',
     title: 'Visual & Multi-Sensory Science Learning',
     desc: 'Prompts using diagrams, models, colour, movement, and real objects to support diverse learners in GCSE/A-Level Science.',
     count: 10,
@@ -357,7 +359,7 @@ const RAW = [
     prompts: "1. Explain [science topic] using a visual diagram prompt with colour-coding and labels.\n2. Create a hands-on activity prompt for understanding [concept] using household objects.\n3. Turn the carbon cycle into a visual story map with arrows and pictures.\n4. Help me learn [maths formula] using a gesture or movement-based memory trick.\n5. Generate a colour-coded revision mind map prompt for GCSE Biology topic [topic].\n6. Create a multi-sensory prompt for learning the periodic table using objects and colours.\n7. Design a visual checklist for answering 6-mark GCSE Science questions.\n8. Turn a written science method into a step-by-step drawing sequence.\n9. Provide a prompt for building a physical model to understand [physics concept].\n10. Create a sensory-friendly revision card template for [science topic].",
   },
   {
-    id: 14, cat: 'Math & Science Support',
+    id: 14, cat: 'Maths & Science Support',
     title: 'Executive Function Scaffolds for Science & Maths',
     desc: 'Structured external support for planning, organising, and completing GCSE/A-Level Science and Maths tasks for students with executive dysfunction.',
     count: 10,
@@ -365,7 +367,7 @@ const RAW = [
     prompts: "1. Break a full GCSE Science required practical on [topic] into 10 tiny external tasks.\n2. Create an external brain prompt sequence for starting a long A-Level Maths problem.\n3. Turn a complex science question into a decision tree with clear yes/no branches.\n4. Provide a timed checklist for completing a 6-mark GCSE Science answer with transition cues.\n5. Design a task initiation prompt for when I can't start revising [maths topic].\n6. Create a visual priority list for tackling multiple science homework questions.\n7. Help me move from planning to actual writing when stuck on a science report.\n8. Generate a step-by-step \"body double\" prompt for working through a maths calculation.\n9. Make an organisation checklist for keeping science notes and revision materials tidy.\n10. Provide a clear end-of-task review prompt to help me close down a study session.",
   },
   {
-    id: 15, cat: 'Math & Science Support',
+    id: 15, cat: 'Maths & Science Support',
     title: 'Parent Support Tools for SEN Maths & Science',
     desc: 'Practical prompts for UK parents to support their child with SEN at home during GCSE/A-Level Maths and Science revision and homework.',
     count: 10,
@@ -656,7 +658,7 @@ const RAW = [
 
 const LEGACY_PACKS: PromptPack[] = RAW.map((r) => {
   const senFocus = parseSEN(r.sen);
-  const displayCat = displayCategory(r.cat);
+  const displayCat = displayCategory(r.cat) as PromptCategory;
   const rawPrompts = parsePrompts(r.prompts);
   return {
     id: r.id,

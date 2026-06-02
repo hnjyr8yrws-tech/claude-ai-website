@@ -1,4 +1,5 @@
 import type { LinkType } from '../utils/linkType';
+import type { TrainingCategory } from './taxonomy';
 
 export interface TrainingItem {
   id: string;
@@ -8,7 +9,7 @@ export interface TrainingItem {
   type: 'Free' | 'Paid';
   level: string;
   audience: string;
-  category: string;
+  category: TrainingCategory; // controlled taxonomy (see src/data/taxonomy.ts)
   cost: string;
   ukRelevant: boolean;
   affiliate: boolean;
@@ -26,7 +27,7 @@ export const TRAINING: TrainingItem[] = [
   // ── Existing 26 ───────────────────────────────────────────────────────────
   {
     id: '1', slug: 'ai-skills-hub', name: 'AI Skills Hub', provider: 'UK Government',
-    type: 'Free', level: 'Beginner–Intermediate', audience: 'Adults', category: 'UK Gov & Official',
+    type: 'Free', level: 'Beginner–Intermediate', audience: 'Adults', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Central UK AI learning hub from government.',
     url: 'https://www.gov.uk',
@@ -36,7 +37,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '2', slug: 'skills-toolkit', name: 'Skills Toolkit', provider: 'UK Government',
-    type: 'Free', level: 'Beginner', audience: 'General Public', category: 'UK Gov & Official',
+    type: 'Free', level: 'Beginner', audience: 'General Public', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Government-backed digital skills courses.',
     url: 'https://nationalcareers.service.gov.uk/find-a-course/the-skills-toolkit',
@@ -46,7 +47,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '3', slug: 'national-careers-service', name: 'National Careers Service AI', provider: 'UK Government',
-    type: 'Free', level: 'All', audience: 'Job Seekers', category: 'UK Gov & Official',
+    type: 'Free', level: 'All', audience: 'Job Seekers', category: 'AI for Students',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Includes funded AI bootcamps for eligible adults.',
     url: 'https://nationalcareers.service.gov.uk/',
@@ -56,7 +57,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '4', slug: 'ai-in-education-support', name: 'DfE AI in Education Guidance', provider: 'GOV.UK',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'UK Gov & Official',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Leadership & Strategy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Official DfE guidance on safe generative AI use in schools.',
     url: 'https://www.gov.uk/government/publications/generative-artificial-intelligence-in-education',
@@ -66,7 +67,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '5', slug: 'openlearn-ai', name: 'OpenLearn AI', provider: 'Open University',
-    type: 'Free', level: 'Beginner–Intermediate', audience: 'Students', category: 'AI Basics',
+    type: 'Free', level: 'Beginner–Intermediate', audience: 'Students', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'UK university-backed AI introduction with digital badge.',
     url: 'https://www.open.edu/openlearn/digital-computing/discovering-artificial-intelligence',
@@ -76,7 +77,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '6', slug: 'futurelearn-ai-free', name: 'FutureLearn AI (Free Audit)', provider: 'FutureLearn',
-    type: 'Free', level: 'All', audience: 'Students', category: 'AI Basics',
+    type: 'Free', level: 'All', audience: 'Students', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Free audit access to FutureLearn AI courses from leading UK universities.',
     url: 'https://www.futurelearn.com/subjects/it-and-computer-science-courses/artificial-intelligence',
@@ -86,7 +87,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '7', slug: 'elements-of-ai', name: 'Elements of AI', provider: 'University of Helsinki',
-    type: 'Free', level: 'Beginner', audience: 'All', category: 'AI Basics',
+    type: 'Free', level: 'Beginner', audience: 'All', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'World-renowned AI course. No maths required. Certificate on completion.',
     url: 'https://www.elementsofai.com/',
@@ -96,7 +97,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '8', slug: 'google-ai-essentials', name: 'Google AI Essentials', provider: 'Google',
-    type: 'Free', level: 'Beginner', audience: 'Workers', category: 'AI Basics',
+    type: 'Free', level: 'Beginner', audience: 'Workers', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Practical AI and Gemini skills. Shareable certificate. ~8 hrs.',
     url: 'https://grow.google/intl/uk_ie/courses-and-tools/',
@@ -106,7 +107,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '9', slug: 'microsoft-learn-ai', name: 'Microsoft Learn AI', provider: 'Microsoft',
-    type: 'Free', level: 'Beginner–Intermediate', audience: 'Professionals', category: 'AI Basics',
+    type: 'Free', level: 'Beginner–Intermediate', audience: 'Professionals', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Practical AI learning paths for Microsoft 365 environments.',
     url: 'https://learn.microsoft.com/en-us/ai/',
@@ -116,7 +117,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '10', slug: 'ibm-skillsbuild', name: 'IBM SkillsBuild AI', provider: 'IBM',
-    type: 'Free', level: 'Beginner', audience: 'Career Starters', category: 'AI Basics',
+    type: 'Free', level: 'Beginner', audience: 'Career Starters', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'AI foundations with digital badge. Great for older students and admin staff.',
     url: 'https://skillsbuild.org/',
@@ -146,7 +147,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '13', slug: 'common-sense-ai-guides', name: 'Common Sense Media AI Guides', provider: 'Common Sense Media',
-    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents',
+    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents & Families',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Trusted AI safety guides for parents on tools children use.',
     url: 'https://www.commonsense.org/education',
@@ -156,7 +157,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '14', slug: 'internet-matters-ai-guides', name: 'Internet Matters AI Guide', provider: 'Internet Matters',
-    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents',
+    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents & Families',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'UK charity guide helping parents understand AI tools safely.',
     url: 'https://www.internetmatters.org/resources/ai-tools-guide-for-parents/',
@@ -166,7 +167,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '15', slug: 'abilitynet-ai-resources', name: 'AbilityNet AI & Disability', provider: 'AbilityNet',
-    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'AI for SENCOs',
+    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'SEND & Inclusion',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Accessibility-focused AI guides for disabled learners and their supporters.',
     url: 'https://abilitynet.org.uk/factsheets/artificial-intelligence-ai-and-disability',
@@ -176,7 +177,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '16', slug: 'microsoft-accessibility-ai', name: 'Microsoft AI Accessibility', provider: 'Microsoft',
-    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'AI for SENCOs',
+    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'SEND & Inclusion',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Free training on Microsoft Immersive Reader, Seeing AI and other inclusive tools.',
     url: 'https://www.microsoft.com/en-us/accessibility',
@@ -186,7 +187,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '17', slug: 'udemy-ai-courses', name: 'Udemy AI Courses', provider: 'Udemy',
-    type: 'Paid', level: 'All', audience: 'Everyone', category: 'Paid Professional',
+    type: 'Paid', level: 'All', audience: 'Everyone', category: 'AI Foundations & Literacy',
     cost: '£10–£100', ukRelevant: true, affiliate: true,
     notes: 'Huge range of AI courses from beginner to advanced. Frequent sales.',
     url: 'https://www.udemy.com/courses/search/?q=artificial+intelligence',
@@ -196,7 +197,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '18', slug: 'coursera-ai-courses', name: 'Coursera AI Courses', provider: 'Coursera',
-    type: 'Paid', level: 'Beginner–Advanced', audience: 'Learners', category: 'Certified CPD',
+    type: 'Paid', level: 'Beginner–Advanced', audience: 'Learners', category: 'AI Foundations & Literacy',
     cost: '£30–£400', ukRelevant: true, affiliate: true,
     notes: 'University-backed AI certificates from Google, DeepLearning.AI and others.',
     url: 'https://www.coursera.org/browse/data-science/machine-learning',
@@ -206,7 +207,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '19', slug: 'skillshare-ai', name: 'Skillshare AI Courses', provider: 'Skillshare',
-    type: 'Paid', level: 'Beginner', audience: 'Creatives', category: 'Paid Professional',
+    type: 'Paid', level: 'Beginner', audience: 'Creatives', category: 'AI Foundations & Literacy',
     cost: 'Subscription ~£8/month', ukRelevant: true, affiliate: true,
     notes: 'Creative AI tools, design and productivity courses. Free trial available.',
     url: 'https://www.skillshare.com/en/browse/artificial-intelligence',
@@ -216,7 +217,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '20', slug: 'datacamp-ai', name: 'DataCamp AI & Data', provider: 'DataCamp',
-    type: 'Paid', level: 'All', audience: 'Career Focused', category: 'Paid Professional',
+    type: 'Paid', level: 'All', audience: 'Career Focused', category: 'AI Foundations & Literacy',
     cost: 'Subscription ~£25/month', ukRelevant: true, affiliate: true,
     notes: 'Data analysis, Python and AI skills with career tracks.',
     url: 'https://www.datacamp.com/courses/technology/artificial-intelligence',
@@ -226,7 +227,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '21', slug: 'linkedin-learning-ai', name: 'LinkedIn Learning AI', provider: 'LinkedIn',
-    type: 'Paid', level: 'Beginner', audience: 'Professionals', category: 'Paid Professional',
+    type: 'Paid', level: 'Beginner', audience: 'Professionals', category: 'AI Foundations & Literacy',
     cost: 'Subscription ~£25/month', ukRelevant: true, affiliate: true,
     notes: 'Professional AI skills with LinkedIn certificate shareable on profiles.',
     url: 'https://www.linkedin.com/learning',
@@ -236,7 +237,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '22', slug: 'deeplearning-ai', name: 'DeepLearning.AI Courses', provider: 'DeepLearning.AI',
-    type: 'Paid', level: 'Intermediate', audience: 'Developers', category: 'Paid Professional',
+    type: 'Paid', level: 'Intermediate', audience: 'Developers', category: 'AI Foundations & Literacy',
     cost: '£30–£50/month', ukRelevant: true, affiliate: true,
     notes: 'Andrew Ng\'s world-class AI specialisations. Intermediate–Advanced.',
     url: 'https://www.deeplearning.ai/',
@@ -246,7 +247,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '23', slug: 'codecademy-ai', name: 'Codecademy AI Courses', provider: 'Codecademy',
-    type: 'Paid', level: 'Beginner–Intermediate', audience: 'Students', category: 'Paid Professional',
+    type: 'Paid', level: 'Beginner–Intermediate', audience: 'Students', category: 'AI Foundations & Literacy',
     cost: 'Subscription ~£15/month', ukRelevant: true, affiliate: true,
     notes: 'Hands-on interactive coding and AI skills. Great for KS4–KS5 students.',
     url: 'https://www.codecademy.com/catalog/subject/machine-learning',
@@ -256,7 +257,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '24', slug: 'futurelearn-paid-ai', name: 'FutureLearn AI (Certificate)', provider: 'FutureLearn',
-    type: 'Paid', level: 'All', audience: 'Students', category: 'Certified CPD',
+    type: 'Paid', level: 'All', audience: 'Students', category: 'AI Foundations & Literacy',
     cost: '£30–£200', ukRelevant: true, affiliate: true,
     notes: 'Upgrade to certificate track on FutureLearn\'s UK university AI courses.',
     url: 'https://www.futurelearn.com/subjects/it-and-computer-science-courses/artificial-intelligence',
@@ -266,7 +267,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '25', slug: 'general-assembly-ai', name: 'General Assembly AI Bootcamp', provider: 'General Assembly',
-    type: 'Paid', level: 'Advanced', audience: 'Career Switchers', category: 'Paid Professional',
+    type: 'Paid', level: 'Advanced', audience: 'Career Switchers', category: 'AI Foundations & Literacy',
     cost: '£1,000+', ukRelevant: true, affiliate: false,
     notes: 'Intensive AI and data science bootcamp in London and online.',
     url: 'https://generalassemb.ly',
@@ -276,7 +277,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '26', slug: 'brainstation-ai', name: 'BrainStation AI Programme', provider: 'BrainStation',
-    type: 'Paid', level: 'Advanced', audience: 'Career Switchers', category: 'Paid Professional',
+    type: 'Paid', level: 'Advanced', audience: 'Career Switchers', category: 'AI Foundations & Literacy',
     cost: '£2,000+', ukRelevant: true, affiliate: false,
     notes: 'Intensive AI and machine learning bootcamp with global network.',
     url: 'https://brainstation.io',
@@ -288,7 +289,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: UK Gov & Official ────────────────────────────────────────────────
   {
     id: '27', slug: 'oak-national-cpd', name: 'Oak National Academy AI Tools', provider: 'Oak National Academy',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'UK Gov & Official',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Teaching with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'DfE-funded AI lesson planning tools and teacher CPD aligned to the National Curriculum.',
     url: 'https://www.thenational.academy',
@@ -298,7 +299,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '28', slug: 'chartered-college-ai', name: 'Chartered College AI Guide', provider: 'Chartered College of Teaching',
-    type: 'Free', level: 'Beginner–Intermediate', audience: 'Teachers', category: 'UK Gov & Official',
+    type: 'Free', level: 'Beginner–Intermediate', audience: 'Teachers', category: 'Teaching with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Evidence-based AI guidance from the professional body for UK teachers.',
     url: 'https://chartered.college/teaching-and-learning/ai-in-education/',
@@ -308,7 +309,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '29', slug: 'ascl-ai-leaders', name: 'ASCL AI in Education Briefing', provider: 'ASCL',
-    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'AI for School Leaders',
+    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'Leadership & Strategy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'ASCL implementation guidance for school leaders developing whole-school AI policy.',
     url: 'https://www.ascl.org.uk/',
@@ -318,7 +319,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '30', slug: 'nasen-ai-send', name: 'NASEN AI for SEND', provider: 'NASEN',
-    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'AI for SENCOs',
+    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'SEND & Inclusion',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'UK SEND specialist association guidance on using AI to support learners with special needs.',
     url: 'https://nasen.org.uk/',
@@ -328,7 +329,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '31', slug: 'bcs-ai-education', name: 'BCS AI in Education', provider: 'BCS – The Chartered Institute for IT',
-    type: 'Free', level: 'Intermediate', audience: 'Teachers', category: 'UK Gov & Official',
+    type: 'Free', level: 'Intermediate', audience: 'Teachers', category: 'AI Foundations & Literacy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'UK computing society resources on teaching AI concepts and AI literacy in schools.',
     url: 'https://www.bcs.org/deliver-and-teach-qualifications/primary-and-secondary-education/',
@@ -338,7 +339,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '32', slug: 'teachermatic-training', name: 'TeacherMatic AI Training', provider: 'TeacherMatic',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Basics for Teachers',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Teaching with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'UK-built platform with onboarding training specifically for teachers using AI in UK schools.',
     url: 'https://teachermatic.com',
@@ -392,7 +393,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: AI Safety & Safeguarding ─────────────────────────────────────────
   {
     id: '37', slug: 'kcsie-2024', name: 'KCSIE 2024 — Keeping Children Safe', provider: 'Department for Education',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Safety & Safeguarding',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Safeguarding & Online Safety',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Statutory safeguarding guidance covering online safety and AI risks. All staff must read annually.',
     url: 'https://www.gov.uk/government/publications/keeping-children-safe-in-education--2',
@@ -402,7 +403,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '38', slug: 'safer-internet-resources', name: 'Safer Internet Day Resources', provider: 'UK Safer Internet Centre',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Safety & Safeguarding',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Safeguarding & Online Safety',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Annual classroom resources on AI, deepfakes and online safety for UK schools.',
     url: 'https://saferinternet.org.uk/',
@@ -412,7 +413,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '39', slug: 'internet-watch-ai', name: 'IWF AI Content Guidance', provider: 'Internet Watch Foundation',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Safety & Safeguarding',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Safeguarding & Online Safety',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'IWF guidance on AI-generated illegal content risks and safeguarding responsibilities.',
     url: 'https://www.iwf.org.uk/',
@@ -422,7 +423,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '40', slug: 'thinkuknow-ai', name: 'ThinkUKnow AI Resources', provider: 'NCA-CEOP',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Safety & Safeguarding',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Safeguarding & Online Safety',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'NCA-CEOP resources on deepfakes, AI manipulation and child safeguarding online.',
     url: 'https://www.thinkuknow.co.uk/',
@@ -434,7 +435,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: UK GDPR & Data Protection ───────────────────────────────────────
   {
     id: '41', slug: 'ico-ai-guidance', name: 'ICO AI & Data Protection Guide', provider: 'Information Commissioner\'s Office',
-    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'UK GDPR & Data Protection',
+    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'Data Protection & Compliance',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Official UK data protection regulator guidance on using AI tools lawfully.',
     url: 'https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/artificial-intelligence/',
@@ -444,7 +445,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '42', slug: 'data-protection-schools', name: 'DfE Data Protection in Schools', provider: 'Department for Education',
-    type: 'Free', level: 'Beginner', audience: 'School Leaders', category: 'UK GDPR & Data Protection',
+    type: 'Free', level: 'Beginner', audience: 'School Leaders', category: 'Data Protection & Compliance',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'DfE guidance on data protection responsibilities including AI tool procurement for schools.',
     url: 'https://www.gov.uk/guidance/data-protection-in-schools',
@@ -454,7 +455,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '43', slug: 'ihasco-gdpr-schools', name: 'GDPR for Schools (Certified)', provider: 'iHASCO',
-    type: 'Paid', level: 'Beginner', audience: 'Teachers', category: 'UK GDPR & Data Protection',
+    type: 'Paid', level: 'Beginner', audience: 'Teachers', category: 'Data Protection & Compliance',
     cost: '£10–£20 per person', ukRelevant: true, affiliate: true,
     notes: 'CPD-certified UK GDPR training for all school staff. Instant certificate.',
     url: 'https://www.ihasco.co.uk/courses',
@@ -464,7 +465,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '44', slug: 'the-key-data-schools', name: 'The Key Data Protection Guidance', provider: 'The Key for School Leaders',
-    type: 'Paid', level: 'Intermediate', audience: 'School Leaders', category: 'UK GDPR & Data Protection',
+    type: 'Paid', level: 'Intermediate', audience: 'School Leaders', category: 'Data Protection & Compliance',
     cost: 'Subscription', ukRelevant: true, affiliate: true,
     notes: 'Comprehensive data protection templates and guidance for academy trusts and maintained schools.',
     url: 'https://schoolleaders.thekeysupport.com/',
@@ -476,7 +477,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: AI for SENCOs ────────────────────────────────────────────────────
   {
     id: '45', slug: 'texthelp-educator-cpd', name: 'Texthelp Educator CPD', provider: 'Texthelp',
-    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'AI for SENCOs',
+    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'SEND & Inclusion',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Free CPD on Read&Write, Equatio and AI tools for SEND learners — with completion certificates.',
     url: 'https://www.texthelp.com/en-gb/education/',
@@ -486,7 +487,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '46', slug: 'autism-education-trust-ai', name: 'Autism Education Trust AI Resources', provider: 'Autism Education Trust',
-    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'AI for SENCOs',
+    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'SEND & Inclusion',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Guidance on using AI tools to support autistic pupils in school and home settings.',
     url: 'https://www.autismeducationtrust.org.uk/',
@@ -496,7 +497,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '47', slug: 'ndti-inclusive-tech', name: 'NDTi Inclusive Technology Guide', provider: 'National Development Team for Inclusion',
-    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'AI for SENCOs',
+    type: 'Free', level: 'Beginner', audience: 'SENCO', category: 'SEND & Inclusion',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'AI and assistive technology guidance for learners with complex needs and disabilities.',
     url: 'https://www.ndti.org.uk/',
@@ -508,7 +509,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: AI for Parents ───────────────────────────────────────────────────
   {
     id: '48', slug: 'parent-zone-ai-guide', name: 'Parent Zone AI Family Guide', provider: 'Parent Zone',
-    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents',
+    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents & Families',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Parent-friendly guide to AI tools children use, risks and conversation starters.',
     url: 'https://parentzone.org.uk',
@@ -518,7 +519,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '49', slug: 'childnet-ai-parents', name: 'Childnet AI for Parents', provider: 'Childnet International',
-    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents',
+    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents & Families',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Guides on deepfakes, AI chatbots and keeping children safe with AI tools.',
     url: 'https://www.childnet.com/',
@@ -528,7 +529,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '50', slug: 'nspcc-net-aware-ai', name: 'NSPCC Net Aware AI Guide', provider: 'NSPCC',
-    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents',
+    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents & Families',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'NSPCC guide on AI apps children use, parent guidance and reporting routes.',
     url: 'https://www.net-aware.org.uk/',
@@ -572,7 +573,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: AI for School Leaders ────────────────────────────────────────────
   {
     id: '54', slug: 'naht-ai-guidance', name: 'NAHT AI in Education Guide', provider: 'NAHT',
-    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'AI for School Leaders',
+    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'Leadership & Strategy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'National Association of Head Teachers guidance on AI policy, staff training and implementation.',
     url: 'https://www.naht.org.uk/',
@@ -582,7 +583,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '55', slug: 'slt-ai-strategy', name: 'School AI Strategy Framework', provider: 'AI for Education (AIfE)',
-    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'AI for School Leaders',
+    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'Leadership & Strategy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Practical framework for headteachers developing whole-school AI policy and implementation plans.',
     url: 'https://www.aiforeducation.co.uk/',
@@ -592,7 +593,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '56', slug: 'national-college-ai-leaders', name: 'National College AI for Leaders (CPD)', provider: 'National College',
-    type: 'Paid', level: 'Intermediate', audience: 'School Leaders', category: 'AI for School Leaders',
+    type: 'Paid', level: 'Intermediate', audience: 'School Leaders', category: 'Leadership & Strategy',
     cost: 'Subscription', ukRelevant: true, affiliate: true,
     notes: 'Accredited CPD-certified AI leadership module for headteachers and senior school leaders.',
     url: 'https://www.nationalcollege.com/',
@@ -604,7 +605,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: AI Policy & Governance ───────────────────────────────────────────
   {
     id: '57', slug: 'unesco-ai-framework', name: 'UNESCO AI Competency Framework', provider: 'UNESCO',
-    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'AI Policy & Governance',
+    type: 'Free', level: 'Intermediate', audience: 'School Leaders', category: 'Leadership & Strategy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'International AI competency framework for education — useful for whole-school capability planning.',
     url: 'https://www.unesco.org/en/digital-education/artificial-intelligence',
@@ -614,7 +615,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '58', slug: 'jcq-ai-policy', name: 'JCQ AI Use in Assessments', provider: 'JCQ',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Policy & Governance',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Assessment with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Joint Council for Qualifications policy on AI use in coursework, controlled assessments and exams.',
     url: 'https://www.jcq.org.uk/exams-office/malpractice/artificial-intelligence/',
@@ -624,7 +625,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '59', slug: 'ofqual-ai-integrity', name: 'Ofqual AI & Academic Integrity', provider: 'Ofqual',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Policy & Governance',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Assessment with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Ofqual position on AI-assisted work, qualification integrity and implications for assessment.',
     url: 'https://www.gov.uk/government/organisations/ofqual',
@@ -636,7 +637,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: AI in Assessment ─────────────────────────────────────────────────
   {
     id: '60', slug: 'aqa-ai-assessment', name: 'AQA AI & Assessment Guidance', provider: 'AQA',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI in Assessment',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Assessment with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'AQA guidance on AI\'s impact on GCSEs and A-Levels, academic integrity and assessment design.',
     url: 'https://www.aqa.org.uk/',
@@ -646,7 +647,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '61', slug: 'pearson-edexcel-ai', name: 'Pearson AI in Assessment Guide', provider: 'Pearson / Edexcel',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI in Assessment',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Assessment with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Edexcel guidance on AI use for BTEC, GCSE and A-Level assessment centre staff.',
     url: 'https://qualifications.pearson.com/en/support/support-for-teaching-assistants/ai-guidance.html',
@@ -656,7 +657,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '62', slug: 'formative-ai-cc', name: 'Formative Assessment with AI', provider: 'Chartered College of Teaching',
-    type: 'Free', level: 'Intermediate', audience: 'Teachers', category: 'AI in Assessment',
+    type: 'Free', level: 'Intermediate', audience: 'Teachers', category: 'Assessment with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Research-grounded CPD on using AI for formative assessment, marking and feedback.',
     url: 'https://chartered.college/',
@@ -668,7 +669,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: AI Productivity for Admin ────────────────────────────────────────
   {
     id: '63', slug: 'google-workspace-admin-ai', name: 'Google Workspace AI for Education', provider: 'Google',
-    type: 'Free', level: 'Beginner', audience: 'Admin', category: 'AI Productivity for Admin',
+    type: 'Free', level: 'Beginner', audience: 'Admin', category: 'Productivity & Administration',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Official free training on AI features in Gmail, Docs, Sheets and Meet for school admin teams.',
     url: 'https://workspace.google.com/intl/en-GB/training/',
@@ -678,7 +679,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '64', slug: 'microsoft365-admin-ai', name: 'Microsoft 365 AI for Education Admin', provider: 'Microsoft',
-    type: 'Free', level: 'Beginner', audience: 'Admin', category: 'AI Productivity for Admin',
+    type: 'Free', level: 'Beginner', audience: 'Admin', category: 'Productivity & Administration',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Free Microsoft training on AI features in Teams, Outlook and SharePoint for school admins.',
     url: 'https://learn.microsoft.com/en-gb/training/educator-center/',
@@ -688,7 +689,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '65', slug: 'isbl-ai-guide', name: 'ISBL School Business AI Guide', provider: 'ISBL',
-    type: 'Free', level: 'Beginner–Intermediate', audience: 'Admin', category: 'AI Productivity for Admin',
+    type: 'Free', level: 'Beginner–Intermediate', audience: 'Admin', category: 'Productivity & Administration',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Institute of School Business Leadership guidance on AI for finance, HR and school operations.',
     url: 'https://www.isbl.org.uk/',
@@ -700,7 +701,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: Certified CPD ────────────────────────────────────────────────────
   {
     id: '66', slug: 'national-college-teacher-ai', name: 'National College AI for Teachers (CPD)', provider: 'National College',
-    type: 'Paid', level: 'Beginner–Intermediate', audience: 'Teachers', category: 'Certified CPD',
+    type: 'Paid', level: 'Beginner–Intermediate', audience: 'Teachers', category: 'Teaching with AI',
     cost: 'Subscription', ukRelevant: true, affiliate: true,
     notes: 'CPD-certified AI module for classroom teachers with certificate for appraisal evidence.',
     url: 'https://www.nationalcollege.com/',
@@ -710,7 +711,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '67', slug: 'tes-ai-cpd', name: 'Tes CPD AI Module', provider: 'Tes Institute',
-    type: 'Paid', level: 'Beginner', audience: 'Teachers', category: 'Certified CPD',
+    type: 'Paid', level: 'Beginner', audience: 'Teachers', category: 'AI Foundations & Literacy',
     cost: '£20–£50', ukRelevant: true, affiliate: true,
     notes: 'Tes-verified CPD module on safe and effective AI use for UK classroom teachers.',
     url: 'https://www.tes.com/institute',
@@ -720,7 +721,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '68', slug: 'coursera-ai-educators', name: 'Coursera AI for Educators Specialisation', provider: 'Coursera',
-    type: 'Paid', level: 'Beginner–Intermediate', audience: 'Teachers', category: 'Certified CPD',
+    type: 'Paid', level: 'Beginner–Intermediate', audience: 'Teachers', category: 'Teaching with AI',
     cost: '£30–£50/month', ukRelevant: true, affiliate: true,
     notes: 'Educator-specific Coursera specialisation covering AI tools, prompts and ethics. Certificate.',
     url: 'https://www.coursera.org/search?query=ai+for+educators',
@@ -730,7 +731,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '69', slug: 'bett-future-leaders', name: 'BETT Future Leaders AI Programme', provider: 'BETT',
-    type: 'Paid', level: 'Advanced', audience: 'School Leaders', category: 'Certified CPD',
+    type: 'Paid', level: 'Advanced', audience: 'School Leaders', category: 'Leadership & Strategy',
     cost: '£200+', ukRelevant: true, affiliate: true,
     notes: 'UK edtech industry\'s flagship AI leadership programme at and around the BETT Show.',
     url: 'https://www.bettshow.com/',
@@ -740,7 +741,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '70', slug: 'edx-mit-ai-teaching', name: 'MIT Teaching AI in K-12 (edX)', provider: 'MIT / edX',
-    type: 'Paid', level: 'Intermediate', audience: 'Teachers', category: 'Certified CPD',
+    type: 'Paid', level: 'Intermediate', audience: 'Teachers', category: 'Teaching with AI',
     cost: '£150–£300', ukRelevant: true, affiliate: true,
     notes: 'MIT-backed professional certificate on designing and teaching AI literacy in secondary schools.',
     url: 'https://www.edx.org/',
@@ -752,7 +753,7 @@ export const TRAINING: TrainingItem[] = [
   // ── New: Additional Free Resources ────────────────────────────────────────
   {
     id: '71', slug: 'magic-school-academy', name: 'MagicSchool AI Academy', provider: 'MagicSchool.ai',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'AI Basics for Teachers',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Teaching with AI',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Free teacher AI training with in-platform certificate. Covers 60+ AI tools for educators.',
     url: 'https://www.magicschool.ai/',
@@ -762,7 +763,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '72', slug: 'teachertapp-ai-report', name: 'TeacherTapp AI in Schools Report', provider: 'TeacherTapp',
-    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'UK Gov & Official',
+    type: 'Free', level: 'Beginner', audience: 'Teachers', category: 'Leadership & Strategy',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Real data from 10,000+ UK teachers on how AI is actually being used in schools.',
     url: 'https://teachertapp.co.uk/',
@@ -772,7 +773,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '73', slug: 'digital-leaders-programme', name: 'Digital Leaders Programme', provider: 'Digital Leaders',
-    type: 'Paid', level: 'Advanced', audience: 'School Leaders', category: 'AI for School Leaders',
+    type: 'Paid', level: 'Advanced', audience: 'School Leaders', category: 'Leadership & Strategy',
     cost: '£500+', ukRelevant: true, affiliate: true,
     notes: 'UK digital leadership development covering AI strategy for senior school and sector leaders.',
     url: 'https://digileaders.com/',
@@ -782,7 +783,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '74', slug: 'senco-ai-pathway-nasen', name: 'NASEN SENCO AI Pathway', provider: 'NASEN',
-    type: 'Free', level: 'Beginner–Intermediate', audience: 'SENCO', category: 'AI for SENCOs',
+    type: 'Free', level: 'Beginner–Intermediate', audience: 'SENCO', category: 'SEND & Inclusion',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Structured AI learning pathway for SENCOs covering assessment tools, EHCPs and communication aids.',
     url: 'https://nasen.org.uk/',
@@ -792,7 +793,7 @@ export const TRAINING: TrainingItem[] = [
   },
   {
     id: '75', slug: 'ai-for-parents-internet-matters', name: 'Internet Matters AI Parent Toolkit', provider: 'Internet Matters',
-    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents',
+    type: 'Free', level: 'Beginner', audience: 'Parents', category: 'AI for Parents & Families',
     cost: 'Free', ukRelevant: true, affiliate: false,
     notes: 'Step-by-step UK parent toolkit for managing AI at home — conversation guides included.',
     url: 'https://www.internetmatters.org/resources/ai-tools-guide-for-parents/',

@@ -55,6 +55,45 @@ export function isToolCategory(v: string): v is ToolCategory {
   return (TOOL_CATEGORIES as readonly string[]).includes(v);
 }
 
+// ─── Training taxonomy (topic axis; audience + Free/Paid are separate fields) ────
+export const TRAINING_CATEGORIES = [
+  'AI Foundations & Literacy',
+  'Teaching with AI',
+  'Prompt Engineering',
+  'Assessment with AI',
+  'SEND & Inclusion',
+  'Leadership & Strategy',
+  'Safeguarding & Online Safety',
+  'Data Protection & Compliance',
+  'Productivity & Administration',
+  'AI for Students',
+  'AI for Parents & Families',
+] as const;
+export type TrainingCategory = (typeof TRAINING_CATEGORIES)[number];
+export function isTrainingCategory(v: string): v is TrainingCategory {
+  return (TRAINING_CATEGORIES as readonly string[]).includes(v);
+}
+
+// ─── Prompt taxonomy (mirrors the CATEGORIES list in data/prompts.ts) ───────────
+export const PROMPT_CATEGORIES = [
+  'Essay & Writing Support',
+  'Maths & Science Support',
+  'Exam & Test Preparation',
+  'Study Skills & Executive Function',
+  'Reading Comprehension & Literacy',
+  'Parent & Caregiver Tools',
+  'Language Learning & Vocabulary',
+  'Creative & Critical Thinking',
+  'Project & Assignment Helpers',
+  'Teacher Professional Practice',
+  'SENCO & SEN Management',
+  'School Leadership',
+] as const;
+export type PromptCategory = (typeof PROMPT_CATEGORIES)[number];
+export function isPromptCategory(v: string): v is PromptCategory {
+  return (PROMPT_CATEGORIES as readonly string[]).includes(v);
+}
+
 /** True if (category, subcategory) is a valid, controlled pairing. */
 export function isValidTaxonomy(category: string, subcategory: string): boolean {
   return isToolCategory(category) && TOOL_SUBCATEGORIES[category].includes(subcategory);
