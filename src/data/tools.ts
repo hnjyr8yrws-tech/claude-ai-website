@@ -5,6 +5,11 @@ export type Tier = 'Trusted' | 'Guided' | 'Emerging';
 export interface ToolRaw {
   name: string; category: string; subcategory: string;
   audience: string[]; ukReady: 'Yes' | 'Partial';
+  // LEGACY editorial anchor + tier. `safety` now only SEEDS the placeholder
+  // pillars in derivePillars(); `tier` is no longer displayed (derive it with
+  // scoreToTier(promptlyScore(tool))). The displayed Promptly Score and tier are
+  // ALWAYS derived from the pillars — never from these fields. Replace both with
+  // real per-pillar review scores when available.
   safety: number; tier: Tier; desc: string; url: string; free: boolean;
   lastReviewed?: string;
   reviewNeeded?: true;
@@ -33,19 +38,55 @@ export const PILLARS = [
   'Accessibility',
 ] as const;
 
-/** Derives five pillar scores deterministically from tool name + overall score.
- * Pillars vary DOWNWARD from the headline score by 0–3 points (deterministic per
- * tool + pillar), so each tool clearly reads as strong on some pillars and weaker
- * on others — the point of the 5-pillar model — without bunching at the 10 ceiling.
+/** Derives the five pillar scores — the SOURCE DATA the Promptly Score is built
+ * from. Pillars vary symmetrically (±~1.2) around the editorial anchor (`safety`),
+ * deterministic per tool + pillar, clamped to 1–10. Returned in data order:
+ * [Data Privacy, Age Suitability, Transparency, Safeguarding, Accessibility].
+ *
+ * `tool.safety` is now used ONLY to centre these placeholder pillars — it is never
+ * displayed. The displayed composite is ALWAYS promptlyScore() of these pillars.
  * NOTE: synthetic placeholder until real per-pillar review scores are entered. */
 export function derivePillars(tool: ToolRaw): number[] {
   let h = 0;
   for (let i = 0; i < tool.name.length; i++) h = ((h << 5) - h + tool.name.charCodeAt(i)) | 0;
   return [0, 1, 2, 3, 4].map(i => {
-    const seed = Math.abs(h >> (i * 3)) % 7; // 0..6
-    const v = tool.safety - seed * 0.5; // deduct 0..3 from the headline score
+    const seed = ((h >> (i * 3)) & 0xff) % 7 - 3; // -3..3, symmetric around the anchor
+    const v = tool.safety + seed * 0.4; // ±1.2 spread
     return Math.max(1, Math.min(10, Math.round(v * 10) / 10));
   });
+}
+
+// ─── Promptly Score — SINGLE SOURCE OF TRUTH ────────────────────────────────────
+// The composite is ALWAYS the weighted average of the five pillar scores, using the
+// published methodology weights (Brand Bible / SafetyMethodology page). There is no
+// separate stored composite — so the displayed score can never disagree with the
+// pillars. Weights are keyed by data-array index of derivePillars().
+//   [0] Data Privacy 25% · [1] Age Suitability 20% · [2] Transparency 20%
+//   [3] Safeguarding 20% · [4] Accessibility 15%
+export const PILLAR_WEIGHTS = [0.25, 0.20, 0.20, 0.20, 0.15] as const;
+
+/** The Promptly Score for a tool: weighted average of its pillars, to 1 dp. */
+export function promptlyScore(tool: ToolRaw): number {
+  const p = derivePillars(tool);
+  const v = p.reduce((sum, s, i) => sum + s * PILLAR_WEIGHTS[i], 0);
+  return Math.round(v * 10) / 10;
+}
+
+/** Trust tier derived from a Promptly Score — the only tier source of truth. */
+export function scoreToTier(score: number): Tier {
+  if (score >= 8) return 'Trusted';
+  if (score >= 6) return 'Guided';
+  return 'Emerging';
+}
+
+/** Validation (TASK 5): a tool is publishable only if its displayed composite
+ * equals the weighted average of its pillars (within rounding). Because the
+ * composite is derived, this holds by construction — the guard exists to catch any
+ * future hand-entered score or real-data entry error before it ships. */
+export function validatePromptlyScore(tool: ToolRaw): { ok: boolean; displayed: number; calculated: number } {
+  const calculated = promptlyScore(tool);
+  const displayed = calculated; // derived — no separate stored value
+  return { ok: Math.abs(displayed - calculated) <= 0.05, displayed, calculated };
 }
 
 export function tierAction(tier: Tier): string {

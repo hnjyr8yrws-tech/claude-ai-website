@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
-import { TOOLS } from '../data/tools';
+import { TOOLS, promptlyScore, type Tool } from '../data/tools';
 import { ScorePill } from '../components/trust/PillarCard';
 import { RoleIcon } from '../components/icons';
 
@@ -39,14 +39,14 @@ function FadeIn({ children, delay = 0, className = '' }: { children: React.React
 
 // Best-effort resolve a role tool-pick name to a real tool slug, so its Score
 // Pill can link to the tool's Pillar Card (§04 — a Score Pill must lead to one).
-function findToolSlug(name: string): string | undefined {
+function findTool(name: string): Tool | undefined {
   const n = name.toLowerCase();
   return (
     TOOLS.find((x) => x.name.toLowerCase() === n) ??
     TOOLS.find(
       (x) => x.name.toLowerCase().startsWith(n) || n.startsWith(x.name.toLowerCase()),
     )
-  )?.slug;
+  );
 }
 
 // ─── Role data ────────────────────────────────────────────────────────────────
@@ -137,14 +137,18 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
           </FadeIn>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {d.tools.map((t, i) => {
-              const slug = findToolSlug(t.name);
+              const matched = findTool(t.name);
+              const slug = matched?.slug;
+              // Show the canonical derived Promptly Score when this maps to a
+              // reviewed tool, so the role page can never disagree with the directory.
+              const displayScore = matched ? promptlyScore(matched) : t.score;
               return (
               <FadeIn key={t.name} delay={i * 0.06}>
                 <div className="rounded-2xl border p-5 h-full flex flex-col" style={{ borderColor: BORDER, background: BG }}>
                   <div className="flex items-center justify-between mb-3">
                     <p className="font-semibold text-sm">{t.name}</p>
                     <div className="flex items-center gap-1.5">
-                      <ScorePill score={t.score} to={slug ? `/tools/${slug}` : undefined} />
+                      <ScorePill score={displayScore} to={slug ? `/tools/${slug}` : undefined} />
                     </div>
                   </div>
                   {/* Plain Verdict (§14) in Fraunces italic, in place of a one-word tier badge */}

@@ -9,7 +9,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TIER_STYLE } from '../data/tools';
+import { TIER_STYLE, scoreToTier } from '../data/tools';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -29,11 +29,9 @@ export interface SafetyScoreProps {
 // Card / tier word, never by recolouring the digits (§04/§09). Tier chip colours
 // come from the single source of truth in data/tools.ts (TIER_STYLE).
 
-export function getTrustTier(score: number): TrustTier {
-  if (score >= 8) return 'Trusted';
-  if (score >= 6) return 'Guided';
-  return 'Emerging';
-}
+// Single source of truth lives in data/tools.ts (scoreToTier); kept as a named
+// re-export so existing imports of getTrustTier keep working.
+export const getTrustTier = (score: number): TrustTier => scoreToTier(score) as TrustTier;
 
 // ─── Five scoring pillars ─────────────────────────────────────────────────────
 

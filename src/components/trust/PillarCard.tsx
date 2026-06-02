@@ -204,7 +204,23 @@ export function PillarCard({
     mark = parts.join(' · ');
   }
 
-  const centreLabel = isProvisional || score == null ? '—' : score.toFixed(1);
+  // SINGLE SOURCE OF TRUTH for the centre number: when pillars are present the
+  // composite is ALWAYS their weighted average (same methodology weights as
+  // data/tools.ts promptlyScore), so the centre can never disagree with the arcs.
+  // The `score` prop is only a fallback when no pillars are supplied.
+  const composite =
+    pillars
+      ? Math.round(
+          (pillars.dataPrivacy * 0.25 +
+            pillars.safeguarding * 0.2 +
+            pillars.ageSuitability * 0.2 +
+            pillars.transparency * 0.2 +
+            pillars.accessibility * 0.15) *
+            10,
+        ) / 10
+      : score ?? null;
+
+  const centreLabel = isProvisional || composite == null ? '—' : composite.toFixed(1);
 
   // Full-strength score colour and its SOLID muted track tint (greyscale when
   // withdrawn). Both are solid colours — the ring never uses transparency, so no
@@ -240,9 +256,9 @@ export function PillarCard({
         aria-label={
           isWithdrawn
             ? `${toolName ?? 'Tool'} — Promptly Score withdrawn. ${verdict ?? ''}`.trim()
-            : isProvisional || score == null
+            : isProvisional || composite == null
             ? `${toolName ?? 'Tool'} — Promptly Score provisional, review in progress. ${verdict ?? ''}`.trim()
-            : `${toolName ?? 'Tool'} — Promptly Score ${score.toFixed(1)} out of 10.${
+            : `${toolName ?? 'Tool'} — Promptly Score ${composite.toFixed(1)} out of 10.${
                 verdict ? ` Verdict: ${verdict}` : ''
               }${
                 pillars

@@ -13,7 +13,7 @@ import { useMemo, useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
-import { TOOLS, derivePillars, type Tool } from '../data/tools';
+import { TOOLS, derivePillars, promptlyScore, type Tool } from '../data/tools';
 import { PillarCard, pillarScoresFromData } from '../components/trust/PillarCard';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { inferLinkType, linkLabel } from '../utils/linkType';
@@ -53,6 +53,7 @@ function openLuna(prompt?: string) {
 // ── Tool tile ───────────────────────────────────────────────────────────────────
 function ToolTile({ tool }: { tool: Tool }) {
   const scores = useMemo(() => derivePillars(tool), [tool]);
+  const score = useMemo(() => promptlyScore(tool), [tool]); // derived composite (single source of truth)
   // Outbound CTA to the tool itself — label reflects what the link opens
   // ("Try demo", "Start free trial", "Visit website", …).
   const demoLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
@@ -71,7 +72,7 @@ function ToolTile({ tool }: { tool: Tool }) {
             <PillarCard state="provisional" size={96} showName={false} showVerdict={false} showLegend={false} showMark={false} />
           ) : (
             <PillarCard
-              score={tool.safety}
+              score={score}
               pillars={pillarScoresFromData(scores)}
               size={96}
               showName={false}

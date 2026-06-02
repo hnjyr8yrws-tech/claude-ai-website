@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "audit:scores": "node scripts/audit-scores.mjs",
+    "prebuild": "node scripts/audit-scores.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

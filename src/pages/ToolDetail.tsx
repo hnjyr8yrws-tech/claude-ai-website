@@ -11,7 +11,7 @@ import { useCrossSell } from '../hooks/useCrossSell';
 import { linkLabel, inferLinkType } from '../utils/linkType';
 import {
   TOOLS, CAT_COLOURS, TIER_STYLE,
-  PILLARS, derivePillars, tierAction,
+  PILLARS, derivePillars, promptlyScore, scoreToTier, tierAction,
   deriveBestFor, deriveNotIdealFor, deriveAgeNotes,
 } from '../data/tools';
 import { TRAINING } from '../data/training';
@@ -153,7 +153,10 @@ const ToolDetail = () => {
     );
   }
 
-  const ts = TIER_STYLE[tool.tier];
+  // Derived Promptly Score + tier — single source of truth (never the stored fields).
+  const score = promptlyScore(tool);
+  const tier = scoreToTier(score);
+  const ts = TIER_STYLE[tier];
   const catStyle = CAT_COLOURS[tool.category] ?? { bg: '#f3f4f6', text: '#374151' };
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
@@ -162,7 +165,7 @@ const ToolDetail = () => {
     <>
       <SEO
         title={`${tool.name} — AI Tool Review | GetPromptly`}
-        description={`${tool.name}: safety score ${tool.reviewNeeded ? 'pending review' : `${tool.safety}/10`}, ${tool.tier} tier. ${tool.desc}`}
+        description={`${tool.name}: Promptly Score ${tool.reviewNeeded ? 'pending review' : `${score}/10`}, ${tier} tier. ${tool.desc}`}
         keywords={`${tool.name}, ${tool.category}, AI tools for education, UK schools, safety score`}
         path={`/tools/${tool.slug}`}
       />
@@ -187,7 +190,7 @@ const ToolDetail = () => {
               {tool.category}
             </span>
             <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: ts.bg, color: ts.text }}>
-              {tool.tier}
+              {tier}
             </span>
             {tool.ukReady === 'Yes' && (
               <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
@@ -214,7 +217,7 @@ const ToolDetail = () => {
                 <PillarCard state="provisional" showName={false} showVerdict={false} size={208} />
               ) : (
                 <PillarCard
-                  score={tool.safety}
+                  score={score}
                   pillars={pillarScoresFromData(pillars)}
                   showName={false}
                   showVerdict={false}
@@ -243,7 +246,7 @@ const ToolDetail = () => {
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Safety score</SectionLabel>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
-            {tool.reviewNeeded ? 'Under review' : `Promptly Score breakdown — ${tool.tier}`}
+            {tool.reviewNeeded ? 'Under review' : `Promptly Score breakdown — ${tier}`}
           </h2>
 
           {tool.reviewNeeded ? (
@@ -263,9 +266,9 @@ const ToolDetail = () => {
               {/* Tier action card */}
               <div className="rounded-xl p-4 mb-0" style={{ background: ts.bg }}>
                 <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: ts.text }}>
-                  Recommended action for {tool.tier} tools
+                  Recommended action for {tier} tools
                 </p>
-                <p className="text-sm" style={{ color: ts.text }}>{tierAction(tool.tier)}</p>
+                <p className="text-sm" style={{ color: ts.text }}>{tierAction(tier)}</p>
               </div>
             </>
           )}
@@ -312,7 +315,7 @@ const ToolDetail = () => {
             <div className="flex items-center gap-2 text-sm">
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-ink-accent)' }} />
               <span style={{ color: '#6b6760' }}>
-                KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{tool.safety >= 9 ? 'Strong' : tool.safety >= 7 ? 'Moderate — review policy' : 'Requires policy decision'}</strong>
+                KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{score >= 9 ? 'Strong' : score >= 7 ? 'Moderate — review policy' : 'Requires policy decision'}</strong>
               </span>
             </div>
           </div>
@@ -459,7 +462,7 @@ const ToolDetail = () => {
                           —
                         </span>
                       ) : (
-                        <ScorePill score={alt.safety} />
+                        <ScorePill score={promptlyScore(alt)} />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
