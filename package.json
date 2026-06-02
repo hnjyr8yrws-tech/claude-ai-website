@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "audit:scores": "node scripts/audit-scores.mjs",
-    "prebuild": "node scripts/audit-scores.mjs",
+    "audit:taxonomy": "node scripts/audit-taxonomy.mjs",
+    "prebuild": "node scripts/audit-scores.mjs && node scripts/audit-taxonomy.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },

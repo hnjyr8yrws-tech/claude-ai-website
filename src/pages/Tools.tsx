@@ -121,7 +121,7 @@ function ToolTile({ tool }: { tool: Tool }) {
               name: 'outbound_tool_click',
               toolSlug: tool.slug,
               toolName: tool.name,
-              category: tool.category,
+              category: tool.primaryCategory,
               linkType: demoLabel,
               source: 'direct',
               pageType: 'tools-directory',
@@ -199,7 +199,7 @@ export default function Tools() {
     if (activeRole.audience) r = r.filter(t => t.audience.includes(activeRole.audience!));
     if (search.trim()) {
       const q = search.toLowerCase();
-      r = r.filter(t => [t.name, t.desc, t.category, t.subcategory, ...(t.audience ?? [])].join(' ').toLowerCase().includes(q));
+      r = r.filter(t => [t.name, t.desc, t.primaryCategory, t.subcategory, ...(t.audience ?? [])].join(' ').toLowerCase().includes(q));
     }
     return r;
   }, [activeRole, search]);

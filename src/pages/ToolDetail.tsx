@@ -94,7 +94,7 @@ const ToolDetail = () => {
   const alternatives = useMemo(() => {
     if (!tool) return [];
     return TOOLS
-      .filter(t => t.slug !== tool.slug && t.category === tool.category && t.safety >= tool.safety - 1)
+      .filter(t => t.slug !== tool.slug && t.primaryCategory === tool.primaryCategory && t.safety >= tool.safety - 1)
       .sort((a, b) => b.safety - a.safety)
       .slice(0, 3);
   }, [tool]);
@@ -114,7 +114,7 @@ const ToolDetail = () => {
     return TRAINING
       .filter(t =>
         tool.audience.some(a => t.audience.toLowerCase().includes(a.toLowerCase())) ||
-        t.category.toLowerCase().includes(tool.category.toLowerCase())
+        t.primaryCategory.toLowerCase().includes(tool.primaryCategory.toLowerCase())
       )
       .slice(0, 3);
   }, [tool]);
@@ -124,7 +124,7 @@ const ToolDetail = () => {
   // Cross-sell
   const { inlineItems, popupItems, popupOpen, popupTrigger, closePopup } = useCrossSell(
     tool
-      ? { currentSection: 'tools', itemName: tool.name, category: tool.category, roles: tool.audience }
+      ? { currentSection: 'tools', itemName: tool.name, category: tool.primaryCategory, roles: tool.audience }
       : { currentSection: 'tools' }
   );
 
@@ -157,7 +157,7 @@ const ToolDetail = () => {
   const score = promptlyScore(tool);
   const tier = scoreToTier(score);
   const ts = TIER_STYLE[tier];
-  const catStyle = CAT_COLOURS[tool.category] ?? { bg: '#f3f4f6', text: '#374151' };
+  const catStyle = CAT_COLOURS[tool.primaryCategory] ?? { bg: '#f3f4f6', text: '#374151' };
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
 
@@ -166,7 +166,7 @@ const ToolDetail = () => {
       <SEO
         title={`${tool.name} — AI Tool Review | GetPromptly`}
         description={`${tool.name}: Promptly Score ${tool.reviewNeeded ? 'pending review' : `${score}/10`}, ${tier} tier. ${tool.desc}`}
-        keywords={`${tool.name}, ${tool.category}, AI tools for education, UK schools, safety score`}
+        keywords={`${tool.name}, ${tool.primaryCategory}, AI tools for education, UK schools, safety score`}
         path={`/tools/${tool.slug}`}
       />
 
@@ -187,7 +187,7 @@ const ToolDetail = () => {
           {/* Category + tier badges */}
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: catStyle.bg, color: catStyle.text }}>
-              {tool.category}
+              {tool.primaryCategory}
             </span>
             <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: ts.bg, color: ts.text }}>
               {tier}
@@ -340,11 +340,11 @@ const ToolDetail = () => {
                 rel={`noopener noreferrer${isAffiliate ? ' sponsored' : ''}`}
                 onClick={() => {
                   track({ name: 'tool_detail_cta_click', toolSlug: tool.slug });
-                  track({ name: 'outbound_tool_click', toolSlug: tool.slug, toolName: tool.name, category: tool.category, linkType: ctaLabel, source: isAffiliate ? 'affiliate' : 'direct', pageType: 'tool-detail' });
+                  track({ name: 'outbound_tool_click', toolSlug: tool.slug, toolName: tool.name, category: tool.primaryCategory, linkType: ctaLabel, source: isAffiliate ? 'affiliate' : 'direct', pageType: 'tool-detail' });
                   if (isAffiliate) {
-                    track({ name: 'affiliate_click', itemId: tool.slug, itemName: tool.name, category: tool.category, pageType: 'tool-detail' });
+                    track({ name: 'affiliate_click', itemId: tool.slug, itemName: tool.name, category: tool.primaryCategory, pageType: 'tool-detail' });
                   } else {
-                    track({ name: 'direct_source_click', itemId: tool.slug, itemName: tool.name, category: tool.category, pageType: 'tool-detail' });
+                    track({ name: 'direct_source_click', itemId: tool.slug, itemName: tool.name, category: tool.primaryCategory, pageType: 'tool-detail' });
                   }
                 }}
                 className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-bold transition-opacity hover:opacity-80"
@@ -415,7 +415,7 @@ const ToolDetail = () => {
               Build your skills
             </h2>
             <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
-              Training resources to help you use {tool.category.toLowerCase()} tools confidently and safely.
+              Training resources to help you use {tool.primaryCategory.toLowerCase()} tools confidently and safely.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {relatedTraining.map(t => (
@@ -437,14 +437,14 @@ const ToolDetail = () => {
           <div className="max-w-3xl mx-auto">
             <SectionLabel>Alternatives</SectionLabel>
             <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
-              Similar tools in {tool.category}
+              Similar tools in {tool.primaryCategory}
             </h2>
             <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
-              Other {tool.category.toLowerCase()} tools you might also consider.
+              Other {tool.primaryCategory.toLowerCase()} tools you might also consider.
             </p>
             <div className="space-y-3">
               {alternatives.map(alt => {
-                const altCatStyle = CAT_COLOURS[alt.category] ?? { bg: '#f3f4f6', text: '#374151' };
+                const altCatStyle = CAT_COLOURS[alt.primaryCategory] ?? { bg: '#f3f4f6', text: '#374151' };
                 return (
                   <Link
                     key={alt.slug}
@@ -479,7 +479,7 @@ const ToolDetail = () => {
             </div>
             <div className="mt-4">
               <Link to="/tools" className="text-sm font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
-                View all {tool.category} tools →
+                View all {tool.primaryCategory} tools →
               </Link>
             </div>
           </div>
