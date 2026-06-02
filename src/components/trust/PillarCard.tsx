@@ -36,16 +36,31 @@ interface Pillar {
   key: keyof PillarScores;
   name: string; // canonical full pillar name (Brand Bible) — never abbreviated
   cssVar: string; // CSS custom property in src/index.css
+  hex: string; // brand hex — used to compute a SOLID muted tint for the ring track
 }
 
 // Top (12 o'clock) → clockwise: Data Privacy → Safeguarding → Age Suitability → Transparency → Accessibility.
+// hex values are the Brand Bible §09 pillar colours (kept in sync with src/index.css).
 const PILLARS: Pillar[] = [
-  { key: 'dataPrivacy', name: 'Data Privacy', cssVar: '--color-pillar-privacy' },
-  { key: 'safeguarding', name: 'Safeguarding', cssVar: '--color-pillar-safeguarding' },
-  { key: 'ageSuitability', name: 'Age Suitability', cssVar: '--color-pillar-age' },
-  { key: 'transparency', name: 'Transparency', cssVar: '--color-pillar-transparency' },
-  { key: 'accessibility', name: 'Accessibility', cssVar: '--color-pillar-accessibility' },
+  { key: 'dataPrivacy', name: 'Data Privacy', cssVar: '--color-pillar-privacy', hex: '#6A8CAF' },
+  { key: 'safeguarding', name: 'Safeguarding', cssVar: '--color-pillar-safeguarding', hex: '#C8E44A' },
+  { key: 'ageSuitability', name: 'Age Suitability', cssVar: '--color-pillar-age', hex: '#8C7A52' },
+  { key: 'transparency', name: 'Transparency', cssVar: '--color-pillar-transparency', hex: '#4A4F5C' },
+  { key: 'accessibility', name: 'Accessibility', cssVar: '--color-pillar-accessibility', hex: '#D97757' },
 ];
+
+// Blend a hex toward a warm mid-grey to get a SOLID muted tint of the same hue.
+// Solid (never transparent) so the ring can never show black through it — even the
+// dark pillars (Transparency, Age) stay clearly visible, never collapsing to black.
+function mutedHex(hex: string, t = 0.55): string {
+  const G = [0x6f, 0x6f, 0x68]; // warm grey to mute toward
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const mix = (c: number, d: number) => Math.round(c * t + d * (1 - t));
+  const h2 = (n: number) => n.toString(16).padStart(2, '0');
+  return `#${h2(mix(r, G[0]))}${h2(mix(g, G[1]))}${h2(mix(b, G[2]))}`;
+}
 
 const SEGMENTS = PILLARS.length; // 5
 const SEGMENT_DEG = 360 / SEGMENTS; // 72°
@@ -191,9 +206,11 @@ export function PillarCard({
 
   const centreLabel = isProvisional || score == null ? '—' : score.toFixed(1);
 
-  // Wedge fill colour: greyscale when withdrawn, otherwise the pillar colour.
-  const wedgeColour = (p: Pillar) =>
-    isWithdrawn ? cssVar('--color-fog') : cssVar(p.cssVar);
+  // Full-strength score colour and its SOLID muted track tint (greyscale when
+  // withdrawn). Both are solid colours — the ring never uses transparency, so no
+  // part of the circle can ever read as a black gap.
+  const scoreColour = (p: Pillar) => (isWithdrawn ? '#9C9C8A' : p.hex);
+  const trackColour = (p: Pillar) => mutedHex(isWithdrawn ? '#9C9C8A' : p.hex);
 
   const wrapStyle: React.CSSProperties = {
     background: cssVar('--color-ground-black'),
@@ -237,25 +254,26 @@ export function PillarCard({
         {/* Background disc */}
         <circle cx={CX} cy={CY} r={R_BG} fill={cssVar('--color-ground-black')} />
 
-        {/* Muted full-circle track — five equal 72° zones covering the whole 360°,
-            each in a MUTED version of its OWN pillar colour. The ring is therefore
-            always a complete circle made entirely of the five pillar colours: full
-            colour where scored, muted same-colour where not. No black, no gaps. */}
+        {/* Base ring — five SOLID 72° zones, each a muted tint of its own pillar
+            colour, tiling the whole 360°. Each zone is extended a hair past its
+            boundary (overlap) so adjacent zones can never leave a sub-pixel seam.
+            This base is ALWAYS a complete circle of the five pillar colours — there
+            is no transparency and no neutral track, so nothing black can show. */}
         <g>
           {PILLARS.map((p, i) => (
             <path
               key={`track-${p.key}`}
-              d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
-              fill={wedgeColour(p)}
-              opacity={0.32}
+              d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG + 0.75)}
+              fill={trackColour(p)}
             />
           ))}
         </g>
 
-        {/* Coloured pillar fills — each pillar fills its OWN 72° zone in proportion
-            to its OWN score (never the composite): filledArc = (score / 10) × 72°,
-            drawn clockwise from the zone's start. e.g. 8.5 → 61.2°, 9.6 → 69.12°.
-            The muted track shows through the remainder of the zone. */}
+        {/* Score overlay — each pillar's OWN score painted in FULL-strength pillar
+            colour over the start of its zone: filledArc = (score / 10) × 72°
+            (e.g. 8.5 → 61.2°, 9.6 → 69.12°). The remainder stays as the muted base
+            of the SAME colour — the score reads as full-strength vs muted, never as
+            empty space. Composite score does not drive these. */}
         {hasData && !isProvisional && (
           <g>
             {PILLARS.map((p, i) => {
@@ -267,7 +285,7 @@ export function PillarCard({
                 <path
                   key={`fill-${p.key}`}
                   d={wedgePath(R_OUTER, R_INNER, start, start + filledDeg)}
-                  fill={wedgeColour(p)}
+                  fill={scoreColour(p)}
                 />
               );
             })}

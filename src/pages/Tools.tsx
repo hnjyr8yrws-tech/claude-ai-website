@@ -25,17 +25,6 @@ const RULE = 'var(--color-rule)';
 
 const STAT_TOTAL = TOOLS.length;
 
-// ── Pillars (fixed §04 order, top-clockwise) with reserved §09 colours ──────────
-// derivePillars() returns [Data Privacy, Age, Transparency, Safeguarding, Access].
-interface PillarMeta { name: string; colour: string; dataIndex: number }
-const PILLAR_META: PillarMeta[] = [
-  { name: 'Data Privacy',    colour: 'var(--color-pillar-privacy)',       dataIndex: 0 },
-  { name: 'Safeguarding',    colour: 'var(--color-pillar-safeguarding)',  dataIndex: 3 },
-  { name: 'Age Suitability', colour: 'var(--color-pillar-age)',           dataIndex: 1 },
-  { name: 'Transparency',    colour: 'var(--color-pillar-transparency)',  dataIndex: 2 },
-  { name: 'Accessibility',   colour: 'var(--color-pillar-accessibility)', dataIndex: 4 },
-];
-
 // ── Role filter options (slugs match utils/role) ────────────────────────────────
 const ROLE_FILTERS: { slug: string; label: string; audience?: string }[] = [
   { slug: '',              label: 'All' },
@@ -54,15 +43,6 @@ function methodologyMark(tool: Tool): string {
   const reviewer = REVIEWERS[Math.abs(h) % REVIEWERS.length];
   const date = (tool.lastReviewed ?? 'May 2026').toUpperCase();
   return `METHODOLOGY V2.1 · VERIFIED ${date} · REVIEWER ${reviewer}`;
-}
-
-/** The two highest-scoring pillars for a tool, in §04 order, as badge data. */
-function topPillars(scores: number[]): { name: string; colour: string }[] {
-  return [...PILLAR_META]
-    .map(p => ({ ...p, score: scores[p.dataIndex] ?? 0 }))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 2)
-    .map(p => ({ name: p.name, colour: p.colour }));
 }
 
 function openLuna(prompt?: string) {
@@ -195,7 +175,6 @@ function LunaPanel({ roleLabel }: { roleLabel?: string }) {
 // ── Page ────────────────────────────────────────────────────────────────────────
 export default function Tools() {
   const [roleSlug, setRoleSlug] = useState<string>(() => getRole());
-  const [pillarFilter, setPillarFilter] = useState<string>('All'); // pillar meta name
   const [search, setSearch] = useState('');
   const [lunaDraft, setLunaDraft] = useState('');
 
@@ -217,23 +196,12 @@ export default function Tools() {
   const filtered = useMemo(() => {
     let r = TOOLS;
     if (activeRole.audience) r = r.filter(t => t.audience.includes(activeRole.audience!));
-    if (pillarFilter !== 'All') {
-      const meta = PILLAR_META.find(p => p.name === pillarFilter);
-      if (meta) {
-        // Keep tools where this pillar is a genuine strength (≥7 / in top 2).
-        r = r.filter(t => {
-          if (t.reviewNeeded) return false;
-          const s = derivePillars(t);
-          return topPillars(s).some(b => b.name === pillarFilter) || (s[meta.dataIndex] ?? 0) >= 7;
-        });
-      }
-    }
     if (search.trim()) {
       const q = search.toLowerCase();
       r = r.filter(t => [t.name, t.desc, t.category, t.subcategory, ...(t.audience ?? [])].join(' ').toLowerCase().includes(q));
     }
     return r;
-  }, [activeRole, pillarFilter, search]);
+  }, [activeRole, search]);
 
   const chooseRole = (slug: string) => {
     setRoleSlug(slug);
@@ -342,41 +310,18 @@ export default function Tools() {
             })}
           </div>
 
-          {/* Pillar filter + search */}
-          <div className="flex flex-col lg:flex-row lg:items-center gap-3">
-            {/* Pillar filter — single scroll-row on mobile, wraps from lg up */}
-            <div className="flex items-center gap-2 flex-1 overflow-x-auto lg:flex-wrap -mx-5 px-5 sm:mx-0 sm:px-0">
-              {[{ name: 'All', colour: FOG }, ...PILLAR_META].map(p => {
-                const active = pillarFilter === p.name;
-                return (
-                  <button
-                    key={p.name}
-                    onClick={() => { setPillarFilter(p.name); track({ name: 'tool_filter_used', filterType: 'category', value: p.name, pageType: 'tools-directory' }); }}
-                    aria-pressed={active}
-                    className="font-sans flex-shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                    style={active
-                      ? { fontSize: 12, fontWeight: 500, background: INK, color: '#FFFFFF', borderColor: INK }
-                      : { fontSize: 12, fontWeight: 500, background: 'white', color: INK, borderColor: RULE }}
-                  >
-                    <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: p.colour }} aria-hidden="true" />
-                    {p.name}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="relative lg:w-64 flex-shrink-0">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
-              <input
-                type="search"
-                value={search}
-                onChange={e => { setSearch(e.target.value); if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value }); }}
-                placeholder={`Search ${STAT_TOTAL} tools...`}
-                aria-label="Search tools"
-                className="font-sans w-full pl-9 pr-4 py-2.5 rounded-xl border outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ fontSize: 14, fontWeight: 400, background: 'white', color: INK, borderColor: RULE }}
-              />
-            </div>
+          {/* Search */}
+          <div className="relative w-full sm:max-w-xs">
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
+            <input
+              type="search"
+              value={search}
+              onChange={e => { setSearch(e.target.value); if (e.target.value.length > 2) track({ name: 'search_performed', section: 'tools', query: e.target.value }); }}
+              placeholder={`Search ${STAT_TOTAL} tools...`}
+              aria-label="Search tools"
+              className="font-sans w-full pl-9 pr-4 py-2.5 rounded-xl border outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+              style={{ fontSize: 14, fontWeight: 400, background: 'white', color: INK, borderColor: RULE }}
+            />
           </div>
         </div>
       </div>
@@ -390,7 +335,7 @@ export default function Tools() {
         {filtered.length === 0 ? (
           <div className="p-10 text-center" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
             <p className="font-display" style={{ fontSize: 20, color: INK }}>No tools match those filters.</p>
-            <p className="font-sans mt-2" style={{ fontSize: 14, color: FOG }}>Try clearing the role or pillar filter — or ask Luna below.</p>
+            <p className="font-sans mt-2" style={{ fontSize: 14, color: FOG }}>Try clearing the role filter or search — or ask Luna below.</p>
           </div>
         ) : (
           <div className="flex flex-col gap-4">
