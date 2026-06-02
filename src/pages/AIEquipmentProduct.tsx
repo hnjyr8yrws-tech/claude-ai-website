@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
+import { track } from '../utils/analytics';
 import {
   EQUIPMENT,
   type EquipmentProduct,

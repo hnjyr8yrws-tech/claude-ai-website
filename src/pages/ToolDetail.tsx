@@ -114,7 +114,7 @@ const ToolDetail = () => {
     return TRAINING
       .filter(t =>
         tool.audience.some(a => t.audience.toLowerCase().includes(a.toLowerCase())) ||
-        t.primaryCategory.toLowerCase().includes(tool.primaryCategory.toLowerCase())
+        t.category.toLowerCase().includes(tool.primaryCategory.toLowerCase())
       )
       .slice(0, 3);
   }, [tool]);

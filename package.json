@@ -9,7 +9,8 @@
     "audit:taxonomy": "node scripts/audit-taxonomy.mjs",
     "audit:training": "node scripts/audit-training.mjs",
     "audit:prompts": "node scripts/audit-prompts.mjs",
-    "prebuild": "node scripts/audit-scores.mjs && node scripts/audit-taxonomy.mjs && node scripts/audit-training.mjs && node scripts/audit-prompts.mjs",
+    "typecheck": "tsc --noEmit",
+    "prebuild": "tsc --noEmit && node scripts/audit-scores.mjs && node scripts/audit-taxonomy.mjs && node scripts/audit-training.mjs && node scripts/audit-prompts.mjs",
     "build": "vite build",
     "preview": "vite preview"
   },
