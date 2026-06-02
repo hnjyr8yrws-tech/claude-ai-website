@@ -238,32 +238,35 @@ export function PillarCard({
         {/* Background disc */}
         <circle cx={CX} cy={CY} r={R_BG} fill={cssVar('--color-ground-black')} />
 
-        {/* Dim track behind the segments (shows the full ring) */}
-        <g opacity={0.18}>
+        {/* Muted full-circle track — five equal 72° zones covering the whole 360°,
+            in one uniform muted tone. This is ALWAYS a complete ring, so any
+            unfilled part of a pillar's zone reads as track, never an empty gap, and
+            the card stays a complete circle even at low scores. */}
+        <g>
           {PILLARS.map((p, i) => (
             <path
               key={`track-${p.key}`}
               d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
-              fill={wedgeColour(p)}
+              fill="rgba(245,242,236,0.2)"
             />
           ))}
         </g>
 
-        {/* Scored fills — each segment keeps its full 72° width (so the ring stays
-            a clean, complete five-segment donut); the coloured band grows radially
-            outward from the inner edge in proportion to the score, like a circular
-            bar chart. The dim track behind shows the full height, so a 9.6 reaches
-            the rim and a 5.0 fills about half-way. */}
+        {/* Coloured pillar fills — each pillar fills its OWN 72° zone in proportion
+            to its OWN score (never the composite): filledArc = (score / 10) × 72°,
+            drawn clockwise from the zone's start. e.g. 8.5 → 61.2°, 9.6 → 69.12°.
+            The muted track shows through the remainder of the zone. */}
         {hasData && !isProvisional && (
           <g>
             {PILLARS.map((p, i) => {
               const sc = Math.max(0, Math.min(10, pillars![p.key]));
               if (sc <= 0) return null;
-              const rScored = R_INNER + (sc / 10) * (R_OUTER - R_INNER);
+              const start = i * SEGMENT_DEG;
+              const filledDeg = (sc / 10) * SEGMENT_DEG;
               return (
                 <path
                   key={`fill-${p.key}`}
-                  d={wedgePath(rScored, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
+                  d={wedgePath(R_OUTER, R_INNER, start, start + filledDeg)}
                   fill={wedgeColour(p)}
                 />
               );
