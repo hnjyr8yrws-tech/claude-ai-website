@@ -6,26 +6,28 @@
 
 ---
 
-## A. Broken — should fix
-| URL | Status | Where |
+## A. Broken — ✅ FIXED (before → after, all new URLs verified 200)
+| Entry | Before | After |
 |---|---|---|
-| `https://education.lego.com/en-gb/45678/` | **404** | equipment.ts (looks like a placeholder SKU `45678`) |
-| `https://qualifications.pearson.com/.../ai-guidance.html` | **→ 404 page** | training.ts (Pearson AI-guidance page removed) |
-| `https://www.bcs.org/.../primary-and-secondary-education/` | **→ 404 page** | training.ts (BCS page removed) |
-| `https://chartered.college/teaching-and-learning/ai-in-education/` | **→ a .png file** | training.ts (page now redirects to an image, not a page) |
+| Lego Education SPIKE (tools.ts) | `education.lego.com/en-gb/45678/` (404) | `education.lego.com/en-gb/products/lego-education-spike-prime-set/45678/` |
+| Pearson AI in Assessment Guide (training.ts) | `…/support-for-teaching-assistants/ai-guidance.html` (→404) | `qualifications.pearson.com/en/campaigns/artificial-intelligence.html` |
+| BCS AI in Education (training.ts) | `…/primary-and-secondary-education/` (→404) | `www.bcs.org/articles-opinion-and-research/` |
+| Chartered College AI Guide (training.ts) | `…/teaching-and-learning/ai-in-education/` (→.png) | `chartered.college/` |
 
-## B. Moved / rebranded — link points to an old identity (update URL or re-review the product)
-| Current URL | Redirects to | Note |
+_Note: the Lego SPIKE link was a direct supplier URL (not an affiliate link) — fixed to the correct SPIKE Prime product page (set 45678). No affiliate links were touched._
+
+## B. Moved / rebranded — ⏳ PROPOSED ONLY (not changed — awaiting your approval)
+| Current URL | Proposed new destination | Note |
 |---|---|---|
 | `edulastic.com` | peardeck.com/products/pear-assessment | Edulastic → Pear Assessment |
 | `glean.co` | genio.co | Glean → Genio (rebrand) |
 | `hegartymaths.com` | sparxmaths.com | HegartyMaths → Sparx |
 | `quizizz.com` | wayground.com | Quizizz → Wayground (rebrand) |
 | `scholarpack.com` | arbor-education.com | ScholarPack → Arbor |
-| `socratic.org` | lens.google | Socratic → Google Lens |
+| `socratic.org` | lens.google | Socratic shut down → folded into Google Lens. **Recommend re-review / remove**, not a simple repoint. |
 | `web.seesaw.me` | seesaw.com | domain change |
 | `www.classcharts.com` | tes.com/.../class-charts | ClassCharts now under TES |
-| `www.autismeducationtrust.org.uk` | nen.org.uk | redirects to a different org — verify |
+| `www.autismeducationtrust.org.uk` | nen.org.uk | Redirects to a **different organisation** (NEN). **Verify / re-review** before repointing. |
 
 ## C. Server errors — glance (may be transient)
 | URL | Status |
