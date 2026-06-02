@@ -80,50 +80,10 @@ const NULL_SCORE: EquipmentSafetyScore = {
   total: null,
 };
 
-// ─── Equipment scoring — same integrity model as the AI tools ───────────────────
-// Equipment is scored on five PHYSICAL-PRODUCT dimensions (its own pillars). The
-// composite `total` is ALWAYS the equal-weighted average of those five dimensions —
-// the single source of truth — so a displayed equipment score can never disagree
-// with its dimension breakdown. Higher is better on every dimension (incl. "Setup",
-// i.e. ease of setup). 20% weight each.
-export const EQUIPMENT_PILLARS = [
-  { key: 'accessibility', name: 'Accessibility', hex: '#D97757' },
-  { key: 'sendSuitability', name: 'SEND Suitability', hex: '#C8E44A' },
-  { key: 'durability', name: 'Durability', hex: '#6A8CAF' },
-  { key: 'procurementSuitability', name: 'Procurement', hex: '#8C7A52' },
-  { key: 'setupComplexity', name: 'Setup', hex: '#4A4F5C' },
-] as const;
-export const EQUIPMENT_WEIGHT = 0.2; // equal weight per dimension (5 × 0.2 = 1)
-
-/** Deterministic placeholder dimension scores from the product name. Synthetic
- * placeholder until real reviews are entered — `total` is derived, never stored
- * independently. Varies ±~1.6 around a solid baseline. */
-export function deriveEquipmentScore(name: string): EquipmentSafetyScore {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = ((h << 5) - h + name.charCodeAt(i)) | 0;
-  const dim = (i: number) => {
-    const v = 8 + ((((h >> (i * 3)) & 0xff) % 9) - 4) * 0.4; // ~6.4 .. 9.6
-    return Math.max(1, Math.min(10, Math.round(v * 10) / 10));
-  };
-  const accessibility = dim(0);
-  const sendSuitability = dim(1);
-  const durability = dim(2);
-  const procurementSuitability = dim(3);
-  const setupComplexity = dim(4);
-  const total = Math.round(
-    (accessibility + sendSuitability + durability + procurementSuitability + setupComplexity) * EQUIPMENT_WEIGHT * 10,
-  ) / 10;
-  return { accessibility, durability, sendSuitability, procurementSuitability, setupComplexity, total };
-}
-
-/** Validation (parity with tools): total must equal the weighted average of dims. */
-export function validateEquipmentScore(s: EquipmentSafetyScore): boolean {
-  if (s.total == null) return true; // unreviewed — nothing to validate
-  const dims = [s.accessibility, s.durability, s.sendSuitability, s.procurementSuitability, s.setupComplexity];
-  if (dims.some((d) => d == null)) return false;
-  const calc = Math.round((dims as number[]).reduce((a, b) => a + b, 0) * EQUIPMENT_WEIGHT * 10) / 10;
-  return Math.abs(calc - s.total) <= 0.05;
-}
+// NOTE: equipment is intentionally NOT numerically scored. Suitability depends on
+// learner need, setting, budget and intended use — a single score would mislead.
+// The directory is a buying guide: search by need + ask Luna for suitability.
+// (EquipmentSafetyScore is retained as a type only; products carry NULL_SCORE.)
 
 // ─── Raw product data ──────────────────────────────────────────────────────────
 
@@ -2096,9 +2056,7 @@ export const EQUIPMENT: EquipmentProduct[] = PRODUCTS_RAW.map((p, i) => ({
   ...p,
   id: String(i + 1).padStart(3, '0'),
   slug: makeSlug(p.name),
-  // Reviewed products carry a derived Promptly-style score (total = weighted
-  // average of the five dimensions). Not-yet-reviewed products stay null.
-  safetyScore: p.reviewStatus === 'Reviewed' ? deriveEquipmentScore(p.name) : NULL_SCORE,
+  safetyScore: NULL_SCORE, // equipment is not numerically scored (see note above)
 }));
 
 // ─── Bundles ───────────────────────────────────────────────────────────────────

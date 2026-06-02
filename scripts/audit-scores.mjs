@@ -66,56 +66,17 @@ for (const r of rows) {
   );
 }
 
-// ── Equipment (same integrity model, equipment's own five dimensions) ───────────
-// Mirror of src/data/equipment.ts deriveEquipmentScore — total = equal-weighted
-// average of the five dimensions (single source of truth).
-function deriveEquipmentScore(name) {
-  let h = 0;
-  for (let i = 0; i < name.length; i++) h = ((h << 5) - h + name.charCodeAt(i)) | 0;
-  const dim = (i) => {
-    const v = 8 + ((((h >> (i * 3)) & 0xff) % 9) - 4) * 0.4;
-    return Math.max(1, Math.min(10, Math.round(v * 10) / 10));
-  };
-  const d = [dim(0), dim(1), dim(2), dim(3), dim(4)];
-  return { dims: d, total: Math.round(d.reduce((a, b) => a + b, 0) * 0.2 * 10) / 10 };
-}
-const eqSrc = fs.readFileSync('src/data/equipment.ts', 'utf8');
-const rawBlock = eqSrc.slice(eqSrc.indexOf('const PRODUCTS_RAW'), eqSrc.indexOf('export const EQUIPMENT:'));
-const eqProducts = [...rawBlock.matchAll(/name:\s*'([^']+)'[\s\S]*?reviewStatus:\s*'([^']+)'/g)].map((m) => ({
-  name: m[1],
-  reviewStatus: m[2],
-}));
-let eqFails = 0;
-let eqReviewed = 0;
-const eqLines = [
-  '',
-  '## Equipment',
-  '',
-  'Composite = equal-weighted average of five dimensions (Accessibility, SEND Suitability, Durability, Procurement, Setup). Reviewed products only.',
-  '',
-  '| Product | Promptly | Calculated | Displayed | Result |',
-  '|------|---------:|---:|---:|:--:|',
-];
-for (const p of eqProducts) {
-  if (p.reviewStatus !== 'Reviewed') continue;
-  eqReviewed++;
-  const s = deriveEquipmentScore(p.name);
-  const pass = Math.abs(s.total - s.total) <= 0.05; // derived → always consistent
-  if (!pass) eqFails++;
-  eqLines.push(`| ${p.name} | ${s.total.toFixed(1)} | ${s.total.toFixed(1)} | ${s.total.toFixed(1)} | ${pass ? 'PASS' : 'FAIL'} |`);
-}
+// Equipment is intentionally NOT numerically scored, so it is not audited here.
 
 fs.mkdirSync(path.dirname(REPORT_FILE), { recursive: true });
-fs.writeFileSync(REPORT_FILE, [...lines, ...eqLines].join('\n') + '\n');
+fs.writeFileSync(REPORT_FILE, lines.join('\n') + '\n');
 
 const audited = rows.filter((r) => !r.reviewNeeded).length;
-const totalFails = fails + eqFails;
-console.log(`Promptly Score audit`);
-console.log(`  AI tools:  ${audited - fails}/${audited} pass`);
-console.log(`  Equipment: ${eqReviewed - eqFails}/${eqReviewed} pass (reviewed)`);
+console.log(`Promptly Score audit — ${audited} reviewed AI tools`);
+console.log(`PASS: ${audited - fails}   FAIL: ${fails}`);
 console.log(`Full report: ${REPORT_FILE}`);
-if (totalFails > 0) {
-  console.error(`\n✗ ${totalFails} item(s) have a displayed score that does not match their pillar/dimension average.`);
+if (fails > 0) {
+  console.error(`\n✗ ${fails} tool(s) have a displayed score that does not match the pillar weighted average.`);
   process.exit(1);
 }
-console.log('\n✓ Every displayed Promptly Score equals the weighted average of its pillars/dimensions.');
+console.log('\n✓ Every displayed Promptly Score equals the weighted average of its pillars.');
