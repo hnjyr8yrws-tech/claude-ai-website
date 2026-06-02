@@ -24,7 +24,6 @@ export const TOOL_CATEGORIES = [
   'Student Study Tools',
   'Teacher Productivity',
   'AI Detection & Academic Integrity',
-  'Classroom Technology',
   'Computing & Coding',
   'Research & Data Analysis',
 ] as const;
@@ -48,7 +47,6 @@ export const TOOL_SUBCATEGORIES: Record<ToolCategory, readonly string[]> = {
   'Student Study Tools': ['Tutoring & Homework Help', 'Revision & Exam Prep', 'Writing Support', 'Maths & Science', 'Reading & Literacy', 'Notes & Flashcards'],
   'Teacher Productivity': ['General AI Assistant', 'Email & Communication', 'Notes & Transcription', 'Automation & Workflow'],
   'AI Detection & Academic Integrity': ['AI Detection', 'Plagiarism Detection', 'Integrity & Policy'],
-  'Classroom Technology': ['EdTech Platforms', 'Interactive Displays', 'Devices & Hardware', 'Document Cameras'],
   'Computing & Coding': ['Coding & Programming', 'Robotics', 'Computer Science'],
   'Research & Data Analysis': ['Literature & Citations', 'Data Analysis', 'School Data Insights'],
 };

@@ -20,7 +20,6 @@ Single source of truth: `src/data/taxonomy.ts`. Every tool has one primaryCatego
 | 12 | Student Study Tools | 41 |
 | 13 | Teacher Productivity | 17 |
 | 14 | AI Detection & Academic Integrity | 3 |
-| 15 | Classroom Technology | 0 |
 | 16 | Computing & Coding | 12 |
 | 17 | Research & Data Analysis | 10 |
 
@@ -273,8 +272,6 @@ Single source of truth: `src/data/taxonomy.ts`. Every tool has one primaryCatego
 - **Turnitin** → Integrity & Policy  _(was: Assessment › Academic Integrity)_
 - **Copyleaks** → AI Detection  _(was: Assessment › AI Detection)_
 - **Turnitin Draft Coach** → AI Detection  _(was: Writing › Academic Writing)_
-
-### Classroom Technology (0)
 
 ### Computing & Coding (12)
 - **Replit Ghostwriter** → Coding & Programming  _(was: Coding › AI Code Editor)_
