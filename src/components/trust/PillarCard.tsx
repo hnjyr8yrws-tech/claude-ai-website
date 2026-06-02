@@ -57,7 +57,7 @@ const VB = 240;
 const CX = VB / 2;
 const CY = VB / 2;
 const R_OUTER = 110;
-const R_INNER = 86;
+const R_INNER = 82; // widened band → more radial range so score differences read clearly
 const R_BG = 118; // background disc
 const R_CENTRE = 78; // centre disc (carries the composite score)
 
@@ -249,20 +249,21 @@ export function PillarCard({
           ))}
         </g>
 
-        {/* Scored fills — arc length = score / 10 of the segment. A higher score
-            sweeps further round its 72° wedge; the dim track behind shows the
-            remainder, so 9.6 reads as a near-full wedge and 5.0 as a half wedge. */}
+        {/* Scored fills — each segment keeps its full 72° width (so the ring stays
+            a clean, complete five-segment donut); the coloured band grows radially
+            outward from the inner edge in proportion to the score, like a circular
+            bar chart. The dim track behind shows the full height, so a 9.6 reaches
+            the rim and a 5.0 fills about half-way. */}
         {hasData && !isProvisional && (
           <g>
             {PILLARS.map((p, i) => {
               const sc = Math.max(0, Math.min(10, pillars![p.key]));
-              const startDeg = i * SEGMENT_DEG;
-              const fillDeg = (sc / 10) * SEGMENT_DEG;
-              if (fillDeg <= 0) return null;
+              if (sc <= 0) return null;
+              const rScored = R_INNER + (sc / 10) * (R_OUTER - R_INNER);
               return (
                 <path
                   key={`fill-${p.key}`}
-                  d={wedgePath(R_OUTER, R_INNER, startDeg, startDeg + fillDeg)}
+                  d={wedgePath(rScored, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
                   fill={wedgeColour(p)}
                 />
               );

@@ -31,13 +31,17 @@ export const PILLARS = [
   'Accessibility',
 ] as const;
 
-/** Derives five pillar scores deterministically from tool name + overall score. */
+/** Derives five pillar scores deterministically from tool name + overall score.
+ * Pillars vary DOWNWARD from the headline score by 0–3 points (deterministic per
+ * tool + pillar), so each tool clearly reads as strong on some pillars and weaker
+ * on others — the point of the 5-pillar model — without bunching at the 10 ceiling.
+ * NOTE: synthetic placeholder until real per-pillar review scores are entered. */
 export function derivePillars(tool: ToolRaw): number[] {
   let h = 0;
   for (let i = 0; i < tool.name.length; i++) h = ((h << 5) - h + tool.name.charCodeAt(i)) | 0;
   return [0, 1, 2, 3, 4].map(i => {
-    const seed = Math.abs((h >> (i * 3)) % 7) - 3;
-    const v = tool.safety + seed * 0.3;
+    const seed = Math.abs(h >> (i * 3)) % 7; // 0..6
+    const v = tool.safety - seed * 0.5; // deduct 0..3 from the headline score
     return Math.max(1, Math.min(10, Math.round(v * 10) / 10));
   });
 }
