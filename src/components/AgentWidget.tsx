@@ -319,6 +319,14 @@ function ChatPanel({ mode, onClose }: PanelProps) {
     return () => window.removeEventListener('agent-send-starter', handler);
   }, [sendMessage]);
 
+  // Server-side gate asked for a role (branch: 'ask_role') → re-show the role
+  // picker. Deliberately does NOT clear messages, so the conversation is kept.
+  useEffect(() => {
+    const handler = () => setRole(null);
+    window.addEventListener('luna-ask-role', handler);
+    return () => window.removeEventListener('luna-ask-role', handler);
+  }, []);
+
   function handleSend() {
     const text = input.trim();
     if (!text || loading || !role) return;
