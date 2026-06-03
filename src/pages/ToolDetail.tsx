@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { Check, X } from 'lucide-react';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import AgentCTACard from '../components/AgentCTACard';
@@ -24,12 +25,14 @@ const TEAL = 'var(--color-promptly-lime)';
 // Pillar bar colours, in the same order as PILLARS (data/tools.ts):
 // [Data Privacy, Age Appropriateness, Transparency, Safeguarding, Accessibility].
 // The five reserved §09 pillar colours — the one sanctioned use in a breakdown.
+// Match the Pillar Card ring segment colours exactly (Age & Transparency use the
+// brighter ring tones, not the dark §09 print hexes, so bars == ring).
 const PILLAR_BAR_COLOURS = [
-  'var(--color-pillar-privacy)',
-  'var(--color-pillar-age)',
-  'var(--color-pillar-transparency)',
-  'var(--color-pillar-safeguarding)',
-  'var(--color-pillar-accessibility)',
+  '#6A8CAF', // Data Privacy
+  '#C8B45A', // Age Suitability
+  '#6B7280', // Transparency
+  '#C8E44A', // Safeguarding
+  '#D97757', // Accessibility
 ];
 
 // ─── Score bar ────────────────────────────────────────────────────────────────
@@ -210,6 +213,18 @@ const ToolDetail = () => {
                 {tool.name}
               </h1>
               <p className="text-base leading-relaxed" style={{ color: '#6b6760' }}>{tool.desc}</p>
+
+              {/* Direct link — visible to everyone, no tier gating. */}
+              <a
+                href={tool.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track({ name: 'cta_clicked', section: 'tool-hero', label: `Visit tool: ${tool.name}` })}
+                className="inline-flex items-center gap-2 mt-4 rounded-full px-5 py-2.5 font-sans transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
+                style={{ fontSize: 14, fontWeight: 600, background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
+              >
+                Visit {tool.name} →
+              </a>
             </div>
             {/* Pillar Card — the signature artefact (§04/§07). Never a naked score. */}
             <div className="order-1 sm:order-2 mx-auto sm:mx-0 flex-shrink-0">
@@ -282,16 +297,55 @@ const ToolDetail = () => {
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
             Is this the right tool for you?
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
-              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>Best for</p>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink)' }}>{deriveBestFor(tool)}</p>
+          {(tool.pros?.length || tool.cons?.length) ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* PROS */}
+              <div className="rounded-2xl p-5 border" style={{ background: '#F0F7E6', borderColor: 'rgba(200,228,74,0.3)' }}>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#C8E44A' }}>
+                    <Check className="w-3 h-3" style={{ color: 'var(--color-ink)' }} />
+                  </span>
+                  <span className="font-mono text-xs tracking-widest uppercase" style={{ color: '#6b6760' }}>Works well for</span>
+                </div>
+                <ul className="space-y-2">
+                  {(tool.pros ?? []).map((pro, i) => (
+                    <li key={i} className="flex items-start gap-2 font-sans text-sm" style={{ color: 'var(--color-ink)' }}>
+                      <span className="mt-0.5 flex-shrink-0" style={{ color: 'var(--color-ink-accent)' }}>✓</span>
+                      {pro}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* CONS */}
+              <div className="rounded-2xl p-5 border" style={{ background: '#FDF3EE', borderColor: 'rgba(217,119,87,0.3)' }}>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#D97757' }}>
+                    <X className="w-3 h-3" style={{ color: '#FFFFFF' }} />
+                  </span>
+                  <span className="font-mono text-xs tracking-widest uppercase" style={{ color: '#6b6760' }}>Worth knowing</span>
+                </div>
+                <ul className="space-y-2">
+                  {(tool.cons ?? []).map((con, i) => (
+                    <li key={i} className="flex items-start gap-2 font-sans text-sm" style={{ color: 'var(--color-ink)' }}>
+                      <span className="mt-0.5 flex-shrink-0" style={{ color: '#D97757' }}>→</span>
+                      {con}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
-            <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
-              <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>Not ideal for</p>
-              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink)' }}>{deriveNotIdealFor(tool)}</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
+                <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>Best for</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink)' }}>{deriveBestFor(tool)}</p>
+              </div>
+              <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}>
+                <p className="text-xs font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink)' }}>Not ideal for</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink)' }}>{deriveNotIdealFor(tool)}</p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

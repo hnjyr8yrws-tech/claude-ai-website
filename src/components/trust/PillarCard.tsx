@@ -5,17 +5,15 @@
 // naked" — wherever a Promptly Score appears, the Pillar Card (or a Score Pill
 // that links to one) must carry it.
 //
-// Colour comes from the CSS variables in src/index.css (--color-* ); fonts come
-// from the Tailwind families (font-serif/sans/mono). No hardcoded hex, no
-// hardcoded font names.
-//
-// CRITICAL: the ring geometry is COMPUTED with a polar(r, deg) trig helper so
-// every endpoint sits exactly on its radius. Arc coordinates are never
-// hardcoded — hardcoding makes the ring render oval.
+// THE RING: a full circle of 5 segments, one per pillar. Each segment's ARC
+// LENGTH reflects its score — arc = (score / 10) × 68° (72° per fifth, minus a
+// 4° gap). A faint track shows the unfilled remainder, so an 8/10 reads clearly
+// as ~80% filled and a 5/10 as half. Geometry is computed with trig — never
+// hardcoded — so endpoints always sit on the radius.
 
 import { Link } from 'react-router-dom';
 
-// ----- Pillar model (fixed order, top-clockwise, never reordered) -----
+// ----- Pillar model (order matches data/tools.ts derivePillars) -----
 
 export interface PillarScores {
   dataPrivacy: number; // 0–10
@@ -35,78 +33,46 @@ export type PillarCardState =
 interface Pillar {
   key: keyof PillarScores;
   name: string; // canonical full pillar name (Brand Bible) — never abbreviated
-  cssVar: string; // CSS custom property in src/index.css
-  hex: string; // brand hex — used to compute a SOLID muted tint for the ring track
+  hex: string; // segment colour (tuned for legibility on the dark ring)
 }
 
-// Top (12 o'clock) → clockwise: Data Privacy → Safeguarding → Age Suitability → Transparency → Accessibility.
-// hex values are the Brand Bible §09 pillar colours (kept in sync with src/index.css).
+// Clockwise from 12 o'clock: Data Privacy → Age Suitability → Transparency →
+// Safeguarding → Accessibility (same order as derivePillars()). Age & Transparency
+// use brighter tones than the §09 print hexes so they read on the dark ring.
 const PILLARS: Pillar[] = [
-  { key: 'dataPrivacy', name: 'Data Privacy', cssVar: '--color-pillar-privacy', hex: '#6A8CAF' },
-  { key: 'safeguarding', name: 'Safeguarding', cssVar: '--color-pillar-safeguarding', hex: '#C8E44A' },
-  { key: 'ageSuitability', name: 'Age Suitability', cssVar: '--color-pillar-age', hex: '#8C7A52' },
-  { key: 'transparency', name: 'Transparency', cssVar: '--color-pillar-transparency', hex: '#4A4F5C' },
-  { key: 'accessibility', name: 'Accessibility', cssVar: '--color-pillar-accessibility', hex: '#D97757' },
+  { key: 'dataPrivacy', name: 'Data Privacy', hex: '#6A8CAF' },
+  { key: 'ageSuitability', name: 'Age Suitability', hex: '#C8B45A' },
+  { key: 'transparency', name: 'Transparency', hex: '#6B7280' },
+  { key: 'safeguarding', name: 'Safeguarding', hex: '#C8E44A' },
+  { key: 'accessibility', name: 'Accessibility', hex: '#D97757' },
 ];
 
-// Blend a hex toward a warm mid-grey to get a SOLID muted tint of the same hue.
-// Solid (never transparent) so the ring can never show black through it — even the
-// dark pillars (Transparency, Age) stay clearly visible, never collapsing to black.
-function mutedHex(hex: string, t = 0.55): string {
-  const G = [0x6f, 0x6f, 0x68]; // warm grey to mute toward
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  const mix = (c: number, d: number) => Math.round(c * t + d * (1 - t));
-  const h2 = (n: number) => n.toString(16).padStart(2, '0');
-  return `#${h2(mix(r, G[0]))}${h2(mix(g, G[1]))}${h2(mix(b, G[2]))}`;
-}
-
 const SEGMENTS = PILLARS.length; // 5
-const SEGMENT_DEG = 360 / SEGMENTS; // 72°
 
-// Geometry constants, in viewBox units. A fixed 240×240 viewBox keeps these
-// stable while the rendered px size scales via width/height.
-const VB = 240;
+// ----- Geometry (viewBox 120; scales to the rendered `size`) -----
+const VB = 120;
 const CX = VB / 2;
 const CY = VB / 2;
-const R_OUTER = 110;
-const R_INNER = 82; // widened band → more radial range so score differences read clearly
-const R_BG = 118; // background disc
-const R_CENTRE = 78; // centre disc (carries the composite score)
+const R = 46;
+const SW = 10;
+const SEG = 360 / SEGMENTS; // 72° per fifth
+const GAP_HALF = 2; // 2° gap each side of a segment
+const MAX_ARC = SEG - GAP_HALF * 2; // 68° usable arc per segment
+const TRACK = 'rgba(255,255,255,0.08)';
 
-// ----- Trig helpers: every endpoint computed, never hardcoded -----
-
-interface Point {
-  x: number;
-  y: number;
-}
-
-/** Polar → cartesian, with 0° at 12 o'clock and degrees increasing clockwise. */
-function polar(cx: number, cy: number, r: number, deg: number): Point {
-  const rad = ((deg - 90) * Math.PI) / 180;
+/** Polar → cartesian, 0° at 12 o'clock, degrees increasing clockwise. */
+function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
+  const rad = ((angleDeg - 90) * Math.PI) / 180;
   return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
 }
 
-/** A donut wedge path between two radii and two angles (drawn clockwise). */
-function wedgePath(
-  rOuter: number,
-  rInner: number,
-  startDeg: number,
-  endDeg: number,
-): string {
-  const oStart = polar(CX, CY, rOuter, startDeg);
-  const oEnd = polar(CX, CY, rOuter, endDeg);
-  const iEnd = polar(CX, CY, rInner, endDeg);
-  const iStart = polar(CX, CY, rInner, startDeg);
-  const largeArc = endDeg - startDeg > 180 ? 1 : 0;
-  return [
-    `M ${oStart.x} ${oStart.y}`,
-    `A ${rOuter} ${rOuter} 0 ${largeArc} 1 ${oEnd.x} ${oEnd.y}`, // outer arc, clockwise
-    `L ${iEnd.x} ${iEnd.y}`,
-    `A ${rInner} ${rInner} 0 ${largeArc} 0 ${iStart.x} ${iStart.y}`, // inner arc, back
-    'Z',
-  ].join(' ');
+/** SVG arc path between two angles on radius r. Empty string if zero-length. */
+function describeArc(cx: number, cy: number, r: number, startAngle: number, endAngle: number): string {
+  if (endAngle <= startAngle) return '';
+  const start = polarToCartesian(cx, cy, r, startAngle);
+  const end = polarToCartesian(cx, cy, r, endAngle);
+  const largeArc = endAngle - startAngle > 180 ? 1 : 0;
+  return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
 }
 
 const cssVar = (name: string) => `var(${name})`;
@@ -115,9 +81,8 @@ const cssVar = (name: string) => `var(${name})`;
 
 /**
  * Map the array returned by derivePillars() in src/data/tools.ts — whose order
- * is [Data Privacy, Age Appropriateness, Transparency, Safeguarding, Accessibility]
- * — into the §04 PillarScores shape. Keeps the data model and the brand model
- * decoupled.
+ * is [Data Privacy, Age Suitability, Transparency, Safeguarding, Accessibility]
+ * — into the PillarScores shape.
  */
 export function pillarScoresFromData(arr: number[]): PillarScores {
   return {
@@ -129,7 +94,7 @@ export function pillarScoresFromData(arr: number[]): PillarScores {
   };
 }
 
-/** Build PillarScores from values already in §04 order (Privacy, Safeguarding, Age, Transparency, Accessibility). */
+/** Build PillarScores from named values. */
 export function pillarScores(
   dataPrivacy: number,
   safeguarding: number,
@@ -207,7 +172,6 @@ export function PillarCard({
   // SINGLE SOURCE OF TRUTH for the centre number: when pillars are present the
   // composite is ALWAYS their weighted average (same methodology weights as
   // data/tools.ts promptlyScore), so the centre can never disagree with the arcs.
-  // The `score` prop is only a fallback when no pillars are supplied.
   const composite =
     pillars
       ? Math.round(
@@ -222,11 +186,8 @@ export function PillarCard({
 
   const centreLabel = isProvisional || composite == null ? '—' : composite.toFixed(1);
 
-  // Full-strength score colour and its SOLID muted track tint (greyscale when
-  // withdrawn). Both are solid colours — the ring never uses transparency, so no
-  // part of the circle can ever read as a black gap.
+  // Full-strength score colour (greyscale when withdrawn).
   const scoreColour = (p: Pillar) => (isWithdrawn ? '#9C9C8A' : p.hex);
-  const trackColour = (p: Pillar) => mutedHex(isWithdrawn ? '#9C9C8A' : p.hex);
 
   const wrapStyle: React.CSSProperties = {
     background: cssVar('--color-ground-black'),
@@ -262,100 +223,43 @@ export function PillarCard({
                 verdict ? ` Verdict: ${verdict}` : ''
               }${
                 pillars
-                  ? ` Pillars — Data Privacy ${pillars.dataPrivacy}, Safeguarding ${pillars.safeguarding}, Age Suitability ${pillars.ageSuitability}, Transparency ${pillars.transparency}, Accessibility ${pillars.accessibility}, each out of 10.`
+                  ? ` Pillars — Data Privacy ${pillars.dataPrivacy}, Age Suitability ${pillars.ageSuitability}, Transparency ${pillars.transparency}, Safeguarding ${pillars.safeguarding}, Accessibility ${pillars.accessibility}, each out of 10.`
                   : ''
               }`
         }
       >
-        {/* Background disc */}
-        <circle cx={CX} cy={CY} r={R_BG} fill={cssVar('--color-ground-black')} />
-
-        {/* Base ring — five SOLID 72° zones, each a muted tint of its own pillar
-            colour, tiling the whole 360°. Each zone is extended a hair past its
-            boundary (overlap) so adjacent zones can never leave a sub-pixel seam.
-            This base is ALWAYS a complete circle of the five pillar colours — there
-            is no transparency and no neutral track, so nothing black can show. */}
-        <g>
-          {PILLARS.map((p, i) => (
-            <path
-              key={`track-${p.key}`}
-              d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG + 0.75)}
-              fill={trackColour(p)}
-            />
-          ))}
-        </g>
-
-        {/* Score overlay — each pillar's OWN score painted in FULL-strength pillar
-            colour over the start of its zone: filledArc = (score / 10) × 72°
-            (e.g. 8.5 → 61.2°, 9.6 → 69.12°). The remainder stays as the muted base
-            of the SAME colour — the score reads as full-strength vs muted, never as
-            empty space. Composite score does not drive these. */}
-        {hasData && !isProvisional && (
-          <g>
-            {PILLARS.map((p, i) => {
-              const sc = Math.max(0, Math.min(10, pillars![p.key]));
-              if (sc <= 0) return null;
-              const start = i * SEGMENT_DEG;
-              const filledDeg = (sc / 10) * SEGMENT_DEG;
-              return (
-                <path
-                  key={`fill-${p.key}`}
-                  d={wedgePath(R_OUTER, R_INNER, start, start + filledDeg)}
-                  fill={scoreColour(p)}
-                />
-              );
-            })}
+        {/* Proportional donut — each segment's arc = (its score / total) × 360°,
+            so the full ring is divided by each pillar's share of the score. */}
+        {hasData && !isProvisional ? (
+          <g fill="none" strokeWidth={SW} strokeLinecap="butt">
+            {(() => {
+              const total = PILLARS.reduce((s, p) => s + Math.max(0, pillars![p.key]), 0) || 1;
+              let cursor = 0;
+              return PILLARS.map((p) => {
+                const sc = Math.max(0, pillars![p.key]);
+                const end = cursor + (sc / total) * 360;
+                const d = describeArc(CX, CY, R, cursor, Math.max(cursor, end - 0.3));
+                cursor = end;
+                return d ? <path key={`arc-${p.key}`} d={d} stroke={scoreColour(p)} /> : null;
+              });
+            })()}
           </g>
+        ) : (
+          /* Provisional / no data — faint full ring. */
+          <circle cx={CX} cy={CY} r={R} fill="none" stroke={TRACK} strokeWidth={SW} />
         )}
 
-        {/* Provisional: stippled outer ring instead of solid fills */}
-        {isProvisional && (
-          <g fill="none" strokeDasharray="2 3" strokeWidth={1.5}>
-            {PILLARS.map((p, i) => (
-              <path
-                key={`prov-${p.key}`}
-                d={wedgePath(R_OUTER, R_INNER, i * SEGMENT_DEG, (i + 1) * SEGMENT_DEG)}
-                stroke={cssVar(p.cssVar)}
-                opacity={0.6}
-              />
-            ))}
-          </g>
-        )}
-
-
-        {/* 12 o'clock orientation tick (§04) */}
-        <text
-          className="font-mono"
-          x={CX}
-          y={9}
-          textAnchor="middle"
-          fontSize={7}
-          letterSpacing={1.5}
-          fill={cssVar('--color-fog')}
-        >
-          DATA PRIVACY ▾
-        </text>
-
-        {/* Centre disc with a thin lime ring */}
-        <circle
-          cx={CX}
-          cy={CY}
-          r={R_CENTRE}
-          fill={cssVar('--color-ground-black')}
-          stroke={cssVar('--color-promptly-lime')}
-          strokeWidth={1.5}
-        />
-
-        {/* Composite Promptly Score (Satoshi / font-sans) */}
+        {/* Centre composite score */}
         <text
           className="font-sans"
           x={CX}
-          y={CY + 8}
+          y={CY}
           textAnchor="middle"
+          dominantBaseline="central"
           fontWeight={700}
-          fontSize={58}
+          fontSize={20}
           fontStyle={isProvisional ? 'italic' : 'normal'}
-          letterSpacing={-2}
+          letterSpacing={-0.5}
           fill={cssVar('--color-oat')}
         >
           {centreLabel}
@@ -363,10 +267,11 @@ export function PillarCard({
         <text
           className="font-mono"
           x={CX}
-          y={CY + 36}
+          y={CY + 12}
           textAnchor="middle"
-          fontSize={9}
-          letterSpacing={2}
+          dominantBaseline="central"
+          fontSize={5.5}
+          letterSpacing={0.5}
           fill={cssVar('--color-fog')}
         >
           PROMPTLY SCORE
@@ -375,13 +280,13 @@ export function PillarCard({
         {/* Withdrawn: redaction bar across the centre score */}
         {isWithdrawn && (
           <rect
-            x={CX - 50}
-            y={CY - 22}
-            width={100}
-            height={34}
+            x={CX - 26}
+            y={CY - 9}
+            width={52}
+            height={17}
             fill={cssVar('--color-ground-black')}
             stroke={cssVar('--color-promptly-lime')}
-            strokeWidth={1}
+            strokeWidth={0.75}
           />
         )}
       </svg>
@@ -399,9 +304,6 @@ export function PillarCard({
         <div
           className="grid w-full"
           style={{
-            // minmax(0, 1fr) lets every column shrink to its true share, so no
-            // column can push the legend past the card edge. px padding keeps the
-            // outer columns (Privacy, Access) clear of the card border.
             gridTemplateColumns: `repeat(${SEGMENTS}, minmax(0, 1fr))`,
             gap: 4,
             maxWidth: size,
@@ -419,9 +321,7 @@ export function PillarCard({
                 style={{
                   minWidth: 0,
                   textAlign: 'center',
-                  borderTop: `2px solid ${
-                    isWithdrawn ? cssVar('--color-fog') : cssVar(p.cssVar)
-                  }`,
+                  borderTop: `2px solid ${isWithdrawn ? cssVar('--color-fog') : p.hex}`,
                   paddingTop: 4,
                   color: cssVar('--color-oat'),
                 }}
@@ -429,8 +329,6 @@ export function PillarCard({
                 <span
                   className="block"
                   style={{
-                    // Full canonical pillar name; wraps within its column so even
-                    // the longest names stay legible and never abbreviated.
                     fontSize: 9,
                     lineHeight: 1.15,
                     letterSpacing: 0,
