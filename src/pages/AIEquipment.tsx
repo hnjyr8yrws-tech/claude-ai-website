@@ -1,103 +1,115 @@
 /**
- * AIEquipment.tsx — /ai-equipment (Equipment directory)
+ * AIEquipment.tsx — /ai-equipment (Equipment catalogue)
  *
- * A professional school buying guide, NOT a scored leaderboard. Equipment is not
- * numerically scored — suitability depends on learner need, setting, budget and
- * use. Users search by the problem they need to solve, filter by buying intent
- * (audience / product type / budget / setting), then ask Luna whether a product
- * fits their context.
+ * A clean, dark, premium product catalogue — not a text document. Hero →
+ * category grid → featured picks → full filterable catalogue → Luna CTA.
+ * Equipment is NOT numerically scored; suitability is a conversation with Luna.
+ * Card descriptions are one line — full detail lives on the product page.
  *
- * Brand (CLAUDE.md): no gradients; Fraunces / Satoshi / JetBrains Mono only.
+ * Brand (CLAUDE.md): dark ground-black page, surface-dark cards; no gradients;
+ * Fraunces / Satoshi / JetBrains Mono only; lime reserved for CTAs + links.
+ * The individual product pages are NOT changed by this file.
  */
 
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+  Laptop, BookOpen, Bot, Puzzle, MessageSquare, Heart, Monitor,
+  Headphones, Armchair, Watch, Search, ArrowRight, type LucideIcon,
+} from 'lucide-react';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
-import { EQUIPMENT, type EquipmentProduct, type EquipmentCategory } from '../data/equipment';
-import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
+import { EQUIPMENT, type EquipmentProduct, type EquipmentCategory, type PriceBand } from '../data/equipment';
 
+// ── Tokens (shared with the prompts page) ───────────────────────────────────────
 const LIME = 'var(--color-promptly-lime)';
-const INK  = '#1E1E1E';
-const FOG  = 'var(--color-fog)';
+const GROUND = 'var(--color-ground-black)';
+const SURFACE = 'var(--color-surface-dark)';
+const OAT = 'var(--color-oat)';
+const INK = 'var(--color-ink)';
+const FOG = 'var(--color-fog)';
+const CARD_BORDER = 'rgba(232,228,220,0.1)';
+const FEATURED_BORDER = 'rgba(200,228,74,0.2)';
+// Light-surface tokens (the oat catalogue body) — lime can't sit on white, so
+// links/emphasis use dark-lime (--color-ink-accent) and Luna CTAs use a lime FILL.
+const WHITE = '#FFFFFF';
 const RULE = 'var(--color-rule)';
+const MUTED = '#6b6760';        // secondary text on oat / white
+const INK_ACCENT = '#46540E';   // dark-lime — links/emphasis on light surfaces
 
-// ── Product types (buying intent) → the data's categories ───────────────────────
-interface ProductType { label: string; colour: string; cats: EquipmentCategory[] }
-const PRODUCT_TYPES: ProductType[] = [
-  { label: 'SEND & AAC',           colour: 'var(--color-pillar-accessibility)', cats: ['AAC & Communication', 'Audio & Hearing'] },
-  { label: 'Sensory Equipment',    colour: 'var(--color-pillar-safeguarding)',  cats: ['Sensory & Regulation'] },
-  { label: 'Classroom Tech',       colour: 'var(--color-pillar-privacy)',       cats: ['Screens & Classroom Hardware', 'Robots & Coding', 'Devices'] },
-  { label: 'Home Learning',        colour: 'var(--color-pillar-age)',           cats: ['Games & Cognitive', 'Stationery & Literacy'] },
-  { label: 'Furniture',            colour: 'var(--color-pillar-transparency)',  cats: ['Furniture & Environment'] },
-  { label: 'School Infrastructure', colour: '#6b6760',                          cats: ['Wearables & Safety'] },
+// ── Pillar palette — restrained accents so the hub reads as GetPromptly, ────────
+// not as a generic marketplace. Lime (Safeguarding) is reserved for Luna.
+const SAFE    = '#C8E44A'; // Safeguarding — Luna, advice, trust marks
+const PRIVACY = '#6A8CAF'; // Data Privacy — technology / availability / filtering
+const AGE     = '#8C7A52'; // Age Suitability (oat deep) — budget / learning
+const SLATE   = '#4A4F5C'; // Transparency — neutral, structural
+const CLAY    = '#D97757'; // Accessibility — SEND / communication / sensory / hearing
+
+// Each category carries a subtle pillar relationship (icon colour + tinted border).
+const CATEGORY_COLOUR: Record<EquipmentCategory, string> = {
+  'Devices': PRIVACY,
+  'Stationery & Literacy': AGE,
+  'Robots & Coding': PRIVACY,
+  'Games & Cognitive': AGE,
+  'AAC & Communication': CLAY,
+  'Sensory & Regulation': CLAY,
+  'Screens & Classroom Hardware': SLATE,
+  'Audio & Hearing': CLAY,
+  'Furniture & Environment': AGE,
+  'Wearables & Safety': SAFE,
+};
+
+// #RRGGBB → rgba(...,a) for subtle tinted borders/surfaces.
+function tint(hex: string, a: number): string {
+  const n = parseInt(hex.slice(1), 16);
+  return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+}
+// Slate is dark-on-dark — lift it only for icon legibility.
+const iconColour = (c: string) => (c === SLATE ? '#7C8290' : c);
+
+// ── Categories (fixed order + lucide icon) ──────────────────────────────────────
+const CATEGORIES: { name: EquipmentCategory; Icon: LucideIcon }[] = [
+  { name: 'Devices', Icon: Laptop },
+  { name: 'Stationery & Literacy', Icon: BookOpen },
+  { name: 'Robots & Coding', Icon: Bot },
+  { name: 'Games & Cognitive', Icon: Puzzle },
+  { name: 'AAC & Communication', Icon: MessageSquare },
+  { name: 'Sensory & Regulation', Icon: Heart },
+  { name: 'Screens & Classroom Hardware', Icon: Monitor },
+  { name: 'Audio & Hearing', Icon: Headphones },
+  { name: 'Furniture & Environment', Icon: Armchair },
+  { name: 'Wearables & Safety', Icon: Watch },
 ];
-function typeOf(cat: EquipmentCategory): ProductType {
-  return PRODUCT_TYPES.find(t => t.cats.includes(cat)) ?? PRODUCT_TYPES[0];
+
+const AUDIENCES = ['All', 'Teachers', 'SEND', 'Parents', 'Students', 'Schools'] as const;
+const PRICE_BANDS: PriceBand[] = ['Under £50', '£50–150', '£150–500', '£500+'];
+
+function matchAudience(p: EquipmentProduct, a: string): boolean {
+  switch (a) {
+    case 'Teachers': return p.audience.includes('Teachers') || p.audience.includes('Schools');
+    case 'SEND':     return p.audience.includes('SEND') || p.senCategory.some(c => c && c !== 'General');
+    case 'Parents':  return p.audience.includes('Parents');
+    case 'Students': return p.audience.includes('Students');
+    case 'Schools':  return p.audience.includes('Schools');
+    default:         return true;
+  }
 }
 
-// ── Audience filter (slugs match utils/role) ────────────────────────────────────
-const ROLE_FILTERS: { slug: string; label: string; audience?: string }[] = [
-  { slug: '',              label: 'All' },
-  { slug: 'teacher',       label: 'Teacher',       audience: 'Teachers' },
-  { slug: 'senco',         label: 'SENCO',         audience: 'SEND' },
-  { slug: 'school-leader', label: 'School Leader', audience: 'Schools' },
-  { slug: 'parent',        label: 'Parent',        audience: 'Parents' },
-  { slug: 'student',       label: 'Student',       audience: 'Students' },
-];
-
-// ── Budget filter (mapped to the data's real price bands + quote) ───────────────
-const BUDGETS: { label: string; match: (p: EquipmentProduct) => boolean }[] = [
-  { label: 'Under £50',   match: p => p.priceBand === 'Under £50' },
-  { label: '£50–£150',    match: p => p.priceBand === '£50–150' },
-  { label: '£150–£500',   match: p => p.priceBand === '£150–500' },
-  { label: '£500+',       match: p => p.priceBand === '£500+' },
-  { label: 'Quote required', match: p => p.purchaseModel === 'Quote' || p.badges.includes('School Quote') },
-];
-
-// ── Setting filter ──────────────────────────────────────────────────────────────
-const SETTINGS: { label: string; match: (p: EquipmentProduct) => boolean }[] = [
-  { label: 'Primary',        match: p => p.educationLevel.some(l => l === 'Primary' || l === 'EYFS' || l === 'All') },
-  { label: 'Secondary',      match: p => p.educationLevel.some(l => l === 'Secondary' || l === 'FE' || l === 'All') },
-  { label: 'SEND Provision', match: p => p.audience.includes('SEND') || (p.senCategory?.length ?? 0) > 0 },
-  { label: 'Home',           match: p => p.audience.includes('Parents') },
-  { label: 'Whole School',   match: p => p.audience.includes('Schools') || p.educationLevel.includes('All') },
-];
-
-// ── Problem-first entry points — a school adviser starts from the need ──────────
-interface Need { title: string; blurb: string; colour: string; type?: string; budget?: string; setting?: string; search?: string }
-const NEEDS: Need[] = [
-  { title: 'A pupil needs help to communicate', blurb: 'Non-verbal or emerging communication — AAC devices, symbol boards and apps that give every learner a voice.', colour: 'var(--color-pillar-accessibility)', type: 'SEND & AAC' },
-  { title: 'Sensory & self-regulation support', blurb: 'Helping pupils stay calm, focused and regulated — fidgets, weighted items and calm-space kit.', colour: 'var(--color-pillar-safeguarding)', type: 'Sensory Equipment' },
-  { title: 'A learner struggles to read or write', blurb: 'Assistive reading and writing support for dyslexia and literacy difficulties.', colour: 'var(--color-pillar-age)', search: 'literacy reading dyslexia' },
-  { title: 'Noise sensitivity & focus', blurb: 'Ear defenders and audio support for noise-sensitive pupils and busy classrooms.', colour: '#6b6760', search: 'noise headphones ear defender' },
-  { title: 'Movement & active seating', blurb: 'Wobble stools, posture support and active seating for pupils who need to move.', colour: 'var(--color-pillar-transparency)', type: 'Furniture', search: 'seating' },
-  { title: 'Equipping a classroom for teaching', blurb: 'Displays, visualisers and classroom hardware for confident whole-class teaching.', colour: 'var(--color-pillar-privacy)', type: 'Classroom Tech' },
-  { title: 'Setting up a SEND provision', blurb: 'Building out a SEND base — accessibility, sensory and communication essentials in one place.', colour: 'var(--color-pillar-accessibility)', setting: 'SEND Provision' },
-  { title: 'Home learning on a budget', blurb: 'Practical, affordable kit for learning at home without overspending.', colour: 'var(--color-pillar-age)', type: 'Home Learning', budget: 'Under £50' },
-  { title: 'Hearing support in class', blurb: 'Audio and hearing support for pupils with hearing needs.', colour: 'var(--color-pillar-privacy)', search: 'hearing audio' },
-];
-
-// ── Intent search: synonyms + budget extraction (match on meaning, not just words)
+// ── Intent search (synonyms + budget extraction) ────────────────────────────────
 const SYNONYMS: Record<string, string[]> = {
-  visualiser: ['visualiser', 'visualizer', 'document camera', 'screens & classroom'],
-  visualizer: ['visualiser', 'document camera'],
+  visualiser: ['visualiser', 'visualizer', 'document camera'],
   headphones: ['headphone', 'audio', 'hearing', 'noise', 'ear defender'],
   noise: ['noise', 'ear defender', 'headphone', 'audio', 'hearing'],
-  reducing: ['noise', 'ear defender'],
   aac: ['aac', 'communication'],
   communication: ['communication', 'aac'],
   dyslexia: ['dyslexia', 'literacy', 'reading', 'stationery'],
   literacy: ['literacy', 'reading', 'stationery', 'dyslexia'],
   sensory: ['sensory', 'regulation'],
-  standing: ['standing', 'desk', 'furniture', 'posture'],
   desk: ['desk', 'furniture', 'table'],
   seating: ['seating', 'stool', 'chair', 'furniture', 'wobble'],
-  active: ['active', 'wobble', 'movement', 'seating', 'stool'],
-  wobble: ['wobble', 'stool', 'seating', 'active'],
+  wobble: ['wobble', 'stool', 'seating'],
   display: ['display', 'screen', 'classroom hardware'],
   screen: ['screen', 'display', 'classroom hardware', 'devices'],
-  wellbeing: ['wellbeing', 'regulation', 'furniture'],
   autism: ['autism', 'asd', 'sensory'],
   adhd: ['adhd', 'movement', 'sensory', 'focus'],
   robot: ['robot', 'coding'],
@@ -105,32 +117,18 @@ const SYNONYMS: Record<string, string[]> = {
   tablet: ['tablet', 'ipad', 'device'],
   device: ['device', 'tablet', 'laptop', 'chromebook'],
 };
-const STOP = new Set(['for', 'the', 'a', 'an', 'and', 'with', 'in', 'of', 'to', 'my', 'me', 'is', 'it', 'this', 'that', 'need', 'needs', 'pupil', 'pupils', 'kid', 'kids', 'child', 'equipment', 'support', 'help', 'best', 'good', 'buy', 'under', 'over']);
+const STOP = new Set(['for', 'the', 'a', 'an', 'and', 'with', 'in', 'of', 'to', 'my', 'me', 'is', 'it', 'this', 'that', 'need', 'needs', 'pupil', 'pupils', 'child', 'equipment', 'support', 'help', 'best', 'good', 'buy', 'under', 'over']);
 const BAND_LOWER: Record<string, number> = { 'Under £50': 0, '£50–150': 50, '£150–500': 150, '£500+': 500 };
 
 function matchesSearch(p: EquipmentProduct, raw: string): boolean {
   const q = raw.toLowerCase().trim();
   if (!q) return true;
-  // Budget intent: "under £300" / "under 300"
   const under = q.match(/under\s*£?\s*(\d+)/);
-  if (under) {
-    const max = Number(under[1]);
-    if (BAND_LOWER[p.priceBand] >= max) return false; // band starts at/above the cap
-  }
-  const haystack = [
-    p.name, p.brand, p.category, p.subcategory, p.bestFor, p.desc,
-    typeOf(p.category).label, p.priceBand, ...(p.audience ?? []), ...(p.senCategory ?? []), ...(p.educationLevel ?? []),
-  ].join(' ').toLowerCase();
-  // Strip budget phrases, tokenise the rest
-  const tokens = q.replace(/under\s*£?\s*\d+/g, '').replace(/£\s*\d+/g, '')
-    .split(/[^a-z0-9]+/).filter(t => t.length > 2 && !STOP.has(t));
-  if (tokens.length === 0) return true; // budget-only query already handled
-  // Every token must match directly or via a synonym (intent match)
-  return tokens.every(tok => {
-    if (haystack.includes(tok)) return true;
-    const syns = SYNONYMS[tok];
-    return !!syns && syns.some(s => haystack.includes(s));
-  });
+  if (under && BAND_LOWER[p.priceBand] >= Number(under[1])) return false;
+  const haystack = [p.name, p.brand, p.category, p.subcategory, p.bestFor, p.desc, p.priceBand, ...p.audience, ...p.senCategory, ...p.educationLevel].join(' ').toLowerCase();
+  const tokens = q.replace(/under\s*£?\s*\d+/g, '').replace(/£\s*\d+/g, '').split(/[^a-z0-9]+/).filter(t => t.length > 2 && !STOP.has(t));
+  if (tokens.length === 0) return true;
+  return tokens.every(tok => haystack.includes(tok) || (SYNONYMS[tok]?.some(s => haystack.includes(s)) ?? false));
 }
 
 function openLuna(prompt?: string) {
@@ -138,62 +136,97 @@ function openLuna(prompt?: string) {
   if (prompt) setTimeout(() => window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: prompt })), 120);
 }
 
-// ── Equipment tile (buying-guide card — no score) ───────────────────────────────
-function EquipmentTile({ product }: { product: EquipmentProduct }) {
-  const type = typeOf(product.category);
-  const quote = product.purchaseModel === 'Quote' || product.badges.includes('School Quote');
+function scrollToCatalogue() {
+  document.getElementById('catalogue')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── Luna's Top Picks (auto-rotating monthly, revenue-focused) ───────────────────
+// Revenue pool = products that can actually earn commission (Amazon-available /
+// affiliate Amazon link). The selection is DETERMINISTIC by month, so the section
+// changes by itself on the 1st — no maintenance, no backend. The window advances
+// by `n` each month and wraps, so picks cycle through the whole pool over time.
+const REVENUE_POOL: EquipmentProduct[] = EQUIPMENT
+  .filter(p => p.badges.includes('Amazon Available') || /amazon\.co\.uk/i.test(p.affiliateLink))
+  .sort((a, b) => a.id.localeCompare(b.id)); // stable order so rotation is repeatable
+
+function monthlyPicks(n: number, date = new Date()): EquipmentProduct[] {
+  const pool = REVENUE_POOL;
+  if (pool.length === 0) return [];
+  const seed = date.getFullYear() * 12 + date.getMonth(); // unique, monotonic per month
+  const start = (seed * n) % pool.length;
+  return Array.from({ length: Math.min(n, pool.length) }, (_, i) => pool[(start + i) % pool.length]);
+}
+
+function isAmazon(p: EquipmentProduct): boolean {
+  return /amazon\.co\.uk/i.test(p.affiliateLink);
+}
+
+// ── Small UI atoms ──────────────────────────────────────────────────────────────
+function Pill({ children, color = FOG, border = CARD_BORDER }: { children: React.ReactNode; color?: string; border?: string }) {
+  return (
+    <span className="font-mono rounded-full px-2 py-0.5" style={{ fontSize: 10, color, border: `1px solid ${border}` }}>
+      {children}
+    </span>
+  );
+}
+
+// ── Catalogue card ──────────────────────────────────────────────────────────────
+function ProductCard({ product }: { product: EquipmentProduct }) {
+  const sendFriendly = product.badges.includes('SEND Friendly');
+  const amazon = product.badges.includes('Amazon Available');
+  const reviewed = product.reviewStatus === 'Reviewed';
+
+  const tags: React.ReactNode[] = [<Pill key="price" color={AGE} border={tint(AGE, 0.4)}>{product.priceBand}</Pill>];
+  if (sendFriendly) tags.push(<Pill key="send" color={CLAY} border={tint(CLAY, 0.4)}>SEND Friendly</Pill>);
+  if (reviewed) tags.push(<Pill key="rev" color={INK_ACCENT} border={tint(INK_ACCENT, 0.4)}>Reviewed</Pill>);
+  if (amazon) tags.push(<Pill key="amz" color={PRIVACY} border={tint(PRIVACY, 0.4)}>Amazon Available</Pill>);
 
   const askLuna = () => {
-    openLuna(
-      `Is "${product.name}" (${type.label} · ${product.category}) right for me? Before recommending, ask me about: learner age / key stage, the setting, any SEND need, my budget, and the intended use. Then advise on suitability and alternatives.`,
-    );
-    track({ name: 'cta_clicked', section: 'equipment-directory', label: `Ask Luna suitability: ${product.name}` });
+    openLuna(`Is "${product.name}" (${product.category}) right for me? Before recommending, ask me about: learner age / key stage, the setting, any SEND need, my budget, and the intended use. Then advise on suitability and alternatives.`);
+    track({ name: 'cta_clicked', section: 'equipment-catalogue', label: `Ask Luna: ${product.name}` });
   };
 
   return (
-    <div className="flex items-start gap-5 p-5" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
-      {/* Monogram (data has no images) — product-type colour, decorative */}
-      <div
-        className="flex-shrink-0 flex items-center justify-center"
-        style={{ width: 72, height: 72, borderRadius: 4, background: 'var(--color-oat)', border: `1px solid ${RULE}` }}
-        aria-hidden="true"
-      >
-        <span className="w-4 h-4 rounded-full" style={{ background: type.colour }} />
+    <div className="rounded-2xl p-5 flex flex-col gap-2.5 transition-transform hover:-translate-y-0.5" style={{ background: WHITE, border: `1px solid ${RULE}` }}>
+      <div className="flex items-center gap-2">
+        <span className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: MUTED }}>{product.category}</span>
+        {product.subcategory && (
+          <>
+            <span style={{ color: MUTED }}>·</span>
+            <span className="font-mono" style={{ fontSize: 10, color: MUTED }}>{product.subcategory}</span>
+          </>
+        )}
       </div>
 
-      <div className="flex-1 min-w-0">
+      <Link
+        to={`/ai-equipment/product/${product.slug}`}
+        onClick={() => track({ name: 'cta_clicked', section: 'equipment-catalogue', label: `View product: ${product.name}` })}
+        className="font-serif line-clamp-2 transition-opacity hover:opacity-70"
+        style={{ fontSize: 18, lineHeight: 1.2, color: INK }}
+      >
+        {product.name}
+      </Link>
+
+      <p className="font-mono" style={{ fontSize: 11, color: MUTED }}>{product.brand}</p>
+
+      <p className="font-sans truncate" style={{ fontSize: 13, color: MUTED }}>{product.desc}</p>
+
+      <div className="flex flex-wrap gap-1.5 mt-0.5">{tags.slice(0, 3)}</div>
+
+      <div className="flex items-center justify-between mt-auto pt-2">
         <Link
           to={`/ai-equipment/product/${product.slug}`}
-          onClick={() => track({ name: 'cta_clicked', section: 'equipment-directory', label: `See product: ${product.name}` })}
-          className="font-display block transition-opacity hover:opacity-70"
-          style={{ fontSize: 20, fontWeight: 400, color: INK }}
+          className="font-sans inline-flex items-center gap-1 transition-opacity hover:opacity-70"
+          style={{ fontSize: 13, fontWeight: 600, color: INK_ACCENT }}
         >
-          {product.name}
+          View product <ArrowRight size={13} />
         </Link>
-
-        {/* Product type • category */}
-        <p className="font-mono uppercase mt-1.5" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
-          {type.label} <span style={{ color: type.colour }}>•</span> {product.category}
-        </p>
-
-        {/* Short practical description */}
-        <p className="font-sans mt-2" style={{ fontSize: 14, lineHeight: 1.5, color: FOG }}>
-          {product.desc}
-        </p>
-
-        {/* Price / quote */}
-        <p className="font-sans mt-2" style={{ fontSize: 13, color: '#6b6760' }}>
-          {product.priceBand}
-          {quote && <span style={{ color: FOG }}> · School quote available</span>}
-        </p>
-
-        {/* CTA — suitability is a conversation, not a score */}
         <button
           onClick={askLuna}
-          className="font-sans inline-block mt-3 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-          style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-ink-accent)' }}
+          className="font-sans rounded-full px-3.5 py-1.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+          style={{ fontSize: 12, fontWeight: 600, background: LIME, color: INK }}
         >
-          Ask Luna if this is right for me &rarr;
+          Ask Luna
         </button>
       </div>
     </div>
@@ -201,313 +234,306 @@ function EquipmentTile({ product }: { product: EquipmentProduct }) {
 }
 
 // ── Page ────────────────────────────────────────────────────────────────────────
-const SUGGESTED = ['visualiser for primary classroom', 'sensory equipment under £300', 'AAC communication support'];
-
 export default function AIEquipment() {
-  const [roleSlug, setRoleSlug] = useState<string>(() => getRole());
-  const [type, setType] = useState<string>('All');
-  const [budget, setBudget] = useState<string>('All');
-  const [setting, setSetting] = useState<string>('All');
+  const [audience, setAudience] = useState<string>('All');
+  const [category, setCategory] = useState<string>('All');
+  const [price, setPrice] = useState<string>('All');
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    const sync = (e: Event) => setRoleSlug((e as CustomEvent<string>).detail ?? getRole());
-    window.addEventListener(ROLE_CHANGED, sync);
-    return () => window.removeEventListener(ROLE_CHANGED, sync);
+  const counts = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const p of EQUIPMENT) m[p.category] = (m[p.category] ?? 0) + 1;
+    return m;
   }, []);
 
-  const activeRole = ROLE_FILTERS.find(r => r.slug === roleSlug) ?? ROLE_FILTERS[0];
+  // Auto-rotating monthly picks + the current month label (e.g. "June 2026").
+  const picks = useMemo(() => monthlyPicks(4), []);
+  const monthLabel = useMemo(() => new Date().toLocaleString('en-GB', { month: 'long', year: 'numeric' }), []);
 
   const filtered = useMemo(() => {
-    let r = EQUIPMENT;
-    if (activeRole.audience) r = r.filter(p => p.audience.includes(activeRole.audience as EquipmentProduct['audience'][number]));
-    if (type !== 'All') {
-      const t = PRODUCT_TYPES.find(x => x.label === type);
-      if (t) r = r.filter(p => t.cats.includes(p.category));
-    }
-    if (budget !== 'All') {
-      const b = BUDGETS.find(x => x.label === budget);
-      if (b) r = r.filter(b.match);
-    }
-    if (setting !== 'All') {
-      const s = SETTINGS.find(x => x.label === setting);
-      if (s) r = r.filter(s.match);
-    }
-    if (search.trim()) r = r.filter(p => matchesSearch(p, search));
-    return r;
-  }, [activeRole, type, budget, setting, search]);
+    return EQUIPMENT.filter(p => {
+      if (!matchAudience(p, audience)) return false;
+      if (category !== 'All' && p.category !== category) return false;
+      if (price !== 'All' && p.priceBand !== price) return false;
+      if (search.trim() && !matchesSearch(p, search)) return false;
+      return true;
+    });
+  }, [audience, category, price, search]);
 
-  const chooseRole = (slug: string) => {
-    setRoleSlug(slug);
-    setRole(slug);
-    track({ name: 'tool_filter_used', filterType: 'role', value: slug || 'All', pageType: 'equipment' });
+  const pickCategory = (name: string) => {
+    setCategory(name);
+    track({ name: 'tool_filter_used', filterType: 'category', value: name, pageType: 'equipment' });
+    setTimeout(scrollToCatalogue, 60);
   };
-
-  // Problem-first → apply a need's filters and scroll to the (now pre-filtered) list.
-  const applyNeed = (need: Need) => {
-    setRoleSlug(''); setRole('');
-    setType(need.type ?? 'All');
-    setBudget(need.budget ?? 'All');
-    setSetting(need.setting ?? 'All');
-    setSearch(need.search ?? '');
-    track({ name: 'cta_clicked', section: 'equipment-needs', label: need.title });
-    setTimeout(() => document.getElementById('browse')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 60);
-  };
-
-  const TRY_ASKING = [
-    'How do I support a non-verbal pupil to communicate?',
-    'What helps a pupil who finds it hard to sit still and focus?',
-    'Recommend a calm-corner setup for under £200',
-  ];
 
   return (
-    <div style={{ background: 'var(--color-oat)', minHeight: '100vh' }}>
+    <div style={{ background: GROUND, minHeight: '100vh' }}>
       <SEO
-        title="AI Equipment for UK Education — School Buying Guide | GetPromptly"
-        description="A school buying guide for UK classrooms, SEND settings and home learning — classroom tech, assistive technology, sensory equipment, furniture and infrastructure. Search by need; ask Luna about suitability."
-        keywords="AI equipment UK education, classroom technology, SEND assistive tech, AAC communication, sensory equipment, school furniture, educational devices UK"
+        title="Equipment for UK Schools — Independent Buying Guide | GetPromptly"
+        description="Independent equipment recommendations for UK schools, SEND teams and school leaders — devices, assistive technology, sensory equipment, classroom hardware and furniture. Tell Luna your needs and budget."
+        keywords="school equipment UK, classroom technology, SEND assistive tech, AAC communication, sensory equipment, school furniture, educational devices UK"
         path="/ai-equipment"
       />
 
-      {/* ── 1. HERO (dark) ─────────────────────────────────────────────────────── */}
-      <section style={{ background: 'var(--color-ground-black)' }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-12">
-          <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: FOG }}>EQUIPMENT ADVICE · UK SCHOOLS</p>
-          <h1 className="font-display mt-5" style={{ fontSize: 'clamp(2rem, 4.5vw, 2.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
-            Independent equipment advice for UK schools.
-          </h1>
-          <p className="font-sans mt-4 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>
-            We help schools and families choose the right equipment for the learner's need, the setting and the budget. Start with the problem, not the product — independent, KCSIE-aware, and never sponsored.
+      {/* ── 1. HERO ─────────────────────────────────────────────────────────────── */}
+      <section style={{ background: GROUND }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-16 pb-14">
+          <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.22em', color: FOG }}>
+            Equipment Advice · UK Schools
           </p>
 
-          <div className="mt-8 rounded-2xl p-6 sm:p-7" style={{ background: '#2A2A2A' }}>
-            <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: LIME }}>ASK THE ADVISER</p>
-            <p className="font-display mt-2" style={{ fontSize: 22, color: '#FFFFFF' }}>
-              Tell us the problem — we'll advise on what fits and how to buy it.
-            </p>
+          {/* Five-pillar accent rule — the brand device, in lieu of a gradient (Brand Bible: no gradients). */}
+          <div className="flex gap-1.5 mt-6" aria-hidden="true">
+            {[PRIVACY, SAFE, AGE, SLATE, CLAY].map((c, i) => (
+              <span key={i} style={{ width: 38, height: 3, borderRadius: 2, background: c }} />
+            ))}
+          </div>
 
-            <LunaInput />
+          <h1 className="font-serif mt-6" style={{ fontSize: 'clamp(2.5rem, 6vw, 3.75rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', color: OAT }}>
+            Stop guessing what to buy.<br />Start choosing with confidence.
+          </h1>
+          <p className="font-sans mt-5 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>
+            Independent equipment recommendations for UK schools, SEND teams and school leaders.
+          </p>
 
-            <p className="font-mono mt-5 mb-2.5" style={{ fontSize: 10, letterSpacing: '0.1em', color: FOG }}>TRY ASKING</p>
-            <div className="flex flex-wrap gap-2">
-              {TRY_ASKING.map(q => (
-                <button
-                  key={q}
-                  onClick={() => { openLuna(q); track({ name: 'agent_contextual_prompt_clicked', prompt: q, section: 'equipment' }); }}
-                  className="font-sans text-left rounded-xl px-3 py-2 border transition-colors hover:border-[var(--color-promptly-lime)]"
-                  style={{ fontSize: 12, color: '#d1cec8', background: 'transparent', borderColor: 'rgba(255,255,255,0.25)' }}
-                >
-                  "{q}"
-                </button>
-              ))}
-            </div>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <button
+              onClick={() => { openLuna('Help me find the right equipment. Ask me about the learner’s need, the setting and my budget, then suggest what fits.'); track({ name: 'agent_opened', section: 'equipment-hero' }); }}
+              className="font-sans inline-flex items-center gap-2 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+              style={{ fontSize: 15, fontWeight: 600, background: LIME, color: INK }}
+            >
+              Ask Luna <ArrowRight size={16} />
+            </button>
+          </div>
+
+          <div className="flex flex-wrap gap-2 mt-7">
+            {['Independent Advice', 'UK Schools Focus', 'Accessibility Aware'].map(t => (
+              <span key={t} className="font-mono rounded-full px-3 py-1" style={{ fontSize: 11, color: FOG, border: `1px solid ${CARD_BORDER}` }}>{t}</span>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── 2. HOW WE ADVISE (principles, not product counts) ──────────────────── */}
-      <div style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-8">
-          <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.14em', color: '#9c9c8a' }}>How we advise</p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
-            {[
-              { h: 'Independent', b: "We don't sell equipment and take no payment for placement. The advice is the product." },
-              { h: 'Context-first', b: 'We start from the learner’s need, your setting and your budget — not a catalogue.' },
-              { h: 'KCSIE-aware', b: 'Suitability is considered through a UK safeguarding and education lens.' },
-              { h: 'Honest about fit', b: 'If something isn’t right for your context, we’ll say so and suggest alternatives.' },
-            ].map(p => (
-              <div key={p.h}>
-                <p className="font-display" style={{ fontSize: 18, fontWeight: 400, color: INK }}>{p.h}</p>
-                <p className="font-sans mt-1" style={{ fontSize: 13, lineHeight: 1.55, color: FOG }}>{p.b}</p>
+      {/* ── 2. CATEGORY GRID ────────────────────────────────────────────────────── */}
+      <section className="max-w-6xl mx-auto px-5 sm:px-8 pb-14">
+        <p className="font-mono uppercase mb-5" style={{ fontSize: 11, letterSpacing: '0.22em', color: FOG }}>Browse by category</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+          {CATEGORIES.map(({ name, Icon }) => {
+            const c = CATEGORY_COLOUR[name];
+            const on = category === name;
+            return (
+              <button
+                key={name}
+                onClick={() => pickCategory(name)}
+                className="text-left rounded-2xl p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
+                style={{ background: SURFACE, border: `1px solid ${on ? tint(c, 0.85) : tint(c, 0.3)}` }}
+              >
+                <span className="inline-flex items-center justify-center rounded-xl" style={{ width: 40, height: 40, background: tint(c, 0.14), border: `1px solid ${tint(c, 0.3)}` }}>
+                  <Icon size={20} color={iconColour(c)} strokeWidth={1.6} />
+                </span>
+                <p className="font-serif mt-3" style={{ fontSize: 18, lineHeight: 1.15, color: OAT }}>{name}</p>
+                <p className="font-mono mt-1.5" style={{ fontSize: 11, color: FOG }}>{counts[name] ?? 0} products</p>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── 3. LUNA'S TOP PICKS THIS MONTH (auto-rotating, revenue) ─────────────── */}
+      <section className="pb-14">
+        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div style={{ width: 40, height: 3, borderRadius: 2, background: LIME, marginBottom: 16 }} aria-hidden="true" />
+          <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.22em', color: LIME }}>
+            Luna's top picks · {monthLabel}
+          </p>
+          <h2 className="font-serif mt-2" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 400, color: OAT }}>
+            Worth a look this month.
+          </h2>
+          <p className="font-sans mt-2 max-w-xl" style={{ fontSize: 14, lineHeight: 1.55, color: FOG }}>
+            A rotating shortlist Luna thinks is worth a look right now — refreshed at the start of every month.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            {picks.map(p => (
+              <div key={p.id} className="rounded-2xl p-5 flex flex-col gap-2.5" style={{ background: SURFACE, border: `1px solid ${FEATURED_BORDER}` }}>
+                <span className="font-mono uppercase self-start rounded-full px-2 py-0.5" style={{ fontSize: 9, letterSpacing: '0.08em', color: INK, background: LIME }}>Luna's pick</span>
+                <span className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: FOG }}>{p.category}</span>
+                <Link
+                  to={`/ai-equipment/product/${p.slug}`}
+                  onClick={() => track({ name: 'cta_clicked', section: 'equipment-luna-picks', label: `View product: ${p.name}` })}
+                  className="font-serif line-clamp-2 transition-opacity hover:opacity-80"
+                  style={{ fontSize: 17, lineHeight: 1.2, color: OAT }}
+                >
+                  {p.name}
+                </Link>
+                <p className="font-mono" style={{ fontSize: 11, color: FOG }}>{p.brand}</p>
+                <p className="font-sans truncate" style={{ fontSize: 13, color: FOG }}>{p.desc}</p>
+                <span className="font-mono rounded-full px-2 py-0.5 self-start" style={{ fontSize: 10, color: FOG, border: `1px solid ${CARD_BORDER}` }}>{p.priceBand}</span>
+
+                <div className="flex flex-col gap-2 mt-auto pt-2">
+                  <a
+                    href={p.affiliateLink}
+                    target="_blank"
+                    rel="sponsored noopener noreferrer"
+                    onClick={() => track({ name: 'affiliate_click', itemId: p.id, itemName: p.name, category: p.category, pageType: 'equipment' })}
+                    className="font-sans inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2 transition-opacity hover:opacity-90"
+                    style={{ fontSize: 13, fontWeight: 600, background: LIME, color: INK }}
+                  >
+                    {isAmazon(p) ? 'View on Amazon' : 'Check price'} <ArrowRight size={13} />
+                  </a>
+                  <Link
+                    to={`/ai-equipment/product/${p.slug}`}
+                    className="font-sans inline-flex items-center justify-center gap-1 transition-opacity hover:opacity-80"
+                    style={{ fontSize: 12, fontWeight: 600, color: LIME }}
+                  >
+                    Read our take <ArrowRight size={12} />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
+
+          {/* Disclosure (Brand Bible §22 — commercial relationship) */}
+          <p className="font-mono mt-5 max-w-3xl" style={{ fontSize: 10, lineHeight: 1.6, color: FOG }}>
+            Picks rotate automatically each month and are chosen independently — never paid placement. Some links are affiliate links, so we may earn a small commission at no extra cost to you. This helps keep GetPromptly independent.
+          </p>
         </div>
-      </div>
+      </section>
 
-      {/* ── 3. START WITH THE NEED (problem-first) ─────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-12 pb-2">
-        <h2 className="font-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 400, color: INK }}>
-          Start with the need
-        </h2>
-        <p className="font-sans mt-2 max-w-2xl" style={{ fontSize: 15, lineHeight: 1.6, color: '#6b6760' }}>
-          Schools don't shop for products — they solve problems. Pick the challenge you're facing and we'll point you to suitable equipment, then help you judge what fits.
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-7">
-          {NEEDS.map(need => (
-            <button
-              key={need.title}
-              onClick={() => applyNeed(need)}
-              className="text-left rounded-2xl border p-5 h-full transition-colors hover:border-[var(--color-ink-accent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-              style={{ background: 'white', borderColor: RULE }}
-            >
-              <span className="w-2.5 h-2.5 rounded-full inline-block mb-3" style={{ background: need.colour }} aria-hidden="true" />
-              <p className="font-display" style={{ fontSize: 18, fontWeight: 400, color: INK, lineHeight: 1.25 }}>{need.title}</p>
-              <p className="font-sans mt-2" style={{ fontSize: 13.5, lineHeight: 1.55, color: FOG }}>{need.blurb}</p>
-              <span className="font-sans inline-block mt-3" style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-ink-accent)' }}>See suitable equipment &rarr;</span>
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* ── 4. FULL CATALOGUE ───────────────────────────────────────────────────── */}
+      <section id="catalogue" style={{ background: OAT, scrollMarginTop: 64 }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-12">
+          <div style={{ width: 40, height: 3, borderRadius: 2, background: PRIVACY, marginBottom: 16 }} aria-hidden="true" />
+          <p className="font-mono uppercase" style={{ fontSize: 11, letterSpacing: '0.22em', color: MUTED }}>All equipment</p>
 
-      {/* ── 4. BROWSE ALL (secondary to the need-led entry above) ──────────────── */}
-      <div id="browse" className="max-w-6xl mx-auto px-5 sm:px-8 pt-12 pb-1" style={{ scrollMarginTop: 72 }}>
-        <h2 className="font-display" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 400, color: INK }}>
-          Browse all equipment
-        </h2>
-        <p className="font-sans mt-2 max-w-2xl" style={{ fontSize: 15, lineHeight: 1.6, color: '#6b6760' }}>
-          Or explore the full list and narrow by audience, type, budget and setting — then ask Luna whether a product fits your context.
-        </p>
-      </div>
-
-      {/* ── 5. FILTERS (sticky) — buying intent, not scoring ───────────────────── */}
-      <div className="sticky top-16 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
-        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex flex-col gap-3">
-
-          {/* Audience */}
-          <div className="flex items-center gap-2 overflow-x-auto sm:flex-wrap -mx-5 px-5 sm:mx-0 sm:px-0">
-            {ROLE_FILTERS.map(r => {
-              const active = roleSlug === r.slug;
-              return (
-                <button
-                  key={r.label}
-                  onClick={() => chooseRole(r.slug)}
-                  aria-pressed={active}
-                  className="font-sans flex-shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                  style={active
-                    ? { fontSize: 12, fontWeight: 600, background: LIME, color: INK, borderColor: 'transparent' }
-                    : { fontSize: 12, background: 'transparent', color: INK, borderColor: RULE }}
-                >
-                  {r.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Product type */}
-          <div className="flex items-center gap-2 overflow-x-auto lg:flex-wrap -mx-5 px-5 sm:mx-0 sm:px-0">
-            {[{ label: 'All', colour: FOG }, ...PRODUCT_TYPES].map(t => {
-              const active = type === t.label;
-              return (
-                <button
-                  key={t.label}
-                  onClick={() => { setType(t.label); track({ name: 'tool_filter_used', filterType: 'category', value: t.label, pageType: 'equipment' }); }}
-                  aria-pressed={active}
-                  className="font-sans flex-shrink-0 whitespace-nowrap inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                  style={active
-                    ? { fontSize: 12, fontWeight: 600, background: INK, color: '#FFFFFF', borderColor: INK }
-                    : { fontSize: 12, background: 'transparent', color: INK, borderColor: RULE }}
-                >
-                  <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: t.colour }} aria-hidden="true" />
-                  {t.label}
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Budget + Setting + Search */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-            <select
-              aria-label="Budget"
-              value={budget}
-              onChange={e => { setBudget(e.target.value); track({ name: 'tool_filter_used', filterType: 'safety', value: e.target.value, pageType: 'equipment' }); }}
-              className="font-sans rounded-lg px-3 py-2 outline-none flex-shrink-0"
-              style={{ fontSize: 14, background: 'white', color: INK, border: `1px solid ${RULE}` }}
-            >
-              <option value="All">Budget: Any</option>
-              {BUDGETS.map(b => <option key={b.label} value={b.label}>{b.label}</option>)}
-            </select>
-            <select
-              aria-label="Setting"
-              value={setting}
-              onChange={e => { setSetting(e.target.value); track({ name: 'tool_filter_used', filterType: 'category', value: e.target.value, pageType: 'equipment' }); }}
-              className="font-sans rounded-lg px-3 py-2 outline-none flex-shrink-0"
-              style={{ fontSize: 14, background: 'white', color: INK, border: `1px solid ${RULE}` }}
-            >
-              <option value="All">Setting: Any</option>
-              {SETTINGS.map(s => <option key={s.label} value={s.label}>{s.label}</option>)}
-            </select>
-            <div className="relative flex-1">
-              <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
-              <input
-                type="search"
-                value={search}
-                onChange={e => { setSearch(e.target.value); if (e.target.value.length > 2) track({ name: 'search_performed', section: 'equipment', query: e.target.value }); }}
-                placeholder="Search equipment by need, product or budget…"
-                aria-label="Search equipment"
-                className="font-sans w-full pl-9 pr-4 py-2.5 rounded-xl border outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ fontSize: 14, background: 'white', color: INK, borderColor: RULE }}
-              />
+          {/* Luna advisory — advice-first, not a catalogue. On-brand: dark + lime on oat. */}
+          <div
+            className="mt-5 rounded-2xl p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+            style={{ background: GROUND, borderLeft: `3px solid ${LIME}` }}
+          >
+            <div style={{ maxWidth: 560 }}>
+              <p className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.14em', color: LIME }}>Luna · Equipment adviser</p>
+              <p className="font-serif mt-2" style={{ fontSize: 'clamp(1.15rem, 2.2vw, 1.45rem)', color: OAT }}>Not sure what to buy?</p>
+              <p className="font-sans mt-1.5" style={{ fontSize: 14, lineHeight: 1.55, color: FOG }}>
+                Tell Luna about your school, budget and needs — she'll shortlist equipment worth considering.
+              </p>
             </div>
-          </div>
-
-          {/* Suggested searches */}
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.08em', color: '#9c9c8a' }}>Try</span>
-            {SUGGESTED.map(s => (
-              <button
-                key={s}
-                onClick={() => { setSearch(s); track({ name: 'search_performed', section: 'equipment-suggested', query: s }); }}
-                className="font-sans rounded-full px-3 py-1 border transition-colors hover:border-[var(--color-ink-accent)]"
-                style={{ fontSize: 12, color: 'var(--color-ink-accent)', background: 'white', borderColor: RULE }}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── 4. RESULTS ─────────────────────────────────────────────────────────── */}
-      <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
-        <p className="font-sans mb-5" style={{ fontSize: 13, color: '#6b6760' }}>
-          Showing <strong style={{ color: INK }}>{filtered.length}</strong> of {EQUIPMENT.length} products
-        </p>
-
-        {filtered.length === 0 ? (
-          <div className="p-10 text-center" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
-            <p className="font-display" style={{ fontSize: 20, color: INK }}>No exact match.</p>
             <button
-              onClick={() => { openLuna(`Shortlist suitable equipment for: ${search || 'my need'}. Ask me about learner age/key stage, setting, any SEND need, budget and intended use first.`); track({ name: 'agent_opened', section: 'equipment-no-results' }); }}
-              className="font-sans inline-block mt-3 rounded-full px-5 py-2.5 transition-opacity hover:opacity-90"
-              style={{ fontSize: 14, fontWeight: 600, background: LIME, color: '#1A1A0E' }}
+              onClick={() => { openLuna('Help me choose equipment — ask me about my school, the pupil’s need, the setting and my budget, then shortlist what fits.'); track({ name: 'agent_opened', section: 'equipment-catalogue-adviser' }); }}
+              className="font-sans flex-shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+              style={{ fontSize: 15, fontWeight: 600, background: LIME, color: INK }}
             >
-              Ask Luna to shortlist suitable equipment &rarr;
+              Ask Luna <ArrowRight size={16} />
             </button>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            {filtered.map(p => <EquipmentTile key={p.id} product={p} />)}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+        </div>
 
-// ── Hero Luna input ─────────────────────────────────────────────────────────────
-function LunaInput() {
-  const [draft, setDraft] = useState('');
-  const send = () => { openLuna(draft.trim() || undefined); track({ name: 'agent_opened', section: 'equipment-hero' }); };
-  return (
-    <div className="flex flex-col sm:flex-row gap-3 mt-4">
-      <input
-        type="text"
-        value={draft}
-        onChange={e => setDraft(e.target.value)}
-        onKeyDown={e => { if (e.key === 'Enter') send(); }}
-        placeholder="Describe the pupil's need, your setting and your budget…"
-        aria-label="Ask the equipment adviser"
-        className="font-sans flex-1 rounded-xl px-4 py-3 outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-        style={{ fontSize: 14, background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.18)' }}
-      />
-      <button
-        onClick={send}
-        className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
-        style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
-      >
-        Ask Luna &rarr;
-      </button>
+        {/* Sticky filter bar — top-16 clears the 64px navbar */}
+        <div className="sticky top-16 z-20 mt-4" style={{ background: OAT, borderBottom: `1px solid ${RULE}` }}>
+          <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex flex-col gap-3">
+            {/* Audience tabs */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-0.5">
+              {AUDIENCES.map(a => {
+                const on = audience === a;
+                return (
+                  <button
+                    key={a}
+                    onClick={() => { setAudience(a); track({ name: 'tool_filter_used', filterType: 'role', value: a, pageType: 'equipment' }); }}
+                    aria-pressed={on}
+                    className="font-sans flex-shrink-0 rounded-full px-4 py-1.5 transition-colors"
+                    style={on
+                      ? { fontSize: 13, fontWeight: 600, background: LIME, color: INK, border: '1px solid transparent' }
+                      : { fontSize: 13, background: 'transparent', color: INK, border: `1px solid ${RULE}` }}
+                  >
+                    {a}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Category + Price + Search */}
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <select
+                aria-label="Category"
+                value={category}
+                onChange={e => { setCategory(e.target.value); track({ name: 'tool_filter_used', filterType: 'category', value: e.target.value, pageType: 'equipment' }); }}
+                className="font-sans rounded-lg px-3 py-2 outline-none flex-shrink-0"
+                style={{ fontSize: 14, background: WHITE, color: INK, border: `1px solid ${RULE}` }}
+              >
+                <option value="All">Category: All</option>
+                {CATEGORIES.map(c => <option key={c.name} value={c.name}>{c.name}</option>)}
+              </select>
+              <select
+                aria-label="Price band"
+                value={price}
+                onChange={e => { setPrice(e.target.value); track({ name: 'tool_filter_used', filterType: 'category', value: e.target.value, pageType: 'equipment' }); }}
+                className="font-sans rounded-lg px-3 py-2 outline-none flex-shrink-0"
+                style={{ fontSize: 14, background: WHITE, color: INK, border: `1px solid ${RULE}` }}
+              >
+                <option value="All">Price: All</option>
+                {PRICE_BANDS.map(b => <option key={b} value={b}>{b}</option>)}
+              </select>
+              <div className="relative flex-1">
+                <Search size={15} color={MUTED} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="search"
+                  value={search}
+                  onChange={e => { setSearch(e.target.value); if (e.target.value.length > 2) track({ name: 'search_performed', section: 'equipment', query: e.target.value }); }}
+                  placeholder="Search equipment…"
+                  aria-label="Search equipment"
+                  className="font-sans w-full rounded-lg pl-9 pr-3 py-2 outline-none focus-visible:ring-1"
+                  style={{ fontSize: 14, background: WHITE, color: INK, border: `1px solid ${RULE}` }}
+                />
+              </div>
+            </div>
+
+            <p className="font-mono" style={{ fontSize: 12, color: MUTED }}>
+              Showing {filtered.length} of {EQUIPMENT.length} products
+            </p>
+          </div>
+        </div>
+
+        {/* Grid */}
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-6 pb-14">
+          {filtered.length === 0 ? (
+            <div className="rounded-2xl p-10 text-center" style={{ background: WHITE, border: `1px solid ${RULE}` }}>
+              <p className="font-serif" style={{ fontSize: 20, color: INK }}>No products match those filters.</p>
+              <button
+                onClick={() => { openLuna(`Shortlist suitable equipment for: ${search || 'my need'}. Ask me about learner age/key stage, setting, any SEND need, budget and intended use first.`); track({ name: 'agent_opened', section: 'equipment-no-results' }); }}
+                className="font-sans inline-flex items-center gap-2 mt-4 rounded-full px-5 py-2.5 transition-opacity hover:opacity-90"
+                style={{ fontSize: 14, fontWeight: 600, background: LIME, color: INK }}
+              >
+                Ask Luna to shortlist <ArrowRight size={15} />
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filtered.map(p => <ProductCard key={p.id} product={p} />)}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ── 5. LUNA CTA STRIP ───────────────────────────────────────────────────── */}
+      <section style={{ background: SURFACE, borderLeft: `3px solid ${LIME}` }}>
+        <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+          <div style={{ maxWidth: 580 }}>
+            <p className="font-serif" style={{ fontSize: 'clamp(1.25rem, 2.5vw, 1.6rem)', fontWeight: 400, lineHeight: 1.3, color: OAT }}>
+              Still weighing it up?
+            </p>
+            <p className="font-sans mt-2" style={{ fontSize: 15, lineHeight: 1.55, color: FOG }}>
+              Talk your options through with Luna — independent advice, in plain English, with no sales pitch.
+            </p>
+          </div>
+          <button
+            onClick={() => { openLuna('Help me choose equipment — ask me about the pupil’s need, the setting and my budget, then advise on what fits.'); track({ name: 'agent_opened', section: 'equipment-cta-strip' }); }}
+            className="font-sans flex-shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
+            style={{ fontSize: 15, fontWeight: 600, background: LIME, color: INK }}
+          >
+            Ask Luna <ArrowRight size={16} />
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
