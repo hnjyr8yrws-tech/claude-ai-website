@@ -6,4 +6,10 @@ export const config = {
   // or whatever variables your code uses
 };
 
+/**
+ * Premium prompt checkout URL. Empty = the "Buy Premium" button is shown
+ * disabled (no checkout wired yet). Set this when the checkout exists.
+ */
+export const PREMIUM_CHECKOUT_URL = '';
+
 export default config;

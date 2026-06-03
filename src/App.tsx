@@ -26,6 +26,7 @@ const AITrainingParents   = lazy(() => import('./pages/AITrainingParents'));
 const AITrainingStudents  = lazy(() => import('./pages/AITrainingStudents'));
 const AITrainingSEND      = lazy(() => import('./pages/AITrainingSEND'));
 const AITrainingLeaders   = lazy(() => import('./pages/AITrainingLeaders'));
+const PromptLibrary       = lazy(() => import('./pages/PromptLibrary'));
 const PromptsHub          = lazy(() => import('./pages/PromptsHub'));
 const PromptsLibrary      = lazy(() => import('./pages/PromptsLibrary'));
 const PromptsCategory     = lazy(() => import('./pages/PromptsCategory'));
@@ -119,7 +120,8 @@ const App = () => (
           <Route path="/ai-training/leaders"  element={<AITrainingLeaders />} />
           <Route path="/safety-methodology"   element={<SafetyMethodology />} />
 
-          <Route path="/prompts"                        element={<PromptsHub />} />
+          <Route path="/prompts"                        element={<PromptLibrary />} />
+          <Route path="/prompts/packs"                  element={<PromptsHub />} />
           <Route path="/prompts/library"                element={<PromptsLibrary />} />
           <Route path="/prompts/category/:categorySlug" element={<PromptsCategory />} />
           <Route path="/prompts/pack/:packSlug"         element={<PromptsPack />} />
