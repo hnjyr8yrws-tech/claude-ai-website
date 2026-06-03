@@ -289,7 +289,7 @@ export default function AIEquipment() {
             ))}
           </div>
 
-          <h1 className="font-serif mt-6" style={{ fontSize: 'clamp(2.5rem, 6vw, 3.75rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', color: OAT }}>
+          <h1 className="font-serif mt-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 400, lineHeight: 1.05, letterSpacing: '-0.02em', color: OAT }}>
             Stop guessing what to buy.<br />Start choosing with confidence.
           </h1>
           <p className="font-sans mt-5 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>

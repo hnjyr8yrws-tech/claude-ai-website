@@ -97,7 +97,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               GetPromptly for {d.title}
             </span>
 
-            <h1 className="font-display leading-[1.08] mb-5" style={{ fontSize: 'clamp(2rem, 4.5vw, 3.4rem)' }}>
+            <h1 className="font-display leading-[1.08] mb-5" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)' }}>
               {d.heroTitle}
             </h1>
             <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: '#6b6760' }}>

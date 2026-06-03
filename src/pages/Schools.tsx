@@ -462,7 +462,7 @@ const Schools: FC = () => {
               KCSIE-AWARE · UK GDPR-AWARE · INDEPENDENT
             </p>
 
-            <h1 className="font-display mt-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 400, color: '#FFFFFF' }}>
+            <h1 className="font-display mt-6" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
               AI Advisory for UK Schools.
             </h1>
             {/* Subhead — Fraunces italic, fog */}

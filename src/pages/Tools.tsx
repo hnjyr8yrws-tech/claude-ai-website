@@ -223,7 +223,7 @@ export default function Tools() {
       <section style={{ background: 'var(--color-ground-black)' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-12">
           <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: FOG }}>REVIEWED TOOLS</p>
-          <h1 className="font-display mt-5" style={{ fontSize: 'clamp(2rem, 4.5vw, 2.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
+          <h1 className="font-display mt-5" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
             Every tool scored. No exceptions.
           </h1>
           <p className="font-sans mt-4 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>

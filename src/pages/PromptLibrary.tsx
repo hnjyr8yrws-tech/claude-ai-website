@@ -160,7 +160,7 @@ export default function PromptLibrary() {
             </p>
             <h1
               className="font-serif mt-5"
-              style={{ fontSize: 'clamp(3.25rem, 8vw, 6.5rem)', fontWeight: 400, lineHeight: 1.0, letterSpacing: '-0.02em', color: OAT }}
+              style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 400, lineHeight: 1.0, letterSpacing: '-0.02em', color: OAT }}
             >
               We did the prompting.
             </h1>

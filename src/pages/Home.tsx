@@ -163,7 +163,7 @@ const Hero: FC = () => {
 
           {/* ── Left column (≈60%) ── */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <h1 className="font-display leading-[1.05]" style={{ fontSize: 'clamp(3.5rem, 6vw, 5rem)', fontWeight: 400, color: '#FFFFFF' }}>
+            <h1 className="font-display leading-[1.05]" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
               Stop Guessing with AI.<br />
               <em className="italic" style={{ color: TEAL, fontStyle: 'italic' }}>Start Getting Promptly.</em>
             </h1>
