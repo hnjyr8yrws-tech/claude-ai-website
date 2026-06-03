@@ -18,9 +18,14 @@
   --muted:             #9C9C8A;
 
   --color-ground-black:    #1E1E1E;
-  --color-oat:             #F5F2EC;
+  --color-surface-dark:    #2A2A2A;
+  --color-oat:             #F5F2EC;   /* Light-mode base (Brand Bible §09). Default reading surface. */
+  --color-oat-deep:        #8C7A52;   /* Hero text on oat + the Age Suitability pillar. */
   --color-ink:             #1A1A0E;
-  --color-promptly-lime:   #C8E44A;
+  --color-promptly-lime:   #C8E44A;   /* Primary accent (Brand Bible §09). The brand axis. */
+  --color-accent-hover:    #A8C228;   /* Hover / pressed state for lime CTAs + links. */
+  --color-accent-bright:   #DCFA60;   /* Glow / highlight — use sparingly, never a large fill. */
+  --color-accent-pale:     #F0F8C8;   /* Tinted surfaces — very rare. */
   /* Dark lime for emphasis TEXT on light surfaces (lime itself is 1.4:1 — fails).
      #46540E = 8.3:1 on white, 7.7:1 on oat. Lime stays for fills/CTAs + text on dark. */
   --color-ink-accent:      #46540E;
