@@ -255,18 +255,10 @@ export function PillarCard({
         >
           {centreLabel}
         </text>
-        <text
-          className="font-mono"
-          x={CX}
-          y={CY + 12}
-          textAnchor="middle"
-          dominantBaseline="central"
-          fontSize={5.5}
-          letterSpacing={0.5}
-          fill={cssVar('--color-fog')}
-        >
-          PROMPTLY SCORE
-        </text>
+        {/* Brand Bible anatomy: the centre disc carries ONLY the composite
+            number. The "PROMPTLY SCORE" wordmark lives in the methodology mark
+            (and the vendor-embed badge), never inside the disc — keeping it here
+            duplicated the footer mark and was illegible at 96px. */}
 
         {/* Withdrawn: redaction bar across the centre score */}
         {isWithdrawn && (

@@ -77,19 +77,23 @@ function ToolTile({ tool }: { tool: Tool }) {
           )}
         </div>
 
-        {/* Centre */}
+        {/* Centre — name / one-line Plain Verdict / methodology footer, tightened
+            into a single editorial lockup with the Pillar Card (directory spec:
+            96px card · Fraunces 20 name · Satoshi 14 one-line verdict · mono 10 mark). */}
         <div className="flex-1 min-w-0">
+          {/* Tool name — Fraunces 20px; wraps in full (identity, never truncated) */}
           <h3 className="font-display" style={{ fontSize: 'clamp(1.0625rem, 4.5vw, 1.25rem)', fontWeight: 400, color: INK, lineHeight: 1.2 }}>
             {tool.name}
           </h3>
 
-          {/* Plain Verdict — Satoshi italic, one sentence */}
-          <p className="font-sans italic mt-2" style={{ fontSize: 14, lineHeight: 1.5, color: FOG }}>
+          {/* Plain Verdict — Satoshi 14px, clamped to exactly one line, secondary ink */}
+          <p className="font-sans truncate mt-1.5" style={{ fontSize: 14, lineHeight: 1.5, color: '#6b6760' }}>
             {tool.desc}
           </p>
 
-          {/* Public score status — no fabricated reviewer/score; pending until verified */}
-          <p className="font-mono mt-2.5 uppercase break-words" style={{ fontSize: 10, letterSpacing: '0.06em', color: FOG }}>
+          {/* Methodology mark — quiet mono footer, lighter than the verdict. The one
+              place "PROMPTLY SCORE" appears (the disc now shows only the number). */}
+          <p className="font-mono mt-1 uppercase break-words" style={{ fontSize: 10, letterSpacing: '0.06em', color: FOG }}>
             {pub
               ? `PROMPTLY SCORE v${pub.methodologyVersion}${pub.verifiedDate ? ` · VERIFIED ${pub.verifiedDate}` : ''} · REVIEWER ${pub.reviewer}`
               : 'PROMPTLY SCORE · PENDING REVIEW'}
