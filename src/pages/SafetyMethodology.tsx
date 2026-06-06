@@ -180,7 +180,7 @@ export default function SafetyMethodology() {
             The five scoring pillars
           </h2>
           <p className="text-sm mb-8" style={{ color: '#6b6760' }}>
-            Each pillar is scored 0&ndash;10 by a named reviewer. Their weighted average is the Promptly Score &mdash; weighted towards Safeguarding and Data Privacy, the two pillars that decide whether a tool belongs in a school at all.
+            Each pillar is scored 0&ndash;10 by a named reviewer. Their weighted average is the Promptly Score &mdash; weighted towards Safeguarding and Data Privacy, the two pillars that decide whether a tool belongs in a school at all. On each reviewed tool, a pillar also carries a plain-word band &mdash; Strong, Basic, Weak or Critical &mdash; whenever it scores 8.0 or below; pillars above 8.0 are Exemplary and show the score on its own, so the pillars worth a second look are the ones that stand out.
           </p>
         </FadeIn>
 
