@@ -22,18 +22,20 @@ interface UseAgentReturn {
 }
 
 const FALLBACK = "I'm having trouble connecting right now — please try again in a moment.";
+const SESSION_KEY = 'gp_luna_session_id';
 
 /**
- * Stable anonymous session id for this browser, so the server-side gate (Donna)
- * can thread conversation context per chat. Not auth, no personal data.
+ * Stable anonymous session id for the chat. Generated once, persisted, and the
+ * SAME id is reused for every turn so the server-side gate (Donna) keeps memory.
+ * If the server returns a canonical session_id we adopt it (see sendMessage).
+ * Not auth, no personal data.
  */
 function getSessionId(): string {
-  const KEY = 'gp_luna_session_id';
   try {
-    let id = localStorage.getItem(KEY);
+    let id = localStorage.getItem(SESSION_KEY);
     if (!id) {
       id = crypto.randomUUID();
-      localStorage.setItem(KEY, id);
+      localStorage.setItem(SESSION_KEY, id);
     }
     return id;
   } catch {
@@ -87,7 +89,15 @@ export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgent
 
       // n8n response shape: { response, branch, session_id }.
       const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
-      const branch = typeof data.branch === 'string' ? data.branch : 'pass';
+
+      // CONTINUITY: adopt the session_id the server returns and reuse it on every
+      // following turn, so the whole conversation stays on ONE session (memory).
+      const returnedSession = typeof data.session_id === 'string' ? data.session_id.trim() : '';
+      if (returnedSession) {
+        sessionRef.current = returnedSession;
+        try { localStorage.setItem(SESSION_KEY, returnedSession); } catch { /* storage blocked */ }
+      }
+
       const reply =
         (typeof data.response === 'string' && data.response) ||
         (typeof data.message  === 'string' && data.message)  || // tolerated fallback
@@ -98,20 +108,16 @@ export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgent
         return;
       }
 
-      // Branch handling:
-      //  - pass            → normal answer (render as-is)
-      //  - safety/quality  → gate fallback message (render as-is)
-      //  - ask_role        → render the prompt AND surface the role picker
-      //  - error           → friendly message from our function (render as-is)
+      // Every branch (pass / safety / quality / ask_role / error) renders its
+      // message text as-is and APPENDS to the existing thread. We deliberately no
+      // longer tear the chat down to the role picker on ask_role — that broke
+      // continuity (composer vanished, conversation reset). The gate's ask_role
+      // prompt now shows as a normal message; the user can answer inline or use
+      // the "Switch role" button.
       setMessages(prev => [
         ...prev,
         { id: crypto.randomUUID(), role: 'assistant', content: reply },
       ]);
-
-      if (branch === 'ask_role') {
-        // The widget listens for this and re-shows the role selector (history kept).
-        window.dispatchEvent(new CustomEvent('luna-ask-role'));
-      }
     } catch (err) {
       console.warn('[Luna] webhook call failed:', err);
       pushFallback();
