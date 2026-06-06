@@ -12,8 +12,9 @@
 // hardcoded — so endpoints always sit on the radius.
 
 import { Link } from 'react-router-dom';
+import { pillarBand, PILLAR_BAND_LABEL } from '../../data/publicPillars';
 
-// ----- Pillar model (order matches data/tools.ts derivePillars) -----
+// ----- Pillar model (Brand Bible spine order) -----
 
 export interface PillarScores {
   dataPrivacy: number; // 0–10
@@ -37,8 +38,8 @@ interface Pillar {
 }
 
 // Clockwise from 12 o'clock: Data Privacy → Age Suitability → Transparency →
-// Safeguarding → Accessibility (same order as derivePillars()). Age & Transparency
-// use brighter tones than the §09 print hexes so they read on the dark ring.
+// Safeguarding → Accessibility. Age & Transparency use brighter tones than the
+// §09 print hexes so they read on the dark ring.
 const PILLARS: Pillar[] = [
   { key: 'dataPrivacy', name: 'Data Privacy', hex: '#6A8CAF' },
   { key: 'ageSuitability', name: 'Age Suitability', hex: '#C8B45A' },
@@ -78,21 +79,6 @@ function describeArc(cx: number, cy: number, r: number, startAngle: number, endA
 const cssVar = (name: string) => `var(${name})`;
 
 // ----- Helpers to build PillarScores from the app's data shapes -----
-
-/**
- * Map the array returned by derivePillars() in src/data/tools.ts — whose order
- * is [Data Privacy, Age Suitability, Transparency, Safeguarding, Accessibility]
- * — into the PillarScores shape.
- */
-export function pillarScoresFromData(arr: number[]): PillarScores {
-  return {
-    dataPrivacy: arr[0],
-    ageSuitability: arr[1],
-    transparency: arr[2],
-    safeguarding: arr[3],
-    accessibility: arr[4],
-  };
-}
 
 /** Build PillarScores from named values. */
 export function pillarScores(
@@ -144,7 +130,7 @@ export function PillarCard({
   showVerdict = true,
   showLegend = true,
   showMark = true,
-  methodologyVersion = '2.1',
+  methodologyVersion = '2.2',
   verifiedDate,
   reviewer,
   change,
@@ -169,11 +155,14 @@ export function PillarCard({
     mark = parts.join(' · ');
   }
 
-  // SINGLE SOURCE OF TRUTH for the centre number: when pillars are present the
-  // composite is ALWAYS their weighted average (same methodology weights as
-  // data/tools.ts promptlyScore), so the centre can never disagree with the arcs.
+  // Centre number: the published Promptly Score. We prefer the reviewer's
+  // authoritative composite (`score`, the v2.2 figure from the reviewed dataset)
+  // so the headline shows the reviewer's verdict — not a re-derivation. When no
+  // explicit score is given we fall back to the weighted average of the pillars
+  // (legacy callers / previews). The arcs always reflect the per-pillar marks.
   const composite =
-    pillars
+    score ??
+    (pillars
       ? Math.round(
           (pillars.dataPrivacy * 0.25 +
             pillars.safeguarding * 0.2 +
@@ -182,7 +171,7 @@ export function PillarCard({
             pillars.accessibility * 0.15) *
             10,
         ) / 10
-      : score ?? null;
+      : null);
 
   const centreLabel = isProvisional || composite == null ? '—' : composite.toFixed(1);
 
@@ -350,6 +339,27 @@ export function PillarCard({
                 >
                   {display}
                 </span>
+                {!isProvisional && !isWithdrawn && sc != null && (() => {
+                  const band = pillarBand(sc);
+                  // Exemplary is the norm here — suppress the word so lower bands stand out.
+                  return band && band !== 'exemplary' ? (
+                    // Per-pillar band — neutral mono word, NOT a traffic-light
+                    // colour (§09: quality is the arc/score, never recoloured digits).
+                    <span
+                      className="font-mono block uppercase"
+                      style={{
+                        marginTop: 1,
+                        fontSize: 7,
+                        letterSpacing: 0.2,
+                        lineHeight: 1.1,
+                        overflowWrap: 'break-word',
+                        color: cssVar('--color-fog'),
+                      }}
+                    >
+                      {PILLAR_BAND_LABEL[band]}
+                    </span>
+                  ) : null;
+                })()}
               </div>
             );
           })}

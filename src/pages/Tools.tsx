@@ -13,8 +13,10 @@ import { useMemo, useState, useEffect, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
-import { TOOLS, derivePillars, promptlyScore, type Tool } from '../data/tools';
-import { PillarCard, pillarScoresFromData } from '../components/trust/PillarCard';
+import { TOOLS, type Tool } from '../data/tools';
+import { PillarCard } from '../components/trust/PillarCard';
+import { getPublicScore } from '../data/publicPillars';
+import { REGISTRY, priorityFor } from '../data/toolRegistry';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { inferLinkType, linkLabel } from '../utils/linkType';
 
@@ -35,16 +37,6 @@ const ROLE_FILTERS: { slug: string; label: string; audience?: string }[] = [
   { slug: 'student',       label: 'Student',       audience: 'Students' },
 ];
 
-// ── Per-tool deterministic methodology mark (data lacks reviewer; derive both) ──
-const REVIEWERS = ['GP', 'MS', 'JR', 'AL', 'DK'];
-function methodologyMark(tool: Tool): string {
-  let h = 0;
-  for (let i = 0; i < tool.name.length; i++) h = ((h << 5) - h + tool.name.charCodeAt(i)) | 0;
-  const reviewer = REVIEWERS[Math.abs(h) % REVIEWERS.length];
-  const date = (tool.lastReviewed ?? 'May 2026').toUpperCase();
-  return `METHODOLOGY V2.1 · VERIFIED ${date} · REVIEWER ${reviewer}`;
-}
-
 function openLuna(prompt?: string) {
   window.dispatchEvent(new CustomEvent('open-agent-chat'));
   if (prompt) setTimeout(() => window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: prompt })), 120);
@@ -52,10 +44,11 @@ function openLuna(prompt?: string) {
 
 // ── Tool tile ───────────────────────────────────────────────────────────────────
 function ToolTile({ tool }: { tool: Tool }) {
-  const scores = useMemo(() => derivePillars(tool), [tool]);
-  const score = useMemo(() => promptlyScore(tool), [tool]); // derived composite (single source of truth)
-  // Outbound CTA to the tool itself — label reflects what the link opens
-  // ("Try demo", "Start free trial", "Visit website", …).
+  // PUBLIC trust model only (data/publicPillars.ts). null = pending review →
+  // render the placeholder, never a number. No legacy/synthetic scoring here.
+  // Keyed by slug for now; switches to item_id when the v3 registry is wired.
+  const pub = getPublicScore(tool.slug);
+  // Outbound CTA to the tool itself — label reflects what the link opens.
   const demoLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
 
   return (
@@ -68,18 +61,19 @@ function ToolTile({ tool }: { tool: Tool }) {
       <div className="flex items-start gap-4 sm:gap-5 flex-1 min-w-0">
         {/* Left — Pillar Card (flat colour, five arcs, score-proportional) */}
         <div className="flex-shrink-0">
-          {tool.reviewNeeded ? (
-            <PillarCard state="provisional" size={96} showName={false} showVerdict={false} showLegend={false} showMark={false} />
-          ) : (
+          {pub ? (
             <PillarCard
-              score={score}
-              pillars={pillarScoresFromData(scores)}
+              score={pub.composite}
+              pillars={pub.pillars}
               size={96}
               showName={false}
               showVerdict={false}
               showLegend={false}
               showMark={false}
             />
+          ) : (
+            /* Pending: no verified public pillar data yet → provisional card, no number */
+            <PillarCard state="provisional" size={96} showName={false} showVerdict={false} showLegend={false} showMark={false} />
           )}
         </div>
 
@@ -94,9 +88,11 @@ function ToolTile({ tool }: { tool: Tool }) {
             {tool.desc}
           </p>
 
-          {/* Methodology mark */}
+          {/* Public score status — no fabricated reviewer/score; pending until verified */}
           <p className="font-mono mt-2.5 uppercase break-words" style={{ fontSize: 10, letterSpacing: '0.06em', color: FOG }}>
-            {tool.reviewNeeded ? 'METHODOLOGY V2.1 · REVIEW IN PROGRESS' : methodologyMark(tool)}
+            {pub
+              ? `PROMPTLY SCORE v${pub.methodologyVersion}${pub.verifiedDate ? ` · VERIFIED ${pub.verifiedDate}` : ''} · REVIEWER ${pub.reviewer}`
+              : 'PROMPTLY SCORE · PENDING REVIEW'}
           </p>
         </div>
       </div>
@@ -204,6 +200,15 @@ export default function Tools() {
     return r;
   }, [activeRole, search]);
 
+  // Internal v3 priority ordering (registry-driven, highest first). Falls back to
+  // source order until the master CSV is wired. Internal scores are NEVER shown — sort only.
+  const ordered = useMemo(() => {
+    if (!REGISTRY.length) return filtered;
+    return [...filtered].sort(
+      (a, b) => (priorityFor(b.slug)?.newPriorityScore ?? -1) - (priorityFor(a.slug)?.newPriorityScore ?? -1),
+    );
+  }, [filtered]);
+
   const chooseRole = (slug: string) => {
     setRoleSlug(slug);
     setRole(slug); // cookie + role:changed broadcast
@@ -214,7 +219,7 @@ export default function Tools() {
     <div style={{ background: 'var(--color-oat)', minHeight: '100vh' }}>
       <SEO
         title={`${STAT_TOTAL} AI Tools for UK Schools – KCSIE Checked | GetPromptly`}
-        description={`${STAT_TOTAL} AI tools independently reviewed and safety-scored for UK schools against KCSIE 2025 across five published pillars.`}
+        description={`Independent AI tools directory for UK schools — ${STAT_TOTAL} tools scored on five published pillars (Data Privacy, Safeguarding, Age Suitability, Transparency, Accessibility), reviewed under Promptly Score v2.2.`}
         keywords="AI tools UK schools 2026, KCSIE AI tools, safe AI education, SEND AI tools, AI for teachers UK, school software reviews"
         path="/tools"
       />
@@ -224,15 +229,17 @@ export default function Tools() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-12">
           <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: FOG }}>REVIEWED TOOLS</p>
           <h1 className="font-display mt-5" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)', fontWeight: 400, color: '#FFFFFF' }}>
-            Every tool scored. No exceptions.
+            Independent AI tool reviews.
           </h1>
           <p className="font-sans mt-4 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>
-            {STAT_TOTAL} tools reviewed against KCSIE 2025 across five published pillars.
+            {STAT_TOTAL} tools in the directory, scored on five published pillars — Data Privacy,
+            Safeguarding, Age Suitability, Transparency and Accessibility — reviewed under
+            Promptly Score v2.2. Each appears once its review is verified.
           </p>
 
-          {/* Methodology mark */}
+          {/* Status mark — honest: reviewed under the current v2.2 methodology */}
           <p className="font-mono mt-8" style={{ fontSize: 10, letterSpacing: '0.1em', color: FOG }}>
-            METHODOLOGY V2.1 · VERIFIED MAY 2026 · REVIEWER GP
+            PROMPTLY SCORE v2.2 · REVIEWED
           </p>
         </div>
       </section>
@@ -333,18 +340,18 @@ export default function Tools() {
           Showing <strong style={{ color: INK }}>{filtered.length}</strong> of {STAT_TOTAL} tools
         </p>
 
-        {filtered.length === 0 ? (
+        {ordered.length === 0 ? (
           <div className="p-10 text-center" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
             <p className="font-display" style={{ fontSize: 20, color: INK }}>No tools match those filters.</p>
             <p className="font-sans mt-2" style={{ fontSize: 14, color: FOG }}>Try clearing the role filter or search — or ask Luna below.</p>
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            {filtered.map((tool, i) => (
+            {ordered.map((tool, i) => (
               <Fragment key={tool.slug}>
                 <ToolTile tool={tool} />
                 {/* Dark Luna panel between every 6 tiles (not at the very end) */}
-                {(i + 1) % 6 === 0 && i < filtered.length - 1 && (
+                {(i + 1) % 6 === 0 && i < ordered.length - 1 && (
                   <LunaPanel roleLabel={activeRole.audience ? activeRole.label : undefined} />
                 )}
               </Fragment>

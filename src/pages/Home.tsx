@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
-import { PillarCard, ScorePill, pillarScores } from '../components/trust/PillarCard';
+import { PillarCard } from '../components/trust/PillarCard';
+import { getPublicScore } from '../data/publicPillars';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { RoleIcon, CategoryIcon } from '../components/icons';
 
@@ -295,9 +296,9 @@ const Hero: FC = () => {
           </motion.div>
         </div>
 
-        {/* Methodology mark — JetBrains Mono 10px, fog */}
+        {/* Honest mark — no fabricated reviewer/date/version while scores are re-reviewed */}
         <p className="font-mono mt-12" style={{ fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-fog)' }}>
-          METHODOLOGY V2.1 · VERIFIED MAY 2026 · REVIEWER GP
+          INDEPENDENT · KCSIE-AWARE · NO PAID PLACEMENTS
         </p>
       </div>
     </section>
@@ -480,17 +481,26 @@ const ScoringPreview: FC = () => (
       <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-10 lg:gap-16 items-center">
         {/* Pillar Card — the signature §04 artefact, 240px, computed arcs, flat colour */}
         <FadeIn className="flex justify-center lg:justify-start">
-          <PillarCard
-            toolName="MagicSchool AI"
-            score={9.1}
-            pillars={pillarScores(8.5, 9.6, 9.0, 9.2, 9.0)}
-            size={240}
-            showName={false}
-            showVerdict={false}
-            showLegend={false}
-            verifiedDate="14 MAY 2026"
-            reviewer="GP"
-          />
+          {(() => {
+            // Public model only — show a real reviewed card if/when published; else pending.
+            const demo = getPublicScore('magicschool-ai');
+            return demo ? (
+              <PillarCard
+                toolName="MagicSchool AI"
+                score={demo.composite}
+                pillars={demo.pillars}
+                size={240}
+                showName={false}
+                showVerdict={false}
+                showLegend={false}
+                methodologyVersion={demo.methodologyVersion}
+                verifiedDate={demo.verifiedDate}
+                reviewer={demo.reviewer}
+              />
+            ) : (
+              <PillarCard state="provisional" size={240} showName={false} showVerdict={false} showLegend={false} />
+            );
+          })()}
         </FadeIn>
 
         {/* Five pillar rows — coloured dot + name + one-line description */}

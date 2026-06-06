@@ -11,27 +11,26 @@ import PackCard from '../components/prompts/PackCard';
 import { useCrossSell } from '../hooks/useCrossSell';
 import { linkLabel, inferLinkType } from '../utils/linkType';
 import {
-  TOOLS, CAT_COLOURS, TIER_STYLE,
-  PILLARS, derivePillars, promptlyScore, scoreToTier, tierAction,
+  TOOLS, CAT_COLOURS,
   deriveBestFor, deriveNotIdealFor, deriveAgeNotes,
 } from '../data/tools';
+import { getPublicScore, PUBLIC_PILLARS, pillarBand, PILLAR_BAND_LABEL } from '../data/publicPillars';
 import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
-import { PillarCard, ScorePill, pillarScoresFromData } from '../components/trust/PillarCard';
+import { PillarCard, ScorePill } from '../components/trust/PillarCard';
 
 const TEAL = 'var(--color-promptly-lime)';
 
 // Pillar bar colours, in the same order as PILLARS (data/tools.ts):
 // [Data Privacy, Age Appropriateness, Transparency, Safeguarding, Accessibility].
 // The five reserved §09 pillar colours — the one sanctioned use in a breakdown.
-// Match the Pillar Card ring segment colours exactly (Age & Transparency use the
-// brighter ring tones, not the dark §09 print hexes, so bars == ring).
+// Bar colours in PUBLIC_PILLARS order (Data Privacy, Safeguarding, Age, Transparency, Accessibility).
 const PILLAR_BAR_COLOURS = [
   '#6A8CAF', // Data Privacy
+  '#C8E44A', // Safeguarding
   '#C8B45A', // Age Suitability
   '#6B7280', // Transparency
-  '#C8E44A', // Safeguarding
   '#D97757', // Accessibility
 ];
 
@@ -39,13 +38,22 @@ const PILLAR_BAR_COLOURS = [
 
 function ScoreBar({ label, value, colour, delay }: { label: string; value: number; colour: string; delay: number }) {
   const pct = (value / 10) * 100;
+  const band = pillarBand(value);
   // Bar fill = the pillar's reserved §09 colour; the numeral stays neutral ink
-  // for legibility (never recoloured by value).
+  // for legibility (never recoloured by value). The band is a neutral mono word
+  // (per-pillar axis), never a traffic-light colour.
   return (
     <div>
-      <div className="flex justify-between text-sm mb-1.5">
+      <div className="flex justify-between items-baseline text-sm mb-1.5">
         <span style={{ color: '#6b6760' }}>{label}</span>
-        <span className="font-bold tabular-nums" style={{ color: '#1c1a15' }}>{value}/10</span>
+        <span className="flex items-baseline gap-2">
+          {band && band !== 'exemplary' && (
+            <span className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+              {PILLAR_BAND_LABEL[band]}
+            </span>
+          )}
+          <span className="font-bold tabular-nums" style={{ color: '#1c1a15' }}>{value}/10</span>
+        </span>
       </div>
       <div className="h-2.5 rounded-full overflow-hidden" style={{ background: '#f3f4f6' }}>
         <motion.div
@@ -97,8 +105,8 @@ const ToolDetail = () => {
   const alternatives = useMemo(() => {
     if (!tool) return [];
     return TOOLS
-      .filter(t => t.slug !== tool.slug && t.primaryCategory === tool.primaryCategory && t.safety >= tool.safety - 1)
-      .sort((a, b) => b.safety - a.safety)
+      .filter(t => t.slug !== tool.slug && t.primaryCategory === tool.primaryCategory)
+      .sort((a, b) => a.name.localeCompare(b.name))
       .slice(0, 3);
   }, [tool]);
 
@@ -121,8 +129,6 @@ const ToolDetail = () => {
       )
       .slice(0, 3);
   }, [tool]);
-
-  const pillars = useMemo(() => tool ? derivePillars(tool) : [], [tool]);
 
   // Cross-sell
   const { inlineItems, popupItems, popupOpen, popupTrigger, closePopup } = useCrossSell(
@@ -156,10 +162,8 @@ const ToolDetail = () => {
     );
   }
 
-  // Derived Promptly Score + tier — single source of truth (never the stored fields).
-  const score = promptlyScore(tool);
-  const tier = scoreToTier(score);
-  const ts = TIER_STYLE[tier];
+  // PUBLIC trust model only — null = pending review (no number shown). No legacy/synthetic score.
+  const pub = getPublicScore(tool.slug);
   const catStyle = CAT_COLOURS[tool.primaryCategory] ?? { bg: '#f3f4f6', text: '#374151' };
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
@@ -168,7 +172,7 @@ const ToolDetail = () => {
     <>
       <SEO
         title={`${tool.name} — AI Tool Review | GetPromptly`}
-        description={`${tool.name}: Promptly Score ${tool.reviewNeeded ? 'pending review' : `${score}/10`}, ${tier} tier. ${tool.desc}`}
+        description={`${tool.name}: Promptly Score ${pub ? `${pub.composite}/10` : 'pending review'}. ${tool.desc}`}
         keywords={`${tool.name}, ${tool.primaryCategory}, AI tools for education, UK schools, safety score`}
         path={`/tools/${tool.slug}`}
       />
@@ -192,8 +196,8 @@ const ToolDetail = () => {
             <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: catStyle.bg, color: catStyle.text }}>
               {tool.primaryCategory}
             </span>
-            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: ts.bg, color: ts.text }}>
-              {tier}
+            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: '#6b6760' }}>
+              {pub ? 'Reviewed' : 'Pending review'}
             </span>
             {tool.ukReady === 'Yes' && (
               <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
@@ -228,18 +232,21 @@ const ToolDetail = () => {
             </div>
             {/* Pillar Card — the signature artefact (§04/§07). Never a naked score. */}
             <div className="order-1 sm:order-2 mx-auto sm:mx-0 flex-shrink-0">
-              {tool.reviewNeeded ? (
-                <PillarCard state="provisional" showName={false} showVerdict={false} size={208} />
-              ) : (
+              {pub ? (
                 <PillarCard
-                  score={score}
-                  pillars={pillarScoresFromData(pillars)}
+                  score={pub.composite}
+                  pillars={pub.pillars}
                   showName={false}
                   showVerdict={false}
                   showLegend={false}
                   size={208}
-                  verifiedDate={tool.lastReviewed ? tool.lastReviewed.toUpperCase() : undefined}
+                  methodologyVersion={pub.methodologyVersion}
+                  verifiedDate={pub.verifiedDate}
+                  reviewer={pub.reviewer}
                 />
+              ) : (
+                /* Pending: no verified public pillar data → provisional card, no number */
+                <PillarCard state="provisional" showName={false} showVerdict={false} size={208} />
               )}
             </div>
           </div>
@@ -256,36 +263,33 @@ const ToolDetail = () => {
         </div>
       </section>
 
-      {/* ── Safety breakdown ───────────────────────────────────────────────── */}
+      {/* ── Promptly Score breakdown (public pillars only) ───────────────────── */}
       <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
         <div className="max-w-3xl mx-auto">
-          <SectionLabel>Safety score</SectionLabel>
+          <SectionLabel>Promptly Score</SectionLabel>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
-            {tool.reviewNeeded ? 'Under review' : `Promptly Score breakdown — ${tier}`}
+            {pub ? 'Promptly Score breakdown' : 'Pending review'}
           </h2>
 
-          {tool.reviewNeeded ? (
+          {!pub ? (
             <div className="rounded-xl p-4 mb-6" style={{ background: '#f3f4f6' }}>
               <p className="text-sm" style={{ color: '#6b7280' }}>
-                This tool is currently under review. Pillar scores will be published once our assessment is complete.
+                This tool's Promptly Score is pending review under the current methodology. The five
+                published pillar scores will appear here once a verified review is published.
               </p>
             </div>
           ) : (
-            <>
-              <div className="space-y-4 mb-6">
-                {PILLARS.map((pillar, i) => (
-                  <ScoreBar key={pillar} label={pillar} value={pillars[i]} colour={PILLAR_BAR_COLOURS[i]} delay={i * 0.1} />
-                ))}
-              </div>
-
-              {/* Tier action card */}
-              <div className="rounded-xl p-4 mb-0" style={{ background: ts.bg }}>
-                <p className="text-xs font-bold uppercase tracking-wide mb-1" style={{ color: ts.text }}>
-                  Recommended action for {tier} tools
-                </p>
-                <p className="text-sm" style={{ color: ts.text }}>{tierAction(tier)}</p>
-              </div>
-            </>
+            <div className="space-y-4 mb-6">
+              {PUBLIC_PILLARS.map((pillar, i) => (
+                <ScoreBar
+                  key={pillar}
+                  label={pillar}
+                  value={[pub.pillars.dataPrivacy, pub.pillars.safeguarding, pub.pillars.ageSuitability, pub.pillars.transparency, pub.pillars.accessibility][i]}
+                  colour={PILLAR_BAR_COLOURS[i]}
+                  delay={i * 0.1}
+                />
+              ))}
+            </div>
           )}
         </div>
       </section>
@@ -369,7 +373,7 @@ const ToolDetail = () => {
             <div className="flex items-center gap-2 text-sm">
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-ink-accent)' }} />
               <span style={{ color: '#6b6760' }}>
-                KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{score >= 9 ? 'Strong' : score >= 7 ? 'Moderate — review policy' : 'Requires policy decision'}</strong>
+                KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{pub ? (pub.composite >= 9 ? 'Strong' : pub.composite >= 7 ? 'Moderate — review policy' : 'Requires policy decision') : 'Pending review'}</strong>
               </span>
             </div>
           </div>
@@ -508,15 +512,16 @@ const ToolDetail = () => {
                   >
                     {/* Dense list → Score Pill; the row links to the tool's Pillar Card. */}
                     <div className="flex-shrink-0">
-                      {alt.reviewNeeded ? (
+                      {getPublicScore(alt.slug) ? (
+                        <ScorePill score={getPublicScore(alt.slug)!.composite} />
+                      ) : (
                         <span
                           className="inline-flex items-center justify-center font-sans font-bold rounded-full"
                           style={{ background: 'var(--color-ground-black)', color: 'var(--color-fog)', fontSize: 12.5, padding: '5px 11px' }}
+                          title="Pending review"
                         >
                           —
                         </span>
-                      ) : (
-                        <ScorePill score={promptlyScore(alt)} />
                       )}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -561,7 +566,7 @@ const ToolDetail = () => {
         <div className="max-w-3xl mx-auto">
           <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
             <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-              <strong style={{ color: '#1c1a15' }}>About our verdicts:</strong> Every Promptly Score is reviewed against KCSIE 2025 across five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — per our methodology v2.1, using publicly available information.
+              <strong style={{ color: '#1c1a15' }}>About our verdicts:</strong> Every Promptly Score is reviewed against KCSIE 2025 across five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — per our methodology v2.2, using publicly available information.
               {tool.lastReviewed && ` Last verified ${tool.lastReviewed}.`}
               {' '}We have never changed a score for payment; our methodology and our record of score changes are public. A score is independent guidance, not approval — do your own due diligence and check with your DPO and DSL before using any tool in school.
             </p>

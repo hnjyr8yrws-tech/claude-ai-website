@@ -8,8 +8,9 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
-import { TOOLS, promptlyScore, type Tool } from '../data/tools';
+import { TOOLS, type Tool } from '../data/tools';
 import { ScorePill } from '../components/trust/PillarCard';
+import { getPublicScore } from '../data/publicPillars';
 import { RoleIcon } from '../components/icons';
 
 // Map this page's role slug → the §12 icon key.
@@ -139,16 +140,20 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             {d.tools.map((t, i) => {
               const matched = findTool(t.name);
               const slug = matched?.slug;
-              // Show the canonical derived Promptly Score when this maps to a
-              // reviewed tool, so the role page can never disagree with the directory.
-              const displayScore = matched ? promptlyScore(matched) : t.score;
+              // PUBLIC trust model only — Score Pill only when a verified public
+              // score exists; otherwise a neutral pending chip. No legacy/synthetic score.
+              const pub = slug ? getPublicScore(slug) : null;
               return (
               <FadeIn key={t.name} delay={i * 0.06}>
                 <div className="rounded-2xl border p-5 h-full flex flex-col" style={{ borderColor: BORDER, background: BG }}>
                   <div className="flex items-center justify-between mb-3">
                     <p className="font-semibold text-sm">{t.name}</p>
                     <div className="flex items-center gap-1.5">
-                      <ScorePill score={displayScore} to={slug ? `/tools/${slug}` : undefined} />
+                      {pub ? (
+                        <ScorePill score={pub.composite} to={slug ? `/tools/${slug}` : undefined} />
+                      ) : (
+                        <span className="font-mono" style={{ fontSize: 10, color: '#9ca3af' }}>PENDING</span>
+                      )}
                     </div>
                   </div>
                   {/* Plain Verdict (§14) in Fraunces italic, in place of a one-word tier badge */}

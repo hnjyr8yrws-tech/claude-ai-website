@@ -220,7 +220,7 @@ export function getRecommendations(ctx: CrossSellContext, limit = 3): CrossSellI
       id: 'school-compare',
       section: 'tools',
       title: 'Compare safer school-ready alternatives',
-      description: 'See side-by-side safety scores and find Trusted-tier tools for whole-school deployment.',
+      description: 'Compare tools side by side against the five trust pillars to find ones ready for whole-school deployment.',
       href: '/tools',
       cta: 'Compare tools →',
     });

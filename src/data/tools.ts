@@ -8,11 +8,11 @@ export interface ToolRaw {
   // subcategory is the controlled subcategory for that category. No free text.
   name: string; primaryCategory: ToolCategory; subcategory: string;
   audience: string[]; ukReady: 'Yes' | 'Partial';
-  // LEGACY editorial anchor + tier. `safety` now only SEEDS the placeholder
-  // pillars in derivePillars(); `tier` is no longer displayed (derive it with
-  // scoreToTier(promptlyScore(tool))). The displayed Promptly Score and tier are
-  // ALWAYS derived from the pillars — never from these fields. Replace both with
-  // real per-pillar review scores when available.
+  // LEGACY editorial anchor + tier. NEITHER is shown to users any more — the
+  // public Promptly Score lives entirely in src/data/publicPillars.ts and is null
+  // until a tool is reviewed. `tier` survives only because the editorial text
+  // helpers below (deriveNotIdealFor / deriveAgeNotes) still read it; `safety` is
+  // dormant data. Do not reintroduce a synthetic score derived from these fields.
   safety: number; tier: Tier; desc: string; url: string; free: boolean;
   lastReviewed?: string;
   reviewNeeded?: true;
@@ -35,74 +35,12 @@ export function toSlug(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 }
 
-// Canonical pillar names (Brand Bible). ORDER is the data/score-index order and
-// must not change (derivePillars + pillarScoresFromData map by position).
-export const PILLARS = [
-  'Data Privacy',
-  'Age Suitability',
-  'Transparency',
-  'Safeguarding',
-  'Accessibility',
-] as const;
-
-/** Derives the five pillar scores — the SOURCE DATA the Promptly Score is built
- * from. Pillars vary symmetrically (±~1.2) around the editorial anchor (`safety`),
- * deterministic per tool + pillar, clamped to 1–10. Returned in data order:
- * [Data Privacy, Age Suitability, Transparency, Safeguarding, Accessibility].
- *
- * `tool.safety` is now used ONLY to centre these placeholder pillars — it is never
- * displayed. The displayed composite is ALWAYS promptlyScore() of these pillars.
- * NOTE: synthetic placeholder until real per-pillar review scores are entered. */
-export function derivePillars(tool: ToolRaw): number[] {
-  let h = 0;
-  for (let i = 0; i < tool.name.length; i++) h = ((h << 5) - h + tool.name.charCodeAt(i)) | 0;
-  return [0, 1, 2, 3, 4].map(i => {
-    const seed = ((h >> (i * 3)) & 0xff) % 7 - 3; // -3..3, symmetric around the anchor
-    const v = tool.safety + seed * 0.4; // ±1.2 spread
-    return Math.max(1, Math.min(10, Math.round(v * 10) / 10));
-  });
-}
-
-// ─── Promptly Score — SINGLE SOURCE OF TRUTH ────────────────────────────────────
-// The composite is ALWAYS the weighted average of the five pillar scores, using the
-// published methodology weights (Brand Bible / SafetyMethodology page). There is no
-// separate stored composite — so the displayed score can never disagree with the
-// pillars. Weights are keyed by data-array index of derivePillars().
-//   [0] Data Privacy 25% · [1] Age Suitability 20% · [2] Transparency 20%
-//   [3] Safeguarding 20% · [4] Accessibility 15%
-export const PILLAR_WEIGHTS = [0.25, 0.20, 0.20, 0.20, 0.15] as const;
-
-/** The Promptly Score for a tool: weighted average of its pillars, to 1 dp. */
-export function promptlyScore(tool: ToolRaw): number {
-  const p = derivePillars(tool);
-  const v = p.reduce((sum, s, i) => sum + s * PILLAR_WEIGHTS[i], 0);
-  return Math.round(v * 10) / 10;
-}
-
-/** Trust tier derived from a Promptly Score — the only tier source of truth. */
-export function scoreToTier(score: number): Tier {
-  if (score >= 8) return 'Trusted';
-  if (score >= 6) return 'Guided';
-  return 'Emerging';
-}
-
-/** Validation (TASK 5): a tool is publishable only if its displayed composite
- * equals the weighted average of its pillars (within rounding). Because the
- * composite is derived, this holds by construction — the guard exists to catch any
- * future hand-entered score or real-data entry error before it ships. */
-export function validatePromptlyScore(tool: ToolRaw): { ok: boolean; displayed: number; calculated: number } {
-  const calculated = promptlyScore(tool);
-  const displayed = calculated; // derived — no separate stored value
-  return { ok: Math.abs(displayed - calculated) <= 0.05, displayed, calculated };
-}
-
-export function tierAction(tier: Tier): string {
-  switch (tier) {
-    case 'Trusted':  return 'This tool is safe to deploy. Share with staff and add to your approved list.';
-    case 'Guided':   return 'Use with clear staff guidance. Set up an acceptable-use policy before rolling out.';
-    case 'Emerging': return 'Review your school AI policy before adopting. Consider safer alternatives below.';
-  }
-}
+// ─── Public scoring lives elsewhere ─────────────────────────────────────────────
+// The legacy synthetic scoring (derivePillars / PILLAR_WEIGHTS / promptlyScore /
+// scoreToTier / validatePromptlyScore / tierAction / TIER_STYLE) has been removed.
+// The public Promptly Score is now the five real pillars in src/data/publicPillars.ts
+// (getPublicScore → null until a tool is reviewed). The editorial text helpers below
+// are the only score-adjacent logic that remains; they read `tier` for wording only.
 
 /** Derive "best for" text when not explicitly set */
 export function deriveBestFor(tool: ToolRaw): string {
@@ -139,16 +77,7 @@ export const CAT_COLOURS: Record<string, { bg: string; text: string }> = Object.
   TOOL_CATEGORIES.map(c => [c, { bg: 'var(--color-oat)', text: 'var(--color-ink)' }]),
 );
 
-// §09: the primary verdict (Trusted) wears the one allowed accent — lime on
-// dark. Guided/Emerging are neutral oat/ink; the tier word carries the meaning.
-// No green/amber/red traffic-light: quality is signalled by the Pillar Card.
-export const TIER_STYLE: Record<Tier, { bg: string; text: string }> = {
-  Trusted:  { bg: 'var(--color-ground-black)', text: 'var(--color-promptly-lime)' },
-  Guided:   { bg: 'var(--color-oat)',          text: 'var(--color-ink)' },
-  Emerging: { bg: 'var(--color-oat)',          text: 'var(--color-ink)' },
-};
-
-// ─── 155-tool database ────────────────────────────────────────────────────────
+// ─── Tool database ──────────────────────────────────────────────────────────────
 
 export const TOOLS_RAW: ToolRaw[] = [
   // ── Teacher AI (24) ───────────────────────────────────────────────────────

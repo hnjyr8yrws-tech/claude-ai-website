@@ -104,10 +104,10 @@ export const MODE_PERSONA: Record<AgentMode, string> = {
 const SECTION_CONTEXT: Record<AgentMode, string> = {
   tools: `
 You are currently on the GetPromptly AI Tools section (/tools).
-The site has reviewed 120+ AI tools with UK safety scores covering KCSIE 2025, UK GDPR, and Ofsted alignment.
+The site reviews AI tools against five trust pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — grounded in KCSIE 2025 and UK GDPR.
 Help users find, compare and evaluate AI tools for their specific education role and use case.
-When recommending tools, always mention the safety tier (Trusted / Guided / Emerging) and whether they have a free tier.
-Direct users to /tools to browse the full database and /safety-methodology for scoring details.
+When recommending tools, frame them against the five pillars and whether they have a free tier. Published Promptly Scores are being rolled out tool by tool; where a tool has not yet been scored, say its review is in progress rather than inventing a number or a tier.
+Direct users to /tools to browse the directory and /safety-methodology for how scoring works.
 `,
   equipment: `
 You are currently on the GetPromptly Equipment Hub (/ai-equipment).

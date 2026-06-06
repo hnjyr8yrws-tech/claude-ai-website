@@ -521,9 +521,9 @@ const Schools: FC = () => {
               </button>
             </div>
 
-            {/* Methodology mark — JetBrains Mono 10px, fog */}
+            {/* Honest mark — no fabricated reviewer/date/version */}
             <p className="font-mono mt-10" style={{ fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-fog)' }}>
-              METHODOLOGY V2.1 · VERIFIED MAY 2026 · REVIEWER GP
+              INDEPENDENT · KCSIE-AWARE · NO PAID PLACEMENTS
             </p>
           </FadeIn>
         </div>
@@ -837,7 +837,7 @@ const Schools: FC = () => {
               methodology is public. The reviewer is named.
             </p>
             <p className="font-mono mt-4" style={{ fontSize: 10, letterSpacing: '0.12em', color: 'var(--color-fog)' }}>
-              — SCORE INTEGRITY RECORD · METHODOLOGY V2.1
+              — SCORE INTEGRITY RECORD · INDEPENDENT, NEVER FOR SALE
             </p>
           </div>
         </div>
