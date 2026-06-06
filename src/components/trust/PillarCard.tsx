@@ -52,31 +52,34 @@ const PILLARS: Pillar[] = [
 
 const SEGMENTS = PILLARS.length; // 5
 
-// ----- Geometry (viewBox 120; scales to the rendered `size`) -----
-const VB = 120;
-const CX = VB / 2;
-const CY = VB / 2;
-const R = 46;
-const SW = 10;
-const SEG = 360 / SEGMENTS; // 72° per fifth
-const GAP_HALF = 2; // 2° gap each side of a segment
-const MAX_ARC = SEG - GAP_HALF * 2; // 68° usable arc per segment
-const TRACK = 'rgba(255,255,255,0.08)';
+// ----- Geometry (viewBox 240; scales to the rendered `size`) -----
+// §04 Active reference: five EQUAL 72° wedges forming a 24px band (outer R=110,
+// inner r=86) centred at (120,120). Score is encoded by OPACITY, never by arc
+// length — a dim track (0.18) sits under a scored layer (fillOpacity = score/10).
+// Wedge paths are FIXED (do not derive); order = Brand Bible spine.
+const VB = 240;
+const CX = 120;
+const CY = 120;
 
-/** Polar → cartesian, 0° at 12 o'clock, degrees increasing clockwise. */
-function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
-  const rad = ((angleDeg - 90) * Math.PI) / 180;
-  return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
-}
+interface Wedge { key: keyof PillarScores; colour: string; d: string }
 
-/** SVG arc path between two angles on radius r. Empty string if zero-length. */
-function describeArc(cx: number, cy: number, r: number, startAngle: number, endAngle: number): string {
-  if (endAngle <= startAngle) return '';
-  const start = polarToCartesian(cx, cy, r, startAngle);
-  const end = polarToCartesian(cx, cy, r, endAngle);
-  const largeArc = endAngle - startAngle > 180 ? 1 : 0;
-  return `M ${start.x} ${start.y} A ${r} ${r} 0 ${largeArc} 1 ${end.x} ${end.y}`;
-}
+// Palette = the §09 print hexes (Age Oat Deep, Transparency Slate).
+const WEDGES: Wedge[] = [
+  { key: 'dataPrivacy',    colour: '#6A8CAF', d: 'M120 10 A110 110 0 0 1 224.62 86.01 L201.79 93.43 A86 86 0 0 0 120 34 Z' },
+  { key: 'safeguarding',   colour: '#C8E44A', d: 'M224.62 86.01 A110 110 0 0 1 184.66 208.99 L170.55 189.58 A86 86 0 0 0 201.79 93.43 Z' },
+  { key: 'ageSuitability', colour: '#8C7A52', d: 'M184.66 208.99 A110 110 0 0 1 55.34 208.99 L69.45 189.58 A86 86 0 0 0 170.55 189.58 Z' },
+  { key: 'transparency',   colour: '#4A4F5C', d: 'M55.34 208.99 A110 110 0 0 1 15.38 86.01 L38.21 93.43 A86 86 0 0 0 69.45 189.58 Z' },
+  { key: 'accessibility',  colour: '#D97757', d: 'M15.38 86.01 A110 110 0 0 1 120 10 L120 34 A86 86 0 0 0 38.21 93.43 Z' },
+];
+
+// Wedge dividers — outer boundary → inner boundary, stroked in ground-black.
+const DIVIDERS: [number, number, number, number][] = [
+  [120, 10, 120, 34],
+  [224.62, 86.01, 201.79, 93.43],
+  [184.66, 208.99, 170.55, 189.58],
+  [55.34, 208.99, 69.45, 189.58],
+  [15.38, 86.01, 38.21, 93.43],
+];
 
 const cssVar = (name: string) => `var(${name})`;
 
@@ -177,9 +180,6 @@ export function PillarCard({
 
   const centreLabel = isProvisional || composite == null ? '—' : composite.toFixed(1);
 
-  // Full-strength score colour (greyscale when withdrawn).
-  const scoreColour = (p: Pillar) => (isWithdrawn ? '#9C9C8A' : p.hex);
-
   const wrapStyle: React.CSSProperties = {
     background: cssVar('--color-ground-black'),
     color: cssVar('--color-oat'),
@@ -219,57 +219,91 @@ export function PillarCard({
               }`
         }
       >
-        {/* Proportional donut — each segment's arc = (its score / total) × 360°,
-            so the full ring is divided by each pillar's share of the score. */}
+        {/* Equal-thickness wedge band. Score is shown by OPACITY: a dim track
+            (0.18) under a scored layer (fillOpacity = pillar score / 10). */}
         {hasData && !isProvisional ? (
-          <g fill="none" strokeWidth={SW} strokeLinecap="butt">
-            {(() => {
-              const total = PILLARS.reduce((s, p) => s + Math.max(0, pillars![p.key]), 0) || 1;
-              let cursor = 0;
-              return PILLARS.map((p) => {
-                const sc = Math.max(0, pillars![p.key]);
-                const end = cursor + (sc / total) * 360;
-                const d = describeArc(CX, CY, R, cursor, Math.max(cursor, end - 0.3));
-                cursor = end;
-                return d ? <path key={`arc-${p.key}`} d={d} stroke={scoreColour(p)} /> : null;
-              });
-            })()}
-          </g>
+          <>
+            {/* (a) dim track — all five full-colour wedges */}
+            <g>
+              {WEDGES.map((w) => (
+                <path key={`track-${w.key}`} d={w.d} fill={isWithdrawn ? '#9C9C8A' : w.colour} fillOpacity={0.18} />
+              ))}
+            </g>
+            {/* (b) scored layer — each wedge's opacity = its score / 10 */}
+            <g>
+              {WEDGES.map((w) => (
+                <path
+                  key={`score-${w.key}`}
+                  d={w.d}
+                  fill={isWithdrawn ? '#9C9C8A' : w.colour}
+                  fillOpacity={Math.max(0, Math.min(10, pillars![w.key])) / 10}
+                />
+              ))}
+            </g>
+            {/* wedge dividers */}
+            <g stroke={cssVar('--color-ground-black')} strokeWidth={1.5}>
+              {DIVIDERS.map((l, i) => (
+                <line key={`div-${i}`} x1={l[0]} y1={l[1]} x2={l[2]} y2={l[3]} />
+              ))}
+            </g>
+          </>
         ) : (
-          /* Provisional / no data — faint full ring. */
-          <circle cx={CX} cy={CY} r={R} fill="none" stroke={TRACK} strokeWidth={SW} />
+          /* Provisional / no data — dim track only, no score encoded. */
+          <g>
+            {WEDGES.map((w) => (
+              <path key={`track-${w.key}`} d={w.d} fill={w.colour} fillOpacity={0.18} />
+            ))}
+          </g>
         )}
 
-        {/* Centre composite score */}
+        {/* Centre disc — ground-black with the thin lime ring (§04 signature) */}
+        <circle
+          cx={CX}
+          cy={CY}
+          r={78}
+          fill={cssVar('--color-ground-black')}
+          stroke={isWithdrawn ? '#9C9C8A' : cssVar('--color-promptly-lime')}
+          strokeWidth={1.5}
+        />
+
+        {/* Composite score — Satoshi Bold */}
         <text
           className="font-sans"
           x={CX}
-          y={CY}
+          y={128}
           textAnchor="middle"
-          dominantBaseline="central"
           fontWeight={700}
-          fontSize={20}
+          fontSize={58}
           fontStyle={isProvisional ? 'italic' : 'normal'}
-          letterSpacing={-0.5}
-          fill={cssVar('--color-oat')}
+          letterSpacing={-2}
+          fill="#F5F2EC"
         >
           {centreLabel}
         </text>
-        {/* Brand Bible anatomy: the centre disc carries ONLY the composite
-            number. The "PROMPTLY SCORE" wordmark lives in the methodology mark
-            (and the vendor-embed badge), never inside the disc — keeping it here
-            duplicated the footer mark and was illegible at 96px. */}
+
+        {/* Caption — JetBrains Mono */}
+        <text
+          className="font-mono"
+          x={CX}
+          y={156}
+          textAnchor="middle"
+          fontSize={9}
+          letterSpacing={2}
+          fill="#9C9C8A"
+        >
+          PROMPTLY SCORE
+        </text>
 
         {/* Withdrawn: redaction bar across the centre score */}
         {isWithdrawn && (
           <rect
-            x={CX - 26}
-            y={CY - 9}
-            width={52}
-            height={17}
+            x={CX - 52}
+            y={100}
+            width={104}
+            height={34}
             fill={cssVar('--color-ground-black')}
             stroke={cssVar('--color-promptly-lime')}
-            strokeWidth={0.75}
+            strokeWidth={1.5}
           />
         )}
       </svg>
