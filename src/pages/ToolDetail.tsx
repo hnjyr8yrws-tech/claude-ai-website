@@ -22,16 +22,17 @@ import { PillarCard, ScorePill } from '../components/trust/PillarCard';
 
 const TEAL = 'var(--color-promptly-lime)';
 
-// Pillar bar colours, in the same order as PILLARS (data/tools.ts):
-// [Data Privacy, Age Appropriateness, Transparency, Safeguarding, Accessibility].
-// The five reserved §09 pillar colours — the one sanctioned use in a breakdown.
-// Bar colours in PUBLIC_PILLARS order (Data Privacy, Safeguarding, Age, Transparency, Accessibility).
+// Pillar bar colours, in PUBLIC_PILLARS order
+// [Data Privacy, Safeguarding, Age Suitability, Transparency, Accessibility].
+// These bars sit on a WHITE surface, so they use the true §09 print hexes — and
+// lime is NOT used on white. Safeguarding's §09 colour is lime, which may sit only
+// on dark/oat; on a light surface its sanctioned substitute is ground-black ink.
 const PILLAR_BAR_COLOURS = [
-  '#6A8CAF', // Data Privacy
-  '#C8E44A', // Safeguarding
-  '#C8B45A', // Age Suitability
-  '#6B7280', // Transparency
-  '#D97757', // Accessibility
+  '#6A8CAF', // Data Privacy — Sky §09
+  '#1E1E1E', // Safeguarding — lime can't sit on white; ground-black is the §09 light-surface substitute
+  '#8C7A52', // Age Suitability — Oat Deep §09
+  '#4A4F5C', // Transparency — Slate §09
+  '#D97757', // Accessibility — Clay §09
 ];
 
 // ─── Score bar ────────────────────────────────────────────────────────────────
@@ -48,7 +49,7 @@ function ScoreBar({ label, value, colour, delay }: { label: string; value: numbe
         <span style={{ color: '#6b6760' }}>{label}</span>
         <span className="flex items-baseline gap-2">
           {band && band !== 'exemplary' && (
-            <span className="font-mono uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+            <span className="font-sans uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
               {PILLAR_BAND_LABEL[band]}
             </span>
           )}

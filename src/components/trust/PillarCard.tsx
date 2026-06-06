@@ -37,14 +37,16 @@ interface Pillar {
   hex: string; // segment colour (tuned for legibility on the dark ring)
 }
 
-// Clockwise from 12 o'clock: Data Privacy → Age Suitability → Transparency →
-// Safeguarding → Accessibility. Age & Transparency use brighter tones than the
-// §09 print hexes so they read on the dark ring.
+// Brand Bible spine — fixed clockwise order from 12 o'clock, never reordered:
+// Data Privacy → Safeguarding → Age Suitability → Transparency → Accessibility.
+// Age & Transparency use brighter tones than the §09 print hexes so they read on
+// the dark ring (§09 permits this on dark); the §09 hexes themselves are used on
+// light surfaces (see ToolDetail PILLAR_BAR_COLOURS).
 const PILLARS: Pillar[] = [
   { key: 'dataPrivacy', name: 'Data Privacy', hex: '#6A8CAF' },
+  { key: 'safeguarding', name: 'Safeguarding', hex: '#C8E44A' },
   { key: 'ageSuitability', name: 'Age Suitability', hex: '#C8B45A' },
   { key: 'transparency', name: 'Transparency', hex: '#6B7280' },
-  { key: 'safeguarding', name: 'Safeguarding', hex: '#C8E44A' },
   { key: 'accessibility', name: 'Accessibility', hex: '#D97757' },
 ];
 
@@ -212,7 +214,7 @@ export function PillarCard({
                 verdict ? ` Verdict: ${verdict}` : ''
               }${
                 pillars
-                  ? ` Pillars — Data Privacy ${pillars.dataPrivacy}, Age Suitability ${pillars.ageSuitability}, Transparency ${pillars.transparency}, Safeguarding ${pillars.safeguarding}, Accessibility ${pillars.accessibility}, each out of 10.`
+                  ? ` Pillars — Data Privacy ${pillars.dataPrivacy}, Safeguarding ${pillars.safeguarding}, Age Suitability ${pillars.ageSuitability}, Transparency ${pillars.transparency}, Accessibility ${pillars.accessibility}, each out of 10.`
                   : ''
               }`
         }
@@ -343,10 +345,11 @@ export function PillarCard({
                   const band = pillarBand(sc);
                   // Exemplary is the norm here — suppress the word so lower bands stand out.
                   return band && band !== 'exemplary' ? (
-                    // Per-pillar band — neutral mono word, NOT a traffic-light
+                    // Per-pillar band — neutral Satoshi word, NOT a traffic-light
                     // colour (§09: quality is the arc/score, never recoloured digits).
+                    // Satoshi, not mono — mono is reserved for methodology marks.
                     <span
-                      className="font-mono block uppercase"
+                      className="font-sans block uppercase"
                       style={{
                         marginTop: 1,
                         fontSize: 7,
