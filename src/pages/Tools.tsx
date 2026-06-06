@@ -24,6 +24,9 @@ const LIME = 'var(--color-promptly-lime)';
 const INK  = '#1E1E1E';
 const FOG  = 'var(--color-fog)';
 const RULE = 'var(--color-rule)';
+const OAT  = 'var(--color-oat)';                 // title text on dark
+const HAZE = '#d1cec8';                           // muted oat — verdict on dark
+const HAIRLINE = 'rgba(248,242,236,0.12)';        // light hairline on ground-black
 
 const STAT_TOTAL = TOOLS.length;
 
@@ -52,88 +55,87 @@ function ToolTile({ tool }: { tool: Tool }) {
   const demoLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
 
   return (
-    <div
-      className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-5 p-4 sm:p-5"
-      style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}
+    <article
+      className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-10 py-10"
+      style={{ borderBottom: `1px solid ${HAIRLINE}` }}
     >
-      {/* Pillar card + content stay side-by-side on every width; the CTA drops
-          below on mobile and sits on the right from sm up. */}
-      <div className="flex items-start gap-4 sm:gap-5 flex-1 min-w-0">
-        {/* Left — Pillar Card (flat colour, five arcs, score-proportional) */}
-        <div className="flex-shrink-0">
-          {pub ? (
-            <PillarCard
-              score={pub.composite}
-              pillars={pub.pillars}
-              size={96}
-              showName={false}
-              showVerdict={false}
-              showLegend={false}
-              showMark={false}
-            />
-          ) : (
-            /* Pending: no verified public pillar data yet → provisional card, no number */
-            <PillarCard state="provisional" size={96} showName={false} showVerdict={false} showLegend={false} showMark={false} />
-          )}
-        </div>
-
-        {/* Centre — name / one-line Plain Verdict / methodology footer, tightened
-            into a single editorial lockup with the Pillar Card (directory spec:
-            96px card · Fraunces 20 name · Satoshi 14 one-line verdict · mono 10 mark). */}
-        <div className="flex-1 min-w-0">
-          {/* Tool name — Fraunces 20px; wraps in full (identity, never truncated) */}
-          <h3 className="font-display" style={{ fontSize: 'clamp(1.0625rem, 4.5vw, 1.25rem)', fontWeight: 400, color: INK, lineHeight: 1.2 }}>
-            {tool.name}
-          </h3>
-
-          {/* Plain Verdict — Satoshi 14px, clamped to exactly one line, secondary ink */}
-          <p className="font-sans truncate mt-1.5" style={{ fontSize: 14, lineHeight: 1.5, color: '#6b6760' }}>
-            {tool.desc}
-          </p>
-
-          {/* Methodology mark — quiet mono footer, lighter than the verdict. The one
-              place "PROMPTLY SCORE" appears (the disc now shows only the number). */}
-          <p className="font-mono mt-1 uppercase break-words" style={{ fontSize: 10, letterSpacing: '0.06em', color: FOG }}>
-            {pub
-              ? `PROMPTLY SCORE v${pub.methodologyVersion}${pub.verifiedDate ? ` · VERIFIED ${pub.verifiedDate}` : ''} · REVIEWER ${pub.reviewer}`
-              : 'PROMPTLY SCORE · PENDING REVIEW'}
-          </p>
-        </div>
-      </div>
-
-      {/* CTAs — verdict first (Read the review), then an outbound link to the
-          tool's demo/site. Their own row on mobile; stacked at the right from sm. */}
-      <div className="flex flex-row sm:flex-col items-start gap-x-5 gap-y-1.5 flex-shrink-0 self-start sm:self-center">
-        <Link
-          to={`/tools/${tool.slug}`}
-          onClick={() => track({ name: 'cta_clicked', section: 'tools-directory', label: `Read review: ${tool.name}` })}
-          className="font-sans whitespace-nowrap transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-          style={{ fontSize: 14, fontWeight: 500, color: 'var(--color-ink-accent)' }}
-        >
-          Read the review &rarr;
-        </Link>
-        {!tool.reviewNeeded && (
-          <a
-            href={tool.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => track({
-              name: 'outbound_tool_click',
-              toolSlug: tool.slug,
-              toolName: tool.name,
-              category: tool.primaryCategory,
-              linkType: demoLabel,
-              source: 'direct',
-              pageType: 'tools-directory',
-            })}
-            className="font-sans whitespace-nowrap transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-            style={{ fontSize: 14, fontWeight: 500, color: '#6b6760' }}
-          >
-            {demoLabel} &rarr;
-          </a>
+      {/* Self-contained 240px Pillar Card badge — composite in the disc + the
+          five-pillar legend. The signature artefact floats on the dark page. */}
+      <div className="flex-shrink-0 mx-auto sm:mx-0">
+        {pub ? (
+          <PillarCard
+            score={pub.composite}
+            pillars={pub.pillars}
+            size={240}
+            showName={false}
+            showVerdict={false}
+            showLegend
+            showMark={false}
+          />
+        ) : (
+          /* Pending: no verified public pillar data yet → provisional card, no number */
+          <PillarCard state="provisional" size={240} showName={false} showVerdict={false} showLegend showMark={false} />
         )}
       </div>
-    </div>
+
+      {/* Editorial stack — Fraunces title, Fraunces-italic verdict, methodology
+          line, CTAs; generous spacing. Lime reserved for the verdict CTA. */}
+      <div className="flex-1 min-w-0">
+        {/* Tool name — Fraunces ~28px oat; wraps in full (identity, never truncated) */}
+        <h3 className="font-display" style={{ fontSize: 'clamp(1.5rem, 4vw, 1.75rem)', fontWeight: 400, color: OAT, lineHeight: 1.15 }}>
+          {tool.name}
+        </h3>
+
+        {/* Plain Verdict — Fraunces italic, muted oat */}
+        <p className="font-display italic mt-3" style={{ fontSize: 17, lineHeight: 1.5, color: HAZE }}>
+          {tool.desc}
+        </p>
+
+        {/* Methodology line — JetBrains Mono, dashed top border; sourced from
+            getPublicScore() only. The "· VERIFIED" segment is omitted entirely
+            when no verified date exists (never invented or backfilled). */}
+        <p
+          className="font-mono uppercase mt-6 pt-3 break-words"
+          style={{ fontSize: 10.5, letterSpacing: '0.08em', color: FOG, borderTop: '1px dashed rgba(248,242,236,0.18)' }}
+        >
+          {pub
+            ? `METHODOLOGY v${pub.methodologyVersion}${pub.verifiedDate ? ` · VERIFIED ${pub.verifiedDate}` : ''} · REVIEWER ${pub.reviewer}`
+            : 'METHODOLOGY · PENDING REVIEW'}
+        </p>
+
+        {/* CTAs — lime reserved for "Read the review"; outbound stays muted */}
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-6">
+          <Link
+            to={`/tools/${tool.slug}`}
+            onClick={() => track({ name: 'cta_clicked', section: 'tools-directory', label: `Read review: ${tool.name}` })}
+            className="font-sans transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
+            style={{ fontSize: 14, fontWeight: 600, color: LIME }}
+          >
+            Read the review &rarr;
+          </Link>
+          {!tool.reviewNeeded && (
+            <a
+              href={tool.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track({
+                name: 'outbound_tool_click',
+                toolSlug: tool.slug,
+                toolName: tool.name,
+                category: tool.primaryCategory,
+                linkType: demoLabel,
+                source: 'direct',
+                pageType: 'tools-directory',
+              })}
+              className="font-sans transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] rounded"
+              style={{ fontSize: 14, fontWeight: 500, color: FOG }}
+            >
+              {demoLabel} &rarr;
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
   );
 }
 
@@ -146,7 +148,7 @@ function LunaPanel({ roleLabel }: { roleLabel?: string }) {
     track({ name: 'agent_opened', section: 'tools-inline-luna' });
   };
   return (
-    <div className="p-6 sm:p-8" style={{ background: INK, borderRadius: 4 }}>
+    <div className="p-6 sm:p-8" style={{ background: INK, border: `1px solid ${HAIRLINE}`, borderRadius: 4 }}>
       <p className="font-display italic" style={{ fontStyle: 'italic', fontSize: 22, color: 'var(--color-oat)' }}>
         Not finding what you need? Tell Luna.
       </p>
@@ -220,7 +222,7 @@ export default function Tools() {
   };
 
   return (
-    <div style={{ background: 'var(--color-oat)', minHeight: '100vh' }}>
+    <div style={{ background: INK, minHeight: '100vh' }}>
       <SEO
         title={`${STAT_TOTAL} AI Tools for UK Schools – KCSIE Checked | GetPromptly`}
         description={`Independent AI tools directory for UK schools — ${STAT_TOTAL} tools scored on five published pillars (Data Privacy, Safeguarding, Age Suitability, Transparency, Accessibility), reviewed under Promptly Score v2.2.`}
@@ -249,9 +251,9 @@ export default function Tools() {
       </section>
 
       {/* ── LUNA BLOCK — directly after the hero, before the grid ───────────────── */}
-      <section style={{ background: 'var(--color-oat)' }}>
+      <section style={{ background: INK }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-10">
-          <div className="rounded-2xl p-6 sm:p-10" style={{ background: INK }}>
+          <div className="rounded-2xl p-6 sm:p-10" style={{ background: INK, border: `1px solid ${HAIRLINE}` }}>
             <p className="font-mono" style={{ fontSize: 11, letterSpacing: '0.14em', color: LIME }}>LUNA · TOOL FINDER</p>
             <p className="font-display italic mt-2" style={{ fontStyle: 'italic', fontSize: 22, color: '#FFFFFF' }}>
               Tell Luna your role — get the right tools, shortlisted.
@@ -298,8 +300,8 @@ export default function Tools() {
         </div>
       </section>
 
-      {/* ── 2. FILTER BAR (sticky oat) ─────────────────────────────────────────── */}
-      <div className="sticky top-16 z-20" style={{ background: 'var(--color-oat)', borderBottom: `1px solid ${RULE}` }}>
+      {/* ── 2. FILTER BAR (sticky, ground-black) ───────────────────────────────── */}
+      <div className="sticky top-16 z-20" style={{ background: INK, borderBottom: `1px solid ${HAIRLINE}` }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex flex-col gap-3">
 
           {/* Role filter — single scroll-row on mobile, wraps from sm up */}
@@ -313,8 +315,8 @@ export default function Tools() {
                   aria-pressed={active}
                   className="font-sans flex-shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                   style={active
-                    ? { fontSize: 12, fontWeight: 500, background: INK, color: LIME, borderColor: INK }
-                    : { fontSize: 12, fontWeight: 500, background: 'white', color: INK, borderColor: RULE }}
+                    ? { fontSize: 12, fontWeight: 500, background: LIME, color: '#1A1A0E', borderColor: LIME }
+                    : { fontSize: 12, fontWeight: 500, background: 'transparent', color: OAT, borderColor: HAIRLINE }}
                 >
                   {r.label}
                 </button>
@@ -324,7 +326,7 @@ export default function Tools() {
 
           {/* Search */}
           <div className="relative w-full sm:max-w-xs">
-            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: 'var(--color-ink-accent)' }} aria-hidden="true">🔍</span>
+            <span className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm" style={{ color: FOG }} aria-hidden="true">🔍</span>
             <input
               type="search"
               value={search}
@@ -332,7 +334,7 @@ export default function Tools() {
               placeholder={`Search ${STAT_TOTAL} tools...`}
               aria-label="Search tools"
               className="font-sans w-full pl-9 pr-4 py-2.5 rounded-xl border outline-none transition-shadow focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-              style={{ fontSize: 14, fontWeight: 400, background: 'white', color: INK, borderColor: RULE }}
+              style={{ fontSize: 14, fontWeight: 400, background: 'rgba(255,255,255,0.04)', color: OAT, borderColor: HAIRLINE }}
             />
           </div>
         </div>
@@ -340,23 +342,27 @@ export default function Tools() {
 
       {/* ── 3. TILES + 4. inline Luna every 6 ──────────────────────────────────── */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
-        <p className="font-sans mb-5" style={{ fontSize: 13, color: '#6b6760' }}>
-          Showing <strong style={{ color: INK }}>{filtered.length}</strong> of {STAT_TOTAL} tools
+        <p className="font-sans mb-2" style={{ fontSize: 13, color: FOG }}>
+          Showing <strong style={{ color: OAT }}>{filtered.length}</strong> of {STAT_TOTAL} tools
         </p>
 
         {ordered.length === 0 ? (
-          <div className="p-10 text-center" style={{ background: 'white', border: `1px solid ${RULE}`, borderRadius: 4 }}>
-            <p className="font-display" style={{ fontSize: 20, color: INK }}>No tools match those filters.</p>
+          <div className="p-10 text-center" style={{ background: 'transparent', border: `1px solid ${HAIRLINE}`, borderRadius: 4 }}>
+            <p className="font-display" style={{ fontSize: 20, color: OAT }}>No tools match those filters.</p>
             <p className="font-sans mt-2" style={{ fontSize: 14, color: FOG }}>Try clearing the role filter or search — or ask Luna below.</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
+          /* Editorial stack: each tile carries its own py-10 + hairline divider, so
+             the rhythm is dividers + generous spacing rather than boxed cards. */
+          <div className="flex flex-col">
             {ordered.map((tool, i) => (
               <Fragment key={tool.slug}>
                 <ToolTile tool={tool} />
                 {/* Dark Luna panel between every 6 tiles (not at the very end) */}
                 {(i + 1) % 6 === 0 && i < ordered.length - 1 && (
-                  <LunaPanel roleLabel={activeRole.audience ? activeRole.label : undefined} />
+                  <div className="py-8">
+                    <LunaPanel roleLabel={activeRole.audience ? activeRole.label : undefined} />
+                  </div>
                 )}
               </Fragment>
             ))}
