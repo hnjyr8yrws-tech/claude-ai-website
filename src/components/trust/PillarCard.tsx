@@ -149,7 +149,7 @@ export function PillarCard({
   // Methodology mark text (§16 long form when fully attributed).
   let mark: string;
   if (isWithdrawn) {
-    mark = 'WITHDRAWN — SEE NOTES';
+    mark = `METHODOLOGY v${methodologyVersion} · AWAITING RE-REVIEW`;
   } else if (isProvisional) {
     mark = `METHODOLOGY v${methodologyVersion} · PROVISIONAL`;
   } else {
