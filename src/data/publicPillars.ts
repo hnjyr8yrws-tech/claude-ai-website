@@ -55,9 +55,46 @@ export interface PublicToolScore {
  */
 const PUBLISHED: Record<string, PublicToolScore> = PUBLISHED_PUBLIC_SCORES;
 
-/** The public score for an item, or null when it is pending review. */
+/**
+ * CHILD-SAFETY WITHDRAWAL (sanctioned scoped exception, 2026-06).
+ * These 10 pupil-facing tools are withdrawn from public display pending re-review:
+ * Surfaces render the dedicated "Awaiting Re-review" Pillar Card (state="withdrawn":
+ * empty ring, centre "—" with redaction bar, mark "METHODOLOGY v… · AWAITING RE-REVIEW")
+ * via isAwaitingReReview(). getPublicScore() ALSO returns null for them as a failsafe,
+ * so NO score and NO tier can render on any surface (tile, detail, breakdown, pill) —
+ * even one not yet wired to the predicate falls back to the no-number placeholder.
+ * The published data is preserved (suppressed, not deleted), so re-review is a one-line
+ * revert (remove the slug from this set).
+ * NOTE: Luna reads from an external n8n pipeline, NOT this data — handle separately.
+ * NOTE (Woebot): withdrawn here to get it off its tier today; a SEPARATE decision
+ * on whether to fully remove the discontinued product is still pending — do not delete.
+ */
+const WITHDRAWN_AWAITING_REREVIEW = new Set<string>([
+  'woebot',
+  'meta-ai',
+  'perplexity-ai',
+  'poe',
+  'fotor-ai',
+  'photomath',
+  'seneca-learning',
+  'memrise',
+  'cursor-ai',
+  'be-my-eyes',
+]);
+
+/** The public score for an item, or null when it is pending review or withdrawn. */
 export function getPublicScore(itemId: string): PublicToolScore | null {
+  if (WITHDRAWN_AWAITING_REREVIEW.has(itemId)) return null; // child-safety withdrawal
   return PUBLISHED[itemId] ?? null;
+}
+
+/**
+ * True for the 10 child-safety-withdrawn tools. Surfaces use this to render the
+ * dedicated "Awaiting Re-review" Pillar Card (state="withdrawn") instead of a score.
+ * Distinct from a genuinely never-reviewed tool (getPublicScore null with no entry).
+ */
+export function isAwaitingReReview(itemId: string): boolean {
+  return WITHDRAWN_AWAITING_REREVIEW.has(itemId);
 }
 
 export function hasPublicScore(itemId: string): boolean {

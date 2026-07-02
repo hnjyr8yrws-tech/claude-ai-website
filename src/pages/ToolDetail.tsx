@@ -14,7 +14,7 @@ import {
   TOOLS, CAT_COLOURS,
   deriveBestFor, deriveNotIdealFor, deriveAgeNotes,
 } from '../data/tools';
-import { getPublicScore, PUBLIC_PILLARS, pillarBand, PILLAR_BAND_LABEL } from '../data/publicPillars';
+import { getPublicScore, isAwaitingReReview, PUBLIC_PILLARS, pillarBand, PILLAR_BAND_LABEL } from '../data/publicPillars';
 import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
@@ -165,6 +165,7 @@ const ToolDetail = () => {
 
   // PUBLIC trust model only — null = pending review (no number shown). No legacy/synthetic score.
   const pub = getPublicScore(tool.slug);
+  const awaiting = isAwaitingReReview(tool.slug); // child-safety withdrawal → Awaiting Re-review card
   const catStyle = CAT_COLOURS[tool.primaryCategory] ?? { bg: '#f3f4f6', text: '#374151' };
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
@@ -173,7 +174,7 @@ const ToolDetail = () => {
     <>
       <SEO
         title={`${tool.name} — AI Tool Review | GetPromptly`}
-        description={`${tool.name}: Promptly Score ${pub ? `${pub.composite}/10` : 'pending review'}. ${tool.desc}`}
+        description={`${tool.name}: Promptly Score ${awaiting ? 'awaiting re-review' : pub ? `${pub.composite}/10` : 'pending review'}. ${tool.desc}`}
         keywords={`${tool.name}, ${tool.primaryCategory}, AI tools for education, UK schools, safety score`}
         path={`/tools/${tool.slug}`}
       />
@@ -198,7 +199,7 @@ const ToolDetail = () => {
               {tool.primaryCategory}
             </span>
             <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: '#6b6760' }}>
-              {pub ? 'Reviewed' : 'Pending review'}
+              {awaiting ? 'Awaiting re-review' : pub ? 'Reviewed' : 'Pending review'}
             </span>
             {tool.ukReady === 'Yes' && (
               <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
@@ -233,7 +234,10 @@ const ToolDetail = () => {
             </div>
             {/* Pillar Card — the signature artefact (§04/§07). Never a naked score. */}
             <div className="order-1 sm:order-2 mx-auto sm:mx-0 flex-shrink-0">
-              {pub ? (
+              {awaiting ? (
+                /* Child-safety withdrawal → Awaiting Re-review card: no number, no tier */
+                <PillarCard state="withdrawn" methodologyVersion="2.2" showName={false} showVerdict={false} showLegend={false} size={208} />
+              ) : pub ? (
                 <PillarCard
                   score={pub.composite}
                   pillars={pub.pillars}
@@ -269,14 +273,15 @@ const ToolDetail = () => {
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Promptly Score</SectionLabel>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
-            {pub ? 'Promptly Score breakdown' : 'Pending review'}
+            {awaiting ? 'Awaiting re-review' : pub ? 'Promptly Score breakdown' : 'Pending review'}
           </h2>
 
           {!pub ? (
             <div className="rounded-xl p-4 mb-6" style={{ background: '#f3f4f6' }}>
               <p className="text-sm" style={{ color: '#6b7280' }}>
-                This tool's Promptly Score is pending review under the current methodology. The five
-                published pillar scores will appear here once a verified review is published.
+                {awaiting
+                  ? "This tool has been withdrawn from public scoring pending re-review under the current methodology. Its previous Promptly Score and pillar breakdown have been removed while it is re-assessed."
+                  : "This tool's Promptly Score is pending review under the current methodology. The five published pillar scores will appear here once a verified review is published."}
               </p>
             </div>
           ) : (

@@ -15,7 +15,7 @@ import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { TOOLS, type Tool } from '../data/tools';
 import { PillarCard } from '../components/trust/PillarCard';
-import { getPublicScore } from '../data/publicPillars';
+import { getPublicScore, isAwaitingReReview } from '../data/publicPillars';
 import { REGISTRY, priorityFor } from '../data/toolRegistry';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { inferLinkType, linkLabel } from '../utils/linkType';
@@ -51,6 +51,7 @@ function ToolTile({ tool }: { tool: Tool }) {
   // render the placeholder, never a number. No legacy/synthetic scoring here.
   // Keyed by slug for now; switches to item_id when the v3 registry is wired.
   const pub = getPublicScore(tool.slug);
+  const awaiting = isAwaitingReReview(tool.slug); // child-safety withdrawal → Awaiting Re-review card
   // Outbound CTA to the tool itself — label reflects what the link opens.
   const demoLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
 
@@ -62,7 +63,10 @@ function ToolTile({ tool }: { tool: Tool }) {
       {/* Self-contained 240px Pillar Card badge — composite in the disc + the
           five-pillar legend. The signature artefact floats on the dark page. */}
       <div className="flex-shrink-0 mx-auto sm:mx-0">
-        {pub ? (
+        {awaiting ? (
+          /* Child-safety withdrawal → Awaiting Re-review card: no number, no tier */
+          <PillarCard state="withdrawn" size={240} showName={false} showVerdict={false} showLegend showMark={false} />
+        ) : pub ? (
           <PillarCard
             score={pub.composite}
             pillars={pub.pillars}
@@ -98,7 +102,9 @@ function ToolTile({ tool }: { tool: Tool }) {
           className="font-mono uppercase mt-6 pt-3 break-words"
           style={{ fontSize: 10.5, letterSpacing: '0.08em', color: FOG, borderTop: '1px dashed rgba(248,242,236,0.18)' }}
         >
-          {pub
+          {awaiting
+            ? 'METHODOLOGY v2.2 · AWAITING RE-REVIEW'
+            : pub
             ? `METHODOLOGY v${pub.methodologyVersion}${pub.verifiedDate ? ` · VERIFIED ${pub.verifiedDate}` : ''} · REVIEWER ${pub.reviewer}`
             : 'METHODOLOGY · PENDING REVIEW'}
         </p>
