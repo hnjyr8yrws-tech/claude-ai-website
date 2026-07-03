@@ -256,6 +256,12 @@ export const SYSTEM_PROMPTS: Record<AgentRole, string> = Object.fromEntries(
   ALL_ROLES.map(role => [role, buildSystemPrompt(role, 'general')])
 ) as Record<AgentRole, string>;
 
+/** Lightweight intent captured before a Luna chat, passed to n8n as context. */
+export interface LunaIntent {
+  yearGroup?: string;
+  concern?: string;
+}
+
 // ─── Analytics event names ─────────────────────────────────────────────────────
 
 export type AnalyticsEvent =
@@ -267,7 +273,8 @@ export type AnalyticsEvent =
   | { name: 'quote_cta_clicked' }
   | { name: 'email_capture_submitted' }
   | { name: 'tool_compared' }
-  | { name: 'starter_clicked'; starter: string };
+  | { name: 'starter_clicked'; starter: string }
+  | { name: 'intent_completed' };
 
 export function trackEvent(event: AnalyticsEvent): void {
   // Fire to gtag if available (Google Analytics / GA4)
