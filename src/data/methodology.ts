@@ -1,14 +1,14 @@
-// Living Methodology page data (ported from getpromptly-web).
+// Living Methodology page data.
 //
-// ⚠️ SAMPLE DATA: `integrityRecord` and `scoreChangeFeed` below are illustrative
-// placeholder records for the new /methodology scaffold — they are NOT real
-// integrity actions. Tool references are wired to real tools from '@/data/tools'
-// only so the links resolve to existing /tools/:slug pages. Replace the records
-// (and re-word the withdrawal summary) with real data before linking this page
-// publicly.
+// The withdrawal record is wired to the REAL child-safety withdrawal — the tools
+// currently Awaiting Re-review (see src/data/publicPillars.ts) — so it names only
+// tools that are genuinely withheld, consistent with their /tools/:slug pages.
+// The score-change entries use generic illustrative names (no real tool) until a
+// real score-change feed exists.
 
 import type { Reviewer, ScoreChange, DisplayState } from '@/components/trust';
 import { TOOLS } from '@/data/tools';
+import { isAwaitingReReview } from '@/data/publicPillars';
 
 export const METHODOLOGY_PATH = '/methodology';
 
@@ -105,10 +105,14 @@ export const changelog: ChangelogEntry[] = [
   },
 ];
 
-// ---- SAMPLE integrity data (placeholder — see file header) ----
+// ---- Integrity record ----
 
-const SAMPLE_TOOLS: ToolRef[] = TOOLS.slice(0, 6).map((t) => ({ name: t.name, slug: t.slug }));
-const pick = (i: number): ToolRef => SAMPLE_TOOLS[i] ?? { name: 'Sample tool', slug: '' };
+// REAL: the June 2026 child-safety withdrawal — every tool currently Awaiting
+// Re-review, resolved from the trust dataset so the record names only genuinely
+// withheld tools (consistent with their /tools/:slug pages).
+const withdrawnTools: ToolRef[] = TOOLS
+  .filter((t) => isAwaitingReReview(t.slug))
+  .map((t) => ({ name: t.name, slug: t.slug }));
 
 export const integrityRecord: IntegrityRecordEntry[] = [
   {
@@ -116,41 +120,44 @@ export const integrityRecord: IntegrityRecordEntry[] = [
     type: 'withdrawal',
     date: '2026-06-18',
     reviewer: { initials: 'CR', verifiedDate: '2026-06-18' },
-    tools: SAMPLE_TOOLS.slice(0, 3),
+    tools: withdrawnTools,
     reasonCategory: 'Safeguarding',
     kcsieBasis: 'KCSIE 2025 — Part 5 (online safety) and Annex C',
     holdingState: 'AwaitingReReview',
     summary:
-      'Sample record (placeholder data). Illustrates how a safeguarding withdrawal is displayed: the affected tools are withheld from published scoring while each is re-reviewed against the current safeguarding criteria.',
+      'Following a June 2026 safeguarding review, these pupil-facing tools were withdrawn from published scoring. Their scores are withheld while each is re-reviewed against the current safeguarding criteria.',
   },
   {
-    id: 'score-change-2026-05-sample',
+    // Illustrative only — a generic example (not a real tool) showing how a score
+    // change is recorded. Replace once a real score-change history is available.
+    id: 'score-change-illustrative',
     type: 'score_change',
     date: '2026-05-22',
     reviewer: { initials: 'CR', verifiedDate: '2026-05-22' },
-    tool: pick(3),
+    tool: { name: 'Example tool', slug: 'example-tool' },
     change: {
       direction: 'down',
       from: 7.4,
       to: 6.1,
       date: '2026-05-22',
-      reason: 'Weaker data-privacy evidence on re-review',
+      reason: 'Illustrative: weaker data-privacy evidence on re-review',
     },
-    note: 'Sample record. Data-privacy pillar downgraded after a provider changed sub-processors.',
+    note: 'Illustrative example (not a real tool) — shows how a score change is recorded.',
   },
 ];
 
+// Illustrative only (generic names, not real tools) until an automated feed exists.
 export const scoreChangeFeed: ScoreFeedEntry[] = [
   {
-    id: 'feed-01',
-    tool: pick(4),
+    id: 'feed-illustrative-1',
+    tool: { name: 'Example tool A', slug: 'example-tool-a' },
     change: { direction: 'up', from: 6.8, to: 7.5, date: '2026-05-09' },
-    note: 'Sample: accessibility improvements verified.',
+    note: 'Illustrative example (not a real tool).',
   },
   {
-    id: 'feed-02',
-    tool: pick(5),
+    id: 'feed-illustrative-2',
+    tool: { name: 'Example tool B', slug: 'example-tool-b' },
     change: { direction: 'down', from: 7.4, to: 6.1, date: '2026-05-22' },
-    note: 'Sample: sub-processor change reduced data-privacy confidence.',
+    note: 'Illustrative example (not a real tool).',
   },
 ];
