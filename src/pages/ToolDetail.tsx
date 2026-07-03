@@ -19,6 +19,7 @@ import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
 import { PillarCard, ScorePill } from '../components/trust/PillarCard';
+import { SAMPLE_TOOL_EVIDENCE } from '../data/sampleEvidence';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -243,7 +244,9 @@ const ToolDetail = () => {
                   pillars={pub.pillars}
                   showName={false}
                   showVerdict={false}
-                  showLegend={false}
+                  showLegend
+                  interactive
+                  evidence={SAMPLE_TOOL_EVIDENCE[tool.slug]}
                   size={208}
                   methodologyVersion={pub.methodologyVersion}
                   verifiedDate={pub.verifiedDate}
