@@ -20,6 +20,7 @@ import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
 import { PillarCard, ScorePill } from '../components/trust/PillarCard';
 import { SAMPLE_TOOL_EVIDENCE } from '../data/sampleEvidence';
+import { Rule4bGuard, type DisplayState, type Integrity } from '@/components/trust';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -167,6 +168,11 @@ const ToolDetail = () => {
   // PUBLIC trust model only — null = pending review (no number shown). No legacy/synthetic score.
   const pub = getPublicScore(tool.slug);
   const awaiting = isAwaitingReReview(tool.slug); // child-safety withdrawal → Awaiting Re-review card
+  // Drive the shared fail-closed Rule4bGuard from the existing public-trust model.
+  const trustDisplayState: DisplayState = awaiting ? 'AwaitingReReview' : pub ? 'Active' : 'Provisional';
+  const trustIntegrity: Integrity = pub
+    ? { state: 'verified', checkedAt: pub.verifiedDate }
+    : { state: 'unavailable' };
   const catStyle = CAT_COLOURS[tool.primaryCategory] ?? { bg: '#f3f4f6', text: '#374151' };
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
@@ -235,27 +241,46 @@ const ToolDetail = () => {
             </div>
             {/* Pillar Card — the signature artefact (§04/§07). Never a naked score. */}
             <div className="order-1 sm:order-2 mx-auto sm:mx-0 flex-shrink-0">
-              {awaiting ? (
-                /* Child-safety withdrawal → Awaiting Re-review card: no number, no tier */
-                <PillarCard state="withdrawn" methodologyVersion="2.2" showName={false} showVerdict={false} showLegend={false} size={208} />
-              ) : pub ? (
-                <PillarCard
-                  score={pub.composite}
-                  pillars={pub.pillars}
-                  showName={false}
-                  showVerdict={false}
-                  showLegend
-                  interactive
-                  evidence={SAMPLE_TOOL_EVIDENCE[tool.slug]}
-                  size={208}
-                  methodologyVersion={pub.methodologyVersion}
-                  verifiedDate={pub.verifiedDate}
-                  reviewer={pub.reviewer}
-                />
-              ) : (
-                /* Pending: no verified public pillar data → provisional card, no number */
-                <PillarCard state="provisional" showName={false} showVerdict={false} size={208} />
-              )}
+              {/* Fail-closed via the shared Rule4bGuard: the scored (interactive)
+                  Pillar Card only renders when the public trust model is verified.
+                  Withdrawn/awaiting and pending tools fall through to renderUnavailable. */}
+              <Rule4bGuard
+                integrity={trustIntegrity}
+                displayState={trustDisplayState}
+                renderUnavailable={() =>
+                  awaiting ? (
+                    <div className="flex flex-col items-center gap-3">
+                      {/* Child-safety withdrawal → Awaiting Re-review card: no number, no tier */}
+                      <PillarCard state="withdrawn" methodologyVersion="2.2" showName={false} showVerdict={false} showLegend={false} size={208} />
+                      <p role="status" className="max-w-[208px] text-center text-xs" style={{ color: '#6b6760' }}>
+                        Score withheld while this tool is re-reviewed. See the{' '}
+                        <Link to="/methodology" className="font-semibold underline underline-offset-2" style={{ color: 'var(--color-ink-accent)' }}>
+                          methodology &amp; integrity record
+                        </Link>.
+                      </p>
+                    </div>
+                  ) : (
+                    /* Pending: no verified public pillar data → provisional card, no number */
+                    <PillarCard state="provisional" showName={false} showVerdict={false} size={208} />
+                  )
+                }
+              >
+                {pub ? (
+                  <PillarCard
+                    score={pub.composite}
+                    pillars={pub.pillars}
+                    showName={false}
+                    showVerdict={false}
+                    showLegend
+                    interactive
+                    evidence={SAMPLE_TOOL_EVIDENCE[tool.slug]}
+                    size={208}
+                    methodologyVersion={pub.methodologyVersion}
+                    verifiedDate={pub.verifiedDate}
+                    reviewer={pub.reviewer}
+                  />
+                ) : null}
+              </Rule4bGuard>
             </div>
           </div>
 
