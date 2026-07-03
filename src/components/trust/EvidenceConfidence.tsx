@@ -89,9 +89,9 @@ export function EvidenceConfidence({
         </div>
       ) : (
         <p className="mt-2 font-sans text-xs leading-relaxed" style={{ color: 'var(--color-fog)' }}>
-          Detailed evidence for this pillar is published in our{' '}
+          We publish the detailed per-pillar evidence, confidence and review depth in our{' '}
           <Link to={methodologyPath} className="underline underline-offset-2" style={{ color: 'var(--color-promptly-lime)' }}>
-            methodology
+            methodology &amp; integrity record
           </Link>
           .
         </p>
