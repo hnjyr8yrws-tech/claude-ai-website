@@ -12,6 +12,7 @@
 
 import {
   FC, FormEvent, KeyboardEvent,
+  lazy, Suspense,
   useEffect, useRef, useState,
 } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -23,6 +24,10 @@ import {
   trackEvent,
 } from '../api/agent';
 import { useBrevo } from '../hooks/useBrevo';
+
+// Lazy so the TOOLS/publicPillars data only loads once the chat is actually used
+// (keeps it out of the main bundle).
+const LunaMessageTrust = lazy(() => import('./LunaMessageTrust'));
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -478,7 +483,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             {messages.map(msg => (
               <div
                 key={msg.id}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
               >
                 <div
                   className="px-4 py-3 rounded-2xl text-sm leading-relaxed max-w-[86%] whitespace-pre-wrap"
@@ -490,6 +495,13 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                 >
                   {msg.content}
                 </div>
+                {/* Provenance inline stamp — fail-closed trust summary for any tool
+                    referenced in a Luna reply (structured payload → text fallback). */}
+                {msg.role === 'assistant' && (
+                  <Suspense fallback={null}>
+                    <LunaMessageTrust text={msg.content} tools={msg.tools} />
+                  </Suspense>
+                )}
               </div>
             ))}
 

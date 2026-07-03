@@ -11,6 +11,8 @@ export interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
+  /** Optional structured trust payload from n8n — preferred over text detection. */
+  tools?: { slug: string }[];
 }
 
 interface UseAgentReturn {
@@ -114,9 +116,23 @@ export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgent
       // continuity (composer vanished, conversation reset). The gate's ask_role
       // prompt now shows as a normal message; the user can answer inline or use
       // the "Switch role" button.
+      // Structured trust payload (optional): n8n may return tools:[{slug}] so the
+      // client can render a fail-closed trust stamp from a reliable source. Absent
+      // today → <LunaMessageTrust> falls back to conservative text detection.
+      const rawTools = data.tools;
+      const tools = Array.isArray(rawTools)
+        ? rawTools
+            .map((t) =>
+              t && typeof t === 'object' && 'slug' in t && typeof (t as { slug: unknown }).slug === 'string'
+                ? { slug: (t as { slug: string }).slug }
+                : null,
+            )
+            .filter((t): t is { slug: string } => t !== null)
+        : undefined;
+
       setMessages(prev => [
         ...prev,
-        { id: crypto.randomUUID(), role: 'assistant', content: reply },
+        { id: crypto.randomUUID(), role: 'assistant', content: reply, tools },
       ]);
     } catch (err) {
       console.warn('[Luna] webhook call failed:', err);
