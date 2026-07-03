@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from 'react';
-import type { AgentRole, AgentMode } from '../api/agent';
+import type { AgentRole, AgentMode, LunaIntent } from '../api/agent';
 import { LUNA_WEBHOOK_URL } from '../config';
 
 // SAFETY: the browser does NOT call any model (Anthropic) directly anymore.
@@ -46,7 +46,15 @@ function getSessionId(): string {
   }
 }
 
-export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgentReturn {
+/** Compact one-line context prefix for the first message (so today's model reads it). */
+function formatIntent(intent: LunaIntent): string {
+  const parts: string[] = [];
+  if (intent.yearGroup) parts.push(`Year group: ${intent.yearGroup}`);
+  if (intent.concern) parts.push(`Main concern: ${intent.concern}`);
+  return parts.length ? `[Context — ${parts.join('; ')}]` : '';
+}
+
+export function useAgent(role: AgentRole, mode: AgentMode = 'general', intent?: LunaIntent | null): UseAgentReturn {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading]   = useState(false);
   const [error, setError]       = useState<string | null>(null);
@@ -58,6 +66,14 @@ export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgent
   if (!sessionRef.current) sessionRef.current = getSessionId();
 
   const sendMessage = useCallback(async (text: string) => {
+    // Intent context (from the pre-chat entry): sent to n8n as a structured field
+    // every turn, and prepended to the FIRST user message so the current model sees
+    // it without a backend change (n8n keeps session memory). The displayed bubble
+    // stays clean — the prefix only goes to the wire. Computed before adding the msg.
+    const isFirstUserMessage = messagesRef.current.every((m) => m.role !== 'user');
+    const intentPrefix = intent ? formatIntent(intent) : '';
+    const outgoing = isFirstUserMessage && intentPrefix ? `${intentPrefix}\n\n${text}` : text;
+
     const userMsg: Message = { id: crypto.randomUUID(), role: 'user', content: text };
     setMessages(prev => [...prev, userMsg]);
     setLoading(true);
@@ -83,7 +99,8 @@ export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgent
         body: JSON.stringify({
           session_id: sessionRef.current,
           role,
-          message: text,
+          message: outgoing,
+          ...(intent ? { intent } : {}),
         }),
       });
 
@@ -140,7 +157,7 @@ export function useAgent(role: AgentRole, mode: AgentMode = 'general'): UseAgent
     } finally {
       setLoading(false);
     }
-  }, [role, mode]);
+  }, [role, mode, intent]);
 
   const clearMessages = useCallback(() => {
     setMessages([]);

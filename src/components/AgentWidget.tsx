@@ -19,7 +19,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import { useAgent } from '../hooks/useAgent';
 import {
-  ALL_ROLES, AgentRole, AgentMode,
+  ALL_ROLES, AgentRole, AgentMode, LunaIntent,
   getModeFromPath, MODE_PERSONA, CONVERSATION_STARTERS,
   trackEvent,
 } from '../api/agent';
@@ -282,6 +282,74 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
   );
 }
 
+// ─── Intent-aware entry (1–2 quick questions before the chat) ─────────────────
+
+const INTENT_QUESTIONS = [
+  { key: 'yearGroup', question: 'Which year group?', options: ['EYFS / KS1', 'KS2', 'KS3', 'KS4 / GCSE', 'KS5 / Post-16', 'Whole school'] },
+  { key: 'concern',   question: "What's your main concern?", options: ['Safeguarding', 'Data privacy', 'Age suitability', 'Accessibility', 'Cost / value', 'Not sure'] },
+] as const;
+
+function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) => void; onSkip: () => void }) {
+  const [step, setStep]       = useState(0);
+  const [answers, setAnswers] = useState<LunaIntent>({});
+
+  function pick(option: string) {
+    const q = INTENT_QUESTIONS[step];
+    if (!q) return;
+    const next: LunaIntent = { ...answers };
+    if (q.key === 'yearGroup') next.yearGroup = option;
+    else next.concern = option;
+    if (step + 1 >= INTENT_QUESTIONS.length) {
+      trackEvent({ name: 'intent_completed' });
+      onComplete(next);
+    } else {
+      setAnswers(next);
+      setStep(s => s + 1);
+    }
+  }
+
+  const current = INTENT_QUESTIONS[step];
+  if (!current) return null;
+
+  return (
+    <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: '#f7f6f2' }}>
+      <div className="flex items-center justify-between mb-4">
+        <p className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
+          Quick context · Step {step + 1}/{INTENT_QUESTIONS.length}
+        </p>
+        <button onClick={onSkip} className="text-xs" style={{ color: '#9ca3af' }}>Skip</button>
+      </div>
+
+      <div
+        className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm mb-4"
+        style={{ background: 'white', color: 'var(--text)' }}
+      >
+        {current.question}
+      </div>
+
+      <div className="grid grid-cols-2 gap-2">
+        {current.options.map(opt => (
+          <button
+            key={opt}
+            onClick={() => pick(opt)}
+            className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] text-left"
+            style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+          >
+            {opt}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-5 h-1 rounded-full overflow-hidden" style={{ background: '#e8e6e0' }}>
+        <div
+          className="h-full rounded-full transition-all"
+          style={{ width: `${((step + 1) / INTENT_QUESTIONS.length) * 100}%`, background: TEAL }}
+        />
+      </div>
+    </div>
+  );
+}
+
 // ─── Chat panel ────────────────────────────────────────────────────────────────
 
 interface PanelProps {
@@ -293,11 +361,14 @@ function ChatPanel({ mode, onClose }: PanelProps) {
   const [role,     setRole]     = useState<AgentRole | null>(null);
   const [input,    setInput]    = useState('');
   const [quiz,     setQuiz]     = useState<string | null>(null);
+  const [intent,   setIntent]   = useState<LunaIntent | null>(null);
+  const [intentDone, setIntentDone] = useState(false);
   const bottomRef               = useRef<HTMLDivElement>(null);
 
   const { messages, loading, error, sendMessage, clearMessages } = useAgent(
     role ?? 'Teacher',
     mode,
+    intent,
   );
 
   const assistantCount  = messages.filter(m => m.role === 'assistant').length;
@@ -312,6 +383,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
     function handler(e: Event) {
       const text = (e as CustomEvent<string>).detail;
       if (text) {
+        setIntentDone(true); // starters carry their own intent — skip the entry step
         setInput(text);
         // Auto-send after a tick (role is already set by the time this fires)
         setTimeout(() => {
@@ -404,7 +476,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           )}
           {role && (
             <button
-              onClick={() => { setRole(null); setQuiz(null); clearMessages(); }}
+              onClick={() => { setRole(null); setQuiz(null); setIntent(null); setIntentDone(false); clearMessages(); }}
               className="text-[10px] transition-opacity hover:opacity-60"
               style={{ color: '#6b6760' }}
             >
@@ -432,6 +504,11 @@ function ChatPanel({ mode, onClose }: PanelProps) {
         />
       ) : !role ? (
         <RoleSelector mode={mode} onSelect={setRole} />
+      ) : !intentDone ? (
+        <IntentEntry
+          onComplete={(i) => { setIntent(i); setIntentDone(true); }}
+          onSkip={() => setIntentDone(true)}
+        />
       ) : (
         <>
           {/* Message list */}
