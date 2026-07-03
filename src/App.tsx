@@ -18,6 +18,7 @@ const Equipment           = lazy(() => import('./pages/Equipment'));
 const EquipmentSEND       = lazy(() => import('./pages/EquipmentSEND'));
 const EquipmentSchools    = lazy(() => import('./pages/EquipmentSchools'));
 const SafetyMethodology   = lazy(() => import('./pages/SafetyMethodology'));
+const Methodology         = lazy(() => import('./pages/Methodology'));
 const AITraining          = lazy(() => import('./pages/AITraining'));
 const AITrainingFree      = lazy(() => import('./pages/AITrainingFree'));
 const AITrainingPaid      = lazy(() => import('./pages/AITrainingPaid'));
@@ -119,6 +120,7 @@ const App = () => (
           <Route path="/ai-training/send"     element={<AITrainingSEND />} />
           <Route path="/ai-training/leaders"  element={<AITrainingLeaders />} />
           <Route path="/safety-methodology"   element={<SafetyMethodology />} />
+          <Route path="/methodology"          element={<Methodology />} />
 
           <Route path="/prompts"                        element={<PromptLibrary />} />
           <Route path="/prompts/packs"                  element={<PromptsHub />} />
