@@ -11,8 +11,10 @@
 // as ~80% filled and a 5/10 as half. Geometry is computed with trig — never
 // hardcoded — so endpoints always sit on the radius.
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { pillarBand, PILLAR_BAND_LABEL } from '../../data/publicPillars';
+import { EvidenceConfidence, type PillarEvidenceDetail } from './EvidenceConfidence';
 
 // ----- Pillar model (Brand Bible spine order) -----
 
@@ -121,6 +123,11 @@ export interface PillarCardProps {
   reviewer?: string;
   /** For the "updated" state — the score change to stamp. */
   change?: { from: number; to: number; date?: string };
+  /** Opt-in: make the 5 segments clickable, expanding to per-pillar evidence. */
+  interactive?: boolean;
+  /** Optional per-pillar evidence. When present for a pillar its expand panel
+   *  shows the full detail; otherwise a graceful fallback (score + band + link). */
+  evidence?: Partial<Record<keyof PillarScores, PillarEvidenceDetail>>;
   className?: string;
 }
 
@@ -139,12 +146,19 @@ export function PillarCard({
   verifiedDate,
   reviewer,
   change,
+  interactive = false,
+  evidence,
   className,
 }: PillarCardProps) {
+  const [selected, setSelected] = useState<keyof PillarScores | null>(null);
   const isProvisional = state === 'provisional';
   const isWithdrawn = state === 'withdrawn';
   const isHistoric = state === 'historic';
   const hasData = !!pillars;
+  // Fail-closed: only the verified/scored ring is interactive. Withdrawn and
+  // provisional states expose no scores, so no evidence can be opened.
+  const canInteract = interactive && hasData && !isProvisional && !isWithdrawn;
+  const toggle = (k: keyof PillarScores) => setSelected((prev) => (prev === k ? null : k));
 
   // Methodology mark text (§16 long form when fully attributed).
   let mark: string;
@@ -246,6 +260,33 @@ export function PillarCard({
                 <line key={`div-${i}`} x1={l[0]} y1={l[1]} x2={l[2]} y2={l[3]} />
               ))}
             </g>
+            {/* Interactive overlay (opt-in): invisible, click/keyboard-operable
+                hit area per wedge. The selected wedge gets a lime outline. */}
+            {canInteract && (
+              <g>
+                {WEDGES.map((w, i) => (
+                  <path
+                    key={`hit-${w.key}`}
+                    d={w.d}
+                    fill="transparent"
+                    role="button"
+                    tabIndex={0}
+                    aria-pressed={selected === w.key}
+                    aria-label={`${PILLARS[i]?.name ?? w.key}: ${pillars![w.key].toFixed(1)} out of 10. Show evidence.`}
+                    style={{ cursor: 'pointer', pointerEvents: 'all', outlineOffset: 2 }}
+                    onClick={() => toggle(w.key)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggle(w.key);
+                      }
+                    }}
+                    stroke={selected === w.key ? cssVar('--color-promptly-lime') : 'none'}
+                    strokeWidth={selected === w.key ? 2 : 0}
+                  />
+                ))}
+              </g>
+            )}
           </>
         ) : (
           /* Provisional / no data — dim track only, no score encoded. */
@@ -426,6 +467,49 @@ export function PillarCard({
           {change.date && <span style={{ color: cssVar('--color-fog') }}>{change.date}</span>}
         </div>
       )}
+
+      {/* Expand panel — per-pillar evidence for the selected segment. */}
+      {canInteract && selected != null && (() => {
+        const pillar = PILLARS.find((p) => p.key === selected);
+        if (!pillar) return null;
+        const sc = pillars![selected];
+        const band = pillarBand(sc);
+        return (
+          <div
+            className="w-full rounded-md text-left"
+            style={{
+              maxWidth: size,
+              background: 'rgba(245,242,236,0.04)',
+              border: `1px solid ${cssVar('--color-fog')}`,
+              padding: 12,
+            }}
+            role="region"
+            aria-label={`${pillar.name} evidence`}
+          >
+            <div className="flex items-start justify-between gap-2">
+              <span className="font-mono uppercase" style={{ fontSize: 9, letterSpacing: 1, color: cssVar('--color-fog') }}>
+                Evidence
+              </span>
+              <button
+                type="button"
+                onClick={() => setSelected(null)}
+                aria-label="Close evidence"
+                style={{ background: 'transparent', border: 0, color: cssVar('--color-fog'), cursor: 'pointer', fontSize: 16, lineHeight: 1 }}
+              >
+                ×
+              </button>
+            </div>
+            <div className="mt-1.5">
+              <EvidenceConfidence
+                label={pillar.name}
+                score={sc}
+                bandLabel={band ? PILLAR_BAND_LABEL[band] : undefined}
+                evidence={evidence?.[selected]}
+              />
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }
