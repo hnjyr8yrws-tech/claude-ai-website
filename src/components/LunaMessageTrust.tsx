@@ -63,7 +63,7 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
         renderUnavailable={() =>
           awaiting ? (
             <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: '#6b6760' }}>
-              <Link to={toPath} className="font-semibold" style={{ color: '#1c1a15' }}>{tool.name}</Link>
+              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
               <span>· score withheld ·</span>
               <Link
                 to="/methodology"
@@ -75,7 +75,7 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
             </span>
           ) : (
             <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: '#6b6760' }}>
-              <Link to={toPath} className="font-semibold" style={{ color: '#1c1a15' }}>{tool.name}</Link>
+              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
               <span>· review in progress</span>
             </span>
           )
@@ -84,7 +84,7 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
         {pub ? (
           <div className="inline-flex flex-col gap-0.5">
             <span className="inline-flex items-center gap-1.5">
-              <Link to={toPath} className="font-semibold" style={{ color: '#1c1a15' }}>{tool.name}</Link>
+              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
               <ScorePill score={pub.composite} to={toPath} />
             </span>
             <MethodologyStamp

@@ -66,7 +66,7 @@ function RoleChipRow({
       <div
         role="group"
         aria-label="Your role (optional)"
-        className="flex gap-1.5 overflow-x-auto pb-1 pr-6"
+        className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1 pr-6"
       >
         {ALL_ROLES.map(r => {
           const active = selected === r;
@@ -76,10 +76,10 @@ function RoleChipRow({
               type="button"
               aria-pressed={active}
               onClick={() => onSelect(active ? null : r)}
-              className="flex-shrink-0 px-3 py-1.5 rounded-full border text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E] focus-visible:ring-offset-1"
+              className="flex-shrink-0 px-3 py-1.5 rounded-full border text-xs font-semibold transition-colors"
               style={
                 active
-                  ? { background: '#1E1E1E', borderColor: '#1E1E1E', color: '#FFFFFF' }
+                  ? { background: 'var(--color-ground-black)', borderColor: 'var(--color-ground-black)', color: '#FFFFFF' }
                   : { background: 'white', borderColor: '#e8e6e0', color: '#6b6760' }
               }
             >
@@ -119,7 +119,7 @@ function ExemplarQuestionList({
             <button
               type="button"
               onClick={() => onAsk(q)}
-              className="w-full text-left px-3 py-2.5 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[#9C9C8A] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E]"
+              className="w-full text-left px-3 py-2.5 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[var(--color-fog)] hover:bg-white"
               style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
             >
               {q}
@@ -173,13 +173,13 @@ function DockedComposer({
       <button
         onClick={onSend}
         disabled={sendDisabled}
-        className="w-11 h-11 rounded-xl flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E] focus-visible:ring-offset-1"
+        className="w-11 h-11 rounded-xl flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ink)] focus-visible:ring-offset-1"
         style={{ background: TEAL }}
         aria-label="Send message"
         type="button"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="#1A1A0E" />
+          <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="var(--color-ink)" />
         </svg>
       </button>
     </div>
@@ -231,7 +231,7 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
           type="submit"
           disabled={status === 'loading'}
           className="px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-80 disabled:opacity-50"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           {status === 'loading' ? '…' : 'Yes →'}
         </button>
@@ -322,7 +322,7 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
         <p className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
           {QUIZ_LABELS[quizKey]} · Step {step + 1}/{steps.length}
         </p>
-        <button onClick={onCancel} className="text-xs" style={{ color: '#9ca3af' }}>Cancel</button>
+        <button onClick={onCancel} className="text-xs" style={{ color: 'var(--color-fog)' }}>Cancel</button>
       </div>
 
       <div
@@ -337,7 +337,7 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
           <button
             key={opt}
             onClick={() => pick(opt)}
-            className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] text-left"
+            className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-ink-accent)] text-left"
             style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
           >
             {opt}
@@ -391,7 +391,7 @@ function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) 
         <p className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
           Quick context · Step {step + 1}/{INTENT_QUESTIONS.length}
         </p>
-        <button onClick={onSkip} className="text-xs" style={{ color: '#9ca3af' }}>Skip</button>
+        <button onClick={onSkip} className="text-xs" style={{ color: 'var(--color-fog)' }}>Skip</button>
       </div>
 
       <div
@@ -406,7 +406,7 @@ function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) 
           <button
             key={opt}
             onClick={() => pick(opt)}
-            className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] text-left"
+            className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-ink-accent)] text-left"
             style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
           >
             {opt}
@@ -528,7 +528,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           <div className="relative">
             <div
               className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold"
-              style={{ background: TEAL, color: '#1A1A0E' }}
+              style={{ background: TEAL, color: 'var(--color-ink)' }}
             >
               L
             </div>
@@ -569,7 +569,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             type="button"
             aria-label="Close chat"
             className="flex items-center justify-center w-11 h-11 -mr-2 rounded-lg text-lg leading-none transition-opacity hover:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-            style={{ color: '#9ca3af' }}
+            style={{ color: 'var(--color-fog)' }}
           >
             <span aria-hidden="true">✕</span>
           </button>
@@ -662,8 +662,8 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                     className="px-4 py-3 rounded-2xl text-sm leading-relaxed max-w-[86%] whitespace-pre-wrap"
                     style={
                       msg.role === 'user'
-                        ? { background: TEAL, color: '#1A1A0E', borderRadius: '16px 16px 4px 16px' }
-                        : { background: 'white', color: '#1c1a15', borderRadius: '4px 16px 16px 16px' }
+                        ? { background: TEAL, color: 'var(--color-ink)', borderRadius: '16px 16px 4px 16px' }
+                        : { background: 'white', color: 'var(--text)', borderRadius: '4px 16px 16px 16px' }
                     }
                   >
                     {msg.content}
@@ -773,7 +773,7 @@ const AgentWidget: FC = () => {
       <motion.button
         onClick={openWidget}
         className="hidden md:flex fixed bottom-5 right-5 z-[9998] items-center gap-2.5 pl-4 pr-2.5 font-sans shadow-lg"
-        style={{ background: '#1E1E1E', width: 180, height: 44, borderRadius: 22 }}
+        style={{ background: 'var(--color-ground-black)', width: 180, height: 44, borderRadius: 22 }}
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.98 }}
         aria-label="Open Luna — online 24/7"
@@ -793,7 +793,7 @@ const AgentWidget: FC = () => {
         {/* Lime arrow circle (24px, ink arrow) */}
         <span className="flex-shrink-0 flex items-center justify-center rounded-full" style={{ width: 24, height: 24, background: TEAL }} aria-hidden="true">
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-            <path d="M3 7h8M7 3l4 4-4 4" stroke="#1A1A0E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="var(--color-ink)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </motion.button>
@@ -802,7 +802,7 @@ const AgentWidget: FC = () => {
       <button
         onClick={openWidget}
         className="md:hidden fixed bottom-4 inset-x-4 z-[9998] flex items-center gap-2.5 pl-4 pr-1.5 py-1.5 font-sans shadow-lg"
-        style={{ background: '#1E1E1E', height: 52, borderRadius: 26 }}
+        style={{ background: 'var(--color-ground-black)', height: 52, borderRadius: 26 }}
         aria-label="Open Luna — online 24/7"
       >
         <span className="relative flex-shrink-0 w-2 h-2" aria-hidden="true">
@@ -810,11 +810,11 @@ const AgentWidget: FC = () => {
         </span>
         <span className="flex flex-col items-start leading-tight flex-1">
           <span style={{ fontSize: 14, fontWeight: 500, color: '#FFFFFF' }}>Ask Luna</span>
-          <span style={{ fontSize: 11, color: '#9C9C8A' }}>Online · 24/7</span>
+          <span style={{ fontSize: 11, color: 'var(--color-fog)' }}>Online · 24/7</span>
         </span>
         <span className="flex-shrink-0 flex items-center justify-center rounded-full" style={{ width: 40, height: 40, background: TEAL }} aria-hidden="true">
           <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
-            <path d="M3 7h8M7 3l4 4-4 4" stroke="#1A1A0E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 7h8M7 3l4 4-4 4" stroke="var(--color-ink)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </button>

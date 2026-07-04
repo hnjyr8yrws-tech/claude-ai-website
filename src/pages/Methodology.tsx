@@ -98,7 +98,7 @@ function ToolLink({ tool, className }: { tool: ToolRef; className?: string }) {
     <Link
       to={toolReviewPath(tool.slug)}
       className={[
-        'font-medium text-blue-700 underline underline-offset-2 hover:text-blue-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
+        'font-medium text-[var(--color-ink-accent)] underline underline-offset-2 hover:text-[var(--color-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
         className,
       ]
         .filter(Boolean)
@@ -249,7 +249,7 @@ function SuppressedToolExample() {
               <p className="font-medium">Score withheld</p>
               <p className="mt-0.5 text-neutral-600">
                 This tool is awaiting re-review. See the reason in the{' '}
-                <SmoothAnchor targetId={EXAMPLE_WITHDRAWAL_ANCHOR} className="font-medium text-blue-700 underline underline-offset-2 hover:text-blue-800">
+                <SmoothAnchor targetId={EXAMPLE_WITHDRAWAL_ANCHOR} className="font-medium text-[var(--color-ink-accent)] underline underline-offset-2 hover:text-[var(--color-ink)]">
                   June 2026 withdrawal record
                 </SmoothAnchor>.
               </p>
