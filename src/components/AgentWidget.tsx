@@ -4,7 +4,8 @@
  * - Detects the current page section and adjusts persona + conversation starters
  * - Serves all education audiences (teachers, SLT, SENCO, parents, students, admin, IT)
  * - Fires analytics events for key interactions
- * - Quiz flows: "Find my tool/equipment/training/prompt"
+ * - "Open Door" entry (Concept A): composer docked and live from first paint,
+ *   optional role chips, three exemplar questions
  *
  * Open from anywhere via:
  *   window.dispatchEvent(new CustomEvent('open-agent-chat'))
@@ -49,66 +50,138 @@ function TypingDots() {
   );
 }
 
-// ─── Role selector ────────────────────────────────────────────────────────────
+// ─── Concept A "Open Door" entry components (§3) ───────────────────────────────
 
-function RoleSelector({
-  mode,
+/** Optional role chips — a single horizontal scrollable row. No gating: the
+ *  composer below stays live whether or not a role is chosen. */
+function RoleChipRow({
+  selected,
   onSelect,
 }: {
-  mode: AgentMode;
-  onSelect: (r: AgentRole) => void;
+  selected: AgentRole | null;
+  onSelect: (r: AgentRole | null) => void;
 }) {
-  const starters = CONVERSATION_STARTERS[mode];
-
   return (
-    <div className="flex-1 flex flex-col p-5 overflow-y-auto" style={{ background: '#f7f6f2' }}>
-      {/* Welcome */}
+    <div className="relative">
       <div
-        className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed mb-4"
-        style={{ background: 'white', color: '#6b6760' }}
+        role="group"
+        aria-label="Your role (optional)"
+        className="flex gap-1.5 overflow-x-auto pb-1 pr-6"
       >
-        Hi — I'm Luna. I help you find AI tools, training and equipment that are
-        actually safe for UK schools. Tell me your role and what you're trying to do,
-        and I'll be useful in under three minutes. (Conversations may be logged for quality.)
+        {ALL_ROLES.map(r => {
+          const active = selected === r;
+          return (
+            <button
+              key={r}
+              type="button"
+              aria-pressed={active}
+              onClick={() => onSelect(active ? null : r)}
+              className="flex-shrink-0 px-3 py-1.5 rounded-full border text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E] focus-visible:ring-offset-1"
+              style={
+                active
+                  ? { background: '#1E1E1E', borderColor: '#1E1E1E', color: '#FFFFFF' }
+                  : { background: 'white', borderColor: '#e8e6e0', color: '#6b6760' }
+              }
+            >
+              {r}
+            </button>
+          );
+        })}
       </div>
+      {/* Right-edge fade — subtle scroll affordance (decorative). Fades to the
+          panel background; macOS overlay scrollbars otherwise give no hint the
+          row scrolls. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 right-0 w-6"
+        style={{ background: 'linear-gradient(to left, #f7f6f2, rgba(247, 246, 242, 0))' }}
+      />
+    </div>
+  );
+}
 
-      {/* Role grid */}
-      <div className="grid grid-cols-3 gap-1.5 mb-5">
-        {ALL_ROLES.map(r => (
-          <button
-            key={r}
-            onClick={() => onSelect(r)}
-            className="px-2 py-2 rounded-xl border text-xs font-semibold transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
-          >
-            {r}
-          </button>
-        ))}
-      </div>
-
-      {/* Conversation starters */}
+/** Three exemplar questions — each submits as a user message when tapped. */
+function ExemplarQuestionList({
+  questions,
+  onAsk,
+}: {
+  questions: string[];
+  onAsk: (q: string) => void;
+}) {
+  return (
+    <div>
       <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#6b6760' }}>
-        Or jump straight in
+        Try asking
       </p>
-      <div className="space-y-1.5">
-        {starters.map(s => (
-          <button
-            key={s}
-            onClick={() => {
-              trackEvent({ name: 'starter_clicked', starter: s });
-              // Pre-fill — user still needs to select a role to actually send,
-              // so we surface a compact role picker after clicking a starter.
-              onSelect('Teacher'); // default to Teacher for starters; user can switch role
-              // We dispatch a custom event to send the starter after role is set.
-              window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: s }));
-            }}
-            className="w-full text-left px-3 py-2 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[var(--color-promptly-lime)] hover:bg-white"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
-          >
-            {s}
-          </button>
+      <ul className="space-y-1.5 list-none p-0 m-0" aria-label="Example questions">
+        {questions.map(q => (
+          <li key={q}>
+            <button
+              type="button"
+              onClick={() => onAsk(q)}
+              className="w-full text-left px-3 py-2.5 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[#9C9C8A] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E]"
+              style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+            >
+              {q}
+            </button>
+          </li>
         ))}
-      </div>
+      </ul>
+    </div>
+  );
+}
+
+/** Docked composer — visible, live and focusable from the very first paint
+ *  (locked Decision 4). The send button is the single lime action on the
+ *  entry screen. */
+function DockedComposer({
+  value,
+  onChange,
+  onSend,
+  onKeyDown,
+  placeholder,
+  sendDisabled,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  onSend: () => void;
+  onKeyDown: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
+  placeholder: string;
+  sendDisabled: boolean;
+}) {
+  return (
+    <div
+      className="flex items-end gap-2 px-3 py-3 flex-shrink-0"
+      style={{ borderTop: '1px solid #e8e6e0', background: 'white' }}
+    >
+      <textarea
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        onKeyDown={onKeyDown}
+        placeholder={placeholder}
+        aria-label="Message Luna"
+        rows={1}
+        className="flex-1 resize-none px-3 py-2 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors"
+        style={{
+          borderColor: '#e8e6e0',
+          color: 'var(--text)',
+          background: '#f7f6f2',
+          maxHeight: '96px',
+          lineHeight: '1.4',
+        }}
+      />
+      <button
+        onClick={onSend}
+        disabled={sendDisabled}
+        className="w-11 h-11 rounded-xl flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E] focus-visible:ring-offset-1"
+        style={{ background: TEAL }}
+        aria-label="Send message"
+        type="button"
+      >
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="#1A1A0E" />
+        </svg>
+      </button>
     </div>
   );
 }
@@ -170,7 +243,8 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
   );
 }
 
-// ─── Quick-find quiz ───────────────────────────────────────────────────────────
+// ─── Quick-find quiz (dormant) ──────────────────────────────────────────────────
+// No entry point on the Concept A entry screen — kept intact for possible re-use.
 
 type QuizStep = { question: string; options: string[] };
 
@@ -398,7 +472,8 @@ function ChatPanel({ mode, onClose }: PanelProps) {
 
   function handleSend() {
     const text = input.trim();
-    if (!text || loading || !role) return;
+    if (!text || loading) return; // role is optional — typing first is always allowed
+    if (!intentDone) setIntentDone(true); // typed-first bypass of the intent step
     setInput('');
     sendMessage(text);
   }
@@ -408,6 +483,14 @@ function ChatPanel({ mode, onClose }: PanelProps) {
       e.preventDefault();
       handleSend();
     }
+  }
+
+  // Exemplar questions submit as user messages and go straight to the chat.
+  function handleExemplar(q: string) {
+    if (loading) return;
+    trackEvent({ name: 'starter_clicked', starter: q });
+    if (!intentDone) setIntentDone(true);
+    sendMessage(q);
   }
 
   function handleQuizComplete(summary: string) {
@@ -423,8 +506,6 @@ function ChatPanel({ mode, onClose }: PanelProps) {
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
-
-  const quizKey = QUIZ_PATHS[mode];
 
   return (
     <motion.div
@@ -465,9 +546,9 @@ function ChatPanel({ mode, onClose }: PanelProps) {
         </div>
 
         <div className="flex items-center gap-3">
-          {role && messages.length > 0 && (
+          {messages.length > 0 && (
             <button
-              onClick={clearMessages}
+              onClick={() => { clearMessages(); setIntent(null); setIntentDone(false); }}
               className="text-[10px] transition-opacity hover:opacity-60"
               style={{ color: '#6b6760' }}
             >
@@ -495,153 +576,145 @@ function ChatPanel({ mode, onClose }: PanelProps) {
         </div>
       </div>
 
-      {/* Body */}
+      {/* Body — the docked composer below is rendered in EVERY state, so the
+          input is visible and live from first paint (locked Decision 4). */}
       {quiz ? (
         <QuickFindQuiz
           quizKey={quiz}
           onComplete={handleQuizComplete}
           onCancel={() => setQuiz(null)}
         />
-      ) : !role ? (
-        <RoleSelector mode={mode} onSelect={setRole} />
-      ) : !intentDone ? (
+      ) : role && !intentDone ? (
+        /* Intent-aware step — runs after an (optional) role chip is chosen.
+           Typing in the composer below bypasses it (typed-first). */
         <IntentEntry
           onComplete={(i) => { setIntent(i); setIntentDone(true); }}
           onSkip={() => setIntentDone(true)}
         />
       ) : (
-        <>
-          {/* Message list */}
-          <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3" style={{ background: '#f7f6f2' }}>
-
-            {/* Welcome */}
-            {messages.length === 0 && (
-              <div className="space-y-3">
+        <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3" style={{ background: '#f7f6f2' }}>
+          {messages.length === 0 ? (
+            role && intentDone ? (
+              /* Post-intent transitional state — short, chat-ready confirmation
+                 (shown after the intent questions complete or are skipped);
+                 the selected role chip stays visible and highlighted. */
+              <div className="space-y-4">
                 <div
+                  role="status"
                   className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed"
                   style={{ background: 'white', color: '#6b6760' }}
                 >
-                  Right — what are you trying to do? I'll point you to AI tools, training,
-                  equipment or prompts that are safe for UK schools, and show you the
-                  Pillar Card behind any score I quote. I'll keep it to three at a time.
+                  Thanks — ask away.
                 </div>
-
-                {/* Quick-find quiz button */}
-                {quizKey && (
-                  <button
-                    onClick={() => setQuiz(quizKey)}
-                    className="w-full text-left px-4 py-3 rounded-2xl border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)]"
-                    style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
+                <RoleChipRow selected={role} onSelect={setRole} />
+              </div>
+            ) : (
+              /* Concept A "Open Door" entry — greeting, optional role chips,
+                 three exemplar questions. No gating; no pillar colours. */
+              <div className="space-y-4">
+                {/* Greeting card — canonical welcome, verbatim. */}
+                <div className="relative">
+                  {/* §12 editorial device — lime margin annotation (decorative,
+                      slightly imperfect; sits in the margin on the panel
+                      background, not on the white card). */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute"
+                    style={{
+                      left: -7,
+                      top: 5,
+                      bottom: 9,
+                      width: 1.5,
+                      background: TEAL,
+                      transform: 'rotate(0.6deg)',
+                      borderRadius: 1,
+                    }}
+                  />
+                  <div
+                    className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed"
+                    style={{ background: 'white', color: '#6b6760' }}
                   >
-                    ✦ <span style={{ color: 'var(--color-ink-accent)' }}>Quick quiz:</span> {QUIZ_LABELS[quizKey]} for me →
-                  </button>
-                )}
-
-                {/* Conversation starters */}
-                <div className="space-y-1.5">
-                  {CONVERSATION_STARTERS[mode].map(s => (
-                    <button
-                      key={s}
-                      onClick={() => {
-                        trackEvent({ name: 'starter_clicked', starter: s });
-                        sendMessage(s);
-                      }}
-                      className="w-full text-left px-3 py-2 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[var(--color-promptly-lime)] hover:bg-white"
-                      style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
-                    >
-                      {s}
-                    </button>
-                  ))}
+                    Hi — I'm Luna. I help you find AI tools, training and equipment that are
+                    actually safe for UK schools. Tell me your role and what you're trying to do,
+                    and I'll be useful in under three minutes. (Conversations may be logged for quality.)
+                  </div>
                 </div>
-              </div>
-            )}
 
-            {/* Messages */}
-            {messages.map(msg => (
-              <div
-                key={msg.id}
-                className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
-              >
+                {/* Optional role chips */}
+                <RoleChipRow selected={role} onSelect={setRole} />
+
+                {/* Three exemplar questions */}
+                <ExemplarQuestionList
+                  questions={CONVERSATION_STARTERS[mode].slice(0, 3)}
+                  onAsk={handleExemplar}
+                />
+              </div>
+            )
+          ) : (
+            <>
+              {/* Messages */}
+              {messages.map(msg => (
                 <div
-                  className="px-4 py-3 rounded-2xl text-sm leading-relaxed max-w-[86%] whitespace-pre-wrap"
-                  style={
-                    msg.role === 'user'
-                      ? { background: TEAL, color: '#1A1A0E', borderRadius: '16px 16px 4px 16px' }
-                      : { background: 'white', color: '#1c1a15', borderRadius: '4px 16px 16px 16px' }
-                  }
+                  key={msg.id}
+                  className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                 >
-                  {msg.content}
+                  <div
+                    className="px-4 py-3 rounded-2xl text-sm leading-relaxed max-w-[86%] whitespace-pre-wrap"
+                    style={
+                      msg.role === 'user'
+                        ? { background: TEAL, color: '#1A1A0E', borderRadius: '16px 16px 4px 16px' }
+                        : { background: 'white', color: '#1c1a15', borderRadius: '4px 16px 16px 16px' }
+                    }
+                  >
+                    {msg.content}
+                  </div>
+                  {/* Provenance inline stamp — fail-closed trust summary for any tool
+                      referenced in a Luna reply (structured payload → text fallback). */}
+                  {msg.role === 'assistant' && (
+                    <Suspense fallback={null}>
+                      <LunaMessageTrust text={msg.content} tools={msg.tools} />
+                    </Suspense>
+                  )}
                 </div>
-                {/* Provenance inline stamp — fail-closed trust summary for any tool
-                    referenced in a Luna reply (structured payload → text fallback). */}
-                {msg.role === 'assistant' && (
-                  <Suspense fallback={null}>
-                    <LunaMessageTrust text={msg.content} tools={msg.tools} />
-                  </Suspense>
-                )}
-              </div>
-            ))}
+              ))}
 
-            {/* Typing indicator */}
-            {loading && (
-              <div className="flex justify-start">
-                <div className="rounded-2xl" style={{ background: 'white', borderRadius: '4px 16px 16px 16px' }}>
-                  <TypingDots />
+              {/* Typing indicator */}
+              {loading && (
+                <div className="flex justify-start">
+                  <div className="rounded-2xl" style={{ background: 'white', borderRadius: '4px 16px 16px 16px' }}>
+                    <TypingDots />
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Error */}
-            {error && (
-              <div
-                className="px-4 py-3 rounded-xl text-xs"
-                style={{ background: '#fee2e2', color: '#991b1b' }}
-              >
-                {error}
-              </div>
-            )}
+              {/* Error */}
+              {error && (
+                <div
+                  className="px-4 py-3 rounded-xl text-xs"
+                  style={{ background: '#fee2e2', color: '#991b1b' }}
+                >
+                  {error}
+                </div>
+              )}
+            </>
+          )}
 
-            <div ref={bottomRef} />
-          </div>
-
-          {/* Lead capture */}
-          {showLeadCapture && <LeadCapture agentRole={role} />}
-
-          {/* Input */}
-          <div
-            className="flex items-end gap-2 px-3 py-3 flex-shrink-0"
-            style={{ borderTop: '1px solid #e8e6e0', background: 'white' }}
-          >
-            <textarea
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder={`Ask your ${MODE_PERSONA[mode].toLowerCase()}…`}
-              rows={1}
-              className="flex-1 resize-none px-3 py-2 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors"
-              style={{
-                borderColor: '#e8e6e0',
-                color: 'var(--text)',
-                background: '#f7f6f2',
-                maxHeight: '96px',
-                lineHeight: '1.4',
-              }}
-            />
-            <button
-              onClick={handleSend}
-              disabled={!input.trim() || loading}
-              className="w-11 h-11 rounded-xl flex-shrink-0 flex items-center justify-center transition-opacity disabled:opacity-30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A1A0E] focus-visible:ring-offset-1"
-              style={{ background: TEAL }}
-              aria-label="Send message"
-              type="button"
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M2 8L14 2L8 14L7 9L2 8Z" fill="#1A1A0E" />
-              </svg>
-            </button>
-          </div>
-        </>
+          <div ref={bottomRef} />
+        </div>
       )}
+
+      {/* Lead capture */}
+      {showLeadCapture && <LeadCapture agentRole={role ?? 'Teacher'} />}
+
+      {/* Docked composer — always rendered, live from first paint */}
+      <DockedComposer
+        value={input}
+        onChange={setInput}
+        onSend={handleSend}
+        onKeyDown={handleKeyDown}
+        placeholder={`Ask your ${MODE_PERSONA[mode].toLowerCase()}…`}
+        sendDisabled={!input.trim() || loading}
+      />
     </motion.div>
   );
 }
