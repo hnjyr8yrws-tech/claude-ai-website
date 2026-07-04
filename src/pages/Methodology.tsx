@@ -58,10 +58,10 @@ function RecordAnchor({ id, label = 'this record' }: { id: string; label?: strin
       onClick={onClick}
       title="Copy link to this record"
       aria-label={`Copy link to ${label}`}
-      className="inline-flex items-center gap-1 rounded text-neutral-400 hover:text-neutral-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+      className="inline-flex items-center gap-1 rounded text-[var(--color-fog)] hover:text-[var(--text)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
     >
       <span aria-hidden="true" className="font-mono text-sm leading-none">#</span>
-      {copied ? <span aria-hidden="true" className="text-xs text-green-700">Copied</span> : null}
+      {copied ? <span aria-hidden="true" className="text-xs text-[var(--color-ink-accent)]">Copied</span> : null}
       <span role="status" aria-live="polite" className="sr-only">{copied ? 'Link copied to clipboard' : ''}</span>
     </a>
   );
@@ -115,14 +115,14 @@ function MethodologyChangelog({ entries }: { entries: ChangelogEntry[] }) {
   return (
     <ol className="space-y-5">
       {entries.map((e) => (
-        <li key={e.version} className="border-l-2 border-neutral-200 pl-4">
+        <li key={e.version} className="border-l-2 border-[var(--color-rule)] pl-4">
           <div className="flex items-baseline gap-2">
-            <span className="font-mono text-sm font-semibold text-neutral-900">v{e.version}</span>
-            <time dateTime={e.date} className="text-xs text-neutral-500">{formatDateGB(e.date)}</time>
+            <span className="font-mono text-sm font-semibold text-[var(--text)]">v{e.version}</span>
+            <time dateTime={e.date} className="text-xs text-[var(--color-fog)]">{formatDateGB(e.date)}</time>
           </div>
-          <p className="mt-1 max-w-prose text-sm text-neutral-700">{e.summary}</p>
+          <p className="mt-1 max-w-prose text-sm text-site-muted">{e.summary}</p>
           {e.details?.length ? (
-            <ul className="mt-1.5 list-disc space-y-0.5 pl-5 text-sm text-neutral-600">
+            <ul className="mt-1.5 list-disc space-y-0.5 pl-5 text-sm text-site-muted">
               {e.details.map((d, i) => (
                 <li key={i}>{d}</li>
               ))}
@@ -145,13 +145,13 @@ function ScoreChangeRow({ entry }: { entry: ScoreChangeRecord }) {
   return (
     <div className="space-y-1.5">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-600">
+        <span className="rounded bg-[var(--color-oat)] px-1.5 py-0.5 text-xs font-medium text-site-muted">
           Score change
         </span>
         <ToolLink tool={entry.tool} />
         <ScoreChangeStamp change={entry.change} />
       </div>
-      {entry.note ? <p className="max-w-prose text-sm text-neutral-600">{entry.note}</p> : null}
+      {entry.note ? <p className="max-w-prose text-sm text-site-muted">{entry.note}</p> : null}
     </div>
   );
 }
@@ -160,21 +160,23 @@ function WithdrawalRow({ entry }: { entry: WithdrawalRecord }) {
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="rounded bg-red-50 px-1.5 py-0.5 text-xs font-medium text-red-700">Withdrawal</span>
-        <span className="text-sm text-neutral-700">
+        {/* Withdrawal marker — redaction-black, matching the withdrawn Pillar Card
+            (no alarm-red; §09 has no traffic-light colours). */}
+        <span className="rounded bg-[var(--color-ground-black)] px-1.5 py-0.5 text-xs font-medium text-[var(--color-oat)]">Withdrawal</span>
+        <span className="text-sm text-site-muted">
           {entry.reasonCategory} · {entry.tools.length} {entry.tools.length === 1 ? 'tool' : 'tools'}
         </span>
-        <span className="rounded border border-neutral-300 px-1.5 py-0.5 text-xs text-neutral-600">
+        <span className="rounded border border-[var(--color-rule)] px-1.5 py-0.5 text-xs text-site-muted">
           Holding: {HOLDING_LABEL[entry.holdingState]}
         </span>
       </div>
-      <p className="max-w-prose text-sm text-neutral-700">{entry.summary}</p>
+      <p className="max-w-prose text-sm text-site-muted">{entry.summary}</p>
       <dl className="text-sm">
-        <dt className="inline font-medium text-neutral-600">Statutory basis: </dt>
-        <dd className="inline text-neutral-700">{entry.kcsieBasis}</dd>
+        <dt className="inline font-medium text-site-muted">Statutory basis: </dt>
+        <dd className="inline text-site-muted">{entry.kcsieBasis}</dd>
       </dl>
       <div>
-        <p className="text-xs font-medium uppercase tracking-wide text-neutral-500">Tools affected</p>
+        <p className="text-xs font-medium uppercase tracking-wide text-[var(--color-fog)]">Tools affected</p>
         <ul className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm">
           {entry.tools.map((t) => (
             <li key={t.slug}>
@@ -191,10 +193,10 @@ function IntegrityRecord({ entries }: { entries: IntegrityRecordEntry[] }) {
   return (
     <ol className="space-y-6">
       {entries.map((entry) => (
-        <li key={entry.id} id={entry.id} className="scroll-mt-20 rounded-lg border border-neutral-200 p-4">
+        <li key={entry.id} id={entry.id} className="scroll-mt-20 rounded-lg border border-[var(--color-rule)] p-4">
           <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-1.5">
-              <time dateTime={entry.date} className="text-sm font-medium text-neutral-900">
+              <time dateTime={entry.date} className="text-sm font-medium text-[var(--text)]">
                 {formatDateGB(entry.date)}
               </time>
               <RecordAnchor id={entry.id} />
@@ -212,12 +214,12 @@ function IntegrityRecord({ entries }: { entries: IntegrityRecordEntry[] }) {
 
 function ScoreChangeFeed({ entries }: { entries: ScoreFeedEntry[] }) {
   return (
-    <ul className="divide-y divide-neutral-200">
+    <ul className="divide-y divide-[var(--color-rule)]">
       {entries.map((e) => (
         <li key={e.id} className="flex flex-wrap items-center gap-2 py-3">
           <ToolLink tool={e.tool} />
           <ScoreChangeStamp change={e.change} />
-          {e.note ? <span className="text-sm text-neutral-600">— {e.note}</span> : null}
+          {e.note ? <span className="text-sm text-site-muted">— {e.note}</span> : null}
         </li>
       ))}
     </ul>
@@ -231,12 +233,12 @@ const EXAMPLE_WITHDRAWAL_ANCHOR = 'withdrawal-2026-06-safeguarding';
 
 function SuppressedToolExample() {
   return (
-    <details className="mb-6 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-      <summary className="cursor-pointer text-sm font-medium text-neutral-800">
+    <details className="mb-6 rounded-lg border border-[var(--color-rule)] bg-[var(--color-oat)] p-4">
+      <summary className="cursor-pointer text-sm font-medium text-[var(--text)]">
         What a viewer currently sees on a suppressed tool page
       </summary>
       <div className="mt-3 space-y-3">
-        <p className="max-w-prose text-sm text-neutral-600">
+        <p className="max-w-prose text-sm text-site-muted">
           Illustrative only. On a tool&rsquo;s own page, <code className="font-mono text-xs">Rule4bGuard</code>{' '}
           withholds the score when the tool is Withdrawn or Awaiting re-review.
         </p>
@@ -245,9 +247,9 @@ function SuppressedToolExample() {
           integrity={EXAMPLE_INTEGRITY}
           displayState="AwaitingReReview"
           renderUnavailable={() => (
-            <div role="status" className="max-w-sm rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-700">
+            <div role="status" className="max-w-sm rounded-md border border-[var(--color-rule)] bg-white px-3 py-2 text-sm text-site-muted">
               <p className="font-medium">Score withheld</p>
-              <p className="mt-0.5 text-neutral-600">
+              <p className="mt-0.5 text-site-muted">
                 This tool is awaiting re-review. See the reason in the{' '}
                 <SmoothAnchor targetId={EXAMPLE_WITHDRAWAL_ANCHOR} className="font-medium text-[var(--color-ink-accent)] underline underline-offset-2 hover:text-[var(--color-ink)]">
                   June 2026 withdrawal record
@@ -256,7 +258,7 @@ function SuppressedToolExample() {
             </div>
           )}
         >
-          <div className="max-w-sm rounded-md border border-neutral-200 bg-white p-3 text-sm text-neutral-500">
+          <div className="max-w-sm rounded-md border border-[var(--color-rule)] bg-white p-3 text-sm text-[var(--color-fog)]">
             (A normal trust card would appear here when the score is live.)
           </div>
         </Rule4bGuard>
@@ -280,9 +282,9 @@ export default function Methodology() {
 
       <div className="mx-auto max-w-3xl px-4 py-10">
         {/* Header */}
-        <header className="border-b border-neutral-200 pb-6">
-          <h1 className="text-2xl font-semibold text-neutral-900">Methodology</h1>
-          <p className="mt-2 max-w-prose text-sm text-neutral-600">
+        <header className="border-b border-[var(--color-rule)] pb-6">
+          <h1 className="text-2xl font-semibold text-[var(--text)]">Methodology</h1>
+          <p className="mt-2 max-w-prose text-sm text-site-muted">
             This is our living methodology: how we review tools, how scores can change, and a full record of
             integrity actions. It is the reference we link to whenever a score is provisional, updated, or withheld.
           </p>
@@ -295,24 +297,24 @@ export default function Methodology() {
               }}
             />
           </div>
-          <p className="mt-1 text-xs text-neutral-500">
+          <p className="mt-1 text-xs text-[var(--color-fog)]">
             Last updated {formatDateGB(methodologyMeta.lastUpdated)}.
           </p>
         </header>
 
         {/* Changelog */}
         <section aria-labelledby="changelog-heading" className="py-8">
-          <h2 id="changelog-heading" className="text-lg font-semibold text-neutral-900">Changelog</h2>
-          <p className="mt-1 text-sm text-neutral-600">Material changes to the methodology, most recent first.</p>
+          <h2 id="changelog-heading" className="text-lg font-semibold text-[var(--text)]">Changelog</h2>
+          <p className="mt-1 text-sm text-site-muted">Material changes to the methodology, most recent first.</p>
           <div className="mt-4">
             <MethodologyChangelog entries={changelog} />
           </div>
         </section>
 
         {/* Integrity Record */}
-        <section aria-labelledby="integrity-heading" className="border-t border-neutral-200 py-8">
-          <h2 id="integrity-heading" className="text-lg font-semibold text-neutral-900">Integrity record</h2>
-          <p className="mt-1 max-w-prose text-sm text-neutral-600">
+        <section aria-labelledby="integrity-heading" className="border-t border-[var(--color-rule)] py-8">
+          <h2 id="integrity-heading" className="text-lg font-semibold text-[var(--text)]">Integrity record</h2>
+          <p className="mt-1 max-w-prose text-sm text-site-muted">
             Score changes and withdrawals, with the reason and reviewer for each. This record stays visible even
             when a tool&rsquo;s own score is withheld.
           </p>
@@ -325,9 +327,9 @@ export default function Methodology() {
         </section>
 
         {/* Score Change Feed */}
-        <section aria-labelledby="feed-heading" className="border-t border-neutral-200 py-8">
-          <h2 id="feed-heading" className="text-lg font-semibold text-neutral-900">Score change feed</h2>
-          <p className="mt-1 text-sm text-neutral-600">Notable score movements. Curated for now; automated later.</p>
+        <section aria-labelledby="feed-heading" className="border-t border-[var(--color-rule)] py-8">
+          <h2 id="feed-heading" className="text-lg font-semibold text-[var(--text)]">Score change feed</h2>
+          <p className="mt-1 text-sm text-site-muted">Notable score movements. Curated for now; automated later.</p>
           <div className="mt-4">
             <ScoreChangeFeed entries={scoreChangeFeed} />
           </div>

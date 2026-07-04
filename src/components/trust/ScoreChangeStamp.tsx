@@ -8,11 +8,6 @@ export interface ScoreChangeStampProps {
 }
 
 const ARROW = { up: '↑', down: '↓', none: '→' } as const;
-const TONE = {
-  up: 'text-green-700 bg-green-50 border-green-200',
-  down: 'text-red-700 bg-red-50 border-red-200',
-  none: 'text-neutral-600 bg-neutral-50 border-neutral-200',
-} as const;
 
 const fmt = (n: number) => n.toFixed(1);
 
@@ -21,11 +16,14 @@ export function ScoreChangeStamp({ change, className }: ScoreChangeStampProps) {
   const verb =
     direction === 'up' ? 'increased' : direction === 'down' ? 'decreased' : 'changed';
 
+  // No traffic-light colours (§09: quality is never a recoloured digit) — the
+  // direction is carried by the arrow glyph and the aria-label; the arrow takes
+  // ink-accent, the light-surface substitute for lime.
   return (
     <span
       className={[
         'inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-medium',
-        TONE[direction],
+        'border-[var(--color-rule)] bg-[var(--color-oat)] text-[var(--text)]',
         className,
       ]
         .filter(Boolean)
@@ -35,10 +33,11 @@ export function ScoreChangeStamp({ change, className }: ScoreChangeStampProps) {
       }`}
     >
       <span aria-hidden="true">
-        {ARROW[direction]} {fmt(from)} → {fmt(to)} · {formatDateGB(date)}
+        <span style={{ color: 'var(--color-ink-accent)' }}>{ARROW[direction]}</span>{' '}
+        {fmt(from)} → {fmt(to)} · {formatDateGB(date)}
       </span>
       {reason ? (
-        <span aria-hidden="true" className="font-normal opacity-80">
+        <span aria-hidden="true" className="font-normal" style={{ color: 'var(--color-fog)' }}>
           ({reason})
         </span>
       ) : null}
