@@ -29,6 +29,9 @@
   /* Dark lime for emphasis TEXT on light surfaces (lime itself is 1.4:1 — fails).
      #46540E = 8.3:1 on white, 7.7:1 on oat. Lime stays for fills/CTAs + text on dark. */
   --color-ink-accent:      #46540E;
+  /* Body-secondary text on light surfaces (5.9:1 on white). Sits between ink and
+     fog — fog (2.6:1) is labels-only and must never carry body copy. */
+  --color-ink-muted:       #6b6760;
   --color-fog:             #9C9C8A;
   --color-rule:            #E8E4DC;
   --color-pillar-privacy:       #6A8CAF;

@@ -41,7 +41,7 @@ const CopyButton = ({ text, size = 'md', onCopied }: Props) => {
       } ${
         copied
           ? 'border-[var(--color-promptly-lime)] bg-[var(--color-oat)] text-[var(--color-promptly-lime)]'
-          : 'border-[#e8e6e0] bg-white text-[#6b6760] hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]'
+          : 'border-[var(--color-rule)] bg-white text-[var(--color-ink-muted)] hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]'
       }`}
     >
       {copied ? (

@@ -64,7 +64,7 @@ const PageLoader = () => (
   <div className="flex items-center justify-center min-h-[60vh]">
     <div
       className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin"
-      style={{ borderColor: '#e8e6e0', borderTopColor: 'var(--color-promptly-lime)' }}
+      style={{ borderColor: 'var(--color-rule)', borderTopColor: 'var(--color-promptly-lime)' }}
       role="status"
       aria-label="Loading page"
     />

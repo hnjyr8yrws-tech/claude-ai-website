@@ -53,10 +53,10 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-xl border p-4 flex flex-col gap-2"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-muted)' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -69,7 +69,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         </h3>
       </Link>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{product.brand}</p>
-      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
+      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: 'var(--color-ink-muted)' }}>{product.desc}</p>
       <p className="text-xs italic" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
       {product.senCategory.length > 0 && (
         <div className="flex flex-wrap gap-1">
@@ -97,7 +97,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           View →
         </a>
@@ -110,14 +110,14 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
   return (
     <div
       className="rounded-xl border p-5 flex flex-col gap-3"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <p className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-accent)' }}>
         Bundle · {bundle.totalPriceBand}
       </p>
       <h3 className="font-display text-lg leading-snug" style={{ color: 'var(--text)' }}>{bundle.name}</h3>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
-      <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
+      <p className="text-sm leading-relaxed flex-1" style={{ color: 'var(--color-ink-muted)' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map((s: string) => (
           <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
@@ -178,7 +178,7 @@ export default function AIEquipmentSEND() {
           SEND &amp; Assistive<br />
           <span style={{ color: 'var(--color-ink-accent)' }}>Technology</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: 'var(--color-ink-muted)' }}>
           AAC devices, sensory tools, hearing supports, assistive literacy and classroom adaptations for SEND pupils.
         </p>
 
@@ -207,10 +207,10 @@ export default function AIEquipmentSEND() {
                 key={card.label}
                 to={`/ai-equipment/category/${catToSlug(card.category)}`}
                 className="rounded-xl border p-5 flex flex-col gap-2 transition-shadow hover:shadow-md"
-                style={{ borderColor: '#e8e6e0', background: 'white' }}
+                style={{ borderColor: 'var(--color-rule)', background: 'white' }}
               >
                 <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{card.label}</h3>
-                <p className="text-sm flex-1" style={{ color: '#6b6760' }}>{card.desc}</p>
+                <p className="text-sm flex-1" style={{ color: 'var(--color-ink-muted)' }}>{card.desc}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs" style={{ color: '#9ca3af' }}>{count} products</span>
                   <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse →</span>
@@ -222,7 +222,7 @@ export default function AIEquipmentSEND() {
       </div>
 
       {/* ALL SEND PRODUCTS */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
           <SectionLabel>All SEND products</SectionLabel>
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -235,9 +235,9 @@ export default function AIEquipmentSEND() {
               onClick={() => { setCategoryFilter('All'); setSenFilter('All'); }}
               className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
               style={{
-                borderColor: categoryFilter === 'All' && senFilter === 'All' ? TEAL : '#e8e6e0',
+                borderColor: categoryFilter === 'All' && senFilter === 'All' ? TEAL : 'var(--color-rule)',
                 background: categoryFilter === 'All' && senFilter === 'All' ? 'var(--color-oat)' : 'white',
-                color: categoryFilter === 'All' && senFilter === 'All' ? TEAL : '#6b6760',
+                color: categoryFilter === 'All' && senFilter === 'All' ? TEAL : 'var(--color-ink-muted)',
               }}
             >
               All SEND Products
@@ -248,9 +248,9 @@ export default function AIEquipmentSEND() {
                 onClick={() => { setCategoryFilter(card.category); setSenFilter('All'); }}
                 className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
                 style={{
-                  borderColor: categoryFilter === card.category ? TEAL : '#e8e6e0',
+                  borderColor: categoryFilter === card.category ? TEAL : 'var(--color-rule)',
                   background: categoryFilter === card.category ? 'var(--color-oat)' : 'white',
-                  color: categoryFilter === card.category ? TEAL : '#6b6760',
+                  color: categoryFilter === card.category ? TEAL : 'var(--color-ink-muted)',
                 }}
               >
                 {card.label}
@@ -266,9 +266,9 @@ export default function AIEquipmentSEND() {
                 onClick={() => setSenFilter('All')}
                 className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                 style={{
-                  borderColor: senFilter === 'All' ? TEAL : '#e8e6e0',
+                  borderColor: senFilter === 'All' ? TEAL : 'var(--color-rule)',
                   background: senFilter === 'All' ? 'var(--color-oat)' : 'white',
-                  color: senFilter === 'All' ? TEAL : '#6b6760',
+                  color: senFilter === 'All' ? TEAL : 'var(--color-ink-muted)',
                 }}
               >
                 All
@@ -279,9 +279,9 @@ export default function AIEquipmentSEND() {
                   onClick={() => setSenFilter(s)}
                   className="text-xs px-2.5 py-1 rounded-lg border transition-colors"
                   style={{
-                    borderColor: senFilter === s ? TEAL : '#e8e6e0',
+                    borderColor: senFilter === s ? TEAL : 'var(--color-rule)',
                     background: senFilter === s ? 'var(--color-oat)' : 'white',
-                    color: senFilter === s ? TEAL : '#6b6760',
+                    color: senFilter === s ? TEAL : 'var(--color-ink-muted)',
                   }}
                 >
                   {s}
@@ -310,11 +310,11 @@ export default function AIEquipmentSEND() {
             <div
               key={card.title}
               className="rounded-xl border p-5 flex flex-col gap-3"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white' }}
             >
               <div className="text-2xl">{card.icon}</div>
               <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{card.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{card.desc}</p>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{card.desc}</p>
             </div>
           ))}
         </div>
@@ -322,7 +322,7 @@ export default function AIEquipmentSEND() {
 
       {/* BUNDLES FOR SEND */}
       {bundles.length > 0 && (
-        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
           <div className="max-w-6xl mx-auto">
             <SectionLabel>SEND bundles</SectionLabel>
             <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -340,16 +340,16 @@ export default function AIEquipmentSEND() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
           <div>
             <p className="font-display text-xl text-white mb-1">Need specialist SEND guidance?</p>
-            <p className="text-sm" style={{ color: '#6b6760' }}>Ask the AI or explore our SEND resources.</p>
+            <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>Ask the AI or explore our SEND resources.</p>
           </div>
           <div className="flex flex-wrap gap-4">
-            <Link to="/ai-equipment/schools" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment/schools" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               School Equipment →
             </Link>
-            <Link to="/ai-training/send" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-training/send" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               SEND AI Training →
             </Link>
-            <Link to="/prompts/senco" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/prompts/senco" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               SENCO Prompts →
             </Link>
           </div>

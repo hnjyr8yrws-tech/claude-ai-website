@@ -27,10 +27,10 @@ function RelatedCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-xl border p-4 flex flex-col gap-2"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-muted)' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -43,13 +43,13 @@ function RelatedCard({ product }: { product: EquipmentProduct }) {
         </h3>
       </Link>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{product.brand}</p>
-      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
+      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: 'var(--color-ink-muted)' }}>{product.desc}</p>
       <div className="flex items-center justify-between pt-1">
         <span className="text-xs font-bold" style={{ color: 'var(--text)' }}>{product.priceBand}</span>
         <Link
           to={`/ai-equipment/product/${product.slug}`}
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           View →
         </Link>
@@ -85,13 +85,13 @@ export default function AIEquipmentProduct() {
         />
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-24 text-center">
           <h1 className="font-display text-4xl mb-4" style={{ color: 'var(--text)' }}>Product not found</h1>
-          <p className="text-base mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8" style={{ color: 'var(--color-ink-muted)' }}>
             This product doesn't exist or may have been removed. Browse all equipment instead.
           </p>
           <Link
             to="/ai-equipment"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: '#1A1A0E' }}
+            style={{ background: TEAL, color: 'var(--color-ink)' }}
           >
             ← Back to Equipment Hub
           </Link>
@@ -122,7 +122,7 @@ export default function AIEquipmentProduct() {
       />
 
       {/* BREADCRUMB */}
-      <div className="border-b" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-b" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-2 text-xs flex-wrap" style={{ color: '#9ca3af' }}>
           <Link to="/ai-equipment" className="hover:underline" style={{ color: 'var(--color-ink-accent)' }}>Equipment</Link>
           <span>/</span>
@@ -130,7 +130,7 @@ export default function AIEquipmentProduct() {
             {product.category}
           </Link>
           <span>/</span>
-          <span style={{ color: '#6b6760' }}>{product.name}</span>
+          <span style={{ color: 'var(--color-ink-muted)' }}>{product.name}</span>
         </div>
       </div>
 
@@ -145,7 +145,7 @@ export default function AIEquipmentProduct() {
               <Link
                 to={`/ai-equipment/category/${categorySlug}`}
                 className="text-[10px] font-semibold uppercase tracking-wide px-2.5 py-1 rounded-full border transition-colors hover:border-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+                style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
               >
                 {product.category}
               </Link>
@@ -164,7 +164,7 @@ export default function AIEquipmentProduct() {
             <p className="text-base mb-6" style={{ color: '#9ca3af' }}>{product.brand}</p>
 
             {/* Description */}
-            <p className="text-base leading-relaxed mb-4" style={{ color: '#6b6760' }}>
+            <p className="text-base leading-relaxed mb-4" style={{ color: 'var(--color-ink-muted)' }}>
               {product.desc}
             </p>
 
@@ -210,7 +210,7 @@ export default function AIEquipmentProduct() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {product.audience.map((a: string) => (
-                  <span key={a} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>
+                  <span key={a} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}>
                     {a}
                   </span>
                 ))}
@@ -225,7 +225,7 @@ export default function AIEquipmentProduct() {
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {product.educationLevel.map((l: string) => (
-                    <span key={l} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>
+                    <span key={l} className="text-xs px-3 py-1 rounded-full border" style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}>
                       {l}
                     </span>
                   ))}
@@ -234,9 +234,9 @@ export default function AIEquipmentProduct() {
             )}
 
             {/* Suitability — equipment is NOT numerically scored; suitability is contextual */}
-            <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+            <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
               <SectionLabel>Is this right for you?</SectionLabel>
-              <p className="font-sans mt-2 text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+              <p className="font-sans mt-2 text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
                 We don&apos;t reduce equipment to a single score — suitability depends on the learner&apos;s age and needs,
                 your setting, your budget and how you&apos;ll use it. Tell Luna your context and she&apos;ll say whether
                 {' '}{product.name} fits, and suggest alternatives if not.
@@ -247,7 +247,7 @@ export default function AIEquipmentProduct() {
                   track({ name: 'cta_clicked', section: 'equipment-product', label: `Ask Luna suitability: ${product.name}` });
                 }}
                 className="font-sans inline-block mt-4 rounded-full px-5 py-2.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ fontSize: 14, fontWeight: 600, background: 'var(--color-promptly-lime)', color: '#1A1A0E' }}
+                style={{ fontSize: 14, fontWeight: 600, background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
               >
                 Ask Luna if this is right for me &rarr;
               </button>
@@ -287,7 +287,7 @@ export default function AIEquipmentProduct() {
           {/* RIGHT: sidebar */}
           <div className="lg:col-span-1">
             {/* Details card */}
-            <div className="rounded-2xl border p-6 mb-6 sticky top-6" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+            <div className="rounded-2xl border p-6 mb-6 sticky top-6" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
               <h2 className="font-display text-lg mb-4" style={{ color: 'var(--text)' }}>Product Details</h2>
 
               <table className="w-full text-sm mb-6">
@@ -295,7 +295,7 @@ export default function AIEquipmentProduct() {
                   {detailRows.map((row, i) => (
                     <tr key={row.label} style={{ borderTop: i === 0 ? 'none' : '1px solid #f3f4f6' }}>
                       <td className="py-2.5 text-xs font-semibold" style={{ color: '#9ca3af' }}>{row.label}</td>
-                      <td className="py-2.5 text-xs text-right" style={{ color: '#1c1a15' }}>{String(row.value)}</td>
+                      <td className="py-2.5 text-xs text-right" style={{ color: 'var(--text)' }}>{String(row.value)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -311,7 +311,7 @@ export default function AIEquipmentProduct() {
                   target="_blank"
                   rel="noopener noreferrer sponsored"
                   className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: '#1A1A0E' }}
+                  style={{ background: TEAL, color: 'var(--color-ink)' }}
                 >
                   View on {product.supplierName} →
                 </a>
@@ -330,7 +330,7 @@ export default function AIEquipmentProduct() {
                 )}
               </div>
 
-              <p className="text-[10px] leading-relaxed mt-4" style={{ color: '#6b6760' }}>
+              <p className="text-[10px] leading-relaxed mt-4" style={{ color: 'var(--color-ink-muted)' }}>
                 Affiliate link — we may earn a small commission at no extra cost to you. All reviews are independent.
               </p>
             </div>

@@ -19,10 +19,10 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
   return (
     <div
       className="rounded-xl border p-4 flex flex-col gap-2"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
+        <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-muted)' }}>
           {product.category}
         </span>
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
@@ -35,7 +35,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
         </h3>
       </Link>
       <p className="text-xs" style={{ color: '#9ca3af' }}>{product.brand}</p>
-      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: '#6b6760' }}>{product.desc}</p>
+      <p className="text-xs leading-relaxed flex-1 line-clamp-2" style={{ color: 'var(--color-ink-muted)' }}>{product.desc}</p>
       <p className="text-xs italic" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
       <div className="flex flex-wrap gap-1">
         {product.badges.slice(0, 2).map((b: EqBadge) => {
@@ -54,7 +54,7 @@ function ProductCard({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           View →
         </a>
@@ -122,7 +122,7 @@ export default function AIEquipmentStudents() {
           Study Better with<br />
           <span style={{ color: 'var(--color-ink-accent)' }}>the Right Equipment</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: 'var(--color-ink-muted)' }}>
           Laptops, tablets, reading pens, noise-cancelling headphones and study accessories for UK students.
         </p>
       </div>
@@ -142,7 +142,7 @@ export default function AIEquipmentStudents() {
       </div>
 
       {/* BY CATEGORY */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
         <div className="max-w-6xl mx-auto space-y-12">
           {devices.length > 0 && (
             <div>
@@ -197,7 +197,7 @@ export default function AIEquipmentStudents() {
 
       {/* GCSE / A-LEVEL */}
       {gcseALevel.length > 0 && (
-        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+        <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
           <div className="max-w-6xl mx-auto">
             <SectionLabel>GCSE &amp; A-Level</SectionLabel>
             <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>

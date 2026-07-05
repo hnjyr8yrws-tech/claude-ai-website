@@ -154,20 +154,20 @@ export default function SafetyMethodology() {
           The Promptly Score<br />
           <span style={{ color: 'var(--color-ink-accent)' }}>Methodology.</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-xl" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-xl" style={{ color: 'var(--color-ink-muted)' }}>
           Every AI tool on GetPromptly is assessed against five pillars — grounded in KCSIE 2025, UK GDPR and the DfE&rsquo;s guidance on generative AI in education. One number, with its working fully shown.
         </p>
 
         {/* Independence statement */}
         <div
           className="mt-8 px-5 py-4 rounded-2xl border text-sm leading-relaxed"
-          style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+          style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--color-ink-muted)' }}
         >
           <strong style={{ color: 'var(--text)' }}>GetPromptly is independent.</strong> We are not funded by, affiliated with, or in commercial partnership with any AI vendor. No tool can pay for a higher score or a better placement. Scores are reviewed when a product makes a significant policy or feature change.
         </div>
 
         {/* Methodology mark — JetBrains Mono, methodology/timestamps only */}
-        <p className="font-mono mt-4 uppercase" style={{ fontSize: 11, letterSpacing: '0.08em', color: '#6b6760' }}>
+        <p className="font-mono mt-4 uppercase" style={{ fontSize: 11, letterSpacing: '0.08em', color: 'var(--color-ink-muted)' }}>
           Promptly Score v2.2 · Reviewer of record: CR · Each tool carries its own verified date
         </p>
       </div>
@@ -179,7 +179,7 @@ export default function SafetyMethodology() {
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
             The five scoring pillars
           </h2>
-          <p className="text-sm mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-8" style={{ color: 'var(--color-ink-muted)' }}>
             Each pillar is scored 0&ndash;10 by a named reviewer. Their weighted average is the Promptly Score &mdash; weighted towards Safeguarding and Data Privacy, the two pillars that decide whether a tool belongs in a school at all. On each reviewed tool, a pillar also carries a plain-word band &mdash; Strong, Basic, Weak or Critical &mdash; whenever it scores 8.0 or below; pillars above 8.0 are Exemplary and show the score on its own, so the pillars worth a second look are the ones that stand out.
           </p>
         </FadeIn>
@@ -190,7 +190,7 @@ export default function SafetyMethodology() {
               {/* Oat card so a pillar's own colour (incl. lime) sits legally on oat */}
               <div
                 className="rounded-2xl border p-6"
-                style={{ borderColor: '#e8e6e0', background: 'var(--color-oat)' }}
+                style={{ borderColor: 'var(--color-rule)', background: 'var(--color-oat)' }}
               >
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <h3 className="font-display text-xl flex items-center gap-2" style={{ color: 'var(--color-ink)' }}>
@@ -198,7 +198,7 @@ export default function SafetyMethodology() {
                     {pillar.axis && (
                       <span
                         className="font-mono uppercase"
-                        style={{ fontSize: 9, letterSpacing: '0.08em', color: '#6b6760' }}
+                        style={{ fontSize: 9, letterSpacing: '0.08em', color: 'var(--color-ink-muted)' }}
                       >
                         the axis
                       </span>
@@ -211,7 +211,7 @@ export default function SafetyMethodology() {
                     {pillar.weight}%
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
                   {pillar.desc}
                 </p>
 
@@ -239,7 +239,7 @@ export default function SafetyMethodology() {
           <h2 className="font-display text-2xl mb-3" style={{ color: 'var(--text)' }}>
             How a Promptly Score is built
           </h2>
-          <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: '#6b6760' }}>
+          <p className="text-sm sm:text-base leading-relaxed mb-6" style={{ color: 'var(--color-ink-muted)' }}>
             The <strong style={{ color: 'var(--text)' }}>Promptly Score</strong> is a single number from 0 to 10 that
             summarises how ready an AI tool is for UK education. It is the weighted average of the five pillar scores
             &mdash; never an average of opinion, and never paid for. The pillars tell you where a tool is strong and where
@@ -247,7 +247,7 @@ export default function SafetyMethodology() {
           </p>
           <ol className="space-y-3 mb-2">
             {STEPS.map((step, i) => (
-              <li key={i} className="flex gap-3 text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+              <li key={i} className="flex gap-3 text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
                 <span
                   className="font-mono flex-shrink-0 flex items-center justify-center rounded-full"
                   style={{ width: 22, height: 22, fontSize: 11, background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}
@@ -268,13 +268,13 @@ export default function SafetyMethodology() {
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
             What the bands mean
           </h2>
-          <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-6" style={{ color: 'var(--color-ink-muted)' }}>
             Where a composite lands sets the verdict. The bands describe readiness for a UK school &mdash; not a grade for the product in the abstract.
           </p>
         </FadeIn>
 
         <FadeIn delay={0.1}>
-          <div className="rounded-2xl border overflow-hidden" style={{ borderColor: '#e8e6e0' }}>
+          <div className="rounded-2xl border overflow-hidden" style={{ borderColor: 'var(--color-rule)' }}>
             {BANDS.map((band, i) => (
               <div
                 key={band.name}
@@ -293,7 +293,7 @@ export default function SafetyMethodology() {
                 <span className="font-display flex-shrink-0" style={{ fontSize: 16, width: 200, color: 'var(--text)' }}>
                   {band.name}
                 </span>
-                <span className="text-xs leading-relaxed" style={{ color: '#6b6760' }}>
+                <span className="text-xs leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
                   {band.note}
                 </span>
               </div>
@@ -310,20 +310,20 @@ export default function SafetyMethodology() {
             The score, and how sure we are of it
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            <div className="rounded-2xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+            <div className="rounded-2xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
               <h3 className="font-display text-lg mb-2" style={{ color: 'var(--text)' }}>Promptly Score</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
                 Reflects what we can <strong style={{ color: 'var(--text)' }}>verify</strong> about a tool against the five pillars. It moves only on evidence of how the product actually behaves.
               </p>
             </div>
-            <div className="rounded-2xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+            <div className="rounded-2xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
               <h3 className="font-display text-lg mb-2" style={{ color: 'var(--text)' }}>Evidence Confidence</h3>
-              <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
                 Reflects how much documentation we had to work with. A missing data-processing agreement lowers our confidence &mdash; it does not, by itself, make a tool unsafe.
               </p>
             </div>
           </div>
-          <p className="text-sm leading-relaxed mt-4" style={{ color: '#6b6760' }}>
+          <p className="text-sm leading-relaxed mt-4" style={{ color: 'var(--color-ink-muted)' }}>
             We place a tool in the <strong style={{ color: 'var(--text)' }}>Avoid</strong> band only on verified grounds: a confirmed safeguarding or privacy concern, terms clearly unsuitable for schools, a product that has been withdrawn, or a tool being promoted for a use it is plainly not fit for. Missing paperwork is a confidence problem, not a safety verdict.
           </p>
         </FadeIn>
@@ -335,21 +335,21 @@ export default function SafetyMethodology() {
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
             How far we&rsquo;ve gone
           </h2>
-          <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-6" style={{ color: 'var(--color-ink-muted)' }}>
             Every published score states the basis it rests on, so you know how deep the review went.
           </p>
         </FadeIn>
         <div className="space-y-3">
           {REVIEW_BASIS.map((b, i) => (
             <FadeIn key={b.label} delay={i * 0.06}>
-              <div className="flex gap-4 p-5 rounded-xl border" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+              <div className="flex gap-4 p-5 rounded-xl border" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
                 <span
                   className="font-mono uppercase flex-shrink-0"
                   style={{ fontSize: 10, letterSpacing: '0.06em', color: 'var(--color-ink-accent)', width: 110, paddingTop: 2 }}
                 >
                   {b.label}
                 </span>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{b.desc}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{b.desc}</p>
               </div>
             </FadeIn>
           ))}
@@ -385,7 +385,7 @@ export default function SafetyMethodology() {
                 showVerdict={false}
                 methodologyVersion="2.2"
               />
-              <p className="text-xs mt-4 text-center max-w-sm" style={{ color: '#6b6760' }}>
+              <p className="text-xs mt-4 text-center max-w-sm" style={{ color: 'var(--color-ink-muted)' }}>
                 This is the Pillar Card &mdash; the artefact every score lives inside. Until a tool is reviewed, its ring sits empty and its score reads &ldquo;&mdash;&rdquo;. Live pillar marks appear on each tool&rsquo;s page once verified.
               </p>
             </div>
@@ -396,7 +396,7 @@ export default function SafetyMethodology() {
       {/* ── REFERENCES ── */}
       <div
         className="border-t border-b"
-        style={{ borderColor: '#e8e6e0', background: 'white' }}
+        style={{ borderColor: 'var(--color-rule)', background: 'white' }}
       >
         <div className="max-w-3xl mx-auto px-5 sm:px-8 py-12">
           <FadeIn>
@@ -433,12 +433,12 @@ export default function SafetyMethodology() {
                 <div
                   key={ref.title}
                   className="p-5 rounded-xl border"
-                  style={{ borderColor: '#e8e6e0' }}
+                  style={{ borderColor: 'var(--color-rule)' }}
                 >
                   <h3 className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>
                     {ref.title}
                   </h3>
-                  <p className="text-sm leading-relaxed mb-2" style={{ color: '#6b6760' }}>
+                  <p className="text-sm leading-relaxed mb-2" style={{ color: 'var(--color-ink-muted)' }}>
                     {ref.body}
                   </p>
                   <a
@@ -473,7 +473,7 @@ export default function SafetyMethodology() {
             <a
               href="mailto:reviews@getpromptly.co.uk"
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-              style={{ background: TEAL, color: '#1A1A0E' }}
+              style={{ background: TEAL, color: 'var(--color-ink)' }}
             >
               Suggest a tool for review →
             </a>

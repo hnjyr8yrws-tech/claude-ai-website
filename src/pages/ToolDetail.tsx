@@ -31,7 +31,7 @@ const TEAL = 'var(--color-promptly-lime)';
 // on dark/oat; on a light surface its sanctioned substitute is ground-black ink.
 const PILLAR_BAR_COLOURS = [
   '#6A8CAF', // Data Privacy — Sky §09
-  '#1E1E1E', // Safeguarding — lime can't sit on white; ground-black is the §09 light-surface substitute
+  'var(--color-ground-black)', // Safeguarding — lime can't sit on white; ground-black is the §09 light-surface substitute
   '#8C7A52', // Age Suitability — Oat Deep §09
   '#4A4F5C', // Transparency — Slate §09
   '#D97757', // Accessibility — Clay §09
@@ -48,14 +48,14 @@ function ScoreBar({ label, value, colour, delay }: { label: string; value: numbe
   return (
     <div>
       <div className="flex justify-between items-baseline text-sm mb-1.5">
-        <span style={{ color: '#6b6760' }}>{label}</span>
+        <span style={{ color: 'var(--color-ink-muted)' }}>{label}</span>
         <span className="flex items-baseline gap-2">
           {band && band !== 'exemplary' && (
-            <span className="font-sans uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+            <span className="font-sans uppercase" style={{ fontSize: 10, letterSpacing: '0.06em', color: 'var(--color-ink-muted)' }}>
               {PILLAR_BAND_LABEL[band]}
             </span>
           )}
-          <span className="font-bold tabular-nums" style={{ color: '#1c1a15' }}>{value}/10</span>
+          <span className="font-bold tabular-nums" style={{ color: 'var(--text)' }}>{value}/10</span>
         </span>
       </div>
       <div className="h-2.5 rounded-full overflow-hidden" style={{ background: '#f3f4f6' }}>
@@ -81,7 +81,7 @@ function TrainingCard({ item }: { item: (typeof TRAINING)[number] }) {
       rel="noopener noreferrer"
       onClick={() => track({ name: 'tool_detail_training_click', trainingId: item.id })}
       className="block rounded-xl border p-4 hover:shadow-sm transition-shadow"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <div className="flex items-start justify-between gap-2 mb-1">
         <span className="text-sm font-semibold leading-snug" style={{ color: 'var(--text)' }}>{item.name}</span>
@@ -151,13 +151,13 @@ const ToolDetail = () => {
           path={`/tools/${slug}`}
         />
         <p className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>Tool not found</p>
-        <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-sm mb-6" style={{ color: 'var(--color-ink-muted)' }}>
           We couldn't find a tool matching "{slug}". It may have been renamed or removed.
         </p>
         <Link
           to="/tools"
           className="inline-block px-5 py-2.5 rounded-xl text-sm font-semibold"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           Browse all tools
         </Link>
@@ -205,7 +205,7 @@ const ToolDetail = () => {
             <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: catStyle.bg, color: catStyle.text }}>
               {tool.primaryCategory}
             </span>
-            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: '#6b6760' }}>
+            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-muted)' }}>
               {awaiting ? 'Awaiting re-review' : pub ? 'Reviewed' : 'Pending review'}
             </span>
             {tool.ukReady === 'Yes' && (
@@ -225,7 +225,7 @@ const ToolDetail = () => {
               <h1 className="font-display text-3xl sm:text-4xl leading-tight mb-2" style={{ color: 'var(--text)' }}>
                 {tool.name}
               </h1>
-              <p className="text-base leading-relaxed" style={{ color: '#6b6760' }}>{tool.desc}</p>
+              <p className="text-base leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{tool.desc}</p>
 
               {/* Direct link — visible to everyone, no tier gating. */}
               <a
@@ -252,7 +252,7 @@ const ToolDetail = () => {
                     <div className="flex flex-col items-center gap-3">
                       {/* Child-safety withdrawal → Awaiting Re-review card: no number, no tier */}
                       <PillarCard state="withdrawn" methodologyVersion="2.2" showName={false} showVerdict={false} showLegend={false} size={208} />
-                      <p role="status" className="max-w-[208px] text-center text-xs" style={{ color: '#6b6760' }}>
+                      <p role="status" className="max-w-[208px] text-center text-xs" style={{ color: 'var(--color-ink-muted)' }}>
                         Score withheld while this tool is re-reviewed. See the{' '}
                         <Link to="/methodology" className="font-semibold underline underline-offset-2" style={{ color: 'var(--color-ink-accent)' }}>
                           methodology &amp; integrity record
@@ -285,7 +285,7 @@ const ToolDetail = () => {
           </div>
 
           {/* Quick facts row */}
-          <div className="mt-5 flex flex-wrap gap-4 text-sm" style={{ color: '#6b6760' }}>
+          <div className="mt-5 flex flex-wrap gap-4 text-sm" style={{ color: 'var(--color-ink-muted)' }}>
             <span><strong style={{ color: 'var(--text)' }}>Category:</strong> {tool.subcategory}</span>
             <span><strong style={{ color: 'var(--text)' }}>Audience:</strong> {tool.audience.join(', ')}</span>
             <span><strong style={{ color: 'var(--text)' }}>Price:</strong> {tool.free ? 'Free tier available' : 'Paid only'}</span>
@@ -297,7 +297,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Promptly Score breakdown (public pillars only) ───────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Promptly Score</SectionLabel>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
@@ -329,7 +329,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Best for / Not ideal for ───────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Who is this for?</SectionLabel>
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -343,7 +343,7 @@ const ToolDetail = () => {
                   <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#C8E44A' }}>
                     <Check className="w-3 h-3" style={{ color: 'var(--color-ink)' }} />
                   </span>
-                  <span className="font-mono text-xs tracking-widest uppercase" style={{ color: '#6b6760' }}>Works well for</span>
+                  <span className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--color-ink-muted)' }}>Works well for</span>
                 </div>
                 <ul className="space-y-2">
                   {(tool.pros ?? []).map((pro, i) => (
@@ -360,7 +360,7 @@ const ToolDetail = () => {
                   <span className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#D97757' }}>
                     <X className="w-3 h-3" style={{ color: '#FFFFFF' }} />
                   </span>
-                  <span className="font-mono text-xs tracking-widest uppercase" style={{ color: '#6b6760' }}>Worth knowing</span>
+                  <span className="font-mono text-xs tracking-widest uppercase" style={{ color: 'var(--color-ink-muted)' }}>Worth knowing</span>
                 </div>
                 <ul className="space-y-2">
                   {(tool.cons ?? []).map((con, i) => (
@@ -388,25 +388,25 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Age & safeguarding notes ───────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Safeguarding & age</SectionLabel>
           <h2 className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>
             Safeguarding & age guidance
           </h2>
-          <div className="rounded-xl border p-5 mb-4" style={{ borderColor: '#e8e6e0', background: 'var(--bg)' }}>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{deriveAgeNotes(tool)}</p>
+          <div className="rounded-xl border p-5 mb-4" style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{deriveAgeNotes(tool)}</p>
           </div>
           <div className="flex flex-wrap gap-3">
             <div className="flex items-center gap-2 text-sm">
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-ink-accent)' }} />
-              <span style={{ color: '#6b6760' }}>
+              <span style={{ color: 'var(--color-ink-muted)' }}>
                 UK GDPR relevance: <strong style={{ color: 'var(--text)' }}>{tool.ukReady === 'Yes' ? 'Confirmed' : 'Partial — verify with your DPO'}</strong>
               </span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-ink-accent)' }} />
-              <span style={{ color: '#6b6760' }}>
+              <span style={{ color: 'var(--color-ink-muted)' }}>
                 KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{pub ? (pub.composite >= 9 ? 'Strong' : pub.composite >= 7 ? 'Moderate — review policy' : 'Requires policy decision') : 'Pending review'}</strong>
               </span>
             </div>
@@ -415,7 +415,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Official CTA ───────────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Access this tool</SectionLabel>
           <h2 className="font-display text-2xl mb-4" style={{ color: 'var(--text)' }}>
@@ -440,7 +440,7 @@ const ToolDetail = () => {
                   }
                 }}
                 className="flex-shrink-0 px-6 py-3 rounded-xl text-sm font-bold transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: '#1A1A0E' }}
+                style={{ background: TEAL, color: 'var(--color-ink)' }}
               >
                 {ctaLabel} →
               </a>
@@ -456,7 +456,7 @@ const ToolDetail = () => {
       </section>
 
       {/* ── Ask Luna ────────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <AgentCTACard
             section="Luna · Tool Advisor"
@@ -475,13 +475,13 @@ const ToolDetail = () => {
 
       {/* ── Related prompt packs ───────────────────────────────────────────── */}
       {relatedPacks.length > 0 && (
-        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
           <div className="max-w-3xl mx-auto">
             <SectionLabel>Prompt packs</SectionLabel>
             <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
               Get more from {tool.name}
             </h2>
-            <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-6" style={{ color: 'var(--color-ink-muted)' }}>
               Ready-made prompts that work with {tool.name} and similar tools.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -500,13 +500,13 @@ const ToolDetail = () => {
 
       {/* ── Related training ───────────────────────────────────────────────── */}
       {relatedTraining.length > 0 && (
-        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
           <div className="max-w-3xl mx-auto">
             <SectionLabel>AI training</SectionLabel>
             <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
               Build your skills
             </h2>
-            <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-6" style={{ color: 'var(--color-ink-muted)' }}>
               Training resources to help you use {tool.primaryCategory.toLowerCase()} tools confidently and safely.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -525,13 +525,13 @@ const ToolDetail = () => {
 
       {/* ── Safer alternatives ─────────────────────────────────────────────── */}
       {alternatives.length > 0 && (
-        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
           <div className="max-w-3xl mx-auto">
             <SectionLabel>Alternatives</SectionLabel>
             <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
               Similar tools in {tool.primaryCategory}
             </h2>
-            <p className="text-sm mb-6" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-6" style={{ color: 'var(--color-ink-muted)' }}>
               Other {tool.primaryCategory.toLowerCase()} tools you might also consider.
             </p>
             <div className="space-y-3">
@@ -542,7 +542,7 @@ const ToolDetail = () => {
                     key={alt.slug}
                     to={`/tools/${alt.slug}`}
                     className="flex items-center gap-4 p-4 rounded-xl border transition-shadow hover:shadow-sm"
-                    style={{ borderColor: '#e8e6e0', background: 'white' }}
+                    style={{ borderColor: 'var(--color-rule)', background: 'white' }}
                   >
                     {/* Dense list → Score Pill; the row links to the tool's Pillar Card. */}
                     <div className="flex-shrink-0">
@@ -581,9 +581,9 @@ const ToolDetail = () => {
 
       {/* ── Cross-sell inline ──────────────────────────────────────────────── */}
       {inlineItems.length > 0 && (
-        <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
           <div className="max-w-3xl mx-auto">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--color-ink-muted)' }}>
               Recommended for you
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -596,11 +596,11 @@ const ToolDetail = () => {
       )}
 
       {/* ── Trust disclaimer ───────────────────────────────────────────────── */}
-      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-              <strong style={{ color: '#1c1a15' }}>About our verdicts:</strong> Every Promptly Score is reviewed against KCSIE 2025 across five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — per our methodology v2.2, using publicly available information.
+          <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
+              <strong style={{ color: 'var(--text)' }}>About our verdicts:</strong> Every Promptly Score is reviewed against KCSIE 2025 across five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — per our methodology v2.2, using publicly available information.
               {tool.lastReviewed && ` Last verified ${tool.lastReviewed}.`}
               {' '}We have never changed a score for payment; our methodology and our record of score changes are public. A score is independent guidance, not approval — do your own due diligence and check with your DPO and DSL before using any tool in school.
             </p>

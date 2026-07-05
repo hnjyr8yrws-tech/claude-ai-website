@@ -83,10 +83,10 @@ function SchoolProductRow({ product }: { product: EquipmentProduct }) {
         </Link>
         <div className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>{product.brand}</div>
       </td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.category}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: 'var(--color-ink-muted)' }}>{product.category}</td>
       <td className="px-4 py-3 text-xs font-semibold" style={{ color: 'var(--text)' }}>{product.priceBand}</td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.purchaseModel}</td>
-      <td className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>{product.supplierName}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: 'var(--color-ink-muted)' }}>{product.purchaseModel}</td>
+      <td className="px-4 py-3 text-xs" style={{ color: 'var(--color-ink-muted)' }}>{product.supplierName}</td>
       <td className="px-4 py-3">
         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full" style={{ background: rb.bg, color: rb.color }}>
           {rb.label}
@@ -98,7 +98,7 @@ function SchoolProductRow({ product }: { product: EquipmentProduct }) {
           target="_blank"
           rel="noopener noreferrer sponsored"
           className="text-xs px-2.5 py-1 rounded-lg font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           View →
         </a>
@@ -146,7 +146,7 @@ export default function AIEquipmentSchools() {
           Equipment Solutions<br />
           <span style={{ color: 'var(--color-ink-accent)' }}>for UK Schools</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-6" style={{ color: 'var(--color-ink-muted)' }}>
           Procurement support, class packs, interactive displays, AV, hearing loops and SEND provision — all in one place.
         </p>
         <div className="flex flex-wrap gap-3">
@@ -156,14 +156,14 @@ export default function AIEquipmentSchools() {
               if (widget) (widget as HTMLButtonElement).click();
             }}
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: '#1A1A0E' }}
+            style={{ background: TEAL, color: 'var(--color-ink)' }}
           >
             Request a School Quote
           </button>
           <Link
             to="/ai-equipment/compare"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: 'var(--text)' }}
+            style={{ borderColor: 'var(--color-rule)', color: 'var(--text)' }}
           >
             Compare Products
           </Link>
@@ -181,18 +181,18 @@ export default function AIEquipmentSchools() {
             <div
               key={role.title}
               className="rounded-xl border p-5 flex flex-col gap-3"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white' }}
             >
               <div className="text-2xl">{role.icon}</div>
               <h3 className="font-display text-lg" style={{ color: 'var(--text)' }}>{role.title}</h3>
-              <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{role.desc}</p>
+              <p className="text-sm leading-relaxed flex-1" style={{ color: 'var(--color-ink-muted)' }}>{role.desc}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* BUYING CATEGORIES */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
           <SectionLabel>School buying categories</SectionLabel>
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -217,10 +217,10 @@ export default function AIEquipmentSchools() {
                   key={cat.label}
                   to={`/ai-equipment/category/${catSlug}`}
                   className="rounded-xl border p-5 flex flex-col gap-2 transition-shadow hover:shadow-md"
-                  style={{ borderColor: '#e8e6e0', background: 'var(--bg)' }}
+                  style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)' }}
                 >
                   <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{cat.label}</h3>
-                  <p className="text-xs flex-1" style={{ color: '#6b6760' }}>{cat.desc}</p>
+                  <p className="text-xs flex-1" style={{ color: 'var(--color-ink-muted)' }}>{cat.desc}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs" style={{ color: '#9ca3af' }}>{count} products</span>
                     <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse →</span>
@@ -268,7 +268,7 @@ export default function AIEquipmentSchools() {
             <div
               key={item.title}
               className="rounded-xl border p-5 flex flex-col gap-3"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white' }}
             >
               {item.badge && (
                 <span
@@ -279,7 +279,7 @@ export default function AIEquipmentSchools() {
                 </span>
               )}
               <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{item.title}</h3>
-              <p className="text-sm flex-1 leading-relaxed" style={{ color: '#6b6760' }}>{item.desc}</p>
+              <p className="text-sm flex-1 leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{item.desc}</p>
               {!item.badge && (
                 <button
                   onClick={() => {
@@ -287,7 +287,7 @@ export default function AIEquipmentSchools() {
                     if (widget) (widget as HTMLButtonElement).click();
                   }}
                   className="text-xs font-semibold px-3 py-1.5 rounded-lg transition-opacity hover:opacity-80"
-                  style={{ background: TEAL, color: '#1A1A0E' }}
+                  style={{ background: TEAL, color: 'var(--color-ink)' }}
                 >
                   Get a Quote →
                 </button>
@@ -298,7 +298,7 @@ export default function AIEquipmentSchools() {
       </div>
 
       {/* PROCUREMENT CHECKLIST */}
-      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t py-14 px-5 sm:px-8" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
         <div className="max-w-6xl mx-auto">
           <SectionLabel>Procurement checklist</SectionLabel>
           <h2 className="font-display text-2xl mb-8" style={{ color: 'var(--text)' }}>
@@ -309,11 +309,11 @@ export default function AIEquipmentSchools() {
               <div
                 key={step.num}
                 className="rounded-xl border p-5 flex flex-col gap-3"
-                style={{ borderColor: '#e8e6e0', background: 'var(--bg)' }}
+                style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)' }}
               >
-                <div className="font-display text-3xl" style={{ color: '#e8e6e0' }}>{step.num}</div>
+                <div className="font-display text-3xl" style={{ color: 'var(--color-rule)' }}>{step.num}</div>
                 <h3 className="font-display text-base" style={{ color: 'var(--text)' }}>{step.label}</h3>
-                <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{step.desc}</p>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{step.desc}</p>
               </div>
             ))}
           </div>
@@ -337,9 +337,9 @@ export default function AIEquipmentSchools() {
               onClick={() => setPurchaseFilter(opt.value)}
               className="text-xs px-3 py-1.5 rounded-lg border transition-colors"
               style={{
-                borderColor: purchaseFilter === opt.value ? TEAL : '#e8e6e0',
+                borderColor: purchaseFilter === opt.value ? TEAL : 'var(--color-rule)',
                 background: purchaseFilter === opt.value ? 'var(--color-oat)' : 'white',
-                color: purchaseFilter === opt.value ? TEAL : '#6b6760',
+                color: purchaseFilter === opt.value ? TEAL : 'var(--color-ink-muted)',
               }}
             >
               {opt.label}
@@ -347,12 +347,12 @@ export default function AIEquipmentSchools() {
           ))}
         </div>
 
-        <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: '#e8e6e0' }}>
+        <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: 'var(--color-rule)' }}>
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ background: '#f7f6f2' }}>
+              <tr style={{ background: 'var(--bg)' }}>
                 {['Product', 'Category', 'Price', 'Purchase Model', 'Supplier', 'Status', ''].map(h => (
-                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760' }}>
+                  <th key={h} className="px-4 py-3 text-left text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>
                     {h}
                   </th>
                 ))}
@@ -377,16 +377,16 @@ export default function AIEquipmentSchools() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
           <div>
             <p className="font-display text-xl text-white mb-1">Need procurement support?</p>
-            <p className="text-sm" style={{ color: '#6b6760' }}>Ask the AI or explore SEND-specific equipment.</p>
+            <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>Ask the AI or explore SEND-specific equipment.</p>
           </div>
           <div className="flex flex-wrap gap-4">
-            <Link to="/ai-equipment/send" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment/send" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               SEND Equipment →
             </Link>
-            <Link to="/prompts/school-leaders" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/prompts/school-leaders" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               School Leader Prompts →
             </Link>
-            <Link to="/ai-training/leaders" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-training/leaders" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               AI Training for Leaders →
             </Link>
           </div>

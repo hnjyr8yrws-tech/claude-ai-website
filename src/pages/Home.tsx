@@ -15,8 +15,8 @@ import { RoleIcon, CategoryIcon } from '../components/icons';
 
 const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
-const BG     = '#f7f6f2';
-const BORDER = '#e8e6e0';
+const BG     = 'var(--bg)';
+const BORDER = 'var(--color-rule)';
 
 function openWidget() {
   const btn = document.getElementById('promptly-widget-trigger');
@@ -190,7 +190,7 @@ const Hero: FC = () => {
                     className="font-sans rounded-full px-4 py-2 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                     style={{
                       fontSize: 13, fontWeight: 500,
-                      color: active ? '#1A1A0E' : '#FFFFFF',
+                      color: active ? 'var(--color-ink)' : '#FFFFFF',
                       background: active ? TEAL : 'transparent',
                       borderColor: active ? TEAL : 'rgba(255,255,255,0.35)',
                     }}
@@ -205,8 +205,8 @@ const Hero: FC = () => {
             {/* Primary CTA — lime fill, ink text, Satoshi Medium pill */}
             <button
               onClick={askLuna}
-              className="font-sans mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
-              style={{ fontSize: 15, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
+              className="font-sans mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
+              style={{ fontSize: 15, fontWeight: 500, background: TEAL, color: 'var(--color-ink)' }}
             >
               Tell Luna your role &rarr;
             </button>
@@ -239,7 +239,7 @@ const Hero: FC = () => {
             </p>
 
             {/* Role quick-select — 2×3 grid */}
-            <p className="font-sans mt-7" style={{ fontSize: 13, fontWeight: 500, color: '#9C9C8A' }}>I am a...</p>
+            <p className="font-sans mt-7" style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-fog)' }}>I am a...</p>
             <div className="grid grid-cols-3 gap-2 mt-3">
               {HERO_ROLES.map(r => {
                 const active = roleSlug === r.slug;
@@ -255,7 +255,7 @@ const Hero: FC = () => {
                     className="font-sans border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                     style={{
                       fontSize: 12, fontWeight: 500, padding: '8px 10px', borderRadius: 20,
-                      color: active ? '#1A1A0E' : '#FFFFFF',
+                      color: active ? 'var(--color-ink)' : '#FFFFFF',
                       background: active ? TEAL : 'transparent',
                       borderColor: active ? TEAL : 'rgba(255,255,255,0.5)',
                     }}
@@ -277,20 +277,20 @@ const Hero: FC = () => {
               placeholder="Or describe what you need..."
               aria-label="Describe what you need"
               className="font-sans w-full mt-5 outline-none"
-              style={{ fontSize: 14, padding: '12px 14px', background: '#1E1E1E', color: '#FFFFFF', border: '1px solid #3A3A3A', borderRadius: 6 }}
+              style={{ fontSize: 14, padding: '12px 14px', background: 'var(--color-ground-black)', color: '#FFFFFF', border: '1px solid #3A3A3A', borderRadius: 6 }}
             />
 
             {/* Send button — full width, height 44, radius 6 */}
             <button
               onClick={sendDraft}
               className="font-sans w-full mt-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
-              style={{ height: 44, fontSize: 14, fontWeight: 500, background: TEAL, color: '#1A1A0E', borderRadius: 6 }}
+              style={{ height: 44, fontSize: 14, fontWeight: 500, background: TEAL, color: 'var(--color-ink)', borderRadius: 6 }}
             >
               Ask Luna &rarr;
             </button>
 
             {/* Footer — agent ID, methodology register */}
-            <p className="font-mono mt-auto pt-7" style={{ fontSize: 10, letterSpacing: '0.1em', color: '#9C9C8A' }}>
+            <p className="font-mono mt-auto pt-7" style={{ fontSize: 10, letterSpacing: '0.1em', color: 'var(--color-fog)' }}>
               LUNA · GETPROMPTLY AGENT · V2.1
             </p>
           </motion.div>
@@ -331,8 +331,8 @@ const RoleSelector: FC = () => {
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
         <FadeIn>
           <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Start here</p>
-          <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>Which role are you?</h2>
-          <p className="text-sm mb-10 max-w-lg" style={{ color: '#6b6760' }}>
+          <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: 'var(--text)' }}>Which role are you?</h2>
+          <p className="text-sm mb-10 max-w-lg" style={{ color: 'var(--color-ink-muted)' }}>
             Choose your role and we will show you exactly where to start on GetPromptly.
           </p>
         </FadeIn>
@@ -344,12 +344,12 @@ const RoleSelector: FC = () => {
               onClick={() => { setActive(r.id); track({ name: 'filter_applied', section: 'home-roles', filter: 'role', value: r.label }); }}
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={active === r.id
-                ? { background: TEAL, color: '#1A1A0E', borderColor: TEAL }
-                : { background: 'white', color: '#6b6760', borderColor: BORDER }
+                ? { background: TEAL, color: 'var(--color-ink)', borderColor: TEAL }
+                : { background: 'white', color: 'var(--color-ink-muted)', borderColor: BORDER }
               }
               aria-pressed={active === r.id}
             >
-              <RoleIcon name={r.id} size={20} color={active === r.id ? '#1A1A0E' : '#6b6760'} />
+              <RoleIcon name={r.id} size={20} color={active === r.id ? 'var(--color-ink)' : 'var(--color-ink-muted)'} />
               {r.label}
             </button>
           ))}
@@ -361,28 +361,28 @@ const RoleSelector: FC = () => {
               <div>
                 <div className="flex items-center gap-3 mb-4">
                   {/* §12: outline icon, no coloured container (retired AI-startup pattern) */}
-                  <RoleIcon name={role.id} size={24} color="#1E1E1E" />
+                  <RoleIcon name={role.id} size={24} color="var(--color-ground-black)" />
                   <div>
-                    <p className="font-semibold text-base" style={{ color: '#1c1a15' }}>{role.label}</p>
+                    <p className="font-semibold text-base" style={{ color: 'var(--text)' }}>{role.label}</p>
                     <p className="text-xs font-medium" style={{ color: 'var(--color-ink-accent)' }}>{role.tagline}</p>
                   </div>
                 </div>
-                <p className="text-sm leading-relaxed mb-5" style={{ color: '#6b6760' }}>{role.desc}</p>
+                <p className="text-sm leading-relaxed mb-5" style={{ color: 'var(--color-ink-muted)' }}>{role.desc}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   {role.pills.map(p => (
-                    <span key={p} className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: role.color, color: '#1c1a15' }}>{p}</span>
+                    <span key={p} className="text-xs px-2.5 py-1 rounded-full font-medium" style={{ background: role.color, color: 'var(--text)' }}>{p}</span>
                   ))}
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link to={role.to} onClick={() => track({ name: 'cta_clicked', section: 'home-roles', label: `${role.label} prompts` })}
                   className="flex-1 text-center px-5 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
-                  style={{ background: TEAL, color: '#1A1A0E' }}>
+                  style={{ background: TEAL, color: 'var(--color-ink)' }}>
                   See {role.label} prompts &rarr;
                 </Link>
                 <Link to="/tools" onClick={() => track({ name: 'cta_clicked', section: 'home-roles', label: `${role.label} tools` })}
-                  className="flex-1 text-center px-5 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-[#f7f6f2]"
-                  style={{ borderColor: BORDER, color: '#6b6760' }}>
+                  className="flex-1 text-center px-5 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-[var(--bg)]"
+                  style={{ borderColor: BORDER, color: 'var(--color-ink-muted)' }}>
                   Browse safe tools &rarr;
                 </Link>
               </div>
@@ -431,8 +431,8 @@ const HowItWorks: FC = () => (
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
       <FadeIn>
         <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>How it works</p>
-        <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>GetPromptly guides you end to end.</h2>
-        <p className="text-sm mb-12 max-w-lg" style={{ color: '#6b6760' }}>
+        <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: 'var(--text)' }}>GetPromptly guides you end to end.</h2>
+        <p className="text-sm mb-12 max-w-lg" style={{ color: 'var(--color-ink-muted)' }}>
           From choosing your role to copying your first prompt, everything is designed to save time and give you confidence.
         </p>
       </FadeIn>
@@ -446,8 +446,8 @@ const HowItWorks: FC = () => (
                 </div>
                 <span className="font-display text-2xl leading-none" style={{ color: BORDER }} aria-hidden="true">{step.n}</span>
               </div>
-              <p className="font-semibold text-sm mb-2" style={{ color: '#1c1a15' }}>{step.title}</p>
-              <p className="text-xs leading-relaxed" style={{ color: '#6b6760' }}>{step.desc}</p>
+              <p className="font-semibold text-sm mb-2" style={{ color: 'var(--text)' }}>{step.title}</p>
+              <p className="text-xs leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{step.desc}</p>
             </div>
           </FadeIn>
         ))}
@@ -505,10 +505,10 @@ const ScoringPreview: FC = () => (
 
         {/* Five pillar rows — coloured dot + name + one-line description */}
         <FadeIn delay={0.1}>
-          <h2 className="font-display mb-2" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.4rem)', color: '#1c1a15' }}>
+          <h2 className="font-display mb-2" style={{ fontSize: 'clamp(1.9rem, 3vw, 2.4rem)', color: 'var(--text)' }}>
             Five published pillars. One <em className="italic" style={{ color: 'var(--color-ink-accent)' }}>Promptly Score.</em>
           </h2>
-          <p className="font-sans text-sm mb-7 max-w-md" style={{ color: '#6b6760' }}>
+          <p className="font-sans text-sm mb-7 max-w-md" style={{ color: 'var(--color-ink-muted)' }}>
             Every tool is scored 0–10 on each pillar, against KCSIE 2025. The composite is the Promptly Score — no paid placements, no sponsored rankings.
           </p>
           <ul className="space-y-4">
@@ -516,8 +516,8 @@ const ScoringPreview: FC = () => (
               <li key={p.name} className="flex items-start gap-3">
                 <span className="w-3 h-3 rounded-full flex-shrink-0 mt-1" style={{ background: p.colour }} aria-hidden="true" />
                 <div>
-                  <p className="font-sans font-semibold text-sm" style={{ color: '#1c1a15' }}>{p.name}</p>
-                  <p className="font-sans text-sm leading-relaxed" style={{ color: '#6b6760' }}>{p.desc}</p>
+                  <p className="font-sans font-semibold text-sm" style={{ color: 'var(--text)' }}>{p.name}</p>
+                  <p className="font-sans text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{p.desc}</p>
                 </div>
               </li>
             ))}
@@ -580,8 +580,8 @@ const CuratedPathways: FC = () => (
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
       <FadeIn>
         <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Curated pathways</p>
-        <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>Ready-made starting points.</h2>
-        <p className="text-sm mb-12 max-w-lg" style={{ color: '#6b6760' }}>
+        <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: 'var(--text)' }}>Ready-made starting points.</h2>
+        <p className="text-sm mb-12 max-w-lg" style={{ color: 'var(--color-ink-muted)' }}>
           Three curated journeys for the most common roles, each combining tools, training and prompts.
         </p>
       </FadeIn>
@@ -590,8 +590,8 @@ const CuratedPathways: FC = () => (
           <FadeIn key={p.role} delay={i * 0.08}>
             <div className="rounded-2xl flex flex-col h-full overflow-hidden" style={{ border: `1px solid ${BORDER}` }}>
               <div className="p-6 pb-5" style={{ background: p.color }}>
-                <div className="mb-3"><RoleIcon name={p.icon} size={24} color="#1E1E1E" /></div>
-                <p className="font-semibold text-sm mb-0.5" style={{ color: '#1c1a15' }}>{p.role}</p>
+                <div className="mb-3"><RoleIcon name={p.icon} size={24} color="var(--color-ground-black)" /></div>
+                <p className="font-semibold text-sm mb-0.5" style={{ color: 'var(--text)' }}>{p.role}</p>
                 <p className="text-xs leading-snug" style={{ color: '#4b5563' }}>{p.headline}</p>
               </div>
               <div className="flex-1 p-5 space-y-2.5" style={{ background: 'white' }}>
@@ -600,14 +600,14 @@ const CuratedPathways: FC = () => (
                   return (
                     <Link key={item.label} to={item.to} onClick={() => track({ name: 'cta_clicked', section: 'home-pathways', label: item.label })} className="flex items-center gap-3 group">
                       <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full flex-shrink-0 whitespace-nowrap" style={{ background: tc.bg, color: tc.text }}>{item.tag}</span>
-                      <span className="text-xs font-medium group-hover:underline leading-snug" style={{ color: '#1c1a15', textDecorationColor: TEAL }}>{item.label}</span>
+                      <span className="text-xs font-medium group-hover:underline leading-snug" style={{ color: 'var(--text)', textDecorationColor: TEAL }}>{item.label}</span>
                     </Link>
                   );
                 })}
               </div>
               <div className="px-5 pb-5" style={{ background: 'white' }}>
                 <Link to={p.cta.to} onClick={() => track({ name: 'cta_clicked', section: 'home-pathways', label: p.cta.label })}
-                  className="block w-full text-center py-2.5 rounded-xl text-xs font-semibold border transition-colors hover:bg-[#f7f6f2]"
+                  className="block w-full text-center py-2.5 rounded-xl text-xs font-semibold border transition-colors hover:bg-[var(--bg)]"
                   style={{ borderColor: BORDER, color: 'var(--color-ink-accent)' }}>
                   {p.cta.label} &rarr;
                 </Link>
@@ -642,7 +642,7 @@ const PromptCapture: FC = () => {
           </p>
           {done ? (
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold" style={{ background: 'rgba(255,255,255,0.4)', color: 'var(--color-ink)' }}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-6" stroke="#1A1A0E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l4 4 6-6" stroke="var(--color-ink)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               Sent. Check your inbox.
             </div>
           ) : (
@@ -651,7 +651,7 @@ const PromptCapture: FC = () => {
               <input id="email-capture" type="email" required value={val} onChange={e => setVal(e.target.value)}
                 placeholder="your@school.ac.uk"
                 className="flex-1 px-4 py-3 rounded-xl text-sm border-0 focus:outline-none focus:ring-2 focus:ring-white/60"
-                style={{ background: 'rgba(255,255,255,0.95)', color: '#1c1a15' }} />
+                style={{ background: 'rgba(255,255,255,0.95)', color: 'var(--text)' }} />
               <button type="submit"
                 className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white whitespace-nowrap"
                 style={{ background: DARK, color: 'white' }}>
@@ -680,8 +680,8 @@ const PlatformNav: FC = () => (
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
       <FadeIn>
         <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>The platform</p>
-        <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: '#1c1a15' }}>Four sections. One trusted source.</h2>
-        <p className="text-sm mb-10 max-w-lg" style={{ color: '#6b6760' }}>
+        <h2 className="font-display text-3xl sm:text-4xl mb-3" style={{ color: 'var(--text)' }}>Four sections. One trusted source.</h2>
+        <p className="text-sm mb-10 max-w-lg" style={{ color: 'var(--color-ink-muted)' }}>
           Tools, training, equipment and prompts, all independently reviewed for UK education.
         </p>
       </FadeIn>
@@ -697,9 +697,9 @@ const PlatformNav: FC = () => (
                 </div>
               </div>
               <div className="flex-1 flex flex-col p-5">
-                <p className="font-semibold text-sm mb-0.5 group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: '#1c1a15' }}>{c.title}</p>
+                <p className="font-semibold text-sm mb-0.5 group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: 'var(--text)' }}>{c.title}</p>
                 <p className="text-[10px] font-semibold mb-3" style={{ color: 'var(--color-ink-accent)' }}>{c.stat}</p>
-                <p className="text-xs leading-relaxed flex-1" style={{ color: '#6b6760' }}>{c.desc}</p>
+                <p className="text-xs leading-relaxed flex-1" style={{ color: 'var(--color-ink-muted)' }}>{c.desc}</p>
                 <span className="mt-4 text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>Browse &rarr;</span>
               </div>
             </Link>
@@ -717,19 +717,19 @@ const SchoolsCTA: FC = () => (
     <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
       <FadeIn>
         <p className="text-[11px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--color-ink-accent)' }}>For schools &amp; trusts</p>
-        <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: '#1c1a15' }}>Whole-school AI advisory, without the jargon.</h2>
-        <p className="text-sm leading-relaxed max-w-md mb-8" style={{ color: '#6b6760' }}>
+        <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: 'var(--text)' }}>Whole-school AI advisory, without the jargon.</h2>
+        <p className="text-sm leading-relaxed max-w-md mb-8" style={{ color: 'var(--color-ink-muted)' }}>
           GetPromptly helps headteachers, SENCOs, IT leads and business managers make informed decisions about AI tools, staff training, SEND technology and procurement.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <Link to="/schools" onClick={() => track({ name: 'cta_clicked', section: 'home-schools-cta', label: 'For Schools page' })}
             className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 text-center"
-            style={{ background: TEAL, color: '#1A1A0E' }}>
+            style={{ background: TEAL, color: 'var(--color-ink)' }}>
             GetPromptly for Schools &rarr;
           </Link>
           <button onClick={() => { track({ name: 'cta_clicked', section: 'home-schools-cta', label: 'Request consultation' }); openWidget(); }}
             className="px-6 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-[#f0ede8]"
-            style={{ borderColor: BORDER, color: '#6b6760' }}>
+            style={{ borderColor: BORDER, color: 'var(--color-ink-muted)' }}>
             Request a consultation
           </button>
         </div>
@@ -744,11 +744,11 @@ const SchoolsCTA: FC = () => (
           ].map(item => (
             <Link key={item.label} to={item.to} onClick={() => track({ name: 'cta_clicked', section: 'home-schools-links', label: item.label })}
               className="flex items-center gap-4 p-4 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] group"
-              style={{ borderColor: BORDER, background: '#f7f6f2' }}>
-              <CategoryIcon name={item.icon} size={20} color="#1E1E1E" className="flex-shrink-0" />
+              style={{ borderColor: BORDER, background: 'var(--bg)' }}>
+              <CategoryIcon name={item.icon} size={20} color="var(--color-ground-black)" className="flex-shrink-0" />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-semibold group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: '#1c1a15' }}>{item.label}</p>
-                <p className="text-xs" style={{ color: '#6b6760' }}>{item.desc}</p>
+                <p className="text-sm font-semibold group-hover:text-[var(--color-promptly-lime)] transition-colors" style={{ color: 'var(--text)' }}>{item.label}</p>
+                <p className="text-xs" style={{ color: 'var(--color-ink-muted)' }}>{item.desc}</p>
               </div>
               <span className="text-xs flex-shrink-0" style={{ color: '#a09d98' }} aria-hidden="true">&rarr;</span>
             </Link>

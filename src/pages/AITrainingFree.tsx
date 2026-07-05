@@ -23,11 +23,11 @@ function TrainingCard({ item }: { item: TrainingItem }) {
   return (
     <div
       className="rounded-2xl border flex flex-col"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <div className="px-5 pt-5 pb-4 flex-1">
         <div className="flex items-start justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-muted)' }}>
             {item.category}
           </span>
           <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -51,10 +51,10 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           {item.name}
         </h3>
         <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{item.provider}</p>
-        <p className="text-sm leading-relaxed mb-3" style={{ color: '#6b6760' }}>{item.notes}</p>
+        <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--color-ink-muted)' }}>{item.notes}</p>
         <span
           className="text-[10px] font-medium px-2 py-0.5 rounded-full border"
-          style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+          style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
         >
           {item.level}
         </span>
@@ -69,7 +69,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           target="_blank"
           rel="noopener noreferrer"
           className="text-sm font-semibold px-3 py-1.5 rounded-lg"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           Visit →
         </a>
@@ -116,7 +116,7 @@ export default function AITrainingFree() {
             Free{' '}
             <span style={{ color: 'var(--color-ink-accent)' }}>AI Training.</span>
           </h1>
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>
             {FREE_ITEMS.length} completely free resources — no subscription, no credit card. Many are
             backed by the UK Government, universities and established charities.
           </p>
@@ -140,7 +140,7 @@ export default function AITrainingFree() {
                 'Google and Microsoft both offer free UK-accessible learning paths aligned to workplace AI skills.',
                 'Free resources are often better for CPD evidence: they are from trusted, citable providers with clear outcomes.',
               ].map((point, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm" style={{ color: '#1c1a15' }}>
+                <li key={i} className="flex items-start gap-3 text-sm" style={{ color: 'var(--text)' }}>
                   <span
                     className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-bold mt-0.5"
                     style={{ background: 'var(--color-ink)', color: 'white' }}
@@ -165,9 +165,9 @@ export default function AITrainingFree() {
                 onClick={() => setAudienceFilter(pill.value)}
                 className="px-4 py-1.5 rounded-full text-sm font-medium border transition-colors"
                 style={{
-                  borderColor: audienceFilter === pill.value ? TEAL : '#e8e6e0',
+                  borderColor: audienceFilter === pill.value ? TEAL : 'var(--color-rule)',
                   background: audienceFilter === pill.value ? TEAL : 'white',
-                  color: audienceFilter === pill.value ? 'white' : '#6b6760',
+                  color: audienceFilter === pill.value ? 'white' : 'var(--color-ink-muted)',
                 }}
                 aria-pressed={audienceFilter === pill.value}
               >
@@ -194,7 +194,7 @@ export default function AITrainingFree() {
           <Link
             to="/ai-training"
             className="flex-1 rounded-2xl border p-5 text-center"
-            style={{ borderColor: '#e8e6e0' }}
+            style={{ borderColor: 'var(--color-rule)' }}
           >
             <p className="font-display text-lg mb-1" style={{ color: 'var(--text)' }}>
               Back to Training Hub →

@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ROLES, getRole, setRole, ROLE_CHANGED } from '../utils/role';
 
 const LIME = 'var(--color-promptly-lime)';
-const INK  = '#1E1E1E';
+const INK  = 'var(--color-ground-black)';
 
 const RoleStrip: FC = () => {
   const [active, setActive] = useState<string>('');

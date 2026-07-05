@@ -77,7 +77,7 @@ const PromptsLibrary = () => {
       />
 
       {/* Hero */}
-      <section className="px-5 sm:px-8 pt-12 pb-8 border-b" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 pt-12 pb-8 border-b" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-5xl mx-auto">
           <Link
             to="/prompts"
@@ -90,14 +90,14 @@ const PromptsLibrary = () => {
           <h1 className="font-display text-3xl sm:text-4xl mb-2" style={{ color: 'var(--text)' }}>
             AI Prompts Library
           </h1>
-          <p className="text-base" style={{ color: '#6b6760' }}>
+          <p className="text-base" style={{ color: 'var(--color-ink-muted)' }}>
             50 prompt packs · 440+ ready-to-copy prompts · free to use
           </p>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="px-5 sm:px-8 py-6 border-b sticky top-0 z-10" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-6 border-b sticky top-0 z-10" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-5xl mx-auto space-y-3">
           {/* Search + Sort */}
           <div className="flex flex-col sm:flex-row gap-3">
@@ -112,7 +112,7 @@ const PromptsLibrary = () => {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search packs..."
                 className="w-full pl-8 pr-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
+                style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)' }}
                 aria-label="Search prompt packs"
               />
             </div>
@@ -120,7 +120,7 @@ const PromptsLibrary = () => {
               value={sort}
               onChange={(e) => setSort(e.target.value as SortOption)}
               className="px-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)] cursor-pointer"
-              style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#6b6760' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)', color: 'var(--color-ink-muted)' }}
               aria-label="Sort packs"
             >
               <option value="default">Sort: Default</option>
@@ -140,7 +140,7 @@ const PromptsLibrary = () => {
                 }`}
                 style={
                   categoryFilter !== cat
-                    ? { borderColor: '#e8e6e0', color: '#6b6760', background: '#f7f6f2' }
+                    ? { borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'var(--bg)' }
                     : {}
                 }
                 aria-pressed={categoryFilter === cat}
@@ -163,7 +163,7 @@ const PromptsLibrary = () => {
                   }`}
                   style={
                     roleFilter !== r
-                      ? { borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }
+                      ? { borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'white' }
                       : {}
                   }
                   aria-pressed={roleFilter === r}
@@ -184,7 +184,7 @@ const PromptsLibrary = () => {
                   }`}
                   style={
                     senFilter !== s
-                      ? { borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }
+                      ? { borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'white' }
                       : {}
                   }
                   aria-pressed={senFilter === s}
@@ -205,7 +205,7 @@ const PromptsLibrary = () => {
                   }`}
                   style={
                     stageFilter !== st
-                      ? { borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }
+                      ? { borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'white' }
                       : {}
                   }
                   aria-pressed={stageFilter === st}
@@ -222,14 +222,14 @@ const PromptsLibrary = () => {
       <section className="px-5 sm:px-8 py-8" style={{ background: 'var(--bg)' }}>
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
-            <p className="text-sm" style={{ color: '#6b6760' }}>
+            <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>
               Showing <strong style={{ color: 'var(--text)' }}>{filtered.length}</strong> of 50 packs
             </p>
             {isFiltered && (
               <button
                 onClick={clearFilters}
                 className="text-xs font-medium px-3 py-1.5 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+                style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
               >
                 Clear filters
               </button>
@@ -239,7 +239,7 @@ const PromptsLibrary = () => {
           {filtered.length === 0 ? (
             <div className="text-center py-16">
               <p className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>No packs found</p>
-              <p className="text-sm mb-4" style={{ color: '#6b6760' }}>Try adjusting your filters or search term.</p>
+              <p className="text-sm mb-4" style={{ color: 'var(--color-ink-muted)' }}>Try adjusting your filters or search term.</p>
               <button
                 onClick={clearFilters}
                 className="text-sm font-medium px-4 py-2 rounded-lg transition-colors"

@@ -118,7 +118,7 @@ const EmailCapture: FC = () => {
                   className="px-3 py-1.5 rounded-full text-xs font-semibold border transition-all"
                   style={
                     selectedRoles.includes(role)
-                      ? { background: TEAL, color: '#1A1A0E', borderColor: TEAL }
+                      ? { background: TEAL, color: 'var(--color-ink)', borderColor: TEAL }
                       : { background: 'transparent', color: '#9ca3af', borderColor: '#374151' }
                   }
                 >
@@ -158,7 +158,7 @@ const EmailCapture: FC = () => {
                 type="submit"
                 disabled={status === 'loading'}
                 className="flex-shrink-0 px-5 py-3 rounded-xl text-sm font-semibold transition-opacity disabled:opacity-50 hover:opacity-80"
-                style={{ background: TEAL, color: '#1A1A0E' }}
+                style={{ background: TEAL, color: 'var(--color-ink)' }}
               >
                 {status === 'loading' ? 'Subscribing…' : 'Get free prompts →'}
               </button>

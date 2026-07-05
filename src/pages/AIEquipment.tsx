@@ -34,7 +34,7 @@ const FEATURED_BORDER = 'rgba(200,228,74,0.2)';
 // links/emphasis use dark-lime (--color-ink-accent) and Luna CTAs use a lime FILL.
 const WHITE = '#FFFFFF';
 const RULE = 'var(--color-rule)';
-const MUTED = '#6b6760';        // secondary text on oat / white
+const MUTED = 'var(--color-ink-muted)';        // secondary text on oat / white
 const INK_ACCENT = '#46540E';   // dark-lime — links/emphasis on light surfaces
 
 // ── Pillar palette — restrained accents so the hub reads as GetPromptly, ────────
@@ -299,7 +299,7 @@ export default function AIEquipment() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <button
               onClick={() => { openLuna('Help me find the right equipment. Ask me about the learner’s need, the setting and my budget, then suggest what fits.'); track({ name: 'agent_opened', section: 'equipment-hero' }); }}
-              className="font-sans inline-flex items-center gap-2 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+              className="font-sans inline-flex items-center gap-2 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
               style={{ fontSize: 15, fontWeight: 600, background: LIME, color: INK }}
             >
               Ask Luna <ArrowRight size={16} />
@@ -420,7 +420,7 @@ export default function AIEquipment() {
             </div>
             <button
               onClick={() => { openLuna('Help me choose equipment — ask me about my school, the pupil’s need, the setting and my budget, then shortlist what fits.'); track({ name: 'agent_opened', section: 'equipment-catalogue-adviser' }); }}
-              className="font-sans flex-shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+              className="font-sans flex-shrink-0 inline-flex items-center gap-2 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
               style={{ fontSize: 15, fontWeight: 600, background: LIME, color: INK }}
             >
               Ask Luna <ArrowRight size={16} />

@@ -90,11 +90,11 @@ function TrainingCard({ item }: { item: TrainingItem }) {
       <div className="flex-1">
         {/* Title + pillar badge top-right */}
         <div className="flex items-start justify-between gap-3">
-          <h3 className="font-display" style={{ fontSize: 20, fontWeight: 400, color: '#1E1E1E' }}>
+          <h3 className="font-display" style={{ fontSize: 20, fontWeight: 400, color: 'var(--color-ground-black)' }}>
             {item.name}
           </h3>
           {pillar && (
-            <span className="font-mono inline-flex items-center gap-1.5 uppercase flex-shrink-0 mt-1.5" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+            <span className="font-mono inline-flex items-center gap-1.5 uppercase flex-shrink-0 mt-1.5" style={{ fontSize: 10, letterSpacing: '0.06em', color: 'var(--color-ink-muted)' }}>
               <span className="rounded-full flex-shrink-0" style={{ width: 8, height: 8, background: pillar.colour }} aria-hidden="true" />
               {pillar.name}
             </span>
@@ -102,7 +102,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
         </div>
 
         {/* Provider + type (Free/Paid/Certificate) */}
-        <p className="font-sans mt-1" style={{ fontSize: 13, fontWeight: 500, color: '#6b6760' }}>
+        <p className="font-sans mt-1" style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-ink-muted)' }}>
           {item.provider} · {typeLabel}
         </p>
 
@@ -114,7 +114,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
 
       {/* View resource link */}
       <div className="mt-4 flex items-center justify-between gap-3">
-        <span className="font-sans" style={{ fontSize: 13, fontWeight: 500, color: '#6b6760' }}>{item.cost}</span>
+        <span className="font-sans" style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-ink-muted)' }}>{item.cost}</span>
         <a
           href={item.url}
           target="_blank"
@@ -127,7 +127,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
         </a>
       </div>
       {item.affiliate && (
-        <span className="font-sans mt-1.5 self-end" style={{ fontSize: 9, color: '#6b6760' }}>Affiliate link</span>
+        <span className="font-sans mt-1.5 self-end" style={{ fontSize: 9, color: 'var(--color-ink-muted)' }}>Affiliate link</span>
       )}
     </div>
   );
@@ -188,10 +188,10 @@ export default function AITraining() {
         <div className="max-w-4xl mx-auto">
           <SectionLabel>AI Training Hub</SectionLabel>
           {/* Light hero (oat): full ground-black headline, no per-word accent (§09). */}
-          <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: '#1E1E1E' }}>
+          <h1 className="font-display text-5xl sm:text-6xl leading-[1.08] tracking-tight mb-6" style={{ color: 'var(--color-ground-black)' }}>
             Learn AI.
           </h1>
-          <p className="text-lg leading-relaxed max-w-2xl mb-10" style={{ color: '#6b6760' }}>
+          <p className="text-lg leading-relaxed max-w-2xl mb-10" style={{ color: 'var(--color-ink-muted)' }}>
             {STAT_TOTAL} free and paid resources curated for UK educators, parents, students
             and professionals. Government-backed, independently reviewed, trust-first.
           </p>
@@ -209,10 +209,10 @@ export default function AITraining() {
                 className="rounded-2xl border p-5 text-center"
                 style={{ borderColor: '#E8E4DC', background: 'white' }}
               >
-                <p className="font-display mb-1" style={{ fontSize: 32, fontWeight: 700, color: '#1E1E1E' }}>
+                <p className="font-display mb-1" style={{ fontSize: 32, fontWeight: 700, color: 'var(--color-ground-black)' }}>
                   {stat.value}
                 </p>
-                <p className="font-sans" style={{ fontSize: 12, color: '#9C9C8A' }}>
+                <p className="font-sans" style={{ fontSize: 12, color: 'var(--color-fog)' }}>
                   {stat.label}
                 </p>
               </div>
@@ -288,8 +288,8 @@ export default function AITraining() {
                   }}
                   aria-pressed={active}
                 >
-                  <RoleIcon name={tile.icon} size={24} color="#1E1E1E" />
-                  <span className="text-sm font-semibold font-sans" style={{ color: '#1E1E1E' }}>{tile.label}</span>
+                  <RoleIcon name={tile.icon} size={24} color="var(--color-ground-black)" />
+                  <span className="text-sm font-semibold font-sans" style={{ color: 'var(--color-ground-black)' }}>{tile.label}</span>
                 </button>
               );
             })}
@@ -319,7 +319,7 @@ export default function AITraining() {
               onChange={e => setSearch(e.target.value)}
               className="w-full sm:w-64 px-4 py-2.5 rounded-xl border text-sm outline-none focus:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
               style={{
-                borderColor: '#e8e6e0',
+                borderColor: 'var(--color-rule)',
                 background: 'white',
                 color: 'var(--text)',
               }}
@@ -329,7 +329,7 @@ export default function AITraining() {
             {/* Type tabs */}
             <div
               className="flex rounded-xl border overflow-hidden"
-              style={{ borderColor: '#e8e6e0' }}
+              style={{ borderColor: 'var(--color-rule)' }}
               role="group"
               aria-label="Filter by type"
             >
@@ -339,8 +339,8 @@ export default function AITraining() {
                   onClick={() => setTypeFilter(tab.value)}
                   className="font-sans px-4 py-2 text-sm font-medium transition-colors"
                   style={{
-                    background: typeFilter === tab.value ? '#1E1E1E' : 'white',
-                    color: typeFilter === tab.value ? 'var(--color-promptly-lime)' : '#6b6760',
+                    background: typeFilter === tab.value ? 'var(--color-ground-black)' : 'white',
+                    color: typeFilter === tab.value ? 'var(--color-promptly-lime)' : 'var(--color-ink-muted)',
                   }}
                   aria-pressed={typeFilter === tab.value}
                 >
@@ -365,8 +365,8 @@ export default function AITraining() {
                   }}
                   className="font-sans rounded-full px-3.5 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                   style={active
-                    ? { fontSize: 12, fontWeight: 500, background: '#1E1E1E', color: 'var(--color-promptly-lime)', borderColor: '#1E1E1E' }
-                    : { fontSize: 12, fontWeight: 500, background: 'white', color: '#1E1E1E', borderColor: '#E8E4DC' }}
+                    ? { fontSize: 12, fontWeight: 500, background: 'var(--color-ground-black)', color: 'var(--color-promptly-lime)', borderColor: 'var(--color-ground-black)' }
+                    : { fontSize: 12, fontWeight: 500, background: 'white', color: 'var(--color-ground-black)', borderColor: '#E8E4DC' }}
                   aria-pressed={active}
                 >
                   {r.label}
@@ -389,7 +389,7 @@ export default function AITraining() {
             </div>
           ) : (
             <div className="text-center py-16">
-              <p className="text-lg mb-2" style={{ color: '#6b6760' }}>
+              <p className="text-lg mb-2" style={{ color: 'var(--color-ink-muted)' }}>
                 No results found.
               </p>
               <button
@@ -424,7 +424,7 @@ export default function AITraining() {
               <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: 'var(--color-ink)' }}>
                 Free courses
               </p>
-              <ul className="space-y-2.5 text-sm" style={{ color: '#1c1a15' }}>
+              <ul className="space-y-2.5 text-sm" style={{ color: 'var(--text)' }}>
                 <li className="flex items-start gap-2">
                   <span style={{ color: 'var(--color-ink)' }}>✓</span>
                   UK Government-backed with no cost barrier
@@ -460,7 +460,7 @@ export default function AITraining() {
               <p className="text-sm font-bold uppercase tracking-widest mb-4" style={{ color: AMBER_TEXT }}>
                 Paid courses
               </p>
-              <ul className="space-y-2.5 text-sm" style={{ color: '#1c1a15' }}>
+              <ul className="space-y-2.5 text-sm" style={{ color: 'var(--text)' }}>
                 <li className="flex items-start gap-2">
                   <span style={{ color: AMBER_TEXT }}>✓</span>
                   Recognised certificates for career progression
@@ -501,7 +501,7 @@ export default function AITraining() {
               <p className="text-sm font-bold mb-3" style={{ color: 'var(--color-ink)' }}>
                 Start as a Beginner if...
               </p>
-              <ul className="space-y-2 text-sm" style={{ color: '#1c1a15' }}>
+              <ul className="space-y-2 text-sm" style={{ color: 'var(--text)' }}>
                 <li>You are new to AI or have never used a tool like ChatGPT</li>
                 <li>You want a plain-English overview of what AI is</li>
                 <li>You are a parent, teacher or school leader starting from scratch</li>
@@ -514,7 +514,7 @@ export default function AITraining() {
               <p className="text-sm font-bold mb-3" style={{ color: 'var(--color-ink)' }}>
                 Jump to Intermediate if...
               </p>
-              <ul className="space-y-2 text-sm" style={{ color: '#1c1a15' }}>
+              <ul className="space-y-2 text-sm" style={{ color: 'var(--text)' }}>
                 <li>You already use AI tools in your daily workflow</li>
                 <li>You want to build prompts, workflows or automations</li>
                 <li>You are ready to lead AI implementation in your school</li>
@@ -535,7 +535,7 @@ export default function AITraining() {
             <Link
               to="/tools"
               className="rounded-2xl border p-6 flex flex-col gap-2 transition-colors group"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white' }}
             >
               <span className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-ink-accent)' }}>
                 AI Tools
@@ -543,14 +543,14 @@ export default function AITraining() {
               <h3 className="font-display text-xl" style={{ color: 'var(--text)' }}>
                 Explore AI tools →
               </h3>
-              <p className="text-sm" style={{ color: '#6b6760' }}>
+              <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>
                 Safe AI tools reviewed and rated for UK education settings.
               </p>
             </Link>
             <Link
               to="/equipment"
               className="rounded-2xl border p-6 flex flex-col gap-2 transition-colors"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white' }}
             >
               <span className="text-sm font-bold uppercase tracking-widest" style={{ color: 'var(--color-ink-accent)' }}>
                 Equipment
@@ -558,7 +558,7 @@ export default function AITraining() {
               <h3 className="font-display text-xl" style={{ color: 'var(--text)' }}>
                 Explore equipment →
               </h3>
-              <p className="text-sm" style={{ color: '#6b6760' }}>
+              <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>
                 Hardware, devices and accessibility equipment for AI-ready classrooms.
               </p>
             </Link>
@@ -570,7 +570,7 @@ export default function AITraining() {
       {inlineItems.length > 0 && (
         <section className="px-5 sm:px-8 py-10" style={{ background: 'var(--bg)' }}>
           <div className="max-w-4xl mx-auto">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--color-ink-muted)' }}>
               You might also like
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -592,13 +592,13 @@ export default function AITraining() {
           <h2 className="font-display text-3xl sm:text-4xl mb-4" style={{ color: 'white' }}>
             Get a personalised recommendation
           </h2>
-          <p className="text-base mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8" style={{ color: 'var(--color-ink-muted)' }}>
             Tell the Luna what you're trying to achieve and it will suggest the best
             training path for your role and experience level.
           </p>
           <button
             className="font-sans px-6 py-3 rounded-full font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-            style={{ background: TEAL, color: '#1A1A0E' }}
+            style={{ background: TEAL, color: 'var(--color-ink)' }}
             onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
           >
             Ask Luna →

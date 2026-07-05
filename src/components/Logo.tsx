@@ -10,7 +10,7 @@
  *   - point length 3 units; cardinal points 100%, diagonal points 90%
  *   - each point is a kite/triangle with its base shoulders on the core ring
  *
- * Two versions (§11): 'light' for oat/light surfaces, 'dark' for #1E1E1E.
+ * Two versions (§11): 'light' for oat/light surfaces, 'dark' for var(--color-ground-black).
  * Misuse rules enforced by construction: no gradients/shadows/outlines, fixed
  * aspect ratio, never the wordmark without the icon.
  */
@@ -44,7 +44,7 @@ function starburstPoints(): string[] {
 const POINTS = starburstPoints();
 
 /** The bare 8-point starburst glyph. `colour` paints the points + core. */
-export function Starburst({ size = 18, colour = '#1E1E1E' }: { size?: number; colour?: string }) {
+export function Starburst({ size = 18, colour = 'var(--color-ground-black)' }: { size?: number; colour?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 8 8" fill="none" aria-hidden="true">
       <g fill={colour}>
@@ -67,16 +67,16 @@ export interface LogoProps {
 
 /**
  * Full logo lockup (icon + wordmark, 8px gap), wrapped as a homepage link.
- * Use `variant="dark"` on #1E1E1E surfaces, `variant="light"` on oat/light.
+ * Use `variant="dark"` on var(--color-ground-black) surfaces, `variant="light"` on oat/light.
  */
 export default function Logo({ variant = 'light', iconOnly = false, size = 32, className }: LogoProps) {
   const isDark = variant === 'dark';
 
   const tileStyle: React.CSSProperties = isDark
-    ? { background: '#1E1E1E', border: '1px solid #C8E44A' }
+    ? { background: 'var(--color-ground-black)', border: '1px solid #C8E44A' }
     : { background: '#C8E44A' };
-  const starColour = isDark ? '#C8E44A' : '#1E1E1E';
-  const wordColour = isDark ? '#FFFFFF' : '#1A1A14';
+  const starColour = isDark ? '#C8E44A' : 'var(--color-ground-black)';
+  const wordColour = isDark ? '#FFFFFF' : 'var(--color-ink)';
 
   return (
     <Link

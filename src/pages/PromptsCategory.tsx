@@ -71,7 +71,7 @@ const PromptsCategory = () => {
       />
 
       {/* Hero */}
-      <section className="px-5 sm:px-8 pt-12 pb-8 border-b" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 pt-12 pb-8 border-b" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-5xl mx-auto">
           <Link
             to="/prompts/library"
@@ -85,7 +85,7 @@ const PromptsCategory = () => {
             {displayName}
           </h1>
           {catData && (
-            <p className="text-base mb-4 max-w-2xl" style={{ color: '#6b6760' }}>
+            <p className="text-base mb-4 max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>
               {catData.description}
             </p>
           )}
@@ -101,7 +101,7 @@ const PromptsCategory = () => {
       </section>
 
       {/* SEN filter */}
-      <section className="px-5 sm:px-8 py-4 border-b" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-4 border-b" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-5xl mx-auto">
           <div className="flex gap-2 overflow-x-auto pb-1 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap" role="group" aria-label="Filter by SEN focus">
             {SEN_FILTERS.map((s) => (
@@ -113,7 +113,7 @@ const PromptsCategory = () => {
                 }`}
                 style={
                   senFilter !== s
-                    ? { borderColor: '#e8e6e0', color: '#6b6760', background: '#f7f6f2' }
+                    ? { borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'var(--bg)' }
                     : {}
                 }
                 aria-pressed={senFilter === s}
@@ -128,7 +128,7 @@ const PromptsCategory = () => {
       {/* Grid */}
       <section className="px-5 sm:px-8 py-10" style={{ background: 'var(--bg)' }}>
         <div className="max-w-5xl mx-auto">
-          <p className="text-sm mb-5" style={{ color: '#6b6760' }}>
+          <p className="text-sm mb-5" style={{ color: 'var(--color-ink-muted)' }}>
             Showing <strong style={{ color: 'var(--text)' }}>{filtered.length}</strong> of {packsInCategory.length} packs
           </p>
           {filtered.length === 0 ? (
@@ -148,7 +148,7 @@ const PromptsCategory = () => {
 
       {/* Adjacent categories */}
       {adjacentSlugs.length > 0 && (
-        <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
           <div className="max-w-5xl mx-auto">
             <p className="text-[11px] font-semibold tracking-widest uppercase mb-4" style={{ color: '#9ca3af' }}>Related categories</p>
             <div className="flex flex-wrap gap-3">
@@ -159,7 +159,7 @@ const PromptsCategory = () => {
                     key={slug}
                     to={`/prompts/category/${slug}`}
                     className="px-4 py-2 rounded-full border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)]"
-                    style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+                    style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
                   >
                     {name}
                   </Link>

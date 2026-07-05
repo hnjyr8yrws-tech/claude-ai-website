@@ -46,12 +46,12 @@ export default function PathwayEmailCTA({ pathwayName, pathwaySlug }: Props) {
   return (
     <div
       className="rounded-xl border px-5 py-4"
-      style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)' }}
     >
       <p className="text-sm font-semibold mb-1" style={{ color: 'var(--text)' }}>
         Send me this pathway
       </p>
-      <p className="text-xs mb-3" style={{ color: '#6b6760' }}>
+      <p className="text-xs mb-3" style={{ color: 'var(--color-ink-muted)' }}>
         Get the <strong>{pathwayName}</strong> learning path sent straight to your inbox.
       </p>
       <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
@@ -65,19 +65,19 @@ export default function PathwayEmailCTA({ pathwayName, pathwaySlug }: Props) {
             value={email}
             onChange={e => setEmail(e.target.value)}
             className="w-full px-3 py-2 rounded-lg border text-sm outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: '#1c1a15' }}
+            style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--text)' }}
           />
         </div>
         <button
           type="submit"
           className="flex-shrink-0 px-4 py-2 rounded-lg text-sm font-semibold transition-opacity hover:opacity-80"
-          style={{ background: TEAL, color: '#1A1A0E' }}
+          style={{ background: TEAL, color: 'var(--color-ink)' }}
         >
           Send pathway →
         </button>
       </form>
       {error && <p className="text-xs mt-2" style={{ color: '#dc2626' }}>{error}</p>}
-      <p className="text-[10px] mt-2" style={{ color: '#6b6760' }}>
+      <p className="text-[10px] mt-2" style={{ color: 'var(--color-ink-muted)' }}>
         No spam. Unsubscribe any time.
       </p>
     </div>

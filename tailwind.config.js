@@ -13,11 +13,14 @@ export default {
           amber:  '#D97706',
           gold:   '#F59E0B',
         },
+        // Resolved to the brand-bible CSS variables (single source of truth in
+        // index.css). `dark` stays a raw hex pending a CD decision on merging the
+        // nav dark (#111210) into ground-black (#1E1E1E).
         site: {
-          bg:     '#f7f6f2',
+          bg:     'var(--bg)',
           dark:   '#111210',
-          subtle: '#e8e6e0',
-          muted:  '#6b6760',
+          subtle: 'var(--color-rule)',
+          muted:  'var(--color-ink-muted)',
         },
         teal: {
           DEFAULT: '#00808a',
