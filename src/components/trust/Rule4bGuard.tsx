@@ -42,7 +42,7 @@ export function Rule4bGuard({
     <div
       role="status"
       className={[
-        'rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm text-neutral-600',
+        'rounded-md border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-sm text-site-muted',
         className,
       ]
         .filter(Boolean)

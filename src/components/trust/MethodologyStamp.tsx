@@ -18,7 +18,7 @@ export function MethodologyStamp({ methodology, className }: MethodologyStampPro
   return (
     <p
       className={[
-        'font-mono text-[11px] uppercase tracking-wide text-neutral-500',
+        'font-mono text-[11px] uppercase tracking-wide text-[var(--color-fog)]',
         className,
       ]
         .filter(Boolean)

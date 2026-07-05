@@ -14,7 +14,7 @@ export function ReviewerBadge({ reviewer, className }: ReviewerBadgeProps) {
   return (
     <span
       className={[
-        'inline-flex items-center gap-1.5 text-sm text-neutral-700',
+        'inline-flex items-center gap-1.5 text-sm text-site-muted',
         className,
       ]
         .filter(Boolean)
@@ -23,11 +23,11 @@ export function ReviewerBadge({ reviewer, className }: ReviewerBadgeProps) {
     >
       <span
         aria-hidden="true"
-        className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-neutral-900 px-1 text-[11px] font-semibold text-white"
+        className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-[var(--color-ground-black)] px-1 text-[11px] font-semibold text-white"
       >
         {initials}
       </span>
-      <span aria-hidden="true" className="text-neutral-500">
+      <span aria-hidden="true" className="text-[var(--color-fog)]">
         · {date}
       </span>
     </span>
