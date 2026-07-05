@@ -21,7 +21,7 @@ import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { inferLinkType, linkLabel } from '../utils/linkType';
 
 const LIME = 'var(--color-promptly-lime)';
-const INK  = '#1E1E1E';
+const INK  = 'var(--color-ground-black)';
 const FOG  = 'var(--color-fog)';
 const RULE = 'var(--color-rule)';
 const OAT  = 'var(--color-oat)';                 // title text on dark
@@ -171,8 +171,8 @@ function LunaPanel({ roleLabel }: { roleLabel?: string }) {
         />
         <button
           onClick={send}
-          className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
-          style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
+          className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
+          style={{ fontSize: 14, fontWeight: 500, background: LIME, color: 'var(--color-ink)' }}
         >
           Ask Luna &rarr;
         </button>
@@ -278,8 +278,8 @@ export default function Tools() {
               />
               <button
                 onClick={sendLuna}
-                className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
-                style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
+                className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
+                style={{ fontSize: 14, fontWeight: 500, background: LIME, color: 'var(--color-ink)' }}
               >
                 Ask Luna &rarr;
               </button>
@@ -321,7 +321,7 @@ export default function Tools() {
                   aria-pressed={active}
                   className="font-sans flex-shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                   style={active
-                    ? { fontSize: 12, fontWeight: 500, background: LIME, color: '#1A1A0E', borderColor: LIME }
+                    ? { fontSize: 12, fontWeight: 500, background: LIME, color: 'var(--color-ink)', borderColor: LIME }
                     : { fontSize: 12, fontWeight: 500, background: 'transparent', color: OAT, borderColor: HAIRLINE }}
                 >
                   {r.label}

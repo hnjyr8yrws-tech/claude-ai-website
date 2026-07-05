@@ -19,7 +19,7 @@ import { PROMPT_PACKS, type PromptPack } from '../data/prompts';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 
 const LIME = 'var(--color-promptly-lime)';
-const INK  = '#1E1E1E';
+const INK  = 'var(--color-ground-black)';
 const FOG  = 'var(--color-fog)';
 const RULE = 'var(--color-rule)';
 
@@ -115,14 +115,14 @@ function PackTile({ pack }: { pack: PromptPack }) {
             {pack.title}
           </h3>
           {/* Subject badge top-right */}
-          <span className="font-mono inline-flex items-center gap-1.5 uppercase flex-shrink-0 mt-1.5" style={{ fontSize: 10, letterSpacing: '0.06em', color: '#6b6760' }}>
+          <span className="font-mono inline-flex items-center gap-1.5 uppercase flex-shrink-0 mt-1.5" style={{ fontSize: 10, letterSpacing: '0.06em', color: 'var(--color-ink-muted)' }}>
             <span className="rounded-full flex-shrink-0" style={{ width: 8, height: 8, background: pillar.colour }} aria-hidden="true" />
             {pillar.name}
           </span>
         </div>
 
         {/* Count */}
-        <p className="font-sans mt-1" style={{ fontSize: 13, fontWeight: 500, color: '#6b6760' }}>
+        <p className="font-sans mt-1" style={{ fontSize: 13, fontWeight: 500, color: 'var(--color-ink-muted)' }}>
           {pack.promptCount} prompts{pack.free ? ' · Free' : ''}
         </p>
 
@@ -228,7 +228,7 @@ const PromptsHub = () => {
               to="/prompts/library"
               onClick={() => track({ name: 'cta_clicked', section: 'prompts-hero', label: 'Browse All 50 Packs' })}
               className="font-sans inline-flex items-center justify-center rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
-              style={{ fontSize: 15, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
+              style={{ fontSize: 15, fontWeight: 500, background: LIME, color: 'var(--color-ink)' }}
             >
               Browse All 50 Packs
             </Link>
@@ -287,8 +287,8 @@ const PromptsHub = () => {
               />
               <button
                 onClick={buildPrompts}
-                className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
-                style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
+                className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
+                style={{ fontSize: 14, fontWeight: 500, background: LIME, color: 'var(--color-ink)' }}
               >
                 Build my prompts &rarr;
               </button>
@@ -336,7 +336,7 @@ const PromptsHub = () => {
 
       {/* ── 5. PACK TILES ──────────────────────────────────────────────────────── */}
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
-        <p className="font-sans mb-5" style={{ fontSize: 13, color: '#6b6760' }}>
+        <p className="font-sans mb-5" style={{ fontSize: 13, color: 'var(--color-ink-muted)' }}>
           Showing <strong style={{ color: INK }}>{filtered.length}</strong> of {PROMPT_PACKS.length} packs
         </p>
         {filtered.length === 0 ? (
@@ -356,8 +356,8 @@ const PromptsHub = () => {
                     openLuna(`Create a prompt pack for ${catLabel} for a ${roleLabel}.`);
                     track({ name: 'agent_opened', section: 'prompts-empty-state' });
                   }}
-                  className="font-sans inline-flex items-center mt-5 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
-                  style={{ fontSize: 14, fontWeight: 500, background: LIME, color: '#1A1A0E' }}
+                  className="font-sans inline-flex items-center mt-5 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
+                  style={{ fontSize: 14, fontWeight: 500, background: LIME, color: 'var(--color-ink)' }}
                 >
                   Build a prompt &rarr;
                 </button>

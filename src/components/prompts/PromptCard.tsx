@@ -29,7 +29,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
     return (
       <div
         className="flex gap-3 p-4 rounded-xl border bg-white"
-        style={{ borderColor: '#e8e6e0' }}
+        style={{ borderColor: 'var(--color-rule)' }}
       >
         <div className="flex-shrink-0 pt-0.5">
           <span
@@ -40,7 +40,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
           </span>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm leading-relaxed mb-2" style={{ color: '#1c1a15' }}>
+          <p className="text-sm leading-relaxed mb-2" style={{ color: 'var(--text)' }}>
             {prompt}
           </p>
           <div className="flex flex-wrap items-center gap-2">
@@ -48,7 +48,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
             <button
               onClick={handleAskAgent}
               className="text-[11px] font-medium transition-colors hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-              style={{ color: '#6b6760' }}
+              style={{ color: 'var(--color-ink-muted)' }}
             >
               Ask agent to adapt this &rarr;
             </button>
@@ -63,7 +63,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
   return (
     <div
       className="rounded-xl border bg-white overflow-hidden"
-      style={{ borderColor: '#e8e6e0' }}
+      style={{ borderColor: 'var(--color-rule)' }}
     >
       {/* Header row */}
       <div className="flex items-start gap-3 px-4 pt-4 pb-2">
@@ -75,7 +75,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
         </span>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap mb-1">
-            <h3 className="font-semibold text-sm" style={{ color: '#1c1a15' }}>
+            <h3 className="font-semibold text-sm" style={{ color: 'var(--text)' }}>
               {prompt.title}
             </h3>
             <span
@@ -95,7 +95,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
       <div className="px-4 pb-3">
         <div
           className="rounded-lg p-3 text-sm leading-relaxed whitespace-pre-wrap"
-          style={{ background: '#f7f6f2', color: '#1c1a15' }}
+          style={{ background: 'var(--bg)', color: 'var(--text)' }}
         >
           {prompt.prompt}
         </div>
@@ -132,15 +132,15 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
 
       {/* Expected output */}
       <div className="px-4 pb-2">
-        <p className="text-[11px] leading-relaxed" style={{ color: '#6b6760' }}>
-          <strong style={{ color: '#1c1a15' }}>Expected output:</strong> {prompt.expectedOutput}
+        <p className="text-[11px] leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
+          <strong style={{ color: 'var(--text)' }}>Expected output:</strong> {prompt.expectedOutput}
         </p>
       </div>
 
       {/* Follow-up */}
       {prompt.followUp && (
         <div className="px-4 pb-2">
-          <p className="text-[11px] leading-relaxed" style={{ color: '#6b6760' }}>
+          <p className="text-[11px] leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
             <strong style={{ color: 'var(--color-ink)' }}>Follow-up:</strong> {prompt.followUp}
           </p>
         </div>
@@ -153,7 +153,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
             <span
               key={tool}
               className="px-2 py-0.5 rounded-full text-[10px] font-medium border"
-              style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'white' }}
             >
               {tool}
             </span>
@@ -164,7 +164,7 @@ const PromptCard = ({ prompt, index, onCopy }: Props) => {
           <button
             onClick={handleAskAgent}
             className="text-[11px] font-medium transition-colors hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-            style={{ color: '#6b6760' }}
+            style={{ color: 'var(--color-ink-muted)' }}
           >
             Ask agent to adapt this &rarr;
           </button>

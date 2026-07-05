@@ -56,13 +56,13 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
   const toPath = `/tools/${slug}`;
 
   return (
-    <div className="rounded-lg border px-2.5 py-1.5 text-xs" style={{ borderColor: '#e8e6e0', background: '#faf9f6' }}>
+    <div className="rounded-lg border px-2.5 py-1.5 text-xs" style={{ borderColor: 'var(--color-rule)', background: '#faf9f6' }}>
       <Rule4bGuard
         integrity={integrity}
         displayState={displayState}
         renderUnavailable={() =>
           awaiting ? (
-            <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: '#6b6760' }}>
+            <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: 'var(--color-ink-muted)' }}>
               <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
               <span>· score withheld ·</span>
               <Link
@@ -74,7 +74,7 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
               </Link>
             </span>
           ) : (
-            <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: '#6b6760' }}>
+            <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: 'var(--color-ink-muted)' }}>
               <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
               <span>· review in progress</span>
             </span>

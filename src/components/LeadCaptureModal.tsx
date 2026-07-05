@@ -130,7 +130,7 @@ const LeadCaptureModal: FC = () => {
               aria-label="Close"
               type="button"
               className="absolute top-3 right-3 flex items-center justify-center w-11 h-11 rounded-full transition-colors hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-              style={{ color: '#6b6760' }}
+              style={{ color: 'var(--color-ink-muted)' }}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
@@ -155,7 +155,7 @@ const LeadCaptureModal: FC = () => {
                   <h2 id="lead-modal-heading" className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>
                     On its way!
                   </h2>
-                  <p className="text-sm" style={{ color: '#6b6760' }}>
+                  <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>
                     Check your inbox — we've sent the resource to <strong>{email}</strong>.
                     If it doesn't arrive, email{' '}
                     <a href="mailto:info@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>info@getpromptly.co.uk</a>.
@@ -173,7 +173,7 @@ const LeadCaptureModal: FC = () => {
                   <h2 id="lead-modal-heading" className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>
                     {labels.heading}
                   </h2>
-                  <p className="text-sm mb-5" style={{ color: '#6b6760' }}>{labels.body}</p>
+                  <p className="text-sm mb-5" style={{ color: 'var(--color-ink-muted)' }}>{labels.body}</p>
 
                   <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                     <label htmlFor="lead-modal-email" className="sr-only">Email address</label>
@@ -186,7 +186,7 @@ const LeadCaptureModal: FC = () => {
                       onChange={e => setEmail(e.target.value)}
                       placeholder="Your email address"
                       className="w-full px-4 py-3 rounded-xl text-sm border outline-none focus:ring-2 focus:ring-[var(--color-promptly-lime)]"
-                      style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: 'var(--text)' }}
+                      style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)', color: 'var(--text)' }}
                     />
                     <button
                       type="submit"
@@ -204,7 +204,7 @@ const LeadCaptureModal: FC = () => {
                     )}
                   </form>
 
-                  <p className="text-[11px] mt-3 text-center" style={{ color: '#6b6760' }}>
+                  <p className="text-[11px] mt-3 text-center" style={{ color: 'var(--color-ink-muted)' }}>
                     No spam. Unsubscribe any time. We respect UK GDPR.
                   </p>
                 </>

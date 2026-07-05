@@ -63,7 +63,7 @@ const Navbar: FC = () => {
                   fontWeight: 500,
                   color: isActive
                     ? 'var(--color-ink-accent)'
-                    : onDarkHero ? 'rgba(255,255,255,0.85)' : '#6b6760',
+                    : onDarkHero ? 'rgba(255,255,255,0.85)' : 'var(--color-ink-muted)',
                 })}
               >
                 {link.label}
@@ -77,12 +77,12 @@ const Navbar: FC = () => {
               onClick={() => window.dispatchEvent(new CustomEvent('open-agent-chat'))}
               aria-label="Open Luna chat"
               className="font-sans hidden sm:flex items-center gap-2 px-5 py-2 min-h-[44px] rounded-full transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
-              style={{ background: 'var(--color-promptly-lime)', color: '#1A1A0E', fontSize: 13, fontWeight: 500 }}
+              style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)', fontSize: 13, fontWeight: 500 }}
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
                 <path
                   d="M8 1C4.13 1 1 3.69 1 7c0 1.66.77 3.16 2 4.23L2 15l4-1.73c.63.15 1.3.23 2 .23 3.87 0 7-2.69 7-6S11.87 1 8 1Z"
-                  fill="#1A1A0E"
+                  fill="var(--color-ink)"
                 />
               </svg>
               Ask Luna
@@ -129,7 +129,7 @@ const Navbar: FC = () => {
               role="navigation"
               aria-label="Mobile navigation"
               className="fixed top-16 inset-x-0 z-40 md:hidden border-b"
-              style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}
+              style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
@@ -145,7 +145,7 @@ const Navbar: FC = () => {
                         isActive ? 'bg-[var(--color-oat)]' : 'hover:bg-[#eeece7]'
                       }`
                     }
-                    style={({ isActive }) => ({ fontSize: 13, fontWeight: 500, color: isActive ? 'var(--color-ink-accent)' : '#6b6760' })}
+                    style={({ isActive }) => ({ fontSize: 13, fontWeight: 500, color: isActive ? 'var(--color-ink-accent)' : 'var(--color-ink-muted)' })}
                   >
                     {link.label}
                   </NavLink>
@@ -156,12 +156,12 @@ const Navbar: FC = () => {
                     window.dispatchEvent(new CustomEvent('open-agent-chat'));
                   }}
                   className="font-sans mt-2 px-4 py-3 min-h-[44px] rounded-full text-left flex items-center gap-2"
-                  style={{ background: 'var(--color-promptly-lime)', color: '#1A1A0E', fontSize: 13, fontWeight: 500 }}
+                  style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)', fontSize: 13, fontWeight: 500 }}
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="flex-shrink-0">
                     <path
                       d="M8 1C4.13 1 1 3.69 1 7c0 1.66.77 3.16 2 4.23L2 15l4-1.73c.63.15 1.3.23 2 .23 3.87 0 7-2.69 7-6S11.87 1 8 1Z"
-                      fill="#1A1A0E"
+                      fill="var(--color-ink)"
                     />
                   </svg>
                   Ask Luna

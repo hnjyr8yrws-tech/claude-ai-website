@@ -71,7 +71,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
         to={item.href}
         onClick={handleClick}
         className="block rounded-xl border p-3 transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-sm group"
-        style={{ borderColor: '#e8e6e0', background: 'white' }}
+        style={{ borderColor: 'var(--color-rule)', background: 'white' }}
       >
         <div className="flex items-start gap-2.5">
           <div className="flex-shrink-0 mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'var(--color-oat)' }}>
@@ -102,7 +102,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
         to={item.href}
         onClick={handleClick}
         className="block rounded-2xl border p-5 transition-all hover:border-[var(--color-promptly-lime)] hover:shadow-md group"
-        style={{ borderColor: '#e8e6e0', background: 'white' }}
+        style={{ borderColor: 'var(--color-rule)', background: 'white' }}
       >
         <div className="flex items-start gap-4">
           <div className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--color-oat)' }}>
@@ -119,7 +119,7 @@ export default function CrossSellCard({ item, sourceSection, compact }: CrossSel
                 </span>
               )}
             </div>
-            <p className="text-xs leading-relaxed mb-2" style={{ color: '#6b6760' }}>
+            <p className="text-xs leading-relaxed mb-2" style={{ color: 'var(--color-ink-muted)' }}>
               {item.description}
             </p>
             <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>

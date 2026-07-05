@@ -57,14 +57,14 @@ interface IconProps {
 }
 
 /** Render a role icon by key. Returns null if the key is unknown. */
-export function RoleIcon({ name, size = 20, color = '#1E1E1E', strokeWidth = 1.5, className }: IconProps & { name: string }) {
+export function RoleIcon({ name, size = 20, color = 'var(--color-ground-black)', strokeWidth = 1.5, className }: IconProps & { name: string }) {
   const Icon = ROLE_ICONS[name];
   if (!Icon) return null;
   return <Icon size={size} color={color} strokeWidth={strokeWidth} className={className} aria-hidden="true" />;
 }
 
 /** Render a category/pillar icon by key. Returns null if the key is unknown. */
-export function CategoryIcon({ name, size = 20, color = '#1E1E1E', strokeWidth = 1.5, className }: IconProps & { name: string }) {
+export function CategoryIcon({ name, size = 20, color = 'var(--color-ground-black)', strokeWidth = 1.5, className }: IconProps & { name: string }) {
   const Icon = CATEGORY_ICONS[name];
   if (!Icon) return null;
   return <Icon size={size} color={color} strokeWidth={strokeWidth} className={className} aria-hidden="true" />;

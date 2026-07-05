@@ -41,7 +41,7 @@ function TypingDots() {
         <motion.span
           key={i}
           className="w-1.5 h-1.5 rounded-full"
-          style={{ background: '#6b6760' }}
+          style={{ background: 'var(--color-ink-muted)' }}
           animate={{ opacity: [0.3, 1, 0.3], y: [0, -3, 0] }}
           transition={{ duration: 0.8, delay: i * 0.15, repeat: Infinity }}
         />
@@ -80,7 +80,7 @@ function RoleChipRow({
               style={
                 active
                   ? { background: 'var(--color-ground-black)', borderColor: 'var(--color-ground-black)', color: '#FFFFFF' }
-                  : { background: 'white', borderColor: '#e8e6e0', color: '#6b6760' }
+                  : { background: 'white', borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }
               }
             >
               {r}
@@ -94,7 +94,7 @@ function RoleChipRow({
       <span
         aria-hidden="true"
         className="pointer-events-none absolute inset-y-0 right-0 w-6"
-        style={{ background: 'linear-gradient(to left, #f7f6f2, rgba(247, 246, 242, 0))' }}
+        style={{ background: 'linear-gradient(to left, var(--bg), rgba(247, 246, 242, 0))' }}
       />
     </div>
   );
@@ -110,7 +110,7 @@ function ExemplarQuestionList({
 }) {
   return (
     <div>
-      <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: '#6b6760' }}>
+      <p className="text-[10px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-muted)' }}>
         Try asking
       </p>
       <ul className="space-y-1.5 list-none p-0 m-0" aria-label="Example questions">
@@ -120,7 +120,7 @@ function ExemplarQuestionList({
               type="button"
               onClick={() => onAsk(q)}
               className="w-full text-left px-3 py-2.5 rounded-xl border text-xs leading-relaxed transition-colors hover:border-[var(--color-fog)] hover:bg-white"
-              style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--color-ink-muted)' }}
             >
               {q}
             </button>
@@ -152,7 +152,7 @@ function DockedComposer({
   return (
     <div
       className="flex items-end gap-2 px-3 py-3 flex-shrink-0"
-      style={{ borderTop: '1px solid #e8e6e0', background: 'white' }}
+      style={{ borderTop: '1px solid var(--color-rule)', background: 'white' }}
     >
       <textarea
         value={value}
@@ -163,9 +163,9 @@ function DockedComposer({
         rows={1}
         className="flex-1 resize-none px-3 py-2 rounded-xl border text-sm outline-none focus:border-[var(--color-promptly-lime)] transition-colors"
         style={{
-          borderColor: '#e8e6e0',
+          borderColor: 'var(--color-rule)',
           color: 'var(--text)',
-          background: '#f7f6f2',
+          background: 'var(--bg)',
           maxHeight: '96px',
           lineHeight: '1.4',
         }}
@@ -212,7 +212,7 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       className="mx-3 mb-3 px-4 py-3 rounded-xl border"
-      style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)' }}
     >
       <p className="text-xs font-semibold mb-2" style={{ color: 'var(--text)' }}>
         Want personalised recommendations emailed to you?
@@ -225,7 +225,7 @@ function LeadCapture({ agentRole }: { agentRole: AgentRole }) {
           placeholder="your@school.ac.uk"
           required
           className="flex-1 px-3 py-1.5 rounded-lg border text-xs outline-none focus:border-[var(--color-promptly-lime)]"
-          style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
+          style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--text)' }}
         />
         <button
           type="submit"
@@ -317,7 +317,7 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
   if (!current) return null;
 
   return (
-    <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: '#f7f6f2' }}>
+    <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: 'var(--bg)' }}>
       <div className="flex items-center justify-between mb-4">
         <p className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
           {QUIZ_LABELS[quizKey]} · Step {step + 1}/{steps.length}
@@ -338,7 +338,7 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
             key={opt}
             onClick={() => pick(opt)}
             className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-ink-accent)] text-left"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+            style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--color-ink-muted)' }}
           >
             {opt}
           </button>
@@ -346,7 +346,7 @@ function QuickFindQuiz({ quizKey, onComplete, onCancel }: QuizProps) {
       </div>
 
       {/* Progress bar */}
-      <div className="mt-5 h-1 rounded-full overflow-hidden" style={{ background: '#e8e6e0' }}>
+      <div className="mt-5 h-1 rounded-full overflow-hidden" style={{ background: 'var(--color-rule)' }}>
         <div
           className="h-full rounded-full transition-all"
           style={{ width: `${((step + 1) / steps.length) * 100}%`, background: TEAL }}
@@ -386,7 +386,7 @@ function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) 
   if (!current) return null;
 
   return (
-    <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: '#f7f6f2' }}>
+    <div className="flex-1 flex flex-col p-4 overflow-y-auto" style={{ background: 'var(--bg)' }}>
       <div className="flex items-center justify-between mb-4">
         <p className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
           Quick context · Step {step + 1}/{INTENT_QUESTIONS.length}
@@ -407,14 +407,14 @@ function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) 
             key={opt}
             onClick={() => pick(opt)}
             className="px-3 py-2.5 rounded-xl border text-xs font-medium transition-all hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-ink-accent)] text-left"
-            style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+            style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--color-ink-muted)' }}
           >
             {opt}
           </button>
         ))}
       </div>
 
-      <div className="mt-5 h-1 rounded-full overflow-hidden" style={{ background: '#e8e6e0' }}>
+      <div className="mt-5 h-1 rounded-full overflow-hidden" style={{ background: 'var(--color-rule)' }}>
         <div
           className="h-full rounded-full transition-all"
           style={{ width: `${((step + 1) / INTENT_QUESTIONS.length) * 100}%`, background: TEAL }}
@@ -517,7 +517,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
       exit={{ opacity: 0, y: 16, scale: 0.97 }}
       transition={{ duration: 0.2 }}
       className="agent-panel z-[9999] flex flex-col shadow-2xl overflow-hidden"
-      style={{ background: 'white', border: '1px solid #e8e6e0' }}
+      style={{ background: 'white', border: '1px solid var(--color-rule)' }}
     >
       {/* Header */}
       <div
@@ -539,7 +539,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           </div>
           <div>
             <p className="text-xs font-semibold leading-none" style={{ color: 'white' }}>Luna</p>
-            <p className="text-[10px] mt-0.5" style={{ color: '#6b6760' }}>
+            <p className="text-[10px] mt-0.5" style={{ color: 'var(--color-ink-muted)' }}>
               {role ? `${role} · ${MODE_PERSONA[mode]}` : MODE_PERSONA[mode] + ' · 24/7'}
             </p>
           </div>
@@ -550,7 +550,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             <button
               onClick={() => { clearMessages(); setIntent(null); setIntentDone(false); }}
               className="text-[10px] transition-opacity hover:opacity-60"
-              style={{ color: '#6b6760' }}
+              style={{ color: 'var(--color-ink-muted)' }}
             >
               Clear
             </button>
@@ -559,7 +559,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
             <button
               onClick={() => { setRole(null); setQuiz(null); setIntent(null); setIntentDone(false); clearMessages(); }}
               className="text-[10px] transition-opacity hover:opacity-60"
-              style={{ color: '#6b6760' }}
+              style={{ color: 'var(--color-ink-muted)' }}
             >
               Switch role
             </button>
@@ -592,7 +592,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
           onSkip={() => setIntentDone(true)}
         />
       ) : (
-        <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3" style={{ background: '#f7f6f2' }}>
+        <div className="flex-1 overflow-y-auto px-3 py-4 space-y-3" style={{ background: 'var(--bg)' }}>
           {messages.length === 0 ? (
             role && intentDone ? (
               /* Post-intent transitional state — short, chat-ready confirmation
@@ -602,7 +602,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                 <div
                   role="status"
                   className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed"
-                  style={{ background: 'white', color: '#6b6760' }}
+                  style={{ background: 'white', color: 'var(--color-ink-muted)' }}
                 >
                   Thanks — ask away.
                 </div>
@@ -632,7 +632,7 @@ function ChatPanel({ mode, onClose }: PanelProps) {
                   />
                   <div
                     className="px-4 py-3 rounded-2xl rounded-tl-sm text-sm leading-relaxed"
-                    style={{ background: 'white', color: '#6b6760' }}
+                    style={{ background: 'white', color: 'var(--color-ink-muted)' }}
                   >
                     Hi — I'm Luna. I help you find AI tools, training and equipment that are
                     actually safe for UK schools. Tell me your role and what you're trying to do,

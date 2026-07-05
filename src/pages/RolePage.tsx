@@ -21,8 +21,8 @@ const ROLE_ICON_KEY: Record<string, string> = {
 
 const TEAL   = 'var(--color-promptly-lime)';
 const DARK   = '#111210';
-const BG     = '#f7f6f2';
-const BORDER = '#e8e6e0';
+const BG     = 'var(--bg)';
+const BORDER = 'var(--color-rule)';
 
 function openWidgetWithRole(role: string) {
   window.dispatchEvent(new CustomEvent('agent-send-starter', { detail: `I am a ${role}. What do you recommend for me?` }));
@@ -85,7 +85,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
   }, [d.slug]);
 
   return (
-    <div style={{ background: BG, color: '#1c1a15' }}>
+    <div style={{ background: BG, color: 'var(--text)' }}>
       <SEO title={d.seoTitle} description={d.seoDesc} keywords={d.seoKeywords} path={`/${d.slug}`} />
 
       {/* ── Hero ───────────────────────────────────────────────────── */}
@@ -93,15 +93,15 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
         <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-16 sm:pt-24 pb-14">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55 }}>
             <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.14em] uppercase px-3 py-1.5 rounded-full mb-6"
-              style={{ background: d.color, color: '#1c1a15', border: `1px solid ${BORDER}` }}>
-              <RoleIcon name={ROLE_ICON_KEY[d.slug] ?? ''} size={16} color="#1E1E1E" />
+              style={{ background: d.color, color: 'var(--text)', border: `1px solid ${BORDER}` }}>
+              <RoleIcon name={ROLE_ICON_KEY[d.slug] ?? ''} size={16} color="var(--color-ground-black)" />
               GetPromptly for {d.title}
             </span>
 
             <h1 className="font-display leading-[1.08] mb-5" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.75rem)' }}>
               {d.heroTitle}
             </h1>
-            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: '#6b6760' }}>
+            <p className="text-base sm:text-lg leading-relaxed mb-8 max-w-lg" style={{ color: 'var(--color-ink-muted)' }}>
               {d.heroSub}
             </p>
 
@@ -109,13 +109,13 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
               <Link to={d.promptsTo}
                 onClick={() => track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'See prompts' })}
                 className="px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85 text-center"
-                style={{ background: TEAL, color: '#1A1A0E' }}>
+                style={{ background: TEAL, color: 'var(--color-ink)' }}>
                 {d.promptsLabel} &rarr;
               </Link>
               <button
                 onClick={() => { track({ name: 'cta_clicked', section: `role-${d.slug}`, label: 'Ask Luna' }); openWidgetWithRole(d.agentRole); }}
                 className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold border transition-colors hover:bg-white"
-                style={{ borderColor: BORDER, color: '#1c1a15' }}>
+                style={{ borderColor: BORDER, color: 'var(--text)' }}>
                 <span className="relative flex w-2 h-2" aria-hidden="true">
                   <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: TEAL }} />
                 </span>
@@ -132,7 +132,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
           <FadeIn>
             <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Top AI tools</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">Best tools for {d.title}.</h2>
-            <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-8 max-w-md" style={{ color: 'var(--color-ink-muted)' }}>
               Independently scored against KCSIE 2025, UK GDPR and DfE guidance.
             </p>
           </FadeIn>
@@ -157,7 +157,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
                     </div>
                   </div>
                   {/* Plain Verdict (§14) in Fraunces italic, in place of a one-word tier badge */}
-                  <p className="font-serif italic text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{t.desc}</p>
+                  <p className="font-serif italic text-sm leading-relaxed flex-1" style={{ color: 'var(--color-ink-muted)' }}>{t.desc}</p>
                 </div>
               </FadeIn>
               );
@@ -177,7 +177,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
           <FadeIn>
             <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Prompt packs</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">Ready-to-use prompts for {d.title}.</h2>
-            <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-8 max-w-md" style={{ color: 'var(--color-ink-muted)' }}>
               Copy, paste and use immediately in Claude, ChatGPT or Gemini.
             </p>
           </FadeIn>
@@ -208,7 +208,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
           <FadeIn>
             <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Training path</p>
             <h2 className="font-display text-2xl sm:text-3xl mb-2">AI training for {d.title}.</h2>
-            <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+            <p className="text-sm mb-8 max-w-md" style={{ color: 'var(--color-ink-muted)' }}>
               Free and paid courses curated for your role.
             </p>
           </FadeIn>
@@ -247,7 +247,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             <FadeIn>
               <p className="text-[11px] font-semibold uppercase tracking-widest mb-2" style={{ color: 'var(--color-ink-accent)' }}>Equipment</p>
               <h2 className="font-display text-2xl sm:text-3xl mb-2">Recommended tech for {d.title}.</h2>
-              <p className="text-sm mb-8 max-w-md" style={{ color: '#6b6760' }}>
+              <p className="text-sm mb-8 max-w-md" style={{ color: 'var(--color-ink-muted)' }}>
                 Independently curated classroom and home technology.
               </p>
             </FadeIn>
@@ -290,7 +290,7 @@ const RolePage: FC<{ data: RoleData }> = ({ data }) => {
             <button
               onClick={() => { track({ name: 'agent_opened', section: `role-${d.slug}` }); openWidgetWithRole(d.agentRole); }}
               className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-85"
-              style={{ background: TEAL, color: '#1A1A0E' }}>
+              style={{ background: TEAL, color: 'var(--color-ink)' }}>
               <span className="relative flex w-2 h-2" aria-hidden="true">
                 <span className="relative inline-flex rounded-full w-2 h-2" style={{ background: 'white' }} />
               </span>

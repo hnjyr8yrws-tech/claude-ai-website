@@ -74,7 +74,7 @@ const PromptsStudents = () => {
           <h1 className="font-display text-4xl sm:text-5xl leading-tight mb-4" style={{ color: 'var(--text)' }}>
             AI Prompts That Actually Help You Study
           </h1>
-          <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>
             Whether you're revising for GCSEs, struggling to start an essay or just trying to focus — there's a prompt for that.
           </p>
           <div className="flex flex-wrap gap-3">
@@ -88,7 +88,7 @@ const PromptsStudents = () => {
             <Link
               to="/ai-training/students"
               className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
-              style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+              style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
             >
               AI Tips for Students
             </Link>
@@ -97,7 +97,7 @@ const PromptsStudents = () => {
       </section>
 
       {/* Quick access pills */}
-      <section className="px-5 sm:px-8 py-4 border-b" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-4 border-b" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <div className="flex gap-2 overflow-x-auto pb-1 -mx-5 px-5 sm:mx-0 sm:px-0 sm:flex-wrap">
             {SECTIONS.map((s) => (
@@ -105,7 +105,7 @@ const PromptsStudents = () => {
                 key={s.label}
                 href={`#section-${s.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
                 className="flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+                style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
               >
                 {s.label}
               </a>
@@ -120,7 +120,7 @@ const PromptsStudents = () => {
           key={section.label}
           id={`section-${section.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
           className="px-5 sm:px-8 py-10 border-t"
-          style={{ borderColor: '#e8e6e0', background: idx % 2 === 0 ? 'var(--bg)' : 'white' }}
+          style={{ borderColor: 'var(--color-rule)', background: idx % 2 === 0 ? 'var(--bg)' : 'white' }}
         >
           <div className="max-w-3xl mx-auto">
             <SectionLabel>{section.label}</SectionLabel>
@@ -137,7 +137,7 @@ const PromptsStudents = () => {
       ))}
 
       {/* Featured packs */}
-      <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-5xl mx-auto">
           <SectionLabel>Recommended Packs</SectionLabel>
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -159,21 +159,21 @@ const PromptsStudents = () => {
       </section>
 
       {/* Trust note */}
-      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
-          <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-            <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-              <strong style={{ color: '#1c1a15' }}>A note on using AI for school work:</strong> AI can help you understand, plan and get unstuck — but always write your final work yourself. Check your school's policy on AI use before submitting. Never copy AI output directly into coursework or exams.
+          <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
+              <strong style={{ color: 'var(--text)' }}>A note on using AI for school work:</strong> AI can help you understand, plan and get unstuck — but always write your final work yourself. Check your school's policy on AI use before submitting. Never copy AI output directly into coursework or exams.
             </p>
           </div>
         </div>
       </section>
 
       {/* Cross-links */}
-      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto flex flex-wrap gap-3">
-          <Link to="/ai-training/students" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Tips for Students →</Link>
-          <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Tools →</Link>
+          <Link to="/ai-training/students" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}>AI Tips for Students →</Link>
+          <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}>AI Tools →</Link>
         </div>
       </section>
     </>

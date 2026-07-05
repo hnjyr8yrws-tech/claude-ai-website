@@ -38,11 +38,11 @@ function TrainingCard({ item }: { item: TrainingItem }) {
   return (
     <div
       className="rounded-xl border flex flex-col"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <div className="px-4 pt-4 pb-3 flex-1">
         <div className="flex items-start justify-between gap-2 mb-2">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-muted)' }}>
             {item.provider}
           </span>
           {item.type === 'Free' ? (
@@ -52,7 +52,7 @@ function TrainingCard({ item }: { item: TrainingItem }) {
           )}
         </div>
         <h4 className="font-display text-base leading-snug mb-1" style={{ color: 'var(--text)' }}>{item.name}</h4>
-        <p className="text-xs" style={{ color: '#6b6760' }}>{item.notes}</p>
+        <p className="text-xs" style={{ color: 'var(--color-ink-muted)' }}>{item.notes}</p>
       </div>
       <div className="px-4 pb-4 pt-2 border-t" style={{ borderColor: '#f3f4f6' }}>
         <a
@@ -96,7 +96,7 @@ export default function AITrainingTeachers() {
             AI Training for{' '}
             <span style={{ color: 'var(--color-ink-accent)' }}>Teachers.</span>
           </h1>
-          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-lg leading-relaxed max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>
             From understanding what AI is to using it confidently in the classroom. All resources are
             safe, practical and aligned to UK Department for Education guidance.
           </p>
@@ -110,7 +110,7 @@ export default function AITrainingTeachers() {
           <h2 className="font-display text-3xl mb-2" style={{ color: 'var(--text)' }}>
             AI for Teachers Starter Path
           </h2>
-          <p className="text-base mb-8 max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8 max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>
             Our curated sequence for teachers who are new to AI. Start with government guidance, then
             build practical skills through free provider courses.
           </p>
@@ -119,12 +119,12 @@ export default function AITrainingTeachers() {
               <div
                 key={item.slug}
                 className="rounded-2xl border flex flex-col p-5"
-                style={{ borderColor: '#e8e6e0', background: 'white' }}
+                style={{ borderColor: 'var(--color-rule)', background: 'white' }}
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span
                     className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-                    style={{ background: TEAL, color: '#1A1A0E' }}
+                    style={{ background: TEAL, color: 'var(--color-ink)' }}
                   >
                     {index + 1}
                   </span>
@@ -133,7 +133,7 @@ export default function AITrainingTeachers() {
                 <h3 className="font-display text-lg leading-snug mb-2" style={{ color: 'var(--text)' }}>
                   {item.name}
                 </h3>
-                <p className="text-sm flex-1 mb-4" style={{ color: '#6b6760' }}>{item.notes}</p>
+                <p className="text-sm flex-1 mb-4" style={{ color: 'var(--color-ink-muted)' }}>{item.notes}</p>
                 <div className="flex items-center justify-between">
                   <span
                     className="text-[10px] font-bold px-2 py-0.5 rounded-full"
@@ -174,7 +174,7 @@ export default function AITrainingTeachers() {
                   <h3 className="font-display text-xl mb-2" style={{ color: 'var(--text)' }}>
                     {uc.title}
                   </h3>
-                  <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>
+                  <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--color-ink-muted)' }}>
                     {uc.description}
                   </p>
                   <div className="space-y-3">
@@ -202,11 +202,11 @@ export default function AITrainingTeachers() {
                 <div
                   key={item.slug}
                   className="rounded-2xl border flex flex-col"
-                  style={{ borderColor: '#e8e6e0', background: 'white' }}
+                  style={{ borderColor: 'var(--color-rule)', background: 'white' }}
                 >
                   <div className="px-5 pt-5 pb-4 flex-1">
                     <div className="flex items-start justify-between gap-2 mb-3">
-                      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>{item.category}</span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-muted)' }}>{item.category}</span>
                       <span
                         className="text-[10px] font-bold px-2 py-0.5 rounded-full"
                         style={item.type === 'Free' ? { background: 'var(--color-oat)', color: 'var(--color-ink)' } : { background: 'var(--color-oat)', color: 'var(--color-ink)' }}
@@ -216,11 +216,11 @@ export default function AITrainingTeachers() {
                     </div>
                     <h3 className="font-display text-lg leading-snug mb-0.5" style={{ color: 'var(--text)' }}>{item.name}</h3>
                     <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{item.provider}</p>
-                    <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>{item.notes}</p>
+                    <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>{item.notes}</p>
                   </div>
                   <div className="px-5 pb-5 pt-3 border-t flex items-center justify-between" style={{ borderColor: '#f3f4f6' }}>
                     <span className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.cost}</span>
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: '#1A1A0E' }}>Visit →</a>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold px-3 py-1.5 rounded-lg" style={{ background: TEAL, color: 'var(--color-ink)' }}>Visit →</a>
                   </div>
                 </div>
               ))}
@@ -236,7 +236,7 @@ export default function AITrainingTeachers() {
           <h2 className="font-display text-3xl mb-4" style={{ color: 'white' }}>
             Explore AI tools for teachers
           </h2>
-          <p className="text-base mb-8" style={{ color: '#6b6760' }}>
+          <p className="text-base mb-8" style={{ color: 'var(--color-ink-muted)' }}>
             Once you've built your knowledge, explore the AI tools we've reviewed for safe use in
             UK classrooms.
           </p>

@@ -44,7 +44,7 @@ const Footer: FC = () => (
       style={{ borderColor: '#1f1d1b', background: '#0d0d0b' }}
     >
       <p className="max-w-6xl mx-auto text-[11px] text-center" style={{ color: '#4b5563' }}>
-        <strong style={{ color: '#6b6760' }}>Affiliate disclosure:</strong> Some links on GetPromptly are affiliate links. We may earn a small commission at no extra cost to you. All reviews are independent — we never accept payment for positive coverage.
+        <strong style={{ color: 'var(--color-ink-muted)' }}>Affiliate disclosure:</strong> Some links on GetPromptly are affiliate links. We may earn a small commission at no extra cost to you. All reviews are independent — we never accept payment for positive coverage.
       </p>
     </div>
 
@@ -54,14 +54,14 @@ const Footer: FC = () => (
       <div className="lg:col-span-2 space-y-4">
         <Logo variant="dark" className="w-fit" />
 
-        <p className="text-sm leading-relaxed max-w-xs" style={{ color: '#6b6760' }}>
+        <p className="text-sm leading-relaxed max-w-xs" style={{ color: 'var(--color-ink-muted)' }}>
           The UK's independent resource for safe AI in education. Trusted by teachers,
           parents, school leaders and SENCOs across the country.
         </p>
 
         {/* AI Transparency Notice */}
         <p className="text-xs leading-relaxed max-w-xs" style={{ color: '#4b5563' }}>
-          <strong style={{ color: '#6b6760' }}>AI transparency:</strong> The Luna chat widget is powered by Anthropic Claude. It is an AI assistant, not a human. Responses may be inaccurate — always verify important information.
+          <strong style={{ color: 'var(--color-ink-muted)' }}>AI transparency:</strong> The Luna chat widget is powered by Anthropic Claude. It is an AI assistant, not a human. Responses may be inaccurate — always verify important information.
         </p>
 
         {/* Compliance badges */}
@@ -70,7 +70,7 @@ const Footer: FC = () => (
             <span
               key={c.label}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border"
-              style={{ borderColor: '#2a2825', color: '#6b6760' }}
+              style={{ borderColor: '#2a2825', color: 'var(--color-ink-muted)' }}
             >
               <span
                 className="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -94,7 +94,7 @@ const Footer: FC = () => (
               <Link
                 to={link.to}
                 className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-                style={{ color: '#6b6760' }}
+                style={{ color: 'var(--color-ink-muted)' }}
               >
                 {link.label}
               </Link>
@@ -114,7 +114,7 @@ const Footer: FC = () => (
               <Link
                 to={link.to}
                 className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-                style={{ color: '#6b6760' }}
+                style={{ color: 'var(--color-ink-muted)' }}
               >
                 {link.label}
               </Link>
@@ -134,7 +134,7 @@ const Footer: FC = () => (
               <Link
                 to={item.to}
                 className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-                style={{ color: '#6b6760' }}
+                style={{ color: 'var(--color-ink-muted)' }}
               >
                 {item.label}
               </Link>
@@ -144,7 +144,7 @@ const Footer: FC = () => (
             <a
               href="mailto:hello@getpromptly.co.uk"
               className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
-              style={{ color: '#6b6760' }}
+              style={{ color: 'var(--color-ink-muted)' }}
             >
               Contact
             </a>

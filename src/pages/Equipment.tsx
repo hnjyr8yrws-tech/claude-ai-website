@@ -116,7 +116,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
     <div
       className="rounded-2xl border flex flex-col"
       style={{
-        borderColor: inCompare ? TEAL : '#e8e6e0',
+        borderColor: inCompare ? TEAL : 'var(--color-rule)',
         background: 'white',
         outline: inCompare ? `2px solid ${TEAL}` : 'none',
       }}
@@ -124,7 +124,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
       <div className="px-5 pt-5 pb-4 flex-1">
         {/* Category + review status */}
         <div className="flex items-center justify-between gap-2 mb-3">
-          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: '#6b6760' }}>
+          <span className="text-[10px] font-semibold uppercase tracking-wide" style={{ color: 'var(--color-ink-muted)' }}>
             {product.category}
           </span>
           {product.reviewStatus === 'Reviewed' && (
@@ -148,7 +148,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
           {product.name}
         </h3>
         <p className="text-xs mb-3" style={{ color: '#9ca3af' }}>{product.brand}</p>
-        <p className="text-sm leading-relaxed mb-4" style={{ color: '#6b6760' }}>{product.desc}</p>
+        <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--color-ink-muted)' }}>{product.desc}</p>
         <p className="text-xs italic mb-4" style={{ color: '#9ca3af' }}>Best for: {product.bestFor}</p>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
@@ -165,7 +165,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
         {/* Score — always pending */}
         <div
           className="flex items-center gap-2 px-3 py-2 rounded-xl border text-xs"
-          style={{ borderColor: '#e8e6e0', background: '#f7f6f2', color: '#6b6760' }}
+          style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)', color: 'var(--color-ink-muted)' }}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
             <circle cx="7" cy="7" r="6" stroke="#d1d5db" strokeWidth="1.5"/>
@@ -187,7 +187,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
             disabled={compareDisabled && !inCompare}
             className="text-xs px-2.5 py-1.5 rounded-lg border transition-colors"
             style={{
-              borderColor: inCompare ? TEAL : '#e8e6e0',
+              borderColor: inCompare ? TEAL : 'var(--color-rule)',
               color: inCompare ? TEAL : '#9ca3af',
               background: inCompare ? 'var(--color-oat)' : 'white',
               opacity: (compareDisabled && !inCompare) ? 0.4 : 1,
@@ -203,7 +203,7 @@ function EquipmentCard({ product, inCompare, onToggleCompare, compareDisabled }:
             target="_blank"
             rel="noopener noreferrer sponsored"
             className="text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-            style={{ background: TEAL, color: '#1A1A0E' }}
+            style={{ background: TEAL, color: 'var(--color-ink)' }}
           >
             View →
           </a>
@@ -219,7 +219,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
   return (
     <div
       className="rounded-2xl border p-5 flex flex-col gap-3"
-      style={{ borderColor: '#e8e6e0', background: 'white' }}
+      style={{ borderColor: 'var(--color-rule)', background: 'white' }}
     >
       <div>
         <p className="text-[10px] font-semibold uppercase tracking-wide mb-1" style={{ color: 'var(--color-ink-accent)' }}>
@@ -230,7 +230,7 @@ function BundleCard({ bundle }: { bundle: EquipmentBundle }) {
         </h3>
         <p className="text-xs mt-1" style={{ color: '#9ca3af' }}>{bundle.tagline}</p>
       </div>
-      <p className="text-sm leading-relaxed flex-1" style={{ color: '#6b6760' }}>{bundle.desc}</p>
+      <p className="text-sm leading-relaxed flex-1" style={{ color: 'var(--color-ink-muted)' }}>{bundle.desc}</p>
       <div className="flex flex-wrap gap-1.5">
         {bundle.senCategory.map(s => (
           <span key={s} className="text-[10px] font-semibold px-2 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
@@ -265,7 +265,7 @@ function CompareBar({
       exit={{ y: 100, opacity: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 30 }}
       className="fixed bottom-0 left-0 right-0 z-40 border-t shadow-2xl"
-      style={{ background: 'white', borderColor: '#e8e6e0' }}
+      style={{ background: 'white', borderColor: 'var(--color-rule)' }}
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-4 flex-wrap">
         <span className="text-xs font-semibold" style={{ color: 'var(--text)' }}>
@@ -293,7 +293,7 @@ function CompareBar({
             <div
               key={i}
               className="px-3 py-1 rounded-lg border text-xs"
-              style={{ borderColor: '#e8e6e0', color: '#6b6760', borderStyle: 'dashed' }}
+              style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', borderStyle: 'dashed' }}
             >
               + slot
             </div>
@@ -304,7 +304,7 @@ function CompareBar({
           <button
             onClick={onClear}
             className="text-xs px-3 py-1.5 rounded-lg border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: '#9ca3af' }}
+            style={{ borderColor: 'var(--color-rule)', color: '#9ca3af' }}
           >
             Clear
           </button>
@@ -313,8 +313,8 @@ function CompareBar({
             disabled={items.length < 2}
             className="text-xs px-4 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
             style={{
-              background: items.length >= 2 ? TEAL : '#e8e6e0',
-              color: items.length >= 2 ? 'white' : '#6b6760',
+              background: items.length >= 2 ? TEAL : 'var(--color-rule)',
+              color: items.length >= 2 ? 'white' : 'var(--color-ink-muted)',
               cursor: items.length < 2 ? 'not-allowed' : 'pointer',
             }}
           >
@@ -355,17 +355,17 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
         exit={{ opacity: 0, y: 40 }}
         transition={{ duration: 0.2 }}
         className="w-full max-w-5xl max-h-[90vh] rounded-2xl border overflow-hidden flex flex-col"
-        style={{ background: 'white', borderColor: '#e8e6e0' }}
+        style={{ background: 'white', borderColor: 'var(--color-rule)' }}
         onClick={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: '#e8e6e0' }}>
+        <div className="flex items-center justify-between px-6 py-4 border-b" style={{ borderColor: 'var(--color-rule)' }}>
           <h2 className="font-display text-xl" style={{ color: 'var(--text)' }}>
             Comparing {items.length} products
           </h2>
           <button
             onClick={onClose}
             className="text-sm px-3 py-1.5 rounded-lg border transition-colors hover:bg-gray-50"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+            style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
           >
             Close
           </button>
@@ -374,8 +374,8 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
         <div className="overflow-auto flex-1">
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ background: '#f7f6f2' }}>
-                <th className="px-5 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760', width: 140 }}>
+              <tr style={{ background: 'var(--bg)' }}>
+                <th className="px-5 py-3 text-left text-xs font-semibold" style={{ color: 'var(--color-ink-muted)', width: 140 }}>
                   Feature
                 </th>
                 {items.map(p => (
@@ -389,16 +389,16 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
             <tbody>
               {rows.map((row, i) => (
                 <tr key={row.label} style={{ borderTop: '1px solid #f3f4f6', background: i % 2 === 0 ? 'white' : '#fafaf9' }}>
-                  <td className="px-5 py-3 text-xs font-semibold" style={{ color: '#6b6760' }}>{row.label}</td>
+                  <td className="px-5 py-3 text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>{row.label}</td>
                   {items.map(p => (
-                    <td key={p.id} className="px-5 py-3 text-xs" style={{ color: '#1c1a15' }}>
+                    <td key={p.id} className="px-5 py-3 text-xs" style={{ color: 'var(--text)' }}>
                       {row.render(p)}
                     </td>
                   ))}
                 </tr>
               ))}
               <tr style={{ borderTop: '1px solid #f3f4f6' }}>
-                <td className="px-5 py-3 text-xs font-semibold" style={{ color: '#6b6760' }}>Badges</td>
+                <td className="px-5 py-3 text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>Badges</td>
                 {items.map(p => (
                   <td key={p.id} className="px-5 py-3">
                     <div className="flex flex-wrap gap-1">
@@ -414,8 +414,8 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
                   </td>
                 ))}
               </tr>
-              <tr style={{ borderTop: '1px solid #e8e6e0' }}>
-                <td className="px-5 py-3 text-xs font-semibold" style={{ color: '#6b6760' }}>View</td>
+              <tr style={{ borderTop: '1px solid var(--color-rule)' }}>
+                <td className="px-5 py-3 text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>View</td>
                 {items.map(p => (
                   <td key={p.id} className="px-5 py-3">
                     <a
@@ -423,7 +423,7 @@ function CompareModal({ items, onClose }: { items: EquipmentProduct[]; onClose: 
                       target="_blank"
                       rel="noopener noreferrer sponsored"
                       className="inline-block text-xs px-3 py-1.5 rounded-lg font-semibold transition-opacity hover:opacity-80"
-                      style={{ background: TEAL, color: '#1A1A0E' }}
+                      style={{ background: TEAL, color: 'var(--color-ink)' }}
                     >
                       View product →
                     </a>
@@ -523,7 +523,7 @@ export default function Equipment() {
           Education<br />
           <span style={{ color: 'var(--color-ink-accent)' }}>Equipment.</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-xl mb-10" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-xl mb-10" style={{ color: 'var(--color-ink-muted)' }}>
           96 independently assessed products for UK schools and families — from SEND assistive tech to classroom coding robots and AAC devices.
         </p>
 
@@ -537,10 +537,10 @@ export default function Equipment() {
             <div
               key={s.label}
               className="rounded-2xl border px-5 py-4"
-              style={{ borderColor: '#e8e6e0', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white' }}
             >
               <div className="font-display text-3xl" style={{ color: 'var(--color-ink-accent)' }}>{s.value}</div>
-              <div className="text-xs mt-1" style={{ color: '#6b6760' }}>{s.label}</div>
+              <div className="text-xs mt-1" style={{ color: 'var(--color-ink-muted)' }}>{s.label}</div>
             </div>
           ))}
         </div>
@@ -584,7 +584,7 @@ export default function Equipment() {
               key={col.label}
               onClick={() => applyCollection(col)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-medium transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
-              style={{ borderColor: '#e8e6e0', background: 'white', color: '#6b6760' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--color-ink-muted)' }}
             >
               <span aria-hidden="true">{col.icon}</span>
               {col.label}
@@ -594,12 +594,12 @@ export default function Equipment() {
       </div>
 
       {/* ── BUNDLES ───────────────────────────────────────────────────────────── */}
-      <div className="border-t border-b" style={{ borderColor: '#e8e6e0', background: '#f7f6f2' }}>
+      <div className="border-t border-b" style={{ borderColor: 'var(--color-rule)', background: 'var(--bg)' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h2 className="font-display text-2xl" style={{ color: 'var(--text)' }}>Curated bundles</h2>
-              <p className="text-sm mt-1" style={{ color: '#6b6760' }}>
+              <p className="text-sm mt-1" style={{ color: 'var(--color-ink-muted)' }}>
                 Pre-selected product sets for common SEND and classroom needs.
               </p>
             </div>
@@ -628,13 +628,13 @@ export default function Equipment() {
               onChange={e => setSearch(e.target.value)}
               placeholder="Search products, brands, needs…"
               className="flex-1 pl-4 pr-4 py-2.5 rounded-xl border text-sm focus:outline-none focus:ring-2"
-              style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)' }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--text)' }}
             />
             <select
               value={sort}
               onChange={e => setSort(e.target.value)}
               className="px-3 py-2.5 rounded-xl border text-sm focus:outline-none"
-              style={{ borderColor: '#e8e6e0', background: 'white', color: 'var(--text)', minWidth: 160 }}
+              style={{ borderColor: 'var(--color-rule)', background: 'white', color: 'var(--text)', minWidth: 160 }}
             >
               {SORT_OPTIONS.map(o => (
                 <option key={o.value} value={o.value}>{o.label}</option>
@@ -651,8 +651,8 @@ export default function Equipment() {
                 className="px-4 py-2 rounded-xl text-sm font-medium transition-colors"
                 style={{
                   background: audienceFilter === tab.value ? TEAL : 'white',
-                  color: audienceFilter === tab.value ? 'white' : '#6b6760',
-                  border: `1px solid ${audienceFilter === tab.value ? TEAL : '#e8e6e0'}`,
+                  color: audienceFilter === tab.value ? 'white' : 'var(--color-ink-muted)',
+                  border: `1px solid ${audienceFilter === tab.value ? TEAL : 'var(--color-rule)'}`,
                 }}
               >
                 {tab.label}
@@ -666,9 +666,9 @@ export default function Equipment() {
               onClick={() => setCategoryFilter('All')}
               className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
               style={{
-                background: categoryFilter === 'All' ? '#1c1a15' : 'white',
-                color: categoryFilter === 'All' ? 'white' : '#6b6760',
-                border: `1px solid ${categoryFilter === 'All' ? '#1c1a15' : '#e8e6e0'}`,
+                background: categoryFilter === 'All' ? 'var(--text)' : 'white',
+                color: categoryFilter === 'All' ? 'white' : 'var(--color-ink-muted)',
+                border: `1px solid ${categoryFilter === 'All' ? 'var(--text)' : 'var(--color-rule)'}`,
               }}
             >
               All categories
@@ -679,9 +679,9 @@ export default function Equipment() {
                 onClick={() => setCategoryFilter(cat)}
                 className="px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
                 style={{
-                  background: categoryFilter === cat ? '#1c1a15' : 'white',
-                  color: categoryFilter === cat ? 'white' : '#6b6760',
-                  border: `1px solid ${categoryFilter === cat ? '#1c1a15' : '#e8e6e0'}`,
+                  background: categoryFilter === cat ? 'var(--text)' : 'white',
+                  color: categoryFilter === cat ? 'white' : 'var(--color-ink-muted)',
+                  border: `1px solid ${categoryFilter === cat ? 'var(--text)' : 'var(--color-rule)'}`,
                 }}
               >
                 {cat}
@@ -692,7 +692,7 @@ export default function Equipment() {
           {/* Price + supplier + review */}
           <div className="flex flex-wrap gap-x-6 gap-y-3">
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-semibold" style={{ color: '#6b6760' }}>Price:</span>
+              <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>Price:</span>
               {(['All', ...PRICE_BANDS] as const).map(p => (
                 <button
                   key={p}
@@ -700,8 +700,8 @@ export default function Equipment() {
                   className="px-3 py-1 rounded-lg text-xs transition-colors border"
                   style={{
                     background: priceFilter === p ? '#f0fdf4' : 'white',
-                    color: priceFilter === p ? '#15803d' : '#6b6760',
-                    borderColor: priceFilter === p ? '#bbf7d0' : '#e8e6e0',
+                    color: priceFilter === p ? '#15803d' : 'var(--color-ink-muted)',
+                    borderColor: priceFilter === p ? '#bbf7d0' : 'var(--color-rule)',
                   }}
                 >
                   {p === 'All' ? 'Any' : p}
@@ -710,7 +710,7 @@ export default function Equipment() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-semibold" style={{ color: '#6b6760' }}>Supplier:</span>
+              <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>Supplier:</span>
               {(['All', ...SUPPLIER_TYPES] as const).map(s => (
                 <button
                   key={s}
@@ -718,8 +718,8 @@ export default function Equipment() {
                   className="px-3 py-1 rounded-lg text-xs transition-colors border"
                   style={{
                     background: supplierFilter === s ? 'var(--color-oat)' : 'white',
-                    color: supplierFilter === s ? TEAL : '#6b6760',
-                    borderColor: supplierFilter === s ? TEAL : '#e8e6e0',
+                    color: supplierFilter === s ? TEAL : 'var(--color-ink-muted)',
+                    borderColor: supplierFilter === s ? TEAL : 'var(--color-rule)',
                   }}
                 >
                   {s === 'All' ? 'All' : s}
@@ -728,7 +728,7 @@ export default function Equipment() {
             </div>
 
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-semibold" style={{ color: '#6b6760' }}>Status:</span>
+              <span className="text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>Status:</span>
               {(['All', 'Reviewed', 'In Progress', 'Needs Review'] as const).map(r => (
                 <button
                   key={r}
@@ -736,8 +736,8 @@ export default function Equipment() {
                   className="px-3 py-1 rounded-lg text-xs transition-colors border"
                   style={{
                     background: reviewFilter === r ? 'var(--color-oat)' : 'white',
-                    color: reviewFilter === r ? 'var(--color-ink)' : '#6b6760',
-                    borderColor: reviewFilter === r ? 'var(--color-rule)' : '#e8e6e0',
+                    color: reviewFilter === r ? 'var(--color-ink)' : 'var(--color-ink-muted)',
+                    borderColor: reviewFilter === r ? 'var(--color-rule)' : 'var(--color-rule)',
                   }}
                 >
                   {r === 'All' ? 'Any' : r}
@@ -784,7 +784,7 @@ export default function Equipment() {
       </div>
 
       {/* ── SCHOOL PROCUREMENT CTA ───────────────────────────────────────────── */}
-      <div className="border-t" style={{ borderColor: '#e8e6e0', background: 'white' }}>
+      <div className="border-t" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 gap-10 items-center">
           <div>
             <SectionLabel>For Schools</SectionLabel>
@@ -792,21 +792,21 @@ export default function Equipment() {
               Procurement<br />
               <span style={{ color: 'var(--color-ink-accent)' }}>made easier.</span>
             </h2>
-            <p className="text-sm leading-relaxed max-w-sm" style={{ color: '#6b6760' }}>
+            <p className="text-sm leading-relaxed max-w-sm" style={{ color: 'var(--color-ink-muted)' }}>
               All products include supplier details, purchase model (buy/quote/lease) and compatibility notes for mainstream and SEND provision. Use the compare feature to shortlist up to four products side by side.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mt-6">
               <Link
                 to="/equipment/schools"
                 className="inline-block px-5 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
-                style={{ background: TEAL, color: '#1A1A0E' }}
+                style={{ background: TEAL, color: 'var(--color-ink)' }}
               >
                 School procurement guide →
               </Link>
               <Link
                 to="/equipment/send"
                 className="inline-block px-5 py-3 rounded-xl text-sm font-semibold border transition-colors hover:bg-gray-50"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+                style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
               >
                 SEND assistive tech →
               </Link>
@@ -823,7 +823,7 @@ export default function Equipment() {
             ].map(text => (
               <div key={text} className="flex items-start gap-3">
                 <span className="mt-0.5 text-sm font-bold flex-shrink-0" style={{ color: 'var(--color-ink-accent)' }}>✓</span>
-                <p className="text-sm" style={{ color: '#6b6760' }}>{text}</p>
+                <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>{text}</p>
               </div>
             ))}
           </div>

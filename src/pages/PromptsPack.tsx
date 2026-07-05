@@ -145,7 +145,7 @@ const PromptsPack = () => {
           <h1 className="font-display text-3xl sm:text-4xl mb-3 leading-tight" style={{ color: 'var(--text)' }}>
             {pack.title}
           </h1>
-          <p className="text-base leading-relaxed mb-5 max-w-2xl" style={{ color: '#6b6760' }}>
+          <p className="text-base leading-relaxed mb-5 max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>
             {pack.description}
           </p>
 
@@ -161,7 +161,7 @@ const PromptsPack = () => {
               <span
                 key={stage}
                 className="px-2 py-0.5 rounded-full text-[11px] font-medium border"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+                style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'white' }}
               >
                 {stage}
               </span>
@@ -175,7 +175,7 @@ const PromptsPack = () => {
               <span
                 key={ai}
                 className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold border"
-                style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+                style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'white' }}
               >
                 {ai}
               </span>
@@ -191,7 +191,7 @@ const PromptsPack = () => {
       </section>
 
       {/* Preview prompts */}
-      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-10 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Preview</SectionLabel>
           <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -228,7 +228,7 @@ const PromptsPack = () => {
 
           {/* Show remaining prompts when unlocked */}
           {showAll && remainingPrompts.length > 0 && (
-            <div className="space-y-3 mt-8 pt-8 border-t" style={{ borderColor: '#e8e6e0' }}>
+            <div className="space-y-3 mt-8 pt-8 border-t" style={{ borderColor: 'var(--color-rule)' }}>
               <p className="text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: 'var(--color-ink)' }}>
                 Full pack
               </p>
@@ -246,7 +246,7 @@ const PromptsPack = () => {
           {/* Copy all visible */}
           {showAll && (
             <div className="mt-6 flex items-center gap-3 flex-wrap">
-              <span className="text-sm" style={{ color: '#6b6760' }}>Copy all {allVisiblePrompts.length} prompts:</span>
+              <span className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>Copy all {allVisiblePrompts.length} prompts:</span>
               <CopyButton text={allVisibleText} size="md" />
             </div>
           )}
@@ -262,7 +262,7 @@ const PromptsPack = () => {
           </h2>
           <ol className="space-y-3" role="list">
             {HOW_TO_USE.map((step) => (
-              <li key={step.n} className="flex gap-4 p-4 rounded-xl bg-white border" style={{ borderColor: '#e8e6e0' }}>
+              <li key={step.n} className="flex gap-4 p-4 rounded-xl bg-white border" style={{ borderColor: 'var(--color-rule)' }}>
                 <span
                   className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold"
                   style={{ background: 'var(--color-oat)', color: 'var(--color-ink)' }}
@@ -272,7 +272,7 @@ const PromptsPack = () => {
                 </span>
                 <div>
                   <h3 className="font-semibold text-sm mb-0.5" style={{ color: 'var(--text)' }}>{step.title}</h3>
-                  <p className="text-sm" style={{ color: '#6b6760' }}>{step.desc}</p>
+                  <p className="text-sm" style={{ color: 'var(--color-ink-muted)' }}>{step.desc}</p>
                 </div>
               </li>
             ))}
@@ -284,7 +284,7 @@ const PromptsPack = () => {
       {inlineItems.length > 0 && (
         <section className="px-5 sm:px-8 py-10" style={{ background: 'var(--bg)' }}>
           <div className="max-w-3xl mx-auto">
-            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: '#6b6760' }}>
+            <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: 'var(--color-ink-muted)' }}>
               Recommended for you
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -298,7 +298,7 @@ const PromptsPack = () => {
 
       {/* Related packs */}
       {relatedPacks.length > 0 && (
-        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+        <section className="px-5 sm:px-8 py-12 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
           <div className="max-w-3xl mx-auto">
             <SectionLabel>Related packs</SectionLabel>
             <h2 className="font-display text-2xl mb-6" style={{ color: 'var(--text)' }}>
@@ -314,14 +314,14 @@ const PromptsPack = () => {
       )}
 
       {/* Trust disclaimer */}
-      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+      <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
         <div className="max-w-3xl mx-auto">
           <div
             className="rounded-xl border p-5"
-            style={{ borderColor: '#e8e6e0', background: 'white' }}
+            style={{ borderColor: 'var(--color-rule)', background: 'white' }}
           >
-            <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-              <strong style={{ color: '#1c1a15' }}>Important:</strong> These prompts support educators, families and learners. They do not replace professional teacher judgment, SEN support plans, EHCPs or clinical advice. Always adapt for the individual child&rsquo;s needs and school context.
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
+              <strong style={{ color: 'var(--text)' }}>Important:</strong> These prompts support educators, families and learners. They do not replace professional teacher judgment, SEN support plans, EHCPs or clinical advice. Always adapt for the individual child&rsquo;s needs and school context.
             </p>
           </div>
         </div>

@@ -240,7 +240,7 @@ export function PillarCard({
             {/* (a) dim track — all five full-colour wedges */}
             <g>
               {WEDGES.map((w) => (
-                <path key={`track-${w.key}`} d={w.d} fill={isWithdrawn ? '#9C9C8A' : w.colour} fillOpacity={0.18} />
+                <path key={`track-${w.key}`} d={w.d} fill={isWithdrawn ? 'var(--color-fog)' : w.colour} fillOpacity={0.18} />
               ))}
             </g>
             {/* (b) scored layer — each wedge's opacity = its score / 10 */}
@@ -249,7 +249,7 @@ export function PillarCard({
                 <path
                   key={`score-${w.key}`}
                   d={w.d}
-                  fill={isWithdrawn ? '#9C9C8A' : w.colour}
+                  fill={isWithdrawn ? 'var(--color-fog)' : w.colour}
                   fillOpacity={Math.max(0, Math.min(10, pillars![w.key])) / 10}
                 />
               ))}
@@ -303,7 +303,7 @@ export function PillarCard({
           cy={CY}
           r={78}
           fill={cssVar('--color-ground-black')}
-          stroke={isWithdrawn ? '#9C9C8A' : cssVar('--color-promptly-lime')}
+          stroke={isWithdrawn ? 'var(--color-fog)' : cssVar('--color-promptly-lime')}
           strokeWidth={1.5}
         />
 
@@ -330,7 +330,7 @@ export function PillarCard({
           textAnchor="middle"
           fontSize={9}
           letterSpacing={2}
-          fill="#9C9C8A"
+          fill="var(--color-fog)"
         >
           PROMPTLY SCORE
         </text>

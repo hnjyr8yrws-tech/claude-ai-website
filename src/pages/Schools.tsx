@@ -9,12 +9,12 @@ import { RoleIcon } from '../components/icons';
 
 // ─── Design tokens ─────────────────────────────────────────────────────────────
 const TEAL   = 'var(--color-promptly-lime)';
-const BG     = '#f7f6f2';
+const BG     = 'var(--bg)';
 const DARK   = '#111210';
-const INK    = '#1E1E1E';
-const TEXT   = '#1c1a15';
-const MUTED  = '#6b6760';
-const BORDER = '#e8e6e0';
+const INK    = 'var(--color-ground-black)';
+const TEXT   = 'var(--text)';
+const MUTED  = 'var(--color-ink-muted)';
+const BORDER = 'var(--color-rule)';
 
 // ─── Fade-in animation wrapper ─────────────────────────────────────────────────
 const FadeIn: FC<{ children: React.ReactNode; delay?: number; className?: string }> = ({
@@ -413,7 +413,7 @@ const ConsultationForm: FC = () => {
       <button
         type="submit"
         className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2"
-        style={{ background: TEAL, color: '#1A1A0E' }}
+        style={{ background: TEAL, color: 'var(--color-ink)' }}
       >
         Send consultation request
       </button>
@@ -453,7 +453,7 @@ const Schools: FC = () => {
         path="/schools"
       />
 
-      {/* ── Hero (mandatory dark #1E1E1E) ─────────────────────────────────────── */}
+      {/* ── Hero (mandatory dark var(--color-ground-black)) ─────────────────────────────────────── */}
       <section style={{ background: 'var(--color-ground-black)' }}>
         <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-14 pb-12">
           <FadeIn>
@@ -490,7 +490,7 @@ const Schools: FC = () => {
                     aria-pressed={activeChip}
                     className="font-sans rounded-full px-4 py-2 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
                     style={activeChip
-                      ? { fontSize: 13, fontWeight: 500, background: TEAL, color: '#1A1A0E', borderColor: TEAL }
+                      ? { fontSize: 13, fontWeight: 500, background: TEAL, color: 'var(--color-ink)', borderColor: TEAL }
                       : { fontSize: 13, fontWeight: 500, background: 'transparent', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.35)' }}
                   >
                     {r.label}
@@ -504,14 +504,14 @@ const Schools: FC = () => {
               <a
                 href="#consultation"
                 onClick={() => track({ name: 'cta_clicked', section: 'schools-hero', label: 'Request a Consultation' })}
-                className="font-sans inline-flex items-center justify-center rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
-                style={{ fontSize: 15, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
+                className="font-sans inline-flex items-center justify-center rounded-full px-7 py-3.5 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
+                style={{ fontSize: 15, fontWeight: 500, background: TEAL, color: 'var(--color-ink)' }}
               >
                 Request a Consultation
               </a>
               <button
                 onClick={() => { openLuna(selectedHero ? `We're a school. As a ${selectedHero.luna}, help me with AI.` : undefined); track({ name: 'agent_opened', section: 'schools-hero' }); }}
-                className="font-sans inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1E1E1E]"
+                className="font-sans inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-ground-black)]"
                 style={{ fontSize: 15, fontWeight: 500, background: 'transparent', color: '#FFFFFF', borderColor: 'rgba(255,255,255,0.35)' }}
               >
                 <span className="relative flex w-2 h-2" aria-hidden="true">
@@ -571,7 +571,7 @@ const Schools: FC = () => {
               <button
                 onClick={sendLuna}
                 className="font-sans flex-shrink-0 rounded-full px-6 py-3 transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#2A2A2A]"
-                style={{ fontSize: 14, fontWeight: 500, background: TEAL, color: '#1A1A0E' }}
+                style={{ fontSize: 14, fontWeight: 500, background: TEAL, color: 'var(--color-ink)' }}
               >
                 Ask Luna &rarr;
               </button>
@@ -628,7 +628,7 @@ const Schools: FC = () => {
                   border: `1px solid ${activeTab === a.id ? INK : BORDER}`,
                 }}
               >
-                <RoleIcon name={a.id} size={20} color={activeTab === a.id ? TEAL : '#1E1E1E'} />
+                <RoleIcon name={a.id} size={20} color={activeTab === a.id ? TEAL : 'var(--color-ground-black)'} />
                 {a.label}
               </button>
             ))}
@@ -668,11 +668,11 @@ const Schools: FC = () => {
               <Link
                 to={active.cta.to}
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)]"
-                style={{ background: TEAL, color: '#1A1A0E' }}
+                style={{ background: TEAL, color: 'var(--color-ink)' }}
               >
                 {active.cta.label}
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M3 7h8M7 3l4 4-4 4" stroke="#1A1A0E" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M3 7h8M7 3l4 4-4 4" stroke="var(--color-ink)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </Link>
             </motion.div>

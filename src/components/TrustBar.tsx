@@ -13,7 +13,7 @@ const ITEMS = [
 const TrustBar: FC = () => (
   <div
     className="w-full border-y overflow-hidden"
-    style={{ borderColor: '#e8e6e0', background: '#f0eeea' }}
+    style={{ borderColor: 'var(--color-rule)', background: '#f0eeea' }}
   >
     <div className="flex items-center gap-8 px-6 py-3 overflow-x-auto whitespace-nowrap scrollbar-none">
       {ITEMS.map((item, i) => (
@@ -23,7 +23,7 @@ const TrustBar: FC = () => (
           )}
           <span
             className="text-[11px] font-semibold tracking-wide uppercase"
-            style={{ color: '#6b6760' }}
+            style={{ color: 'var(--color-ink-muted)' }}
           >
             {item.label}
           </span>

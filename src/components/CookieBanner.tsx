@@ -73,7 +73,7 @@ export default function CookieBanner() {
                 onClick={accept}
                 type="button"
                 className="px-4 py-2 min-h-[44px] rounded-xl text-xs font-semibold transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-promptly-lime)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#111210]"
-                style={{ background: 'var(--color-promptly-lime)', color: '#1A1A0E' }}
+                style={{ background: 'var(--color-promptly-lime)', color: 'var(--color-ink)' }}
               >
                 Accept all
               </button>

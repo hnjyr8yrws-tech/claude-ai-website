@@ -66,7 +66,7 @@ const PromptsAdmin = () => (
         <h1 className="font-display text-4xl sm:text-5xl leading-tight mb-4" style={{ color: 'var(--text)' }}>
           AI Prompts for School Admin and Support Staff
         </h1>
-        <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: '#6b6760' }}>
+        <p className="text-lg leading-relaxed mb-6 max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>
           From letters to data entry — use AI to handle routine school admin faster and more accurately.
         </p>
         <div className="flex flex-wrap gap-3">
@@ -80,7 +80,7 @@ const PromptsAdmin = () => (
           <Link
             to="/ai-training"
             className="px-5 py-2.5 rounded-xl font-semibold text-sm border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
-            style={{ borderColor: '#e8e6e0', color: '#6b6760' }}
+            style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}
           >
             AI Training
           </Link>
@@ -93,7 +93,7 @@ const PromptsAdmin = () => (
       <section
         key={section.label}
         className="px-5 sm:px-8 py-10 border-t"
-        style={{ borderColor: '#e8e6e0', background: idx % 2 === 0 ? 'white' : 'var(--bg)' }}
+        style={{ borderColor: 'var(--color-rule)', background: idx % 2 === 0 ? 'white' : 'var(--bg)' }}
       >
         <div className="max-w-3xl mx-auto">
           <SectionLabel>{section.label}</SectionLabel>
@@ -124,21 +124,21 @@ const PromptsAdmin = () => (
     </section>
 
     {/* Trust note */}
-    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: '#e8e6e0' }}>
+    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'var(--bg)', borderColor: 'var(--color-rule)' }}>
       <div className="max-w-3xl mx-auto">
-        <div className="rounded-xl border p-5" style={{ borderColor: '#e8e6e0', background: 'white' }}>
-          <p className="text-sm leading-relaxed" style={{ color: '#6b6760' }}>
-            <strong style={{ color: '#1c1a15' }}>Important:</strong> Always review AI-generated letters and documents before sending. Make sure they meet your school's data protection policy, GDPR obligations, and any applicable statutory requirements. AI outputs are a starting point — not a finished document.
+        <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
+            <strong style={{ color: 'var(--text)' }}>Important:</strong> Always review AI-generated letters and documents before sending. Make sure they meet your school's data protection policy, GDPR obligations, and any applicable statutory requirements. AI outputs are a starting point — not a finished document.
           </p>
         </div>
       </div>
     </section>
 
     {/* Cross-links */}
-    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: '#e8e6e0' }}>
+    <section className="px-5 sm:px-8 py-8 border-t" style={{ background: 'white', borderColor: 'var(--color-rule)' }}>
       <div className="max-w-3xl mx-auto flex flex-wrap gap-3">
-        <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Tools Directory →</Link>
-        <Link to="/ai-training" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: '#e8e6e0', color: '#6b6760' }}>AI Training →</Link>
+        <Link to="/tools" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}>AI Tools Directory →</Link>
+        <Link to="/ai-training" className="text-sm font-medium px-4 py-2 rounded-lg border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]" style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }}>AI Training →</Link>
       </div>
     </section>
   </>

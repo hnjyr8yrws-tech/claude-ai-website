@@ -39,24 +39,24 @@ function ComparisonTable({
       <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
         {title}
       </h2>
-      <p className="text-sm mb-6 max-w-2xl" style={{ color: '#6b6760' }}>{description}</p>
+      <p className="text-sm mb-6 max-w-2xl" style={{ color: 'var(--color-ink-muted)' }}>{description}</p>
 
-      <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: '#e8e6e0' }}>
+      <div className="overflow-x-auto rounded-2xl border" style={{ borderColor: 'var(--color-rule)' }}>
         <table className="w-full text-sm" style={{ minWidth: 700 }}>
           <thead>
-            <tr style={{ background: '#f7f6f2' }}>
+            <tr style={{ background: 'var(--bg)' }}>
               <th
                 className="px-5 py-3 text-left text-xs font-semibold"
-                style={{ color: '#6b6760', minWidth: 200 }}
+                style={{ color: 'var(--color-ink-muted)', minWidth: 200 }}
               >
                 Product
               </th>
               {cols.map(c => (
-                <th key={c.header} className="px-4 py-3 text-left text-xs font-semibold whitespace-nowrap" style={{ color: '#6b6760' }}>
+                <th key={c.header} className="px-4 py-3 text-left text-xs font-semibold whitespace-nowrap" style={{ color: 'var(--color-ink-muted)' }}>
                   {c.header}
                 </th>
               ))}
-              <th className="px-4 py-3 text-left text-xs font-semibold" style={{ color: '#6b6760' }}>Status</th>
+              <th className="px-4 py-3 text-left text-xs font-semibold" style={{ color: 'var(--color-ink-muted)' }}>Status</th>
               <th className="px-4 py-3" />
             </tr>
           </thead>
@@ -79,7 +79,7 @@ function ComparisonTable({
                     <div className="text-xs mt-0.5" style={{ color: '#9ca3af' }}>{p.brand}</div>
                   </td>
                   {cols.map(c => (
-                    <td key={c.header} className="px-4 py-3 text-xs" style={{ color: '#6b6760' }}>
+                    <td key={c.header} className="px-4 py-3 text-xs" style={{ color: 'var(--color-ink-muted)' }}>
                       {c.render(p)}
                     </td>
                   ))}
@@ -227,7 +227,7 @@ export default function AIEquipmentCompare() {
           Compare Education<br />
           <span style={{ color: 'var(--color-ink-accent)' }}>Equipment</span>
         </h1>
-        <p className="text-base sm:text-lg max-w-2xl mb-8" style={{ color: '#6b6760' }}>
+        <p className="text-base sm:text-lg max-w-2xl mb-8" style={{ color: 'var(--color-ink-muted)' }}>
           Side-by-side comparisons for tablets, interactive displays, reading pens, visualisers, AAC devices and coding robots for UK education.
         </p>
 
@@ -245,7 +245,7 @@ export default function AIEquipmentCompare() {
               key={item.label}
               href={item.href}
               className="text-sm px-4 py-1.5 rounded-xl border transition-colors hover:border-[var(--color-promptly-lime)] hover:text-[var(--color-promptly-lime)]"
-              style={{ borderColor: '#e8e6e0', color: '#6b6760', background: 'white' }}
+              style={{ borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)', background: 'white' }}
             >
               {item.label}
             </a>
@@ -309,13 +309,13 @@ export default function AIEquipmentCompare() {
         <div className="max-w-6xl mx-auto px-5 sm:px-8 py-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 justify-between">
           <p className="font-display text-xl text-white">Explore more resources</p>
           <div className="flex flex-wrap gap-4">
-            <Link to="/ai-equipment" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               All Equipment →
             </Link>
-            <Link to="/ai-equipment/send" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment/send" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               SEND Equipment →
             </Link>
-            <Link to="/ai-equipment/schools" className="text-sm transition-colors hover:text-white" style={{ color: '#6b6760' }}>
+            <Link to="/ai-equipment/schools" className="text-sm transition-colors hover:text-white" style={{ color: 'var(--color-ink-muted)' }}>
               School Procurement →
             </Link>
           </div>
