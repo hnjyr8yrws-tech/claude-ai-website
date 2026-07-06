@@ -191,7 +191,7 @@ export default function TrustGallery() {
     setReceiptStatus(`Generating for ${slug}…`);
     try {
       const [{ downloadReceipt }, model] = await Promise.all([
-        import('@/lib/receipt'),
+        import('@/lib/receipt/generateReceipt'),
         getTrustDisplayModel(slug),
       ]);
       const filename = await downloadReceipt(model);

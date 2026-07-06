@@ -81,8 +81,9 @@ export default function ReceiptModal({ model, snapshotAt, onClose }: ReceiptModa
     setPhase('working');
     setMessage('');
     try {
-      // Heavy chunk loads here, and only here.
-      const { downloadReceipt } = await import('@/lib/receipt');
+      // Heavy chunk loads here, and only here. (Concrete path, not the barrel,
+      // so the emitted chunk is named generateReceipt-*, not index-*.)
+      const { downloadReceipt } = await import('@/lib/receipt/generateReceipt');
       const filename = await downloadReceipt(model, snapshotAt);
       track({
         name: 'receipt_downloaded',
