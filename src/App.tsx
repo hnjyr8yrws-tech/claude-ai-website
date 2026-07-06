@@ -19,6 +19,9 @@ const EquipmentSEND       = lazy(() => import('./pages/EquipmentSEND'));
 const EquipmentSchools    = lazy(() => import('./pages/EquipmentSchools'));
 const SafetyMethodology   = lazy(() => import('./pages/SafetyMethodology'));
 const Methodology         = lazy(() => import('./pages/Methodology'));
+// Dev-only harness — the conditional is statically resolved by Vite, so the
+// chunk is tree-shaken out of production builds entirely (route gated below too).
+const TrustGallery        = import.meta.env.DEV ? lazy(() => import('./pages/TrustGallery')) : () => null;
 const AITraining          = lazy(() => import('./pages/AITraining'));
 const AITrainingFree      = lazy(() => import('./pages/AITrainingFree'));
 const AITrainingPaid      = lazy(() => import('./pages/AITrainingPaid'));
@@ -121,6 +124,8 @@ const App = () => (
           <Route path="/ai-training/leaders"  element={<AITrainingLeaders />} />
           <Route path="/safety-methodology"   element={<SafetyMethodology />} />
           <Route path="/methodology"          element={<Methodology />} />
+          {/* Shared Trust Components harness — development builds only */}
+          {import.meta.env.DEV && <Route path="/dev/trust" element={<TrustGallery />} />}
 
           <Route path="/prompts"                        element={<PromptLibrary />} />
           <Route path="/prompts/packs"                  element={<PromptsHub />} />

@@ -14,6 +14,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { pillarBand, PILLAR_BAND_LABEL } from '../../data/publicPillars';
+import type { DisplayState, TrustDisplayModel } from './types';
 import { EvidenceConfidence, type PillarEvidenceDetail } from './EvidenceConfidence';
 
 // ----- Pillar model (Brand Bible spine order) -----
@@ -96,6 +97,31 @@ export function pillarScores(
   accessibility: number,
 ): PillarScores {
   return { dataPrivacy, safeguarding, ageSuitability, transparency, accessibility };
+}
+
+/** Map the shared TrustDisplayModel pillar slice → PillarScores (§03 order preserved). */
+export function pillarScoresFromModel(model: TrustDisplayModel): PillarScores {
+  return {
+    dataPrivacy: model.pillars.data_privacy?.score ?? 0,
+    safeguarding: model.pillars.safeguarding?.score ?? 0,
+    ageSuitability: model.pillars.age_suitability?.score ?? 0,
+    transparency: model.pillars.transparency?.score ?? 0,
+    accessibility: model.pillars.accessibility?.score ?? 0,
+  };
+}
+
+/** Map a DisplayState to the card's visual state. AwaitingReReview renders the
+ *  withdrawn card (empty ring, redaction bar, AWAITING RE-REVIEW mark). */
+export function cardStateFor(displayState: DisplayState): PillarCardState {
+  switch (displayState) {
+    case 'Provisional':      return 'provisional';
+    case 'Updated':          return 'updated';
+    case 'Withdrawn':
+    case 'AwaitingReReview': return 'withdrawn';
+    case 'Historic':         return 'historic';
+    case 'Active':
+    default:                 return 'active';
+  }
 }
 
 // ----- Component -----
@@ -335,14 +361,14 @@ export function PillarCard({
           PROMPTLY SCORE
         </text>
 
-        {/* Withdrawn: redaction bar across the centre score */}
+        {/* Withdrawn: redaction bar across the centre score (dedicated token) */}
         {isWithdrawn && (
           <rect
             x={CX - 52}
             y={100}
             width={104}
             height={34}
-            fill={cssVar('--color-ground-black')}
+            fill={cssVar('--redaction')}
             stroke={cssVar('--color-promptly-lime')}
             strokeWidth={1.5}
           />

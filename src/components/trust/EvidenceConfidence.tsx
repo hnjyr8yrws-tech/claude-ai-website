@@ -65,7 +65,24 @@ export function EvidenceConfidence({
             className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono uppercase"
             style={{ fontSize: 9, letterSpacing: 0.4, color: 'var(--color-fog)' }}
           >
-            <span>Confidence {evidence.confidence}/5</span>
+            <span className="inline-flex items-center gap-1.5">
+              {/* Confidence dots — decorative; the n/5 text carries the value (§20). */}
+              <span aria-hidden="true" className="inline-flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <span
+                    key={i}
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{
+                      background:
+                        i <= evidence.confidence
+                          ? 'var(--color-promptly-lime)'
+                          : 'rgba(245, 242, 236, 0.25)',
+                    }}
+                  />
+                ))}
+              </span>
+              <span>Confidence {evidence.confidence}/5</span>
+            </span>
             <span>{REVIEW_DEPTH_LABEL[evidence.reviewDepth]}</span>
           </div>
           {evidence.citation && (
