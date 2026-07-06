@@ -28,6 +28,7 @@ export {
   PillarCard,
   ScorePill,
   pillarScoresFromModel,
+  evidenceFromModel,
   cardStateFor,
   type PillarCardProps,
   type PillarCardState,

@@ -2,14 +2,16 @@
  * TrustGallery — DEV-ONLY harness for the Shared Trust Components layer.
  *
  * Mounted at /dev/trust in development builds only (see App.tsx — the route is
- * gated on import.meta.env.DEV). It exercises every component in every key
- * state so fail-closed behaviour and brand rules can be eyeballed in one place:
- * Verified Active · Fail-closed · Withdrawn · AwaitingReReview · Updated.
+ * gated on import.meta.env.DEV and tree-shaken from production). Two halves:
  *
- * All data below is FIXTURE data — nothing here reads the live registry.
+ *  1. FIXTURES — hand-built TrustDisplayModels exercising every key state
+ *     (Verified Active · Fail-closed · Withdrawn · AwaitingReReview · Updated),
+ *     including states real data can't currently produce (Updated, stale).
+ *  2. LIVE ADAPTER — real slugs run through getTrustDisplayModel() so the
+ *     registry → model → components pipe can be verified end to end.
  */
 
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
   Rule4bGuard,
   PillarCard,
@@ -19,41 +21,59 @@ import {
   ScoreChangeStamp,
   EvidenceConfidence,
   pillarScoresFromModel,
+  evidenceFromModel,
   cardStateFor,
+  PILLAR_META,
+  PILLAR_COLOUR_TOKENS,
+  PILLAR_ORDER,
   type TrustDisplayModel,
+  type TrustPillar,
   type PillarKey,
-  type PillarEvidence,
 } from '@/components/trust';
+import { getTrustDisplayModel } from '@/lib/trust/trustAdapter';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
-const pillarFixture = (pillar: PillarKey, score: number, evidence: string): PillarEvidence => ({
-  pillar,
-  score,
-  evidence,
-  confidence: 4,
-  reviewDepth: 'standard',
-  citation: { label: 'Provider documentation', href: 'https://example.com' },
-});
-
-const basePillars: Record<PillarKey, PillarEvidence> = {
-  data_privacy: pillarFixture('data_privacy', 8.6, 'UK GDPR posture verified against the provider DPA; data residency confirmed EU/UK.'),
-  safeguarding: pillarFixture('safeguarding', 9.1, 'KCSIE 2025 alignment reviewed; DSL controls and audit logging present.'),
-  age_suitability: pillarFixture('age_suitability', 8.2, 'Age gating enforced at sign-up; content suitable for the stated key stages.'),
-  transparency: pillarFixture('transparency', 7.9, 'Model documentation and change log public; pricing clear.'),
-  accessibility: pillarFixture('accessibility', 8.4, 'Keyboard navigable; reading-level adjustment aids SEND differentiation.'),
+const FIXTURE_EVIDENCE: Record<PillarKey, string> = {
+  data_privacy: 'UK GDPR posture verified against the provider DPA; data residency confirmed EU/UK.',
+  safeguarding: 'KCSIE 2025 alignment reviewed; DSL controls and audit logging present.',
+  age_suitability: 'Age gating enforced at sign-up; content suitable for the stated key stages.',
+  transparency: 'Model documentation and change log public; pricing clear.',
+  accessibility: 'Keyboard navigable; reading-level adjustment aids SEND differentiation.',
 };
 
+const FIXTURE_SCORES: Record<PillarKey, number> = {
+  data_privacy: 8.6,
+  safeguarding: 9.1,
+  age_suitability: 8.2,
+  transparency: 7.9,
+  accessibility: 8.4,
+};
+
+const fixturePillars: TrustPillar[] = PILLAR_ORDER.map((key) => ({
+  key,
+  label: PILLAR_META[key].label,
+  colourToken: PILLAR_COLOUR_TOKENS[key],
+  score: FIXTURE_SCORES[key],
+  evidence: FIXTURE_EVIDENCE[key],
+  citation: { label: 'Provider documentation', href: 'https://example.com' },
+  confidence: 4,
+  reviewDepth: 'standard',
+}));
+
 const baseModel: TrustDisplayModel = {
-  toolName: 'Sample Tool',
+  toolId: 'sample-tool',
   toolSlug: 'sample-tool',
+  toolName: 'Sample Tool',
+  verdict: null,
+  promptlyScore: 8.7,
   displayState: 'Active',
-  integrity: { state: 'verified', checkedAt: '2026-05-14' },
+  pillars: fixturePillars,
   methodology: { version: '2.2', verifiedDate: '2026-05-14', reviewerInitials: 'MS' },
   reviewer: { initials: 'MS', verifiedDate: '2026-05-14' },
-  overallScore: 8.7,
-  pillars: basePillars,
+  scoreHistory: [],
   livePageUrl: '/tools/magicschool-ai',
+  integrity: { state: 'verified', fetchedAt: '2026-05-14T09:00:00Z' },
 };
 
 const FIXTURES: { title: string; note: string; model: TrustDisplayModel }[] = [
@@ -65,17 +85,17 @@ const FIXTURES: { title: string; note: string; model: TrustDisplayModel }[] = [
   {
     title: '2 · Fail-closed (integrity: stale)',
     note: 'Guard suppresses and emits score_unavailable_shown (reason: integrity).',
-    model: { ...baseModel, integrity: { state: 'stale', reason: 'registry sync overdue' } },
+    model: { ...baseModel, integrity: { state: 'stale', reason: 'verification_beyond_ttl', fetchedAt: baseModel.integrity.fetchedAt } },
   },
   {
     title: '3 · Withdrawn',
     note: 'Score suppressed entirely — state card + live link only.',
-    model: { ...baseModel, displayState: 'Withdrawn' },
+    model: { ...baseModel, displayState: 'Withdrawn', promptlyScore: null },
   },
   {
     title: '4 · AwaitingReReview',
     note: 'Same suppression path as Withdrawn; card renders the redaction state.',
-    model: { ...baseModel, displayState: 'AwaitingReReview' },
+    model: { ...baseModel, displayState: 'AwaitingReReview', promptlyScore: null },
   },
   {
     title: '5 · Updated (score change)',
@@ -87,6 +107,10 @@ const FIXTURES: { title: string; note: string; model: TrustDisplayModel }[] = [
     },
   },
 ];
+
+/** Real slugs run through the adapter: a verified tool, a withdrawn tool, an
+ *  unreviewed tool and an unknown slug (fail-closed). */
+const LIVE_SLUGS = ['magicschool-ai', 'photomath', 'education-copilot', 'not-a-real-tool'];
 
 // ─── Harness ──────────────────────────────────────────────────────────────────
 
@@ -100,7 +124,60 @@ function Section({ title, note, children }: { title: string; note: string; child
   );
 }
 
+/** One model rendered the standard way: guarded md card + stamp + live link. */
+function ModelBlock({ model }: { model: TrustDisplayModel }) {
+  return (
+    <div className="flex flex-col items-start gap-2">
+      <Rule4bGuard
+        trustData={model}
+        renderUnavailable={() => (
+          <div className="flex flex-col items-start gap-2">
+            <PillarCard
+              state={cardStateFor(model.displayState)}
+              methodologyVersion={model.methodology.version}
+              showName={false}
+              showVerdict={false}
+              showLegend={false}
+              size={240}
+            />
+            <LiveScoreLink url={model.livePageUrl} />
+          </div>
+        )}
+      >
+        <PillarCard
+          score={model.promptlyScore ?? undefined}
+          pillars={pillarScoresFromModel(model)}
+          state={cardStateFor(model.displayState)}
+          showName={false}
+          showVerdict={false}
+          showLegend
+          interactive
+          evidence={evidenceFromModel(model)}
+          size={240}
+          methodologyVersion={model.methodology.version}
+          verifiedDate={model.reviewer.verifiedDate}
+          reviewer={model.reviewer.initials}
+          change={model.scoreHistory[0] ? { from: model.scoreHistory[0].from, to: model.scoreHistory[0].to, date: model.scoreHistory[0].date } : undefined}
+        />
+        <LiveScoreLink url={model.livePageUrl} />
+      </Rule4bGuard>
+    </div>
+  );
+}
+
 export default function TrustGallery() {
+  const [live, setLive] = useState<TrustDisplayModel[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(LIVE_SLUGS.map((s) => getTrustDisplayModel(s))).then((models) => {
+      if (!cancelled) setLive(models);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <div className="mx-auto max-w-4xl px-5 sm:px-8 pt-14 pb-16">
       <header className="pb-10">
@@ -109,56 +186,47 @@ export default function TrustGallery() {
         </p>
         <h1 className="font-display text-4xl mt-2" style={{ color: 'var(--text)' }}>Shared Trust Components</h1>
         <p className="mt-3 max-w-xl text-base text-site-muted">
-          Every component in every key state, rendered through <code className="font-mono text-sm">Rule4bGuard</code>.
-          Open the console&rsquo;s <code className="font-mono text-sm">promptly_analytics</code> events to watch{' '}
-          <code className="font-mono text-sm">score_unavailable_shown</code> fire on the suppressed states.
+          Fixtures for every key state, plus real registry data through the Trust Adapter. Watch the console&rsquo;s{' '}
+          <code className="font-mono text-sm">promptly_analytics</code> events for{' '}
+          <code className="font-mono text-sm">score_unavailable_shown</code> on the suppressed states.
         </p>
       </header>
 
+      {/* ── Live adapter output ── */}
+      <section className="mb-14 rounded-xl border border-[var(--color-rule)] bg-white p-5">
+        <h2 className="font-display text-2xl" style={{ color: 'var(--text)' }}>Live · Trust Adapter</h2>
+        <p className="mt-1 text-sm text-site-muted">
+          <code className="font-mono text-xs">getTrustDisplayModel(slug)</code> over real data — verified, withdrawn,
+          unreviewed, and an unknown slug (fail-closed).
+        </p>
+        <div className="mt-5 flex flex-wrap items-start gap-8">
+          {live === null ? (
+            <p className="text-sm text-site-muted">Loading adapter output…</p>
+          ) : (
+            live.map((model) => (
+              <div key={model.toolSlug} className="flex max-w-[260px] flex-col items-start gap-2">
+                <p className="font-mono text-[10px] uppercase" style={{ color: 'var(--color-fog)' }}>
+                  {model.toolSlug} · {model.displayState} · integrity: {model.integrity.state}
+                  {model.integrity.reason ? ` (${model.integrity.reason})` : ''}
+                </p>
+                <ModelBlock model={model} />
+              </div>
+            ))
+          )}
+        </div>
+      </section>
+
+      {/* ── Fixture states ── */}
       {FIXTURES.map(({ title, note, model }) => (
         <Section key={title} title={title} note={note}>
-          {/* md (240px) card behind the guard, driven entirely from the model */}
-          <div className="flex flex-col items-start gap-2">
-            <Rule4bGuard
-              trustData={model}
-              renderUnavailable={() => (
-                <div className="flex flex-col items-start gap-2">
-                  <PillarCard
-                    state={cardStateFor(model.displayState)}
-                    methodologyVersion={model.methodology.version}
-                    showName={false}
-                    showVerdict={false}
-                    showLegend={false}
-                    size={240}
-                  />
-                  {model.livePageUrl ? <LiveScoreLink url={model.livePageUrl} /> : null}
-                </div>
-              )}
-            >
-              <PillarCard
-                score={model.overallScore}
-                pillars={pillarScoresFromModel(model)}
-                state={cardStateFor(model.displayState)}
-                showName={false}
-                showVerdict={false}
-                showLegend
-                interactive
-                size={240}
-                methodologyVersion={model.methodology.version}
-                verifiedDate="14 MAY 2026"
-                reviewer={model.reviewer.initials}
-                change={model.scoreHistory?.[0] ? { from: model.scoreHistory[0].from, to: model.scoreHistory[0].to, date: '14 MAY 2026' } : undefined}
-              />
-              {model.livePageUrl ? <LiveScoreLink url={model.livePageUrl} /> : null}
-            </Rule4bGuard>
-          </div>
+          <ModelBlock model={model} />
 
-          {/* sm (96px) compact card — the Luna inline size (chrome off) */}
+          {/* sm (96px) compact card — the candidate Luna inline size (chrome off) */}
           <div className="flex flex-col items-start gap-2">
             <p className="font-mono text-[10px] uppercase" style={{ color: 'var(--color-fog)' }}>sm · 96px (Luna inline)</p>
             <Rule4bGuard trustData={model} silent>
               <PillarCard
-                score={model.overallScore}
+                score={model.promptlyScore ?? undefined}
                 pillars={pillarScoresFromModel(model)}
                 showName={false}
                 showVerdict={false}
@@ -167,10 +235,9 @@ export default function TrustGallery() {
                 size={96}
               />
             </Rule4bGuard>
-            {/* Stamps row for this state */}
             <MethodologyStamp methodology={model.methodology} />
             <ReviewerBadge reviewer={model.reviewer} />
-            {model.scoreHistory?.[0] ? <ScoreChangeStamp change={model.scoreHistory[0]} /> : null}
+            {model.scoreHistory[0] ? <ScoreChangeStamp change={model.scoreHistory[0]} /> : null}
           </div>
 
           {/* Guard default fallback (no renderUnavailable) */}
@@ -193,10 +260,10 @@ export default function TrustGallery() {
             score={9.1}
             bandLabel="Exemplary"
             evidence={{
-              evidence: basePillars.safeguarding.evidence,
-              confidence: basePillars.safeguarding.confidence,
-              reviewDepth: basePillars.safeguarding.reviewDepth,
-              citation: basePillars.safeguarding.citation,
+              evidence: FIXTURE_EVIDENCE.safeguarding,
+              confidence: 4,
+              reviewDepth: 'standard',
+              citation: { label: 'Provider documentation', href: 'https://example.com' },
             }}
           />
         </div>

@@ -8,7 +8,7 @@ export interface Rule4bGuardProps {
   integrity?: Integrity | null;
   displayState?: DisplayState;
   /** Convenience: derive integrity + displayState from the shared model. Also
-   *  fail-closes when the model carries no score (overallScore == null). */
+   *  fail-closes when the model carries no score (promptlyScore == null). */
   trustData?: TrustDisplayModel;
   children: React.ReactNode;
   silent?: boolean;
@@ -37,7 +37,7 @@ export function Rule4bGuard({
 }: Rule4bGuardProps) {
   const integrityEff = trustData ? trustData.integrity : integrity;
   const displayStateEff = trustData ? trustData.displayState : displayState;
-  const scoreMissing = trustData ? trustData.overallScore == null : false;
+  const scoreMissing = trustData ? trustData.promptlyScore == null : false;
 
   let v: TrustVisibility;
   if (!displayStateEff) {
