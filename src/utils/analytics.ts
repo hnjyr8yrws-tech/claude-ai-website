@@ -59,6 +59,11 @@ export type SiteEvent =
   | { name: 'agent_opened';                  section: string; pageType?: PageType }
   | { name: 'agent_contextual_prompt_clicked'; prompt: string; section: string; pageType?: PageType }
 
+  // ── Trust layer ─────────────────────────────────────────────────────────────
+  /** Fired by <Rule4bGuard> whenever a score is suppressed (fail-closed integrity
+   *  or a Withdrawn/AwaitingReReview display state). */
+  | { name: 'score_unavailable_shown'; reason: 'display-state' | 'integrity'; displayState: string }
+
   // ── Cross-sell ──────────────────────────────────────────────────────────────
   | { name: 'cross_sell_impression'; sourceSection: string; targetSection: string; itemId: string }
   | { name: 'cross_sell_click';      sourceSection: string; targetSection: string; itemId: string }

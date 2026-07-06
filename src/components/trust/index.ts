@@ -1,7 +1,9 @@
-// Shared Trust Components — ported from getpromptly-web.
-// NOTE: PillarCard.tsx is intentionally NOT re-exported here: it exports its own
-// `pillarScores` which collides with the `pillarScores` from ./utils. Import it
-// directly via '@/components/trust/PillarCard' (as the existing pages do).
+// Shared Trust Components — the single source of truth for Rule 4b compliance
+// and fail-closed rendering across Luna, review pages and receipts.
+//
+// NOTE: PillarCard's `pillarScores` builder is NOT re-exported (it collides with
+// the `pillarScores` helper in ./utils) — import it directly from
+// '@/components/trust/PillarCard' if needed. Everything else is exported here.
 
 export * from '@/components/trust/types';
 export * from '@/components/trust/constants';
@@ -16,3 +18,19 @@ export { Rule4bGuard, type Rule4bGuardProps } from '@/components/trust/Rule4bGua
 export { ReviewerBadge, type ReviewerBadgeProps } from '@/components/trust/ReviewerBadge';
 export { ScoreChangeStamp, type ScoreChangeStampProps } from '@/components/trust/ScoreChangeStamp';
 export { MethodologyStamp, type MethodologyStampProps } from '@/components/trust/MethodologyStamp';
+export { LiveScoreLink, type LiveScoreLinkProps } from '@/components/trust/LiveScoreLink';
+export {
+  EvidenceConfidence,
+  type EvidenceConfidenceProps,
+  type PillarEvidenceDetail,
+} from '@/components/trust/EvidenceConfidence';
+export {
+  PillarCard,
+  ScorePill,
+  pillarScoresFromModel,
+  cardStateFor,
+  type PillarCardProps,
+  type PillarCardState,
+  type PillarScores,
+  type ScorePillProps,
+} from '@/components/trust/PillarCard';

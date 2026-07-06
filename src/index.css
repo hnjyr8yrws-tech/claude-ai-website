@@ -34,6 +34,10 @@
   --color-ink-muted:       #6b6760;
   --color-fog:             #9C9C8A;
   --color-rule:            #E8E4DC;
+  /* Redaction fill for withdrawn/suppressed artefacts (§04 withdrawn card,
+     withdrawal markers). Matches ground-black today but is its own token so
+     redaction can be tuned independently. */
+  --redaction:             #1E1E1E;
   --color-pillar-privacy:       #6A8CAF;
   --color-pillar-safeguarding:  #C8E44A;
   --color-pillar-age:          #8C7A52;

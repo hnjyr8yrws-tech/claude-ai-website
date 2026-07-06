@@ -179,9 +179,9 @@ function WithdrawalRow({ entry }: { entry: WithdrawalRecord }) {
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-2">
-        {/* Withdrawal marker — redaction-black, matching the withdrawn Pillar Card
-            (no alarm-red; §09 has no traffic-light colours). */}
-        <span className="rounded bg-[var(--color-ground-black)] px-1.5 py-0.5 text-xs font-medium text-[var(--color-oat)]">Withdrawal</span>
+        {/* Withdrawal marker — the --redaction token, matching the withdrawn
+            Pillar Card (no alarm-red; §09 has no traffic-light colours). */}
+        <span className="rounded bg-[var(--redaction)] px-1.5 py-0.5 text-xs font-medium text-[var(--color-oat)]">Withdrawal</span>
         <span className="text-sm text-site-muted">
           {entry.reasonCategory} · {entry.tools.length} {entry.tools.length === 1 ? 'tool' : 'tools'}
         </span>
