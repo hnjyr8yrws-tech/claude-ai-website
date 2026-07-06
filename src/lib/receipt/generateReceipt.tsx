@@ -14,28 +14,9 @@
 
 import { pdf } from '@react-pdf/renderer';
 import type { TrustDisplayModel } from '@/components/trust/types';
-import { TRUST_SUPPRESSED_DISPLAY_STATES } from '@/components/trust/constants';
 import { registerReceiptFonts } from './fonts';
 import { ReceiptDocument } from './ReceiptDocument';
-
-export class ReceiptRefusedError extends Error {
-  constructor(public readonly reason: string) {
-    super(`Receipt refused: ${reason}`);
-    this.name = 'ReceiptRefusedError';
-  }
-}
-
-/** Returns a refusal reason, or null when a receipt may be generated. */
-export function validateReceiptModel(model: TrustDisplayModel): string | null {
-  if (model.integrity.state !== 'verified') return `integrity is '${model.integrity.state}'`;
-  if (TRUST_SUPPRESSED_DISPLAY_STATES.includes(model.displayState)) {
-    return `tool is ${model.displayState === 'Withdrawn' ? 'withdrawn' : 'awaiting re-review'}`;
-  }
-  if (model.promptlyScore == null) return 'no published score';
-  if (!model.methodology.version) return 'no methodology version';
-  if (!model.reviewer.initials) return 'no reviewer';
-  return null; // verifiedDate deliberately NOT required (Phase 1, option B)
-}
+import { validateReceiptModel, ReceiptRefusedError } from './validate';
 
 /** Build the PDF blob from a frozen model snapshot. Throws ReceiptRefusedError. */
 export async function generateReceiptBlob(

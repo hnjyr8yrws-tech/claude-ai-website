@@ -31,6 +31,8 @@ import {
   type PillarKey,
 } from '@/components/trust';
 import { getTrustDisplayModel } from '@/lib/trust/trustAdapter';
+import { canGenerateReceipt, validateReceiptModel } from '@/lib/receipt/validate';
+import ReceiptModal from '@/components/ReceiptModal';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -170,6 +172,7 @@ function ModelBlock({ model }: { model: TrustDisplayModel }) {
 export default function TrustGallery() {
   const [live, setLive] = useState<TrustDisplayModel[] | null>(null);
   const [receiptStatus, setReceiptStatus] = useState<string>('');
+  const [receiptModal, setReceiptModal] = useState<{ model: TrustDisplayModel; snapshotAt: string } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -196,6 +199,18 @@ export default function TrustGallery() {
     } catch (e) {
       setReceiptStatus(`✗ ${slug}: ${(e as Error).message}`);
     }
+  }
+
+  // P2: the modal path — gated by the LIGHT validate module (no PDF chunk),
+  // exactly as the real ToolDetail entry point will gate in P3.
+  async function tryReceiptModal(slug: string) {
+    const model = await getTrustDisplayModel(slug);
+    if (!canGenerateReceipt(model)) {
+      setReceiptStatus(`✗ modal gated for ${slug}: ${validateReceiptModel(model)}`);
+      return;
+    }
+    setReceiptStatus('');
+    setReceiptModal({ model, snapshotAt: new Date().toISOString() });
   }
 
   return (
@@ -257,12 +272,37 @@ export default function TrustGallery() {
             </button>
           ))}
         </div>
+        <p className="mt-4 text-sm text-site-muted">
+          <strong style={{ color: 'var(--text)' }}>P2 — modal flow:</strong> preview-then-download; the
+          photomath button demonstrates the gated entry (no modal for suppressed tools).
+        </p>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {(['magicschool-ai', 'photomath'] as const).map((slug) => (
+            <button
+              key={`modal-${slug}`}
+              type="button"
+              onClick={() => tryReceiptModal(slug)}
+              className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+              style={{ color: 'var(--text)' }}
+            >
+              Open modal: {slug}
+            </button>
+          ))}
+        </div>
         {receiptStatus ? (
           <p role="status" className="mt-3 font-mono text-[11px]" style={{ color: 'var(--color-ink-accent)' }}>
             {receiptStatus}
           </p>
         ) : null}
       </section>
+
+      {receiptModal ? (
+        <ReceiptModal
+          model={receiptModal.model}
+          snapshotAt={receiptModal.snapshotAt}
+          onClose={() => setReceiptModal(null)}
+        />
+      ) : null}
 
       {/* ── Fixture states ── */}
       {FIXTURES.map(({ title, note, model }) => (

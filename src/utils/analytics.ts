@@ -63,6 +63,12 @@ export type SiteEvent =
   /** Fired by <Rule4bGuard> whenever a score is suppressed (fail-closed integrity
    *  or a Withdrawn/AwaitingReReview display state). */
   | { name: 'score_unavailable_shown'; reason: 'display-state' | 'integrity'; displayState: string }
+  /** Concept 3: modal opened with a frozen model snapshot (§11). */
+  | { name: 'receipt_generated'; toolId: string; surface: 'receipt';
+      methodologyVersion: string; integrityState: string; displayState: string }
+  /** Concept 3: PDF saved. genToDownloadMs = modal open → download complete (§11). */
+  | { name: 'receipt_downloaded'; toolId: string; surface: 'receipt';
+      methodologyVersion: string; genToDownloadMs: number }
 
   // ── Cross-sell ──────────────────────────────────────────────────────────────
   | { name: 'cross_sell_impression'; sourceSection: string; targetSection: string; itemId: string }
