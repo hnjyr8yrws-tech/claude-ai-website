@@ -8,7 +8,7 @@ import {
   ScoreChangeStamp,
   MethodologyStamp,
   formatDateGB,
-  type Integrity,
+  type TrustDisplayModel,
 } from '@/components/trust';
 import {
   methodologyMeta,
@@ -250,7 +250,23 @@ function ScoreChangeFeed({ entries }: { entries: ScoreFeedEntry[] }) {
 
 // ─── Suppressed-tool example (real Rule4bGuard demo) ──────────────────────────
 
-const EXAMPLE_INTEGRITY: Integrity = { state: 'unavailable' };
+// r4 migration: the demo now exercises the adapter-era `trustData` guard API.
+// Deliberately a FIXTURE model (not a live adapter call) so the illustration
+// never flips to a real scored card if a withdrawn tool is later re-reviewed.
+const EXAMPLE_SUPPRESSED: TrustDisplayModel = {
+  toolId: 'example-tool',
+  toolSlug: 'example-tool',
+  toolName: 'Example tool',
+  verdict: null,
+  promptlyScore: null,
+  displayState: 'AwaitingReReview',
+  pillars: [], // never rendered — the demo only shows the suppressed state
+  methodology: { version: '2.2', verifiedDate: '', reviewerInitials: 'CR' },
+  reviewer: { initials: 'CR', verifiedDate: '' },
+  scoreHistory: [],
+  livePageUrl: '/tools/example-tool',
+  integrity: { state: 'unavailable' },
+};
 const EXAMPLE_WITHDRAWAL_ANCHOR = 'withdrawal-2026-06-safeguarding';
 
 function SuppressedToolExample() {
@@ -266,8 +282,7 @@ function SuppressedToolExample() {
         </p>
 
         <Rule4bGuard
-          integrity={EXAMPLE_INTEGRITY}
-          displayState="AwaitingReReview"
+          trustData={EXAMPLE_SUPPRESSED}
           renderUnavailable={() => (
             <div role="status" className="max-w-sm rounded-md border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-sm text-site-muted">
               <p className="font-medium">Score withheld</p>
