@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Check, X } from 'lucide-react';
@@ -20,8 +20,13 @@ import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
 import { PillarCard, ScorePill, pillarScoresFromModel } from '../components/trust/PillarCard';
 import { SAMPLE_TOOL_EVIDENCE } from '../data/sampleEvidence';
-import { Rule4bGuard } from '@/components/trust';
+import { Rule4bGuard, type TrustDisplayModel } from '@/components/trust';
 import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
+import { canGenerateReceipt } from '@/lib/receipt/validate'; // light — no PDF chunk cost
+
+// Concept 3: the receipt modal is lazy — its chunk (and, deeper, react-pdf on
+// Download) loads only when a user actually opens it.
+const ReceiptModal = lazy(() => import('@/components/ReceiptModal'));
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -105,6 +110,9 @@ const ToolDetail = () => {
 
   const tool = useMemo(() => TOOLS.find(t => t.slug === slug) ?? null, [slug]);
 
+  // Concept 3: frozen receipt snapshot (model + timestamp), captured at click time.
+  const [receipt, setReceipt] = useState<{ model: TrustDisplayModel; snapshotAt: string } | null>(null);
+
   // Related data
   const alternatives = useMemo(() => {
     if (!tool) return [];
@@ -175,6 +183,10 @@ const ToolDetail = () => {
   const trust = buildTrustDisplayModel(tool.slug);
   const scored = trust.promptlyScore != null;
   const awaiting = trust.displayState === 'AwaitingReReview'; // child-safety withdrawal → Awaiting Re-review card
+  // Fresh snapshot at click time (§9.3) — deliberately not the render-time model.
+  const openReceipt = () =>
+    setReceipt({ model: buildTrustDisplayModel(tool.slug), snapshotAt: new Date().toISOString() });
+
   const catStyle = CAT_COLOURS[tool.primaryCategory] ?? { bg: '#f3f4f6', text: '#374151' };
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
@@ -267,19 +279,34 @@ const ToolDetail = () => {
                 }
               >
                 {scored ? (
-                  <PillarCard
-                    score={trust.promptlyScore ?? undefined}
-                    pillars={pillarScoresFromModel(trust)}
-                    showName={false}
-                    showVerdict={false}
-                    showLegend
-                    interactive
-                    evidence={SAMPLE_TOOL_EVIDENCE[tool.slug]}
-                    size={208}
-                    methodologyVersion={trust.methodology.version}
-                    verifiedDate={trust.methodology.verifiedDate}
-                    reviewer={trust.reviewer.initials}
-                  />
+                  <div className="flex flex-col items-center gap-2">
+                    <PillarCard
+                      score={trust.promptlyScore ?? undefined}
+                      pillars={pillarScoresFromModel(trust)}
+                      showName={false}
+                      showVerdict={false}
+                      showLegend
+                      interactive
+                      evidence={SAMPLE_TOOL_EVIDENCE[tool.slug]}
+                      size={208}
+                      methodologyVersion={trust.methodology.version}
+                      verifiedDate={trust.methodology.verifiedDate}
+                      reviewer={trust.reviewer.initials}
+                    />
+                    {/* Concept 3 entry — verified branch only (we are inside the
+                        guard) AND receipt-valid (light check; no PDF cost).
+                        A quiet text link per the plan — never a push. */}
+                    {canGenerateReceipt(trust) && (
+                      <button
+                        type="button"
+                        onClick={openReceipt}
+                        className="text-xs font-semibold underline underline-offset-2 transition-opacity hover:opacity-80"
+                        style={{ color: 'var(--color-ink-accent)' }}
+                      >
+                        Save this as a receipt for your records →
+                      </button>
+                    )}
+                  </div>
                 ) : null}
               </Rule4bGuard>
             </div>
@@ -618,6 +645,17 @@ const ToolDetail = () => {
           onClose={closePopup}
         />
       )}
+
+      {/* ── Audit receipt (Concept 3) — lazy modal, frozen snapshot ─────────── */}
+      {receipt ? (
+        <Suspense fallback={null}>
+          <ReceiptModal
+            model={receipt.model}
+            snapshotAt={receipt.snapshotAt}
+            onClose={() => setReceipt(null)}
+          />
+        </Suspense>
+      ) : null}
     </>
   );
 };

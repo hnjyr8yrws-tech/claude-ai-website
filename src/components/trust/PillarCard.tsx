@@ -99,6 +99,16 @@ export function pillarScores(
   return { dataPrivacy, safeguarding, ageSuitability, transparency, accessibility };
 }
 
+/** §04 ring geometry — exported for print/PDF re-renders (Concept 3 Audit
+ *  Receipt). The wedge paths are FIXED (§04): never derive or modify them. */
+export const PILLAR_CARD_GEOMETRY = {
+  viewBox: VB,
+  cx: CX,
+  cy: CY,
+  wedges: WEDGES,
+  dividers: DIVIDERS,
+} as const;
+
 /** snake_case PillarKey → the card's camelCase PillarScores keys. */
 const MODEL_KEY_MAP = {
   data_privacy: 'dataPrivacy',

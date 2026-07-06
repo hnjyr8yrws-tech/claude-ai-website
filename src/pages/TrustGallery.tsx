@@ -31,6 +31,8 @@ import {
   type PillarKey,
 } from '@/components/trust';
 import { getTrustDisplayModel } from '@/lib/trust/trustAdapter';
+import { canGenerateReceipt, validateReceiptModel } from '@/lib/receipt/validate';
+import ReceiptModal from '@/components/ReceiptModal';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -108,8 +110,10 @@ const FIXTURES: { title: string; note: string; model: TrustDisplayModel }[] = [
   },
 ];
 
-/** Real slugs run through the adapter: a verified tool, a withdrawn tool, an
- *  unreviewed tool and an unknown slug (fail-closed). */
+/** Real slugs through the adapter. NOTE: every tool in the registry currently
+ *  has a published score (252 published ≥ 242 tools), so there is no real
+ *  'Provisional' example — the unknown slug covers the fail-closed path and
+ *  fixtures cover the rest. */
 const LIVE_SLUGS = ['magicschool-ai', 'photomath', 'education-copilot', 'not-a-real-tool'];
 
 // ─── Harness ──────────────────────────────────────────────────────────────────
@@ -167,6 +171,8 @@ function ModelBlock({ model }: { model: TrustDisplayModel }) {
 
 export default function TrustGallery() {
   const [live, setLive] = useState<TrustDisplayModel[] | null>(null);
+  const [receiptStatus, setReceiptStatus] = useState<string>('');
+  const [receiptModal, setReceiptModal] = useState<{ model: TrustDisplayModel; snapshotAt: string } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -177,6 +183,35 @@ export default function TrustGallery() {
       cancelled = true;
     };
   }, []);
+
+  // Concept 3 P1 harness: generate a receipt (or watch it refuse, fail-closed)
+  // through the real adapter → validate → PDF pipeline. Module is lazy-loaded
+  // on first click, exactly as production consumers will load it.
+  async function tryReceipt(slug: string) {
+    setReceiptStatus(`Generating for ${slug}…`);
+    try {
+      const [{ downloadReceipt }, model] = await Promise.all([
+        import('@/lib/receipt/generateReceipt'),
+        getTrustDisplayModel(slug),
+      ]);
+      const filename = await downloadReceipt(model);
+      setReceiptStatus(`✓ Downloaded ${filename}`);
+    } catch (e) {
+      setReceiptStatus(`✗ ${slug}: ${(e as Error).message}`);
+    }
+  }
+
+  // P2: the modal path — gated by the LIGHT validate module (no PDF chunk),
+  // exactly as the real ToolDetail entry point will gate in P3.
+  async function tryReceiptModal(slug: string) {
+    const model = await getTrustDisplayModel(slug);
+    if (!canGenerateReceipt(model)) {
+      setReceiptStatus(`✗ modal gated for ${slug}: ${validateReceiptModel(model)}`);
+      return;
+    }
+    setReceiptStatus('');
+    setReceiptModal({ model, snapshotAt: new Date().toISOString() });
+  }
 
   return (
     <div className="mx-auto max-w-4xl px-5 sm:px-8 pt-14 pb-16">
@@ -215,6 +250,59 @@ export default function TrustGallery() {
           )}
         </div>
       </section>
+
+      {/* ── Concept 3: Audit Receipt (P1) ── */}
+      <section className="mb-14 rounded-xl border border-[var(--color-rule)] bg-white p-5">
+        <h2 className="font-display text-2xl" style={{ color: 'var(--text)' }}>Concept 3 · Audit Receipt (P1)</h2>
+        <p className="mt-1 text-sm text-site-muted">
+          Adapter → validation → PDF, lazy-loaded on click. The first two generate (every registry
+          tool is currently scored); the last two <em>refuse</em> (fail-closed): a withdrawn tool
+          and an unknown slug never produce a receipt.
+        </p>
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          {(['magicschool-ai', 'education-copilot', 'photomath', 'not-a-real-tool'] as const).map((slug) => (
+            <button
+              key={slug}
+              type="button"
+              onClick={() => tryReceipt(slug)}
+              className="rounded-xl border border-[var(--color-rule)] bg-white px-3 py-2 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+              style={{ color: 'var(--text)' }}
+            >
+              Generate: {slug}
+            </button>
+          ))}
+        </div>
+        <p className="mt-4 text-sm text-site-muted">
+          <strong style={{ color: 'var(--text)' }}>P2 — modal flow:</strong> preview-then-download; the
+          photomath button demonstrates the gated entry (no modal for suppressed tools).
+        </p>
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          {(['magicschool-ai', 'photomath'] as const).map((slug) => (
+            <button
+              key={`modal-${slug}`}
+              type="button"
+              onClick={() => tryReceiptModal(slug)}
+              className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+              style={{ color: 'var(--text)' }}
+            >
+              Open modal: {slug}
+            </button>
+          ))}
+        </div>
+        {receiptStatus ? (
+          <p role="status" className="mt-3 font-mono text-[11px]" style={{ color: 'var(--color-ink-accent)' }}>
+            {receiptStatus}
+          </p>
+        ) : null}
+      </section>
+
+      {receiptModal ? (
+        <ReceiptModal
+          model={receiptModal.model}
+          snapshotAt={receiptModal.snapshotAt}
+          onClose={() => setReceiptModal(null)}
+        />
+      ) : null}
 
       {/* ── Fixture states ── */}
       {FIXTURES.map(({ title, note, model }) => (
