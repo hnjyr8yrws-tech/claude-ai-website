@@ -99,15 +99,42 @@ export function pillarScores(
   return { dataPrivacy, safeguarding, ageSuitability, transparency, accessibility };
 }
 
+/** snake_case PillarKey → the card's camelCase PillarScores keys. */
+const MODEL_KEY_MAP = {
+  data_privacy: 'dataPrivacy',
+  safeguarding: 'safeguarding',
+  age_suitability: 'ageSuitability',
+  transparency: 'transparency',
+  accessibility: 'accessibility',
+} as const;
+
 /** Map the shared TrustDisplayModel pillar slice → PillarScores (§03 order preserved). */
 export function pillarScoresFromModel(model: TrustDisplayModel): PillarScores {
-  return {
-    dataPrivacy: model.pillars.data_privacy?.score ?? 0,
-    safeguarding: model.pillars.safeguarding?.score ?? 0,
-    ageSuitability: model.pillars.age_suitability?.score ?? 0,
-    transparency: model.pillars.transparency?.score ?? 0,
-    accessibility: model.pillars.accessibility?.score ?? 0,
-  };
+  const out: PillarScores = { dataPrivacy: 0, safeguarding: 0, ageSuitability: 0, transparency: 0, accessibility: 0 };
+  for (const p of model.pillars) {
+    out[MODEL_KEY_MAP[p.key]] = p.score ?? 0;
+  }
+  return out;
+}
+
+/** Map the model's pillar evidence → the interactive card's `evidence` prop.
+ *  Pillars without published evidence are simply omitted (the card's expand
+ *  panel then shows its graceful "see methodology" fallback). */
+export function evidenceFromModel(
+  model: TrustDisplayModel,
+): Partial<Record<keyof PillarScores, PillarEvidenceDetail>> {
+  const out: Partial<Record<keyof PillarScores, PillarEvidenceDetail>> = {};
+  for (const p of model.pillars) {
+    if (p.evidence != null && p.confidence != null && p.reviewDepth != null) {
+      out[MODEL_KEY_MAP[p.key]] = {
+        evidence: p.evidence,
+        citation: p.citation ?? undefined,
+        confidence: p.confidence,
+        reviewDepth: p.reviewDepth,
+      };
+    }
+  }
+  return out;
 }
 
 /** Map a DisplayState to the card's visual state. AwaitingReReview renders the

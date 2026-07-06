@@ -3,7 +3,10 @@ export type IntegrityState = 'verified' | 'stale' | 'unavailable';
 export interface Integrity {
   state: IntegrityState;
   reason?: string;
+  /** Legacy field kept for existing granular call sites (ToolDetail, Luna). */
   checkedAt?: string;
+  /** ISO timestamp of when the Trust Adapter built the model (§4 Trust Policy 1). */
+  fetchedAt?: string;
 }
 
 export type DisplayState =
@@ -62,15 +65,45 @@ export interface ScoreChange {
   reason?: string;
 }
 
+/** One pillar as rendered — always produced in fixed §03 order by the adapter. */
+export interface TrustPillar {
+  key: PillarKey;
+  /** Canonical Brand Bible pillar name (never abbreviated). */
+  label: string;
+  /** Reserved pillar colour token (CSS variable) — never overridden (§03/§09). */
+  colourToken: string;
+  score: number | null;
+  evidence: string | null;
+  citation: Citation | null;
+  /** 0–5; null when no evidence has been published for the pillar. */
+  confidence: ConfidenceLevel | null;
+  reviewDepth: ReviewDepth | null;
+}
+
+/**
+ * The single typed model every trust surface renders from. Built ONLY by the
+ * Trust Adapter (src/lib/trust/trustAdapter.ts) — no surface reads the registry
+ * directly. `integrity.state` is the render gate (§4 Trust Policy 1);
+ * `displayState` styles what has already passed the gate.
+ */
 export interface TrustDisplayModel {
-  toolName: string;
+  /** Registry identifier — currently the tool slug. */
+  toolId: string;
   toolSlug: string;
+  toolName: string;
+  /** §14 Plain Verdict. No data source yet — the adapter returns null. Renders
+   *  only when integrity is verified AND promptlyScore is non-null (§4). */
+  verdict: string | null;
+  /** Composite Promptly Score. null ⇒ fail-closed: no score renders anywhere. */
+  promptlyScore: number | null;
   displayState: DisplayState;
-  integrity: Integrity;
+  /** ALWAYS the fixed five, in §03 order. */
+  pillars: TrustPillar[];
   methodology: Methodology;
   reviewer: Reviewer;
-  overallScore: number;
-  pillars: Record<PillarKey, PillarEvidence>;
-  scoreHistory?: ScoreChange[];
-  livePageUrl?: string;
+  /** Most-recent first. Empty when no score change has ever been recorded. */
+  scoreHistory: ScoreChange[];
+  disclosure?: { present: boolean; text: string };
+  livePageUrl: string;
+  integrity: Integrity;
 }

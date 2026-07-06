@@ -9,6 +9,32 @@ and are exported from the barrel (`@/components/trust`), except `PillarCard`'s
 development builds only). It renders every component in the five key states:
 Verified Active · Fail-closed · Withdrawn · AwaitingReReview · Updated.
 
+## Trust Adapter (`src/lib/trust/trustAdapter.ts`)
+The single owner of `(registry + methodology) → TrustDisplayModel` (§0/§3/§5 of
+the Phase 1 plan). Surfaces call it instead of hitting the stores:
+
+```ts
+import { getTrustDisplayModel } from '@/lib/trust/trustAdapter';
+const model = await getTrustDisplayModel('magicschool-ai');
+<Rule4bGuard trustData={model}>…</Rule4bGuard>
+```
+
+Owned here and nowhere else: `displayState` derivation (Active/Provisional/
+Updated — the 30-day `UPDATED_WINDOW_DAYS`), staleness (`VERIFICATION_TTL_DAYS`
+→ `integrity: 'stale'`), the ordered five-pillar array with reserved colour
+tokens (`PILLAR_COLOUR_TOKENS`), and fail-closed shaping (unknown slug →
+`unavailable/tool_not_found`; unreviewed → Provisional + null score; withdrawal
+set → AwaitingReReview). `verdict` and per-pillar evidence are `null` — they
+have no data source yet and are never invented. `buildTrustDisplayModel(slug,
+now)` is the sync/testable core; `getTrustDisplayModel` is the async facade for
+the future live-served registry.
+
+Model notes (r5 shape): pillars are now an **ordered array** (`TrustPillar[]`)
+with `label` + `colourToken`; `promptlyScore` is nullable (null ⇒ fail-closed);
+`toolId`/`verdict`/`integrity.fetchedAt` added. `Integrity.checkedAt` is kept so
+the granular call sites compile unchanged. Card adapters: `pillarScoresFromModel`,
+`evidenceFromModel`, `cardStateFor`.
+
 ## Core rules (enforced in code, not convention)
 - `integrity.state !== 'verified'` → **fail-closed** (no score renders)
 - `displayState ∈ {Withdrawn, AwaitingReReview}` → **score suppressed entirely**
