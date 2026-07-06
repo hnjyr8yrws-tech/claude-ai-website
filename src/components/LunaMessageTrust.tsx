@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
-import { Rule4bGuard, MethodologyStamp, type DisplayState, type Integrity } from '@/components/trust';
+import { Rule4bGuard, MethodologyStamp } from '@/components/trust';
 import { ScorePill } from '@/components/trust/PillarCard';
-import { getPublicScore, isAwaitingReReview } from '@/data/publicPillars';
+import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
 import { TOOLS } from '@/data/tools';
 
-// Lazy-loaded on purpose (see AgentWidget): keeps the TOOLS/publicPillars data
+// Lazy-loaded on purpose (see AgentWidget): keeps the TOOLS/registry data
 // out of the main bundle so it only loads once the chat is actually used.
+//
+// r4 migration: trust data comes ONLY from the Trust Adapter. TOOLS remains
+// imported for the name-detection heuristic below (registry name scanning,
+// not trust data).
 
 // Ambiguous / common-word tool names skipped by the heuristic to avoid false
 // positives in ordinary prose. The structured `tools` payload bypasses this.
@@ -39,31 +43,29 @@ export function detectToolSlugs(text: string): string[] {
 
 /**
  * Compact, fail-closed trust stamp for one tool referenced in a Luna reply.
- * Drives the shared Rule4bGuard from the site's published trust model:
+ * Renders from the TrustDisplayModel (Trust Adapter — single source of truth):
  *   verified  → name + Promptly Score pill + methodology mark
  *   withdrawn → "score withheld · awaiting re-review" + link to /methodology
  *   pending   → "review in progress" (no number)
  *   unknown   → nothing (fail-closed)
  */
 export function LunaTrustStamp({ slug }: { slug: string }) {
-  const tool = TOOLS.find((t) => t.slug === slug);
-  if (!tool) return null;
+  // Sync core today (bundled data — no loading flash in chat); swap to the
+  // async getTrustDisplayModel() facade when the registry is served live.
+  const trust = buildTrustDisplayModel(slug);
+  if (trust.integrity.reason === 'tool_not_found') return null;
 
-  const pub = getPublicScore(slug);
-  const awaiting = isAwaitingReReview(slug);
-  const displayState: DisplayState = awaiting ? 'AwaitingReReview' : pub ? 'Active' : 'Provisional';
-  const integrity: Integrity = pub ? { state: 'verified', checkedAt: pub.verifiedDate } : { state: 'unavailable' };
-  const toPath = `/tools/${slug}`;
+  const awaiting = trust.displayState === 'AwaitingReReview';
+  const toPath = trust.livePageUrl;
 
   return (
     <div className="rounded-lg border px-2.5 py-1.5 text-xs" style={{ borderColor: 'var(--color-rule)', background: '#faf9f6' }}>
       <Rule4bGuard
-        integrity={integrity}
-        displayState={displayState}
+        trustData={trust}
         renderUnavailable={() =>
           awaiting ? (
             <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: 'var(--color-ink-muted)' }}>
-              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
+              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{trust.toolName}</Link>
               <span>· score withheld ·</span>
               <Link
                 to="/methodology"
@@ -75,25 +77,19 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
             </span>
           ) : (
             <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: 'var(--color-ink-muted)' }}>
-              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
+              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{trust.toolName}</Link>
               <span>· review in progress</span>
             </span>
           )
         }
       >
-        {pub ? (
+        {trust.promptlyScore != null ? (
           <div className="inline-flex flex-col gap-0.5">
             <span className="inline-flex items-center gap-1.5">
-              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{tool.name}</Link>
-              <ScorePill score={pub.composite} to={toPath} />
+              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{trust.toolName}</Link>
+              <ScorePill score={trust.promptlyScore} to={toPath} />
             </span>
-            <MethodologyStamp
-              methodology={{
-                version: pub.methodologyVersion,
-                verifiedDate: pub.verifiedDate,
-                reviewerInitials: pub.reviewer,
-              }}
-            />
+            <MethodologyStamp methodology={trust.methodology} />
           </div>
         ) : null}
       </Rule4bGuard>

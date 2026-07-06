@@ -14,13 +14,14 @@ import {
   TOOLS, CAT_COLOURS,
   deriveBestFor, deriveNotIdealFor, deriveAgeNotes,
 } from '../data/tools';
-import { getPublicScore, isAwaitingReReview, PUBLIC_PILLARS, pillarBand, PILLAR_BAND_LABEL } from '../data/publicPillars';
+import { PUBLIC_PILLARS, pillarBand, PILLAR_BAND_LABEL } from '../data/publicPillars'; // display constants only — trust data comes from the adapter
 import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
-import { PillarCard, ScorePill } from '../components/trust/PillarCard';
+import { PillarCard, ScorePill, pillarScoresFromModel } from '../components/trust/PillarCard';
 import { SAMPLE_TOOL_EVIDENCE } from '../data/sampleEvidence';
-import { Rule4bGuard, type DisplayState, type Integrity } from '@/components/trust';
+import { Rule4bGuard } from '@/components/trust';
+import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
 
 const TEAL = 'var(--color-promptly-lime)';
 
@@ -110,7 +111,9 @@ const ToolDetail = () => {
     return TOOLS
       .filter(t => t.slug !== tool.slug && t.primaryCategory === tool.primaryCategory)
       .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 3);
+      .slice(0, 3)
+      // r4 migration: alternatives' scores also come via the Trust Adapter.
+      .map(t => ({ ...t, altScore: buildTrustDisplayModel(t.slug).promptlyScore }));
   }, [tool]);
 
   const relatedPacks = useMemo(() => {
@@ -165,14 +168,13 @@ const ToolDetail = () => {
     );
   }
 
-  // PUBLIC trust model only — null = pending review (no number shown). No legacy/synthetic score.
-  const pub = getPublicScore(tool.slug);
-  const awaiting = isAwaitingReReview(tool.slug); // child-safety withdrawal → Awaiting Re-review card
-  // Drive the shared fail-closed Rule4bGuard from the existing public-trust model.
-  const trustDisplayState: DisplayState = awaiting ? 'AwaitingReReview' : pub ? 'Active' : 'Provisional';
-  const trustIntegrity: Integrity = pub
-    ? { state: 'verified', checkedAt: pub.verifiedDate }
-    : { state: 'unavailable' };
+  // r4 migration: trust data comes ONLY from the Trust Adapter (single source of
+  // truth) — no ad-hoc getPublicScore/isAwaitingReReview calls. Sync core today
+  // (bundled data, no loading flash); swap to the async getTrustDisplayModel()
+  // facade when the registry is served live. null promptlyScore ⇒ fail-closed.
+  const trust = buildTrustDisplayModel(tool.slug);
+  const scored = trust.promptlyScore != null;
+  const awaiting = trust.displayState === 'AwaitingReReview'; // child-safety withdrawal → Awaiting Re-review card
   const catStyle = CAT_COLOURS[tool.primaryCategory] ?? { bg: '#f3f4f6', text: '#374151' };
   const ctaLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
   const isAffiliate = tool.url.includes('affiliate') || tool.url.includes('ref=');
@@ -181,7 +183,7 @@ const ToolDetail = () => {
     <>
       <SEO
         title={`${tool.name} — AI Tool Review | GetPromptly`}
-        description={`${tool.name}: Promptly Score ${awaiting ? 'awaiting re-review' : pub ? `${pub.composite}/10` : 'pending review'}. ${tool.desc}`}
+        description={`${tool.name}: Promptly Score ${awaiting ? 'awaiting re-review' : scored ? `${trust.promptlyScore}/10` : 'pending review'}. ${tool.desc}`}
         keywords={`${tool.name}, ${tool.primaryCategory}, AI tools for education, UK schools, safety score`}
         path={`/tools/${tool.slug}`}
       />
@@ -206,7 +208,7 @@ const ToolDetail = () => {
               {tool.primaryCategory}
             </span>
             <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-muted)' }}>
-              {awaiting ? 'Awaiting re-review' : pub ? 'Reviewed' : 'Pending review'}
+              {awaiting ? 'Awaiting re-review' : scored ? 'Reviewed' : 'Pending review'}
             </span>
             {tool.ukReady === 'Yes' && (
               <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full" style={{ background: 'var(--color-oat)', color: 'var(--color-ink-accent)' }}>
@@ -245,8 +247,7 @@ const ToolDetail = () => {
                   Pillar Card only renders when the public trust model is verified.
                   Withdrawn/awaiting and pending tools fall through to renderUnavailable. */}
               <Rule4bGuard
-                integrity={trustIntegrity}
-                displayState={trustDisplayState}
+                trustData={trust}
                 renderUnavailable={() =>
                   awaiting ? (
                     <div className="flex flex-col items-center gap-3">
@@ -265,19 +266,19 @@ const ToolDetail = () => {
                   )
                 }
               >
-                {pub ? (
+                {scored ? (
                   <PillarCard
-                    score={pub.composite}
-                    pillars={pub.pillars}
+                    score={trust.promptlyScore ?? undefined}
+                    pillars={pillarScoresFromModel(trust)}
                     showName={false}
                     showVerdict={false}
                     showLegend
                     interactive
                     evidence={SAMPLE_TOOL_EVIDENCE[tool.slug]}
                     size={208}
-                    methodologyVersion={pub.methodologyVersion}
-                    verifiedDate={pub.verifiedDate}
-                    reviewer={pub.reviewer}
+                    methodologyVersion={trust.methodology.version}
+                    verifiedDate={trust.methodology.verifiedDate}
+                    reviewer={trust.reviewer.initials}
                   />
                 ) : null}
               </Rule4bGuard>
@@ -301,10 +302,10 @@ const ToolDetail = () => {
         <div className="max-w-3xl mx-auto">
           <SectionLabel>Promptly Score</SectionLabel>
           <h2 className="font-display text-2xl mb-2" style={{ color: 'var(--text)' }}>
-            {awaiting ? 'Awaiting re-review' : pub ? 'Promptly Score breakdown' : 'Pending review'}
+            {awaiting ? 'Awaiting re-review' : scored ? 'Promptly Score breakdown' : 'Pending review'}
           </h2>
 
-          {!pub ? (
+          {!scored ? (
             <div className="rounded-xl p-4 mb-6" style={{ background: '#f3f4f6' }}>
               <p className="text-sm" style={{ color: '#6b7280' }}>
                 {awaiting
@@ -318,7 +319,7 @@ const ToolDetail = () => {
                 <ScoreBar
                   key={pillar}
                   label={pillar}
-                  value={[pub.pillars.dataPrivacy, pub.pillars.safeguarding, pub.pillars.ageSuitability, pub.pillars.transparency, pub.pillars.accessibility][i]}
+                  value={trust.pillars[i]?.score ?? 0}
                   colour={PILLAR_BAR_COLOURS[i]}
                   delay={i * 0.1}
                 />
@@ -407,7 +408,7 @@ const ToolDetail = () => {
             <div className="flex items-center gap-2 text-sm">
               <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ background: 'var(--color-ink-accent)' }} />
               <span style={{ color: 'var(--color-ink-muted)' }}>
-                KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{pub ? (pub.composite >= 9 ? 'Strong' : pub.composite >= 7 ? 'Moderate — review policy' : 'Requires policy decision') : 'Pending review'}</strong>
+                KCSIE alignment: <strong style={{ color: 'var(--text)' }}>{trust.promptlyScore != null ? (trust.promptlyScore >= 9 ? 'Strong' : trust.promptlyScore >= 7 ? 'Moderate — review policy' : 'Requires policy decision') : 'Pending review'}</strong>
               </span>
             </div>
           </div>
@@ -546,8 +547,8 @@ const ToolDetail = () => {
                   >
                     {/* Dense list → Score Pill; the row links to the tool's Pillar Card. */}
                     <div className="flex-shrink-0">
-                      {getPublicScore(alt.slug) ? (
-                        <ScorePill score={getPublicScore(alt.slug)!.composite} />
+                      {alt.altScore != null ? (
+                        <ScorePill score={alt.altScore} />
                       ) : (
                         <span
                           className="inline-flex items-center justify-center font-sans font-bold rounded-full"
