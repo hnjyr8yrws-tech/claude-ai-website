@@ -23,6 +23,7 @@ import { SAMPLE_TOOL_EVIDENCE } from '../data/sampleEvidence';
 import { Rule4bGuard, type TrustDisplayModel } from '@/components/trust';
 import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
 import { canGenerateReceipt } from '@/lib/receipt/validate'; // light — no PDF chunk cost
+import { receiptDonnaApproved } from '@/lib/receipt/gate'; // Donna Full gate (§12)
 
 // Concept 3: the receipt modal is lazy — its chunk (and, deeper, react-pdf on
 // Download) loads only when a user actually opens it.
@@ -294,9 +295,10 @@ const ToolDetail = () => {
                       reviewer={trust.reviewer.initials}
                     />
                     {/* Concept 3 entry — verified branch only (we are inside the
-                        guard) AND receipt-valid (light check; no PDF cost).
+                        guard), receipt-valid (light check; no PDF cost), AND
+                        Donna-approved for release (§12 Full gate).
                         A quiet text link per the plan — never a push. */}
-                    {canGenerateReceipt(trust) && (
+                    {receiptDonnaApproved && canGenerateReceipt(trust) && (
                       <button
                         type="button"
                         onClick={openReceipt}

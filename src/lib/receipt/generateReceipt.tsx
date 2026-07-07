@@ -17,12 +17,18 @@ import type { TrustDisplayModel } from '@/components/trust/types';
 import { registerReceiptFonts } from './fonts';
 import { ReceiptDocument } from './ReceiptDocument';
 import { validateReceiptModel, ReceiptRefusedError } from './validate';
+import { receiptDonnaApproved } from './gate';
 
 /** Build the PDF blob from a frozen model snapshot. Throws ReceiptRefusedError. */
 export async function generateReceiptBlob(
   model: TrustDisplayModel,
   snapshotAt: string = new Date().toISOString(),
 ): Promise<Blob> {
+  // Donna Full gate (§12) — belt and braces beneath the UI-level gate: even a
+  // direct call cannot produce a receipt before the release sign-off.
+  if (!receiptDonnaApproved) {
+    throw new ReceiptRefusedError('not yet Donna-approved for public release');
+  }
   const refusal = validateReceiptModel(model);
   if (refusal) throw new ReceiptRefusedError(refusal);
   registerReceiptFonts();
