@@ -36,8 +36,10 @@ import ReceiptModal from '@/components/ReceiptModal';
 import {
   buildAlertsForModel,
   alertFromChange,
+  buildAlertsFromFeed,
   runAlertDryRun,
   ALERT_POLICY,
+  FEED_WINDOW_DAYS,
   type AlertContext,
   type ScoreChangeAlert,
   type DryRunReport,
@@ -185,6 +187,11 @@ export default function TrustGallery() {
   const [receiptStatus, setReceiptStatus] = useState<string>('');
   const [receiptModal, setReceiptModal] = useState<{ model: TrustDisplayModel; snapshotAt: string } | null>(null);
   const [alertReport, setAlertReport] = useState<DryRunReport | null>(null);
+  // Iter 2 Phase 2 — real ScoreChangeFeed mode.
+  const [feedNow, setFeedNow] = useState<'today' | 'feedEra'>('feedEra');
+  const [feedRun, setFeedRun] = useState<
+    { all: ScoreChangeAlert[]; recentCount: number; report: DryRunReport; refNow: Date; refLabel: string } | null
+  >(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -247,6 +254,18 @@ export default function TrustGallery() {
       ...synthetic.map((s) => alertFromChange(s.change, synthCtx(s.label, `synthetic-${s.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`))),
     ];
     setAlertReport(runAlertDryRun(alerts));
+  }
+
+  // Iter 2 Phase 2 — alerts from the REAL ScoreChangeFeed (+ integrity-record
+  // score changes), fail-closed via the adapter. Shows every record with a
+  // recency flag; fires alert_trigger_evaluated for the recent (≤30d) ones only,
+  // which is what a production consumer would act on.
+  function runFeedAlerts() {
+    const refNow = feedNow === 'today' ? new Date() : new Date('2026-06-05T12:00:00Z');
+    const all = buildAlertsFromFeed(refNow, { recentOnly: false });
+    const recent = buildAlertsFromFeed(refNow, { recentOnly: true });
+    const report = runAlertDryRun(recent);
+    setFeedRun({ all, recentCount: recent.length, report, refNow, refLabel: feedNow === 'today' ? 'today' : '05 Jun 2026' });
   }
 
   return (
@@ -391,6 +410,87 @@ export default function TrustGallery() {
             </table>
           </div>
         ) : null}
+
+        {/* ── Iter 2 · Phase 2: REAL ScoreChangeFeed mode ── */}
+        <div className="mt-8 border-t border-[var(--color-rule)] pt-5">
+          <h3 className="font-display text-lg" style={{ color: 'var(--text)' }}>Real ScoreChangeFeed (Iter 2 · Phase 2)</h3>
+          <p className="mt-1 text-sm text-site-muted">
+            Alerts composed from the actual <code className="font-mono text-xs">scoreChangeFeed</code> + integrity-record
+            score changes (not fixtures), fail-closed via the adapter. &ldquo;Recent&rdquo; = change within {FEED_WINDOW_DAYS} days
+            of the reference date. Today the shipped records are all older/illustrative, so pick <em>Feed era</em> to see
+            the recency detection fire.
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <span className="font-mono text-[10px] uppercase" style={{ color: 'var(--color-fog)' }}>Evaluate as of</span>
+            {(['feedEra', 'today'] as const).map((opt) => (
+              <button
+                key={opt}
+                type="button"
+                onClick={() => setFeedNow(opt)}
+                aria-pressed={feedNow === opt}
+                className="rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-colors"
+                style={
+                  feedNow === opt
+                    ? { background: 'var(--color-ground-black)', borderColor: 'var(--color-ground-black)', color: '#fff' }
+                    : { background: 'white', borderColor: 'var(--color-rule)', color: 'var(--color-ink-muted)' }
+                }
+              >
+                {opt === 'today' ? 'Today' : 'Feed era (05 Jun 2026)'}
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={runFeedAlerts}
+              className="rounded-xl border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-1.5 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+              style={{ color: 'var(--text)' }}
+            >
+              Run real feed
+            </button>
+          </div>
+
+          {feedRun ? (
+            <div className="mt-4 overflow-x-auto">
+              <p className="mb-2 font-mono text-[11px]" style={{ color: 'var(--color-ink-accent)' }}>
+                {feedRun.all.length} feed records · {feedRun.recentCount} recent (within {FEED_WINDOW_DAYS}d of {feedRun.refLabel}) ·
+                of those {feedRun.report.wouldSend} would send · 0 delivered
+              </p>
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="font-mono uppercase" style={{ color: 'var(--color-fog)', fontSize: 9 }}>
+                    <th className="py-1 pr-3">Tool</th>
+                    <th className="py-1 pr-3">Change</th>
+                    <th className="py-1 pr-3">Δ</th>
+                    <th className="py-1 pr-3">Days ago</th>
+                    <th className="py-1 pr-3">Recent</th>
+                    <th className="py-1 pr-3">Tier</th>
+                    <th className="py-1 pr-3">Send</th>
+                    <th className="py-1">Reasons</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {feedRun.all.map((a, i) => {
+                    const days = a.change
+                      ? Math.floor((feedRun.refNow.getTime() - new Date(a.change.date).getTime()) / 86_400_000)
+                      : null;
+                    const recent = days != null && days <= FEED_WINDOW_DAYS;
+                    return (
+                      <tr key={i} className="border-t" style={{ borderColor: 'var(--color-rule)' }}>
+                        <td className="py-1.5 pr-3 font-semibold" style={{ color: 'var(--text)' }}>{a.toolName}</td>
+                        <td className="py-1.5 pr-3">{a.change ? `${a.change.from.toFixed(1)} → ${a.change.to.toFixed(1)}` : 'withdrawn'}</td>
+                        <td className="py-1.5 pr-3 font-mono">{a.change ? (a.evaluation.delta > 0 ? `+${a.evaluation.delta.toFixed(1)}` : a.evaluation.delta.toFixed(1)) : '—'}</td>
+                        <td className="py-1.5 pr-3 font-mono">{days != null ? `${days}d` : '—'}</td>
+                        <td className="py-1.5 pr-3">{recent ? '✓' : '·'}</td>
+                        <td className="py-1.5 pr-3 font-mono uppercase" style={{ color: a.evaluation.significance === 'none' ? 'var(--color-fog)' : 'var(--text)', fontWeight: a.evaluation.significance === 'critical' ? 700 : 400 }}>{a.evaluation.significance}</td>
+                        <td className="py-1.5 pr-3">{a.evaluation.wouldSend ? '✓' : '·'}</td>
+                        <td className="py-1.5" style={{ color: 'var(--color-ink-muted)' }}>{a.evaluation.reasons.join('; ')}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
+        </div>
       </section>
 
       {/* ── Fixture states ── */}

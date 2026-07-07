@@ -9,3 +9,11 @@ export {
   buildAlertsForModel,
 } from './buildAlerts';
 export { runAlertDryRun, type DryRunReport, type DryRunOptions } from './dryRun';
+export {
+  buildAlertsFromFeed,
+  collectFeedChanges,
+  daysSinceChange,
+  FEED_WINDOW_DAYS,
+  type FeedChange,
+  type FeedAlertOptions,
+} from './feed';
