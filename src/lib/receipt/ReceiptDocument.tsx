@@ -50,8 +50,10 @@ const s = StyleSheet.create({
   hr: { borderBottomWidth: 1, borderBottomColor: C.rule, marginBottom: 18 },
   docLabel: { fontFamily: 'JetBrains Mono', fontSize: 7, letterSpacing: 1.2, color: C.inkAccent, marginBottom: 6 },
   toolName: { fontFamily: 'Fraunces', fontWeight: 400, fontSize: 28, marginBottom: 8 },
-  // §12 editorial device — the short lime dash under the headline.
-  limeDash: { width: 28, height: 2, backgroundColor: C.lime, borderRadius: 1, marginBottom: 14 },
+  // §12 editorial dash under the headline. Ink-accent, NOT lime: this page is
+  // white and lime is reserved for dark/oat surfaces only (Brand Bible colour
+  // rule; Donna checkpoint 2). Same token as the doc-label + live-link here.
+  accentDash: { width: 28, height: 2, backgroundColor: C.inkAccent, borderRadius: 1, marginBottom: 14 },
   columns: { flexDirection: 'row', gap: 24 },
   left: { flex: 1 },
   tableHead: { fontFamily: 'JetBrains Mono', fontSize: 7, letterSpacing: 1, color: C.fog, marginBottom: 4 },
@@ -140,7 +142,7 @@ export function ReceiptDocument({ model, snapshotAt }: ReceiptDocumentProps) {
 
         <Text style={s.docLabel}>AUDIT RECEIPT · SCORE SNAPSHOT</Text>
         <Text style={s.toolName}>{model.toolName}</Text>
-        <View style={s.limeDash} />
+        <View style={s.accentDash} />
 
         <View style={s.columns}>
           {/* Left: pillar table + marks */}
