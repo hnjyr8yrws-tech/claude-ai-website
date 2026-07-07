@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { PillarCard } from '../components/trust/PillarCard';
-import { getPublicScore } from '../data/publicPillars';
+import { buildTrustSummary } from '../lib/trust/trustAdapter'; // r4 wave 2: trust data via the adapter
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { RoleIcon, CategoryIcon } from '../components/icons';
 
@@ -482,13 +482,13 @@ const ScoringPreview: FC = () => (
         {/* Pillar Card — the signature §04 artefact, 240px, computed arcs, flat colour */}
         <FadeIn className="flex justify-center lg:justify-start">
           {(() => {
-            // Public model only — show a real reviewed card if/when published; else pending.
-            const demo = getPublicScore('magicschool-ai');
-            return demo ? (
+            // Trust Adapter (single source) — a real reviewed card when published; else pending.
+            const demo = buildTrustSummary('magicschool-ai');
+            return demo.promptlyScore != null ? (
               <PillarCard
                 toolName="MagicSchool AI"
-                score={demo.composite}
-                pillars={demo.pillars}
+                score={demo.promptlyScore}
+                pillars={demo.pillars ?? undefined}
                 size={240}
                 showName={false}
                 showVerdict={false}

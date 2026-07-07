@@ -15,7 +15,7 @@ import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { TOOLS, type Tool } from '../data/tools';
 import { PillarCard } from '../components/trust/PillarCard';
-import { getPublicScore, isAwaitingReReview } from '../data/publicPillars';
+import { buildTrustSummary } from '../lib/trust/trustAdapter'; // r4 wave 2: trust data via the adapter
 import { REGISTRY, priorityFor } from '../data/toolRegistry';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { inferLinkType, linkLabel } from '../utils/linkType';
@@ -47,11 +47,12 @@ function openLuna(prompt?: string) {
 
 // ── Tool tile ───────────────────────────────────────────────────────────────────
 function ToolTile({ tool }: { tool: Tool }) {
-  // PUBLIC trust model only (data/publicPillars.ts). null = pending review →
-  // render the placeholder, never a number. No legacy/synthetic scoring here.
+  // Trust Adapter (single source). null score = pending review → render the
+  // placeholder, never a number. No legacy/synthetic scoring here.
   // Keyed by slug for now; switches to item_id when the v3 registry is wired.
-  const pub = getPublicScore(tool.slug);
-  const awaiting = isAwaitingReReview(tool.slug); // child-safety withdrawal → Awaiting Re-review card
+  const summary = buildTrustSummary(tool.slug);
+  const scored = summary.promptlyScore != null;
+  const awaiting = summary.isSuppressed; // child-safety withdrawal → Awaiting Re-review card
   // Outbound CTA to the tool itself — label reflects what the link opens.
   const demoLabel = linkLabel(tool.linkType ?? inferLinkType(tool.url));
 
@@ -66,10 +67,10 @@ function ToolTile({ tool }: { tool: Tool }) {
         {awaiting ? (
           /* Child-safety withdrawal → Awaiting Re-review card: no number, no tier */
           <PillarCard state="withdrawn" size={240} showName={false} showVerdict={false} showLegend showMark={false} />
-        ) : pub ? (
+        ) : scored ? (
           <PillarCard
-            score={pub.composite}
-            pillars={pub.pillars}
+            score={summary.promptlyScore ?? undefined}
+            pillars={summary.pillars ?? undefined}
             size={240}
             showName={false}
             showVerdict={false}
@@ -95,8 +96,8 @@ function ToolTile({ tool }: { tool: Tool }) {
           {tool.desc}
         </p>
 
-        {/* Methodology line — JetBrains Mono, dashed top border; sourced from
-            getPublicScore() only. The "· VERIFIED" segment is omitted entirely
+        {/* Methodology line — JetBrains Mono, dashed top border; sourced from the
+            Trust Adapter only. The "· VERIFIED" segment is omitted entirely
             when no verified date exists (never invented or backfilled). */}
         <p
           className="font-mono uppercase mt-6 pt-3 break-words"
@@ -104,8 +105,8 @@ function ToolTile({ tool }: { tool: Tool }) {
         >
           {awaiting
             ? 'METHODOLOGY v2.2 · AWAITING RE-REVIEW'
-            : pub
-            ? `METHODOLOGY v${pub.methodologyVersion}${pub.verifiedDate ? ` · VERIFIED ${pub.verifiedDate}` : ''} · REVIEWER ${pub.reviewer}`
+            : scored
+            ? `METHODOLOGY v${summary.methodologyVersion}${summary.verifiedDate ? ` · VERIFIED ${summary.verifiedDate}` : ''} · REVIEWER ${summary.reviewer}`
             : 'METHODOLOGY · PENDING REVIEW'}
         </p>
 

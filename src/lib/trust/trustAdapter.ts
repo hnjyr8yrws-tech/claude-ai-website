@@ -23,7 +23,7 @@
  */
 
 import { TOOLS } from '@/data/tools';
-import { getPublicScore, isAwaitingReReview } from '@/data/publicPillars';
+import { getPublicScore, isAwaitingReReview, type PublicToolScore } from '@/data/publicPillars';
 import { integrityRecord, scoreChangeFeed, methodologyMeta, toolReviewPath } from '@/data/methodology';
 import {
   PILLAR_ORDER,
@@ -34,7 +34,7 @@ import {
   type TrustDisplayModel,
   type TrustPillar,
 } from '@/components/trust/types';
-import { PILLAR_META, PILLAR_COLOUR_TOKENS } from '@/components/trust/constants';
+import { PILLAR_META, PILLAR_COLOUR_TOKENS, TRUST_SUPPRESSED_DISPLAY_STATES } from '@/components/trust/constants';
 
 // ─── Tunables ─────────────────────────────────────────────────────────────────
 
@@ -205,4 +205,54 @@ export function buildTrustDisplayModel(toolSlug: string, now: Date = new Date())
  */
 export async function getTrustDisplayModel(toolSlug: string): Promise<TrustDisplayModel> {
   return buildTrustDisplayModel(toolSlug);
+}
+
+// ─── Listing-weight selector ────────────────────────────────────────────────────
+
+/**
+ * The compact projection listing surfaces (Home, /tools, role pages) need: a
+ * score + the camelCase pillar slice for the card + the suppression flag +
+ * methodology-mark fields. A projection of the full model, so it shares the
+ * exact same fail-closed resolution — but callers avoid depending on the raw
+ * publicPillars shape (the adapter stays the single reader of that data).
+ */
+export interface TrustSummary {
+  toolSlug: string;
+  toolName: string;
+  /** null ⇒ pending review or suppressed — never show a number. */
+  promptlyScore: number | null;
+  /** camelCase pillar scores for <PillarCard pillars>; null when no score. */
+  pillars: PublicToolScore['pillars'] | null;
+  displayState: DisplayState;
+  /** Withdrawn / AwaitingReReview — render the withdrawn card, no number. */
+  isSuppressed: boolean;
+  methodologyVersion: string;
+  /** '' when none — never invented (mark omits the VERIFIED segment). */
+  verifiedDate: string;
+  reviewer: string;
+}
+
+export function buildTrustSummary(toolSlug: string, now: Date = new Date()): TrustSummary {
+  const m = buildTrustDisplayModel(toolSlug, now);
+  let pillars: PublicToolScore['pillars'] | null = null;
+  if (m.promptlyScore != null) {
+    pillars = { dataPrivacy: 0, safeguarding: 0, ageSuitability: 0, transparency: 0, accessibility: 0 };
+    for (const p of m.pillars) pillars[PUBLIC_KEY_MAP[p.key]] = p.score ?? 0;
+  }
+  return {
+    toolSlug: m.toolSlug,
+    toolName: m.toolName,
+    promptlyScore: m.promptlyScore,
+    pillars,
+    displayState: m.displayState,
+    isSuppressed: TRUST_SUPPRESSED_DISPLAY_STATES.includes(m.displayState),
+    methodologyVersion: m.methodology.version,
+    verifiedDate: m.methodology.verifiedDate,
+    reviewer: m.reviewer.initials,
+  };
+}
+
+/** Async facade, matching getTrustDisplayModel (resolves from the bundle today). */
+export async function getTrustSummary(toolSlug: string): Promise<TrustSummary> {
+  return buildTrustSummary(toolSlug);
 }
