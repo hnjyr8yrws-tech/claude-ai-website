@@ -90,6 +90,8 @@ export default function ReceiptModal({ model, snapshotAt, onClose }: ReceiptModa
         toolId: model.toolId,
         surface: 'receipt',
         methodologyVersion: model.methodology.version,
+        integrityState: model.integrity.state,
+        displayState: model.displayState,
         genToDownloadMs: Date.now() - openedAtRef.current,
       });
       setPhase('done');

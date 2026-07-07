@@ -3,6 +3,7 @@ import { Rule4bGuard, MethodologyStamp } from '@/components/trust';
 import { ScorePill } from '@/components/trust/PillarCard';
 import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
 import { TOOLS } from '@/data/tools';
+import { track } from '@/utils/analytics';
 
 // Lazy-loaded on purpose (see AgentWidget): keeps the TOOLS/registry data
 // out of the main bundle so it only loads once the chat is actually used.
@@ -62,6 +63,7 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
     <div className="rounded-lg border px-2.5 py-1.5 text-xs" style={{ borderColor: 'var(--color-rule)', background: '#faf9f6' }}>
       <Rule4bGuard
         trustData={trust}
+        surface="luna"
         renderUnavailable={() =>
           awaiting ? (
             <span className="inline-flex flex-wrap items-center gap-1.5" style={{ color: 'var(--color-ink-muted)' }}>
@@ -69,6 +71,7 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
               <span>· score withheld ·</span>
               <Link
                 to="/methodology"
+                onClick={() => track({ name: 'methodology_clicked', toolId: trust.toolId, surface: 'luna', displayState: trust.displayState })}
                 className="font-semibold underline underline-offset-2"
                 style={{ color: 'var(--color-ink-accent)' }}
               >
@@ -86,7 +89,15 @@ export function LunaTrustStamp({ slug }: { slug: string }) {
         {trust.promptlyScore != null ? (
           <div className="inline-flex flex-col gap-0.5">
             <span className="inline-flex items-center gap-1.5">
-              <Link to={toPath} className="font-semibold" style={{ color: 'var(--text)' }}>{trust.toolName}</Link>
+              {/* §11: the primary live-score affordance on the Luna surface. */}
+              <Link
+                to={toPath}
+                onClick={() => track({ name: 'live_score_clicked', url: toPath, surface: 'luna', toolId: trust.toolId, methodologyVersion: trust.methodology.version, integrityState: trust.integrity.state, displayState: trust.displayState })}
+                className="font-semibold"
+                style={{ color: 'var(--text)' }}
+              >
+                {trust.toolName}
+              </Link>
               <ScorePill score={trust.promptlyScore} to={toPath} />
             </span>
             <MethodologyStamp methodology={trust.methodology} />

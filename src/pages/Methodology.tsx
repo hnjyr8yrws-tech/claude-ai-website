@@ -283,6 +283,7 @@ function SuppressedToolExample() {
 
         <Rule4bGuard
           trustData={EXAMPLE_SUPPRESSED}
+          surface="methodology"
           renderUnavailable={() => (
             <div role="status" className="max-w-sm rounded-md border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-sm text-site-muted">
               <p className="font-medium">Score withheld</p>

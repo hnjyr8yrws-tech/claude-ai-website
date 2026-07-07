@@ -24,6 +24,7 @@ import { Rule4bGuard, type TrustDisplayModel } from '@/components/trust';
 import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
 import { canGenerateReceipt } from '@/lib/receipt/validate'; // light — no PDF chunk cost
 import { receiptDonnaApproved } from '@/lib/receipt/gate'; // Donna Full gate (§12)
+import { useProvenanceViewed } from '@/utils/useProvenanceViewed'; // §11 provenance_viewed
 
 // Concept 3: the receipt modal is lazy — its chunk (and, deeper, react-pdf on
 // Download) loads only when a user actually opens it.
@@ -114,6 +115,22 @@ const ToolDetail = () => {
   // Concept 3: frozen receipt snapshot (model + timestamp), captured at click time.
   const [receipt, setReceipt] = useState<{ model: TrustDisplayModel; snapshotAt: string } | null>(null);
 
+  // Trust model, memoised (also feeds the render below). Built here — above the
+  // 404 early-return — so the provenance hook is called unconditionally.
+  const trustModel = useMemo(() => (tool ? buildTrustDisplayModel(tool.slug) : null), [tool]);
+  // §11 provenance_viewed — fires once when the scored card enters the viewport.
+  const provenanceRef = useProvenanceViewed<HTMLDivElement>(
+    trustModel && trustModel.promptlyScore != null
+      ? {
+          toolId: trustModel.toolId,
+          surface: 'review_page',
+          methodologyVersion: trustModel.methodology.version,
+          integrityState: trustModel.integrity.state,
+          displayState: trustModel.displayState,
+        }
+      : null,
+  );
+
   // Related data
   const alternatives = useMemo(() => {
     if (!tool) return [];
@@ -181,7 +198,7 @@ const ToolDetail = () => {
   // truth) — no ad-hoc getPublicScore/isAwaitingReReview calls. Sync core today
   // (bundled data, no loading flash); swap to the async getTrustDisplayModel()
   // facade when the registry is served live. null promptlyScore ⇒ fail-closed.
-  const trust = buildTrustDisplayModel(tool.slug);
+  const trust = trustModel!; // built (memoised) above; non-null once past the 404 guard
   const scored = trust.promptlyScore != null;
   const awaiting = trust.displayState === 'AwaitingReReview'; // child-safety withdrawal → Awaiting Re-review card
   // Fresh snapshot at click time (§9.3) — deliberately not the render-time model.
@@ -261,6 +278,7 @@ const ToolDetail = () => {
                   Withdrawn/awaiting and pending tools fall through to renderUnavailable. */}
               <Rule4bGuard
                 trustData={trust}
+                surface="review_page"
                 renderUnavailable={() =>
                   awaiting ? (
                     <div className="flex flex-col items-center gap-3">
@@ -268,7 +286,12 @@ const ToolDetail = () => {
                       <PillarCard state="withdrawn" methodologyVersion="2.2" showName={false} showVerdict={false} showLegend={false} size={208} />
                       <p role="status" className="max-w-[208px] text-center text-xs" style={{ color: 'var(--color-ink-muted)' }}>
                         Score withheld while this tool is re-reviewed. See the{' '}
-                        <Link to="/methodology" className="font-semibold underline underline-offset-2" style={{ color: 'var(--color-ink-accent)' }}>
+                        <Link
+                          to="/methodology"
+                          onClick={() => track({ name: 'methodology_clicked', toolId: trust.toolId, surface: 'review_page', displayState: trust.displayState })}
+                          className="font-semibold underline underline-offset-2"
+                          style={{ color: 'var(--color-ink-accent)' }}
+                        >
                           methodology &amp; integrity record
                         </Link>.
                       </p>
@@ -280,7 +303,7 @@ const ToolDetail = () => {
                 }
               >
                 {scored ? (
-                  <div className="flex flex-col items-center gap-2">
+                  <div ref={provenanceRef} className="flex flex-col items-center gap-2">
                     <PillarCard
                       score={trust.promptlyScore ?? undefined}
                       pillars={pillarScoresFromModel(trust)}
@@ -293,6 +316,13 @@ const ToolDetail = () => {
                       methodologyVersion={trust.methodology.version}
                       verifiedDate={trust.methodology.verifiedDate}
                       reviewer={trust.reviewer.initials}
+                      analyticsContext={{
+                        toolId: trust.toolId,
+                        surface: 'review_page',
+                        methodologyVersion: trust.methodology.version,
+                        integrityState: trust.integrity.state,
+                        displayState: trust.displayState,
+                      }}
                     />
                     {/* Concept 3 entry — verified branch only (we are inside the
                         guard), receipt-valid (light check; no PDF cost), AND

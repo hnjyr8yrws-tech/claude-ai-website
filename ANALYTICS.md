@@ -65,6 +65,28 @@ sent in event params. Consent is handled at the cookie-banner level.
 
 ---
 
+### Trust layer (§11)
+
+Standard properties, attached wherever the source model is available: `toolId`,
+`surface` (`luna` / `receipt` / `methodology` / `review_page`), `methodologyVersion`,
+`integrityState`, `displayState`. (§11 also lists `session_id` — not implemented:
+the site has no session concept; GA4 supplies its own.)
+
+| Event | Key params | Where fired | Notes |
+|---|---|---|---|
+| `provenance_viewed` | standard set | ToolDetail — scored Pillar Card enters viewport | Fires once per tool per mount (IntersectionObserver, 0.5 threshold) |
+| `pillar_opened` | `pillarKey` (snake_case) + standard set | Interactive PillarCard segment expand | Only when opening (not closing); needs `analyticsContext` |
+| `methodology_clicked` | `toolId`, `surface`, `displayState?` | ToolDetail awaiting-branch link, Luna withheld link | Methodology links on trust surfaces |
+| `live_score_clicked` | `url`, `surface` + standard set | Luna tool-name link; `LiveScoreLink` when `analytics` set | Production coverage via Luna; LiveScoreLink adoption pending |
+| `score_unavailable_shown` | `reason` (`display-state`/`integrity`), `displayState` + standard set (via trustData) | `Rule4bGuard` on any suppression | Fail-closed suppression signal; standard props when a `surface` + `trustData` are supplied |
+| `receipt_generated` | standard set | ReceiptModal open (frozen snapshot) | Concept 3 |
+| `receipt_downloaded` | standard set + `genToDownloadMs` | ReceiptModal successful PDF save | `genToDownloadMs` = modal open → download |
+| `luna_intent_started` | `surface: 'luna'` | IntentEntry mount | Concept 4 funnel top |
+| `luna_intent_completed` | `surface`, `skipped`, `yearGroup?`, `concern?` | IntentEntry final answer / Skip | Legacy `intent_completed` (api/agent) still fires too |
+| `alert_trigger_evaluated` | `toolId`, `wouldSend`, `delta` | — (typed ahead; **no firing point**) | Reserved for Concept 5 (Score Change Alert), unbuilt |
+
+---
+
 ### Cross-sell
 
 | Event | Key params | Where fired |

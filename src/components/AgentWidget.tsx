@@ -24,6 +24,7 @@ import {
   getModeFromPath, MODE_PERSONA, CONVERSATION_STARTERS,
   trackEvent,
 } from '../api/agent';
+import { track } from '../utils/analytics'; // §11 site analytics (separate from api/agent trackEvent)
 import { useBrevo } from '../hooks/useBrevo';
 
 // Lazy so the TOOLS/publicPillars data only loads once the chat is actually used
@@ -367,6 +368,9 @@ function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) 
   const [step, setStep]       = useState(0);
   const [answers, setAnswers] = useState<LunaIntent>({});
 
+  // §11 Concept 4: the intent step became visible.
+  useEffect(() => { track({ name: 'luna_intent_started', surface: 'luna' }); }, []);
+
   function pick(option: string) {
     const q = INTENT_QUESTIONS[step];
     if (!q) return;
@@ -374,12 +378,19 @@ function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) 
     if (q.key === 'yearGroup') next.yearGroup = option;
     else next.concern = option;
     if (step + 1 >= INTENT_QUESTIONS.length) {
-      trackEvent({ name: 'intent_completed' });
+      trackEvent({ name: 'intent_completed' }); // legacy Luna analytics (kept)
+      track({ name: 'luna_intent_completed', surface: 'luna', skipped: false, yearGroup: next.yearGroup, concern: next.concern });
       onComplete(next);
     } else {
       setAnswers(next);
       setStep(s => s + 1);
     }
+  }
+
+  // §11: skipping is still a resolution of the intent step (skipped = true).
+  function skip() {
+    track({ name: 'luna_intent_completed', surface: 'luna', skipped: true, yearGroup: answers.yearGroup, concern: answers.concern });
+    onSkip();
   }
 
   const current = INTENT_QUESTIONS[step];
@@ -391,7 +402,7 @@ function IntentEntry({ onComplete, onSkip }: { onComplete: (intent: LunaIntent) 
         <p className="text-xs font-semibold" style={{ color: 'var(--color-ink-accent)' }}>
           Quick context · Step {step + 1}/{INTENT_QUESTIONS.length}
         </p>
-        <button onClick={onSkip} className="text-xs" style={{ color: 'var(--color-fog)' }}>Skip</button>
+        <button onClick={skip} className="text-xs" style={{ color: 'var(--color-fog)' }}>Skip</button>
       </div>
 
       <div
