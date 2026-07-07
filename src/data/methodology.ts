@@ -161,3 +161,16 @@ export const scoreChangeFeed: ScoreFeedEntry[] = [
     note: 'Illustrative example (not a real tool).',
   },
 ];
+
+/**
+ * Living-methodology link for a tool's most recent score-change record.
+ * Integrity-record `score_change` entries render an `id` anchor on the page, so
+ * they deep-link precisely; otherwise we fall back to the score-change feed
+ * section heading (feed rows carry no per-entry anchor).
+ */
+export function scoreChangeAnchor(slug: string): string {
+  const record = integrityRecord.find(
+    (e): e is ScoreChangeRecord => e.type === 'score_change' && e.tool.slug === slug,
+  );
+  return record ? `${METHODOLOGY_PATH}#${record.id}` : `${METHODOLOGY_PATH}#feed-heading`;
+}
