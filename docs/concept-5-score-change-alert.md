@@ -47,6 +47,23 @@ tunable in one place.
 below the safeguarding floor is critical for a school whether it dropped there or
 crept up to it.
 
+**Implementation status (2026-07-07):** `src/lib/alerts/significance.ts` matches
+this ratified policy exactly — `majorDelta = 1.0`, the pillar-band boundary rule
+(`≤2 / ≤4 / ≤6 / ≤8 / >8` via `pillarBand`), the two asymmetries, and the
+`critical → major → minor → none` precedence. `AlertEvaluation` / `AlertSignificance`
+are the single definitions in `types.ts` (not re-declared in the engine).
+
+**Deferred — boundary-band enhancement (considered for Iter 2, not adopted):** a
+variant that treats any change *near a tier threshold* (within ±0.5 of the 8.0 /
+6.0 boundaries) as `major` was prototyped and reverted. It is derived from a
+*methodology*-review concept (Scoring Template v2.1 review, §4/P1: a composite
+within ±0.5 of a tier threshold warrants a **second reviewer scoring pass** before
+publication) — which is about **reviewer reproducibility**, not alert routing.
+Ported to alert significance it proved too aggressive for our data (most published
+tools score 8–9, i.e. inside the ±0.5 band around 8.0), flipping routine minor
+moves to `major` and overriding the minor-upgrade suppression. **Deferred pending
+further analysis + CR review** before any adoption.
+
 ## 4. Alert content / template
 
 `toolName` · `from → to` (rendered via the existing neutral **`ScoreChangeStamp`**)
