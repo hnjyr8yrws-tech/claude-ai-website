@@ -16,6 +16,7 @@ import { Link } from 'react-router-dom';
 import { pillarBand, PILLAR_BAND_LABEL } from '../../data/publicPillars';
 import type { DisplayState, TrustDisplayModel } from './types';
 import { EvidenceConfidence, type PillarEvidenceDetail } from './EvidenceConfidence';
+import { track, type TrustSurface } from '../../utils/analytics';
 
 // ----- Pillar model (Brand Bible spine order) -----
 
@@ -118,6 +119,16 @@ const MODEL_KEY_MAP = {
   accessibility: 'accessibility',
 } as const;
 
+/** The card's camelCase keys → the model's snake_case PillarKey, so
+ *  `pillar_opened` analytics speaks the same vocabulary as the model (§11). */
+const CARD_KEY_TO_MODEL: Record<keyof PillarScores, string> = {
+  dataPrivacy: 'data_privacy',
+  safeguarding: 'safeguarding',
+  ageSuitability: 'age_suitability',
+  transparency: 'transparency',
+  accessibility: 'accessibility',
+};
+
 /** Map the shared TrustDisplayModel pillar slice → PillarScores (§03 order preserved). */
 export function pillarScoresFromModel(model: TrustDisplayModel): PillarScores {
   const out: PillarScores = { dataPrivacy: 0, safeguarding: 0, ageSuitability: 0, transparency: 0, accessibility: 0 };
@@ -163,6 +174,16 @@ export function cardStateFor(displayState: DisplayState): PillarCardState {
 
 // ----- Component -----
 
+/** §11: attach so opening an interactive segment emits `pillar_opened` with the
+ *  standard trust properties. Omit to leave the card un-instrumented. */
+export interface PillarAnalyticsContext {
+  toolId: string;
+  surface: TrustSurface;
+  methodologyVersion: string;
+  integrityState: string;
+  displayState: string;
+}
+
 export interface PillarCardProps {
   /** Tool name shown above the ring (omit on pages that already show it). */
   toolName?: string;
@@ -191,6 +212,8 @@ export interface PillarCardProps {
   /** Optional per-pillar evidence. When present for a pillar its expand panel
    *  shows the full detail; otherwise a graceful fallback (score + band + link). */
   evidence?: Partial<Record<keyof PillarScores, PillarEvidenceDetail>>;
+  /** §11: when set, opening a segment fires `pillar_opened`. */
+  analyticsContext?: PillarAnalyticsContext;
   className?: string;
 }
 
@@ -211,6 +234,7 @@ export function PillarCard({
   change,
   interactive = false,
   evidence,
+  analyticsContext,
   className,
 }: PillarCardProps) {
   const [selected, setSelected] = useState<keyof PillarScores | null>(null);
@@ -221,7 +245,16 @@ export function PillarCard({
   // Fail-closed: only the verified/scored ring is interactive. Withdrawn and
   // provisional states expose no scores, so no evidence can be opened.
   const canInteract = interactive && hasData && !isProvisional && !isWithdrawn;
-  const toggle = (k: keyof PillarScores) => setSelected((prev) => (prev === k ? null : k));
+  const toggle = (k: keyof PillarScores) => {
+    // Read `selected` from the current render (accurate for a click handler) so
+    // the analytics side-effect stays OUT of the setState updater — updaters
+    // must be pure, and would otherwise double-fire under StrictMode.
+    const willOpen = selected !== k;
+    if (willOpen && analyticsContext) {
+      track({ name: 'pillar_opened', pillarKey: CARD_KEY_TO_MODEL[k], ...analyticsContext });
+    }
+    setSelected(willOpen ? k : null);
+  };
 
   // Methodology mark text (§16 long form when fully attributed).
   let mark: string;

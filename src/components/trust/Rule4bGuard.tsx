@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { DisplayState, Integrity, TrustDisplayModel } from '@/components/trust/types';
 import { evaluateTrustVisibility, type TrustVisibility } from '@/components/trust/utils';
-import { track } from '@/utils/analytics';
+import { track, type TrustSurface } from '@/utils/analytics';
 
 export interface Rule4bGuardProps {
   /** Granular inputs — the original API, used across ToolDetail, Methodology and Luna. */
@@ -13,6 +13,8 @@ export interface Rule4bGuardProps {
   children: React.ReactNode;
   silent?: boolean;
   renderUnavailable?: (reason: 'display-state' | 'integrity') => React.ReactNode;
+  /** §11: surface attribution for the `score_unavailable_shown` event. */
+  surface?: TrustSurface;
   className?: string;
 }
 
@@ -33,6 +35,7 @@ export function Rule4bGuard({
   children,
   silent = false,
   renderUnavailable,
+  surface,
   className,
 }: Rule4bGuardProps) {
   const integrityEff = trustData ? trustData.integrity : integrity;
@@ -50,14 +53,23 @@ export function Rule4bGuard({
 
   const suppressedReason = v.visible ? null : v.reason;
   React.useEffect(() => {
-    if (suppressedReason) {
-      track({
-        name: 'score_unavailable_shown',
-        reason: suppressedReason,
-        displayState: displayStateEff ?? 'unknown',
-      });
-    }
-  }, [suppressedReason, displayStateEff]);
+    if (!suppressedReason) return;
+    track({
+      name: 'score_unavailable_shown',
+      reason: suppressedReason,
+      displayState: displayStateEff ?? 'unknown',
+      // Standard §11 properties, present when the guard runs from trustData.
+      ...(surface ? { surface } : {}),
+      ...(trustData
+        ? {
+            toolId: trustData.toolId,
+            methodologyVersion: trustData.methodology.version,
+            integrityState: trustData.integrity.state,
+          }
+        : {}),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [suppressedReason, displayStateEff, surface, trustData?.toolId]);
 
   if (v.visible) {
     return <>{children}</>;

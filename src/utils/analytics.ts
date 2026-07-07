@@ -22,6 +22,9 @@ export type PageType =
   | 'safety-methodology'
   | 'other';
 
+/** §11: the four trust surfaces every trust event is attributed to. */
+export type TrustSurface = 'luna' | 'receipt' | 'methodology' | 'review_page';
+
 export type SiteEvent =
   // ── Navigation & roles ──────────────────────────────────────────────────────
   | { name: 'page_view';           path: string }
@@ -59,16 +62,39 @@ export type SiteEvent =
   | { name: 'agent_opened';                  section: string; pageType?: PageType }
   | { name: 'agent_contextual_prompt_clicked'; prompt: string; section: string; pageType?: PageType }
 
-  // ── Trust layer ─────────────────────────────────────────────────────────────
+  // ── Trust layer (§11 standard event model) ──────────────────────────────────
+  // Standard properties: toolId, surface, methodologyVersion, integrityState,
+  // displayState. (§11 also lists session_id — deliberately not implemented:
+  // the site has no session concept; GA4 supplies its own.)
   /** Fired by <Rule4bGuard> whenever a score is suppressed (fail-closed integrity
-   *  or a Withdrawn/AwaitingReReview display state). */
-  | { name: 'score_unavailable_shown'; reason: 'display-state' | 'integrity'; displayState: string }
+   *  or a Withdrawn/AwaitingReReview display state). Standard props present when
+   *  the guard renders from trustData + a surface is supplied. */
+  | { name: 'score_unavailable_shown'; reason: 'display-state' | 'integrity'; displayState: string;
+      toolId?: string; surface?: TrustSurface; methodologyVersion?: string; integrityState?: string }
+  /** §11: a trust stamp/card entered the viewport (fires once per tool per mount). */
+  | { name: 'provenance_viewed'; toolId: string; surface: TrustSurface;
+      methodologyVersion: string; integrityState: string; displayState: string }
+  /** §11: an interactive Pillar Card segment was expanded. */
+  | { name: 'pillar_opened'; pillarKey: string; toolId: string; surface: TrustSurface;
+      methodologyVersion: string; integrityState: string; displayState: string }
+  /** §11: a methodology link/stamp on a trust surface was clicked. */
+  | { name: 'methodology_clicked'; toolId: string; surface: TrustSurface; displayState?: string }
+  /** §11: a <LiveScoreLink> was clicked. */
+  | { name: 'live_score_clicked'; url: string; surface: TrustSurface; toolId?: string;
+      methodologyVersion?: string; integrityState?: string; displayState?: string }
   /** Concept 3: modal opened with a frozen model snapshot (§11). */
   | { name: 'receipt_generated'; toolId: string; surface: 'receipt';
       methodologyVersion: string; integrityState: string; displayState: string }
   /** Concept 3: PDF saved. genToDownloadMs = modal open → download complete (§11). */
   | { name: 'receipt_downloaded'; toolId: string; surface: 'receipt';
-      methodologyVersion: string; genToDownloadMs: number }
+      methodologyVersion: string; integrityState: string; displayState: string; genToDownloadMs: number }
+  /** §11 Concept 4: intent step shown / resolved (legacy `intent_completed` in
+   *  api/agent.ts still fires for backwards compatibility). */
+  | { name: 'luna_intent_started'; surface: 'luna' }
+  | { name: 'luna_intent_completed'; surface: 'luna'; skipped: boolean; yearGroup?: string; concern?: string }
+  /** §11 Concept 5: typed ahead for the dry-run harness — NO firing point exists
+   *  yet (Concept 5 is unbuilt). */
+  | { name: 'alert_trigger_evaluated'; toolId: string; wouldSend: boolean; delta: number }
 
   // ── Cross-sell ──────────────────────────────────────────────────────────────
   | { name: 'cross_sell_impression'; sourceSection: string; targetSection: string; itemId: string }

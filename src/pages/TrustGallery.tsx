@@ -144,7 +144,7 @@ function ModelBlock({ model }: { model: TrustDisplayModel }) {
               showLegend={false}
               size={240}
             />
-            <LiveScoreLink url={model.livePageUrl} />
+            <LiveScoreLink url={model.livePageUrl} analytics={{ surface: 'review_page', toolId: model.toolId, methodologyVersion: model.methodology.version, integrityState: model.integrity.state, displayState: model.displayState }} />
           </div>
         )}
       >
