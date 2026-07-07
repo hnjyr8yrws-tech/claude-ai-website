@@ -113,19 +113,16 @@ const TRUST = [
 
 const TEAM = [
   {
-    name: 'Chloe',
     title: 'Operations & AI Systems Lead',
-    bio: '[PLACEHOLDER — Paste Chloe\'s bio here. Suggested length: 2–3 sentences covering background, role at GetPromptly, and relevant expertise.]',
+    bio: '[PLACEHOLDER — Paste bio here. Suggested length: 2–3 sentences covering background, role at GetPromptly, and relevant expertise.]',
   },
   {
-    name: 'Donna',
     title: 'Education & SEND Specialist',
-    bio: '[PLACEHOLDER — Paste Donna\'s bio here. Suggested length: 2–3 sentences covering background, role at GetPromptly, and relevant expertise.]',
+    bio: '[PLACEHOLDER — Paste bio here. Suggested length: 2–3 sentences covering background, role at GetPromptly, and relevant expertise.]',
   },
   {
-    name: 'Charlie',
     title: 'Strategy & Business Lead',
-    bio: '[PLACEHOLDER — Paste Charlie\'s bio here. Suggested length: 2–3 sentences covering background, role at GetPromptly, and relevant expertise.]',
+    bio: '[PLACEHOLDER — Paste bio here. Suggested length: 2–3 sentences covering background, role at GetPromptly, and relevant expertise.]',
   },
 ];
 
@@ -313,7 +310,7 @@ export default function WhoWeAre() {
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {TEAM.map((member, i) => (
-            <FadeIn key={member.name} delay={i * 0.08}>
+            <FadeIn key={member.title} delay={i * 0.08}>
               <div
                 className="rounded-2xl border overflow-hidden"
                 style={{ borderColor: 'var(--color-rule)', background: 'white' }}
@@ -324,22 +321,15 @@ export default function WhoWeAre() {
                   style={{ background: 'var(--bg)', borderBottom: '1px solid var(--color-rule)' }}
                 >
                   <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center"
+                    className="w-20 h-20 rounded-full"
                     style={{ background: 'var(--color-oat)' }}
-                  >
-                    <span className="font-display text-3xl" style={{ color: 'var(--color-ink-accent)' }}>
-                      {member.name[0]}
-                    </span>
-                  </div>
+                  />
                 </div>
 
                 <div className="p-5">
-                  <h3 className="font-display text-xl mb-0.5" style={{ color: 'var(--text)' }}>
-                    {member.name}
-                  </h3>
-                  <p className="text-xs font-semibold mb-3" style={{ color: 'var(--color-ink-accent)' }}>
+                  <h3 className="font-display text-xl mb-3" style={{ color: 'var(--text)' }}>
                     {member.title}
-                  </p>
+                  </h3>
                   <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
                     {member.bio}
                   </p>
