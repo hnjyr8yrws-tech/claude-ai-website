@@ -143,7 +143,8 @@ export default function ReceiptModal({ model, snapshotAt, onClose }: ReceiptModa
           {model.toolName}
         </h2>
 
-        {/* Preview — the real Pillar Card from the same frozen model */}
+        {/* Preview — the real Pillar Card from the same frozen model. A missing
+            verification date reads NOT RECORDED, unified with the PDF (option B). */}
         <div className="mt-4 flex justify-center">
           <PillarCard
             score={model.promptlyScore ?? undefined}
@@ -153,7 +154,7 @@ export default function ReceiptModal({ model, snapshotAt, onClose }: ReceiptModa
             showLegend
             size={192}
             methodologyVersion={model.methodology.version}
-            verifiedDate={model.methodology.verifiedDate || undefined}
+            verifiedDate={model.methodology.verifiedDate || 'NOT RECORDED'}
             reviewer={model.reviewer.initials}
           />
         </div>

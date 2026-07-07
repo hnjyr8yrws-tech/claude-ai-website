@@ -49,7 +49,9 @@ const s = StyleSheet.create({
   trio: { fontFamily: 'JetBrains Mono', fontSize: 7, letterSpacing: 0.8, color: C.inkMuted },
   hr: { borderBottomWidth: 1, borderBottomColor: C.rule, marginBottom: 18 },
   docLabel: { fontFamily: 'JetBrains Mono', fontSize: 7, letterSpacing: 1.2, color: C.inkAccent, marginBottom: 6 },
-  toolName: { fontFamily: 'Fraunces', fontWeight: 400, fontSize: 28, marginBottom: 14 },
+  toolName: { fontFamily: 'Fraunces', fontWeight: 400, fontSize: 28, marginBottom: 8 },
+  // §12 editorial device — the short lime dash under the headline.
+  limeDash: { width: 28, height: 2, backgroundColor: C.lime, borderRadius: 1, marginBottom: 14 },
   columns: { flexDirection: 'row', gap: 24 },
   left: { flex: 1 },
   tableHead: { fontFamily: 'JetBrains Mono', fontSize: 7, letterSpacing: 1, color: C.fog, marginBottom: 4 },
@@ -138,6 +140,7 @@ export function ReceiptDocument({ model, snapshotAt }: ReceiptDocumentProps) {
 
         <Text style={s.docLabel}>AUDIT RECEIPT · SCORE SNAPSHOT</Text>
         <Text style={s.toolName}>{model.toolName}</Text>
+        <View style={s.limeDash} />
 
         <View style={s.columns}>
           {/* Left: pillar table + marks */}
