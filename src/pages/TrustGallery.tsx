@@ -33,6 +33,17 @@ import {
 import { getTrustDisplayModel } from '@/lib/trust/trustAdapter';
 import { canGenerateReceipt, validateReceiptModel } from '@/lib/receipt/validate';
 import ReceiptModal from '@/components/ReceiptModal';
+import {
+  buildAlertsForModel,
+  alertFromChange,
+  runAlertDryRun,
+  ALERT_POLICY,
+  type AlertContext,
+  type ScoreChangeAlert,
+  type DryRunReport,
+} from '@/lib/alerts';
+import { scoreChangeFeed } from '@/data/methodology';
+import type { ScoreChange } from '@/components/trust/types';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -173,6 +184,7 @@ export default function TrustGallery() {
   const [live, setLive] = useState<TrustDisplayModel[] | null>(null);
   const [receiptStatus, setReceiptStatus] = useState<string>('');
   const [receiptModal, setReceiptModal] = useState<{ model: TrustDisplayModel; snapshotAt: string } | null>(null);
+  const [alertReport, setAlertReport] = useState<DryRunReport | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -211,6 +223,30 @@ export default function TrustGallery() {
     }
     setReceiptStatus('');
     setReceiptModal({ model, snapshotAt: new Date().toISOString() });
+  }
+
+  // Concept 5 dry-run: compose alerts from a real withdrawal (adapter), the
+  // illustrative feed, and synthetic tier fixtures — then evaluate (fires
+  // alert_trigger_evaluated per alert). Delivers nothing.
+  function runAlerts() {
+    const synthCtx = (name: string, slug: string): AlertContext => ({
+      toolId: slug, toolSlug: slug, toolName: name, livePageUrl: `/tools/${slug}`,
+      methodologyVersion: '2.2', reviewer: 'CR', displayState: 'Active', integrityState: 'verified',
+    });
+    const synthetic: { label: string; change: ScoreChange }[] = [
+      { label: 'Major upgrade',              change: { direction: 'up',   from: 7.0, to: 8.5, date: '2026-06-01' } },
+      { label: 'Major (band cross, small Δ)', change: { direction: 'up',  from: 5.9, to: 6.1, date: '2026-06-02' } },
+      { label: 'Minor downgrade (sends)',    change: { direction: 'down', from: 7.8, to: 7.4, date: '2026-06-03' } },
+      { label: 'Minor upgrade (suppressed)', change: { direction: 'up',   from: 7.4, to: 7.8, date: '2026-06-04' } },
+      { label: 'Critical (below floor)',     change: { direction: 'down', from: 6.5, to: 5.5, date: '2026-06-05' } },
+      { label: 'None (noise)',               change: { direction: 'up',   from: 7.0, to: 7.1, date: '2026-06-06' } },
+    ];
+    const alerts: ScoreChangeAlert[] = [
+      ...(live?.filter((m) => m.displayState === 'AwaitingReReview').flatMap(buildAlertsForModel) ?? []),
+      ...scoreChangeFeed.map((e) => alertFromChange(e.change, synthCtx(e.tool.name, e.tool.slug))),
+      ...synthetic.map((s) => alertFromChange(s.change, synthCtx(s.label, `synthetic-${s.label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`))),
+    ];
+    setAlertReport(runAlertDryRun(alerts));
   }
 
   return (
@@ -303,6 +339,59 @@ export default function TrustGallery() {
           onClose={() => setReceiptModal(null)}
         />
       ) : null}
+
+      {/* ── Concept 5: Score Change Alert (dry-run) ── */}
+      <section className="mb-14 rounded-xl border border-[var(--color-rule)] bg-white p-5">
+        <h2 className="font-display text-2xl" style={{ color: 'var(--text)' }}>Concept 5 · Score Change Alert (dry-run)</h2>
+        <p className="mt-1 text-sm text-site-muted">
+          Pure significance policy over a real withdrawal (adapter), the illustrative feed, and synthetic
+          tier fixtures. Running fires <code className="font-mono text-xs">alert_trigger_evaluated</code>{' '}
+          per alert and delivers nothing.
+        </p>
+        <p className="mt-2 font-mono text-[11px]" style={{ color: 'var(--color-fog)' }}>
+          POLICY · floor {ALERT_POLICY.safeguardingFloor} · major |Δ|≥{ALERT_POLICY.majorDelta} · noise &lt;{ALERT_POLICY.noiseFloor} · minor downgrade sends, upgrade suppressed
+        </p>
+        <button
+          type="button"
+          onClick={runAlerts}
+          className="mt-4 rounded-xl border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+          style={{ color: 'var(--text)' }}
+        >
+          Run dry-run
+        </button>
+
+        {alertReport ? (
+          <div className="mt-4 overflow-x-auto">
+            <p className="mb-2 font-mono text-[11px]" style={{ color: 'var(--color-ink-accent)' }}>
+              {alertReport.evaluated} evaluated · {alertReport.wouldSend} would send · 0 delivered (dry-run)
+            </p>
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="font-mono uppercase" style={{ color: 'var(--color-fog)', fontSize: 9 }}>
+                  <th className="py-1 pr-3">Tool</th>
+                  <th className="py-1 pr-3">Change</th>
+                  <th className="py-1 pr-3">Δ</th>
+                  <th className="py-1 pr-3">Tier</th>
+                  <th className="py-1 pr-3">Send</th>
+                  <th className="py-1">Reasons</th>
+                </tr>
+              </thead>
+              <tbody>
+                {alertReport.alerts.map((a, i) => (
+                  <tr key={i} className="border-t" style={{ borderColor: 'var(--color-rule)' }}>
+                    <td className="py-1.5 pr-3 font-semibold" style={{ color: 'var(--text)' }}>{a.toolName}</td>
+                    <td className="py-1.5 pr-3">{a.change ? `${a.change.from.toFixed(1)} → ${a.change.to.toFixed(1)}` : 'withdrawn'}</td>
+                    <td className="py-1.5 pr-3 font-mono">{a.change ? (a.evaluation.delta > 0 ? `+${a.evaluation.delta.toFixed(1)}` : a.evaluation.delta.toFixed(1)) : '—'}</td>
+                    <td className="py-1.5 pr-3 font-mono uppercase" style={{ color: a.evaluation.significance === 'none' ? 'var(--color-fog)' : 'var(--text)', fontWeight: a.evaluation.significance === 'critical' ? 700 : 400 }}>{a.evaluation.significance}</td>
+                    <td className="py-1.5 pr-3">{a.evaluation.wouldSend ? '✓' : '·'}</td>
+                    <td className="py-1.5" style={{ color: 'var(--color-ink-muted)' }}>{a.evaluation.reasons.join('; ')}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
+      </section>
 
       {/* ── Fixture states ── */}
       {FIXTURES.map(({ title, note, model }) => (
