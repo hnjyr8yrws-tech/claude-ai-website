@@ -20,7 +20,7 @@ import { PROMPT_PACKS } from '../data/prompts';
 import { track } from '../utils/analytics';
 import { PillarCard, ScorePill, pillarScoresFromModel } from '../components/trust/PillarCard';
 import { SAMPLE_TOOL_EVIDENCE } from '../data/sampleEvidence';
-import { Rule4bGuard, type TrustDisplayModel } from '@/components/trust';
+import { Rule4bGuard, ScoreChangeBanner, type TrustDisplayModel } from '@/components/trust';
 import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
 import { canGenerateReceipt } from '@/lib/receipt/validate'; // light — no PDF chunk cost
 import { receiptDonnaApproved } from '@/lib/receipt/gate'; // Donna Full gate (§12)
@@ -343,6 +343,11 @@ const ToolDetail = () => {
               </Rule4bGuard>
             </div>
           </div>
+
+          {/* Concept 5 (Iter 2) — quiet "score updated recently" banner. Self-gating:
+              renders only for a currently-scored tool marked Updated (change within
+              30 days); nothing for withdrawn / awaiting / pending / stale tools. */}
+          <ScoreChangeBanner trustData={trust} className="mt-6" />
 
           {/* Quick facts row */}
           <div className="mt-5 flex flex-wrap gap-4 text-sm" style={{ color: 'var(--color-ink-muted)' }}>

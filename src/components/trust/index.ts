@@ -17,6 +17,7 @@ export type { TrustVisibility } from '@/components/trust/utils';
 export { Rule4bGuard, type Rule4bGuardProps } from '@/components/trust/Rule4bGuard';
 export { ReviewerBadge, type ReviewerBadgeProps } from '@/components/trust/ReviewerBadge';
 export { ScoreChangeStamp, type ScoreChangeStampProps } from '@/components/trust/ScoreChangeStamp';
+export { ScoreChangeBanner, type ScoreChangeBannerProps } from '@/components/trust/ScoreChangeBanner';
 export { MethodologyStamp, type MethodologyStampProps } from '@/components/trust/MethodologyStamp';
 export { LiveScoreLink, type LiveScoreLinkProps } from '@/components/trust/LiveScoreLink';
 export {
