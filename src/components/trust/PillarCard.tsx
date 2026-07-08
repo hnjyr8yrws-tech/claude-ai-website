@@ -14,6 +14,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { pillarBand, PILLAR_BAND_LABEL } from '../../data/publicPillars';
+import { CURRENT_METHODOLOGY_VERSION } from '../../data/methodology';
 import type { DisplayState, TrustDisplayModel } from './types';
 import { EvidenceConfidence, type PillarEvidenceDetail } from './EvidenceConfidence';
 import { track, type TrustSurface } from '../../utils/analytics';
@@ -228,7 +229,7 @@ export function PillarCard({
   showVerdict = true,
   showLegend = true,
   showMark = true,
-  methodologyVersion = '2.2',
+  methodologyVersion = CURRENT_METHODOLOGY_VERSION,
   verifiedDate,
   reviewer,
   change,
@@ -271,7 +272,7 @@ export function PillarCard({
   }
 
   // Centre number: the published Promptly Score. We prefer the reviewer's
-  // authoritative composite (`score`, the v2.2 figure from the reviewed dataset)
+  // authoritative composite (`score`, the reviewed figure from the published dataset)
   // so the headline shows the reviewer's verdict — not a re-derivation. When no
   // explicit score is given we fall back to the weighted average of the pillars
   // (legacy callers / previews). The arcs always reflect the per-pillar marks.

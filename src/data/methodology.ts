@@ -12,6 +12,18 @@ import { isAwaitingReReview } from '@/data/publicPillars';
 
 export const METHODOLOGY_PATH = '/methodology';
 
+/**
+ * The current PUBLISHED scoring-methodology version — the single source of truth
+ * for version display copy site-wide. Every live tool score also carries its own
+ * `methodologyVersion` in the registry (all currently "2.2"); this constant is
+ * the site-wide "current" value used in headings, marks, and fallbacks.
+ *
+ * NB: platform/website releases (the Living Methodology page, shared trust
+ * components, etc.) are NOT scoring-methodology versions and are never recorded
+ * here — they live in the repo history. This prevents the v2.2/v3.0 conflict.
+ */
+export const CURRENT_METHODOLOGY_VERSION = '2.2';
+
 export interface ToolRef {
   name: string;
   slug: string;
@@ -75,27 +87,22 @@ export interface ScoreFeedEntry {
 // ---- Static content ----
 
 export const methodologyMeta: MethodologyMeta = {
-  version: '3.0',
-  lastUpdated: '2026-07-01',
+  version: CURRENT_METHODOLOGY_VERSION,
+  lastUpdated: '2026-05-12',
   reviewerInitials: 'CR',
 };
 
+// Scoring-methodology changelog ONLY — the version each score is produced under.
+// Platform/website releases (the Living Methodology page, shared trust
+// components, etc.) are NOT scoring versions; they live in the repo history, not
+// here, so this record never again conflates the two axes (the old "3.0" entry
+// described platform work, not a scoring change — removed).
 export const changelog: ChangelogEntry[] = [
   {
-    version: '3.0',
-    date: '2026-07-01',
-    summary:
-      'Introduced the living methodology page, a two-type integrity record (score changes and withdrawals), and the shared trust components.',
-    details: [
-      'Every score links to this page when it is provisional, updated, or withheld.',
-      'Withdrawals are recorded with their reason category, statutory basis, and current holding state.',
-    ],
-  },
-  {
-    version: '2.3',
+    version: '2.2',
     date: '2026-05-12',
     summary:
-      'Added per-pillar evidence and confidence, and standardised reviewer attribution on every score.',
+      'Current published scoring methodology — every live tool score cites v2.2. Adds per-pillar evidence and confidence, and standardises reviewer attribution on every score.',
   },
   {
     version: '2.0',

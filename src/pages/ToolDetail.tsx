@@ -23,6 +23,7 @@ import { SAMPLE_TOOL_EVIDENCE } from '../data/sampleEvidence';
 import { Rule4bGuard, ScoreChangeBanner, type TrustDisplayModel } from '@/components/trust';
 import { buildTrustDisplayModel } from '@/lib/trust/trustAdapter';
 import { canGenerateReceipt } from '@/lib/receipt/validate'; // light — no PDF chunk cost
+import { CURRENT_METHODOLOGY_VERSION } from '@/data/methodology'; // single source of truth for the version
 import { receiptDonnaApproved } from '@/lib/receipt/gate'; // Donna Full gate (§12)
 import { useProvenanceViewed } from '@/utils/useProvenanceViewed'; // §11 provenance_viewed
 
@@ -283,7 +284,7 @@ const ToolDetail = () => {
                   awaiting ? (
                     <div className="flex flex-col items-center gap-3">
                       {/* Child-safety withdrawal → Awaiting Re-review card: no number, no tier */}
-                      <PillarCard state="withdrawn" methodologyVersion="2.2" showName={false} showVerdict={false} showLegend={false} size={208} />
+                      <PillarCard state="withdrawn" methodologyVersion={CURRENT_METHODOLOGY_VERSION} showName={false} showVerdict={false} showLegend={false} size={208} />
                       <p role="status" className="max-w-[208px] text-center text-xs" style={{ color: 'var(--color-ink-muted)' }}>
                         Score withheld while this tool is re-reviewed. See the{' '}
                         <Link
@@ -665,7 +666,7 @@ const ToolDetail = () => {
         <div className="max-w-3xl mx-auto">
           <div className="rounded-xl border p-5" style={{ borderColor: 'var(--color-rule)', background: 'white' }}>
             <p className="text-sm leading-relaxed" style={{ color: 'var(--color-ink-muted)' }}>
-              <strong style={{ color: 'var(--text)' }}>About our verdicts:</strong> Every Promptly Score is reviewed against KCSIE 2025 across five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — per our methodology v2.2, using publicly available information.
+              <strong style={{ color: 'var(--text)' }}>About our verdicts:</strong> Every Promptly Score is reviewed against KCSIE 2025 across five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility — per our methodology v{CURRENT_METHODOLOGY_VERSION}, using publicly available information.
               {tool.lastReviewed && ` Last verified ${tool.lastReviewed}.`}
               {' '}We have never changed a score for payment; our methodology and our record of score changes are public. A score is independent guidance, not approval — do your own due diligence and check with your DPO and DSL before using any tool in school.
             </p>
