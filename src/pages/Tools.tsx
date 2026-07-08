@@ -16,6 +16,7 @@ import { track } from '../utils/analytics';
 import { TOOLS, type Tool } from '../data/tools';
 import { PillarCard } from '../components/trust/PillarCard';
 import { buildTrustSummary } from '../lib/trust/trustAdapter'; // r4 wave 2: trust data via the adapter
+import { CURRENT_METHODOLOGY_VERSION } from '../data/methodology'; // single source of truth for the version
 import { REGISTRY, priorityFor } from '../data/toolRegistry';
 import { getRole, setRole, ROLE_CHANGED } from '../utils/role';
 import { inferLinkType, linkLabel } from '../utils/linkType';
@@ -104,7 +105,7 @@ function ToolTile({ tool }: { tool: Tool }) {
           style={{ fontSize: 10.5, letterSpacing: '0.08em', color: FOG, borderTop: '1px dashed rgba(248,242,236,0.18)' }}
         >
           {awaiting
-            ? 'METHODOLOGY v2.2 · AWAITING RE-REVIEW'
+            ? `METHODOLOGY v${CURRENT_METHODOLOGY_VERSION} · AWAITING RE-REVIEW`
             : scored
             ? `METHODOLOGY v${summary.methodologyVersion}${summary.verifiedDate ? ` · VERIFIED ${summary.verifiedDate}` : ''} · REVIEWER ${summary.reviewer}`
             : 'METHODOLOGY · PENDING REVIEW'}
@@ -232,7 +233,7 @@ export default function Tools() {
     <div style={{ background: INK, minHeight: '100vh' }}>
       <SEO
         title={`${STAT_TOTAL} AI Tools for UK Schools – KCSIE Checked | GetPromptly`}
-        description={`Independent AI tools directory for UK schools — ${STAT_TOTAL} tools scored on five published pillars (Data Privacy, Safeguarding, Age Suitability, Transparency, Accessibility), reviewed under Promptly Score v2.2.`}
+        description={`Independent AI tools directory for UK schools — ${STAT_TOTAL} tools scored on five published pillars (Data Privacy, Safeguarding, Age Suitability, Transparency, Accessibility), reviewed under Promptly Score v${CURRENT_METHODOLOGY_VERSION}.`}
         keywords="AI tools UK schools 2026, KCSIE AI tools, safe AI education, SEND AI tools, AI for teachers UK, school software reviews"
         path="/tools"
       />
@@ -247,12 +248,12 @@ export default function Tools() {
           <p className="font-sans mt-4 max-w-xl" style={{ fontSize: 16, lineHeight: 1.6, color: FOG }}>
             {STAT_TOTAL} tools in the directory, scored on five published pillars — Data Privacy,
             Safeguarding, Age Suitability, Transparency and Accessibility — reviewed under
-            Promptly Score v2.2. Each appears once its review is verified.
+            Promptly Score v{CURRENT_METHODOLOGY_VERSION}. Each appears once its review is verified.
           </p>
 
-          {/* Status mark — honest: reviewed under the current v2.2 methodology */}
+          {/* Status mark — honest: reviewed under the current published methodology */}
           <p className="font-mono mt-8" style={{ fontSize: 10, letterSpacing: '0.1em', color: FOG }}>
-            PROMPTLY SCORE v2.2 · REVIEWED
+            PROMPTLY SCORE v{CURRENT_METHODOLOGY_VERSION} · REVIEWED
           </p>
         </div>
       </section>

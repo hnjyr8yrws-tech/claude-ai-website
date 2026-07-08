@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import SectionLabel from '../components/SectionLabel';
 import { PillarCard } from '../components/trust/PillarCard';
+import { CURRENT_METHODOLOGY_VERSION } from '../data/methodology'; // single source of truth for the version
 
 const TEAL = 'var(--color-promptly-lime)';
 
 // ─── The five public pillars ──────────────────────────────────────────────────
 // Canonical Brand Bible spine order (never reordered). Each carries its own
 // reserved pillar colour; Safeguarding is the brand axis and the heaviest weight.
-// Weights are the published Promptly Score v2.2 figures (sum to 100).
+// Weights are the current published Promptly Score figures (sum to 100).
 
 interface PillarModel {
   name: string;
@@ -55,7 +56,7 @@ const PILLAR_MODEL: PillarModel[] = [
 
 const MAX_WEIGHT = Math.max(...PILLAR_MODEL.map(p => p.weight)); // 35
 
-// ─── Verdict bands (Promptly Score v2.2) ──────────────────────────────────────
+// ─── Verdict bands (current published Promptly Score) ─────────────────────────
 // Replaces the retired Trusted / Guided / Emerging tiers.
 
 interface Band {
@@ -168,7 +169,7 @@ export default function SafetyMethodology() {
 
         {/* Methodology mark — JetBrains Mono, methodology/timestamps only */}
         <p className="font-mono mt-4 uppercase" style={{ fontSize: 11, letterSpacing: '0.08em', color: 'var(--color-ink-muted)' }}>
-          Promptly Score v2.2 · Reviewer of record: CR · Each tool carries its own verified date
+          Promptly Score v{CURRENT_METHODOLOGY_VERSION} · Reviewer of record: CR · Each tool carries its own verified date
         </p>
       </div>
 
@@ -383,7 +384,7 @@ export default function SafetyMethodology() {
                 toolName="Awaiting review"
                 showName
                 showVerdict={false}
-                methodologyVersion="2.2"
+                methodologyVersion={CURRENT_METHODOLOGY_VERSION}
               />
               <p className="text-xs mt-4 text-center max-w-sm" style={{ color: 'var(--color-ink-muted)' }}>
                 This is the Pillar Card &mdash; the artefact every score lives inside. Until a tool is reviewed, its ring sits empty and its score reads &ldquo;&mdash;&rdquo;. Live pillar marks appear on each tool&rsquo;s page once verified.
