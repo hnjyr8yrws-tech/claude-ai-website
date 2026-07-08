@@ -39,6 +39,8 @@ import {
   buildAlertsFromFeed,
   buildInternalAlerts,
   logInternalAlerts,
+  reconcile,
+  siteSurfaceSnapshot,
   runAlertDryRun,
   ALERT_POLICY,
   FEED_WINDOW_DAYS,
@@ -46,6 +48,8 @@ import {
   type ScoreChangeAlert,
   type DryRunReport,
   type InternalAlert,
+  type ReconciliationEvent,
+  type SurfaceSnapshot,
 } from '@/lib/alerts';
 import { scoreChangeFeed } from '@/data/methodology';
 import type { ScoreChange } from '@/components/trust/types';
@@ -197,6 +201,8 @@ export default function TrustGallery() {
   >(null);
   // Iter 3 Phase 1 — internal alerts from authored records.
   const [internalAlerts, setInternalAlerts] = useState<InternalAlert[] | null>(null);
+  // Iter 3 Phase 2 — reconciliation / audit.
+  const [reconEvents, setReconEvents] = useState<ReconciliationEvent[] | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -280,6 +286,24 @@ export default function TrustGallery() {
     const alerts = buildInternalAlerts(new Date());
     logInternalAlerts(alerts);
     setInternalAlerts(alerts);
+  }
+
+  // Iter 3 Phase 2 — reconcile authored truth vs surfaces. The "site" surface is
+  // live from the adapter; the "luna" surface is a DEMO snapshot standing in for
+  // the real Qdrant payload, seeded with deliberate desyncs so every issue type
+  // is visible: a withdrawn tool still scored (STALE_LUNA), a wrong score
+  // (SCORE_MISMATCH), an in-sync tool, and an absent authored tool (MISSING_UPDATE).
+  function runReconciliation() {
+    const site = siteSurfaceSnapshot(new Date());
+    const lunaDemo: SurfaceSnapshot = {
+      surface: 'luna',
+      scores: [
+        { slug: 'photomath', score: 8.0, suppressed: false },        // withdrawn upstream → STALE_LUNA
+        { slug: 'example-tool-b', score: 7.0, suppressed: false },    // authored 6.1 → SCORE_MISMATCH
+        { slug: 'example-tool-a', score: 7.5, suppressed: false },    // authored 7.5 → in sync
+      ],
+    };
+    setReconEvents(reconcile([site, lunaDemo]));
   }
 
   return (
@@ -561,6 +585,64 @@ export default function TrustGallery() {
                 ))}
               </tbody>
             </table>
+          </div>
+        ) : null}
+      </section>
+
+      {/* ── Concept 5: Reconciliation / Audit (Iter 3 · Phase 2) ── */}
+      <section className="mb-14 rounded-xl border border-[var(--color-rule)] bg-white p-5">
+        <h2 className="font-display text-2xl" style={{ color: 'var(--text)' }}>Concept 5 · Reconciliation / Audit (Iter 3 · Phase 2)</h2>
+        <p className="mt-1 text-sm text-site-muted">
+          A <strong>guardrail, not a trigger</strong>: diffs authored records (source of truth) against what each
+          surface shows, to catch desyncs like the past withdrawal issue. Internal-only; never fires an alert. The
+          <em> site</em> surface is live from the adapter; the <em>Luna</em> surface here is a demo snapshot standing
+          in for the real Qdrant payload, seeded with deliberate desyncs.
+        </p>
+        <p className="mt-2 font-mono text-[11px]" style={{ color: 'var(--color-fog)' }}>
+          SCORE_MISMATCH · MISSING_UPDATE · STALE_LUNA · STALE_SUPPRESSION
+        </p>
+        <button
+          type="button"
+          onClick={runReconciliation}
+          className="mt-4 rounded-xl border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+          style={{ color: 'var(--text)' }}
+        >
+          Run reconciliation check
+        </button>
+
+        {reconEvents ? (
+          <div className="mt-4 overflow-x-auto">
+            <p className="mb-2 font-mono text-[11px]" style={{ color: reconEvents.length ? 'var(--color-ink-accent)' : 'var(--color-fog)' }}>
+              {reconEvents.length === 0
+                ? 'No desyncs detected — all surfaces in sync with authored records.'
+                : `${reconEvents.length} reconciliation issue${reconEvents.length === 1 ? '' : 's'} (internal-only, no alerts fired)`}
+            </p>
+            {reconEvents.length ? (
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="font-mono uppercase" style={{ color: 'var(--color-fog)', fontSize: 9 }}>
+                    <th className="py-1 pr-3">Issue</th>
+                    <th className="py-1 pr-3">Surface</th>
+                    <th className="py-1 pr-3">Tool</th>
+                    <th className="py-1 pr-3">Authored</th>
+                    <th className="py-1 pr-3">Observed</th>
+                    <th className="py-1">Detail</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {reconEvents.map((e, i) => (
+                    <tr key={i} className="border-t" style={{ borderColor: 'var(--color-rule)' }}>
+                      <td className="py-1.5 pr-3 font-mono" style={{ fontWeight: e.type === 'STALE_LUNA' || e.type === 'STALE_SUPPRESSION' ? 700 : 400, color: 'var(--text)' }}>{e.type}</td>
+                      <td className="py-1.5 pr-3">{e.surface}</td>
+                      <td className="py-1.5 pr-3 font-semibold" style={{ color: 'var(--text)' }}>{e.toolName}</td>
+                      <td className="py-1.5 pr-3 font-mono">{e.authoredScore != null ? e.authoredScore.toFixed(1) : 'withheld'}</td>
+                      <td className="py-1.5 pr-3 font-mono">{e.observedScore != null ? e.observedScore.toFixed(1) : '—'}</td>
+                      <td className="py-1.5" style={{ color: 'var(--color-ink-muted)' }}>{e.detail}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : null}
           </div>
         ) : null}
       </section>
