@@ -1,8 +1,8 @@
 # GetPromptly — Phase 1 Widget & Artefact Layer
 ## Implementation Plan · Unified OS v1.2 · Weeks 4–8
 
-**Status: FROZEN BASELINE for CR/CD review.** Planning document, not an implementation commitment.
-**Revision:** r2 · 2026-06-28 — §3 `TrustDisplayModel` revised; §2/§4/§5/§9/§11 reconciled. See changelog at foot.
+**Status: ✅ DELIVERED (Phase 1).** All six concepts shipped to production (PRs #2–#28); this document is retained as the as-designed record. What remains is Phase-2 *delivery* only (live alert send + subscriptions — blocked on the auth/audience decision → n8n + Brevo).
+**Revision:** r3 · 2026-07-08 — delivery status recorded against every concept; the alert engine / reconciliation / withdrawal-propagation layer built (internal); methodology version canonicalised to v2.2. See changelog at foot. (r2 planning detail preserved below unchanged.)
 
 ### Assumptions (challenge at review)
 - **§4.1 sequencing rules applied:** (1) no score artefact ships before its live-score link target — the **Living Methodology Page** — is live; (2) **Shared Trust Components** ship before any consumer; (3) email infrastructure is template/spec-gated before any live-send build; (4) **Trust Policy 1** (fail-closed) is implemented in `<Rule4bGuard>` before any public score renders.
@@ -17,6 +17,23 @@
 4. **Intent-Aware Luna Entry** — two-question flow
 5. **Score Change Alert** — email template + trigger-logic spec
 6. **Living Methodology Page** — Changelog + Integrity Record + Score Change Feed
+
+---
+
+## Delivery Status (r3 · 2026-07-08)
+
+| # | Concept | Status | PR(s) |
+|---|---------|--------|-------|
+| 1 | Luna Provenance Inline Stamp | ✅ Live | #3 |
+| 2 | Interactive Pillar Card | ✅ Live | #4 |
+| 3 | Demo Audit Receipt | ✅ Code-complete · Donna-signed · **dark in prod** until `VITE_RECEIPT_DONNA_APPROVED=true` | #15, #16, #21 |
+| 4 | Intent-Aware Luna Entry | ✅ Live (+ "Open Door" entry) | #6, #8 |
+| 5 | Score Change Alert | ✅ Engine + dry-run + banner + real-feed detection + internal alerts + reconciliation + safeguarding propagation. **Real delivery deferred** (auth/audience → n8n + Brevo). | #18, #23–#27 |
+| 6 | Living Methodology Page | ✅ Live | #1, #2 |
+
+**Enabling layer (delivered, not in the original six):** Shared Trust Components r4 (#12) · Trust Adapter + `getTrustDisplayModel` (#13) · consumer migration to `trustData` (#14) + second wave (#19) · §11 analytics (#17) · brand-token consolidation (#10, #11) · methodology version canonicalised to **v2.2** with a single source of truth (#28).
+
+**Still Phase 2 / deferred:** live alert *delivery* (email send + subscription management) — the engine, reconciliation and propagation are built and dry-run-verified; only the send path is gated, still blocked on the no-auth/audience decision and n8n + Brevo wiring.
 
 ---
 
@@ -328,5 +345,6 @@ Defined once; emitted by every surface with the same shape. **Standard propertie
   1. `displayState='Updated'` window **N = 30 days** — set when the latest `scoreHistory[].date` is within 30 days of render; `<ScoreChangeStamp>` derives ↑/↓ from `scoreHistory.direction` and auto-expires after the window. Keep in sync with Prompt 1's "changed in the last 30 days" (P1 lives outside this doc — change both together).
   2. Desk Review 8.5 ceiling (Safeguarding/Privacy) — **enforced upstream in scoring only, not surfaced** in the trust display; `reviewDepth` stays per-pillar (evidence context), no card-level depth badge in P1.
   3. `verdict` renders **only** when `integrity.state === 'verified'` **and** `promptlyScore !== null` — suppressed under fail-closed (§4).
+- **r3 · 2026-07-08** — Delivery recorded. All six concepts shipped (PRs #2–#28); added the Delivery Status section. Concept 5 delivered well beyond the r2 scope (dry-run engine → ScoreChangeBanner → real-feed detection → internal alerts → reconciliation/audit → safeguarding-withdrawal propagation; real send still deferred). Foundational layer added (Trust Adapter, shared-components r4, analytics, migrations). The three r2 "Resolved (proposed, pending CR/CD)" items are all **implemented** (Updated-window N=30 in the adapter; reviewDepth per-pillar, no card badge; verdict fail-closed). Methodology version conflict resolved — **v2.2** canonical (#28). Planning body (§0–§14) preserved as the as-designed record.
 
 *Changes after this point are version-bumped revisions, not edits.*
