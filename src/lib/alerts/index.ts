@@ -24,3 +24,13 @@ export {
   type InternalAlertOptions,
   type ChangeClassification,
 } from './internal';
+export {
+  reconcile,
+  authoredTruths,
+  siteSurfaceSnapshot,
+  type ReconciliationEvent,
+  type ReconIssueType,
+  type Surface,
+  type SurfaceScore,
+  type SurfaceSnapshot,
+} from './reconcile';
