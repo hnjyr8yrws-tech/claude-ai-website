@@ -17,3 +17,10 @@ export {
   type FeedChange,
   type FeedAlertOptions,
 } from './feed';
+export {
+  buildInternalAlerts,
+  logInternalAlerts,
+  type InternalAlert,
+  type InternalAlertOptions,
+  type ChangeClassification,
+} from './internal';

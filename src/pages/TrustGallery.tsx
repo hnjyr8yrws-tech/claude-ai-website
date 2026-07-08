@@ -37,12 +37,15 @@ import {
   buildAlertsForModel,
   alertFromChange,
   buildAlertsFromFeed,
+  buildInternalAlerts,
+  logInternalAlerts,
   runAlertDryRun,
   ALERT_POLICY,
   FEED_WINDOW_DAYS,
   type AlertContext,
   type ScoreChangeAlert,
   type DryRunReport,
+  type InternalAlert,
 } from '@/lib/alerts';
 import { scoreChangeFeed } from '@/data/methodology';
 import type { ScoreChange } from '@/components/trust/types';
@@ -192,6 +195,8 @@ export default function TrustGallery() {
   const [feedRun, setFeedRun] = useState<
     { all: ScoreChangeAlert[]; recentCount: number; report: DryRunReport; refNow: Date; refLabel: string } | null
   >(null);
+  // Iter 3 Phase 1 — internal alerts from authored records.
+  const [internalAlerts, setInternalAlerts] = useState<InternalAlert[] | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -266,6 +271,15 @@ export default function TrustGallery() {
     const recent = buildAlertsFromFeed(refNow, { recentOnly: true });
     const report = runAlertDryRun(recent);
     setFeedRun({ all, recentCount: recent.length, report, refNow, refLabel: feedNow === 'today' ? 'today' : '05 Jun 2026' });
+  }
+
+  // Iter 3 Phase 1 — internal alerts from authored records (feed + integrity
+  // records, incl. safeguarding withdrawals). Classified by triage priority,
+  // fail-closed, ALERT_POLICY-respecting. Also logs each alert to the console.
+  function runInternalAlerts() {
+    const alerts = buildInternalAlerts(new Date());
+    logInternalAlerts(alerts);
+    setInternalAlerts(alerts);
   }
 
   return (
@@ -491,6 +505,64 @@ export default function TrustGallery() {
             </div>
           ) : null}
         </div>
+      </section>
+
+      {/* ── Concept 5: Internal Alerts (Iter 3 · Phase 1) ── */}
+      <section className="mb-14 rounded-xl border border-[var(--color-rule)] bg-white p-5">
+        <h2 className="font-display text-2xl" style={{ color: 'var(--text)' }}>Concept 5 · Internal Alerts (Iter 3 · Phase 1)</h2>
+        <p className="mt-1 text-sm text-site-muted">
+          Reviewer/ops alerts from <strong>authored records</strong> — the score-change feed + integrity records
+          (score changes and safeguarding withdrawals). Classified by triage priority, fail-closed, respects{' '}
+          <code className="font-mono text-xs">ALERT_POLICY</code>. Generating also logs each alert to the console.
+        </p>
+        <p className="mt-2 font-mono text-[11px]" style={{ color: 'var(--color-fog)' }}>
+          P1 safeguarding (withdrawal / below-floor) · P2 material (major) · P3 minor · noise → no alert
+        </p>
+        <button
+          type="button"
+          onClick={runInternalAlerts}
+          className="mt-4 rounded-xl border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+          style={{ color: 'var(--text)' }}
+        >
+          Generate internal alerts
+        </button>
+
+        {internalAlerts ? (
+          <div className="mt-4 overflow-x-auto">
+            <p className="mb-2 font-mono text-[11px]" style={{ color: 'var(--color-ink-accent)' }}>
+              {internalAlerts.length} internal alert{internalAlerts.length === 1 ? '' : 's'} ·{' '}
+              {internalAlerts.filter((a) => a.classification === 'safeguarding').length} safeguarding ·{' '}
+              {internalAlerts.filter((a) => a.classification === 'material').length} material ·{' '}
+              {internalAlerts.filter((a) => a.classification === 'minor').length} minor · logged to console
+            </p>
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="font-mono uppercase" style={{ color: 'var(--color-fog)', fontSize: 9 }}>
+                  <th className="py-1 pr-3">Pri</th>
+                  <th className="py-1 pr-3">Class</th>
+                  <th className="py-1 pr-3">Tool</th>
+                  <th className="py-1 pr-3">Kind</th>
+                  <th className="py-1 pr-3">Change</th>
+                  <th className="py-1 pr-3">Sig.</th>
+                  <th className="py-1">Reason / summary</th>
+                </tr>
+              </thead>
+              <tbody>
+                {internalAlerts.map((a, i) => (
+                  <tr key={i} className="border-t" style={{ borderColor: 'var(--color-rule)' }}>
+                    <td className="py-1.5 pr-3 font-mono" style={{ fontWeight: a.priority === 1 ? 700 : 400 }}>P{a.priority}</td>
+                    <td className="py-1.5 pr-3 font-mono uppercase" style={{ color: a.classification === 'safeguarding' ? 'var(--text)' : 'var(--color-ink-muted)', fontWeight: a.classification === 'safeguarding' ? 700 : 400 }}>{a.classification}</td>
+                    <td className="py-1.5 pr-3 font-semibold" style={{ color: 'var(--text)' }}>{a.tool}</td>
+                    <td className="py-1.5 pr-3">{a.kind}</td>
+                    <td className="py-1.5 pr-3 font-mono">{a.change ? `${a.change.from.toFixed(1)} → ${a.change.to.toFixed(1)}` : '—'}</td>
+                    <td className="py-1.5 pr-3 font-mono">{a.significance ?? '—'}</td>
+                    <td className="py-1.5" style={{ color: 'var(--color-ink-muted)' }}>{a.summary}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : null}
       </section>
 
       {/* ── Fixture states ── */}

@@ -43,6 +43,10 @@ export function daysSinceChange(dateStr: string, now: Date): number {
 }
 
 export interface FeedChange {
+  /** Source record id — for traceability + the methodology deep-link. */
+  id: string;
+  /** Which authored source this came from. */
+  source: 'feed' | 'record';
   tool: ToolRef;
   change: ScoreChange;
 }
@@ -53,10 +57,10 @@ export interface FeedChange {
  */
 export function collectFeedChanges(): FeedChange[] {
   const all: FeedChange[] = [
-    ...scoreChangeFeed.map((e) => ({ tool: e.tool, change: e.change })),
+    ...scoreChangeFeed.map((e) => ({ id: e.id, source: 'feed' as const, tool: e.tool, change: e.change })),
     ...integrityRecord
       .filter((e): e is ScoreChangeRecord => e.type === 'score_change')
-      .map((e) => ({ tool: e.tool, change: e.change })),
+      .map((e) => ({ id: e.id, source: 'record' as const, tool: e.tool, change: e.change })),
   ];
   const seen = new Set<string>();
   return all.filter(({ tool, change }) => {
