@@ -41,6 +41,9 @@ import {
   logInternalAlerts,
   reconcile,
   siteSurfaceSnapshot,
+  buildWithdrawalPropagation,
+  propagationTasks,
+  logWithdrawalPropagation,
   runAlertDryRun,
   ALERT_POLICY,
   FEED_WINDOW_DAYS,
@@ -50,6 +53,8 @@ import {
   type InternalAlert,
   type ReconciliationEvent,
   type SurfaceSnapshot,
+  type WithdrawalPropagation,
+  type PropagationTask,
 } from '@/lib/alerts';
 import { scoreChangeFeed } from '@/data/methodology';
 import type { ScoreChange } from '@/components/trust/types';
@@ -136,6 +141,19 @@ const FIXTURES: { title: string; note: string; model: TrustDisplayModel }[] = [
  *  fixtures cover the rest. */
 const LIVE_SLUGS = ['magicschool-ai', 'photomath', 'education-copilot', 'not-a-real-tool'];
 
+/** Demo "Luna" surface — stands in for the real server-side Qdrant payload.
+ *  Seeded with a deliberate desync: photomath is withdrawn upstream but Luna
+ *  still shows a score (STALE_LUNA / a pending propagation). Reused by the
+ *  reconciliation and withdrawal-propagation harness sections. */
+const DEMO_LUNA_SNAPSHOT: SurfaceSnapshot = {
+  surface: 'luna',
+  scores: [
+    { slug: 'photomath', score: 8.0, suppressed: false },     // withdrawn upstream → gap
+    { slug: 'example-tool-b', score: 7.0, suppressed: false }, // authored 6.1 → SCORE_MISMATCH
+    { slug: 'example-tool-a', score: 7.5, suppressed: false }, // authored 7.5 → in sync
+  ],
+};
+
 // ─── Harness ──────────────────────────────────────────────────────────────────
 
 function Section({ title, note, children }: { title: string; note: string; children: ReactNode }) {
@@ -203,6 +221,10 @@ export default function TrustGallery() {
   const [internalAlerts, setInternalAlerts] = useState<InternalAlert[] | null>(null);
   // Iter 3 Phase 2 — reconciliation / audit.
   const [reconEvents, setReconEvents] = useState<ReconciliationEvent[] | null>(null);
+  // Iter 3 Phase 3 — safeguarding withdrawal propagation.
+  const [withdrawalProps, setWithdrawalProps] = useState<
+    { props: WithdrawalPropagation[]; tasks: PropagationTask[] } | null
+  >(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -295,15 +317,17 @@ export default function TrustGallery() {
   // (SCORE_MISMATCH), an in-sync tool, and an absent authored tool (MISSING_UPDATE).
   function runReconciliation() {
     const site = siteSurfaceSnapshot(new Date());
-    const lunaDemo: SurfaceSnapshot = {
-      surface: 'luna',
-      scores: [
-        { slug: 'photomath', score: 8.0, suppressed: false },        // withdrawn upstream → STALE_LUNA
-        { slug: 'example-tool-b', score: 7.0, suppressed: false },    // authored 6.1 → SCORE_MISMATCH
-        { slug: 'example-tool-a', score: 7.5, suppressed: false },    // authored 7.5 → in sync
-      ],
-    };
-    setReconEvents(reconcile([site, lunaDemo]));
+    setReconEvents(reconcile([site, DEMO_LUNA_SNAPSHOT]));
+  }
+
+  // Iter 3 Phase 2/3 — withdrawal propagation status across surfaces. Site is
+  // live from the adapter (fail-closed on withdrawn tools); Luna is the demo
+  // snapshot (photomath still scored → a pending gap). Logs every gap.
+  function runWithdrawalPropagation() {
+    const site = siteSurfaceSnapshot(new Date());
+    const props = buildWithdrawalPropagation([site, DEMO_LUNA_SNAPSHOT]);
+    logWithdrawalPropagation(props);
+    setWithdrawalProps({ props, tasks: propagationTasks(props) });
   }
 
   return (
@@ -642,6 +666,84 @@ export default function TrustGallery() {
                   ))}
                 </tbody>
               </table>
+            ) : null}
+          </div>
+        ) : null}
+      </section>
+
+      {/* ── Concept 5: Safeguarding Withdrawals (Iter 3 · Phase 3) ── */}
+      <section className="mb-14 rounded-xl border border-[var(--color-rule)] bg-white p-5">
+        <h2 className="font-display text-2xl" style={{ color: 'var(--text)' }}>Concept 5 · Safeguarding Withdrawals (Iter 3 · Phase 3)</h2>
+        <p className="mt-1 text-sm text-site-muted">
+          Propagation ledger for each safeguarding withdrawal — is every affected tool actually withheld on every
+          surface (site + Luna)? P1 highest priority. <strong>Fail-safe:</strong> a surface that can&rsquo;t be
+          confirmed is <em>unknown</em>, never assumed done; gaps are logged to the console. Site is live from the
+          adapter; Luna is the demo snapshot (photomath still scored → a pending gap).
+        </p>
+        <button
+          type="button"
+          onClick={runWithdrawalPropagation}
+          className="mt-4 rounded-xl border border-[var(--color-rule)] bg-[var(--color-oat)] px-3 py-2 text-xs font-semibold transition-colors hover:border-[var(--color-fog)]"
+          style={{ color: 'var(--text)' }}
+        >
+          Run propagation check
+        </button>
+
+        {withdrawalProps ? (
+          <div className="mt-4">
+            <p className="mb-3 font-mono text-[11px]" style={{ color: withdrawalProps.tasks.length ? '#991b1b' : 'var(--color-ink-accent)' }}>
+              {withdrawalProps.props.length} withdrawal record{withdrawalProps.props.length === 1 ? '' : 's'} ·{' '}
+              {withdrawalProps.tasks.length} propagation task{withdrawalProps.tasks.length === 1 ? '' : 's'} outstanding · internal-only
+            </p>
+
+            {withdrawalProps.props.map((p, i) => (
+              <div key={i} className="mb-3 rounded-lg border p-4" style={{ borderColor: 'var(--color-rule)' }}>
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-mono text-[10px] font-bold uppercase" style={{ color: 'var(--text)' }}>
+                    P{p.alertPriority} {p.isSafeguarding ? 'SAFEGUARDING' : 'WITHDRAWAL'}
+                  </span>
+                  <span className="font-mono text-[10px]" style={{ color: 'var(--color-fog)' }}>{p.reasonCategory} · {p.date} · {p.toolCount} tools</span>
+                  <span
+                    className="ml-auto font-mono text-[11px] font-bold uppercase"
+                    style={{ color: p.overallStatus === 'propagated' ? 'var(--color-ink-accent)' : '#991b1b' }}
+                  >
+                    {p.overallStatus === 'propagated' ? '✓ propagated' : p.overallStatus === 'pending' ? '⚠ pending' : '? unknown'}
+                  </span>
+                </div>
+                <table className="mt-3 w-full text-left text-xs">
+                  <thead>
+                    <tr className="font-mono uppercase" style={{ color: 'var(--color-fog)', fontSize: 9 }}>
+                      <th className="py-1 pr-3">Surface</th>
+                      <th className="py-1 pr-3">Status</th>
+                      <th className="py-1 pr-3">Propagated</th>
+                      <th className="py-1">Still scored (gap)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {p.surfaces.map((sp, j) => (
+                      <tr key={j} className="border-t" style={{ borderColor: 'var(--color-rule)' }}>
+                        <td className="py-1.5 pr-3">{sp.surface}</td>
+                        <td className="py-1.5 pr-3 font-mono uppercase" style={{ fontWeight: sp.status === 'propagated' ? 400 : 700, color: sp.status === 'propagated' ? 'var(--color-ink-muted)' : 'var(--text)' }}>{sp.status}</td>
+                        <td className="py-1.5 pr-3 font-mono">{sp.propagatedCount}/{sp.totalTools}</td>
+                        <td className="py-1.5" style={{ color: 'var(--color-ink-muted)' }}>
+                          {sp.pendingTools.length ? sp.pendingTools.map((t) => `${t.toolName} (${t.observedScore?.toFixed(1) ?? '—'})`).join(', ') : sp.status === 'unknown' ? 'snapshot unavailable' : '—'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))}
+
+            {withdrawalProps.tasks.length ? (
+              <div className="mt-2">
+                <p className="font-mono text-[10px] uppercase" style={{ color: 'var(--color-fog)' }}>Downstream propagation tasks</p>
+                <ul className="mt-1 list-none p-0 text-xs" style={{ color: 'var(--color-ink-muted)' }}>
+                  {withdrawalProps.tasks.map((t, i) => (
+                    <li key={i} className="font-mono">→ {t.action} · {t.toolName} · {t.surface} <span style={{ color: 'var(--color-fog)' }}>({t.reason})</span></li>
+                  ))}
+                </ul>
+              </div>
             ) : null}
           </div>
         ) : null}

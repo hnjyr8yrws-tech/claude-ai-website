@@ -34,3 +34,14 @@ export {
   type SurfaceScore,
   type SurfaceSnapshot,
 } from './reconcile';
+export {
+  buildWithdrawalPropagation,
+  propagationTasks,
+  logWithdrawalPropagation,
+  PROPAGATION_SURFACES,
+  type WithdrawalPropagation,
+  type SurfacePropagation,
+  type PropagationStatus,
+  type PropagationTask,
+  type PendingTool,
+} from './withdrawal';
