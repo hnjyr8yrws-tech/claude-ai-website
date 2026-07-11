@@ -9,8 +9,10 @@
  * Called by: src/hooks/useSignup.ts (POST /api/signup)
  *
  * Environment variables (Vercel dashboard — no VITE_ prefix, never client-side):
- *   N8N_SIGNUP_WEBHOOK_URL   ← the n8n webhook to forward to (required in prod)
- *   SIGNUP_WEBHOOK_SECRET    ← optional shared secret, sent as X-Signup-Secret
+ *   SIGNUP_INGEST_URL      ← the n8n ingest webhook to forward to (required in prod)
+ *                            (falls back to legacy N8N_SIGNUP_WEBHOOK_URL if present)
+ *   SIGNUP_INGEST_SECRET   ← optional shared secret, sent as the X-Signup-Secret header
+ *                            (falls back to legacy SIGNUP_WEBHOOK_SECRET)
  */
 
 export const config = { runtime: 'edge' };
@@ -104,15 +106,17 @@ export default async function handler(request: Request): Promise<Response> {
     submittedAt: new Date().toISOString(),
   };
 
-  const webhookUrl = process.env.N8N_SIGNUP_WEBHOOK_URL;
+  // Canonical env name is SIGNUP_INGEST_URL; keep the legacy name as a fallback so
+  // whichever one ops configured is honoured.
+  const webhookUrl = process.env.SIGNUP_INGEST_URL ?? process.env.N8N_SIGNUP_WEBHOOK_URL;
   if (!webhookUrl) {
     // Dev / unconfigured: don't break the UX, but make the gap obvious server-side.
-    console.warn('[signup] N8N_SIGNUP_WEBHOOK_URL not set — accepted without forwarding (dev mode).');
+    console.warn('[signup] SIGNUP_INGEST_URL not set — accepted without forwarding (dev mode).');
     return json({ ok: true, note: 'dev mode — not forwarded' }, 200);
   }
 
   try {
-    const secret = process.env.SIGNUP_WEBHOOK_SECRET;
+    const secret = process.env.SIGNUP_INGEST_SECRET ?? process.env.SIGNUP_WEBHOOK_SECRET;
     const res = await fetch(webhookUrl, {
       method: 'POST',
       headers: {
@@ -128,7 +132,10 @@ export default async function handler(request: Request): Promise<Response> {
     }
     return json({ ok: true }, 200);
   } catch (err) {
-    console.error('[signup] forward failed', err);
+    // Surface the real reason (DNS/TLS/timeout/unreachable) to the Vercel logs so
+    // an upstream reachability problem is diagnosable — the user still gets a
+    // generic message. A thrown fetch means the upstream never responded.
+    console.error('[signup] forward failed:', err instanceof Error ? err.message : err);
     return json({ error: 'Could not reach the sign-up service. Please try again later.' }, 502);
   }
 }
