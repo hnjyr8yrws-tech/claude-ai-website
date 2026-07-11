@@ -53,6 +53,7 @@ const AIEquipmentProduct  = lazy(() => import('./pages/AIEquipmentProduct'));
 const WhoWeAre            = lazy(() => import('./pages/WhoWeAre'));
 const Schools             = lazy(() => import('./pages/Schools'));
 const Legal               = lazy(() => import('./pages/Legal'));
+const Signup              = lazy(() => import('./pages/Signup'));
 
 // ── Role-first pages ─────────────────────────────────────────────────────────
 const TeachersPage        = lazy(() => import('./pages/RolePage').then(m => ({ default: m.TeachersPage })));
@@ -152,6 +153,8 @@ const App = () => (
           <Route path="/schools"                        element={<Schools />} />
           <Route path="/for-schools"                    element={<Navigate to="/schools" replace />} />
           <Route path="/legal"                          element={<Legal />} />
+          <Route path="/signup"                         element={<Signup />} />
+          <Route path="/subscribe"                      element={<Navigate to="/signup" replace />} />
           <Route path="/privacy-policy"                 element={<Navigate to="/legal#privacy" replace />} />
           <Route path="/cookie-policy"                  element={<Navigate to="/legal#cookies" replace />} />
         </Routes>
