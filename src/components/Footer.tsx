@@ -142,7 +142,7 @@ const Footer: FC = () => (
           ))}
           <li>
             <a
-              href="mailto:hello@getpromptly.co.uk"
+              href="mailto:info@getpromptly.co.uk"
               className="text-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--color-promptly-lime)] rounded"
               style={{ color: 'var(--color-ink-muted)' }}
             >

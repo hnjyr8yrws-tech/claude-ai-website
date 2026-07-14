@@ -15,7 +15,7 @@ export const organizationSchema = {
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer support',
-    email: 'hello@getpromptly.co.uk',
+    email: 'info@getpromptly.co.uk',
     areaServed: 'GB',
     availableLanguage: 'English',
   },

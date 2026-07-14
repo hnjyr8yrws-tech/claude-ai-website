@@ -472,7 +472,7 @@ export default function SafetyMethodology() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <a
-              href="mailto:reviews@getpromptly.co.uk"
+              href="mailto:info@getpromptly.co.uk"
               className="px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-80"
               style={{ background: TEAL, color: 'var(--color-ink)' }}
             >
