@@ -24,6 +24,7 @@
 
 import { TOOLS } from '@/data/tools';
 import { getPublicScore, isAwaitingReReview, type PublicToolScore } from '@/data/publicPillars';
+import { isHistoric, getHistoricRecord } from '@/data/historic';
 import { integrityRecord, scoreChangeFeed, methodologyMeta, toolReviewPath } from '@/data/methodology';
 import {
   PILLAR_ORDER,
@@ -128,6 +129,29 @@ export function buildTrustDisplayModel(toolSlug: string, now: Date = new Date())
   const fetchedAt = now.toISOString();
   const tool = TOOLS.find((t) => t.slug === toolSlug) ?? null;
   const livePageUrl = toolReviewPath(toolSlug);
+
+  // RL-017: retired tools are an explicit Historic flag, never derived. They carry
+  // NO score, pillar score or tier (promptlyScore + all pillars null). The record may
+  // live outside TOOLS, so this is resolved before the tool_not_found guard.
+  if (isHistoric(toolSlug)) {
+    const rec = getHistoricRecord(toolSlug)!;
+    return {
+      toolId: toolSlug,
+      toolSlug,
+      toolName: tool?.name ?? rec.name,
+      verdict: null,
+      promptlyScore: null,
+      displayState: 'Historic',
+      pillars: buildPillars(null),
+      methodology: { version: methodologyMeta.version, verifiedDate: rec.retiredDate ?? '', reviewerInitials: methodologyMeta.reviewerInitials },
+      reviewer: { initials: methodologyMeta.reviewerInitials, verifiedDate: rec.retiredDate ?? '' },
+      scoreHistory: [],
+      livePageUrl,
+      // The retired record itself is a verified archive; the null score is what
+      // fail-closes any score render downstream (never "unavailable"/"pending").
+      integrity: { state: 'verified', fetchedAt },
+    };
+  }
 
   // Edge: tool not found — everything null, gate closed.
   if (!tool) {

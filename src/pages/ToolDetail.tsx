@@ -14,6 +14,8 @@ import {
   TOOLS, CAT_COLOURS,
   deriveBestFor, deriveNotIdealFor, deriveAgeNotes,
 } from '../data/tools';
+import { getHistoricRecord } from '../data/historic';
+import { HistoricToolView } from '../components/HistoricToolView';
 import { PUBLIC_PILLARS, pillarBand, PILLAR_BAND_LABEL } from '../data/publicPillars'; // display constants only — trust data comes from the adapter
 import { TRAINING } from '../data/training';
 import { PROMPT_PACKS } from '../data/prompts';
@@ -169,6 +171,15 @@ const ToolDetail = () => {
       ? { currentSection: 'tools', itemName: tool.name, category: tool.primaryCategory, roles: tool.audience }
       : { currentSection: 'tools' }
   );
+
+  // ── RL-017: retired (Historic) record ─────────────────────────────────────────
+  // A retired tool renders a dedicated historic view — never a score, tier or
+  // "Visit tool" action, and never "Pending review". Direct access is preserved
+  // whether or not the tool still exists in the active TOOLS registry.
+  const historicRecord = getHistoricRecord(slug);
+  if (historicRecord) {
+    return <HistoricToolView slug={slug!} record={historicRecord} />;
+  }
 
   // ── 404 ──────────────────────────────────────────────────────────────────────
   if (!tool) {
