@@ -34,10 +34,25 @@ export interface HistoricRecord {
 
 /**
  * The retired-tool registry, keyed by CANONICAL slug (aligned with the Registry).
- * EMPTY by default — retired records are added by coordinated content commits, never
- * by the generic mechanism.
+ *
+ * `flipgrid-flip` is the canonical Flipgrid record (Registry slug). The previously
+ * active Flipgrid tool is removed from `TOOLS` in the same commit, so there is exactly
+ * one canonical record. Its short form `/tools/flip` redirects to `/tools/flipgrid-flip`.
+ * `referenceUrl` is null: Flip has no live successor and Microsoft Teams is NOT the same
+ * product, so no "Visit" / successor link is offered (and the dead flip.com URL is gone).
  */
-export const HISTORIC_TOOLS: Record<string, HistoricRecord> = {};
+export const HISTORIC_TOOLS: Record<string, HistoricRecord> = {
+  'flipgrid-flip': {
+    name: 'Flipgrid (Flip)',
+    description:
+      'Flip, formerly Flipgrid, was Microsoft’s video-discussion platform for education. ' +
+      'The standalone Flip website and apps were retired on 30 September 2024. A limited Flip ' +
+      'video-recording capability remains available within Microsoft Teams for Education, but ' +
+      'the original discussion and response service is no longer available.',
+    referenceUrl: null,
+    retiredDate: '2024-09-30',
+  },
+};
 
 /** True when a slug refers to a retired (Historic) tool. */
 export function isHistoric(slug: string | null | undefined): boolean {
