@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { TOOLS, type Tool } from '../data/tools';
+import { isHistoric } from '../data/historic';
 import { PillarCard } from '../components/trust/PillarCard';
 import { buildTrustSummary } from '../lib/trust/trustAdapter'; // r4 wave 2: trust data via the adapter
 import { CURRENT_METHODOLOGY_VERSION } from '../data/methodology'; // single source of truth for the version
@@ -205,7 +206,8 @@ export default function Tools() {
   };
 
   const filtered = useMemo(() => {
-    let r = TOOLS;
+    // RL-017: retired (Historic) tools are excluded from ordinary discovery/search.
+    let r = TOOLS.filter(t => !isHistoric(t.slug));
     if (activeRole.audience) r = r.filter(t => t.audience.includes(activeRole.audience!));
     if (search.trim()) {
       const q = search.toLowerCase();
