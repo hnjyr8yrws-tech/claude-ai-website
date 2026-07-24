@@ -69,8 +69,8 @@ export default function Legal() {
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
             Under UK GDPR you have the right to access, correct or delete your personal data.
             To exercise these rights, contact us at{' '}
-            <a href="mailto:hello@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>
-              hello@getpromptly.co.uk
+            <a href="mailto:info@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>
+              info@getpromptly.co.uk
             </a>.
           </p>
 
@@ -153,7 +153,7 @@ export default function Legal() {
 
           <p className="text-sm leading-relaxed" style={{ color: MUTED }}>
             Questions about our commercial relationships?{' '}
-            <a href="mailto:hello@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>
+            <a href="mailto:info@getpromptly.co.uk" className="underline" style={{ color: 'var(--color-ink-accent)' }}>
               Contact us
             </a>.
           </p>
@@ -167,8 +167,8 @@ export default function Legal() {
           <p className="text-sm font-semibold mb-2" style={{ color: 'white' }}>Questions about these policies?</p>
           <p className="text-sm">
             Email{' '}
-            <a href="mailto:hello@getpromptly.co.uk" className="underline" style={{ color: TEAL }}>
-              hello@getpromptly.co.uk
+            <a href="mailto:info@getpromptly.co.uk" className="underline" style={{ color: TEAL }}>
+              info@getpromptly.co.uk
             </a>{' '}
             and we will respond within 5 working days.
           </p>
