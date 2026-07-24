@@ -90,6 +90,8 @@ const App = () => (
         <Routes>
           <Route path="/"          element={<Home />} />
           <Route path="/tools"          element={<Tools />} />
+          {/* RL-017: legacy short slug → canonical retired record (one content record, not two) */}
+          <Route path="/tools/flip"     element={<Navigate to="/tools/flipgrid-flip" replace />} />
           <Route path="/tools/:slug"    element={<ToolDetail />} />
 
           {/* Old equipment routes → redirect to new hub */}
