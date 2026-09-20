@@ -82,6 +82,17 @@ const WITHDRAWN_AWAITING_REREVIEW = new Set<string>([
   'be-my-eyes',
 ]);
 
+/**
+ * The withdrawal set, exposed READ-ONLY so an import cannot silently drop a
+ * slug from it. src/data/withdrawalProtection.test.ts asserts this list against
+ * a hard-coded expectation: removing a slug fails the test suite, which is the
+ * point. Changing it must be a deliberate, reviewed act — never a side effect
+ * of a data import.
+ */
+export const WITHDRAWN_SLUGS: readonly string[] = Object.freeze(
+  [...WITHDRAWN_AWAITING_REREVIEW].sort(),
+);
+
 /** The public score for an item, or null when it is pending review or withdrawn. */
 export function getPublicScore(itemId: string): PublicToolScore | null {
   if (WITHDRAWN_AWAITING_REREVIEW.has(itemId)) return null; // child-safety withdrawal

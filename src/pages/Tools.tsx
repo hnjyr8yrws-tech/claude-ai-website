@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
 import { track } from '../utils/analytics';
 import { TOOLS, type Tool } from '../data/tools';
+import { matchesWithAliases } from '../utils/searchAliases';
 import { isHistoric } from '../data/historic';
 import { PillarCard } from '../components/trust/PillarCard';
 import { buildTrustSummary } from '../lib/trust/trustAdapter'; // r4 wave 2: trust data via the adapter
@@ -210,8 +211,16 @@ export default function Tools() {
     let r = TOOLS.filter(t => !isHistoric(t.slug));
     if (activeRole.audience) r = r.filter(t => t.audience.includes(activeRole.audience!));
     if (search.trim()) {
-      const q = search.toLowerCase();
-      r = r.filter(t => [t.name, t.desc, t.primaryCategory, t.subcategory, ...(t.audience ?? [])].join(' ').toLowerCase().includes(q));
+      // Capabilities are searchable too, so "EHCP" or "Early Years" finds tools
+      // whose category never says those words. Aliases expand UK abbreviations
+      // (SEN/SEND, SENCO/SENDCO, EHCP, EYFS, LA/Council, MAT) — see
+      // utils/searchAliases.ts.
+      r = r.filter(t =>
+        matchesWithAliases(
+          [t.name, t.desc, t.primaryCategory, t.subcategory, ...(t.audience ?? []), ...(t.capabilities ?? [])].join(' '),
+          search,
+        ),
+      );
     }
     return r;
   }, [activeRole, search]);

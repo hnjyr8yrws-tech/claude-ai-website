@@ -51,6 +51,64 @@ export const TOOL_SUBCATEGORIES: Record<ToolCategory, readonly string[]> = {
   'Research & Data Analysis': ['Literature & Citations', 'Data Analysis', 'School Data Insights'],
 };
 
+// ─── Capabilities (ORTHOGONAL axis) ─────────────────────────────────────────────
+/**
+ * Capabilities describe WHAT A TOOL CAN DO, independently of where it sits in the
+ * category tree. A tool has exactly one category + subcategory (the navigation
+ * spine, unchanged) and zero or more capabilities.
+ *
+ * This axis exists so newly verified coverage — EHCP drafting, Early Years, Local
+ * Authority, procurement, assistive technology — becomes findable WITHOUT adding
+ * near-duplicate categories or duplicate listings. Phase 1B found that hearing
+ * support, executive function and school administration were largely
+ * DISCOVERABILITY problems: the tools were already listed, nothing surfaced them.
+ *
+ * Controlled, like everything else here. No free text. The prebuild audit rejects
+ * any capability not in this list.
+ */
+export const TOOL_CAPABILITIES = [
+  // SEND / statutory
+  'EHCP',
+  'SEND Administration',
+  'Annual Reviews',
+  // Assistive
+  'Assistive Technology',
+  'Braille / Tactile',
+  'Speech-to-Text',
+  'Text-to-Speech',
+  'AAC',
+  'Executive Function',
+  'Reading Support',
+  // Teaching & assessment
+  'AI Tutoring',
+  'Spoken AI Tutor',
+  'Assessment / Marking',
+  'Differentiation',
+  'Source Grounding',
+  // Safeguarding & governance
+  'Filtering & Monitoring',
+  'Human Safeguarding Review',
+  'Human Oversight',
+  'AI Governance',
+  'AI Literacy',
+  // Audience / sector
+  'Early Years / EYFS',
+  'Local Authority / Council',
+  'MAT',
+  'Procurement / Bid Writing',
+  'Parent Communication',
+  'School Administration',
+  // Data
+  'Data Analytics',
+  'Multilingual',
+] as const;
+
+export type ToolCapability = (typeof TOOL_CAPABILITIES)[number];
+
+export function isToolCapability(v: string): v is ToolCapability {
+  return (TOOL_CAPABILITIES as readonly string[]).includes(v);
+}
+
 export function isToolCategory(v: string): v is ToolCategory {
   return (TOOL_CATEGORIES as readonly string[]).includes(v);
 }
