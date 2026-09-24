@@ -179,13 +179,15 @@ Measured on frozen tree `8087475ede67db4a5e23639bcf98b8b7f4a599d0`, 24 September
 | Typecheck | `tsc --noEmit` clean |
 | Build | `npm run build` clean, including the three prebuild audits |
 | Tests | **95 passing** (20 pre-existing + 75 in `src/test/kcsieContainment.test.tsx`, across **17 rules** and **186** reasoned allow entries) |
-| Mutants | **99 of 99 killed, 0 invalid, 0 survived** (M93–M99 added this round for the round-16 regressions) |
+| Mutants | **WITHDRAWN — this attestation is void.** The run was made while an unrelated test (the new figures control) was already failing, so the runner's `returncode != 0` condition held for every mutant and `SURVIVED` was unreachable. All 99 result rows name that test among their failures. The pack must be re-run against a green baseline before any figure from it is quoted. Individual kills may well be genuine — a reviewer read all 99 rows and found each names a substantively relevant failing test — but the sweep proves nothing as recorded |
 | DOM / browser | **56 routes**, **0 problems, 0 missing required**, 244 allowed hits with written reasons |
 | DOM blind spot | **173 claim-class hits across 11 equipment routes**, declared, counted and printed |
 | Structural | 231 held + 10 withdrawn accessible names on `/tools` |
 | Independent rescan | 883 rows total, 211 removed, 672 remaining |
 | Seals | `phase2c` **27/27 OK**; `phase2b` **16/16 OK** |
 | Freeze reproducibility | `origin/main` + `containment.patch` → `8087475e…`, verified in a throwaway worktree |
+
+**A control derives these figures from the artefacts rather than from typing** — but see MATERIAL 2 in round 18: five of its ten checks silently match nothing, including the three sealed figures that were wrong in round 16, so its coverage is narrower than §23.7 claims.
 
 **The figures above are no longer typed.** A control reads the mutant pack, its recorded result and
 the DOM transcript, and fails the suite if any record states a figure the artefact does not support.
