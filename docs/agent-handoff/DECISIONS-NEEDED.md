@@ -154,35 +154,42 @@ separately dated.
 
 ---
 
-## D7 — Ratify the narrowing of the §2 equipment blind spot
+## D7 — Ratify how the §2 equipment blind spot is expressed
 
-**Status:** APPLIED in round 15, flagged for ratification, **not** ratified.
+**Status:** the implementation now matches §2's own wording. What needs ratifying is narrower than
+it was, and the question has changed since this entry was first written.
 
-**What changed.** The claim rule previously skipped equipment by *class*
-(`src/pages/(AI)?Equipment[^/]*\.tsx`), which also hid five files containing nothing the rule would
-flag — a claim added to any of them would have shipped unseen. It is now an enumerated list of the
-files that actually carry matches.
+**What §2 says.** The declared blind spot is equipment **provenance** — a statement about what was
+audited, not a licence for claim language on those pages.
 
-**Why it is here and not in the engineering queue.** §2 is a recorded governance disposition, so
-narrowing it is a change to a declared scope, not a refactor. It was flagged rather than made
-silently.
+**What the code did, and does now.**
 
-**Evidence:** containment-record §2 and §22.3. A round-16 reviewer independently examined every hit
-the exclusion still hides and found **all of them genuinely equipment-provenance, with no Promptly
-Score claim about an AI tool among them**, and judged the narrowing within what §2 permits —
-narrowing an exclusion can only cause the harness to look at more, never to contain less.
+| Round | Implementation | Consequence |
+|---|---|---|
+| ≤15 | skipped equipment by *class* regex | also hid five files containing nothing, so a claim added to any of them would ship unseen |
+| 17 | enumerated file list | removed the dead names, but still whole-FILE |
+| 19 | **subject-shaped**: the files are scanned; a match is exempt only when its own sentence is about equipment | a claim about **AI tools** on an equipment page is now caught |
 
-**If ratified:** §2 is restated to describe the exclusion as subject-shaped (equipment
-*provenance*), and the harness is brought in line with it.
-**If not:** the class form is restored and the five clean files are re-hidden, accepting that a
-future claim on them would not be caught.
+The round-19 change was made because a round-18 reviewer showed the file-shaped form left a real
+hole: §2 declares the exclusion by subject and the code applied it by file, so a Promptly-Score
+claim about a tool, placed on an equipment page, was invisible to **both** harnesses. Re-shaping it
+immediately surfaced two lines no rule had ever examined — neither a live claim (one carries its
+qualifier in the following sentence, one is a shortlist cadence), both now named.
 
-**A related engineering defect, noted here only because it bears on the same clause:** the exclusion
-is implemented by *file* and by *route*, while §2 declares it by *subject*. A claim about **AI
-tools** placed on an equipment page is currently invisible to both harnesses. Repairing that is
-engineering work (`CURRENT-STATE.md` §5); deciding what §2 should say is not.
+**Evidence to decide:** containment-record §2 and §§22.3, 24.5; the subject allow in
+`src/test/kcsieContainment.test.tsx`; mutant **M107**, which plants a tool-score claim on an
+equipment page and is killed. A round-18 reviewer independently examined every hit the exclusion
+still hides and found all of them genuinely equipment-provenance.
 
----
+**If ratified:** §2 is restated to say explicitly that the exclusion is by subject, and the wording
+and the code agree on the record.
+
+**If not:** say which form §2 intends. Reverting to a file or class exclusion restores the hole
+knowingly, and that should be recorded as a decision rather than left implicit.
+
+**Why this is still a Founder/CR matter and not engineering:** narrowing an exclusion can only
+cause the harness to look at more, never to contain less — but §2 is a recorded governance
+disposition, and an agent should not restate one.
 
 ## Not decisions — do not migrate these here
 
