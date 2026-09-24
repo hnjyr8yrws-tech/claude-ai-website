@@ -101,8 +101,11 @@ pack, rescan, seals, freeze-and-reproduce.
 
 ## 5. What remains
 
-**Round 17 closed the entire round-16 queue.** Each item was verified by re-running the exploit that
-motivated it:
+**Round 17 closed every BLOCKER, and each was verified by re-running the exploit that motivated
+it.** An earlier version of this file said round 17 "closed the entire round-16 queue". That was
+wrong — three MATERIAL findings are still open, and they are listed below the table. The
+overstatement is corrected here rather than left to the next reviewer to find, because a record
+asserting more than the bytes support is the defect this programme keeps recording.
 
 | Repair | Proof it bites |
 |---|---|
@@ -113,6 +116,23 @@ motivated it:
 | Stored-data controls re-anchored to the **merge base** | rewrite committed in an isolated clone: was 92/92 green, now both controls fail |
 | Tracked `node_modules` symlink removed from the tree, with a control against recurrence | mutant M99 |
 | Published figures derived from the artefacts by a control, not typed | it immediately caught four stale figures, including the rule count |
+
+**Still open from round 16 — MATERIAL, not repaired in round 17.** The tree was frozen and under
+review when these were confirmed, so they are queued rather than patched:
+
+1. **The CSV column-11 allow is a blanket.** `/(You are|Act as|Write |Create |Draft |Generate |\S)/`
+   — the `\S` alternative matches any non-empty field, so column 11 of both prompt CSVs is wholly
+   exempt from the claim rule, and that column renders to users. The anti-blanket guard only rejects
+   the literal sources `.*`, `(?:)` and `''`, so it cannot see this. Fix: drop the `\S` alternative,
+   and make the guard evaluate each allow regex against sample strings rather than compare literals.
+2. **The equipment exclusion is file-shaped; §2 declares it by subject.** §2's blind spot is
+   equipment **provenance**; the implementation removes whole files and whole routes from the claim
+   rule, so a claim about **AI tools** placed on an equipment page is invisible to both harnesses.
+   Fix: scope the exclusion to matches whose subject is equipment, or replace it with named allows.
+3. **The scale block in `containment-record.md` is stale again** — it states "62 tracked files
+   changed, +704 / -417" and "111 files" where the measured values are **63, +726, −419**. This is
+   the tenth time these counts have been wrong, and they sit directly under a warning not to trust
+   them. Fix: derive them, like the other figures now are, rather than typing them.
 
 **Open:** the round 18 verdict. On NOT CLEAR, repair, re-prove, re-freeze and dispatch round 19
 without waiting. On CLEAR, move to the governed tool-refresh programme (§6) in batches.
