@@ -69,10 +69,29 @@ The governing principle, and the one most often lost: **coverage is not assuranc
 **Round 18: NOT CLEAR** (two independent reviewers). **Round 19: all findings repaired**, full proof
 re-run, resealed, re-frozen, and **dispatched to two fresh reviewers — currently in review.**
 
-Four consecutive rounds of reviewers have now rendered the live surfaces independently and found
-**no live false claim in the bytes**. Every defect since round 16 has been in the *controls* or the
-*records*. That is not CLEAR — a control that cannot fire is not evidence, and round 18 found a
-proof that could not fail — but it is the shape of the remaining work.
+**Round 19 reviewer B: NOT CLEAR, and it withdrew the headline of the last four rounds.**
+
+Those rounds all reported "no live false claim in the bytes". That conclusion was reached through
+harnesses that cannot see the **present tense**: every verb in the claim pattern is a past
+participle. Confirmed directly —
+
+- `"How GetPromptly reviews and scores tools…"` → **no match**
+- `"How GetPromptly has reviewed and scored tools."` → caught
+
+and the first string is live at `src/pages/Methodology.tsx:322`, the `/methodology` meta
+description, **present in the shipped bundle** (`dist/assets/Methodology-*.js`), served to search
+engines and link previews with no holding qualifier. A second instance renders as body copy at
+`src/pages/AITrainingLeaders.tsx:173`. The same class of gap lets the **indefinite article** through:
+`carries a safeguarding score` is invisible where `carries the safeguarding score` is caught.
+
+A reviewer also measured the harness's actual reach for the first time since round 10: of **15**
+ordinary British phrasings of a review-practice, cadence or verdict claim planted on `/tools`,
+**12 shipped green**. The assurance table has been reporting "108 of 108 mutants killed, 0 problems"
+with no measured reach beside it. That figure belongs in the record and will be put there.
+
+**So: the containment is not established for the live surfaces.** Nothing is deployed and nothing is
+committed, so no user is being told anything today — but the previous four rounds' central finding
+does not stand, and this file should not be read as if it did.
 
 ## 4. What has been completed
 
