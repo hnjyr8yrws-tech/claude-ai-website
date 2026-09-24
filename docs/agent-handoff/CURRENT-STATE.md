@@ -4,7 +4,7 @@
 only. Every hash, count and status below was measured on the machine at the timestamp given, not
 carried forward from an earlier note.
 
-**Last verified:** 24 September 2026
+**Last verified:** 24 September 2026 (round 17 complete; round 18 in review)
 **Verified by:** Claude Code (session `28345e36`)
 **Rule for this file:** if you cannot reproduce a figure with the command beside it, treat the
 figure as wrong and re-derive it. Figures in this pack have gone stale ten times; do not trust a
@@ -27,12 +27,12 @@ product, scoring or methodology changes. It is a communication channel between C
 ChatGPT, **not** a development branch, and it is **never merged**. To read it:
 `git fetch origin && git show origin/agent-handoff:docs/agent-handoff/CURRENT-STATE.md`.
 | `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660` | `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — tool-refresh candidate |
-| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `b9a8bdc42c38f221a1337a6958b59fbcf80efe41` | **FROZEN** — KCSIE 2026 containment under review |
+| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `8087475ede67db4a5e23639bcf98b8b7f4a599d0` | **FROZEN** — KCSIE 2026 containment, round 18 under review |
 
 Reproduce a tree hash:
 
 ```sh
-GIT_INDEX_FILE=/tmp/idx git read-tree 51d56c818fda9a6cde59c05e3b368896ecc7c2ab
+GIT_INDEX_FILE=/tmp/idx git read-tree 51d56c818fda9a6cde59c05e3b368896ecc7c2ab   # the MERGE BASE, never HEAD
 GIT_INDEX_FILE=/tmp/idx git add -A . 2>/dev/null
 GIT_INDEX_FILE=/tmp/idx git write-tree
 ```
@@ -66,19 +66,18 @@ The governing principle, and the one most often lost: **coverage is not assuranc
 
 ## 3. Exact status
 
-**Round 16 adversarial review: NOT CLEAR.** Two independent fresh reviewers, both landed
-23 September 2026. Fifteen prior rounds have also returned NOT CLEAR.
+**Round 16: NOT CLEAR.** Two independent reviewers wrote **seven working regressions** against the
+harness, each with a matched control.
 
-Both reviewers independently rendered the live surfaces and agree on the central point:
+**Round 17: all seven repaired and proved closed**, each verified by re-running the reviewer's own
+exploit against the repaired harness. Full deterministic proof re-run on the final bytes, resealed,
+re-frozen, and **dispatched to two fresh reviewers as round 18 — currently in review.**
 
-> **There is no live false claim in the frozen bytes.** The remaining defects are in the *controls*
-> and in the *records*, not in what a user is told.
-
-That has now been true for two consecutive rounds. It is not the same as CLEAR: a control that
-cannot fire is not evidence, and a sealed record that misstates its own figures is a UOS §19
-problem regardless of whether the site is correct today.
-
----
+Both round-16 reviewers independently rendered the live surfaces and agreed, as both round-15
+reviewers had: **there is no live false claim in the frozen bytes.** Three consecutive rounds have
+now found the defects in the *controls* and the *records* rather than in what a user is told. That
+is not the same as CLEAR — a control that cannot fire is not evidence — but it is the shape of the
+remaining work.
 
 ## 4. What has been completed
 
@@ -100,47 +99,23 @@ pack, rescan, seals, freeze-and-reproduce.
 
 ---
 
-## 5. What remains — round 16 repair queue
+## 5. What remains
 
-Engineering work, ordered. None of it is blocked by a founder decision.
+**Round 17 closed the entire round-16 queue.** Each item was verified by re-running the exploit that
+motivated it:
 
-1. **Re-anchor the freeze controls to the merge base, not `HEAD`.** The two anti-destruction tests
-   compare disk against `git show HEAD:<file>`. Committed, they certify "worktree matches last
-   commit" instead of "no stored score was rewritten" — demonstrated by rewriting a composite to
-   `9.9` and a tuple to `safety:3, tier:"Avoid"`: **2 failed uncommitted, 92/92 green committed.**
-   No mutant models this; add one that commits its mutation. *Do this first — it makes everything
-   else measurable.*
-2. **Give every rule an explicit scope.** Nine of the rules have neither `sentence:` nor
-   `lineOnly:` and still fall through to the three-line proximity window — including present-tense
-   KCSIE 2025, certification/authority transfer, D-05 adoption wording and C17 review-practice.
-   Demonstrated: a KCSIE 2025 claim in Luna's shipped grounding passes because a negative
-   instruction two lines below lands in the window.
-3. **Replace the co-occurrence qualifier with one that governs the claim.** The `*` qualifier allow
-   is satisfied by any sentence *containing* "is held" / "legacy score". Demonstrated: *"Every
-   listing is re-checked each term by our safeguarding lead, even while its legacy score is held"*
-   ships green on `/tools` — a cadence and a named reviewer role, both unsupported. **Both
-   harnesses pass it.**
-4. **Remove the `onLine` line-start shortcut** (an anchor matching at the line's first non-space
-   character excuses the *whole* line, unconditionally — 25 allows take that branch), and **split
-   the `src/data/prompts.ts` field wildcard**, which removes every `prompt` / `safeguarding` /
-   `tip` / `teacherNote` line from the claim rule. That surface renders to users under a
-   "Safeguarding:" label.
-5. **Widen the sentence terminator in both harnesses.** `SENTENCE_END` admits only
-   `\s $ " ' \` < ) ]`. It misses `{` (the JSX `.{' '}` idiom — 41 live occurrences), `&` (every
-   HTML entity), and the curly quotes British copy actually ends with. Round 15 narrowed it to stop
-   decimals splitting scopes and opened the reverse hole.
-6. **Delete the tracked `node_modules` symlink** (`120000 blob … node_modules` → an absolute path
-   in another checkout) or fix `.gitignore` (`node_modules/` with a trailing slash matches
-   directories only). If this branch ever shipped it would leak a local filesystem path into a
-   public repository.
-7. **Generate every figure from the harnesses instead of typing it.** Confirmed stale right now:
-   `phase2c/README.md` says **85/85 mutants** and **25 routes**; `SEAL-NOTE.md` says **25 captured
-   DOM files**. All three verify against `SHA256SUMS.txt`, so the seal currently certifies text
-   that is false. `containment-record.md` §4's "16 rules and 176 allow entries" is a grep artefact
-   (measured: 17 rules, 178 allow objects), and its "+704/−417" does not reproduce.
-8. **Fix the review brief** before dispatching round 17 — see §9.
+| Repair | Proof it bites |
+|---|---|
+| Every rule explicitly scoped; the three-line proximity window removed (nine of seventeen rules were still on it) | KCSIE 2025 in Luna's shipped grounding: was green, now caught |
+| Holding qualifier must share the match's **clause**, not merely its sentence | the cadence + named-reviewer claim on `/tools`: caught under all seven conjunctions tested |
+| Sentence terminator: `.{' '}`, HTML entities, curly quotes, em dash; ternary `? ` excluded via lookbehind | both reviewers' boundary exploits: now caught |
+| `onLine` line-start exemption removed; new `literal` scope for genuine field values; the `prompts.ts` field wildcard split so guidance fields are no longer exempt | Home-hero append and the rendered `safeguarding:` field claim: now caught |
+| Stored-data controls re-anchored to the **merge base** | rewrite committed in an isolated clone: was 92/92 green, now both controls fail |
+| Tracked `node_modules` symlink removed from the tree, with a control against recurrence | mutant M99 |
+| Published figures derived from the artefacts by a control, not typed | it immediately caught four stale figures, including the rule count |
 
----
+**Open:** the round 18 verdict. On NOT CLEAR, repair, re-prove, re-freeze and dispatch round 19
+without waiting. On CLEAR, move to the governed tool-refresh programme (§6) in batches.
 
 ## 6. Tool-refresh objective (Phase 2A) — PRESERVED, PAUSED
 
@@ -177,26 +152,23 @@ Custodian and Second Reader. **No AI may hold those roles** (IR §13 step 4, "Hu
 
 ## 8. Latest assurance results
 
-Measured on the frozen tree `b9a8bdc42c38f221a1337a6958b59fbcf80efe41`, 23 September 2026.
+Measured on frozen tree `8087475ede67db4a5e23639bcf98b8b7f4a599d0`, 24 September 2026.
 
 | Layer | Result |
 |---|---|
 | Typecheck | `tsc --noEmit` clean |
 | Build | `npm run build` clean, including the three prebuild audits |
-| Tests | **92 passing** (5 files: 20 pre-existing + 72 in `src/test/kcsieContainment.test.tsx`) |
-| Mutants | **92 of 92 killed, 0 invalid, 0 survived** — first clean sweep of the full pack |
-| DOM / browser | **56 routes** (up from 25; Luna panel, lead-capture modal and prompt modal now opened, not first-paint only); **0 problems, 0 missing required**; 244 allowed hits with written reasons |
-| DOM blind spot | **173 claim-class hits across 11 equipment routes, declared and printed** — §2 equipment provenance |
+| Tests | **95 passing** (20 pre-existing + 75 in `src/test/kcsieContainment.test.tsx`, across **17 rules** and **186** reasoned allow entries) |
+| Mutants | **99 of 99 killed, 0 invalid, 0 survived** (M93–M99 added this round for the round-16 regressions) |
+| DOM / browser | **56 routes**, **0 problems, 0 missing required**, 244 allowed hits with written reasons |
+| DOM blind spot | **173 claim-class hits across 11 equipment routes**, declared, counted and printed |
 | Structural | 231 held + 10 withdrawn accessible names on `/tools` |
-| Independent rescan | 883 rows total, 211 removed, 672 remaining — reproduced exactly by a reviewer |
-| Seals | `phase2c/SHA256SUMS.txt` **27/27 OK**; `phase2b/SHA256SUMS.txt` **16/16 OK** (re-verified today) |
-| Freeze reproducibility | `origin/main` + `containment.patch` → `b9a8bdc…`, verified in a throwaway worktree |
+| Independent rescan | 883 rows total, 211 removed, 672 remaining |
+| Seals | `phase2c` **27/27 OK**; `phase2b` **16/16 OK** |
+| Freeze reproducibility | `origin/main` + `containment.patch` → `8087475e…`, verified in a throwaway worktree |
 
-**Caveat that must travel with these numbers:** round 16 produced **six working regressions** against
-this apparatus, each with a matched control. The figures are honest about what the harness measured;
-the harness does not yet measure everything it claims to. See §5.
-
----
+**The figures above are no longer typed.** A control reads the mutant pack, its recorded result and
+the DOM transcript, and fails the suite if any record states a figure the artefact does not support.
 
 ## 9. Current blockers
 
@@ -210,30 +182,29 @@ the harness does not yet measure everything it claims to. See §5.
    actually generates Luna's answers is outside the frozen tree and unchanged by this branch.
    **Shipping this branch contains the whole site except the conversational surface.** Recorded at
    containment-record §8 item 6; it has no owner inside this record.
-4. **Review-procedure defects, to fix before round 17:**
+4. **Review-procedure defects — all three fixed for round 18:**
    - The brief told reviewers to "copy the WHOLE tree". A whole-tree copy includes a `.git`
      *gitfile* pointing into the real repository, which handed a reviewer write access to it. On
      23 Sep a reviewer's `git init/add/commit` landed on `feat/kcsie-2026-containment`
      (`0ea0b24`, author `r <r@r.local>`). **No byte changed** — the commit's tree *was* the frozen
      tree. HEAD and the Phase 2A git identity were both restored at 20:57 on 23 Sep; `0ea0b24`
-     remains in the reflog as the honest record. **The brief must say to exclude `.git`.**
+     remains in the reflog as the honest record. **Fixed:** the round-18 brief requires `--exclude .git`.
    - Both reviewers were given the same scratch root and collided; one discarded a run after
-     mistaking the other's planted probe for a live finding. **Give each reviewer its own root.**
-   - The tree-verification recipe cannot detect a commit (see §1). **Pin the merge base and assert
-     `0` commits ahead.**
+     mistaking the other's planted probe for a live finding. **Fixed:** each round-18 reviewer has its own scratch root.
+   - The tree-verification recipe cannot detect a commit (see §1). **Fixed:** the round-18 recipe pins the merge base and asserts `0` commits ahead.
 
 ---
 
 ## 10. Exact next action
 
-**Repair queue item 1: re-anchor the two freeze controls to the merge base rather than `HEAD`, and
-add a mutant that commits its mutation.** Everything else in §5 is measured against those controls,
-so this comes first.
+**Await the round 18 verdict from two fresh reviewers** (dispatched 24 September 2026 on frozen tree
+`8087475ede67db4a5e23639bcf98b8b7f4a599d0`; one on the harness internals, one on the live surfaces
+and the records).
 
-Then §5 items 2–8 in order, then: full deterministic proof (tests → typecheck → build → 92 mutants
-→ rebuild → re-capture DOM → rescan) → regenerate all figures from the harnesses → reseal both
-`SHA256SUMS.txt` → re-freeze with patch reproduction → verify Phase 2A `98b3e284…` and Phase 2B
-16/16 → dispatch round 17 to two fresh reviewers with the corrected brief.
+- **NOT CLEAR** → repair every legitimate finding, re-run the complete proof, reseal, re-freeze,
+  dispatch round 19. No pause for approval; that is the standing direction.
+- **CLEAR** → move directly into the governed tool-refresh programme (§6), in batches, with Phase 2A
+  reconciled only in the order the Founder sets.
 
 **Standing constraint: do not edit the tree while a review is running.** Rounds have been
 invalidated exactly that way.
