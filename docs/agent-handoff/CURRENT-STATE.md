@@ -27,7 +27,7 @@ product, scoring or methodology changes. It is a communication channel between C
 ChatGPT, **not** a development branch, and it is **never merged**. To read it:
 `git fetch origin && git show origin/agent-handoff:docs/agent-handoff/CURRENT-STATE.md`.
 | `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660` | `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — tool-refresh candidate |
-| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `8087475ede67db4a5e23639bcf98b8b7f4a599d0` | **FROZEN** — KCSIE 2026 containment, round 18 under review |
+| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `709a0ec959e0fa2437c54ee88cf168bb40eb9257` | **FROZEN** — KCSIE 2026 containment, round 19 under review |
 
 Reproduce a tree hash:
 
@@ -66,18 +66,13 @@ The governing principle, and the one most often lost: **coverage is not assuranc
 
 ## 3. Exact status
 
-**Round 16: NOT CLEAR.** Two independent reviewers wrote **seven working regressions** against the
-harness, each with a matched control.
+**Round 18: NOT CLEAR** (two independent reviewers). **Round 19: all findings repaired**, full proof
+re-run, resealed, re-frozen, and **dispatched to two fresh reviewers — currently in review.**
 
-**Round 17: all seven repaired and proved closed**, each verified by re-running the reviewer's own
-exploit against the repaired harness. Full deterministic proof re-run on the final bytes, resealed,
-re-frozen, and **dispatched to two fresh reviewers as round 18 — currently in review.**
-
-Both round-16 reviewers independently rendered the live surfaces and agreed, as both round-15
-reviewers had: **there is no live false claim in the frozen bytes.** Three consecutive rounds have
-now found the defects in the *controls* and the *records* rather than in what a user is told. That
-is not the same as CLEAR — a control that cannot fire is not evidence — but it is the shape of the
-remaining work.
+Four consecutive rounds of reviewers have now rendered the live surfaces independently and found
+**no live false claim in the bytes**. Every defect since round 16 has been in the *controls* or the
+*records*. That is not CLEAR — a control that cannot fire is not evidence, and round 18 found a
+proof that could not fail — but it is the shape of the remaining work.
 
 ## 4. What has been completed
 
@@ -101,40 +96,11 @@ pack, rescan, seals, freeze-and-reproduce.
 
 ## 5. What remains
 
-**Round 17 closed every BLOCKER, and each was verified by re-running the exploit that motivated
-it.** An earlier version of this file said round 17 "closed the entire round-16 queue". That was
-wrong — three MATERIAL findings are still open, and they are listed below the table. The
-overstatement is corrected here rather than left to the next reviewer to find, because a record
-asserting more than the bytes support is the defect this programme keeps recording.
+**Round 19 repaired every round-18 finding, and the three MATERIAL items carried over from round
+16** (the `\S` blanket, the file-shaped equipment exclusion, the stale scale block). Each repair is
+held by a mutant: M100–M108.
 
-| Repair | Proof it bites |
-|---|---|
-| Every rule explicitly scoped; the three-line proximity window removed (nine of seventeen rules were still on it) | KCSIE 2025 in Luna's shipped grounding: was green, now caught |
-| Holding qualifier must share the match's **clause**, not merely its sentence | the cadence + named-reviewer claim on `/tools`: caught under all seven conjunctions tested |
-| Sentence terminator: `.{' '}`, HTML entities, curly quotes, em dash; ternary `? ` excluded via lookbehind | both reviewers' boundary exploits: now caught |
-| `onLine` line-start exemption removed; new `literal` scope for genuine field values; the `prompts.ts` field wildcard split so guidance fields are no longer exempt | Home-hero append and the rendered `safeguarding:` field claim: now caught |
-| Stored-data controls re-anchored to the **merge base** | rewrite committed in an isolated clone: was 92/92 green, now both controls fail |
-| Tracked `node_modules` symlink removed from the tree, with a control against recurrence | mutant M99 |
-| Published figures derived from the artefacts by a control, not typed | it immediately caught four stale figures, including the rule count |
-
-**Still open from round 16 — MATERIAL, not repaired in round 17.** The tree was frozen and under
-review when these were confirmed, so they are queued rather than patched:
-
-1. **The CSV column-11 allow is a blanket.** `/(You are|Act as|Write |Create |Draft |Generate |\S)/`
-   — the `\S` alternative matches any non-empty field, so column 11 of both prompt CSVs is wholly
-   exempt from the claim rule, and that column renders to users. The anti-blanket guard only rejects
-   the literal sources `.*`, `(?:)` and `''`, so it cannot see this. Fix: drop the `\S` alternative,
-   and make the guard evaluate each allow regex against sample strings rather than compare literals.
-2. **The equipment exclusion is file-shaped; §2 declares it by subject.** §2's blind spot is
-   equipment **provenance**; the implementation removes whole files and whole routes from the claim
-   rule, so a claim about **AI tools** placed on an equipment page is invisible to both harnesses.
-   Fix: scope the exclusion to matches whose subject is equipment, or replace it with named allows.
-3. **The scale block in `containment-record.md` is stale again** — it states "62 tracked files
-   changed, +704 / -417" and "111 files" where the measured values are **63, +726, −419**. This is
-   the tenth time these counts have been wrong, and they sit directly under a warning not to trust
-   them. Fix: derive them, like the other figures now are, rather than typing them.
-
-**Open:** the round 18 verdict. On NOT CLEAR, repair, re-prove, re-freeze and dispatch round 19
+**Open:** the round 19 verdict. On NOT CLEAR, repair, re-prove, re-freeze and dispatch round 20
 without waiting. On CLEAR, move to the governed tool-refresh programme (§6) in batches.
 
 ## 6. Tool-refresh objective (Phase 2A) — PRESERVED, PAUSED
@@ -172,25 +138,22 @@ Custodian and Second Reader. **No AI may hold those roles** (IR §13 step 4, "Hu
 
 ## 8. Latest assurance results
 
-Measured on frozen tree `8087475ede67db4a5e23639bcf98b8b7f4a599d0`, 24 September 2026.
+Measured on frozen tree `709a0ec959e0fa2437c54ee88cf168bb40eb9257`, 24 September 2026.
 
 | Layer | Result |
 |---|---|
-| Typecheck | `tsc --noEmit` clean |
-| Build | `npm run build` clean, including the three prebuild audits |
-| Tests | **95 passing** (20 pre-existing + 75 in `src/test/kcsieContainment.test.tsx`, across **17 rules** and **186** reasoned allow entries) |
-| Mutants | **WITHDRAWN — this attestation is void.** The run was made while an unrelated test (the new figures control) was already failing, so the runner's `returncode != 0` condition held for every mutant and `SURVIVED` was unreachable. All 99 result rows name that test among their failures. The pack must be re-run against a green baseline before any figure from it is quoted. Individual kills may well be genuine — a reviewer read all 99 rows and found each names a substantively relevant failing test — but the sweep proves nothing as recorded |
-| DOM / browser | **56 routes**, **0 problems, 0 missing required**, 244 allowed hits with written reasons |
+| Typecheck / build | clean |
+| Tests | **95 passing** (20 pre-existing + 75), across **17 rules** and **213** reasoned allow entries |
+| Mutants | **108 of 108 killed, 0 invalid, 0 survived** — and, for the first time, against a **proved-green baseline**. The runner now refuses to start unless the unmutated suite passes, so a kill is attributable to the mutation. The round-17 "99/99" attestation was void and has been withdrawn |
+| DOM / browser | **56 routes**, **0 problems, 0 missing required**, 244 allowed hits |
 | DOM blind spot | **173 claim-class hits across 11 equipment routes**, declared, counted and printed |
-| Structural | 231 held + 10 withdrawn accessible names on `/tools` |
-| Independent rescan | 883 rows total, 211 removed, 672 remaining |
+| Independent rescan | **883 rows total, 212 removed, 671 remaining** |
 | Seals | `phase2c` **27/27 OK**; `phase2b` **16/16 OK** |
-| Freeze reproducibility | `origin/main` + `containment.patch` → `8087475e…`, verified in a throwaway worktree |
+| Freeze reproducibility | `origin/main` + `containment.patch` → `709a0ec9…`, verified in a throwaway worktree |
 
-**A control derives these figures from the artefacts rather than from typing** — but see MATERIAL 2 in round 18: five of its ten checks silently match nothing, including the three sealed figures that were wrong in round 16, so its coverage is narrower than §23.7 claims.
-
-**The figures above are no longer typed.** A control reads the mutant pack, its recorded result and
-the DOM transcript, and fails the suite if any record states a figure the artefact does not support.
+**The figures are derived, not typed** — a control reads the mutant pack, its result and the DOM
+transcript, and now also **fails when one of its own checks matches nothing**, which is how five of
+ten checks had been silently dead.
 
 ## 9. Current blockers
 
