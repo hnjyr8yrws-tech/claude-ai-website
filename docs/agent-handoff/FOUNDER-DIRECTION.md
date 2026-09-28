@@ -104,3 +104,7 @@ Founder should correct anything mis-transcribed.
 ### 2026-09-24 — Continue autonomously to completion
 
 > "continue until finished only nudge me if you need human verification"
+
+### 2026-09-28 — Resume and continue to completion
+
+> "Continue from the current local state. Do not wait for me unless human verification is genuinely required. Finish the current containment assurance cycle, keep repairing and re-reviewing until CLEAR, then move directly into the governed tool-refresh programme. Update the agent-handoff files after each meaningful milestone so ChatGPT can monitor progress."
