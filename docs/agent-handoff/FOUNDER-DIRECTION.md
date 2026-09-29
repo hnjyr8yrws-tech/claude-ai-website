@@ -108,3 +108,26 @@ Founder should correct anything mis-transcribed.
 ### 2026-09-28 — Resume and continue to completion
 
 > "Continue from the current local state. Do not wait for me unless human verification is genuinely required. Finish the current containment assurance cycle, keep repairing and re-reviewing until CLEAR, then move directly into the governed tool-refresh programme. Update the agent-handoff files after each meaningful milestone so ChatGPT can monitor progress."
+
+
+### 2026-09-29 — Schedule D3 now
+
+> "Schedule D3 now."
+
+Prepare the complete human rendered-surface review pack from the current rendered-route corpus after repairing the nine already-confirmed live false claims and the known Round 21 control defects, then freeze the candidate again before D3.
+
+For each rendered surface, present:
+- route/page
+- exact potentially consequential claim(s)
+- surrounding rendered context
+- why the claim may be unsupported, misleading or contradictory
+- the evidence/status it should be checked against
+- a simple human adjudication choice: KEEP / CHANGE / REMOVE / NEEDS EVIDENCE
+
+Group the review into manageable batches. Do not ask the Founder to inspect code or reconstruct evidence.
+
+Do not continue expanding the lexical harness as a substitute for D3. D3 is now the completeness control for rendered-surface claim review.
+
+Continue all routine engineering autonomously. Interrupt the Founder only for the actual human adjudication required by D3 or another governance decision explicitly reserved to humans.
+
+The already-confirmed equipment independence/paid-placement claim must be corrected before the D3 freeze.
