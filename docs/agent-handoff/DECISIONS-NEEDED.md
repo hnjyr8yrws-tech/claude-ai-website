@@ -14,6 +14,53 @@ Decisions are listed in the order they block work.
 
 ---
 
+## D0 — Schedule Phase 2B decision **D3**: a human read of every rendered surface
+
+**Status:** OPEN, and on the evidence of twenty review rounds this is now the decision that governs
+whether containment can ever be declared complete. It is listed first because it blocks the others
+from meaning anything.
+
+**What D3 is.** Phase 2B recorded it as the designated completeness control: a human reads every
+rendered surface and adjudicates the claims on it. It is not a harness run and cannot be delegated
+to one.
+
+**Why it is now urgent rather than theoretical.**
+
+- **Measured reach is 6 of 15.** Fifteen ordinary British phrasings of a review-practice, cadence or
+  verdict claim, planted one at a time on `/tools`: six caught, **nine ship green**. Still passing:
+  *"Nothing appears in this directory until a human has looked at it"*, *"A DSL has looked over each
+  of these"*, *"Tools are added only after a data-protection review"*, *"We keep this page up to
+  date every September"*.
+- **A live false claim survived four rounds** because every verb in the claim pattern was a past
+  participle, so the present tense was invisible. It was the `/methodology` meta description, in the
+  shipped bundle, served to search engines.
+- **Every round closes the exploits found and the next round finds new ones outside the
+  enumeration.** Two round-19 reviewers said so independently. Round 20 made three genuinely
+  structural changes and reach still only doubled.
+- §17, §20 and §25.8 of the containment record all say the same thing: **a pattern gate is not a
+  claim detector.**
+
+**Evidence needed to decide:** containment-record §4 (the measured-reach row and its method), §25.8,
+and Phase 2B's own definition of D3.
+
+**Options:**
+
+- **Schedule D3.** A human reads the rendered surfaces — the 65 captured routes are a starting list,
+  and `proof/CAPTURE.md` regenerates them. This is the only route to a defensible "the site says
+  nothing untrue". It is work in hours, not minutes, and it needs a person who can judge a claim
+  against what Phase 2B found.
+- **Keep iterating the harness instead.** Legitimate, but say so explicitly and accept the recorded
+  consequence: reach improves slowly, each round finds the next enumeration boundary, and
+  containment stays NOT CLEAR. Nothing ships either way while D1 and D5 are open.
+- **Ship with the exposure declared.** Only if D1 (trigger 7) and D5 (the n8n grounding) are also
+  resolved, and the residual is written down rather than implied.
+
+**What an agent may and may not do here.** I can prepare the surface list, regenerate the corpus,
+and record findings. I cannot perform D3: it is a human adjudication by definition, and treating a
+harness pass as a substitute is the exact error this programme has been documenting.
+
+---
+
 ## D1 — RL-017 §2 trigger 7: does the Brand Bible erratum supersede an adopted Class A rule?
 
 **Status:** OPEN. Awaiting **joint CR + CD** sign-off. No determination has been made, and none may
