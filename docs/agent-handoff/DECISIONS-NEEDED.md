@@ -16,9 +16,7 @@ Decisions are listed in the order they block work.
 
 ## D0 — Schedule Phase 2B decision **D3**: a human read of every rendered surface
 
-**Status:** OPEN, and on the evidence of twenty review rounds this is now the decision that governs
-whether containment can ever be declared complete. It is listed first because it blocks the others
-from meaning anything.
+**Status:** RESOLVED — Founder scheduled D3 on 29 September 2026. Claude should repair the confirmed live claims and Round 21 control defects, freeze the candidate again, then prepare and run the human rendered-surface review pack in manageable batches. Do not ask the Founder to re-decide whether D3 is needed.
 
 **What D3 is.** Phase 2B recorded it as the designated completeness control: a human reads every
 rendered surface and adjudicates the claims on it. It is not a harness run and cannot be delegated
