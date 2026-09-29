@@ -27,7 +27,7 @@ product, scoring or methodology changes. It is a communication channel between C
 ChatGPT, **not** a development branch, and it is **never merged**. To read it:
 `git fetch origin && git show origin/agent-handoff:docs/agent-handoff/CURRENT-STATE.md`.
 | `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660` | `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — tool-refresh candidate |
-| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `709a0ec959e0fa2437c54ee88cf168bb40eb9257` | **FROZEN** — KCSIE 2026 containment, round 19 under review |
+| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `c0dc9c85e221bd2e7b4406b66b75469e97c0eb1e` | **FROZEN** — KCSIE 2026 containment, round 21 under review |
 
 Reproduce a tree hash:
 
@@ -69,29 +69,37 @@ The governing principle, and the one most often lost: **coverage is not assuranc
 **Round 18: NOT CLEAR** (two independent reviewers). **Round 19: all findings repaired**, full proof
 re-run, resealed, re-frozen, and **dispatched to two fresh reviewers — currently in review.**
 
-**Round 19 reviewer B: NOT CLEAR, and it withdrew the headline of the last four rounds.**
+**Round 19: NOT CLEAR** from both reviewers — fourteen working regressions, and a **live false
+claim** in the shipped bundle. **Round 20: all fourteen repaired**, proof re-run, resealed,
+re-frozen, dispatched as round 21 — currently in review.
 
-Those rounds all reported "no live false claim in the bytes". That conclusion was reached through
-harnesses that cannot see the **present tense**: every verb in the claim pattern is a past
-participle. Confirmed directly —
+### The number to read first
 
-- `"How GetPromptly reviews and scores tools…"` → **no match**
-- `"How GetPromptly has reviewed and scored tools."` → caught
+**Measured reach: 6 of 15.** Fifteen ordinary British phrasings of a review-practice, cadence or
+verdict claim, planted one at a time on `/tools`: six are caught, **nine ship green**. Among those
+nine: *"Nothing appears in this directory until a human has looked at it"*, *"A DSL has looked over
+each of these"*, *"Tools are added only after a data-protection review"*. Before round 20's repairs
+a reviewer measured 3 of 15.
 
-and the first string is live at `src/pages/Methodology.tsx:322`, the `/methodology` meta
-description, **present in the shipped bundle** (`dist/assets/Methodology-*.js`), served to search
-engines and link previews with no holding qualifier. A second instance renders as body copy at
-`src/pages/AITrainingLeaders.tsx:173`. The same class of gap lets the **indefinite article** through:
-`carries a safeguarding score` is invisible where `carries the safeguarding score` is caught.
+This is now a row in §4 beside "119 of 119 mutants killed", because the two measure different
+things. A mutant pack asks whether the controls still catch defects someone already thought of.
+Reach asks what an ordinary sentence gets past them.
 
-A reviewer also measured the harness's actual reach for the first time since round 10: of **15**
-ordinary British phrasings of a review-practice, cadence or verdict claim planted on `/tools`,
-**12 shipped green**. The assurance table has been reporting "108 of 108 mutants killed, 0 problems"
-with no measured reach beside it. That figure belongs in the record and will be put there.
+### Why the previous "no live false claim" finding was withdrawn
 
-**So: the containment is not established for the live surfaces.** Nothing is deployed and nothing is
-committed, so no user is being told anything today — but the previous four rounds' central finding
-does not stand, and this file should not be read as if it did.
+Rounds 15–18 all reported no live false claim. **Every verb in the claim pattern was a past
+participle**, so a practice stated in the present tense was invisible: `"How GetPromptly reviews and
+scores tools"` did not match where `"has reviewed and scored"` did. The first string was the live
+`/methodology` meta description, in the shipped bundle. It is contained, and so is a second instance
+on the AI-training leaders page.
+
+### What this means for the programme
+
+Twenty rounds now say the same thing: **a pattern gate is not a claim detector.** §17 and §20 said
+it; §25.8 says it again with a measurement behind it. Phase 2B decision **D3** — a human read of
+every rendered surface — is the recorded control that closes this gap, and on this evidence it is
+not optional. **Scheduling D3 is a Founder decision and is the single most valuable next action for
+this programme.** No further harness round substitutes for it.
 
 ## 4. What has been completed
 
@@ -157,22 +165,20 @@ Custodian and Second Reader. **No AI may hold those roles** (IR §13 step 4, "Hu
 
 ## 8. Latest assurance results
 
-Measured on frozen tree `709a0ec959e0fa2437c54ee88cf168bb40eb9257`, 24 September 2026.
+Frozen tree `c0dc9c85e221bd2e7b4406b66b75469e97c0eb1e`, 29 September 2026.
 
 | Layer | Result |
 |---|---|
 | Typecheck / build | clean |
-| Tests | **95 passing** (20 pre-existing + 75), across **17 rules** and **213** reasoned allow entries |
-| Mutants | **108 of 108 killed, 0 invalid, 0 survived** — and, for the first time, against a **proved-green baseline**. The runner now refuses to start unless the unmutated suite passes, so a kill is attributable to the mutation. The round-17 "99/99" attestation was void and has been withdrawn |
-| DOM / browser | **56 routes**, **0 problems, 0 missing required**, 244 allowed hits |
-| DOM blind spot | **173 claim-class hits across 11 equipment routes**, declared, counted and printed |
-| Independent rescan | **883 rows total, 212 removed, 671 remaining** |
-| Seals | `phase2c` **27/27 OK**; `phase2b` **16/16 OK** |
-| Freeze reproducibility | `origin/main` + `containment.patch` → `709a0ec9…`, verified in a throwaway worktree |
-
-**The figures are derived, not typed** — a control reads the mutant pack, its result and the DOM
-transcript, and now also **fails when one of its own checks matches nothing**, which is how five of
-ten checks had been silently dead.
+| Tests | **95 passing**, across **17 rules** and **241** reasoned allow entries |
+| **Measured reach** | **6 of 15** ordinary phrasings caught — read this next to the mutant score |
+| Mutants | **119 of 119 killed, 0 invalid, 0 survived**, against a proved-green baseline |
+| DOM / browser | **65 routes** (list now derived from `src/App.tsx`), **0 problems, 0 missing required**, 232 allowed hits |
+| DOM blind spot | **248 claim-class hits across 14 equipment routes**, declared, counted, printed |
+| Independent rescan | **883 rows, 212 removed, 671 remaining** |
+| Seals | `phase2c` **31/31 OK**; `phase2b` **16/16 OK** |
+| Freeze reproducibility | `origin/main` + `containment.patch` → `c0dc9c85…`, verified in a throwaway worktree |
+| Corpus reproducibility | **new** — the capture scripts and route lists are in `proof/`, with `proof/CAPTURE.md`. The corpus was previously unreproducible and was lost when a scratch directory was cleaned |
 
 ## 9. Current blockers
 
