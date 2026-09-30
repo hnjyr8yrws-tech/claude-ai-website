@@ -18,11 +18,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove GetPromptly's unsupported “Reviewed” wording. Retain any exam-approval statement only if current external evidence is supplied and the claim is clearly attributed.
 
 ---
 
@@ -40,11 +40,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current authoritative evidence for the “only standalone reading pen approved for use in UK public exams” claim. If it cannot be evidenced exactly, rewrite to a narrower attributed statement and remove “essential”.
 
 ---
 
@@ -62,11 +62,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current manufacturer/certification evidence for CE certification, 27dB noise reduction and the age-2 suitability statement.
 
 ---
 
@@ -83,11 +83,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current authoritative evidence for the UK public-exam approval claim. If evidenced, attribute it precisely; otherwise change or remove the claim.
 
 ---
 
@@ -104,11 +104,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current evidence that this course is CPD-certified/accredited as described.
 
 ---
 
@@ -125,11 +125,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current evidence for the “Accredited” / “CPD-certified” status as described.
 
 ---
 
@@ -146,11 +146,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current evidence for the CPD-certified status and certificate claim as described.
 
 ---
 
@@ -167,11 +167,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current manufacturer/certification evidence for CE certification, 27dB noise reduction and the age-2 suitability statement.
 
 ---
 
@@ -188,11 +188,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace with: “Which AI tools might suit a Year 5 classroom, and what should I check before using them?”
 
 ---
 
@@ -209,11 +209,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove or qualify “commercially safe”. If the vendor uses a specific supported term, attribute that wording explicitly; otherwise use neutral descriptive copy.
 
 ---
 
@@ -231,11 +231,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide current evidence for the CPD-certified status and certificate claim as described.
 
 ---
 
@@ -252,11 +252,20 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace with: “Which AI tools might suit a Year 5 classroom, and what should I check before using them?”
 
 ---
 
+
+
+---
+
+## Founder adjudication
+
+**Approved by Founder:** 30 September 2026
+
+Batch 01 decisions above are approved as the human D3 adjudication for this batch. Claude should apply CHANGE decisions as containment edits and convert NEEDS EVIDENCE decisions into named evidence requests. Do not reinterpret these decisions without returning them for human adjudication.
