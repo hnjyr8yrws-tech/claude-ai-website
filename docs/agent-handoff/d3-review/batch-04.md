@@ -17,11 +17,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** GOV-GAP-001; the containment notice; the June 2026 integrity record.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This describes the automated affiliate shortlist rotation and clearly discloses that the pool is commission-eligible and that no editorial judgement is applied to the rotation.
 
 ---
 
@@ -38,11 +38,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** GOV-GAP-001; the containment notice; the June 2026 integrity record.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Provide a recorded currentness/refresh basis for the claim that the guide is “up to date”. If no current check exists, remove or soften that wording.
 
 ---
 
@@ -60,11 +60,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This is navigation/catalogue wording rather than a substantive universal assurance claim.
 
 ---
 
@@ -81,11 +81,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Verify that there are currently 50 packs and that the bundle genuinely includes every prompt pack plus the stated full AI agent access for the whole staff team.
 
 ---
 
@@ -102,11 +102,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the navigation wording, but replace “GetPromptly guides you end to end” with something concrete, e.g. “GetPromptly helps you discover tools, understand the evidence available, and find practical guidance for use.”
 
 ---
 
@@ -123,11 +123,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Verify the current dataset count and that “76 of 76” accurately represents the complete training-resource set.
 
 ---
 
@@ -144,11 +144,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This is catalogue/navigation wording to browse the available prompt packs, not a claim of exhaustive coverage of every possible prompt.
 
 ---
 
@@ -165,11 +165,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove unsupported “Reviewed”. Keep the category/count only if current. Retain deployment/compatibility claims only with current supporting evidence.
 
 ---
 
@@ -186,11 +186,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Check the complete product set and verify that every record actually includes supplier details, purchase model and compatibility notes before retaining this universal claim.
 
 ---
 
@@ -207,11 +207,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Verify both universal assertions across the full set: that every resource is free and that every resource was selected with accessibility in mind.
 
 ---
 
@@ -228,11 +228,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `REMOVE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove the blanket claim that all resources are aligned to UK Department for Education guidance unless every resource has been checked against current guidance. If desired, replace with softer wording such as “Resources chosen for relevance to UK education.”
 
 ---
 
@@ -249,11 +249,20 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Verify that 17 is the current count and that this page genuinely represents the complete student-resource set.
 
 ---
 
+
+
+---
+
+## Founder adjudication
+
+**Approved by Founder:** 30 September 2026
+
+Batch 04 decisions above are approved as the human D3 adjudication for this batch. Claude should apply CHANGE and REMOVE decisions as containment edits, preserve KEEP as adjudicated, convert NEEDS EVIDENCE decisions into named evidence requests, and not reinterpret these decisions without returning them for human adjudication.
