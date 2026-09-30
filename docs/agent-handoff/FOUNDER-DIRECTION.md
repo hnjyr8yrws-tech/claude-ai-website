@@ -145,3 +145,20 @@ Founder direction:
 - Training is NOT decided. Do not expand, merge, delete, or redesign training as a strategic commitment until the Founder makes that decision.
 - Do not spend further assurance effort polishing claims on surfaces that are now explicitly slated for removal. Record them as removal scope and focus D3 on retained surfaces.
 - Any existing D3 claim whose only surface is Equipment, Prompts, or affiliate-driven copy may be adjudicated as REMOVE because the underlying surface is being removed.
+
+
+### 2026-09-30 — Next execution step after scope reset
+
+Do this next, before continuing D3 batch-by-batch:
+
+1. Treat AI Equipment, Prompts and affiliate-driven surfaces as product-removal scope, not as claims to keep polishing.
+2. Build a precise removal map covering routes, navigation, cards/links, search/discovery, sitemap/SEO, Luna suggestions/grounding, data files, affiliate disclosures, commercial selection logic and any shared footer/header copy that exists only because those features exist.
+3. Remove those surfaces from the containment candidate in one controlled scope-reduction pass, preserving any data/artefacts the governance pack requires for history/provenance rather than deleting evidence blindly.
+4. Remove affiliate links and affiliate-selection logic from retained surfaces.
+5. Leave Training unchanged as a HOLD / undecided area. Do not expand, redesign or delete it until the Founder decides.
+6. Re-run the full deterministic proof, reseal and freeze the new retained-product candidate.
+7. Regenerate the D3 human-review pack from the retained rendered surfaces only. Claims that existed solely on Equipment, Prompts or affiliate-driven surfaces should be recorded as removed-by-scope, not sent to the Founder for adjudication.
+8. Continue D3 on the regenerated retained-surface pack.
+9. Once D3 is complete and containment is CLEAR, move directly into the governed AI tool-refresh programme and Safe Mode work.
+
+Do not ask the Founder to adjudicate removed surfaces. Only surface genuine human decisions on retained product scope or governance.
