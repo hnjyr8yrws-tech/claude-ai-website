@@ -27,7 +27,7 @@ product, scoring or methodology changes. It is a communication channel between C
 ChatGPT, **not** a development branch, and it is **never merged**. To read it:
 `git fetch origin && git show origin/agent-handoff:docs/agent-handoff/CURRENT-STATE.md`.
 | `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660` | `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — tool-refresh candidate |
-| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `c0dc9c85e221bd2e7b4406b66b75469e97c0eb1e` | **FROZEN** — KCSIE 2026 containment, round 21 under review |
+| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | `c5efa61cffc780ee32155090ad354f78ecd0a562` | **FROZEN FOR D3** — KCSIE 2026 containment, awaiting human adjudication |
 
 Reproduce a tree hash:
 
@@ -66,40 +66,38 @@ The governing principle, and the one most often lost: **coverage is not assuranc
 
 ## 3. Exact status
 
-**Round 18: NOT CLEAR** (two independent reviewers). **Round 19: all findings repaired**, full proof
-re-run, resealed, re-frozen, and **dispatched to two fresh reviewers — currently in review.**
+**D3 is ready for you.** The pack is at [`docs/agent-handoff/d3-review/`](d3-review/README.md) —
+start with [HOW-TO](d3-review/HOW-TO.md), then batch 01.
 
-**Round 19: NOT CLEAR** from both reviewers — fourteen working regressions, and a **live false
-claim** in the shipped bundle. **Round 20: all fourteen repaired**, proof re-run, resealed,
-re-frozen, dispatched as round 21 — currently in review.
+Round 21 returned NOT CLEAR from both reviewers: **nine live false claims reaching the shipped
+bundle**, and eleven ways round the controls. All are repaired. The candidate is frozen at
+`c5efa61cffc780ee32155090ad354f78ecd0a562` and reproduces exactly from `origin/main` + patch.
 
-### The number to read first
+**Engineering is now blocked on the adjudication, not on more harness work.** That is the Founder
+direction of 29 September and it is the right call: the method that found those nine claims was a
+person reading the site, and the automated scan's measured reach is 6 of 15.
 
-**Measured reach: 6 of 15.** Fifteen ordinary British phrasings of a review-practice, cadence or
-verdict claim, planted one at a time on `/tools`: six are caught, **nine ship green**. Among those
-nine: *"Nothing appears in this directory until a human has looked at it"*, *"A DSL has looked over
-each of these"*, *"Tools are added only after a data-protection review"*. Before round 20's repairs
-a reviewer measured 3 of 15.
+### What was repaired before this freeze
 
-This is now a row in §4 beside "119 of 119 mutants killed", because the two measure different
-things. A mutant pack asks whether the controls still catch defects someone already thought of.
-Reach asks what an ordinary sentence gets past them.
+All nine live claims, the equipment independence claim first, as directed:
 
-### Why the previous "no live false claim" finding was withdrawn
+| Surface | Was | Now |
+|---|---|---|
+| `/ai-equipment` | *"chosen independently — never paid placement"*, *"Luna thinks is worth a look"* | states that the shortlist is drawn from commission-eligible products and is not a recommendation, ranking or review |
+| site footer | *"All listings are independent"* | withdrawn; the payment pledge, which is true, is kept |
+| `/methodology` | ten tools *"re-reviewed against the current safeguarding criteria"* | states that scores are withheld and **no re-review has been carried out** |
+| `/safety-methodology` | only the third of three review bases disclaimed | all three state that no score records that basis |
+| `/safety-methodology` | *"On each reviewed tool, a pillar also carries a plain-word band"* | *"Under the methodology…"* — no longer present tense |
+| every tool page | *"Is {tool} safe for my Year 7 class?"* | *"What should I check before adopting {tool}?"* |
+| `/prompts` | 112 prompts *"Safeguarding Checked"*, 266 *"Age Appropriate"* | chips held by a containment switch; stored values untouched |
+| prompt paywall | *"500+ reviewed prompts"* | *"the full prompt library"* |
+| `/equipment-legacy` | *"96 independently assessed products"* | *"96 products listed"* |
+| `/who-we-are` | three `[PLACEHOLDER — Paste bio here…]` bios | removed; empty bios render nothing |
 
-Rounds 15–18 all reported no live false claim. **Every verb in the claim pattern was a past
-participle**, so a practice stated in the present tense was invisible: `"How GetPromptly reviews and
-scores tools"` did not match where `"has reviewed and scored"` did. The first string was the live
-`/methodology` meta description, in the shipped bundle. It is contained, and so is a second instance
-on the AI-training leaders page.
-
-### What this means for the programme
-
-Twenty rounds now say the same thing: **a pattern gate is not a claim detector.** §17 and §20 said
-it; §25.8 says it again with a measurement behind it. Phase 2B decision **D3** — a human read of
-every rendered surface — is the recorded control that closes this gap, and on this evidence it is
-not optional. **Scheduling D3 is a Founder decision and is the single most valuable next action for
-this programme.** No further harness round substitutes for it.
+Plus eleven control repairs, including three defects I had introduced in round 20: 28 allow anchors
+bridged with `[\s\S]{0,200}?` (now the literal text they spanned, with a control against
+recurrence), a capture server hardcoded to one absolute path, and a mutant runner that wrote into
+the tree it mutated and broke its seal.
 
 ## 4. What has been completed
 
@@ -165,20 +163,21 @@ Custodian and Second Reader. **No AI may hold those roles** (IR §13 step 4, "Hu
 
 ## 8. Latest assurance results
 
-Frozen tree `c0dc9c85e221bd2e7b4406b66b75469e97c0eb1e`, 29 September 2026.
+Frozen tree `c5efa61cffc780ee32155090ad354f78ecd0a562`, 30 September 2026.
 
 | Layer | Result |
 |---|---|
 | Typecheck / build | clean |
-| Tests | **95 passing**, across **17 rules** and **241** reasoned allow entries |
-| **Measured reach** | **6 of 15** ordinary phrasings caught — read this next to the mutant score |
-| Mutants | **119 of 119 killed, 0 invalid, 0 survived**, against a proved-green baseline |
-| DOM / browser | **65 routes** (list now derived from `src/App.tsx`), **0 problems, 0 missing required**, 232 allowed hits |
-| DOM blind spot | **248 claim-class hits across 14 equipment routes**, declared, counted, printed |
-| Independent rescan | **883 rows, 212 removed, 671 remaining** |
-| Seals | `phase2c` **31/31 OK**; `phase2b` **16/16 OK** |
-| Freeze reproducibility | `origin/main` + `containment.patch` → `c0dc9c85…`, verified in a throwaway worktree |
-| Corpus reproducibility | **new** — the capture scripts and route lists are in `proof/`, with `proof/CAPTURE.md`. The corpus was previously unreproducible and was lost when a scratch directory was cleaned |
+| Tests | **96 passing** across 17 rules |
+| **Measured reach** | **6 of 15** ordinary phrasings caught — the figure D3 exists to address |
+| Mutants | **125 of 125 killed, 0 invalid, 0 survived**, against a proved-green baseline |
+| DOM / browser | **65 routes**, **0 problems, 0 missing required**, 223 allowed hits |
+| DOM blind spot | **243 claim-class hits across 14 equipment routes**, declared, counted, printed |
+| Not captured | the **prompt modal** — the probe cannot open it headlessly and now fails loudly rather than emitting a duplicate |
+| Independent rescan | **885 rows, 220 removed, 665 remaining** |
+| Seals | `phase2c` **31/31 OK**, 0 files unsealed; `phase2b` **16/16 OK** |
+| Freeze | reproduces from `origin/main` + `containment.patch`; 0 commits ahead; no `refs/replace` |
+| Preservation | Phase 2A `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` unchanged |
 
 ## 9. Current blockers
 
