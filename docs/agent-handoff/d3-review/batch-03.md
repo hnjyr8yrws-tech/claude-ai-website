@@ -17,11 +17,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This is guidance about applying external DfE guidance, not a claim that GetPromptly has approved a tool.
 
 ---
 
@@ -38,11 +38,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This is a factual statement about wording that has been withdrawn and supports containment rather than asserting a new approval.
 
 ---
 
@@ -59,11 +59,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This is the approved distinction in the governance pack: use “KCSIE-aware”, never “KCSIE compliant”, for third-party tools.
 
 ---
 
@@ -80,11 +80,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B census; the Review Basis field (empty for every row).
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace “review queue” with neutral wording such as “research queue” or “assessment queue” until the governed review process is operating.
 
 ---
 
@@ -101,11 +101,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B census; the Review Basis field (empty for every row).
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Change to describe methodology design rather than current practice, e.g. “This is our living methodology: how the framework is intended to assess tools, how scores may change, and the integrity record.”
 
 ---
 
@@ -122,11 +122,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B census; the Review Basis field (empty for every row).
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Change from a current-practice claim to methodology design, e.g. “The methodology is designed to assess tools against UK GDPR as enforced by the ICO…”
 
 ---
 
@@ -143,11 +143,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B census; the Review Basis field (empty for every row).
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Describe intended meaning rather than current verification, e.g. “The Promptly Score is intended to reflect what can be verified about a tool against the five pillars.”
 
 ---
 
@@ -164,11 +164,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B census; the Review Basis field (empty for every row).
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `REMOVE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove the unsupported “independently assessed” claim. Replace with a neutral inventory statement such as “58 SEND equipment products listed…”
 
 ---
 
@@ -185,11 +185,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This describes the fail-closed receipt rule and explicitly states that no receipt is issued until methodology version, verification date and reviewer are actually recorded.
 
 ---
 
@@ -206,11 +206,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the methodology design intent but remove the implication that this recurring review practice is currently operating. Phrase as what a governed review would record/publish, not what is currently done.
 
 ---
 
@@ -227,11 +227,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the integrity-record concept but remove “reviewer for each” unless a genuine per-item reviewer is recorded.
 
 ---
 
@@ -248,11 +248,20 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `REMOVE`
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove the current factual claim that each pillar is scored by a named reviewer. Reviewer attribution is not stored per tool.
 
 ---
 
+
+
+---
+
+## Founder adjudication
+
+**Approved by Founder:** 30 September 2026
+
+Batch 03 decisions above are approved as the human D3 adjudication for this batch. Claude should apply CHANGE and REMOVE decisions as containment edits, preserve KEEP as adjudicated, and not reinterpret these decisions without returning them for human adjudication.
