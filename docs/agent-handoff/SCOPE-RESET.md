@@ -15,7 +15,7 @@ contains.
 |---|---|---|
 | 1 | Treat Equipment / Prompts / affiliate as removal scope | done |
 | 2 | Precise removal map before deleting anything | done — `phase2d/SCOPE-REDUCTION-MAP.md`, written first |
-| 3 | One controlled scope-reduction pass, preserving evidence | done for the main app; **one step BLOCKED** in the `getpromptly/` mirror — see §10.5 |
+| 3 | One controlled scope-reduction pass, preserving evidence | **done**, main app and the `getpromptly/` mirror — see §7 |
 | 4 | Remove affiliate links and selection logic from retained surfaces | done, including the Training HOLD surfaces (links only) |
 | 5 | Leave Training unchanged as HOLD | done — no content, order, pricing or copy change; only its affiliate links removed |
 | 6 | Re-run the full proof, reseal, freeze the retained candidate | **done** — 96/96 tests, 115/125 mutants killed (10 retired, 0 survived), 42 DOM routes 0 problems, `phase2c` re-sealed 31/31, frozen tree `0212b7e426658cad8b209d72f596dd1c7118f69a` reproduces from `origin/main` + patch |
@@ -92,3 +92,48 @@ bytes. Re-measuring it is on the list, after D3.
 Nothing here makes a claim about a tool more supportable. `GOV-GAP-001` and `GOV-GAP-002` are
 unchanged, calibration is still blocked, and **RL-017 trigger 7 still blocks shipping**. Removing a
 page is not evidence about a score.
+
+## 7. The `getpromptly/` mirror app — done, on your instruction
+
+`getpromptly/` is a second application in this repository (Next.js) with its own prompts
+experience. The removal map did not enumerate it, treating it as a single CSV. That is the map's
+largest single gap.
+
+Four of its prompt files went with the main removal. Five were left, which put the mirror in a
+**broken half-state**: its prompts route imported a deleted component and still carried the title
+*"600+ AI Prompts for UK Schools"*. Deleting those five was attempted twice and **refused both
+times by the execution environment as irreversible local destruction**. Rather than work around the
+refusal, the files were preserved with hashes and the half-state was recorded as an unfinished step
+rather than frozen as an intended outcome.
+
+**You said "Delete them". They are deleted.**
+
+| Removed | What it was |
+|---|---|
+| `src/app/(marketing)/prompts/` | the prompts route, importing a deleted component, titled *"600+ AI Prompts for UK Schools"* |
+| `src/lib/prompts-data.ts` | read the deleted CSV |
+| `src/lib/taxonomy.ts` | the prompt category taxonomy; its only consumer was the prompt corpus |
+| `src/hooks/useLead.ts` | unlocked "all FREE prompts here"; nothing imported it |
+| `scripts/audit-prompt-categories.mjs` | the `prebuild` gate auditing prompt categories against the deleted CSV |
+
+Also removed: the two `package.json` scripts that invoked that gate. The file is still valid JSON,
+and a sweep of `getpromptly/` now finds no reference to any deleted module and no occurrence of
+"prompt" outside the brand name.
+
+Preserved copies stay in `phase2d/removed-product-data/getpromptly-mirror-pending/`, 5/5 hashes
+verified. The directory keeps its "pending" name deliberately: renaming it would invalidate the
+hashes recorded against that path and erase the fact that these files sat blocked for part of the
+round.
+
+**No step of the nine-step direction is now outstanding.**
+
+## 8. One defect in this document, recorded rather than quietly fixed
+
+The version of this file pushed earlier today contained a pointer to "§10.5" — a section it did not
+have. The script that was supposed to append that section carried a guard that skipped the append,
+and **printed its success message outside the guard**, so it reported adding a section it had not
+added. Nothing verified the claim afterwards.
+
+That is the same shape as every other defect in this programme's record: a report that was true of
+what it was written for and false of what it actually did. The fix is in §7 above; the script now
+asserts the text is present after writing, instead of announcing that it is.

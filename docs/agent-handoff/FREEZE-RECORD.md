@@ -9,8 +9,8 @@ branch, outside the containment worktree.
 
 | | |
 |---|---|
-| **Frozen tree** | `0212b7e426658cad8b209d72f596dd1c7118f69a` |
-| **Patch** | `containment-r24.patch`, SHA-256 `76fd3c6c031a20c6198f0e09041564fbd58d5b20387c1fd74deef7e2b0d6fa04` |
+| **Frozen tree** | `2a7ab83e774632e99a327d575427dd4521b27e7b` |
+| **Patch** | `containment-r24b.patch`, SHA-256 `329a1ac055797d0dddb5bd7f3e758fd2037e1374cef94fb6ff3c2104dbafd06d` |
 | Reproduction | verified: a clean worktree at `origin/main` + the patch yields the frozen tree **exactly** |
 | `refs/replace` | none |
 | `phase2c` seal | **31/31 OK**, 0 unsealed, rebuilt from the directory listing |
@@ -40,7 +40,7 @@ from its affiliate links).
 cd ~/Sites/claude-ai-website-kcsie-containment
 GIT_INDEX_FILE=/tmp/idx git read-tree 51d56c818fda9a6cde59c05e3b368896ecc7c2ab   # the MERGE BASE, never HEAD
 GIT_INDEX_FILE=/tmp/idx git add -A . 2>/dev/null
-GIT_INDEX_FILE=/tmp/idx git write-tree          # → 0212b7e426658cad8b209d72f596dd1c7118f69a
+GIT_INDEX_FILE=/tmp/idx git write-tree          # → 2a7ab83e774632e99a327d575427dd4521b27e7b
 git rev-list --count origin/main..HEAD          # → 0
 git for-each-ref refs/replace                   # → empty
 ```
@@ -56,12 +56,18 @@ worktree's `.git` is a *gitfile* pointing into the real repository, so a copy ca
 access to the real branch — that is how commit `0ea0b24` (author `r <r@r.local>`) landed on the
 containment branch on 23 September.
 
-## One thing in this tree is knowingly unfinished
+## The mirror-app removal, completed after the first freeze
 
-The `getpromptly/` mirror app is in a **partially removed** state: four prompt components and its
-CSV are deleted, but five prompt paths remain, one of which imports a deleted component and still
-carries the title *"600+ AI Prompts for UK Schools"*. Deleting them was refused twice by the
-execution environment as irreversible local destruction. The files are preserved with hashes in
-`phase2d/removed-product-data/getpromptly-mirror-pending/`. The mirror is not part of the root
-build, so no figure above is affected — but this tree should not be read as a finished scope
-reduction. See `SCOPE-RESET.md` §10.5.
+The first round-24 freeze (`0212b7e426658cad8b209d72f596dd1c7118f69a`) carried the `getpromptly/`
+mirror app in a **partially removed** state: four prompt files gone, five remaining, one of them
+importing a deleted component and still titled *"600+ AI Prompts for UK Schools"*. Deleting them
+had been refused twice by the execution environment as irreversible local destruction, so the
+half-state was recorded as unfinished rather than presented as intended.
+
+The Founder then instructed **"Delete them"**. The deletion was carried out, the full proof re-run,
+`phase2c` re-sealed and the candidate re-frozen — which is why this record names
+`2a7ab83e774632e99a327d575427dd4521b27e7b` and not the earlier hash. The preserved copies remain in
+`phase2d/removed-product-data/getpromptly-mirror-pending/`, 5/5 hashes verified.
+
+**Nothing in this tree is now knowingly unfinished.** The open items are governance decisions, not
+engineering work: see `DECISIONS-NEEDED.md`.

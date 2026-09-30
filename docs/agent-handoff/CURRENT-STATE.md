@@ -58,8 +58,9 @@ Tools stay listed; scores are held, not published.
 Equipment, the Prompts library and all affiliate links are removed from product scope; Training is
 untouched and on HOLD apart from its affiliate links; **109 tracked files changed, +938 / -15,870**
 against `origin/main`; the removed data is preserved as hashed evidence, not deleted.
-**One step is blocked** and needs your decision — see `SCOPE-RESET.md` §10.5 on the `getpromptly/`
-mirror app.
+The `getpromptly/` mirror app's last five prompt paths were blocked by the execution
+environment and **deleted on the Founder's instruction of 30 September**; no step of the
+nine-step direction is outstanding (`SCOPE-RESET.md` §7).
 
 ---
 
@@ -79,7 +80,7 @@ is carried over from the pre-reduction pack.
 | Independent rescan | **858 rows, 530 removed in candidate, 328 remaining** by class. Three prompt-CSV metrics now report `RETIRED`, never `0` — absent is not zero |
 | Measured reach | **WITHDRAWN.** The 6-of-15 figure was taken on the old, larger corpus and is not carried forward. Re-measure after D3 |
 | Seals | `phase2c` **31/31 OK**, 0 files unsealed, re-sealed from the directory listing; `phase2b` **16/16 OK** |
-| Freeze | tree **`0212b7e426658cad8b209d72f596dd1c7118f69a`**; reproduces from `origin/main` + `containment-r24.patch` (SHA-256 `76fd3c6c…b0d6fa04`) in a clean worktree; 0 commits ahead; no `refs/replace` |
+| Freeze | tree **`2a7ab83e774632e99a327d575427dd4521b27e7b`**; reproduces from `origin/main` + `containment-r24b.patch` (SHA-256 `329a1ac0…dbafd06d`) in a clean worktree; 0 commits ahead; no `refs/replace` |
 | Preservation | Phase 2A `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` unchanged |
 
 **Mutant pack:** 125 mutants — **115 killed, 10 retired, 0 survived, 0 invalid**, against a
@@ -166,8 +167,8 @@ Custodian and Second Reader. **No AI may hold those roles** (IR §13 step 4).
 ## 8. Exact next action
 
 1. **~~Freeze the round-24 candidate~~ — DONE.** Frozen tree
-   **`0212b7e426658cad8b209d72f596dd1c7118f69a`**, patch SHA-256
-   `76fd3c6c031a20c6198f0e09041564fbd58d5b20387c1fd74deef7e2b0d6fa04`. Verified by application: a
+   **`2a7ab83e774632e99a327d575427dd4521b27e7b`**, patch SHA-256
+   `329a1ac055797d0dddb5bd7f3e758fd2037e1374cef94fb6ff3c2104dbafd06d`. Verified by application: a
    clean worktree at `origin/main` plus the patch reproduces that tree exactly. 0 commits ahead;
    no `refs/replace`.
 2. **Dispatch a fresh-Opus review of the round-24 tree.** Every round so far has returned NOT
