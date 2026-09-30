@@ -131,3 +131,17 @@ Do not continue expanding the lexical harness as a substitute for D3. D3 is now 
 Continue all routine engineering autonomously. Interrupt the Founder only for the actual human adjudication required by D3 or another governance decision explicitly reserved to humans.
 
 The already-confirmed equipment independence/paid-placement claim must be corrected before the D3 freeze.
+
+
+### 2026-09-30 — Product scope reset
+
+> "AI Equipment and prompts will be removed. Any affiliate links will also be removed. We are focusing more on tool reviews and Safe Mode. Training is undecided for now."
+
+Founder direction:
+- Remove the AI Equipment / equipment product experience from the product scope.
+- Remove the Prompts / prompt-pack experience from the product scope.
+- Remove affiliate links and affiliate-driven commercial selection from the product.
+- Refocus the retained product around AI tool discovery/reviews and GetPromptly Safe Mode.
+- Training is NOT decided. Do not expand, merge, delete, or redesign training as a strategic commitment until the Founder makes that decision.
+- Do not spend further assurance effort polishing claims on surfaces that are now explicitly slated for removal. Record them as removal scope and focus D3 on retained surfaces.
+- Any existing D3 claim whose only surface is Equipment, Prompts, or affiliate-driven copy may be adjudicated as REMOVE because the underlying surface is being removed.
