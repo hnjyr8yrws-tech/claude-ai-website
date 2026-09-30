@@ -5,12 +5,16 @@ say, for each one, whether it can stand. Nothing else. You will not need to open
 file, or reconstruct any evidence — every claim is quoted as a visitor sees it, with a note on why it
 is flagged and what it should be checked against.
 
-**Why it is you and not the harness.** The automated scan's measured reach is **6 of 15**: of fifteen
-ordinary British phrasings of a review-practice claim planted on `/tools`, it catches six. In round
-21 a reviewer who simply read the site found **nine live false claims in the shipped bundle** that
-twenty-one rounds of pattern work had missed — including `/methodology` telling schools that ten
-tools were *"re-reviewed against the current safeguarding criteria"* two sections below its own
-notice that those criteria are unsettled. This control exists because pattern matching cannot do it.
+**Why it is you and not the harness.** In round 21 a reviewer who simply read the site found **nine
+live false claims in the shipped bundle** that twenty rounds of pattern work had missed — including
+`/methodology` telling schools that ten tools were *"re-reviewed against the current safeguarding
+criteria"* two sections below its own notice that those criteria are unsettled. This control exists
+because pattern matching cannot do it.
+
+The automated scan's reach was last measured at 6 of 15 ordinary phrasings — but that was on the
+**pre-reduction** corpus, and it is **not** quoted as current here. Reach is a property of the whole
+scanned tree, and the tree lost a quarter of its files on 30 September. It will be re-measured after
+this review.
 
 ---
 
@@ -26,18 +30,32 @@ For each claim, write one:
 | **NEEDS EVIDENCE** | Might be true | Name the evidence that would settle it and who holds it |
 
 **Being listed is not an accusation.** Recall was deliberately favoured over precision: a claim
-wrongly surfaced costs you one KEEP; a claim missed is the failure this control exists to catch. Most
-of Tier 2 will be KEEP.
+wrongly surfaced costs you one KEEP; a claim missed is the failure this control exists to catch.
+
+---
+
+## What you have already decided
+
+**27 items arrive pre-filled** with your answers from the first pack, each marked with the date and
+the batch it came from. You need not touch them. Two of them merge a pair of your earlier
+decisions; where those agreed the answer is carried, and **where they differed nothing has been
+chosen for you** — the item asks you to confirm which applies.
+
+A further **19** of your earlier decisions are recorded as **resolved by removal**: their surfaces
+left product scope on 30 September, so the claim no longer exists and is not put back to you.
+`CARRIED-FORWARD.md` lists all 48 and says which of the three things happened to each.
+
+**That leaves 92 open.**
 
 ---
 
 ## Where to start, and how far to go
 
-**Tier 1 — batches 01 to 08, 96 claims.** Safety and approval assertions, review practices, named
-reviewers, cadences, universal coverage claims, independence claims. These are the ones where a
-wrong claim changes what a school decides. **If you do nothing else, do these.**
+**Tier 1 — batches 01 to 05.** Safety and approval assertions, review practices, named reviewers,
+cadences, universal coverage claims, independence claims. These are the ones where a wrong claim
+changes what a school decides. **If you do nothing else, do these.**
 
-**Tier 2 — the rest.** Descriptive copy about the score system, KCSIE references, and the
+**Tier 2 — batches 06 to 10.** Descriptive copy about the score system, KCSIE references, and the
 containment's own holding statements. Worth reading — the holding statements are GetPromptly
 speaking about its own limits, and their wording matters — but a wrong one here misleads far less.
 
@@ -69,15 +87,20 @@ You will see these cited repeatedly. In plain terms:
 - **KEEP** is recorded as adjudicated, which is what closes D3 — the point is a human decision on
   each surface, not the absence of findings.
 
-Your decisions are recorded in the containment record as the D3 adjudication, with the frozen tree
-hash they were made against, so it is always clear which bytes were reviewed.
+Your decisions are recorded in the containment record as the D3 adjudication, against frozen tree
+`0212b7e426658cad8b209d72f596dd1c7118f69a`, so it is always clear which bytes were reviewed.
 
 ---
 
-## One thing this pack does not cover
+## What this pack covers, and what it does not
 
-The **prompt modal** (the panel that opens when you click a prompt, containing the paywall copy) is
-not in the captured corpus: the capture probe cannot open it headlessly, and rather than pretend
-otherwise the probe now fails loudly. Its copy — *"£5.99/month unlocks the full prompt library"* —
-has already been corrected from *"500+ reviewed prompts"*, but the surface as a whole has not been
-read. It is listed in the pack index as an uncovered surface for that reason.
+**Covers** all 41 rendered surfaces of the retained product: every public route, plus the Luna panel
+opened on seven of them and the lead-capture modal on two. The prompt modal — the one surface no DOM
+figure ever covered, because the probe could not open it headlessly — **no longer exists**: the
+component was deleted on 30 September. That gap closed by removal, not by proof.
+
+**Does not cover** the one developer route (`/dev/trust`), which is not public, and **Luna's live
+answers**. Luna's grounding lives in n8n, outside this repository. Round 24 rewrote the grounding
+sources here, but nothing reaches a visitor until someone deploys them. The starter questions and
+panel copy in this pack are what the page renders; the answers Luna actually gives are not in scope
+for this review and have their own open decision (D5).

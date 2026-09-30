@@ -3,7 +3,7 @@
 **Scope of this file.** Genuine CR / CD / Founder decisions only — matters an agent may not settle.
 Routine engineering work belongs in `CURRENT-STATE.md` §5 and must not be added here.
 
-**Last reviewed:** 24 September 2026
+**Last reviewed:** 30 September 2026 (round 24 — product scope reduction)
 
 **Authority note.** Under RL-017 (Standing Delegation Rule), CR owns editorial and methodology; CD
 owns schema and platform. Any change to scoring logic, or to evidence and verification rules,
@@ -16,7 +16,13 @@ Decisions are listed in the order they block work.
 
 ## D0 — Schedule Phase 2B decision **D3**: a human read of every rendered surface
 
-**Status:** RESOLVED — Founder scheduled D3 on 29 September 2026. Claude should repair the confirmed live claims and Round 21 control defects, freeze the candidate again, then prepare and run the human rendered-surface review pack in manageable batches. Do not ask the Founder to re-decide whether D3 is needed.
+**Status:** RESOLVED and **in progress**. The Founder scheduled D3 on 29 September 2026 and
+adjudicated batches 01-04 of the first pack (48 decisions). The 30 September scope reset then
+removed several of the surfaces those decisions were made on, so the pack was regenerated from
+the retained surfaces only: **119 claims, 10 batches, 27 items pre-filled with your earlier
+answers, 19 of your decisions resolved by removal, 92 open.** See `d3-review/CARRIED-FORWARD.md`.
+Do not ask the Founder to re-decide whether D3 is needed, and do not ask them to re-adjudicate a
+claim they have already answered or a surface that no longer exists.
 
 **What D3 is.** Phase 2B recorded it as the designated completeness control: a human reads every
 rendered surface and adjudicates the claims on it. It is not a harness run and cannot be delegated
@@ -199,42 +205,39 @@ separately dated.
 
 ---
 
-## D7 — Ratify how the §2 equipment blind spot is expressed
+## D7 — The §2 equipment blind spot no longer has a subject. Should §2 be restated?
 
-**Status:** the implementation now matches §2's own wording. What needs ratifying is narrower than
-it was, and the question has changed since this entry was first written.
+**Status:** the question has changed. It is no longer "which form does the exclusion take" — the
+exclusion now excludes nothing, because the surfaces it covered have left product scope.
 
-**What §2 says.** The declared blind spot is equipment **provenance** — a statement about what was
-audited, not a licence for claim language on those pages.
+**What changed.** On 30 September 2026 you directed that AI Equipment be removed from product
+scope. Every equipment route, page and data file is gone from the working tree. The declared blind
+spot therefore measures **0 claim-class hits across 0 routes**.
 
-**What the code did, and does now.**
+**What the code does now.** The counter is kept, not deleted, and the DOM transcript prints in
+words that the blind spot is *"empty because the surface no longer exists, not because it was
+cleared"*. If an equipment route ever returns to the corpus, it starts counting again. The
+subject-shaped allow entries themselves were removed as dead — the harness's own dead-allow control
+named all eighteen of them, which is how the change was caught rather than assumed.
 
-| Round | Implementation | Consequence |
-|---|---|---|
-| ≤15 | skipped equipment by *class* regex | also hid five files containing nothing, so a claim added to any of them would ship unseen |
-| 17 | enumerated file list | removed the dead names, but still whole-FILE |
-| 19 | **subject-shaped**: the files are scanned; a match is exempt only when its own sentence is about equipment | a claim about **AI tools** on an equipment page is now caught |
+**The decision left for you.** §2 of the containment record is a recorded governance disposition
+that declares an audit exclusion. That exclusion now has no subject. Either:
 
-The round-19 change was made because a round-18 reviewer showed the file-shaped form left a real
-hole: §2 declares the exclusion by subject and the code applied it by file, so a Promptly-Score
-claim about a tool, placed on an equipment page, was invisible to **both** harnesses. Re-shaping it
-immediately surfaced two lines no rule had ever examined — neither a live claim (one carries its
-qualifier in the following sentence, one is a shortlist cadence), both now named.
+- **Restate §2** to record that the exclusion lapsed with the surface, dated, so a future reader
+  cannot mistake an empty blind spot for a cleared one; or
+- **Leave §2 as written**, as the historical disposition it was, with the transcript and the
+  containment record §27 carrying the explanation instead.
 
-**Evidence to decide:** containment-record §2 and §§22.3, 24.5; the subject allow in
-`src/test/kcsieContainment.test.tsx`; mutant **M107**, which plants a tool-score claim on an
-equipment page and is killed. A round-18 reviewer independently examined every hit the exclusion
-still hides and found all of them genuinely equipment-provenance.
+**Evidence to decide:** containment-record §2, §§22.3, 24.5 and the new §27.2; the round-24 DOM
+transcript line; `phase2d/SCOPE-REDUCTION-MAP.md`.
 
-**If ratified:** §2 is restated to say explicitly that the exclusion is by subject, and the wording
-and the code agree on the record.
+**Why this is still a Founder/CR matter and not engineering:** an agent must not restate a recorded
+governance disposition, even to make it more accurate. **This has not been decided and I have not
+decided it.**
 
-**If not:** say which form §2 intends. Reverting to a file or class exclusion restores the hole
-knowingly, and that should be recorded as a decision rather than left implicit.
-
-**Why this is still a Founder/CR matter and not engineering:** narrowing an exclusion can only
-cause the harness to look at more, never to contain less — but §2 is a recorded governance
-disposition, and an agent should not restate one.
+**What does *not* need deciding:** mutant **M107**, which planted a tool-score claim on an
+equipment page, is retired with that page. That is a mechanical consequence of the removal and is
+recorded in the pack, not a governance question.
 
 ## Not decisions — do not migrate these here
 

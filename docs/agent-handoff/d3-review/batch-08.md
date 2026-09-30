@@ -1,21 +1,26 @@
-# D3 review — batch 08 of 34
+# D3 review — batch 08 of 10
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
 ---
 
-### 08.1 — Independence / commercial
+### 08.1 — Score / rating shown
 
-**Appears on 1 surface:** `/ai-equipment/parents`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
+**39 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
 
 **Claim, as rendered:**
 
-> Best for: Independent reading, adjustable fonts, reading streaks Amazon Available SEND Friendly £50–150 View → View all SEND equipment → Recommended bundles Ready-made Home Learning Sets Bundle · £150–500 Dyslexia Starter Kit Essential literacy tools for dyslexic learners A curated set of the most trusted UK tools for dyslexic learners — from reading pens to overlays and ergonomic writing aids.
+> Ask Luna → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Co:Writer AI word prediction and speech-to-text tool that supports struggling writers.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+**The most different of the 39:**
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+> ask luna promptly score data privacy safeguarding age suitability transparency accessibility plickers paper card classroom polling students hold printed cards teacher scans the room with a phone
+
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -25,18 +30,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.2 — Independence / commercial
+### 08.2 — Score / rating shown
 
-**Appears on 1 surface:** `/ai-equipment/students`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
 
 **Claim, as rendered:**
 
-> Best for: Independent reading, adjustable fonts, reading streaks Amazon Available SEND Friendly £50–150 View → Devices Needs Review ASUS Chromebook Detachable CM3 ASUS Detachable 2-in-1 Chromebook with USI stylus support — flexible for various learning styles.
+> Leader Parent Student 🔍 Showing 241 of 241 tools — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility —
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -46,18 +52,23 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.3 — Independence / commercial
+### 08.3 — Score / rating shown
 
-**Appears on 1 surface:** `/equipment-legacy`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
+**10 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
 
 **Claim, as rendered:**
 
-> Best for: Independent reading, adjustable fonts, reading streaks Amazon Available SEND Friendly Equipment scoring in progress £50–150 Amazon + Compare View → Devices Needs Review ASUS Chromebook Detachable CM3 ASUS Detachable 2-in-1 Chromebook with USI stylus support — flexible for various learning styles.
+> Read the listing → Download → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — TouchChat Symbol and text-based AAC app for augmentative communication on iPad and iPhone.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+**The most different of the 10:**
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+> read the listing download promptly score data privacy safeguarding age suitability transparency accessibility sunsama ai daily planner that helps students with adhd and ef challenges structure their t
+
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -67,18 +78,23 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.4 — Independence / commercial
+### 08.4 — Score / rating shown
 
-**Appears on 1 surface:** `/who-we-are`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
+**54 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
 
 **Claim, as rendered:**
 
-> Browse AI tools → 96 products curated Equipment Classroom technology, SEND assistive tech, coding robots, AAC devices and home learning hardware, independently listed for UK education.
+> Read the listing → Start free trial → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Kahoot!
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+**The most different of the 54:**
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+> read the listing start free trial promptly score data privacy safeguarding age suitability transparency accessibility twee ai tool for language teachers to create reading texts gap fills quizzes and d
+
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -88,18 +104,23 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.5 — Independence / commercial
+### 08.5 — Score / rating shown
 
-**Appears on 1 surface:** `/who-we-are`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
+**17 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
 
 **Claim, as rendered:**
 
-> Every week brings new products, new use cases and new risks — but very few independent voices explaining what any of it actually means for a classroom teacher, a SENCO, a school leader or a parent.
+> Read the listing → Try demo → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Kooth Free NHS-backed online mental wellbeing platform for young people in England.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+**The most different of the 17:**
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+> read the listing try demo promptly score data privacy safeguarding age suitability transparency accessibility notebooklm google s ai notebook that answers questions from your own uploaded documents an
+
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -109,18 +130,23 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.6 — Independence / commercial
+### 08.6 — Score / rating shown
 
-**Appears on 1 surface:** `/prompts/library`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
+**119 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
 
 **Claim, as rendered:**
 
-> Free Preview 10 prompts All SEN Parents Students View Pack → Copy Pack 28 Study Skills & Executive Function Building Independent Study Skills for SEN Students Gentle prompts that help students with SEN gradually build independence in planning and completing study tasks for GCSE and A-Level.
+> Read the listing → View official page → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Curipod Create interactive AI lessons with polls, word clouds and open questions.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+**The most different of the 119:**
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+> read the listing view official page promptly score data privacy safeguarding age suitability transparency accessibility modmath digital graph paper app for students who struggle to write maths neatly 
+
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -130,18 +156,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.7 — Independence / commercial
+### 08.7 — Score / rating shown
 
 **Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> GetPromptly is independent.
+> It is the weighted average of the five pillar scores — never an average of opinion, and never paid for.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -151,39 +178,41 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.8 — Independence / commercial
+### 08.8 — Score / rating shown
+
+**Appears on 1 surface:** `/tools/photomath`
+
+
+**Claim, as rendered:**
+
+> Its previous Promptly Score and pillar breakdown have been removed while it is re-assessed.
+
+
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 08.9 — Score / rating shown
 
 **Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> Never for sale Independent by design How a tool is ranked in a directory and how it is scored for trust are kept completely separate.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 08.9 — Independence / commercial
-
-**Appears on 1 surface:** `/who-we-are`
+> The Promptly Score assesses AI tools against five pillars.
 
 
-**Claim, as rendered:**
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
 
-> No sponsored rankings, no paid placements. 04 Explain We write honest, practical content that anyone — teacher, parent or leader — can act on without needing a technology background. 05 Guide Our 24/7 AI agents deliver personalised recommendations in real time, trained on our full database of tools, training, equipment and prompts.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -193,18 +222,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.10 — Independence / commercial
+### 08.10 — Score / rating shown
 
-**Appears on 1 surface:** `/who-we-are`
+**Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> One platform. 240+ tools listed AI Tools Major AI tools assessed on five published trust pillars, with independent editorial.
+> The bands describe readiness for a UK school — not a grade for the product in the abstract. 9.0 – 10 Promptly Recommended Strong across every pillar, with safeguarding and data privacy both robust.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -214,18 +244,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.11 — Independence / commercial
+### 08.11 — Score / rating shown
 
-**Appears on 1 surface:** `/who-we-are`
+**Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> We are the only UK EdTech advisory platform with live 24/7 AI agents embedded throughout the site — combining independent human expertise with real-time guidance.
+> The composite How a Promptly Score is built The Promptly Score is a single number from 0 to 10 that summarises how ready an AI tool is for UK education.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -235,18 +266,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 08.12 — Independence / commercial
+### 08.12 — Score / rating shown
 
-**Appears on 1 surface:** `/who-we-are`
+**Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> Why trust GetPromptly Independent.
+> The order tools appear in has no bearing on their Promptly Score, and a higher score can never be bought.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
+
+**Check it against:** The trust adapter (all scores suppressed); the containment notice.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 

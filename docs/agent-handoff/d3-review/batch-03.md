@@ -1,267 +1,275 @@
-# D3 review — batch 03 of 34
+# D3 review — batch 03 of 10
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
 ---
 
-### 03.1 — Safety / approval
+### 03.1 — Coverage / universality
+
+**Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
+
+
+**Claim, as rendered:**
+
+> Lesson plans Marking Differentiation CPD See Teacher guidance → Browse the tools directory → Top tools for Teachers 01 MagicSchool 02 Curipod 03 Canva AI View all tools → How it works GetPromptly guides you end to end.
+
+
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
+
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 30 September 2026 (batch-04 item 04.5). Carried forward — no action needed unless you want to revise it.*
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> Keep the navigation wording, but replace “GetPromptly guides you end to end” with something concrete, e.g. “GetPromptly helps you discover tools, understand the evidence available, and find practical guidance for use.”
+
+---
+
+### 03.2 — Coverage / universality
+
+**Appears on 3 surfaces:** `/ai-training`, `/training`, `/training (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> Teachers Parents Students SEND Leaders Admin All Resources Browse all 76 training resources All Free Paid All Teacher SENCO School Leader Parent Student Showing 76 of 76 resources AI Skills Hub UK Government · Free Central UK AI learning hub from government.
+
+
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
+
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** `NEEDS EVIDENCE`  
+*Adjudicated by the Founder on 30 September 2026 (batch-04 item 04.6). Carried forward — no action needed unless you want to revise it.*
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> Verify the current dataset count and that “76 of 76” accurately represents the complete training-resource set.
+
+---
+
+### 03.3 — Coverage / universality
+
+**Appears on 1 surface:** `/ai-training/send`
+
+
+**Claim, as rendered:**
+
+> All resources are free and selected with accessibility in mind.
+
+
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
+
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** `NEEDS EVIDENCE`  
+*Adjudicated by the Founder on 30 September 2026 (batch-04 item 04.10). Carried forward — no action needed unless you want to revise it.*
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> Verify both universal assertions across the full set: that every resource is free and that every resource was selected with accessibility in mind.
+
+---
+
+### 03.4 — Coverage / universality
 
 **Appears on 1 surface:** `/ai-training/teachers`
 
 
 **Claim, as rendered:**
 
-> Learn how to set expectations with pupils and apply the DfE's guidance on safe AI use.
+> All resources are practical and aligned to UK Department for Education guidance.
 
-**Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Decision:** `KEEP`
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** `REMOVE`  
+*Adjudicated by the Founder on 30 September 2026 (batch-04 item 04.11). Carried forward — no action needed unless you want to revise it.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep as written. This is guidance about applying external DfE guidance, not a claim that GetPromptly has approved a tool.
+> Remove the blanket claim that all resources are aligned to UK Department for Education guidance unless every resource has been checked against current guidance. If desired, replace with softer wording such as “Resources chosen for relevance to UK education.”
 
 ---
 
-### 03.2 — Safety / approval
+### 03.5 — Coverage / universality
 
-**Appears on 1 surface:** `/methodology`
+**Appears on 1 surface:** `/ai-training/students`
 
 
 **Claim, as rendered:**
 
-> The band descriptions no longer say “Safe to adopt with normal due diligence” or “Adopt with a light policy check”.
+> All £30–£200 Visit → All Student Resources Every resource for students (17) AI Foundations & Literacy Free OpenLearn AI Open University UK university-backed AI introduction with digital badge.
 
-**Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Decision:** `KEEP`
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** `NEEDS EVIDENCE`  
+*Adjudicated by the Founder on 30 September 2026 (batch-04 item 04.12). Carried forward — no action needed unless you want to revise it.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep as written. This is a factual statement about wording that has been withdrawn and supports containment rather than asserting a new approval.
+> Verify that 17 is the current count and that this page genuinely represents the complete student-resource set.
 
 ---
 
-### 03.3 — Safety / approval
+### 03.6 — Coverage / universality
 
-**Appears on 1 surface:** `/safety-methodology`
+**Appears on 1 surface:** `/ai-training/teachers`
 
 
 **Claim, as rendered:**
 
-> We say "KCSIE-aware", never "KCSIE compliant", of a third-party tool.
+> Visit → All Teacher Resources Every resource tagged for teachers Leadership & Strategy Free DfE AI in Education Guidance GOV.UK Official DfE guidance on safe generative AI use in schools.
 
-**Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Decision:** `KEEP`
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep as written. This is the approved distinction in the governance pack: use “KCSIE-aware”, never “KCSIE compliant”, for third-party tools.
+> 
 
 ---
 
-### 03.4 — Review practice
+### 03.7 — Independence / commercial
 
-**Appears on 1 surface:** `/safety-methodology`
+**Appears on 41 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`, `/admin`, `/ai-training`, `/ai-training/free` and 35 more
 
 
 **Claim, as rendered:**
 
-> If there’s an AI tool being used in UK schools that isn’t yet on GetPromptly, let us know and we’ll add it to the review queue.
+> Teachers School Leaders SENCOs Parents Students Admin Staff Legal Privacy Policy Cookie Policy Contact © 2026 getpromptly.co.uk · All rights reserved · Built by educators, for educators 100% independent · No sponsored content · No paid placements Luna Ask Luna Online · 24/7 L Luna AI Tool Advisor · 24/7 ✕ Hi — I'm Luna.
 
-**Why this is flagged:** Asserts that a review was or is carried out. Phase 2B found the provenance for this does not exist: reviewer initials and methodology version are build constants and 0 of 252 rows record a Review Basis.
 
-**Check it against:** Phase 2B census; the Review Basis field (empty for every row).
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `CHANGE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Replace “review queue” with neutral wording such as “research queue” or “assessment queue” until the governed review process is operating.
+> 
 
 ---
 
-### 03.5 — Review practice
+### 03.8 — Independence / commercial
 
-**Appears on 1 surface:** `/methodology`
+**Appears on 10 surfaces:** `/cookie-policy`, `/legal`, `/methodology`, `/methodology (Ask Luna open)`, `/privacy-policy`, `/tools/brisk-teaching` and 4 more
 
 
 **Claim, as rendered:**
 
-> Living methodology Methodology The living record This is our living methodology: how we review tools, how scores can change, and a full record of integrity actions.
+> GetPromptly The UK's independent resource for AI in education.
 
-**Why this is flagged:** Asserts that a review was or is carried out. Phase 2B found the provenance for this does not exist: reviewer initials and methodology version are build constants and 0 of 252 rows record a Review Basis.
 
-**Check it against:** Phase 2B census; the Review Basis field (empty for every row).
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `CHANGE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Change to describe methodology design rather than current practice, e.g. “This is our living methodology: how the framework is intended to assess tools, how scores may change, and the integrity record.”
+> 
 
 ---
 
-### 03.6 — Review practice
+### 03.9 — Independence / commercial
 
-**Appears on 1 surface:** `/safety-methodology`
+**Appears on 7 surfaces:** `/admin`, `/parents`, `/school-leaders`, `/senco`, `/senco (Ask Luna open)`, `/students` and 1 more
 
 
 **Claim, as rendered:**
 
-> Read DfE AI guidance → UK GDPR & Data Protection Act 2018 Under the methodology, tools are assessed against UK GDPR as enforced by the ICO, with particular attention to Article 8 (children’s data), data residency, and processor agreements.
+> AI Tools Hub Directory AI Training 26 courses GetPromptly The UK's independent resource for AI in education.
 
-**Why this is flagged:** Asserts that a review was or is carried out. Phase 2B found the provenance for this does not exist: reviewer initials and methodology version are build constants and 0 of 252 rows record a Review Basis.
 
-**Check it against:** Phase 2B census; the Review Basis field (empty for every row).
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `CHANGE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Change from a current-practice claim to methodology design, e.g. “The methodology is designed to assess tools against UK GDPR as enforced by the ICO…”
+> 
 
 ---
 
-### 03.7 — Review practice
+### 03.10 — Independence / commercial
 
-**Appears on 1 surface:** `/safety-methodology`
+**Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
 
 
 **Claim, as rendered:**
 
-> Two numbers, not one The score, and how sure we are of it Promptly Score Reflects what we can verify about a tool against the five pillars.
+> AI tools and training for UK education, independently listed.
 
-**Why this is flagged:** Asserts that a review was or is carried out. Phase 2B found the provenance for this does not exist: reviewer initials and methodology version are build constants and 0 of 252 rows record a Review Basis.
 
-**Check it against:** Phase 2B census; the Review Basis field (empty for every row).
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `CHANGE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Describe intended meaning rather than current verification, e.g. “The Promptly Score is intended to reflect what can be verified about a tool against the five pillars.”
+> 
 
 ---
 
-### 03.8 — Review practice
+### 03.11 — Independence / commercial
 
-**Appears on 1 surface:** `/equipment-legacy/send`
+**Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
 
 
 **Claim, as rendered:**
 
-> ← Equipment Hub SEND Assistive Tech SEND Equipment. 58 products independently assessed for special educational needs — from low-tech AAC to sensory regulation tools and hearing supports.
+> Ask Luna Try asking "Help me write a brief for our school's AI policy" "Which tools in the directory hold a UK data processing agreement?" "What should a school check before staff use an AI tool?" Or request a consultation → GetPromptly The UK's independent resource for AI in education.
 
-**Why this is flagged:** Asserts that a review was or is carried out. Phase 2B found the provenance for this does not exist: reviewer initials and methodology version are build constants and 0 of 252 rows record a Review Basis.
 
-**Check it against:** Phase 2B census; the Review Basis field (empty for every row).
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `REMOVE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Remove the unsupported “independently assessed” claim. Replace with a neutral inventory statement such as “58 SEND equipment products listed…”
+> 
 
 ---
 
-### 03.9 — Named reviewer / role
+### 03.12 — Independence / commercial
 
-**Appears on 1 surface:** `/methodology`
+**Appears on 3 surfaces:** `/ai-training`, `/training`, `/training (Ask Luna open)`
 
 
 **Claim, as rendered:**
 
-> A receipt records the methodology version, the verification date and the reviewer of a score, and our own rule refuses to issue one without them — so no receipt is issued until a score carries a recorded review.
-
-**Why this is flagged:** Attributes a review to a named person or role. Reviewer attribution is a build constant, not a record.
-
-**Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
-
-**Decision:** `KEEP`
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Keep as written. This describes the fail-closed receipt rule and explicitly states that no receipt is issued until methodology version, verification date and reviewer are actually recorded.
-
----
-
-### 03.10 — Named reviewer / role
-
-**Appears on 1 surface:** `/safety-methodology`
+> Ask Luna → GetPromptly The UK's independent resource for AI in education.
 
 
-**Claim, as rendered:**
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-> A review under the methodology also records how much evidence it rests on, as a separate Evidence Confidence rating. 6 A score reviewed under the methodology is published with its methodology version, the reviewer and the date it was verified, and is re-checked on any significant product change.
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
 
-**Why this is flagged:** Attributes a review to a named person or role. Reviewer attribution is a build constant, not a record.
-
-**Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
-
-**Decision:** `CHANGE`
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep the methodology design intent but remove the implication that this recurring review practice is currently operating. Phrase as what a governed review would record/publish, not what is currently done.
+> 
 
 ---
 
-### 03.11 — Named reviewer / role
-
-**Appears on 1 surface:** `/methodology`
-
-
-**Claim, as rendered:**
-
-> Live scores carry a v2.2 label but no recorded v2.2 review — see the notice above. v2.0 03 Feb 2026 Moved to the five-pillar model: data privacy, safeguarding, age suitability, transparency, and accessibility. § 02 The record Integrity record Score changes and withdrawals, with the reason and reviewer for each.
-
-**Why this is flagged:** Attributes a review to a named person or role. Reviewer attribution is a build constant, not a record.
-
-**Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
-
-**Decision:** `CHANGE`
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Keep the integrity-record concept but remove “reviewer for each” unless a genuine per-item reviewer is recorded.
-
----
-
-### 03.12 — Named reviewer / role
-
-**Appears on 1 surface:** `/safety-methodology`
-
-
-**Claim, as rendered:**
-
-> The spine The five scoring pillars Under the methodology, each pillar is scored 0–10 by a named reviewer.
-
-**Why this is flagged:** Attributes a review to a named person or role. Reviewer attribution is a build constant, not a record.
-
-**Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
-
-**Decision:** `REMOVE`
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Remove the current factual claim that each pillar is scored by a named reviewer. Reviewer attribution is not stored per tool.
-
----
-
-
-
----
-
-## Founder adjudication
-
-**Approved by Founder:** 30 September 2026
-
-Batch 03 decisions above are approved as the human D3 adjudication for this batch. Claude should apply CHANGE and REMOVE decisions as containment edits, preserve KEEP as adjudicated, and not reinterpret these decisions without returning them for human adjudication.

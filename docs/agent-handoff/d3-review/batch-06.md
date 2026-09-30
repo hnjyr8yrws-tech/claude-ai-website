@@ -1,22 +1,22 @@
-# D3 review — batch 06 of 34
+# D3 review — batch 06 of 10
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
 ---
 
-### 06.1 — Independence / commercial
+### 06.1 — KCSIE / standards basis
 
-**Appears on 3 surfaces:** `/ai-equipment/send`, `/equipment-legacy/send`, `/equipment/send`
+**Appears on 5 surfaces:** `/tools/brisk-teaching`, `/tools/chatgpt`, `/tools/chatgpt (Ask Luna open)`, `/tools/magicschool-ai`, `/tools/photomath`
 
-**2 variants of this wording** (they differ only by the tool, product or prompt named — one decision covers all of them).
 
 **Claim, as rendered:**
 
-> Best for: 3D ball maze for fine motor and focus development DCD/Dyspraxia ADHD Amazon Available Under £50 Amazon View → AAC & Communication SEND Friendly Tobii Dynavox I-13 Eye Gaze AAC Tobii Dynavox Market-leading eye-gaze communication device enabling non-speaking students with motor difficulties to communicate independently.
+> For how KCSIE 2026 affects our methodology, see the dated notice on our methodology page .
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -26,187 +26,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 06.2 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-equipment/send`, `/equipment-legacy/send`, `/equipment/send`
-
-**2 variants of this wording** (they differ only by the tool, product or prompt named — one decision covers all of them).
-
-**Claim, as rendered:**
-
-> Best for: Distraction-free writing device for SEND students Dyslexia ADHD DCD/Dyspraxia UK Specialist SEND Friendly £50–150 View → Games & Cognitive Reviewed SmartGames IQ Stars SmartGames 120-challenge pocket puzzle that builds spatial reasoning and problem-solving skills independently.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.3 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-training`, `/training`, `/training (Ask Luna open)`
-
-
-**Claim, as rendered:**
-
-> Government-backed, independently listed, trust-first. 76 Total resources 57 Completely free 59 UK government-backed 27 Certificate courses Online 24/7 Luna · Learning Pathfinder Tell Luna your role — get a learning path in seconds.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.4 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-equipment`, `/ai-equipment (Ask Luna open)`, `/equipment`
-
-
-**Claim, as rendered:**
-
-> Independent equipment recommendations for UK schools, SEND teams and school leaders.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.5 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-equipment`, `/ai-equipment (Ask Luna open)`, `/equipment`
-
-
-**Claim, as rendered:**
-
-> Kids Amazon Waterproof e-reader with adjustable fonts and a 2-year guarantee — ideal for encouraging independent reading. £50–150 SEND
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.6 — Independence / commercial
-
-**Appears on 3 surfaces:** `/cookie-policy`, `/legal`, `/privacy-policy`
-
-
-**Claim, as rendered:**
-
-> Legal & Policies Transparency & Legal Information GetPromptly is an independent UK education advisory platform.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.7 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-equipment`, `/ai-equipment (Ask Luna open)`, `/equipment`
-
-
-**Claim, as rendered:**
-
-> Logic Puzzles SmartGames IQ Stars SmartGames 120-challenge pocket puzzle that builds spatial reasoning and problem-solving skills independently.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.8 — Independence / commercial
-
-**Appears on 3 surfaces:** `/cookie-policy`, `/legal`, `/privacy-policy`
-
-
-**Claim, as rendered:**
-
-> Our commitment to independence We never accept payment for positive reviews or higher rankings Affiliate relationships have no influence on our safety scores or editorial ratings Our published safety methodology sets out how tools are scored.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.9 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-equipment`, `/ai-equipment (Ask Luna open)`, `/equipment`
-
-
-**Claim, as rendered:**
-
-> Talk your options through with Luna — independent advice, in plain English, with no sales pitch.
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 06.10 — Independence / commercial
+### 06.2 — KCSIE / standards basis
 
 **Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
 
 
 **Claim, as rendered:**
 
-> The methodology is public. — SCORE INTEGRITY RECORD · INDEPENDENT, NEVER FOR SALE Get in touch Request a school consultation Tell us about your school and what you are trying to achieve.
+> Headteachers / SLT SENCOs IT / Digital Leads Business Managers CPD Leads Governors / Trustees Request a Consultation Ask Luna INDEPENDENT · KCSIE-AWARE · NO PAID PLACEMENTS KCSIE-aware UK GDPR-aware 240+ Tools Listed 26 Training Resources No Sponsored Rankings LUNA · SCHOOL ADVISOR Tell Luna your school's challenge — get a recommendation in 30 seconds.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -216,18 +48,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 06.11 — Independence / commercial
+### 06.3 — KCSIE / standards basis
 
-**Appears on 3 surfaces:** `/ai-equipment`, `/ai-equipment (Ask Luna open)`, `/equipment`
+**Appears on 3 surfaces:** `/methodology`, `/methodology (Ask Luna open)`, `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> Tobii Dynavox Market-leading eye-gaze communication device enabling non-speaking students with motor difficulties to communicate independently. £500+ SEND Friendly View product
+> KCSIE 2026 came into force on 1 September 2026.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -237,18 +70,199 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 06.12 — Independence / commercial
+### 06.4 — KCSIE / standards basis
+
+**Appears on 3 surfaces:** `/methodology`, `/methodology (Ask Luna open)`, `/safety-methodology`
+
+**2 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
+
+**Claim, as rendered:**
+
+> Notice · 22 September 2026 Methodology v2.2 was framed against KCSIE 2025.
+
+**The most different of the 2:**
+
+> methodology v2 2 notice 22 september 2026 live scores legacy awaiting re review notice 22 september 2026 methodology v2 2 was framed against kcsie 2025
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.5 — KCSIE / standards basis
+
+**Appears on 3 surfaces:** `/methodology`, `/methodology (Ask Luna open)`, `/safety-methodology`
+
+
+**Claim, as rendered:**
+
+> Promptly is reviewing the methodology changes required for KCSIE 2026.
+
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.6 — KCSIE / standards basis
 
 **Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
 
 
 **Claim, as rendered:**
 
-> Tools, training, equipment and prompts for UK education, independently listed.
+> Safeguarding KCSIE-aware safeguarding, DSL controls and reporting pathways.
 
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.7 — KCSIE / standards basis
+
+**Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
+
+
+**Claim, as rendered:**
+
+> Teacher SENCO School Leader Parent Student Admin Ask Luna → LUNA · GETPROMPTLY AGENT · V2.1 INDEPENDENT · KCSIE-AWARE · NO PAID PLACEMENTS KCSIE-aware UK GDPR-aware 100% Independent No Sponsored Rankings Free to use Start here Which role are you?
+
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.8 — KCSIE / standards basis
+
+**Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
+
+
+**Claim, as rendered:**
+
+> The UK's independent, KCSIE-aware guide to AI in education.
+
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.9 — KCSIE / standards basis
+
+**Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
+
+
+**Claim, as rendered:**
+
+> Tools & AI strategy KCSIE-aware tool shortlists, policy templates, Ofsted preparation Staff training Free and paid CPD pathways for all roles Your name * School / Organisation * Your role * Select your role…
+
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.10 — KCSIE / standards basis
+
+**Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> General references now read “KCSIE-aware”.
+
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.11 — KCSIE / standards basis
+
+**Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> No re-review has been carried out: the methodology changes required for KCSIE 2026 have not been settled.
+
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 06.12 — KCSIE / standards basis
+
+**Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> Present-tense references to KCSIE 2025 as the current benchmark have been withdrawn across the site.
+
+
+**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
+
+**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 

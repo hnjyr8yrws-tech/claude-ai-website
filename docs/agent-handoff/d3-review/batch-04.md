@@ -1,268 +1,274 @@
-# D3 review — batch 04 of 34
+# D3 review — batch 04 of 10
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
 ---
 
-### 04.1 — Cadence / currency
+### 04.1 — Independence / commercial
 
-**Appears on 3 surfaces:** `/ai-equipment`, `/ai-equipment (Ask Luna open)`, `/equipment`
+**Appears on 3 surfaces:** `/ai-training/leaders`, `/ai-training/send`, `/ai-training/students`
 
-
-**Claim, as rendered:**
-
-> Headset Logitech Lightweight wireless headset for teachers delivering hybrid lessons and recording instructional video content. £50–150 View on Amazon Read our take This shortlist is drawn from products we can earn affiliate commission on, and it rotates automatically each month — no vendor pays for a place in it, and no editorial judgement is applied to the rotation.
-
-**Why this is flagged:** Asserts a recurring review or refresh schedule. No re-review cadence is operating: calibration is blocked (GOV-GAP-001) and no re-review has been carried out.
-
-**Check it against:** GOV-GAP-001; the containment notice; the June 2026 integrity record.
-
-**Decision:** `KEEP`
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Keep as written. This describes the automated affiliate shortlist rotation and clearly discloses that the pool is commission-eligible and that no editorial judgement is applied to the rotation.
-
----
-
-### 04.2 — Cadence / currency
-
-**Appears on 1 surface:** `/ai-training/parents`
-
+**3 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
 
 **Claim, as rendered:**
 
-> Their AI guide for parents is practical, up to date and free.
+> Beginner Free Visit → Explore AI tools → See the tools we list for student and school use Back to Training Hub → All 26 training resources GetPromptly The UK's independent resource for AI in education.
 
-**Why this is flagged:** Asserts a recurring review or refresh schedule. No re-review cadence is operating: calibration is blocked (GOV-GAP-001) and no re-review has been carried out.
+**The most different of the 3:**
 
-**Check it against:** GOV-GAP-001; the containment notice; the June 2026 integrity record.
+> subscription visit related safety methodology the getpromptly safety methodology how a score is built when one is published back to training hub all 26 training resources getpromptly the uk s independ
 
-**Decision:** `NEEDS EVIDENCE`
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
 
-> Provide a recorded currentness/refresh basis for the claim that the guide is “up to date”. If no current check exists, remove or soften that wording.
-
----
-
-### 04.3 — Coverage / universality
-
-**Appears on 6 surfaces:** `/admin`, `/parents`, `/school-leaders`, `/senco`, `/students`, `/teachers`
-
-**6 variants of this wording** (they differ only by the tool, product or prompt named — one decision covers all of them).
-
-**Claim, as rendered:**
-
-> View all tools → Prompt packs Ready-to-use prompts for SENCOs.
-
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
-
-**Check it against:** The underlying data counts and any status flags on the same surface.
-
-**Decision:** `KEEP`
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep as written. This is navigation/catalogue wording rather than a substantive universal assurance claim.
+> 
 
 ---
 
-### 04.4 — Coverage / universality
-
-**Appears on 5 surfaces:** `/prompts/admin`, `/prompts/parents`, `/prompts/school-leaders`, `/prompts/senco`, `/prompts/teachers`
-
-
-**Claim, as rendered:**
-
-> Ask the AI → School Bundle Get All 50 Packs for Your School Every prompt pack plus full AI agent access for your whole staff team.
-
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
-
-**Check it against:** The underlying data counts and any status flags on the same surface.
-
-**Decision:** `NEEDS EVIDENCE`
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Verify that there are currently 50 packs and that the bundle genuinely includes every prompt pack plus the stated full AI agent access for the whole staff team.
-
----
-
-### 04.5 — Coverage / universality
+### 04.2 — Independence / commercial
 
 **Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
 
 
 **Claim, as rendered:**
 
-> Lesson plans Marking Differentiation CPD See Teacher prompts → Browse the tools directory → Top tools for Teachers 01 MagicSchool 02 Curipod 03 Canva AI View all tools → How it works GetPromptly guides you end to end.
+> GetPromptly for Schools → Request a consultation AI Tools Browse the directory → Staff CPD Free and paid training for all school roles → GetPromptly The UK's independent resource for AI in education.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `CHANGE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep the navigation wording, but replace “GetPromptly guides you end to end” with something concrete, e.g. “GetPromptly helps you discover tools, understand the evidence available, and find practical guidance for use.”
+> 
 
 ---
 
-### 04.6 — Coverage / universality
+### 04.3 — Independence / commercial
 
 **Appears on 3 surfaces:** `/ai-training`, `/training`, `/training (Ask Luna open)`
 
 
 **Claim, as rendered:**
 
-> Teachers Parents Students SEND Leaders Admin All Resources Browse all 76 training resources All Free Paid All Teacher SENCO School Leader Parent Student Showing 76 of 76 resources AI Skills Hub UK Government · Free Central UK AI learning hub from government.
+> Government-backed, independently listed, trust-first. 76 Total resources 57 Completely free 76 UK government-backed 27 Certificate courses Online 24/7 Luna · Learning Pathfinder Tell Luna your role — get a learning path in seconds.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `NEEDS EVIDENCE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Verify the current dataset count and that “76 of 76” accurately represents the complete training-resource set.
+> 
 
 ---
 
-### 04.7 — Coverage / universality
+### 04.4 — Independence / commercial
 
-**Appears on 2 surfaces:** `/tools/chatgpt`, `/tools/chatgpt (Ask Luna open)`
+**Appears on 3 surfaces:** `/cookie-policy`, `/legal`, `/privacy-policy`
 
 
 **Claim, as rendered:**
 
-> Free Preview 8 prompts Autism Students Teachers View Pack → Copy Browse all prompt packs → AI training Build your skills Training resources to help you use teacher productivity tools confidently and safely.
+> Legal & Policies Transparency & Legal Information GetPromptly is an independent UK education advisory platform.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `KEEP`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep as written. This is catalogue/navigation wording to browse the available prompt packs, not a claim of exhaustive coverage of every possible prompt.
+> 
 
 ---
 
-### 04.8 — Coverage / universality
+### 04.5 — Independence / commercial
 
-**Appears on 1 surface:** `/ai-equipment/parents`
+**Appears on 3 surfaces:** `/cookie-policy`, `/legal`, `/privacy-policy`
 
 
 **Claim, as rendered:**
 
-> All products for parents 43 Products for Home Learning Devices Reviewed Apple iPad (10th Gen) Apple The most widely deployed tablet in UK schools, compatible with thousands of assistive, AAC and literacy apps.
+> Our commitment to independence We never accept payment for coverage, placement or ranking No listing, ordering or editorial judgement on this site is paid for Our published safety methodology sets out how tools are scored.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `CHANGE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Remove unsupported “Reviewed”. Keep the category/count only if current. Retain deployment/compatibility claims only with current supporting evidence.
+> 
 
 ---
 
-### 04.9 — Coverage / universality
+### 04.6 — Independence / commercial
 
-**Appears on 1 surface:** `/equipment-legacy`
+**Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
 
 
 **Claim, as rendered:**
 
-> All products include supplier details, purchase model (buy/quote/lease) and compatibility notes for mainstream and SEND provision.
+> Safeguarding and KCSIE-focused AI awareness training Explore Why schools trust us Independent.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `NEEDS EVIDENCE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Check the complete product set and verify that every record actually includes supplier details, purchase model and compatibility notes before retaining this universal claim.
+> 
 
 ---
 
-### 04.10 — Coverage / universality
+### 04.7 — Independence / commercial
 
-**Appears on 1 surface:** `/ai-training/send`
+**Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
 
 
 **Claim, as rendered:**
 
-> All resources are free and selected with accessibility in mind.
+> The methodology is public. — SCORE INTEGRITY RECORD · INDEPENDENT, NEVER FOR SALE Get in touch Request a school consultation Tell us about your school and what you are trying to achieve.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `NEEDS EVIDENCE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Verify both universal assertions across the full set: that every resource is free and that every resource was selected with accessibility in mind.
+> 
 
 ---
 
-### 04.11 — Coverage / universality
+### 04.8 — Independence / commercial
 
-**Appears on 1 surface:** `/ai-training/teachers`
+**Appears on 2 surfaces:** `/ai-training/paid`, `/ai-training/paid (email modal open)`
 
 
 **Claim, as rendered:**
 
-> All resources are practical and aligned to UK Department for Education guidance.
+> Advanced £500+ Visit → View free resources → No cost, government-backed options Back to Training Hub → All 26 resources GetPromptly The UK's independent resource for AI in education.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `REMOVE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Remove the blanket claim that all resources are aligned to UK Department for Education guidance unless every resource has been checked against current guidance. If desired, replace with softer wording such as “Resources chosen for relevance to UK education.”
+> 
 
 ---
 
-### 04.12 — Coverage / universality
+### 04.9 — Independence / commercial
 
-**Appears on 1 surface:** `/ai-training/students`
+**Appears on 2 surfaces:** `/tools/flip`, `/tools/flipgrid-flip`
 
 
 **Claim, as rendered:**
 
-> All £30–£200 Visit → All Student Resources Every resource for students (17) AI Foundations & Literacy Free OpenLearn AI Open University UK university-backed AI introduction with digital badge.
+> Browse current tools GetPromptly The UK's independent resource for AI in education.
 
-**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
 
-**Check it against:** The underlying data counts and any status flags on the same surface.
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Decision:** `NEEDS EVIDENCE`
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Verify that 17 is the current count and that this page genuinely represents the complete student-resource set.
+> 
 
 ---
 
+### 04.10 — Independence / commercial
 
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> Independent AI tools directory. 241 tools in the directory, scored on five published pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility.
+
+
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
 
 ---
 
-## Founder adjudication
+### 04.11 — Independence / commercial
 
-**Approved by Founder:** 30 September 2026
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
-Batch 04 decisions above are approved as the human D3 adjudication for this batch. Claude should apply CHANGE and REMOVE decisions as containment edits, preserve KEEP as adjudicated, convert NEEDS EVIDENCE decisions into named evidence requests, and not reinterpret these decisions without returning them for human adjudication.
+
+**Claim, as rendered:**
+
+> Read the listing → View official page → GetPromptly The UK's independent resource for AI in education.
+
+
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 04.12 — Independence / commercial
+
+**Appears on 1 surface:** `/ai-training/parents`
+
+
+**Claim, as rendered:**
+
+> Ask the Luna → GetPromptly The UK's independent resource for AI in education.
+
+
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+
+**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+

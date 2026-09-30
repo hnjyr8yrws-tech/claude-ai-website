@@ -1,42 +1,132 @@
-# D3 review — batch 10 of 34
+# D3 review — batch 10 of 10
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
 ---
 
-### 10.1 — KCSIE / standards basis
+### 10.1 — Holding statement (check the wording is accurate)
+
+**Appears on 2 surfaces:** `/tools/flip`, `/tools/flipgrid-flip`
+
+
+**Claim, as rendered:**
+
+> Its Promptly Score and pillar breakdown are no longer published.
+
+
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 10.2 — Holding statement (check the wording is accurate)
+
+**Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> Live Promptly Scores are now marked as legacy scores, awaiting re-review under the current methodology.
+
+
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 10.3 — Holding statement (check the wording is accurate)
+
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> The scores themselves are not currently shown while their review provenance is re-established; every tool in the directory stays listed.
+
+
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 10.4 — Holding statement (check the wording is accurate)
+
+**Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> They carry no recorded review basis, verification date or named reviewer, so none is shown. § 01 Version history Changelog Material changes to the methodology, most recent first. v2.2 · notice 22 Sept 2026 Methodology v2.2 was framed against KCSIE 2025.
+
+
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 10.5 — Holding statement (check the wording is accurate)
+
+**Appears on 2 surfaces:** `/safety-methodology`, `/tools/photomath`
+
+
+**Claim, as rendered:**
+
+> They carry no recorded review basis, verification date or named reviewer, so none is shown.
+
+
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 10.6 — Holding statement (check the wording is accurate)
 
 **Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> Methodology v2.2 was framed against KCSIE 2025 — see the dated notice below.
-
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
-
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 10.2 — KCSIE / standards basis
-
-**Appears on 1 surface:** `/methodology`
+> Awaiting re-review — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — LEGACY SCORE · AWAITING RE-REVIEW This is the Pillar Card — the artefact every score lives inside.
 
 
-**Claim, as rendered:**
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
 
-> No re-review has been carried out: the methodology changes required for KCSIE 2026 have not been settled.
-
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
-
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+**Check it against:** The containment notice and the IR §6 wording it derives from.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -46,18 +136,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 10.3 — KCSIE / standards basis
+### 10.7 — Holding statement (check the wording is accurate)
 
-**Appears on 1 surface:** `/methodology`
+**Appears on 1 surface:** `/tools/brisk-teaching`
 
 
 **Claim, as rendered:**
 
-> Notice · 22 September 2026 Methodology v2.2 was framed against KCSIE 2025.
+> Category: Feedback Generation Audience: Teachers Price: Free tier available Promptly Score Awaiting re-review This tool is listed, but its Promptly Score is not shown: the score is a legacy score and its review provenance is being re-established.
 
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
 
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -67,18 +158,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 10.4 — KCSIE / standards basis
+### 10.8 — Holding statement (check the wording is accurate)
 
-**Appears on 1 surface:** `/methodology`
+**Appears on 1 surface:** `/tools/magicschool-ai`
 
 
 **Claim, as rendered:**
 
-> Present-tense references to KCSIE 2025 as the current benchmark have been withdrawn across the site.
+> Category: General Teaching Audience: Teachers, SLT, Admin Price: Free tier available Promptly Score Awaiting re-review This tool is listed, but its Promptly Score is not shown: the score is a legacy score and its review provenance is being re-established.
 
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
 
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -88,18 +180,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 10.5 — KCSIE / standards basis
+### 10.9 — Holding statement (check the wording is accurate)
 
-**Appears on 1 surface:** `/safety-methodology`
+**Appears on 1 surface:** `/tools/photomath`
 
 
 **Claim, as rendered:**
 
-> Regulatory framework & references Keeping Children Safe in Education (KCSIE) KCSIE is statutory guidance that schools and colleges in England must have regard to.
+> Category: Maths & Science Audience: Students, Parents Price: Free tier available Promptly Score Awaiting re-review This tool has been withdrawn from public scoring pending re-review under the current methodology.
 
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
 
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -109,18 +202,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 10.6 — KCSIE / standards basis
+### 10.10 — Holding statement (check the wording is accurate)
 
-**Appears on 1 surface:** `/safety-methodology`
+**Appears on 1 surface:** `/tools/photomath`
 
 
 **Claim, as rendered:**
 
-> Safeguarding the axis 35% KCSIE 2025 alignment, DSL controls and audit logging, reporting and escalation pathways, content moderation, and monitoring.
+> Start learning → About our verdicts: The Promptly Scores we hold for the tools listed here are legacy scores, awaiting re-review under the current methodology.
 
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
 
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -130,124 +224,19 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 10.7 — KCSIE / standards basis
+### 10.11 — Holding statement (check the wording is accurate)
 
-**Appears on 1 surface:** `/teachers`
-
-
-**Claim, as rendered:**
-
-> Save hours on lesson planning, marking and differentiation, with independent, KCSIE-aware guidance.
-
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
-
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 10.8 — KCSIE / standards basis
-
-**Appears on 1 surface:** `/methodology`
+**Appears on 1 surface:** `/tools/photomath`
 
 
 **Claim, as rendered:**
 
-> Statutory basis at the time: KCSIE 2025 — Part 5 (online safety) and Annex C Tools affected (10)
-
-**Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
-
-**Check it against:** IR v0.4 §6 bullet 1; the dated notice on /methodology.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 10.9 — Score / rating shown
-
-**Appears on 5 surfaces:** `/tools/brisk-teaching`, `/tools/chatgpt`, `/tools/chatgpt (Ask Luna open)`, `/tools/magicschool-ai`, `/tools/photomath`
+> Visit Photomath → — PROMPTLY SCORE AWAITING RE-REVIEW Score withheld while this tool is re-reviewed.
 
 
-**Claim, as rendered:**
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
 
-> A Promptly Score is independent guidance, not approval.
-
-**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
-
-**Check it against:** The trust adapter (all scores suppressed); the containment notice.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 10.10 — Score / rating shown
-
-**Appears on 5 surfaces:** `/tools/brisk-teaching`, `/tools/chatgpt`, `/tools/chatgpt (Ask Luna open)`, `/tools/magicschool-ai`, `/tools/photomath`
-
-
-**Claim, as rendered:**
-
-> Promptly Scores cover five pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility.
-
-**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
-
-**Check it against:** The trust adapter (all scores suppressed); the containment notice.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 10.11 — Score / rating shown
-
-**Appears on 5 surfaces:** `/tools/brisk-teaching`, `/tools/chatgpt`, `/tools/chatgpt (Ask Luna open)`, `/tools/magicschool-ai`, `/tools/photomath`
-
-
-**Claim, as rendered:**
-
-> We have never changed a score for payment; our methodology and our record of score changes are public.
-
-**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
-
-**Check it against:** The trust adapter (all scores suppressed); the containment notice.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 10.12 — Score / rating shown
-
-**Appears on 4 surfaces:** `/ai-equipment/send`, `/ai-equipment/students`, `/equipment-legacy/send`, `/equipment/send`
-
-**3 variants of this wording** (they differ only by the tool, product or prompt named — one decision covers all of them).
-
-**Claim, as rendered:**
-
-> Best for: Visual calming tool for regulation and mindfulness Amazon Available SEND Friendly Under £50 View → Sensory & Regulation Reviewed TTS Stretchy Band for Chair Legs TTS Resistance band for chair legs providing foot fidget input — discreet movement for students with ADHD in class.
-
-**Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
-
-**Check it against:** The trust adapter (all scores suppressed); the containment notice.
+**Check it against:** The containment notice and the IR §6 wording it derives from.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
