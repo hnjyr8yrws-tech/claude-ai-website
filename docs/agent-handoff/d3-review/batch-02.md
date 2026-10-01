@@ -41,11 +41,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B census; the Review Basis field (empty for every row).
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Use wording that describes the methodology rather than implying the current scoring process is operating, e.g. “How the Promptly Score methodology is designed to work.”
 
 ---
 
@@ -228,11 +229,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written. This is ordinary navigation to a role-specific training path, not a claim that the whole set has been reviewed or verified.
 
 ---
 
