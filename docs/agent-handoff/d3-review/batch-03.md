@@ -64,11 +64,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** The underlying data counts and any status flags on the same surface.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Use simpler wording: “Teacher resources · Resources tagged for teachers.” Avoid “All” / “Every” unless the complete set is proved.
 
 ---
 
@@ -108,11 +109,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
 
 ---
 
@@ -130,11 +132,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
 
 ---
 
@@ -152,11 +155,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace “independently listed” with: “AI tools and training for UK education · No paid placements.”
 
 ---
 
@@ -174,11 +178,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
 
 ---
 
@@ -196,11 +201,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
 
 ---
 
@@ -222,11 +228,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
 
 ---
 
@@ -244,11 +251,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
 
 ---
 
@@ -266,11 +274,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace “Independently listed” with factual wording such as “No paid placements”. Retain numerical training counts only where they are derived from the current dataset.
 
 ---
 
