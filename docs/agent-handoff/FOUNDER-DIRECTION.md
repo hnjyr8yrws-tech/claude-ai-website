@@ -162,3 +162,25 @@ Do this next, before continuing D3 batch-by-batch:
 9. Once D3 is complete and containment is CLEAR, move directly into the governed AI tool-refresh programme and Safe Mode work.
 
 Do not ask the Founder to adjudicate removed surfaces. Only surface genuine human decisions on retained product scope or governance.
+
+
+### 2026-10-01 — Founder priority reset: stop the assurance loop and update the actual product
+
+Founder direction:
+
+1. **Stop the autonomous fresh-review loop.** Do not dispatch round 26, 27 or further Fresh Opus assurance rounds unless the Founder explicitly asks for another round.
+2. **Close only the three current round-25 BLOCKERs** already identified by Reviewer A. Do not widen the harness, invent new mutant classes, or start another general assurance expansion.
+3. **Re-prove those fixes, reseal and freeze once.** Record the resulting tree and proof figures honestly.
+4. **Return immediately to D3 with the Founder.** The remaining human adjudication is the designated completeness control. Do not substitute more pattern/harness work for D3.
+5. After D3 is complete and the retained site is coherent, **prioritise the actual AI tool-directory refresh** using the preserved Phase 2A worktree/tree `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf`.
+6. Reconcile the Phase 2A research into the retained product without reintroducing removed Equipment, Prompts or affiliate surfaces.
+7. Do **not** publish unsupported scores, reviewer claims, methodology claims or KCSIE-compliance claims merely to complete the refresh. Where provenance is missing, use the existing held / needs-verification treatment.
+8. **Safe Mode comes next after the tool refresh is back in motion.** Do not spend another week on assurance machinery while the actual tool catalogue remains stale.
+9. **Training remains on HOLD** until the Founder decides whether it stays.
+10. Update `CURRENT-STATE.md` and the handoff after the blocker repair/freeze milestone, then again when the Phase 2A tool refresh has been reconciled.
+
+The intended order is now:
+
+**3 blockers → one proof/freeze → finish D3 → reconcile/update the tools → Safe Mode.**
+
+This supersedes the earlier standing instruction to keep dispatching fresh assurance rounds automatically after every NOT CLEAR result.
