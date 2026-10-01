@@ -1,80 +1,10 @@
-# D3 review — batch 04 of 10
+# D3 review — batch 04 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
 ---
 
 ### 04.1 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-training/leaders`, `/ai-training/send`, `/ai-training/students`
-
-**3 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
-
-**Claim, as rendered:**
-
-> Beginner Free Visit → Explore AI tools → See the tools we list for student and school use Back to Training Hub → All 26 training resources GetPromptly The UK's independent resource for AI in education.
-
-**The most different of the 3:**
-
-> subscription visit related safety methodology the getpromptly safety methodology how a score is built when one is published back to training hub all 26 training resources getpromptly the uk s independ
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 04.2 — Independence / commercial
-
-**Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
-
-
-**Claim, as rendered:**
-
-> GetPromptly for Schools → Request a consultation AI Tools Browse the directory → Staff CPD Free and paid training for all school roles → GetPromptly The UK's independent resource for AI in education.
-
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 04.3 — Independence / commercial
-
-**Appears on 3 surfaces:** `/ai-training`, `/training`, `/training (Ask Luna open)`
-
-
-**Claim, as rendered:**
-
-> Government-backed, independently listed, trust-first. 76 Total resources 57 Completely free 76 UK government-backed 27 Certificate courses Online 24/7 Luna · Learning Pathfinder Tell Luna your role — get a learning path in seconds.
-
-
-**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
-
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
-
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> 
-
----
-
-### 04.4 — Independence / commercial
 
 **Appears on 3 surfaces:** `/cookie-policy`, `/legal`, `/privacy-policy`
 
@@ -86,7 +16,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -96,7 +26,29 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 04.5 — Independence / commercial
+### 04.2 — Independence / commercial
+
+**Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
+
+
+**Claim, as rendered:**
+
+> No score on this site currently carries a recorded review, so there are no score changes to publish yet, and the consolidated methodology text is not in a governed store. — SCORE INTEGRITY PLEDGE · INDEPENDENT, NEVER FOR SALE Get in touch Request a school consultation Tell us about your school and what you are trying to achieve.
+
+
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 04.3 — Independence / commercial
 
 **Appears on 3 surfaces:** `/cookie-policy`, `/legal`, `/privacy-policy`
 
@@ -108,7 +60,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -118,7 +70,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 04.6 — Independence / commercial
+### 04.4 — Independence / commercial
 
 **Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
 
@@ -130,7 +82,51 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 04.5 — Independence / commercial
+
+**Appears on 2 surfaces:** `/ai-training/paid`, `/ai-training/paid (email modal open)`
+
+
+**Claim, as rendered:**
+
+> Advanced £500+ Visit → View free resources → No cost, government-backed options Back to Training Hub → All 76 resources GetPromptly Independent AI guidance for UK education — for teachers, parents, school leaders and SENCOs.
+
+
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 04.6 — Independence / commercial
+
+**Appears on 2 surfaces:** `/tools/flip`, `/tools/flipgrid-flip`
+
+
+**Claim, as rendered:**
+
+> Browse current tools GetPromptly Independent AI guidance for UK education — for teachers, parents, school leaders and SENCOs.
+
+
+**Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
+
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -142,17 +138,17 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 04.7 — Independence / commercial
 
-**Appears on 3 surfaces:** `/for-schools`, `/for-schools (Ask Luna open)`, `/schools`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
 
 **Claim, as rendered:**
 
-> The methodology is public. — SCORE INTEGRITY RECORD · INDEPENDENT, NEVER FOR SALE Get in touch Request a school consultation Tell us about your school and what you are trying to achieve.
+> Independent AI tools directory. 241 tools in the directory, scored on five published pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility.
 
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -164,17 +160,17 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 04.8 — Independence / commercial
 
-**Appears on 2 surfaces:** `/ai-training/paid`, `/ai-training/paid (email modal open)`
+**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
 
 **Claim, as rendered:**
 
-> Advanced £500+ Visit → View free resources → No cost, government-backed options Back to Training Hub → All 26 resources GetPromptly The UK's independent resource for AI in education.
+> Read the listing → View official page → GetPromptly Independent AI guidance for UK education — for teachers, parents, school leaders and SENCOs.
 
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -186,17 +182,17 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 04.9 — Independence / commercial
 
-**Appears on 2 surfaces:** `/tools/flip`, `/tools/flipgrid-flip`
+**Appears on 1 surface:** `/ai-training/parents`
 
 
 **Claim, as rendered:**
 
-> Browse current tools GetPromptly The UK's independent resource for AI in education.
+> Ask the Luna → GetPromptly Independent AI guidance for UK education — for teachers, parents, school leaders and SENCOs.
 
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -208,17 +204,17 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 04.10 — Independence / commercial
 
-**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
+**Appears on 1 surface:** `/ai-training/free`
 
 
 **Claim, as rendered:**
 
-> Independent AI tools directory. 241 tools in the directory, scored on five published pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility.
+> Beginner Free Visit → Back to Training Hub → See all 76 resources View paid courses → Certificates and structured learning GetPromptly Independent AI guidance for UK education — for teachers, parents, school leaders and SENCOs.
 
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -230,17 +226,17 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 04.11 — Independence / commercial
 
-**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
+**Appears on 1 surface:** `/tools/seneca`
 
 
 **Claim, as rendered:**
 
-> Read the listing → View official page → GetPromptly The UK's independent resource for AI in education.
+> Browse all tools GetPromptly Independent AI guidance for UK education — for teachers, parents, school leaders and SENCOs.
 
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 
@@ -252,17 +248,17 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 04.12 — Independence / commercial
 
-**Appears on 1 surface:** `/ai-training/parents`
+**Appears on 1 surface:** `/who-we-are`
 
 
 **Claim, as rendered:**
 
-> Ask the Luna → GetPromptly The UK's independent resource for AI in education.
+> Every week brings new products, new use cases and new risks — but very few independent voices explaining what any of it actually means for a classroom teacher, a SENCO, a school leader or a parent.
 
 
 **Why this is flagged:** Asserts editorial independence. Check it against how the surface is actually produced — one shortlist is drawn from commission-eligible products, which round 21 found contradicted by its own disclosure.
 
-**Check it against:** Brand Bible §22 disclosure rules; the implementation behind the surface.
+**Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
 **Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
 

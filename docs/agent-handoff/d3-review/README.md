@@ -24,7 +24,7 @@ and all affiliate links go with them. This pack is regenerated from the **retain
   editorial independence only. Note that no tool link ever carried a commission parameter: the
   affiliate-link disclosure on tool pages was unreachable code.
 
-**119 distinct claims across 41 rendered surfaces, in 10 batches of 12.**
+**118 distinct claims across 41 rendered surfaces, in 11 batches of 12.**
 
 Every quote is taken from the **rendered page** — what a visitor sees. You are not asked to read any
 code, or to find the evidence yourself. A claim appearing on several pages is listed **once**, with
@@ -44,23 +44,23 @@ claim costs one KEEP; a missed one is the failure this control exists to catch.
 
 | Class | Claims |
 |---|---|
-| Safety / approval | 13 |
-| Review practice | 5 |
-| Named reviewer / role | 4 |
+| Safety / approval | 11 |
+| Review practice | 6 |
+| Named reviewer / role | 3 |
 | Cadence / currency | 1 |
-| Coverage / universality | 7 |
+| Coverage / universality | 6 |
 | Independence / commercial | 30 |
 | KCSIE / standards basis | 18 |
 | Score / rating shown | 19 |
-| Holding statement (check the wording is accurate) | 22 |
+| Holding statement (check the wording is accurate) | 24 |
 
 ## How this is ordered
 
-**Tier 1 — batches 01 to 05 (60 claims).** Safety and approval assertions, review practices,
+**Tier 1 — batches 01 to 05 (57 claims).** Safety and approval assertions, review practices,
 named reviewers, cadences, universal coverage claims and independence claims. These are the ones where
 a wrong claim changes what a school decides. **Start here.**
 
-**Tier 2 — batches 06 to 10 (59 claims).** Descriptive copy about the score system, KCSIE
+**Tier 2 — batches 06 to 11 (61 claims).** Descriptive copy about the score system, KCSIE
 references, and the containment's own holding statements. Still worth reading — the holding statements
 are the containment speaking and their wording matters — but a wrong one here misleads far less.
 
@@ -68,13 +68,14 @@ are the containment speaking and their wording matters — but a wrong one here 
 
 | Batch | Tier | Classes covered | Claims |
 |---|---|---|---|
-| [Batch 01](batch-01.md) | TIER 1 | Safety / approval | 12 |
-| [Batch 02](batch-02.md) | TIER 1 | Cadence / currency, Coverage / universality, Named reviewer / role, Review practice, Safety / approval | 12 |
+| [Batch 01](batch-01.md) | TIER 1 | Review practice, Safety / approval | 12 |
+| [Batch 02](batch-02.md) | TIER 1 | Cadence / currency, Coverage / universality, Named reviewer / role, Review practice | 12 |
 | [Batch 03](batch-03.md) | TIER 1 | Coverage / universality, Independence / commercial | 12 |
 | [Batch 04](batch-04.md) | TIER 1 | Independence / commercial | 12 |
-| [Batch 05](batch-05.md) | TIER 1 | Independence / commercial | 12 |
+| [Batch 05](batch-05.md) | TIER 1 | Independence / commercial | 9 |
 | [Batch 06](batch-06.md) | tier 2 | KCSIE / standards basis | 12 |
 | [Batch 07](batch-07.md) | tier 2 | KCSIE / standards basis, Score / rating shown | 12 |
 | [Batch 08](batch-08.md) | tier 2 | Score / rating shown | 12 |
 | [Batch 09](batch-09.md) | tier 2 | Holding statement, Score / rating shown | 12 |
-| [Batch 10](batch-10.md) | tier 2 | Holding statement | 11 |
+| [Batch 10](batch-10.md) | tier 2 | Holding statement | 12 |
+| [Batch 11](batch-11.md) | tier 2 | Holding statement | 1 |

@@ -18,6 +18,10 @@ this review.
 
 ---
 
+## This pack was rebuilt after the round-25 repairs
+
+The earlier pack was generated before two fresh reviewers' findings were fixed, so it quoted about sixty claims that no longer exist. It has been regenerated from the frozen bytes (`1289c00a15378f511a2f069358fef024c5ed961f`), so nothing here asks you to adjudicate wording that has already been corrected or removed. Your earlier answers are carried: 25 items arrive pre-filled, and 23 of your earlier decisions are recorded as resolved by removal.
+
 ## The four answers
 
 For each claim, write one:
@@ -36,26 +40,26 @@ wrongly surfaced costs you one KEEP; a claim missed is the failure this control 
 
 ## What you have already decided
 
-**27 items arrive pre-filled** with your answers from the first pack, each marked with the date and
+**25 items arrive pre-filled** with your answers from the first pack, each marked with the date and
 the batch it came from. You need not touch them. Two of them merge a pair of your earlier
 decisions; where those agreed the answer is carried, and **where they differed nothing has been
 chosen for you** — the item asks you to confirm which applies.
 
-A further **19** of your earlier decisions are recorded as **resolved by removal**: their surfaces
+A further **23** of your earlier decisions are recorded as **resolved by removal**: their surfaces
 left product scope on 30 September, so the claim no longer exists and is not put back to you.
 `CARRIED-FORWARD.md` lists all 48 and says which of the three things happened to each.
 
-**That leaves 92 open.**
+**That leaves 95 open.**
 
 ---
 
 ## Where to start, and how far to go
 
-**Tier 1 — batches 01 to 05.** Safety and approval assertions, review practices, named reviewers,
+**Tier 1 — batches 01 to 06.** Safety and approval assertions, review practices, named reviewers,
 cadences, universal coverage claims, independence claims. These are the ones where a wrong claim
 changes what a school decides. **If you do nothing else, do these.**
 
-**Tier 2 — batches 06 to 10.** Descriptive copy about the score system, KCSIE references, and the
+**Tier 2 — batches 07 to 11.** Descriptive copy about the score system, KCSIE references, and the
 containment's own holding statements. Worth reading — the holding statements are GetPromptly
 speaking about its own limits, and their wording matters — but a wrong one here misleads far less.
 
@@ -88,7 +92,7 @@ You will see these cited repeatedly. In plain terms:
   each surface, not the absence of findings.
 
 Your decisions are recorded in the containment record as the D3 adjudication, against frozen tree
-`0212b7e426658cad8b209d72f596dd1c7118f69a`, so it is always clear which bytes were reviewed.
+`1289c00a15378f511a2f069358fef024c5ed961f`, so it is always clear which bytes were reviewed.
 
 ---
 

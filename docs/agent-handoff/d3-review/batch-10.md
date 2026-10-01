@@ -1,4 +1,4 @@
-# D3 review — batch 10 of 10
+# D3 review — batch 10 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
@@ -204,12 +204,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 10.10 — Holding statement (check the wording is accurate)
 
-**Appears on 1 surface:** `/tools/photomath`
+**Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> Start learning → About our verdicts: The Promptly Scores we hold for the tools listed here are legacy scores, awaiting re-review under the current methodology.
+> In the stored records the reviewer field is a build constant, not a record of who reviewed what, so no pillar value is attributed to anyone and none is shown.
 
 
 **Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
@@ -231,7 +231,29 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> Visit Photomath → — PROMPTLY SCORE AWAITING RE-REVIEW Score withheld while this tool is re-reviewed.
+> Start learning → About our verdicts: The Promptly Scores we hold for the tools listed here are legacy scores, awaiting re-review under the current methodology.
+
+
+**Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?
+
+**Check it against:** The containment notice and the IR §6 wording it derives from.
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
+
+---
+
+### 10.12 — Holding statement (check the wording is accurate)
+
+**Appears on 1 surface:** `/safety-methodology`
+
+
+**Claim, as rendered:**
+
+> Their weighted average would be the composite — no Promptly Score is currently shown for any tool — weighted towards Safeguarding and Data Privacy, the two pillars that decide whether a tool belongs in a school at all.
 
 
 **Why this is flagged:** This states that a score, rating or basis is NOT shown. It is the containment speaking. Read it for accuracy and tone rather than for support: does it say plainly what is and is not being claimed?

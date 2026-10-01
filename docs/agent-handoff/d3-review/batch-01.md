@@ -1,4 +1,4 @@
-# D3 review — batch 01 of 10
+# D3 review — batch 01 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
@@ -20,7 +20,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 30 September 2026 (batch-02 item 02.9). Carried forward — no action needed unless you want to revise it.*
@@ -43,7 +43,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 30 September 2026 (batch-01 item 01.5). Carried forward — no action needed unless you want to revise it.*
@@ -66,7 +66,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 30 September 2026. 2 claims from the first pack (batch-01 item 01.6; batch-02 item 02.12) are one claim here, and you marked them the same way. Carried forward — no action needed unless you want to revise it.*
@@ -89,7 +89,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 30 September 2026 (batch-01 item 01.7). Carried forward — no action needed unless you want to revise it.*
@@ -116,7 +116,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 30 September 2026. 2 claims from the first pack (batch-02 item 02.2; batch-02 item 02.10) are one claim here, and you marked them the same way. Carried forward — no action needed unless you want to revise it.*
@@ -143,7 +143,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 30 September 2026 (batch-01 item 01.11). Carried forward — no action needed unless you want to revise it.*
@@ -166,7 +166,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 30 September 2026 (batch-01 item 01.9). Carried forward — no action needed unless you want to revise it.*
@@ -179,29 +179,6 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 01.8 — Safety / approval
 
-**Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
-
-
-**Claim, as rendered:**
-
-> Ask Luna → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Adobe Firefly Adobe's commercially safe AI image generator for creating classroom visuals.
-
-
-**Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
-
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
-
-**Decision:** `CHANGE`  
-*Adjudicated by the Founder on 30 September 2026 (batch-01 item 01.10). Carried forward — no action needed unless you want to revise it.*
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Remove or qualify “commercially safe”. If the vendor uses a specific supported term, attribute that wording explicitly; otherwise use neutral descriptive copy.
-
----
-
-### 01.9 — Safety / approval
-
 **Appears on 2 surfaces:** `/tools (Ask Luna open)`, `/tools/chatgpt (Ask Luna open)`
 
 
@@ -212,7 +189,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 30 September 2026 (batch-01 item 01.12). Carried forward — no action needed unless you want to revise it.*
@@ -223,7 +200,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 01.10 — Safety / approval
+### 01.9 — Safety / approval
 
 **Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
 
@@ -235,7 +212,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 30 September 2026 (batch-03 item 03.2). Carried forward — no action needed unless you want to revise it.*
@@ -246,7 +223,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 01.11 — Safety / approval
+### 01.10 — Safety / approval
 
 **Appears on 1 surface:** `/ai-training/leaders`
 
@@ -258,7 +235,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 30 September 2026 (batch-02 item 02.11). Carried forward — no action needed unless you want to revise it.*
@@ -269,26 +246,48 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 01.12 — Safety / approval
+### 01.11 — Safety / approval
 
-**Appears on 1 surface:** `/ai-training/teachers`
+**Appears on 1 surface:** `/safety-methodology`
 
 
 **Claim, as rendered:**
 
-> Learn how to set expectations with pupils and apply the DfE's guidance on safe AI use.
+> We say "KCSIE-aware", never "KCSIE compliant", of a third-party tool.
 
 
 **Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
 
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
+**Check it against:** IR v0.4 §6 last bullet; Brand World §16.2 — say "KCSIE-aware", "KCSIE-aligned checklist" or "reviewed against KCSIE [edition]", never "KCSIE-compliant" of a third-party tool. (Retained from Brand Bible §03; the Bible itself was retired on 26 July 2026 and is not authoritative.)
 
 **Decision:** `KEEP`  
-*Adjudicated by the Founder on 30 September 2026 (batch-03 item 03.1). Carried forward — no action needed unless you want to revise it.*
+*Adjudicated by the Founder on 30 September 2026 (batch-03 item 03.3). Carried forward — no action needed unless you want to revise it.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> Keep as written. This is guidance about applying external DfE guidance, not a claim that GetPromptly has approved a tool.
+> Keep as written. This is the approved distinction in the governance pack: use “KCSIE-aware”, never “KCSIE compliant”, for third-party tools.
+
+---
+
+### 01.12 — Review practice
+
+**Appears on 3 surfaces:** `/cookie-policy`, `/legal`, `/privacy-policy`
+
+
+**Claim, as rendered:**
+
+> If you talk to Luna, or give us your email Conversations with our assistant, Luna, may be logged so we can check the quality of her answers.
+
+
+**Why this is flagged:** Asserts that a review was or is carried out. Phase 2B found the provenance for this does not exist: reviewer initials and methodology version are build constants and 0 of 252 rows record a Review Basis.
+
+**Check it against:** Phase 2B census; the Review Basis field (empty for every row).
+
+**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> 
 
 ---
 

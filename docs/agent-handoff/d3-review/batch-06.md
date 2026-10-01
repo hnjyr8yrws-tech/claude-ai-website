@@ -1,4 +1,4 @@
-# D3 review — batch 06 of 10
+# D3 review — batch 06 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
@@ -33,7 +33,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> Headteachers / SLT SENCOs IT / Digital Leads Business Managers CPD Leads Governors / Trustees Request a Consultation Ask Luna INDEPENDENT · KCSIE-AWARE · NO PAID PLACEMENTS KCSIE-aware UK GDPR-aware 240+ Tools Listed 26 Training Resources No Sponsored Rankings LUNA · SCHOOL ADVISOR Tell Luna your school's challenge — get a recommendation in 30 seconds.
+> Headteachers / SLT SENCOs IT / Digital Leads Business Managers CPD Leads Governors / Trustees Request a Consultation Ask Luna INDEPENDENT · KCSIE-AWARE · NO PAID PLACEMENTS KCSIE-aware UK GDPR-aware 240+ Tools Listed 76 Training Resources No Sponsored Rankings LUNA · SCHOOL ADVISOR Tell Luna your school's challenge — get a recommendation in 30 seconds.
 
 
 **Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.
@@ -191,7 +191,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> Tools & AI strategy KCSIE-aware tool shortlists, policy templates, Ofsted preparation Staff training Free and paid CPD pathways for all roles Your name * School / Organisation * Your role * Select your role…
+> Tools & AI strategy KCSIE-aware tool shortlists and Ofsted preparation Staff training Free and paid CPD pathways for all roles Your name * School / Organisation * Your role * Select your role…
 
 
 **Why this is flagged:** References a standards basis. KCSIE 2026 has been in force since 1 September 2026; KCSIE 2025 may be named only as dated history, never as the current benchmark, and no tool may be presented as reviewed against either.

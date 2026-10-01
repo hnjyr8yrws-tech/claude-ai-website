@@ -1,4 +1,4 @@
-# D3 review — batch 07 of 10
+# D3 review — batch 07 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
@@ -187,7 +187,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> We have never changed a score for payment; our methodology and our record of score changes are public.
+> We have never changed a score for payment.
 
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.

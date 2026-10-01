@@ -1,4 +1,4 @@
-# D3 review — batch 08 of 10
+# D3 review — batch 08 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
@@ -8,13 +8,13 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Appears on 2 surfaces:** `/tools`, `/tools (Ask Luna open)`
 
-**39 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
+**40 variants share this claim** — one decision covers all of them. They carry the same flagged wording; the rest of the sentence may differ.
 
 **Claim, as rendered:**
 
 > Ask Luna → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Co:Writer AI word prediction and speech-to-text tool that supports struggling writers.
 
-**The most different of the 39:**
+**The most different of the 40:**
 
 > ask luna promptly score data privacy safeguarding age suitability transparency accessibility plickers paper card classroom polling students hold printed cards teacher scans the room with a phone
 
@@ -112,11 +112,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> Read the listing → Try demo → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Kooth Free NHS-backed online mental wellbeing platform for young people in England.
+> Read the listing → Try demo → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Perplexity AI AI search engine that answers with citations to the sources it used.
 
 **The most different of the 17:**
 
-> read the listing try demo promptly score data privacy safeguarding age suitability transparency accessibility notebooklm google s ai notebook that answers questions from your own uploaded documents an
+> read the listing try demo promptly score data privacy safeguarding age suitability transparency accessibility brain in hand digital self management support for young people with anxiety autism and men
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
 
@@ -138,11 +138,11 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> Read the listing → View official page → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Curipod Create interactive AI lessons with polls, word clouds and open questions.
+> Read the listing → View official page → — PROMPTLY SCORE Data Privacy — Safeguarding — Age Suitability — Transparency — Accessibility — Otter.ai AI transcription tool — used for meeting notes and CPD recordings.
 
 **The most different of the 119:**
 
-> read the listing view official page promptly score data privacy safeguarding age suitability transparency accessibility modmath digital graph paper app for students who struggle to write maths neatly 
+> read the listing view official page promptly score data privacy safeguarding age suitability transparency accessibility dr frost maths free uk gcse and a level maths platform with thousands of exam st
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
 
@@ -202,12 +202,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ### 08.9 — Score / rating shown
 
-**Appears on 1 surface:** `/safety-methodology`
+**Appears on 1 surface:** `/who-we-are`
 
 
 **Claim, as rendered:**
 
-> The Promptly Score assesses AI tools against five pillars.
+> She is given our listings as context; she is not trained on them, she cannot give you a score for a tool, and she is not a substitute for your own judgement.
 
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
@@ -229,7 +229,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> The bands describe readiness for a UK school — not a grade for the product in the abstract. 9.0 – 10 Promptly Recommended Strong across every pillar, with safeguarding and data privacy both robust.
+> The Promptly Score assesses AI tools against five pillars.
 
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
@@ -251,7 +251,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> The composite How a Promptly Score is built The Promptly Score is a single number from 0 to 10 that summarises how ready an AI tool is for UK education.
+> The bands describe readiness for a UK school — not a grade for the product in the abstract. 9.0 – 10 Promptly Recommended Strong across every pillar, with safeguarding and data privacy both robust.
 
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
@@ -273,7 +273,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> The order tools appear in has no bearing on their Promptly Score, and a higher score can never be bought.
+> The composite How a Promptly Score is built The Promptly Score is a single number from 0 to 10 that summarises how ready an AI tool is for UK education.
 
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.

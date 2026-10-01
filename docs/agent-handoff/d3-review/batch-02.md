@@ -1,33 +1,10 @@
-# D3 review — batch 02 of 10
+# D3 review — batch 02 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
 ---
 
-### 02.1 — Safety / approval
-
-**Appears on 1 surface:** `/safety-methodology`
-
-
-**Claim, as rendered:**
-
-> We say "KCSIE-aware", never "KCSIE compliant", of a third-party tool.
-
-
-**Why this is flagged:** Asserts a safety or approval determination. Containment withdraws all such assertions: the adoption decision rests with the school (IR §6, D-05).
-
-**Check it against:** IR v0.4 §6 last bullet; the Brand Bible rule on "KCSIE-aware", never "KCSIE compliant".
-
-**Decision:** `KEEP`  
-*Adjudicated by the Founder on 30 September 2026 (batch-03 item 03.3). Carried forward — no action needed unless you want to revise it.*
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Keep as written. This is the approved distinction in the governance pack: use “KCSIE-aware”, never “KCSIE compliant”, for third-party tools.
-
----
-
-### 02.2 — Review practice
+### 02.1 — Review practice
 
 **Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
 
@@ -50,7 +27,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.3 — Review practice
+### 02.2 — Review practice
 
 **Appears on 1 surface:** `/safety-methodology`
 
@@ -72,7 +49,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.4 — Review practice
+### 02.3 — Review practice
 
 **Appears on 1 surface:** `/safety-methodology`
 
@@ -95,7 +72,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.5 — Review practice
+### 02.4 — Review practice
 
 **Appears on 1 surface:** `/safety-methodology`
 
@@ -118,7 +95,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.6 — Review practice
+### 02.5 — Review practice
 
 **Appears on 1 surface:** `/safety-methodology`
 
@@ -141,7 +118,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.7 — Named reviewer / role
+### 02.6 — Named reviewer / role
 
 **Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
 
@@ -164,7 +141,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.8 — Named reviewer / role
+### 02.7 — Named reviewer / role
 
 **Appears on 2 surfaces:** `/methodology`, `/methodology (Ask Luna open)`
 
@@ -187,7 +164,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.9 — Named reviewer / role
+### 02.8 — Named reviewer / role
 
 **Appears on 1 surface:** `/safety-methodology`
 
@@ -210,30 +187,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.10 — Named reviewer / role
-
-**Appears on 1 surface:** `/safety-methodology`
-
-
-**Claim, as rendered:**
-
-> The spine The five scoring pillars Under the methodology, each pillar is scored 0–10 by a named reviewer.
-
-
-**Why this is flagged:** Attributes a review to a named person or role. Reviewer attribution is a build constant, not a record.
-
-**Check it against:** Phase 2B: reviewer initials are hard-coded; no per-tool reviewer is stored.
-
-**Decision:** `REMOVE`  
-*Adjudicated by the Founder on 30 September 2026 (batch-03 item 03.12). Carried forward — no action needed unless you want to revise it.*
-
-**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
-
-> Remove the current factual claim that each pillar is scored by a named reviewer. Reviewer attribution is not stored per tool.
-
----
-
-### 02.11 — Cadence / currency
+### 02.9 — Cadence / currency
 
 **Appears on 1 surface:** `/ai-training/parents`
 
@@ -256,7 +210,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 ---
 
-### 02.12 — Coverage / universality
+### 02.10 — Coverage / universality
 
 **Appears on 7 surfaces:** `/admin`, `/parents`, `/school-leaders`, `/senco`, `/senco (Ask Luna open)`, `/students` and 1 more
 
@@ -279,6 +233,52 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > 
+
+---
+
+### 02.11 — Coverage / universality
+
+**Appears on 3 surfaces:** `/`, `/ (Ask Luna open)`, `/ (email modal open)`
+
+
+**Claim, as rendered:**
+
+> Lesson plans Marking Differentiation CPD See Teacher guidance → Browse the tools directory → Top tools for Teachers 01 MagicSchool 02 Curipod 03 Canva AI View all tools → How it works GetPromptly guides you end to end.
+
+
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
+
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 30 September 2026 (batch-04 item 04.5). Carried forward — no action needed unless you want to revise it.*
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> Keep the navigation wording, but replace “GetPromptly guides you end to end” with something concrete, e.g. “GetPromptly helps you discover tools, understand the evidence available, and find practical guidance for use.”
+
+---
+
+### 02.12 — Coverage / universality
+
+**Appears on 3 surfaces:** `/ai-training`, `/training`, `/training (Ask Luna open)`
+
+
+**Claim, as rendered:**
+
+> Teachers Parents Students SEND Leaders Admin All Resources Browse all 76 training resources All Free Paid All Teacher SENCO School Leader Parent Student Showing 76 of 76 resources AI Skills Hub UK Government · Free Central UK AI learning hub from government.
+
+
+**Why this is flagged:** A universal claim about the whole set. Check the counts and the exceptions: round 21 found "96 independently assessed products" on a page badging 25 of them "Needs Review".
+
+**Check it against:** The underlying data counts and any status flags on the same surface.
+
+**Decision:** `NEEDS EVIDENCE`  
+*Adjudicated by the Founder on 30 September 2026 (batch-04 item 04.6). Carried forward — no action needed unless you want to revise it.*
+
+**If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
+
+> Verify the current dataset count and that “76 of 76” accurately represents the complete training-resource set.
 
 ---
 

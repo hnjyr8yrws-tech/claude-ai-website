@@ -4,178 +4,162 @@
 only. Every hash, count and status below was measured on the machine at the timestamp given, not
 carried forward from an earlier note.
 
-**Last verified:** 30 September 2026 (round 24 — product scope reduction applied and proved)
+**Last verified:** 1 October 2026 (round 25 closeout — three blockers closed, candidate frozen)
 **Verified by:** Claude Code (session `28345e36`)
 **Rule for this file:** if you cannot reproduce a figure with the command beside it, treat the
-figure as wrong and re-derive it. Figures in this pack have gone stale eleven times; do not trust a
+figure as wrong and re-derive it. Figures in this pack have gone stale twelve times; do not trust a
 number here that you have not re-run.
 
 ---
 
-## 1. Repositories and branches
+## 1. Where things stand, in one paragraph
 
-Three checkouts of the same repository (`github.com/hnjyr8yrws-tech/claude-ai-website`).
+Round 25 ran two independent fresh reviewers. Both returned **NOT CLEAR**, with roughly sixty
+legitimate findings and almost no overlap — one attacked the apparatus, one read the site. All were
+repaired. The Founder then **stopped the autonomous review loop** (direction of 1 October): close
+the three blockers, prove and freeze once, return to D3, then do the actual product work. That is
+complete to the freeze. **No round 26 has been dispatched and none will be without an explicit
+instruction.**
+
+---
+
+## 2. Repositories and branches
 
 | Checkout | Branch | HEAD | Role |
 |---|---|---|---|
 | `~/Sites/claude-ai-website` | `chore/email-audit-info-v2` | `ee19a4e` | Main working checkout |
-| `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660`, tree `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — tool-refresh candidate |
-| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | KCSIE 2026 containment **+ the round-24 scope reduction** |
+| `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660`, tree `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — the tool-refresh research, next after D3 |
+| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | The round-25 candidate |
 
-**This handoff pack lives on its own remote branch, `agent-handoff`, taken from `origin/main`.**
-It carries communication files only — no containment, Phase 2A, product, scoring or methodology
-changes — and is **never merged**. To read it:
-`git fetch origin && git show origin/agent-handoff:docs/agent-handoff/CURRENT-STATE.md`.
+Safe Mode is in **none** of these: the ARC determination records it at
+`/Users/chloeandcharlie/promptly-labs`, `40-safe-mode/`. **Charles owns it. Claude Code does not
+build, redesign or infer it.**
 
-Reproduce the containment tree hash:
-
-```sh
-GIT_INDEX_FILE=/tmp/idx git read-tree 51d56c818fda9a6cde59c05e3b368896ecc7c2ab   # the MERGE BASE, never HEAD
-GIT_INDEX_FILE=/tmp/idx git add -A . 2>/dev/null
-GIT_INDEX_FILE=/tmp/idx git write-tree
-```
-
-> **Known defect in this recipe.** `.claude/worktrees/cranky-kalam` is a tracked gitlink over an
-> empty directory, so `write-tree` emits whatever the *seeded* index holds. Seeding from `HEAD`
-> makes the hash a function of HEAD as well as of the files. **Always seed from `51d56c8`**, and
-> separately assert `git rev-list --count origin/main..HEAD` is `0`.
-
-**Nothing is committed, pushed, merged or deployed** on either workstream branch.
+**Nothing is committed, pushed, merged or deployed** on either workstream branch. This handoff
+branch is the sole exception and carries communication files only.
 
 ---
 
-## 2. Current workstream
+## 3. The frozen candidate
 
-**Primary:** Phase 2C — KCSIE 2026 containment (Impact Record v0.4 §13 step 1) — **plus the
-round-24 product scope reduction** directed on 30 September 2026.
-
-Containment withdraws unsupported present-tense claims without touching stored data: Phase 2B
-found the site's score provenance does not exist (reviewer initials and methodology version are
-build constants, 0 of 252 rows record a Review Basis, 91 scores predate the version they claim).
-Tools stay listed; scores are held, not published.
-
-**The scope reduction is reported in full in `SCOPE-RESET.md` in this directory.** In short:
-Equipment, the Prompts library and all affiliate links are removed from product scope; Training is
-untouched and on HOLD apart from its affiliate links; **109 tracked files changed, +938 / -15,870**
-against `origin/main`; the removed data is preserved as hashed evidence, not deleted.
-The `getpromptly/` mirror app's last five prompt paths were blocked by the execution
-environment and **deleted on the Founder's instruction of 30 September**; no step of the
-nine-step direction is outstanding (`SCOPE-RESET.md` §7).
-
----
-
-## 3. Latest assurance results
-
-Measured on the round-24 tree, 30 September 2026. **Every figure below was re-run today** — none
-is carried over from the pre-reduction pack.
+The tree hash and the proof figures are in **`FREEZE-RECORD.md`**, recorded there because a tree
+hash cannot be stored inside the tree it describes.
 
 | Layer | Result |
 |---|---|
-| Typecheck / build | `tsc --noEmit` clean; `vite build` passes |
-| Tests | **96 passing** across 17 rules and 220 reasoned allow entries |
-| Mutants | **115 of 125 killed, 10 retired, 0 survived, 0 invalid** — see the note below |
-| DOM / browser | **42 routes** (33 first-paint derived from the router + 9 interaction probes), **0 problems, 0 missing required**, 255 allowed hits with written reasons |
-| DOM blind spot | **0 claim-class hits across 0 routes** — empty *because the surface is gone*, not because it was cleared. The counter stays live |
-| Not captured | nothing outstanding. The prompt modal was the standing gap; the component was deleted, so the gap closed by removal rather than by proof |
-| Independent rescan | **858 rows, 530 removed in candidate, 328 remaining** by class. Three prompt-CSV metrics now report `RETIRED`, never `0` — absent is not zero |
-| Measured reach | **WITHDRAWN.** The 6-of-15 figure was taken on the old, larger corpus and is not carried forward. Re-measure after D3 |
-| Seals | `phase2c` **31/31 OK**, 0 files unsealed, re-sealed from the directory listing; `phase2b` **16/16 OK** |
-| Freeze | tree **`2a7ab83e774632e99a327d575427dd4521b27e7b`**; reproduces from `origin/main` + `containment-r24b.patch` (SHA-256 `329a1ac0…dbafd06d`) in a clean worktree; 0 commits ahead; no `refs/replace` |
+| Typecheck / build | clean |
+| Tests | **96 / 96**, 17 rules |
+| DOM / browser | **42 routes**, **0 problems, 0 missing required** |
+| DOM blind spot | **0 claim-class hits across 0 routes** — empty because the surface is gone, and the transcript says so in words |
+| **Measured reach** | **3 of 15** — published, not withdrawn. Worse than the 6 of 15 taken on the larger pre-reduction corpus. The twelve misses are all the Phase 2B C17 class, which has zero stored support. The three figures are **not comparable**: the corpus changed underneath each measurement |
+| Seals | `phase2c` re-sealed from the directory listing; `phase2b` **16/16 OK** |
 | Preservation | Phase 2A `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` unchanged |
 
-**Mutant pack:** 125 mutants — **115 killed, 10 retired, 0 survived, 0 invalid**, against a
-proved-green baseline. Nine were retired because their subject FILE left product scope (Equipment,
-the prompt library, the prompt CSV) and M108 because its ANCHOR went with the prompt CSV — no
-column-scoped CSV allow remains, so that mechanism is unexercised. Each retirement is named with
-the surface it died with and still gets a row. A live mutant whose subject file has vanished now
-**aborts** the pack instead of being skipped. Six mutants were **re-anchored** rather than retired,
-because the copy they plant a regression into was rewritten this round and a NOT APPLIED mutant
-measures nothing.
+### The three blockers, and how each was proved
+
+Each was closed and then **verified by replaying the reviewer's own exploit**, not by assertion.
+
+1. **`/*` in ordinary copy blinded every rule and the score-store choke point.** Two characters of
+   JSX prose opened a block comment and deleted every following line from all 17 rules until the
+   next `*/`. Behind it a reviewer shipped a sentence that was at once "KCSIE compliant", a
+   certification claim, a named-reviewer cadence claim and adoption wording; imported the score
+   store into a non-adapter page; and **published all 241 held composites as `data-` attributes** —
+   at 96/96 green. *Fixed:* an opener must look like a comment (`/*` at line start, or `{/*`), and a
+   mid-line `/*` now fails **open**, so lines are scanned rather than skipped. Plus a coverage floor
+   on **lines** (20,000; measured 20,841), because a nine-line blackout left the file count
+   untouched. *Proved:* the planted claim now trips two rules, and the choke point fires on the
+   store import.
+2. **The bridge control enumerated three spellings of its own target.** `[\w\W]*` walked past it and
+   widened two live anchors. *Fixed:* it now measures behaviour — splice a planted sentence at
+   **every position** inside each anchor's matched span and fail if the match still swallows it.
+   *Proved:* the exploit is caught, with the offending offset named.
+3. **`git` was resolved from `PATH`, with `node_modules/.bin` ahead of `/usr/bin`.** A nine-line
+   shim let a stored safeguarding score be rewritten 9.5 → 2.0 at 96/96, breaking no seal because
+   `node_modules` is gitignored. *Fixed:* the load-bearing comparison runs **no subprocess** — the
+   baseline hashes and all 241 safety/tier tuples live in `phase2c/baseline-manifest.json`, sealed
+   by `SHA256SUMS.txt`. *Proved:* with the shim first on `PATH` and the score tampered, the control
+   fails.
+
+**M125 survived twice before it died, and both failures were mine.** First the guard was a
+source-text check that matched its own assertion; then an identity check on the *accessor*, which
+stays true when the mutation edits the call site instead. The assertion now sits on the variable the
+test actually compares. A guard adjacent to the thing it protects is not a guard.
 
 ---
 
-## 4. D3 — where it stands
+## 4. The Brand World pack — read in full, nothing changed on the strength of it
 
-The regenerated pack is in `d3-review/` on this branch.
+Read on the Founder's direction of 1 October. Detail in **`BRAND-WORLD-PACK-READING.md`** and
+**`GOV-GAP-003-uos-v1.3.1.md`**.
 
-| | |
-|---|---|
-| Distinct claims | **119**, across 41 rendered surfaces, in **10 batches** |
-| Already answered by you | **27 items pre-filled** (29 of your 48 earlier decisions; two pairs merged into one claim each) |
-| Resolved by removal | **19** of your earlier decisions — their surfaces no longer exist; not re-asked |
-| Open for you | **92** |
+**What is authoritative** — Charter v1.1 Schedule A, which states that harmonised drafts take effect
+only on ratification and that until then the superseded version remains in force:
 
-`d3-review/CARRIED-FORWARD.md` lists every earlier decision and says which of the three things
-happened to it. Two pairs of your earlier answers now fall on a single claim; where they agreed the
-answer is carried, and **where they differed nothing has been chosen for you** — the item asks you
-to confirm which applies.
+- **Brand World v2.1** — ratified 26 July 2026, **in force**. Its text is **not in the pack**.
+- Brand World v2.2, Charter v1.1, Founding Charter v1.1, UOS v2.1 — **harmonised drafts**.
+- **Brand Bible v1.1 — retired 26 July 2026; preserved, not authoritative.**
+- Methodology v2.2 — in force; its consolidated Standard text is still missing (`GOV-GAP-001`).
 
-The **Training** items you marked `NEEDS EVIDENCE` remain **live and open**: training is on hold,
-not removed, so those claims still ship.
+**Three things this prevented:**
 
----
+1. **The "Promptly" rename is not adopted** (Brand World §1.4 "asserts no earlier adoption"). The
+   site correctly remains GetPromptly. **Nothing was renamed.**
+2. **Nothing about the identifying mark is decided** — the Logo Jury is explicitly a desk jury with
+   no artwork, and LJ1–LJ5 and D1–D14 are unapplied. The incumbent mark stays in service.
+3. **"Not Yet" cannot simply replace the containment's states** — UOS §24.5 records FD-01's
+   evidential threshold, reassessment interval and **published wording** as outstanding.
 
-## 5. Tool-refresh objective (Phase 2A) — PRESERVED, PAUSED
+**`CLAUDE.md` is citing a retired document.** It calls `docs/brand-bible.html` "the full brand source
+of truth (v1.1)" and cites its §22 checklist; Brand World Schedule C dispositions that checklist to
+**UOS §9.2**, the pre-publication gate. The substance largely survived — Colour, Typography,
+Devices, Voice and Accessibility are all "Retained" — so the authority moved and most of the content
+did not.
 
-Branch `feat/directory-sep-2026-research`, tree `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf`,
-uncommitted, in its own worktree, untouched by any containment or scope-reduction work.
+**The containment is confirmed as aligned, not merely tolerated.** UOS §9.4: automatic transitions
+"may only make a public state more conservative or **suppress** it". And `Rule4bGuard` was verified
+against source for the first time — **UOS v1.2 §6.1 Rule 4b** is in the pack and is quoted
+correctly.
 
-Contents: the September 2026 research intake — 31 records, 22 proposed additions, 6 Emerging
-records, the capability axis, UK-availability corrections, withdrawal protections.
-
-**Not merged and must not be.** Reconciliation happens only after containment is proved and the
-Founder sets the order. Adding scored tools while the score system is held would reintroduce
-exactly the claim containment withdraws.
-
----
-
-## 6. Methodology and KCSIE status — unchanged by round 24
-
-| Item | Status |
-|---|---|
-| KCSIE 2026 | **In force since 1 September 2026** |
-| Site wording | "KCSIE-aware" / "reviewed against KCSIE 2025" (dated, historical). **No KCSIE 2026 rebadge.** Never "KCSIE compliant" for a third-party tool |
-| Methodology v2.2 | The consolidated Standard text **does not exist in any governed store** — `GOV-GAP-001` |
-| Methodology v2.3 | Candidate v0.1 only. **NOT adopted.** Ratifying it hits RL-017 triggers 1–2, so it needs joint CR+CD |
-| Calibration (IR step 4 / G2) | **BLOCKED** — needs the v2.2 Standard text |
-| Probe Governance Charter (G3) | **BLOCKED** — its source, Validity System MVB v0.1 §5, is missing (`GOV-GAP-002`). Probe runs are barred |
-| Standards registration (IR step 2) | **PROPOSED, NOT ADOPTED** |
-| Fable | Not to be invoked until the candidate satisfies the Fable eligibility gate (G5) |
-
-Smallest valid calibration staffing: **two humans** — CR as Reviewer A and B via test–retest, CD as
-Custodian and Second Reader. **No AI may hold those roles** (IR §13 step 4).
+**`GOV-GAP-003` is new and real.** The containment cites UOS v1.3.1 §19/§21/§24 — "legacy provenance
+is never invented", "missing means missing" — as its basis for suppressing rather than
+reconstructing. **That text is nowhere on this machine**: Spotlight by content returns only this
+programme's own documents and the site copy derived from them. UOS v2.1 Schedule A says unlisted
+provisions are "unreconciled rather than repealed", so the citations stand — but nobody can check
+that the record quotes them correctly. The rule cited unreadably is the rule against inventing what
+is missing.
 
 ---
 
-## 7. Current blockers
+## 5. Exact next action
 
-1. **Governance blockers** — `GOV-GAP-001` blocks G2/calibration; `GOV-GAP-002` blocks the Probe
-   Charter and G3. Neither can be reconstructed by an agent (UOS v1.3.1 §19, §24).
-2. **Open CR/CD determinations** — see `DECISIONS-NEEDED.md`. Containment cannot be declared
-   complete while **RL-017 trigger 7** is undetermined. **D7 has changed shape**: the equipment
-   blind spot it concerns no longer has a subject, so the question is now whether §2 should be
-   restated to record that. An agent must not restate a governance disposition, so it stays open.
-3. **Deployment gate outside this repository** — Luna's live grounding runs **in n8n**, not here.
-   This branch carries `src/api/agent.ts` and both authoring sources, and round 24 rewrote them
-   (two modes and two personas removed, five role contexts rewritten). **None of that reaches
-   visitors until someone deploys it to n8n.** Shipping this branch ships the whole site except the
-   conversational surface. It has no owner inside this record.
-4. **D3 is the designated completeness control and is not finished** — 92 open decisions.
+1. **~~Freeze~~ — done.** Figures in `FREEZE-RECORD.md`.
+2. **D3, immediately.** The pack is being **regenerated from the frozen bytes** before it goes back
+   to the Founder. It was built from the pre-repair corpus and round 25 repaired roughly sixty
+   claims, so much of it quotes copy that no longer exists; presenting it unregenerated would ask
+   the Founder to adjudicate claims already fixed. Carried-forward adjudications are preserved.
+3. **Then the product work, in this order** (Founder direction, 1 October):
+   - reconcile and update the AI tool directory from the preserved Phase 2A research;
+   - make the retained site current for KCSIE 2026;
+   - confirm Equipment, Prompts and affiliate surfaces are fully removed;
+   - repair every navigation, route, link, email, Luna, SEO and layout location those removals touched;
+   - then update the design using **the adopted Brand World authority only**, preserving historic
+     material for context without treating it as current.
+4. **Not to be done:** Safe Mode (Charles's workstream). Any score or Pillar Card redesign, until
+   the authoritative basis is actually resolved. Another fresh-review round. Any further assurance
+   expansion — assurance stays attached to each product change and does not become a separate
+   project.
 
 ---
 
-## 8. Exact next action
+## 6. Open, and human-only
 
-1. **~~Freeze the round-24 candidate~~ — DONE.** Frozen tree
-   **`2a7ab83e774632e99a327d575427dd4521b27e7b`**, patch SHA-256
-   `329a1ac055797d0dddb5bd7f3e758fd2037e1374cef94fb6ff3c2104dbafd06d`. Verified by application: a
-   clean worktree at `origin/main` plus the patch reproduces that tree exactly. 0 commits ahead;
-   no `refs/replace`.
-2. **Dispatch a fresh-Opus review of the round-24 tree.** Every round so far has returned NOT
-   CLEAR; on NOT CLEAR, repair, re-prove, re-freeze and dispatch again without pausing.
-3. **Continue D3** batch by batch with the Founder, starting at `d3-review/batch-01.md`.
-4. **Then, and only then:** the governed tool-refresh programme and Safe Mode work.
-
-**Standing constraint: do not edit the tree while a review is running.** Rounds have been
-invalidated exactly that way, and round 24 invalidated one mutant run of its own by editing the
-tree mid-flight — the run was discarded and restarted rather than reported.
+| | Matter | Blocks |
+|---|---|---|
+| **D1** | RL-017 trigger 7. **Its shape has changed:** it asks whether a *Brand Bible* erratum supersedes an adopted Class A rule, and the Bible is now retired and non-authoritative with its checklist moved to UOS §9.2. RL-017 itself is live — Class A, seven triggers, joint CR+CD | Shipping |
+| **D2** | Methodology v2.2 lineage | — |
+| **D3/D4** | `GOV-GAP-001` (the v2.2 Standard text), `GOV-GAP-002` (MVB v0.1) | Calibration |
+| **NEW** | **`GOV-GAP-003`** — the UOS v1.3.1 text this containment quotes | Checkability of the record |
+| **D5** | Luna's live grounding runs in n8n, outside this repository. UOS **§9.7** makes a publication incomplete until the enquiry surface is updated, and its own institutional-memory note records a child-safety withdrawal that reached the website but not Luna. **§14.1 requires a surface-parity failure to be escalated** | Shipping |
+| **D6** | Standards registration | — |
+| **D7** | The §2 equipment blind spot now has no subject; whether §2 is restated is a governance call | — |
+| **NEW** | The conflicts at `BRAND-WORLD-PACK-READING.md` §4 — WCAG 2.2 vs 2.1 on `/safety-methodology`; the seven constitutional card states vs `LegacyHolding`/`AwaitingReReview`; §16.7's required Score Integrity Record vs its currently empty record; §15.11's "Re-scored quarterly"; and a longer proscribed-word list than `CLAUDE.md` carries | Brand-facing work |

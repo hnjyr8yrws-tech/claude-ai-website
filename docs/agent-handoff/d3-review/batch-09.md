@@ -1,4 +1,4 @@
-# D3 review — batch 09 of 10
+# D3 review — batch 09 of 11
 
 Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its decision line.
 
@@ -11,7 +11,7 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Claim, as rendered:**
 
-> Their weighted average is the Promptly Score — weighted towards Safeguarding and Data Privacy, the two pillars that decide whether a tool belongs in a school at all.
+> The order tools appear in has no bearing on their Promptly Score, and a higher score can never be bought.
 
 
 **Why this is flagged:** References a published score or rating. Every score is held: none is published, and none carries a recorded basis, version, date or reviewer.
