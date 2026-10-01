@@ -199,3 +199,19 @@ Direction:
 - Do not infer missing Safe Mode requirements or create a parallel implementation.
 - When the tool-refresh work reaches the point where Safe Mode integration matters, stop and use Charles's actual Safe Mode artefacts/handoff as the authoritative implementation basis.
 - Until then, Claude's priority remains: close the three current blockers, one proof/freeze, finish D3, then reconcile/update the AI tool directory.
+
+
+### 2026-10-01 — Brand World: read the full pack before using it
+
+Founder clarification:
+
+> "You need to read all document first — and so does Claude. The md files explain what has been removed, but says to include for context and keep them for historic content."
+
+Direction:
+- Before making any Brand World, score-display, Pillar Card, identity, editorial, methodology-facing or related product decision, **read the complete Brand World source pack first**, not a single document or isolated excerpt.
+- Read the status/lineage notes in the Markdown sources carefully. Some material is **removed, retired, superseded, proposed, conditional, or preserved for historical context only**.
+- **Preserve historic/removed material for context and lineage. Do not delete it merely because it is no longer current.**
+- Historic/removed material must **not** be treated as current product requirements, adopted rules, current score design, or permission to reintroduce a retired feature.
+- Do not silently merge old and current directions. Follow the explicit adoption/status language and chronology in the pack; surface genuine conflicts or unresolved decisions.
+- The visual PDFs/prototype artefacts are part of the evidence where layout/visual decisions are concerned; a text-only excerpt is not enough for those decisions.
+- Do not create or implement a new score presentation until the full pack has been read and the currently authoritative score/presentation state has been established from the documents.
