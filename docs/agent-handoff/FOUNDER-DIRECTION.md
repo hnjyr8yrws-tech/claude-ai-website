@@ -215,3 +215,29 @@ Direction:
 - Do not silently merge old and current directions. Follow the explicit adoption/status language and chronology in the pack; surface genuine conflicts or unresolved decisions.
 - The visual PDFs/prototype artefacts are part of the evidence where layout/visual decisions are concerned; a text-only excerpt is not enough for those decisions.
 - Do not create or implement a new score presentation until the full pack has been read and the currently authoritative score/presentation state has been established from the documents.
+
+
+### 2026-10-01 — Tight execution instruction: finish the pack read without side quests
+
+Founder concern: this task is taking too long. The instruction is now deliberately narrow and sequential.
+
+1. **Finish reading the complete Founder-supplied Brand World pack once, end to end.** This remains mandatory.
+2. During that read, **do not start new engineering investigations, new assurance rounds, new mutant work, new score design, new Pillar Card design, new governance reconstruction, or unrelated cleanup** unless a current BLOCKER already identified cannot be closed without it.
+3. For every document, record only:
+   - document name/version;
+   - status: current/adopted, draft/proposed, retired/historic, conditional/open;
+   - what authority it has;
+   - whether it changes anything in the current containment/tool-refresh plan.
+4. **Do not infer or reconstruct missing authoritative instruments.** If Brand World v2.1 text is absent, record it as missing; do not rebuild it from v2.2.
+5. When the full pack read is complete, produce a **single concise authority/status matrix** and a short list of genuine conflicts/open decisions. Do not write a new strategy paper.
+6. Then **finish the already-in-progress round-25 engineering closeout only**: reseal, freeze, update handoff. No fresh Opus round 26.
+7. Then **return immediately to D3 with the Founder**. Do not continue autonomous assurance work.
+8. After D3, resume the preserved Phase 2A tool-refresh work as already directed.
+9. Safe Mode remains Charles's workstream. Do not enter it.
+10. Keep the Founder updated only at these checkpoints:
+   - full-pack read complete;
+   - freeze complete;
+   - D3 ready/underway;
+   - tool-refresh reconciliation started/completed.
+
+**No side quests. No new assurance loop. No redesign work until the full pack has been read and status-mapped.**
