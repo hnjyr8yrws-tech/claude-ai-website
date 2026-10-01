@@ -184,3 +184,18 @@ The intended order is now:
 **3 blockers → one proof/freeze → finish D3 → reconcile/update the tools → Safe Mode.**
 
 This supersedes the earlier standing instruction to keep dispatching fresh assurance rounds automatically after every NOT CLEAR result.
+
+
+### 2026-10-01 — Safe Mode ownership
+
+Founder clarification:
+
+> "Charles is building Safe Mode."
+
+Direction:
+- Claude Code must **not build, redesign, refactor, or independently implement Safe Mode**.
+- Treat Safe Mode as a separately owned workstream currently being built by Charles.
+- Claude may preserve compatibility with Safe Mode and avoid changes that would block its integration, but must not duplicate Charles's work.
+- Do not infer missing Safe Mode requirements or create a parallel implementation.
+- When the tool-refresh work reaches the point where Safe Mode integration matters, stop and use Charles's actual Safe Mode artefacts/handoff as the authoritative implementation basis.
+- Until then, Claude's priority remains: close the three current blockers, one proof/freeze, finish D3, then reconcile/update the AI tool directory.
