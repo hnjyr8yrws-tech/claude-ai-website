@@ -283,11 +283,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Phase 2B census; the Review Basis field (empty for every row).
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`  
+*Adjudicated by the Founder on 1 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Confirm the live Luna/n8n logging and retention behaviour before making this privacy disclosure. Keep or rewrite the notice only once the actual logging/retention setup is evidenced.
 
 ---
 
