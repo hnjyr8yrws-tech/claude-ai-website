@@ -241,3 +241,44 @@ Founder concern: this task is taking too long. The instruction is now deliberate
    - tool-refresh reconciliation started/completed.
 
 **No side quests. No new assurance loop. No redesign work until the full pack has been read and status-mapped.**
+
+
+### 2026-10-01 — Founder definition of the actual website job
+
+Founder clarification:
+
+> "My view is: update the website so it's KCSIE 2026; update the tools; remove AI Equipment and Prompts; update the website so locations are correct from the deletion; update the design of the website."
+
+Treat these as the **actual product deliverables**. Assurance, D3, freezes and governance checks are gates that support these deliverables; they are not separate product goals and must not become open-ended workstreams.
+
+The website job is:
+
+1. **KCSIE 2026 currentness**
+   - Make the retained website accurate for the KCSIE 2026 context now in force.
+   - Remove/replace stale KCSIE 2025 present-tense/currentness claims where required.
+   - Do not describe third-party tools as "KCSIE compliant", "KCSIE approved", or imply KCSIE certifies tools.
+   - Preserve dated historical references where they are genuinely historical.
+
+2. **Update the AI tools**
+   - Resume and reconcile the preserved Phase 2A tool-refresh research into the retained directory once the current closeout/D3 gate is complete.
+   - Apply the verified additions, updates, Emerging/Watch/withdrawal protections and UK-availability corrections already researched.
+   - Do not fabricate scores or provenance to make the refresh look complete.
+
+3. **Remove AI Equipment and Prompts**
+   - These are out of product scope.
+   - Keep only historical/provenance artefacts where governance requires them; do not leave live product routes, offers, copy, cards or deliverables that expose the removed products.
+
+4. **Repair every location affected by those deletions**
+   - Check and correct navigation, homepage sections, cards, internal links, routes, search/discovery, sitemap/SEO, Luna suggestions/grounding, lead-capture/email offers, footer/header copy, counts, labels and any other retained surface whose wording/layout depended on Equipment or Prompts.
+   - The result must feel intentionally redesigned around the retained product, not like two sections were simply cut out.
+
+5. **Update the website design**
+   - Do this only after the complete Brand World pack has been read and current/adopted vs historic/draft material has been status-mapped.
+   - Use the authoritative current Brand World material and relevant visual artefacts; do not infer a new design from retired or draft-only material.
+   - Design work should apply to the retained website after scope reduction, not resurrect removed product areas.
+
+**Safe Mode is excluded from Claude's build scope because Charles is building it.** Claude should only avoid creating incompatibilities.
+
+Execution principle:
+**product outcomes first; assurance is a bounded gate, not the project.**
+Do not create additional workstreams beyond these five deliverables unless a genuine Founder/governance decision is required.
