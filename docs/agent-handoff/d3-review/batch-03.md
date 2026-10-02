@@ -89,11 +89,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace “100% independent · No sponsored content · No paid placements” with: “No sponsored content · No paid placements.”
 
 ---
 
