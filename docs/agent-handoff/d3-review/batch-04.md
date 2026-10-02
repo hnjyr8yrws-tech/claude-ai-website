@@ -18,11 +18,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep as written: “GetPromptly is an independent UK education advisory platform.”
 
 ---
 
@@ -40,11 +41,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace with: “Scores are currently held while review provenance and the governed methodology record are completed. No score change is published without a recorded basis.”
 
 ---
 
@@ -62,11 +64,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the concrete independence commitments. Replace the final methodology sentence with: “Our safety methodology explains how the scoring framework is designed to work.”
 
 ---
 
@@ -84,11 +87,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace “Why schools trust us · Independent.” with: “Our approach · Independent.”
 
 ---
 
@@ -106,11 +110,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the “Independent AI guidance for UK education” wording.
 
 ---
 
@@ -128,11 +133,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the “Independent AI guidance for UK education” wording.
 
 ---
 
@@ -150,11 +156,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace with: “Independent AI tools directory. The directory is structured around five assessment pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility.” Remove the claim that all 241 tools are currently scored.
 
 ---
 
@@ -172,11 +179,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the “Independent AI guidance for UK education” wording.
 
 ---
 
@@ -194,11 +202,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the “Independent AI guidance for UK education” wording.
 
 ---
 
@@ -216,11 +225,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the “Independent AI guidance for UK education” wording.
 
 ---
 
@@ -238,11 +248,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the “Independent AI guidance for UK education” wording.
 
 ---
 
@@ -260,11 +271,12 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Check it against:** Charter Art. I.2 (independence; commercial arrangements structurally separated and disclosed); Brand World §16.6 (the Disclosure Voice) and §23.4 (commercial material never borrows the grammar of the record). Note: the affiliate apparatus was removed on 30 September 2026 and UOS §24.1 records that affiliate operation was never authorised, so most items in this class are now about editorial independence only.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 2 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace with: “Every week brings new products, new use cases and new risks. GetPromptly helps explain what those developments mean for classroom teachers, SENCOs, school leaders and parents.”
 
 ---
 
