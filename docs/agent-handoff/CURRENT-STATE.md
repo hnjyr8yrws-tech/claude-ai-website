@@ -4,7 +4,7 @@
 only. Every hash, count and status below was measured on the machine at the timestamp given, not
 carried forward from an earlier note.
 
-**Last verified:** 1 October 2026 (round 25 closeout — three blockers closed, candidate frozen)
+**Last verified:** 2 October 2026 (D3 batch 1 applied; candidate re-frozen)
 **Verified by:** Claude Code (session `28345e36`)
 **Rule for this file:** if you cannot reproduce a figure with the command beside it, treat the
 figure as wrong and re-derive it. Figures in this pack have gone stale twelve times; do not trust a
@@ -133,10 +133,13 @@ is missing.
 ## 5. Exact next action
 
 1. **~~Freeze~~ — done.** Figures in `FREEZE-RECORD.md`.
-2. **D3, immediately.** The pack is being **regenerated from the frozen bytes** before it goes back
-   to the Founder. It was built from the pre-repair corpus and round 25 repaired roughly sixty
-   claims, so much of it quotes copy that no longer exists; presenting it unregenerated would ask
-   the Founder to adjudicate claims already fixed. Carried-forward adjudications are preserved.
+2. **D3 is under way.** The pack was regenerated from the frozen bytes (the previous one predated
+   the round-25 repairs and quoted ~60 claims that no longer exist). **Batch 1 is done:** the
+   Founder adjudicated twelve of the thirteen open items in batches 01–03 on 1 October — 4 CHANGE,
+   7 KEEP, 1 NEEDS EVIDENCE — and all four changes are applied and verified in the rendered DOM.
+   `03.4` was left open deliberately. **83 decisions remain open.** Each batch's changes are applied,
+   proved and re-frozen before the next batch goes out; assurance stays attached to the change and
+   does not become a separate project.
 3. **Then the product work, in this order** (Founder direction, 1 October):
    - reconcile and update the AI tool directory from the preserved Phase 2A research;
    - make the retained site current for KCSIE 2026;

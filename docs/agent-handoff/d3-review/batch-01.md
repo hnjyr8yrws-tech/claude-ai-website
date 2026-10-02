@@ -286,6 +286,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `NEEDS EVIDENCE`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: open evidence request. The notice is LEFT IN PLACE pending evidence — the agent's judgement, not an instruction: a notice warning of logging errs toward over-disclosure, where withdrawing it would leave logging undisclosed if it occurs. Reversible on request. Same dependency as D5 (the n8n grounding).
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Confirm the live Luna/n8n logging and retention behaviour before making this privacy disclosure. Keep or rewrite the notice only once the actual logging/retention setup is evidenced.

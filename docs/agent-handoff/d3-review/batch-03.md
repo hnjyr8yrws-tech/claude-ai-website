@@ -67,6 +67,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Applied 2 Oct 2026. `/ai-training/teachers` now reads "Teacher resources · Resources tagged for teachers". Verified in the rendered DOM.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Use simpler wording: “Teacher resources · Resources tagged for teachers.” Avoid “All” / “Every” unless the complete set is proved.
@@ -112,6 +114,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made. Stale counts in surrounding copy were repaired separately as factual fixes, per the Founder's note.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
@@ -134,6 +138,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 1 October 2026.*
+
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made. Stale counts in surrounding copy were repaired separately as factual fixes, per the Founder's note.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
@@ -158,6 +164,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Applied 2 Oct 2026. `/` now reads "AI tools and training for UK education · No paid placements." Verified in the rendered DOM.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Replace “independently listed” with: “AI tools and training for UK education · No paid placements.”
@@ -181,6 +189,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made. Stale counts in surrounding copy were repaired separately as factual fixes, per the Founder's note.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
@@ -203,6 +213,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 1 October 2026.*
+
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made. Stale counts in surrounding copy were repaired separately as factual fixes, per the Founder's note.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
@@ -231,6 +243,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made. Stale counts in surrounding copy were repaired separately as factual fixes, per the Founder's note.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
@@ -254,6 +268,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made. Stale counts in surrounding copy were repaired separately as factual fixes, per the Founder's note.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the independence wording. The affiliate apparatus has been removed; retain only factual, supportable editorial-independence wording. Any stale counts in surrounding copy are factual repairs, not part of this KEEP decision.
@@ -276,6 +292,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 1 October 2026.*
+
+**Status:** Applied 2 Oct 2026. `/ai-training` now reads "No paid placements; some government-backed", with the counts derived from the dataset. Verified in the rendered DOM.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 

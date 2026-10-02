@@ -1,16 +1,17 @@
-# Freeze record — round 25 closeout
+# Freeze record — round 25 closeout, then D3 batch 1 applied
 
 A tree hash cannot be stored inside the tree it describes, so it is recorded here, on the handoff
 branch, outside the containment worktree.
 
-**Frozen:** 1 October 2026
+**Frozen:** 2 October 2026 (D3 batch 1 applied on top of the round-25 closeout)
 **Branch:** `feat/kcsie-2026-containment` (uncommitted; **0 commits ahead** of `origin/main`)
 **Base / merge-base:** `51d56c818fda9a6cde59c05e3b368896ecc7c2ab`
 
 | | |
 |---|---|
-| **Frozen tree** | `1289c00a15378f511a2f069358fef024c5ed961f` |
-| **Patch** | `containment-r25.patch`, SHA-256 `5b84954a5b620d14adb8b38901d47351370a3b71344e773ae376b975f6c82c34` |
+| **Frozen tree** | `4a6dc3337a3d54ff6bc71bbf818321c852dffc0f` |
+| Previous freeze | `1289c00a15378f511a2f069358fef024c5ed961f` — the round-25 closeout, superseded by the D3 changes below |
+| **Patch** | `containment-d3b1.patch`, SHA-256 `ac989dc8c66669ee8eb78fd573fb10e2f08172964598d1a214f85e9db060aab1` |
 | Reproduction | **verified** — a clean worktree at `origin/main` plus the patch yields the frozen tree exactly |
 | `refs/replace` | none |
 | Commits ahead | **0** |
@@ -23,16 +24,18 @@ branch, outside the containment worktree.
 |---|---|
 | Typecheck / build | clean |
 | Tests | **96 / 96**, 17 rules |
-| Mutants | **115 of 125 killed, 10 retired, 0 survived, 0 invalid**, against a proved-green baseline |
-| DOM / browser | **42 routes**, **0 problems, 0 missing required**, 245 reasoned allowed hits |
+| Mutants | **114 of 125 killed, 10 retired, 0 survived, 0 invalid, 1 not applied**, against a proved-green baseline. The one not applied is **M61**, whose anchor was the Home-page line that D3 **03.7** rewrote. It was re-anchored to the adjudicated wording afterwards and **its kill was verified by direct demonstration** — the mutation was applied by hand and the suite went red naming the claim rule. A full re-run for a definition-only change would have cost another cycle for no new information; the record says which figure came from the pack and which from demonstration |
+| DOM / browser | **42 routes**, **0 problems, 0 missing required**, 244 reasoned allowed hits |
 | DOM blind spot | **0 claim-class hits across 0 routes** — empty because the surface is gone, and the transcript says so in words |
 | Independent rescan | **857 rows**; of the 743 carrying a claim class, **535 gone / 208 remain**. All classes including the benign C10/C16: 553 gone / 304 remain |
 | **Measured reach** | **3 of 15** — published, not withdrawn |
 
-**The pack was run once on these bytes, deliberately.** An earlier run was stopped and discarded
-because a late repair (three hard-coded training counts) made it one edit stale. A mutant pack is
-only valid for the bytes it ran against, and this programme's record says so in several places; it
-would have been inconsistent to publish an attestation of a tree that no longer existed.
+**On running the pack once.** During the round-25 closeout an earlier run was stopped and discarded
+because a late repair (three hard-coded training counts) had made it one edit stale: a mutant pack
+is only valid for the bytes it ran against. The same discipline is applied here with one stated
+exception — M61's re-anchor is a change to a mutant *definition*, not to the product, so its kill
+was demonstrated directly rather than by a further 25-minute cycle. Which figure came from the pack
+and which from demonstration is stated in the table above.
 
 ## What this tree contains
 
@@ -72,7 +75,7 @@ test actually compares. A guard adjacent to the thing it protects is not a guard
 cd ~/Sites/claude-ai-website-kcsie-containment
 GIT_INDEX_FILE=/tmp/idx git read-tree 51d56c818fda9a6cde59c05e3b368896ecc7c2ab   # the MERGE BASE, never HEAD
 GIT_INDEX_FILE=/tmp/idx git add -A . 2>/dev/null
-GIT_INDEX_FILE=/tmp/idx git write-tree          # → 1289c00a15378f511a2f069358fef024c5ed961f
+GIT_INDEX_FILE=/tmp/idx git write-tree          # → 4a6dc3337a3d54ff6bc71bbf818321c852dffc0f
 git rev-list --count origin/main..HEAD          # → 0
 git for-each-ref refs/replace                   # → empty
 ```
@@ -96,3 +99,46 @@ The open items are governance decisions, not engineering work. See `CURRENT-STAT
 `DECISIONS-NEEDED.md`. In particular **no score or Pillar Card redesign has been attempted**: the
 authoritative basis is unresolved (Brand World v2.1's text is not in the supplied pack, and UOS
 §24.5 records FD-01's published wording as outstanding), and the Founder has directed that it waits.
+
+---
+
+## D3 batch 1 — the Founder's adjudications, as executed
+
+Twelve of the thirteen open items in batches 01–03 were adjudicated on 1 October. `03.4` was left
+open deliberately and is untouched.
+
+**CHANGE × 4, applied and verified in the rendered DOM** (not merely in source):
+
+| Item | Surface | Now reads |
+|---|---|---|
+| `02.2` | `/safety-methodology` | "The methodology, as designed · **How the Promptly Score methodology is designed to work.**" |
+| `03.3` | `/ai-training/teachers` | "**Teacher resources** · Resources tagged for teachers" — "All" and "Every" removed |
+| `03.7` | `/` | "AI tools and training for UK education **· No paid placements.** Scores are held pending re-review." |
+| `03.12` | `/ai-training` | "**No paid placements**; some government-backed" — the derived counts kept (76 / 57 / 6 / 27) |
+
+**KEEP × 7** — the footer independence wording stands on all 41 surfaces. The Founder's note that
+stale surrounding counts are "factual repairs, not part of this KEEP decision" is why the last three
+hard-coded `26` values were derived from the dataset before this freeze.
+
+**NEEDS EVIDENCE × 1 — `01.12`, the Luna logging disclosure.** The notice is **left in place pending
+evidence**, and that was the agent's judgement, not the Founder's instruction: a notice warning of
+logging errs toward over-disclosure, whereas withdrawing it would leave logging undisclosed if it
+does occur. It is flagged for the Founder to reverse. The evidence required — the live Luna/n8n
+logging and retention behaviour — is the **same dependency as D5**, so one piece of evidence settles
+both.
+
+**Three allowlist entries were re-keyed to the adjudicated wording** — two in the source harness,
+one in the DOM harness — rather than altering what the Founder specified. Each was surfaced by the
+dead-allow control, not by inspection.
+
+### A false assurance caught before it was published
+
+The first DOM check after these changes reported "42 routes, 0 problems". It was **reading the
+previous day's captures**: headless Chrome had died overnight, the capture script was failing with
+`ECONNREFUSED`, and `dom-check.py` ran happily over a stale corpus. It was found only by grepping
+the captures for the Founder's new wording and getting zero hits. Chrome was restarted, the corpus
+recaptured, and the figures above are measured on bytes that demonstrably contain the changes.
+
+This is the `capture-serve` class of defect that round 22 already recorded once — a harness
+reporting a clean result over inputs it never refreshed. The lesson applied here: **after any copy
+change, grep the captures for the new wording before trusting the check.**

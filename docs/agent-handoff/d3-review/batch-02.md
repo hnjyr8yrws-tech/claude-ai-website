@@ -44,6 +44,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 1 October 2026.*
 
+**Status:** Applied 2 Oct 2026. `/safety-methodology` now reads "The methodology, as designed · How the Promptly Score methodology is designed to work." Verified in the rendered DOM.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Use wording that describes the methodology rather than implying the current scoring process is operating, e.g. “How the Promptly Score methodology is designed to work.”
@@ -231,6 +233,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 1 October 2026.*
+
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made. Stale counts in surrounding copy were repaired separately as factual fixes, per the Founder's note.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
