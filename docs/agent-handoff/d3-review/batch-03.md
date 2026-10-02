@@ -92,6 +92,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 2 October 2026.*
 
+**Status:** Applied 2 Oct 2026. Footer on 41 surfaces now reads "No sponsored content · No paid placements". Verified in the rendered DOM.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Replace “100% independent · No sponsored content · No paid placements” with: “No sponsored content · No paid placements.”

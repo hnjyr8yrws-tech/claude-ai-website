@@ -1,17 +1,17 @@
-# Freeze record — round 25 closeout, then D3 batch 1 applied
+# Freeze record — round 25 closeout, then D3 batches 1 and 2 applied
 
 A tree hash cannot be stored inside the tree it describes, so it is recorded here, on the handoff
 branch, outside the containment worktree.
 
-**Frozen:** 2 October 2026 (D3 batch 1 applied on top of the round-25 closeout)
+**Frozen:** 2 October 2026 (D3 batches 1 and 2 applied on top of the round-25 closeout)
 **Branch:** `feat/kcsie-2026-containment` (uncommitted; **0 commits ahead** of `origin/main`)
 **Base / merge-base:** `51d56c818fda9a6cde59c05e3b368896ecc7c2ab`
 
 | | |
 |---|---|
-| **Frozen tree** | `4a6dc3337a3d54ff6bc71bbf818321c852dffc0f` |
-| Previous freeze | `1289c00a15378f511a2f069358fef024c5ed961f` — the round-25 closeout, superseded by the D3 changes below |
-| **Patch** | `containment-d3b1.patch`, SHA-256 `ac989dc8c66669ee8eb78fd573fb10e2f08172964598d1a214f85e9db060aab1` |
+| **Frozen tree** | `d83ac6d7dd9671a7c38aaa018570da2125623ea3` |
+| Previous freezes | `4a6dc3337a3d54ff6bc71bbf818321c852dffc0f` (D3 batch 1) · `1289c00a15378f511a2f069358fef024c5ed961f` (round-25 closeout) |
+| **Patch** | `containment-d3b2.patch`, SHA-256 `ddc473de6ba14e5ff9b5b171e9a955219d774d0a5940b910a4821b6bc677f9fb` |
 | Reproduction | **verified** — a clean worktree at `origin/main` plus the patch yields the frozen tree exactly |
 | `refs/replace` | none |
 | Commits ahead | **0** |
@@ -75,7 +75,7 @@ test actually compares. A guard adjacent to the thing it protects is not a guard
 cd ~/Sites/claude-ai-website-kcsie-containment
 GIT_INDEX_FILE=/tmp/idx git read-tree 51d56c818fda9a6cde59c05e3b368896ecc7c2ab   # the MERGE BASE, never HEAD
 GIT_INDEX_FILE=/tmp/idx git add -A . 2>/dev/null
-GIT_INDEX_FILE=/tmp/idx git write-tree          # → 4a6dc3337a3d54ff6bc71bbf818321c852dffc0f
+GIT_INDEX_FILE=/tmp/idx git write-tree          # → d83ac6d7dd9671a7c38aaa018570da2125623ea3
 git rev-list --count origin/main..HEAD          # → 0
 git for-each-ref refs/replace                   # → empty
 ```
@@ -142,3 +142,56 @@ recaptured, and the figures above are measured on bytes that demonstrably contai
 This is the `capture-serve` class of defect that round 22 already recorded once — a harness
 reporting a clean result over inputs it never refreshed. The lesson applied here: **after any copy
 change, grep the captures for the new wording before trusting the check.**
+
+---
+
+## D3 batch 2 — the Founder's adjudications, as executed
+
+Thirteen items adjudicated on 2 October: **6 CHANGE, 7 KEEP**. All six changes applied and verified
+in the rendered DOM.
+
+| Item | Surface | Now reads |
+|---|---|---|
+| `03.4` | footer, 41 surfaces | "No sponsored content · No paid placements" — "100% independent" withdrawn |
+| `04.2` | `/schools`, `/for-schools` | "Scores are currently held while review provenance and the governed methodology record are completed. No score change is published without a recorded basis." |
+| `04.3` | `/legal` | "…explains how the scoring framework is designed to work." The concrete independence commitments are kept |
+| `04.4` | `/schools`, `/for-schools` | "**Our approach** · Independent." |
+| `04.7` | `/tools` | "The directory is structured around five assessment pillars … No pillar value or score is currently shown for any tool." The "241 tools … scored" claim is gone |
+| `04.12` | `/who-we-are` | "GetPromptly helps explain what those developments mean for classroom teachers, SENCOs, school leaders and parents." |
+
+**Two allowlist entries disappeared rather than moved.** `04.3` and `04.7` did not reword their
+claims, they **removed** them — so the exemptions that existed to excuse those claims had nothing
+left to excuse. The dead-allow control flagged both and they were deleted. Allow entries 216 → 213.
+A claim withdrawn is better than a claim excused, and the allowlist shrinking is the healthy
+direction.
+
+**M47 lost its anchor** to the deleted `/legal` allow; re-anchored, and its kill demonstrated
+directly — the mutation was applied by hand and both the bridge and blanket controls fired.
+
+**The capture check that caught a stale corpus is now habit.** Before trusting the DOM result, the
+captures are grepped for the Founder's new wording. All six present; all three superseded phrasings
+at zero.
+
+---
+
+## The remaining D3 decisions, grouped
+
+`d3-review/DECISIONS-GROUPED.md` reduces the **70 remaining open pack items to 19 decisions**, on
+the Founder's instruction to bring the smallest genuine set rather than seventy repetitions.
+
+The grouping key is the triple *(what is asserted · what would settle it · what follows if it is
+wrong)*. Two items share a decision only where all three match. Three earlier attempts were
+discarded for merging too aggressively:
+
+- a single 18-item **KCSIE** group was conflating four different consequences — the approved
+  "KCSIE-aware" brand form, KCSIE 2025 as dated history, the KCSIE 2026 status notices, and a plain
+  statutory explainer. One of the 2025 instances is the historical v2.2 Safeguarding rubric that
+  IR §6 bullets 4–5 deliberately keep intact, and which mutant M15 exists to protect;
+- a 12-item **Promptly Score** group was conflating the suppressed card label, the model
+  description, the not-approval disclaimer, the integrity pledge and the withdrawn-tool notices;
+- six decisions had been split on nothing more than which detector fired, with the assertion,
+  evidence and consequence identical — those were merged.
+
+`d3-review/WRITE-BACK-MAP.json` maps each decision to every item ID, batch and route it covers, so
+one adjudication can be written back to all of them. Verified: **19 decisions, 70 items, no item
+counted twice and none missed.**

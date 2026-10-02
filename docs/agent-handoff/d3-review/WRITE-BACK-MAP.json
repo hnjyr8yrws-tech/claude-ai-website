@@ -1,0 +1,727 @@
+{
+  "decision-1": {
+    "family": "SCORE-HELD",
+    "classes": [
+      "Holding statement (check the wording is accurate)"
+    ],
+    "items": [
+      {
+        "id": "09.2",
+        "batch": "09",
+        "routes": [
+          "/admin",
+          "/parents",
+          "/school-leaders",
+          "/senco",
+          "/senco (Ask Luna open)",
+          "/students"
+        ]
+      },
+      {
+        "id": "09.5",
+        "batch": "09",
+        "routes": [
+          "/tools/brisk-teaching",
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)",
+          "/tools/magicschool-ai"
+        ]
+      },
+      {
+        "id": "09.8",
+        "batch": "09",
+        "routes": [
+          "/",
+          "/ (Ask Luna open)",
+          "/ (email modal open)"
+        ]
+      },
+      {
+        "id": "09.9",
+        "batch": "09",
+        "routes": [
+          "/ai-training",
+          "/training",
+          "/training (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "09.10",
+        "batch": "09",
+        "routes": [
+          "/cookie-policy",
+          "/legal",
+          "/privacy-policy"
+        ]
+      },
+      {
+        "id": "09.11",
+        "batch": "09",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)",
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "09.12",
+        "batch": "09",
+        "routes": [
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "10.2",
+        "batch": "10",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "10.3",
+        "batch": "10",
+        "routes": [
+          "/tools",
+          "/tools (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "10.4",
+        "batch": "10",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "10.5",
+        "batch": "10",
+        "routes": [
+          "/safety-methodology",
+          "/tools/photomath"
+        ]
+      },
+      {
+        "id": "10.6",
+        "batch": "10",
+        "routes": [
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "10.7",
+        "batch": "10",
+        "routes": [
+          "/tools/brisk-teaching"
+        ]
+      },
+      {
+        "id": "10.8",
+        "batch": "10",
+        "routes": [
+          "/tools/magicschool-ai"
+        ]
+      },
+      {
+        "id": "10.9",
+        "batch": "10",
+        "routes": [
+          "/tools/photomath"
+        ]
+      },
+      {
+        "id": "10.10",
+        "batch": "10",
+        "routes": [
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "10.11",
+        "batch": "10",
+        "routes": [
+          "/tools/photomath"
+        ]
+      },
+      {
+        "id": "11.1",
+        "batch": "11",
+        "routes": [
+          "/tools/photomath"
+        ]
+      }
+    ]
+  },
+  "decision-2": {
+    "family": "KCSIE-AWARE",
+    "classes": [
+      "KCSIE / standards basis"
+    ],
+    "items": [
+      {
+        "id": "06.2",
+        "batch": "06",
+        "routes": [
+          "/for-schools",
+          "/for-schools (Ask Luna open)",
+          "/schools"
+        ]
+      },
+      {
+        "id": "06.6",
+        "batch": "06",
+        "routes": [
+          "/",
+          "/ (Ask Luna open)",
+          "/ (email modal open)"
+        ]
+      },
+      {
+        "id": "06.7",
+        "batch": "06",
+        "routes": [
+          "/",
+          "/ (Ask Luna open)",
+          "/ (email modal open)"
+        ]
+      },
+      {
+        "id": "06.8",
+        "batch": "06",
+        "routes": [
+          "/",
+          "/ (Ask Luna open)",
+          "/ (email modal open)"
+        ]
+      },
+      {
+        "id": "06.9",
+        "batch": "06",
+        "routes": [
+          "/for-schools",
+          "/for-schools (Ask Luna open)",
+          "/schools"
+        ]
+      },
+      {
+        "id": "06.10",
+        "batch": "06",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "07.6",
+        "batch": "07",
+        "routes": [
+          "/teachers"
+        ]
+      }
+    ]
+  },
+  "decision-3": {
+    "family": "SCORE-PROMPTLY",
+    "classes": [
+      "Holding statement (check the wording is accurate)",
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "07.11",
+        "batch": "07",
+        "routes": [
+          "/for-schools",
+          "/for-schools (Ask Luna open)",
+          "/schools"
+        ]
+      },
+      {
+        "id": "08.12",
+        "batch": "08",
+        "routes": [
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "09.1",
+        "batch": "09",
+        "routes": [
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "09.4",
+        "batch": "09",
+        "routes": [
+          "/tools/brisk-teaching",
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)",
+          "/tools/magicschool-ai"
+        ]
+      },
+      {
+        "id": "09.6",
+        "batch": "09",
+        "routes": [
+          "/for-schools",
+          "/for-schools (Ask Luna open)",
+          "/schools"
+        ]
+      },
+      {
+        "id": "09.7",
+        "batch": "09",
+        "routes": [
+          "/",
+          "/ (Ask Luna open)",
+          "/ (email modal open)"
+        ]
+      },
+      {
+        "id": "10.12",
+        "batch": "10",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-4": {
+    "family": "SCORE-CARDLABEL",
+    "classes": [
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "08.1",
+        "batch": "08",
+        "routes": [
+          "/tools",
+          "/tools (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "08.2",
+        "batch": "08",
+        "routes": [
+          "/tools",
+          "/tools (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "08.3",
+        "batch": "08",
+        "routes": [
+          "/tools",
+          "/tools (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "08.4",
+        "batch": "08",
+        "routes": [
+          "/tools",
+          "/tools (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "08.5",
+        "batch": "08",
+        "routes": [
+          "/tools",
+          "/tools (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "08.6",
+        "batch": "08",
+        "routes": [
+          "/tools",
+          "/tools (Ask Luna open)"
+        ]
+      }
+    ]
+  },
+  "decision-5": {
+    "family": "KCSIE-2026-STATUS",
+    "classes": [
+      "KCSIE / standards basis"
+    ],
+    "items": [
+      {
+        "id": "06.1",
+        "batch": "06",
+        "routes": [
+          "/tools/brisk-teaching",
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)",
+          "/tools/magicschool-ai",
+          "/tools/photomath"
+        ]
+      },
+      {
+        "id": "06.3",
+        "batch": "06",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)",
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "06.5",
+        "batch": "06",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)",
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "06.11",
+        "batch": "06",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "07.2",
+        "batch": "07",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-6": {
+    "family": "KCSIE-2025-HISTORY",
+    "classes": [
+      "KCSIE / standards basis"
+    ],
+    "items": [
+      {
+        "id": "06.4",
+        "batch": "06",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)",
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "06.12",
+        "batch": "06",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "07.1",
+        "batch": "07",
+        "routes": [
+          "/methodology",
+          "/methodology (Ask Luna open)"
+        ]
+      },
+      {
+        "id": "07.3",
+        "batch": "07",
+        "routes": [
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "07.5",
+        "batch": "07",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-7": {
+    "family": "IND-FOOTER",
+    "classes": [
+      "Independence / commercial"
+    ],
+    "items": [
+      {
+        "id": "05.1",
+        "batch": "05",
+        "routes": [
+          "/ai-training/teachers"
+        ]
+      },
+      {
+        "id": "05.2",
+        "batch": "05",
+        "routes": [
+          "/who-we-are"
+        ]
+      },
+      {
+        "id": "05.8",
+        "batch": "05",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-8": {
+    "family": "IND-BARE",
+    "classes": [
+      "Independence / commercial"
+    ],
+    "items": [
+      {
+        "id": "05.3",
+        "batch": "05",
+        "routes": [
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "05.5",
+        "batch": "05",
+        "routes": [
+          "/safety-methodology"
+        ]
+      },
+      {
+        "id": "05.9",
+        "batch": "05",
+        "routes": [
+          "/who-we-are"
+        ]
+      }
+    ]
+  },
+  "decision-9": {
+    "family": "SCORE-PILLARS",
+    "classes": [
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "07.8",
+        "batch": "07",
+        "routes": [
+          "/tools/brisk-teaching",
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)",
+          "/tools/magicschool-ai",
+          "/tools/photomath"
+        ]
+      },
+      {
+        "id": "07.12",
+        "batch": "07",
+        "routes": [
+          "/",
+          "/ (Ask Luna open)",
+          "/ (email modal open)"
+        ]
+      },
+      {
+        "id": "08.10",
+        "batch": "08",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-10": {
+    "family": "IND-LUNA",
+    "classes": [
+      "Independence / commercial",
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "05.4",
+        "batch": "05",
+        "routes": [
+          "/who-we-are"
+        ]
+      },
+      {
+        "id": "08.9",
+        "batch": "08",
+        "routes": [
+          "/who-we-are"
+        ]
+      }
+    ]
+  },
+  "decision-11": {
+    "family": "SCORE-MODEL",
+    "classes": [
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "07.10",
+        "batch": "07",
+        "routes": [
+          "/",
+          "/ (Ask Luna open)",
+          "/ (email modal open)"
+        ]
+      },
+      {
+        "id": "08.7",
+        "batch": "08",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-12": {
+    "family": "SCORE-WITHDRAWN",
+    "classes": [
+      "Holding statement (check the wording is accurate)",
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "08.8",
+        "batch": "08",
+        "routes": [
+          "/tools/photomath"
+        ]
+      },
+      {
+        "id": "10.1",
+        "batch": "10",
+        "routes": [
+          "/tools/flip",
+          "/tools/flipgrid-flip"
+        ]
+      }
+    ]
+  },
+  "decision-13": {
+    "family": "IND-NOPAID",
+    "classes": [
+      "Independence / commercial"
+    ],
+    "items": [
+      {
+        "id": "05.6",
+        "batch": "05",
+        "routes": [
+          "/who-we-are"
+        ]
+      }
+    ]
+  },
+  "decision-14": {
+    "family": "IND-PLATFORM",
+    "classes": [
+      "Independence / commercial"
+    ],
+    "items": [
+      {
+        "id": "05.7",
+        "batch": "05",
+        "routes": [
+          "/who-we-are"
+        ]
+      }
+    ]
+  },
+  "decision-15": {
+    "family": "KCSIE-EXPLAINER",
+    "classes": [
+      "KCSIE / standards basis"
+    ],
+    "items": [
+      {
+        "id": "07.4",
+        "batch": "07",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-16": {
+    "family": "SCORE-DISCLAIMER",
+    "classes": [
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "07.7",
+        "batch": "07",
+        "routes": [
+          "/tools/brisk-teaching",
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)",
+          "/tools/magicschool-ai",
+          "/tools/photomath"
+        ]
+      }
+    ]
+  },
+  "decision-17": {
+    "family": "SCORE-PAYMENT",
+    "classes": [
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "07.9",
+        "batch": "07",
+        "routes": [
+          "/tools/brisk-teaching",
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)",
+          "/tools/magicschool-ai",
+          "/tools/photomath"
+        ]
+      }
+    ]
+  },
+  "decision-18": {
+    "family": "SCORE-MECHANICS",
+    "classes": [
+      "Score / rating shown"
+    ],
+    "items": [
+      {
+        "id": "08.11",
+        "batch": "08",
+        "routes": [
+          "/safety-methodology"
+        ]
+      }
+    ]
+  },
+  "decision-19": {
+    "family": "REV-NAMED",
+    "classes": [
+      "Holding statement (check the wording is accurate)"
+    ],
+    "items": [
+      {
+        "id": "09.3",
+        "batch": "09",
+        "routes": [
+          "/tools/brisk-teaching",
+          "/tools/chatgpt",
+          "/tools/chatgpt (Ask Luna open)",
+          "/tools/magicschool-ai"
+        ]
+      }
+    ]
+  }
+}

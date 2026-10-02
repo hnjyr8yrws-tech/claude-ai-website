@@ -21,6 +21,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 2 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep as written: “GetPromptly is an independent UK education advisory platform.”
@@ -43,6 +45,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 2 October 2026.*
+
+**Status:** Applied 2 Oct 2026. /schools and /for-schools now read "Scores are currently held while review provenance and the governed methodology record are completed. No score change is published without a recorded basis." Verified in the rendered DOM.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
@@ -67,6 +71,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 2 October 2026.*
 
+**Status:** Applied 2 Oct 2026. /legal now reads "…explains how the scoring framework is designed to work."; the concrete independence commitments are unchanged. The claim's removal made its allowlist exemption redundant, and it was deleted. Verified in the rendered DOM.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the concrete independence commitments. Replace the final methodology sentence with: “Our safety methodology explains how the scoring framework is designed to work.”
@@ -89,6 +95,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 2 October 2026.*
+
+**Status:** Applied 2 Oct 2026. /schools and /for-schools now read "Our approach · Independent." Verified in the rendered DOM.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
@@ -113,6 +121,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 2 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the “Independent AI guidance for UK education” wording.
@@ -135,6 +145,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 2 October 2026.*
+
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
@@ -159,6 +171,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 2 October 2026.*
 
+**Status:** Applied 2 Oct 2026. /tools now reads "The directory is structured around five assessment pillars … No pillar value or score is currently shown for any tool." The "241 tools … scored" claim is removed. Verified in the rendered DOM.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Replace with: “Independent AI tools directory. The directory is structured around five assessment pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility.” Remove the claim that all 241 tools are currently scored.
@@ -181,6 +195,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 2 October 2026.*
+
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
@@ -205,6 +221,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 2 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the “Independent AI guidance for UK education” wording.
@@ -227,6 +245,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 2 October 2026.*
+
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
@@ -251,6 +271,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 **Decision:** `KEEP`  
 *Adjudicated by the Founder on 2 October 2026.*
 
+**Status:** Recorded 2 Oct 2026: KEEP actioned — no change made.
+
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
 > Keep the “Independent AI guidance for UK education” wording.
@@ -273,6 +295,8 @@ Mark each claim **KEEP** / **CHANGE** / **REMOVE** / **NEEDS EVIDENCE** on its d
 
 **Decision:** `CHANGE`  
 *Adjudicated by the Founder on 2 October 2026.*
+
+**Status:** Applied 2 Oct 2026. /who-we-are now reads "GetPromptly helps explain what those developments mean for classroom teachers, SENCOs, school leaders and parents." Verified in the rendered DOM.
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
