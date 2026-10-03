@@ -36,11 +36,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If the wording is wrong, the site misdescribes what it is withholding.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Standardise the holding wording to: “Score held pending re-review. No current score or pillar value is shown.”
 
 ---
 
@@ -72,11 +73,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: a brand-voice matter, not a false claim. Most likely KEEP.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the approved KCSIE-aware / KCSIE-aligned wording. It describes awareness of the framework, not compliance or approval.
 
 ---
 
@@ -108,11 +110,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: names a figure the reader then cannot find.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the Promptly Score name in ordinary explanatory copy while no live score or pillar value is presented as current.
 
 ---
 
@@ -142,11 +145,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: the signature artefact reads as an error rather than a deliberate hold.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace the dash-only card presentation with a clear hold state: “Promptly Score — held pending re-review”, while keeping the five pillar names visible. Do not redesign the Pillar Card beyond this holding presentation.
 
 ---
 
@@ -174,11 +178,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: the site misdescribes the statutory position to the people who carry the duty.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the KCSIE 2026 status notices: KCSIE 2026 is in force and the methodology changes/re-review are not yet settled.
 
 ---
 
