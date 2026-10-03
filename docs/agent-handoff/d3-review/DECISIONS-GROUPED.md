@@ -211,11 +211,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong in one direction, a superseded edition reads as current; in the other, a deliberate historical record gets destroyed.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep KCSIE 2025 references only where they are clearly dated history, including the protected historical v2.2 rubric. Do not rewrite the historical rubric as if it were current.
 
 ---
 
@@ -239,11 +240,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: a self-description on 41 surfaces. If right: nothing to do.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep “Independent AI guidance for UK education” in the footer.
 
 ---
 
@@ -267,11 +269,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: a self-description where evidence belongs.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace bare self-descriptions such as “GetPromptly is independent” / “Why trust GetPromptly · Independent” with evidence-led wording such as “How independence is protected” or “Our approach”, supported by the concrete no-paid-placement commitments.
 
 ---
 
@@ -295,11 +298,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: implies pillar values are on display when none is.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Standardise to: “The methodology is structured around five assessment pillars — Data Privacy, Safeguarding, Age Suitability, Transparency and Accessibility.” Avoid wording that implies current scoring is operating.
 
 ---
 
@@ -321,11 +325,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: a claim about an AI system's behaviour that the repository cannot keep.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `NEEDS EVIDENCE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Verify the live n8n/Luna grounding and behaviour before keeping claims about what Luna is given as context, whether it can provide scores, and related behavioural limits.
 
 ---
 
