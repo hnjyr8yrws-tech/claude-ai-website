@@ -379,11 +379,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: the most safety-sensitive wording on the site.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the withdrawn-tool wording that the previous Promptly Score and pillar breakdown are no longer published while the tool is re-assessed.
 
 ---
 
@@ -403,11 +404,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: a factual misstatement about money. If right: it is the strongest claim on the site.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep “No sponsored rankings, no paid placements.”
 
 ---
 
@@ -427,11 +429,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: self-description in editorial voice. Founder KEPT the /legal instance at 04.1.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace with: “AI tools organised around five published assessment pillars, with editorial decisions separated from payment.”
 
 ---
 
@@ -451,11 +454,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: schools outside England read an England-only basis as covering them.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the plain KCSIE explainer, preserving the England-specific statutory scope.
 
 ---
 
