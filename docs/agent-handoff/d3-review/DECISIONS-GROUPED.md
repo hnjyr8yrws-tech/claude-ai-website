@@ -352,11 +352,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: describes a mechanism the stored data does not bear out — see the separate SCORE-MECHANICS decision on the unexercised floor.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `REMOVE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove the public explanation of the current composite / weighted-average mechanics for now because the score design is changing. Keep only the holding message that current scores are not being shown. Reintroduce the explanation only once the new score/Pillar Card design and model are settled.
 
 ---
 
