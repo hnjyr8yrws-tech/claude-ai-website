@@ -479,11 +479,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: removing it would weaken the containment, not strengthen it. Almost certainly KEEP.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep “A Promptly Score is independent guidance, not approval.” Preserve the distinction that reviews inform school decisions and do not discharge school duties.
 
 ---
 
@@ -503,11 +504,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: the single most damaging claim the site could get wrong. Likely KEEP.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `CHANGE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Replace the historical absolute “We have never changed a score for payment” with: “Payment does not influence scoring, placement or editorial judgement.”
 
 ---
 
@@ -527,11 +529,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: a school reading the band description believes a weak safeguarding mark cannot be averaged away. On the stored data it was.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `REMOVE`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Remove the detailed composite arithmetic, band thresholds and band-name explanation for now. The published mechanics do not match the stored data and the score design is changing. Reintroduce only after the new model is settled and governed.
 
 ---
 
@@ -551,11 +554,12 @@ apart. Every covered item ID and route is listed, so one decision writes back to
 
 **Consequence.** If wrong: attributes accountability that is not recorded anywhere.
 
-**Decision:** ` KEEP / CHANGE / REMOVE / NEEDS EVIDENCE `
+**Decision:** `KEEP`  
+*Adjudicated by the Founder on 3 October 2026.*
 
 **If CHANGE or NEEDS EVIDENCE — what it should say, or what would settle it:**
 
-> 
+> Keep the holding wording that no recorded review basis, verification date or named reviewer exists for the current records, so they must not be presented as current reviews.
 
 ---
 
