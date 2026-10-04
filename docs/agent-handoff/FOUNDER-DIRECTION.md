@@ -295,3 +295,18 @@ Direction:
 - Where explanatory text is needed, use: **“No current Promptly Score or pillar values are published for this tool.”**
 - Keep the existing held-tool wording for previously scored/held tools, and keep the separate child-safety withdrawal wording for withdrawn tools.
 - This is a containment/accuracy treatment only, **not a redesign of the controlled score-state vocabulary**. Revisit score-state presentation with the future score/Pillar Card design.
+
+
+### 2026-10-04 — Clarification: the Founder DID approve publication of eligible new tools
+
+Correction to the latest local handoff: the Founder did **not** decline or defer the score-state question.
+The Founder explicitly approved the direction recorded immediately above.
+
+Therefore:
+- Do **not** hold all 28 researched additions out of the public directory merely because they have no prior Promptly Score.
+- Reconcile which of the 28 are genuinely eligible for public publication under the Phase 2A dispositions, excluding Watch / Blocked / withdrawn / research-hold records as already required.
+- Publish the eligible new tools **without any score/status badge**.
+- Where explanatory text is needed, use: **“No current Promptly Score or pillar values are published for this tool.”**
+- Do not use “Pending review” or “Awaiting re-review” for these never-scored additions.
+- Preserve the research-hold mechanism for records that are actually not publishable; do not use it as a blanket substitute for the approved Founder decision.
+- This remains a temporary accuracy/containment treatment until the future score/Pillar Card design is settled.
