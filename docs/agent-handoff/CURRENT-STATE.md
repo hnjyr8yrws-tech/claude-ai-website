@@ -4,7 +4,7 @@
 only. Every hash, count and status below was measured on the machine at the timestamp given, not
 carried forward from an earlier note.
 
-**Last verified:** 2 October 2026 (D3 batch 1 applied; candidate re-frozen)
+**Last verified:** 4 October 2026 (D3 complete — all 19 decisions adjudicated and applied; candidate re-frozen)
 **Verified by:** Claude Code (session `28345e36`)
 **Rule for this file:** if you cannot reproduce a figure with the command beside it, treat the
 figure as wrong and re-derive it. Figures in this pack have gone stale twelve times; do not trust a
@@ -17,9 +17,24 @@ number here that you have not re-run.
 Round 25 ran two independent fresh reviewers. Both returned **NOT CLEAR**, with roughly sixty
 legitimate findings and almost no overlap — one attacked the apparatus, one read the site. All were
 repaired. The Founder then **stopped the autonomous review loop** (direction of 1 October): close
-the three blockers, prove and freeze once, return to D3, then do the actual product work. That is
-complete to the freeze. **No round 26 has been dispatched and none will be without an explicit
-instruction.**
+the three blockers, prove and freeze once, return to D3, then do the actual product work.
+
+**D3 is now complete.** All 19 grouped decisions were adjudicated by the Founder on 3 October
+(10 KEEP, 6 CHANGE, 2 REMOVE, 1 NEEDS EVIDENCE); the eight requiring work are applied, proved on
+the exact bytes and frozen once as tree `51759cad1094d2e01464f41d1e49ae8a1208178c`. The single
+NEEDS EVIDENCE decision (10) stays open on the live n8n/Luna grounding, which is outside this
+repository. **No round 26 has been dispatched and none will be without an explicit instruction.**
+
+The next work is the **product** work, in the Founder's order: reconcile the AI tool directory from
+the preserved Phase 2A research; make the retained site current for KCSIE 2026; confirm Equipment,
+Prompts and affiliate surfaces are fully removed and repair every navigation, route, link, email,
+Luna, SEO and layout location those removals touched; then update the design under the
+currently adopted Brand World authority only. **Safe Mode is Charles's — not to be built,
+redesigned or inferred here.**
+
+**Two things to read before anything else:** `D3-CARVE-OUTS.md` (three decision-1 carve-outs
+awaiting a Founder yes or no) and the two unasked-for defect fixes in `FREEZE-RECORD.md` — the build
+had been failing since 30 September, and decision 11 was half-applied on the first pass.
 
 ---
 
@@ -29,7 +44,7 @@ instruction.**
 |---|---|---|---|
 | `~/Sites/claude-ai-website` | `chore/email-audit-info-v2` | `ee19a4e` | Main working checkout |
 | `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660`, tree `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — the tool-refresh research, next after D3 |
-| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead** | The round-25 candidate |
+| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead**; working tree frozen as `51759cad` | The candidate, D3 applied in full |
 
 Safe Mode is in **none** of these: the ARC determination records it at
 `/Users/chloeandcharlie/promptly-labs`, `40-safe-mode/`. **Charles owns it. Claude Code does not

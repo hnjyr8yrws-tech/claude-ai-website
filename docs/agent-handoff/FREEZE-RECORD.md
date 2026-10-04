@@ -1,197 +1,102 @@
-# Freeze record — round 25 closeout, then D3 batches 1 and 2 applied
+# Freeze record — the D3 adjudication applied in full
 
 A tree hash cannot be stored inside the tree it describes, so it is recorded here, on the handoff
 branch, outside the containment worktree.
 
-**Frozen:** 2 October 2026 (D3 batches 1 and 2 applied on top of the round-25 closeout)
+**Frozen:** 4 October 2026 (all 19 D3 decisions adjudicated; the eight requiring work applied)
 **Branch:** `feat/kcsie-2026-containment` (uncommitted; **0 commits ahead** of `origin/main`)
 **Base / merge-base:** `51d56c818fda9a6cde59c05e3b368896ecc7c2ab`
 
 | | |
 |---|---|
-| **Frozen tree** | `d83ac6d7dd9671a7c38aaa018570da2125623ea3` |
-| Previous freezes | `4a6dc3337a3d54ff6bc71bbf818321c852dffc0f` (D3 batch 1) · `1289c00a15378f511a2f069358fef024c5ed961f` (round-25 closeout) |
-| **Patch** | `containment-d3b2.patch`, SHA-256 `ddc473de6ba14e5ff9b5b171e9a955219d774d0a5940b910a4821b6bc677f9fb` |
-| Reproduction | **verified** — a clean worktree at `origin/main` plus the patch yields the frozen tree exactly |
+| **Frozen tree** | `51759cad1094d2e01464f41d1e49ae8a1208178c` |
+| Previous freezes | `d83ac6d7dd9671a7c38aaa018570da2125623ea3` (D3 batches 1–2) · `4a6dc3337a3d54ff6bc71bbf818321c852dffc0f` (D3 batch 1) · `1289c00a15378f511a2f069358fef024c5ed961f` (round-25 closeout) |
+| **Patch** | `containment-d3-final.patch`, SHA-256 `a340a4456ca0b635bdfaaeb770cf47d8f96aa7dc06b1f9e7b55a8eda8d9c7d4f` (7,311,461 bytes), held at `~/Sites/kcsie-freeze-patches/` — outside any repository, per UOS §21 |
+| Reproduction | **verified** — a clean `git clone` of `origin/main` at the merge base, plus the patch, yields the frozen tree **exactly**. Done in a throwaway clone at `/tmp/repro-d3`, not by excluding `.git` from a copy |
 | `refs/replace` | none |
 | Commits ahead | **0** |
-| `phase2c` seal | **34/34 OK**, 0 unsealed, rebuilt from the directory listing |
+| `phase2c` seal | **34/34 OK**, 0 unsealed, rebuilt from the directory listing and re-verified after the last edit |
 | `phase2b` seal | **16/16 OK** |
 
 ## Assurance measured on these exact bytes
 
 | Layer | Result |
 |---|---|
-| Typecheck / build | clean |
-| Tests | **96 / 96**, 17 rules |
-| Mutants | **114 of 125 killed, 10 retired, 0 survived, 0 invalid, 1 not applied**, against a proved-green baseline. The one not applied is **M61**, whose anchor was the Home-page line that D3 **03.7** rewrote. It was re-anchored to the adjudicated wording afterwards and **its kill was verified by direct demonstration** — the mutation was applied by hand and the suite went red naming the claim rule. A full re-run for a definition-only change would have cost another cycle for no new information; the record says which figure came from the pack and which from demonstration |
-| DOM / browser | **42 routes**, **0 problems, 0 missing required**, 244 reasoned allowed hits |
+| Typecheck | clean |
+| Build | **green — and it had not been.** `prebuild` gated on `scripts/audit-prompts.mjs`, which reads `src/data/prompts.ts`, deleted with the prompt packs on 30 September. `npm run build` had been exiting 1 before compiling anything ever since. See "What this freeze fixes that was not asked for" |
+| Tests | **96 / 96**, 17 rules, **200 reasoned allow entries** (was 215) |
+| Mutants | **115 of 125 killed, 10 retired, 0 survived, 0 invalid, 0 not applied** — against a proved-green baseline, in a single run on these bytes. Every figure in this row came from the pack; none from demonstration |
+| DOM / browser | **42 routes**, **0 problems, 0 missing required** |
+| Capture freshness | **proved before the check was trusted**: 26 captures carry the adjudicated holding sentence, 10 carry the decision-4 card caption, and **0 of 42** still carry the withdrawn mechanics. This step exists because headless Chrome once died overnight and the check read the previous day's corpus while reporting "0 problems" |
 | DOM blind spot | **0 claim-class hits across 0 routes** — empty because the surface is gone, and the transcript says so in words |
-| Independent rescan | **857 rows**; of the 743 carrying a claim class, **535 gone / 208 remain**. All classes including the benign C10/C16: 553 gone / 304 remain |
-| **Measured reach** | **3 of 15** — published, not withdrawn |
+| Independent rescan | **857 rows**; of the **742** carrying a claim class, **539 gone / 203 remain**. All classes including the benign C10/C16: **558 gone / 299 remain**. Re-derived from the register on this run, not carried forward (it was 858 / 743 / 536 / 207) |
+| **Measured reach** | **3 of 15** — unchanged, and still published rather than withdrawn |
 
-**On running the pack once.** During the round-25 closeout an earlier run was stopped and discarded
-because a late repair (three hard-coded training counts) had made it one edit stale: a mutant pack
-is only valid for the bytes it ran against. The same discipline is applied here with one stated
-exception — M61's re-anchor is a change to a mutant *definition*, not to the product, so its kill
-was demonstrated directly rather than by a further 25-minute cycle. Which figure came from the pack
-and which from demonstration is stated in the table above.
+**The pack ran once, on these bytes, with nothing outstanding.** The previous cycle recorded one
+mutant (M61) as *not applied*, with its kill demonstrated by hand. That gap is closed: seven mutants
+whose anchors the D3 wording moved were **re-anchored before the run**, so all 125 either killed or
+are deliberately retired with the surface they tested. Nothing in this row is a demonstration
+standing in for a measurement.
 
-## What this tree contains
+## What changed in the tree
 
-The KCSIE 2026 containment, the round-24 product scope reduction (Equipment, the Prompts library and
-all affiliate links removed; Training untouched and on HOLD apart from its affiliate links), the
-round-25 repairs from two fresh reviewers (~60 findings), and the three BLOCKER fixes below.
+All 19 grouped D3 decisions were adjudicated by the Founder on 3 October — **10 KEEP, 6 CHANGE,
+2 REMOVE, 1 NEEDS EVIDENCE**. The full account is `containment-record.md` §29. In summary:
 
-### The three blockers, each proved by replaying the reviewer's own exploit
+- **Decision 1** — the holding wording is standardised to *"Score held pending re-review. No
+  current score or pillar value is shown."* at **22 sites**, including both central constants, the
+  Luna grounding and the transactional emails.
+- **Decisions 11 and 18** — the composite mechanics, the weighting, the safeguarding-and-privacy
+  floor, the band thresholds and the band names are gone from public copy. `BANDS` is retained
+  unused so the historical definitions survive for whoever settles the new model.
+- **Decisions 4, 8, 9, 14, 17** — applied as adjudicated. The Pillar Card carries the hold in words
+  in the held state and is otherwise untouched: the instruction was not to redesign it beyond the
+  holding presentation, and the authoritative basis for a redesign is still unresolved.
+- **Decision 10** (NEEDS EVIDENCE) stays open. It needs the live n8n/Luna grounding, which is
+  outside this repository — the §8 item 6 deployment gate, the same dependency as D5.
 
-1. **`/*` in ordinary copy blinded every rule and the score-store choke point.** Two characters of
-   JSX prose opened a block comment and deleted every following line from all 17 rules until the
-   next `*/`. Behind it a reviewer shipped a sentence that was at once "KCSIE compliant", a
-   certification claim, a named-reviewer cadence claim and adoption wording; imported the score
-   store into a non-adapter page; and published **all 241 held composites** as `data-` attributes —
-   at 96/96 green, build clean. *Fixed:* an opener must look like a comment (`/*` at line start, or
-   `{/*`); a mid-line `/*` now fails **open**, so lines are scanned rather than skipped. Plus a
-   coverage floor on **lines** (20,000; measured 20,841), because a nine-line blackout left the file
-   count untouched. *Proved:* the planted claim trips two rules; the choke point fires on the import.
-2. **The bridge control enumerated three spellings of its own target.** `[\w\W]*` walked past it and
-   widened two live anchors. *Fixed:* it now measures behaviour — splice a planted sentence at
-   **every position** inside each anchor's matched span and fail if the match still swallows it.
-   *Proved:* caught, with the offending offset named.
-3. **`git` was resolved from `PATH`, with `node_modules/.bin` ahead of `/usr/bin`.** A nine-line
-   shim let a stored safeguarding score be rewritten 9.5 → 2.0 at 96/96, breaking no seal because
-   `node_modules` is gitignored. *Fixed:* the load-bearing comparison runs **no subprocess** — the
-   baseline hashes and all 241 safety/tier tuples live in `phase2c/baseline-manifest.json`, sealed
-   by `SHA256SUMS.txt`. *Proved:* with the shim first on `PATH` and the score tampered, it fails.
+Every decision was written back to all 70 pack items it covered (`WRITE-BACK-MAP.json`), so
+item-level traceability survives the grouping.
 
-**M125 survived twice before it died, and both failures were mine.** First the guard was a
-source-text check that matched its own assertion; then an identity check on the *accessor*, which
-stays true when the mutation edits the call site instead. The assertion now sits on the variable the
-test actually compares. A guard adjacent to the thing it protects is not a guard.
+## Two defects this freeze fixes that were not asked for
 
-## How to reproduce the tree hash
+**1. The build had been broken for four days.** The `prebuild` gate ran an audit script against a
+data file the 30 September scope reset deleted, so the build failed before compiling. The gate and
+the orphaned script are removed, and the dead `PROMPT_CATEGORIES` taxonomy that mirrored the same
+file went with them — nothing imported it. This is the round-25 lesson repeating: **removing a
+feature falsifies the things that describe it.**
 
-```sh
-cd ~/Sites/claude-ai-website-kcsie-containment
-GIT_INDEX_FILE=/tmp/idx git read-tree 51d56c818fda9a6cde59c05e3b368896ecc7c2ab   # the MERGE BASE, never HEAD
-GIT_INDEX_FILE=/tmp/idx git add -A . 2>/dev/null
-GIT_INDEX_FILE=/tmp/idx git write-tree          # → d83ac6d7dd9671a7c38aaa018570da2125623ea3
-git rev-list --count origin/main..HEAD          # → 0
-git for-each-ref refs/replace                   # → empty
-```
+**2. Decision 11 was half-applied on the first pass.** The prose paragraph came out; the same claims
+stayed live in the `STEPS` list and the five-pillars paragraph on the same page. A sweep for the
+mechanics language found them. A claim removal applied to one instance of the claim is not applied,
+and the sweep is now the standing step before any removal is called done.
 
-Seeding from `HEAD` makes the hash a function of HEAD as well as of the files, because
-`.claude/worktrees/cranky-kalam` is a tracked gitlink over an empty directory. Two reviewers missed
-an accidental commit that way. Seed from the merge base and assert `0` commits ahead separately.
+## Scope recorded rather than assumed
 
-## Handing this to a reviewer
+Decision 1 said "standardise the holding wording". Three classes were deliberately **not** rewritten
+to it — the withdrawn state, the governed state vocabulary, and the historical changelog. Each is
+set out with its reason in **`D3-CARVE-OUTS.md`**, and each wants a Founder yes or no. Disclosure was
+not reduced anywhere: where a surface said more than the standard sentence, the standard sentence
+leads and the disclosure is kept.
 
-Do **not** copy the worktree. Round 25 established a better method and it should be reused: clone
-`origin/main` from GitHub and apply the patch. The clone's `.git` points at GitHub, so a reviewer
-cannot reach the author's branch — which closes the hole that put commit `0ea0b24` (author
-`r <r@r.local>`) on the containment branch on 23 September — and, unlike `--exclude .git`, it leaves
-the baseline controls able to run. Both round-25 reviewers' trees reproduced this method and ran
-96/96. Give each reviewer its own scratch root, and `cp -RL node_modules` rather than a symlink.
+## The allowlists, in both harnesses
 
-## Nothing in this tree is knowingly unfinished
+The two harnesses share their class patterns but keep separate allowlists, so both were reconciled.
 
-The open items are governance decisions, not engineering work. See `CURRENT-STATE.md` §6 and
-`DECISIONS-NEEDED.md`. In particular **no score or Pillar Card redesign has been attempted**: the
-authoritative basis is unresolved (Brand World v2.1's text is not in the supplied pack, and UOS
-§24.5 records FD-01's published wording as outstanding), and the Founder has directed that it waits.
-
----
-
-## D3 batch 1 — the Founder's adjudications, as executed
-
-Twelve of the thirteen open items in batches 01–03 were adjudicated on 1 October. `03.4` was left
-open deliberately and is untouched.
-
-**CHANGE × 4, applied and verified in the rendered DOM** (not merely in source):
-
-| Item | Surface | Now reads |
+| | Source scan | DOM scan |
 |---|---|---|
-| `02.2` | `/safety-methodology` | "The methodology, as designed · **How the Promptly Score methodology is designed to work.**" |
-| `03.3` | `/ai-training/teachers` | "**Teacher resources** · Resources tagged for teachers" — "All" and "Every" removed |
-| `03.7` | `/` | "AI tools and training for UK education **· No paid placements.** Scores are held pending re-review." |
-| `03.12` | `/ai-training` | "**No paid placements**; some government-backed" — the derived counts kept (76 / 57 / 6 / 27) |
+| Deleted | 13 | 12 |
+| Re-keyed | 6 | 5 |
+| Added | 3 | 2 |
+| Required strings re-pointed | — | 1 |
+| Net | **215 → 200** | — |
 
-**KEEP × 7** — the footer independence wording stands on all 41 surfaces. The Founder's note that
-stale surrounding counts are "factual repairs, not part of this KEEP decision" is why the last three
-hard-coded `26` values were derived from the dataset before this freeze.
+Nothing was widened. Where the Founder's sentence left a pillar-structure sentence unqualified in
+its own right, that is recorded as a **named allow** — visible and reviewed — rather than fixed by
+loosening the rule for every line at once. **The adjudicated wording was not reworded to suit a
+detector.** Two copy lines *were* adjusted, for a different reason: the qualifier sat behind a
+relative pronoun or a subordinator, which the round-17 clause bound correctly refuses to count.
 
-**NEEDS EVIDENCE × 1 — `01.12`, the Luna logging disclosure.** The notice is **left in place pending
-evidence**, and that was the agent's judgement, not the Founder's instruction: a notice warning of
-logging errs toward over-disclosure, whereas withdrawing it would leave logging undisclosed if it
-does occur. It is flagged for the Founder to reverse. The evidence required — the live Luna/n8n
-logging and retention behaviour — is the **same dependency as D5**, so one piece of evidence settles
-both.
-
-**Three allowlist entries were re-keyed to the adjudicated wording** — two in the source harness,
-one in the DOM harness — rather than altering what the Founder specified. Each was surfaced by the
-dead-allow control, not by inspection.
-
-### A false assurance caught before it was published
-
-The first DOM check after these changes reported "42 routes, 0 problems". It was **reading the
-previous day's captures**: headless Chrome had died overnight, the capture script was failing with
-`ECONNREFUSED`, and `dom-check.py` ran happily over a stale corpus. It was found only by grepping
-the captures for the Founder's new wording and getting zero hits. Chrome was restarted, the corpus
-recaptured, and the figures above are measured on bytes that demonstrably contain the changes.
-
-This is the `capture-serve` class of defect that round 22 already recorded once — a harness
-reporting a clean result over inputs it never refreshed. The lesson applied here: **after any copy
-change, grep the captures for the new wording before trusting the check.**
-
----
-
-## D3 batch 2 — the Founder's adjudications, as executed
-
-Thirteen items adjudicated on 2 October: **6 CHANGE, 7 KEEP**. All six changes applied and verified
-in the rendered DOM.
-
-| Item | Surface | Now reads |
-|---|---|---|
-| `03.4` | footer, 41 surfaces | "No sponsored content · No paid placements" — "100% independent" withdrawn |
-| `04.2` | `/schools`, `/for-schools` | "Scores are currently held while review provenance and the governed methodology record are completed. No score change is published without a recorded basis." |
-| `04.3` | `/legal` | "…explains how the scoring framework is designed to work." The concrete independence commitments are kept |
-| `04.4` | `/schools`, `/for-schools` | "**Our approach** · Independent." |
-| `04.7` | `/tools` | "The directory is structured around five assessment pillars … No pillar value or score is currently shown for any tool." The "241 tools … scored" claim is gone |
-| `04.12` | `/who-we-are` | "GetPromptly helps explain what those developments mean for classroom teachers, SENCOs, school leaders and parents." |
-
-**Two allowlist entries disappeared rather than moved.** `04.3` and `04.7` did not reword their
-claims, they **removed** them — so the exemptions that existed to excuse those claims had nothing
-left to excuse. The dead-allow control flagged both and they were deleted. Allow entries 216 → 213.
-A claim withdrawn is better than a claim excused, and the allowlist shrinking is the healthy
-direction.
-
-**M47 lost its anchor** to the deleted `/legal` allow; re-anchored, and its kill demonstrated
-directly — the mutation was applied by hand and both the bridge and blanket controls fired.
-
-**The capture check that caught a stale corpus is now habit.** Before trusting the DOM result, the
-captures are grepped for the Founder's new wording. All six present; all three superseded phrasings
-at zero.
-
----
-
-## The remaining D3 decisions, grouped
-
-`d3-review/DECISIONS-GROUPED.md` reduces the **70 remaining open pack items to 19 decisions**, on
-the Founder's instruction to bring the smallest genuine set rather than seventy repetitions.
-
-The grouping key is the triple *(what is asserted · what would settle it · what follows if it is
-wrong)*. Two items share a decision only where all three match. Three earlier attempts were
-discarded for merging too aggressively:
-
-- a single 18-item **KCSIE** group was conflating four different consequences — the approved
-  "KCSIE-aware" brand form, KCSIE 2025 as dated history, the KCSIE 2026 status notices, and a plain
-  statutory explainer. One of the 2025 instances is the historical v2.2 Safeguarding rubric that
-  IR §6 bullets 4–5 deliberately keep intact, and which mutant M15 exists to protect;
-- a 12-item **Promptly Score** group was conflating the suppressed card label, the model
-  description, the not-approval disclaimer, the integrity pledge and the withdrawn-tool notices;
-- six decisions had been split on nothing more than which detector fired, with the assertion,
-  evidence and consequence identical — those were merged.
-
-`d3-review/WRITE-BACK-MAP.json` maps each decision to every item ID, batch and route it covers, so
-one adjudication can be written back to all of them. Verified: **19 decisions, 70 items, no item
-counted twice and none missed.**
+One mechanism, stated plainly because it is not obvious from the field name: **an `onLine` allow
+excuses only the matches inside its own matched span.** Three new entries stopped short of the token
+the rule flags and silently excused nothing. The dead-allow control caught all three.
