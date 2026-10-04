@@ -282,3 +282,16 @@ The website job is:
 Execution principle:
 **product outcomes first; assurance is a bounded gate, not the project.**
 Do not create additional workstreams beyond these five deliverables unless a genuine Founder/governance decision is required.
+
+
+### 2026-10-04 — Founder decision: score presentation for newly researched tools
+
+Founder approved the neutral handling for Phase 2A records that have no existing Promptly Score or pillar values.
+
+Direction:
+- Add eligible newly researched tools to the directory without inventing a score-state label.
+- Do **not** label these tools “Pending review” or “Awaiting re-review”. They have no prior score to re-review, and “Pending review” risks implying that the rest of the directory has already been reviewed.
+- Show **no score/status badge** for these newly researched tools.
+- Where explanatory text is needed, use: **“No current Promptly Score or pillar values are published for this tool.”**
+- Keep the existing held-tool wording for previously scored/held tools, and keep the separate child-safety withdrawal wording for withdrawn tools.
+- This is a containment/accuracy treatment only, **not a redesign of the controlled score-state vocabulary**. Revisit score-state presentation with the future score/Pillar Card design.
