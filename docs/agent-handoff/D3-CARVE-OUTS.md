@@ -7,6 +7,8 @@ the work — the rest is applied, proved and frozen — but each wants a yes or 
 
 ### 1. The withdrawn state (D3 items 10.9, 11.1)
 
+**Founder decision — CONFIRM AS LEFT (4 October 2026).** Keep the child-safety withdrawal wording distinct from the ordinary provenance-hold wording.
+
 Ten tools are withdrawn after a **child-safety** review; 231 are held for missing **provenance**.
 They currently say different things:
 
@@ -21,12 +23,16 @@ withdrawn state.
 
 ### 2. The state vocabulary
 
+**Founder decision — LEAVE UNTOUCHED FOR NOW (4 October 2026).** Do not redesign or rename the controlled score-state vocabulary during D3 cleanup; revisit it with the future score/Pillar Card design.
+
 `LEGACY SCORE · AWAITING RE-REVIEW` (the mark), `Awaiting re-review` (the chip) and the
 `displayState` names are governed terms — Brand World v2.2 §15.4 requires the exact state names and
 UOS v2.1 §0.7 is controlled vocabulary. Decision 1 adjudicated a sentence; decision 4 adjudicated
 the card label. **The vocabulary is untouched.** Confirm, or adjudicate the vocabulary separately.
 
 ### 3. The historical changelog (item 10.2)
+
+**Founder decision — CONFIRM AS LEFT (4 October 2026).** Preserve the historical record in the wording used at the time.
 
 `src/data/methodology.ts` records what was done on the notice date, in the words used then. UOS §19
 — a historical record is not rewritten. **Left as it is.**
