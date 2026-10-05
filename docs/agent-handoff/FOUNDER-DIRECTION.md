@@ -310,3 +310,48 @@ Therefore:
 - Do not use “Pending review” or “Awaiting re-review” for these never-scored additions.
 - Preserve the research-hold mechanism for records that are actually not publishable; do not use it as a blanket substitute for the approved Founder decision.
 - This remains a temporary accuracy/containment treatment until the future score/Pillar Card design is settled.
+
+
+### 2026-10-05 — Founder direction: one final tool-drop delta before design
+
+A new weekly tool scan arrived after the 269-tool refresh was frozen. The Founder wants this handled **before** the website design phase, but does **not** want the full 269-tool directory reopened or re-researched.
+
+Treat this as one bounded delta only. Verify the supplied claims against current primary/vendor evidence before changing the directory, preserve the existing containment decisions, and do not invent Promptly Scores or pillar values.
+
+Handle the six items as follows:
+
+1. **Chalk — full intake / potential new public listing.**
+   - Verify the current pilot, SEND focus, UK/GCSE relevance and any pupil-data / safeguarding implications.
+   - If the evidence supports publication, add it as a **never-scored** listing under the Founder-approved treatment: no score/status badge and, where explanatory text is needed, use “No current Promptly Score or pillar values are published for this tool.”
+   - Make its pilot/evidence status explicit. Do not imply recommendation, approval or completed review.
+
+2. **Trellis — update the existing listing; do not create a duplicate.**
+   - Refresh the existing Trellis Education record only where current primary evidence supports it, including relevant Human-in-Command / SEND-meeting / Scottish public-sector context if verified.
+   - Preserve existing containment wording and never overwrite adjudicated claim removals with older research copy.
+
+3. **Khanmigo — update the existing listing; do not create a duplicate.**
+   - Verify and incorporate the current Khan Academy / Google classroom capability update where relevant, including interactive maths/science diagrams and teacher-controlled targeted practice if supported by current evidence.
+   - Do not alter score/held-state treatment.
+
+4. **Sanna — research hold, not a UK public recommendation at this stage.**
+   - Verify the 1 October 2026 launch and current market availability.
+   - If UK availability is still not established, preserve it as research with **Europe / UK availability to verify** and do not publish it as UK-ready.
+
+5. **Verenigma — enhanced evidence/safeguarding watch only.**
+   - Investigate the claims around pupil voice recordings, inferred stress/anxiety/depression and EHCP/SEN reporting with heightened scrutiny for child data, validity, safeguarding and automated inference.
+   - Do not add it to the normal public directory unless a later evidence review expressly supports that decision.
+
+6. **AdaptED Stories — emerging/watch only.**
+   - Treat the September research as evidence of an emerging SEND category, not as a mature public directory product unless later evidence establishes that status.
+
+Execution rules:
+- **Do not reopen the whole directory refresh.** This is a six-item delta.
+- Check first whether each item already exists under another name before adding anything.
+- Preserve all child-safety withdrawal protections, D3 decisions, never-scored treatment and current score-state vocabulary.
+- No fresh Promptly Score, pillar values or score-model work.
+- Apply only supported factual changes; if evidence is insufficient, hold/watch rather than guess.
+- Run the normal bounded proof for the changed bytes, reseal/re-baseline only where the data change genuinely requires it, and freeze once.
+- Update the handoff with the exact resulting public-tool count and the disposition of all six items.
+- **STOP after this delta. Do not start website design.** Notify the Founder that the tool drop is closed and that the project is ready for the Brand-document fine-tuning checkpoint before any layout/design work begins.
+
+Safe Mode remains Charles's workstream and is out of scope.
