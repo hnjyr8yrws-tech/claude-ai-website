@@ -4,7 +4,7 @@
 only. Every hash, count and status below was measured on the machine at the timestamp given, not
 carried forward from an earlier note.
 
-**Last verified:** 5 October 2026 (deliverables 1–3 complete: KCSIE currentness verified, removal residue repaired; candidate re-frozen)
+**Last verified:** 5 October 2026 (October tool-drop delta closed; **270 public tools**; candidate re-frozen. At the Brand-document checkpoint — design NOT started)
 **Verified by:** Claude Code (session `28345e36`)
 **Rule for this file:** if you cannot reproduce a figure with the command beside it, treat the
 figure as wrong and re-derive it. Figures in this pack have gone stale twelve times; do not trust a
@@ -44,7 +44,7 @@ had been failing since 30 September, and decision 11 was half-applied on the fir
 |---|---|---|---|
 | `~/Sites/claude-ai-website` | `chore/email-audit-info-v2` | `ee19a4e` | Main working checkout |
 | `~/Sites/claude-ai-website-phase2a` | `feat/directory-sep-2026-research` | `4a7e660`, tree `98b3e284c7c57e10c90bdabb48451e1ff0e1b3cf` | **PRESERVED** — the tool-refresh research, next after D3 |
-| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead**; working tree frozen as `a5249b29` | The candidate: D3 complete, directory at **269 tools**, removal residue repaired |
+| `~/Sites/claude-ai-website-kcsie-containment` | `feat/kcsie-2026-containment` | `51d56c8` = `origin/main`, **0 commits ahead**; working tree frozen as `b05c35d0` | The candidate: **270 public tools**, deliverables 1–3 complete, October delta closed |
 
 Safe Mode is in **none** of these: the ARC determination records it at
 `/Users/chloeandcharlie/promptly-labs`, `40-safe-mode/`. **Charles owns it. Claude Code does not
