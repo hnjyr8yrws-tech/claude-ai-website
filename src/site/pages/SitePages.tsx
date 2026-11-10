@@ -31,7 +31,7 @@ export function HomePage() {
             <div>
               {/* a temporary note (10 November 2026): take it down once the reviews under the updated method are in */}
               <p className="or-news"><span className="lab">New look, new library.</span> Reviews under our updated method are arriving soon.</p>
-              <h1 className="fr or-h" id="h1">Every AI tool,<br />read cover to cover.</h1>
+              <h1 className="fr or-h" id="h1">Every tool,<br />read cover to cover.</h1>
               <p className="or-p">Promptly reviews the evidence behind AI tools used in education: what they’re good for, and what to know before you use them.</p>
             </div>
             <div>
