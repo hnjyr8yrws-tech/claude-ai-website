@@ -40,3 +40,7 @@ body { background: #1E1E1E; color: #1A1A14; font-family: 'Satoshi', system-ui, s
 /* The bookcase on a phone: every shelf is full from edge to edge (the books share the spare width), so no shelf looks half empty */
 .pv-luna .lu-page .shelf.fill .books .lbk { flex: 1 1 auto; }
 @media (max-width: 1000px) { .pv-luna .lu-page .luna-band .case { padding-bottom: 34px; } }
+
+/* Reviews: the request, offered by the search as well as at the foot of the list */
+.pv-lib .rv-ask { margin: 22px 0 0; font-size: 16px; line-height: 1.5; color: var(--db, #D4D0C8); }
+.pv-lib .rv-ask .go { color: #FFFFFF; margin-left: 6px; text-decoration-color: #C4B48E; }

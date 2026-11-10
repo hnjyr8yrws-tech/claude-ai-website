@@ -86,6 +86,8 @@ export function ReviewsPage() {
                     ))}
                   </ol>
                 </form>
+                {/* the request sits at the foot of a very long list, so it is offered here too (10 November 2026) */}
+                <p className="rv-ask">Not on the shelf? <a className="go" href={REQUEST}>Ask us to review a tool</a></p>
               </div>
               <aside className="la" aria-labelledby="la-h">
                 <p className="lab" id="la-h">Or ask Luna</p>
