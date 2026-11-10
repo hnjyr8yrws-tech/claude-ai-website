@@ -24,6 +24,8 @@ export function HomePage() {
   return (
     <Page family="pv-site" path="" title="Promptly — reviews of AI tools used in education"
       description="Promptly reviews the evidence behind AI tools used in education: what they’re good for, and what to know before you use them.">
+      {/* a temporary note (10 November 2026): take it down once the reviews under the updated method are in */}
+      <div className="strip news" role="region" aria-label="News"><div className="shell"><p><b>New look, new library.</b>Reviews under our updated method are arriving soon.</p></div></div>
       <div className="dark-band">
         <Header />
         <section className="cover" aria-labelledby="h1"><div className="shell">
