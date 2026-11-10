@@ -21,3 +21,9 @@ body { background: #1E1E1E; color: #1A1A14; font-family: 'Satoshi', system-ui, s
 .pv-site .lg-text ul { list-style: disc; padding-left: 22px; margin: 0 0 4px; font-size: 18px; line-height: 1.6; max-width: 36em; }
 .pv-site .lg-text li { margin-top: 6px; }
 .pv-site .lg-text a { text-decoration-color: var(--brass); text-underline-offset: 4px; }
+
+/* Meet Luna set into another page (About us): the Sign in page's heading style on an h2, and no full-screen height */
+.pv-luna.pv-embed .lu-page .band.luna-band { min-height: 0; padding: 72px 0 40px; }
+.pv-luna.pv-embed .lu-page .luna-band h2.ml-h { font-size: 60px; line-height: 1.02; letter-spacing: -.01em; text-align: center; color: var(--ink); margin-top: 10px; }
+.pv-luna.pv-embed .lu-page { padding-bottom: 0; }
+@media (max-width: 640px) { .pv-luna.pv-embed .lu-page .luna-band h2.ml-h { font-size: 44px; } .pv-luna.pv-embed .lu-page .band.luna-band { padding-top: 40px; } }

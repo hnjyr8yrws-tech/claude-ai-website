@@ -2,11 +2,14 @@
  * The pages built on the homepage's stylesheet (design v0.5): the homepage, Membership, About us, How we review and Legal.
  * Copy is the approved prototype's, word for word, except where a note says the live site needs the real thing.
  */
-import { useState, type FormEvent } from 'react';
+import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/site.css';
 import { AreaKey, Footer, Header, Page, Wordmark } from '../Chrome';
 import { AREAS, HELD_LETTERS, JOIN, LETTERS, MAIL, REQUEST, sample } from '../data';
+
+// Meet Luna and her bookcase come with the Sign in page's styles, so they load only where they are shown
+const MeetLunaBand = lazy(() => import('./SignInPage').then((m) => ({ default: m.MeetLunaBand })));
 
 const LUNA_IS = 'Luna is Promptly’s librarian. She is AI, not a person.';
 
@@ -214,6 +217,7 @@ export function AboutPage() {
             </ul>
           </div>
         </div></div></section>
+        <Suspense fallback={null}><MeetLunaBand /></Suspense>
         <section className="s9" aria-labelledby="h-who"><div className="shell">
           <div className="s9-head"><h2 className="fr" id="h-who">Who it’s for</h2><p>Anyone choosing, using or answering for an AI tool in education.</p></div>
           <div className="s9-body"><ul className="who9">{ABOUT_WHO.map(([t, l]) => <li key={t}><h3>{t}</h3><p>{l}</p></li>)}</ul></div>

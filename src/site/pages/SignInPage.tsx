@@ -19,7 +19,7 @@ const NOTIFY = 'mailto:info@getpromptly.co.uk?subject=' + encodeURIComponent('Te
 interface Row { items: PublicTool[]; label: string; scroll?: boolean }
 
 /** The bookcase: a picture of the library, laid out by BL-03's own rule and re-measured with the width (Part J5). */
-function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement> }) {
+export function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement> }) {
   const items = sample(34);
   const caseRef = useRef<HTMLDivElement>(null);
   const shelvesRef = useRef<HTMLDivElement>(null);
@@ -130,5 +130,34 @@ export function SignInPage() {
       </main>
       <Footer />
     </Page>
+  );
+}
+
+/**
+ * Meet Luna with her bookcase, as a band for another page (About us; CR, 10 November 2026: "where is lunas bookshelf …
+ * can this go on the about us page"). The same heading, sentence and bookcase as the Sign in page, with one way in.
+ */
+export function MeetLunaBand() {
+  const desk = useRef<HTMLDivElement>(null);
+  return (
+    <div className="pv-luna pv-embed">
+      <section className="page lu-page on" data-state="out" aria-labelledby="h-meet-luna"><section className="band luna-band" aria-labelledby="h-meet-luna"><div className="shell open">
+        <div className="desk" ref={desk}>
+          <p className="kicker">Promptly’s librarian</p>
+          <h2 className="fr ml-h" id="h-meet-luna">Meet Luna</h2>
+          <p className="sentence">She is here to answer your next question.</p>
+          <div className="line" style={{ display: 'block' }}>
+            <h3 className="lab">Luna is for members</h3>
+            <p className="scope" style={{ marginTop: 14, marginBottom: 14 }}>She’ll guide you, and she won’t guess.</p>
+            <div className="field" style={{ border: 0 }}>
+              <Link className="btn-lime" to="/sign-in?mode=join" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', width: '100%' }}>Become a member</Link>
+            </div>
+            <div className="asks"><p className="lab">What readers ask Luna</p><ul className="askl">{ASKS.map((a) => <li key={a}>{a}</li>)}</ul></div>
+          </div>
+        </div>
+        <Bookcase deskRef={desk} />
+        <p className="cdl-small">Titles from the library, A to Z. Being listed isn’t a recommendation.</p>
+      </div></section></section>
+    </div>
   );
 }
