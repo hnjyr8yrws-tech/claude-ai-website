@@ -187,7 +187,6 @@ export function MembershipPage() {
 
 // ---------------------------------------------------------------------------------------------------------- About us
 const ABOUT_WHO: [string, string][] = [["Schools and trusts", "Choose tools with the evidence in front of you."], ["Nurseries and early years", "Know what suits the youngest children."], ["Teachers", "See what a tool is for before you try it with a class."], ["SENCOs and support staff", "Find tools that fit the needs you work with."], ["Governors", "Ask better questions, and check the answers."], ["Parents and carers", "Understand the tools your child is asked to use."]];
-const ABOUT_DIFF: [string, string][] = [["Independent", "No commission and no paid placements."], ["Evidence you can see", "Every finding names the document it came from."], ["A person behind every review", "Someone approves every change before it appears."]];
 
 export function AboutPage() {
   return (
@@ -204,15 +203,20 @@ export function AboutPage() {
         </div></div></section>
       </div>
       <main id="main">
-        {/* CR, 10 November: no founders section for now (no names yet); who it is for and what makes it different instead */}
+        {/* the founders' places are held blank until their photos and details are supplied (Chloe, 9 November; confirmed 10 November) */}
+        <section className="s9" aria-labelledby="h-fd"><div className="shell"><div className="s9-split">
+          <div className="s9-l"><h2 className="fr" id="h-fd">Our founders</h2><p>Photos and details to follow.</p></div>
+          <div>
+            <ul className="fd-list">
+              <li><div className="fd-ph" aria-hidden="true"><span>Photo</span></div><p className="fd-n">Founder</p><p className="fd-r">Details to follow</p></li>
+              <li><div className="fd-ph" aria-hidden="true"><span>Photo</span></div><p className="fd-n">Founder</p><p className="fd-r">Details to follow</p></li>
+            </ul>
+            <p className="fd-luna">Luna, who guides our members, is Promptly’s librarian. She is AI, not a member of the team.</p>
+          </div>
+        </div></div></section>
         <section className="s9" aria-labelledby="h-who"><div className="shell">
           <div className="s9-head"><h2 className="fr" id="h-who">Who it’s for</h2><p>Anyone choosing, using or answering for an AI tool in education.</p></div>
           <div className="s9-body"><ul className="who9">{ABOUT_WHO.map(([t, l]) => <li key={t}><h3>{t}</h3><p>{l}</p></li>)}</ul></div>
-        </div></section>
-        <section className="s9" aria-labelledby="h-diff"><div className="shell">
-          <div className="s9-head"><h2 className="fr" id="h-diff">What makes Promptly different</h2></div>
-          <ol className="s9-body up9">{ABOUT_DIFF.map(([t, l], i) => <li key={t}><span className="n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><h3>{t}</h3><p>{l}</p></li>)}</ol>
-          <p className="fd-luna">Luna, who guides our members, is Promptly’s librarian. She is AI, not a member of the team.</p>
         </div></section>
         <section className="ct" id="contact" aria-labelledby="h-ct"><div className="shell"><div className="plate">
           <div><h2 className="fr" id="h-ct">Get in touch</h2></div>
@@ -224,10 +228,6 @@ export function AboutPage() {
               <p className="ct-s">A request doesn’t guarantee a review or change its outcome.</p>
             </div>
           </div>
-        </div></div></section>
-        <section className="s9" aria-label="Membership"><div className="shell"><div className="cta9">
-          <p className="fr cta9-t">Members read every review in full.</p>
-          <div className="acts"><Link className="btn" to={JOIN}>Become a member</Link><Link className="go" to="/membership">What members get</Link></div>
         </div></div></section>
       </main>
       <Footer />
