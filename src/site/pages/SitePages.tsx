@@ -225,11 +225,11 @@ export function AboutPage() {
 
 // ---------------------------------------------------------------------------------------------------------- How we review
 const RULES: [string, JSX.Element | string][] = [
-  ['No finding without evidence.', 'Each one names the document and the date we read it.'],
-  ['No rankings.', 'Tools are listed A to Z. None is placed above another.'],
-  ['Checked every week.', 'When a tool changes, its review changes.'],
-  ['A person approves every change.', 'Nothing reaches a review without one.'],
-  ['Every change on the record.', <>What changed, when and why. <Link className="go" to="/standing-record">See the Standing Record</Link></>],
+  ['No evidence, no finding.', 'Every finding names its source and the date we read it.'],
+  ['No rankings. Ever.', 'A to Z, and nothing else.'],
+  ['Checked every week.', 'If the tool changes, so does the review.'],
+  ['A person signs it off.', 'No change goes out on a machine’s say-so.'],
+  ['Nothing changes quietly.', <>What changed, when and why, on the record. <Link className="go" to="/standing-record">See the Standing Record</Link></>],
 ];
 
 export function HowWeReviewPage() {
