@@ -29,7 +29,7 @@ export function HomePage() {
         <section className="cover" aria-labelledby="h1"><div className="shell">
           <div className="orient">
             <div>
-              <h1 className="fr or-h" id="h1">Be prompt with AI.<br />Be sure of it.</h1>
+              <h1 className="fr or-h" id="h1">Every AI tool,<br />read cover to cover.</h1>
               <p className="or-p">Promptly reviews the evidence behind AI tools used in education: what they’re good for, and what to know before you use them.</p>
             </div>
             <div>
