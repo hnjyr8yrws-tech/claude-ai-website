@@ -32,7 +32,7 @@ body { background: #1E1E1E; color: #1A1A14; font-family: 'Satoshi', system-ui, s
 .pv-luna .lu-page .luna-band .luna-says { font-family: var(--fr); font-style: italic; font-size: 19px; line-height: 1.35; text-align: center; color: var(--brass-text); margin: 12px auto 0; max-width: 34ch; font-variation-settings: "WONK" 0, "SOFT" 0; }
 @media (max-width: 640px) { .pv-luna .lu-page .luna-band .luna-says { font-size: 18px; } }
 
-/* The homepage's temporary news strip: the prototype's strip, a little larger so it reads as an announcement */
-.pv-site .strip.news { font-size: 15px; }
-.pv-site .strip.news b { font-size: 13px; }
-.pv-site .strip.news .shell { padding-top: 10px; padding-bottom: 10px; }
+/* The homepage's temporary note, above the headline in the opening */
+.pv-site .or-news { font-size: 16px; line-height: 1.5; color: var(--db); margin: 0 0 18px; }
+.pv-site .or-news .lab { color: var(--lime); margin-right: 8px; }
+@media (max-width: 640px) { .pv-site .or-news { font-size: 15px; margin-bottom: 14px; } .pv-site .or-news .lab { display: block; margin: 0 0 2px; } }
