@@ -45,10 +45,9 @@ export function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement>
     box.querySelectorAll<HTMLElement>('.pv-measure .lbk').forEach((e, i) => widths.set(items[i].slug, e.getBoundingClientRect().width));
     const avail = shelves.getBoundingClientRect().width - 16, gap = 8;
     let out: Row[] = [];
-    if (narrow) {
-      const per = Math.ceil(items.length / 4) || 1;
-      for (let i = 0; i < items.length; i += per) out.push({ items: items.slice(i, i + per), label: '', scroll: true });
-    } else {
+    // On every width the spines are packed to fit the shelf, so no book is cut off at the edge. (The prototype let a phone's
+    // shelves scroll sideways; on a real phone that read as the bookcase being cut off, so the live site packs them instead.)
+    {
       let row: PublicTool[] = [], w = 0;
       for (const s of items) {
         let sw2 = (widths.get(s.slug) ?? 53) + (row.length ? gap : 0);
@@ -56,11 +55,12 @@ export function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement>
         row.push(s); w += sw2;
       }
       if (row.length) out.push({ items: row, label: '' });
-      if (out.length > 1) {   // share the spines evenly across the shelves the width needs, when every shelf still fits
+      if (!narrow && out.length > 1) {   // share the spines evenly across the shelves the width needs, when every shelf still fits
         const per2 = Math.ceil(items.length / out.length), even: Row[] = [];
         for (let j = 0; j < items.length; j += per2) even.push({ items: items.slice(j, j + per2), label: '' });
         if (even.every((r) => r.items.reduce((a, s) => a + (widths.get(s.slug) ?? 53) + gap, -gap) <= avail)) out = even;
       }
+      if (narrow) out = out.slice(0, 4);   // a picture of the library: four full shelves on a phone
     }
     out.forEach((r) => { const a = r.items[0]?.letter, b = r.items[r.items.length - 1]?.letter; r.label = !a ? '' : a === b ? a : `${a}–${b}`; });
     while (out.length < 3) out.push({ items: [], label: '' });
