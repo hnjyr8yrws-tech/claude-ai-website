@@ -16,7 +16,7 @@ const ASKS = ['Is there anything for Year 5 maths practice?', 'Which planning to
   'Is this reading app safe for my 12-year-old?', 'My daughter wants to use a chatbot for homework. Where do I start?', 'How does Promptly review a tool?'];
 const NOTIFY = 'mailto:info@getpromptly.co.uk?subject=' + encodeURIComponent('Tell me when Promptly membership opens');
 
-interface Row { items: PublicTool[]; label: string; scroll?: boolean }
+interface Row { items: PublicTool[]; label: string; scroll?: boolean; fill?: boolean }
 
 /** The bookcase: a picture of the library, laid out by BL-03's own rule and re-measured with the width (Part J5). */
 export function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement> }) {
@@ -60,7 +60,7 @@ export function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement>
         for (let j = 0; j < items.length; j += per2) even.push({ items: items.slice(j, j + per2), label: '' });
         if (even.every((r) => r.items.reduce((a, s) => a + (widths.get(s.slug) ?? 53) + gap, -gap) <= avail)) out = even;
       }
-      if (narrow) out = out.slice(0, 4);   // a picture of the library: four full shelves on a phone
+      if (narrow) out = out.slice(0, 4).map((r) => ({ ...r, fill: true }));   // a picture of the library: four shelves on a phone, each filled edge to edge
     }
     out.forEach((r) => { const a = r.items[0]?.letter, b = r.items[r.items.length - 1]?.letter; r.label = !a ? '' : a === b ? a : `${a}–${b}`; });
     while (out.length < 3) out.push({ items: [], label: '' });
@@ -81,7 +81,7 @@ export function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement>
       {/* a picture: nothing in it is a link, focusable or announced */}
       <div className="shelves" id="shelves" ref={shelvesRef} {...{ inert: '' }}>
         {rows.map((r, i) => (
-          <div className={'shelf' + (r.scroll ? ' scroll' : '')} key={i}>
+          <div className={'shelf' + (r.scroll ? ' scroll' : '') + (r.fill ? ' fill' : '')} key={i}>
             {r.label && <p className="shelf-label m">{r.label}</p>}
             <div className="books">{r.items.map(spine)}</div>
           </div>
