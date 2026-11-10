@@ -27,3 +27,7 @@ body { background: #1E1E1E; color: #1A1A14; font-family: 'Satoshi', system-ui, s
 .pv-luna.pv-embed .lu-page .luna-band h2.ml-h { font-size: 60px; line-height: 1.02; letter-spacing: -.01em; text-align: center; color: var(--ink); margin-top: 10px; }
 .pv-luna.pv-embed .lu-page { padding-bottom: 0; }
 @media (max-width: 640px) { .pv-luna.pv-embed .lu-page .luna-band h2.ml-h { font-size: 44px; } .pv-luna.pv-embed .lu-page .band.luna-band { padding-top: 40px; } }
+
+/* Luna, in her own words (CD/CR, 10 November 2026): a line of character under her introduction */
+.pv-luna .lu-page .luna-band .luna-says { font-family: var(--fr); font-style: italic; font-size: 19px; line-height: 1.35; text-align: center; color: var(--brass-text); margin: 12px auto 0; max-width: 34ch; font-variation-settings: "WONK" 0, "SOFT" 0; }
+@media (max-width: 640px) { .pv-luna .lu-page .luna-band .luna-says { font-size: 18px; } }

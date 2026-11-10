@@ -109,6 +109,7 @@ export function SignInPage() {
             <p className="kicker">Promptly’s librarian</p>
             <h1 className="fr" id="h-luna">Meet Luna</h1>
             <p className="sentence">She is here to answer your next question.</p>
+            <p className="luna-says">“Quiet, please. I’m reading the small print.”</p>
             <div className="line" id="gate" ref={gate} data-mode={mode} style={{ display: 'block' }}>
               <h2 className="lab" id="gate-h" ref={label} tabIndex={-1}>{mode === 'join' ? 'Become a member' : 'Sign in to ask'}</h2>
               <p className="scope" style={{ marginTop: 14, marginBottom: 14 }}>Membership is opening soon. Email us and we’ll tell you when it does.</p>
@@ -146,6 +147,7 @@ export function MeetLunaBand() {
           <p className="kicker">Promptly’s librarian</p>
           <h2 className="fr ml-h" id="h-meet-luna">Meet Luna</h2>
           <p className="sentence">She is here to answer your next question.</p>
+            <p className="luna-says">“Quiet, please. I’m reading the small print.”</p>
           <div className="line" style={{ display: 'block' }}>
             <h3 className="lab">Luna is for members</h3>
             <p className="scope" style={{ marginTop: 14, marginBottom: 14 }}>She’ll guide you, and she won’t guess.</p>
