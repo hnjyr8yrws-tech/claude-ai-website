@@ -1,169 +1,76 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import AgentWidget from './components/AgentWidget';
-import ScrollToTop from './components/ScrollToTop';
 import CookieBanner from './components/CookieBanner';
-import LeadCaptureModal from './components/LeadCaptureModal';
+import { HomePage } from './site/pages/SitePages';
 
-// ── Eagerly loaded (above the fold on first visit) ──────────────────────────
-import Home from './pages/Home';
-import RoleEntry from './pages/RoleEntry';
+/**
+ * The public site, design v0.5 (carried over from the approved prototype, 10 November 2026).
+ *
+ * Nine kinds of page: the homepage, Reviews, a tool's public page, How we review, Membership, About us, Legal, the
+ * Standing Record and Sign in. Founder decisions of 10 November: no scores on the public site; every tool is shown as
+ * under review until reviewed under the updated methodology; AI Equipment, AI Training and Prompts are no longer
+ * needed, so their old addresses lead to the nearest page that still exists. The old pages' files are left in the
+ * repository, unrouted, for a later clean-up.
+ */
+const site = () => import('./site/pages/SitePages');
+const library = () => import('./site/pages/LibraryPages');
+const MembershipPage  = lazy(() => site().then((m) => ({ default: m.MembershipPage })));
+const AboutPage       = lazy(() => site().then((m) => ({ default: m.AboutPage })));
+const HowWeReviewPage = lazy(() => site().then((m) => ({ default: m.HowWeReviewPage })));
+const LegalPage       = lazy(() => site().then((m) => ({ default: m.LegalPage })));
+const ReviewsPage     = lazy(() => library().then((m) => ({ default: m.ReviewsPage })));
+const ToolPage        = lazy(() => library().then((m) => ({ default: m.ToolPage })));
+const RecordPage      = lazy(() => library().then((m) => ({ default: m.RecordPage })));
+const NotFoundPage    = lazy(() => library().then((m) => ({ default: m.NotFoundPage })));
+const SignInPage      = lazy(() => import('./site/pages/SignInPage').then((m) => ({ default: m.SignInPage })));
 
-// ── Lazy-loaded pages ───────────────────────────────────────────────────────
-const Tools               = lazy(() => import('./pages/Tools'));
-const ToolDetail          = lazy(() => import('./pages/ToolDetail'));
-const Equipment           = lazy(() => import('./pages/Equipment'));
-const EquipmentSEND       = lazy(() => import('./pages/EquipmentSEND'));
-const EquipmentSchools    = lazy(() => import('./pages/EquipmentSchools'));
-const SafetyMethodology   = lazy(() => import('./pages/SafetyMethodology'));
-const Methodology         = lazy(() => import('./pages/Methodology'));
-// Dev-only harness — the conditional is statically resolved by Vite, so the
-// chunk is tree-shaken out of production builds entirely (route gated below too).
-const TrustGallery        = import.meta.env.DEV ? lazy(() => import('./pages/TrustGallery')) : () => null;
-const AITraining          = lazy(() => import('./pages/AITraining'));
-const AITrainingFree      = lazy(() => import('./pages/AITrainingFree'));
-const AITrainingPaid      = lazy(() => import('./pages/AITrainingPaid'));
-const AITrainingTeachers  = lazy(() => import('./pages/AITrainingTeachers'));
-const AITrainingParents   = lazy(() => import('./pages/AITrainingParents'));
-const AITrainingStudents  = lazy(() => import('./pages/AITrainingStudents'));
-const AITrainingSEND      = lazy(() => import('./pages/AITrainingSEND'));
-const AITrainingLeaders   = lazy(() => import('./pages/AITrainingLeaders'));
-const PromptLibrary       = lazy(() => import('./pages/PromptLibrary'));
-const PromptsHub          = lazy(() => import('./pages/PromptsHub'));
-const PromptsLibrary      = lazy(() => import('./pages/PromptsLibrary'));
-const PromptsCategory     = lazy(() => import('./pages/PromptsCategory'));
-const PromptsPack         = lazy(() => import('./pages/PromptsPack'));
-const PromptsTeachers     = lazy(() => import('./pages/PromptsTeachers'));
-const PromptsSchoolLeaders = lazy(() => import('./pages/PromptsSchoolLeaders'));
-const PromptsSENCO        = lazy(() => import('./pages/PromptsSENCO'));
-const PromptsParents      = lazy(() => import('./pages/PromptsParents'));
-const PromptsStudents     = lazy(() => import('./pages/PromptsStudents'));
-const PromptsAdmin        = lazy(() => import('./pages/PromptsAdmin'));
-const AIEquipment         = lazy(() => import('./pages/AIEquipment'));
-const AIEquipmentTeachers = lazy(() => import('./pages/AIEquipmentTeachers'));
-const AIEquipmentSchools  = lazy(() => import('./pages/AIEquipmentSchools'));
-const AIEquipmentParents  = lazy(() => import('./pages/AIEquipmentParents'));
-const AIEquipmentStudents = lazy(() => import('./pages/AIEquipmentStudents'));
-const AIEquipmentSEND     = lazy(() => import('./pages/AIEquipmentSEND'));
-const AIEquipmentCompare  = lazy(() => import('./pages/AIEquipmentCompare'));
-const AIEquipmentCategory = lazy(() => import('./pages/AIEquipmentCategory'));
-const AIEquipmentProduct  = lazy(() => import('./pages/AIEquipmentProduct'));
-const WhoWeAre            = lazy(() => import('./pages/WhoWeAre'));
-const Schools             = lazy(() => import('./pages/Schools'));
-const Legal               = lazy(() => import('./pages/Legal'));
-
-// ── Role-first pages ─────────────────────────────────────────────────────────
-const TeachersPage        = lazy(() => import('./pages/RolePage').then(m => ({ default: m.TeachersPage })));
-const LeadersPage         = lazy(() => import('./pages/RolePage').then(m => ({ default: m.LeadersPage })));
-const SencoPage           = lazy(() => import('./pages/RolePage').then(m => ({ default: m.SencoPage })));
-const ParentsRolePage     = lazy(() => import('./pages/RolePage').then(m => ({ default: m.ParentsRolePage })));
-const StudentsRolePage    = lazy(() => import('./pages/RolePage').then(m => ({ default: m.StudentsRolePage })));
-const AdminRolePage       = lazy(() => import('./pages/RolePage').then(m => ({ default: m.AdminRolePage })));
-
-// ── Loading fallback ────────────────────────────────────────────────────────
-const PageLoader = () => (
-  <div className="flex items-center justify-center min-h-[60vh]">
-    <div
-      className="w-8 h-8 rounded-full border-2 border-t-transparent animate-spin"
-      style={{ borderColor: 'var(--color-rule)', borderTopColor: 'var(--color-promptly-lime)' }}
-      role="status"
-      aria-label="Loading page"
-    />
-  </div>
-);
+const to = (path: string) => <Navigate to={path} replace />;
 
 const App = () => (
   <>
-    <ScrollToTop />
+    <Suspense fallback={<div className="pv" role="status" aria-label="Loading page" />}>
+      <Routes>
+        <Route path="/"                element={<HomePage />} />
+        <Route path="/tools"           element={<ReviewsPage />} />
+        {/* RL-017: legacy short slug → canonical retired record (one content record, not two) */}
+        <Route path="/tools/flip"      element={to('/tools/flipgrid-flip')} />
+        <Route path="/tools/:slug"     element={<ToolPage />} />
+        <Route path="/how-we-review"   element={<HowWeReviewPage />} />
+        <Route path="/membership"      element={<MembershipPage />} />
+        <Route path="/about"           element={<AboutPage />} />
+        <Route path="/legal"           element={<LegalPage />} />
+        <Route path="/standing-record" element={<RecordPage />} />
+        <Route path="/sign-in"         element={<SignInPage />} />
 
-    {/* Skip link — first focusable element on every page, visible on keyboard focus */}
-    <a href="#main-content" className="skip-link">
-      Skip to main content
-    </a>
+        {/* earlier addresses that still have a home */}
+        <Route path="/reviews"            element={to('/tools')} />
+        <Route path="/methodology"        element={to('/how-we-review')} />
+        <Route path="/safety-methodology" element={to('/how-we-review')} />
+        <Route path="/who-we-are"         element={to('/about')} />
+        <Route path="/privacy-policy"     element={to('/legal#privacy')} />
+        <Route path="/cookie-policy"      element={to('/legal#cookies')} />
+        {/* role pages: the library, where the reader's choice is carried in the address */}
+        <Route path="/teachers"       element={to('/tools')} />
+        <Route path="/school-leaders" element={to('/tools')} />
+        <Route path="/senco"          element={to('/tools')} />
+        <Route path="/parents"        element={to('/tools')} />
+        <Route path="/students"       element={to('/tools')} />
+        <Route path="/admin"          element={to('/tools')} />
+        <Route path="/role/*"         element={to('/tools')} />
+        <Route path="/schools"        element={to('/membership')} />
+        <Route path="/for-schools"    element={to('/membership')} />
+        {/* sections no longer needed (founder decision, 10 November 2026) */}
+        <Route path="/equipment/*"        element={to('/')} />
+        <Route path="/equipment-legacy/*" element={to('/')} />
+        <Route path="/ai-equipment/*"     element={to('/')} />
+        <Route path="/training"           element={to('/')} />
+        <Route path="/ai-training/*"      element={to('/')} />
+        <Route path="/prompts/*"          element={to('/')} />
 
-    <Navbar />
-
-    <main id="main-content" tabIndex={-1} role="main">
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route path="/"          element={<Home />} />
-          <Route path="/tools"          element={<Tools />} />
-          {/* RL-017: legacy short slug → canonical retired record (one content record, not two) */}
-          <Route path="/tools/flip"     element={<Navigate to="/tools/flipgrid-flip" replace />} />
-          <Route path="/tools/:slug"    element={<ToolDetail />} />
-
-          {/* Old equipment routes → redirect to new hub */}
-          <Route path="/equipment"         element={<Navigate to="/ai-equipment" replace />} />
-          <Route path="/equipment/send"    element={<Navigate to="/ai-equipment/send" replace />} />
-          <Route path="/equipment/schools" element={<Navigate to="/ai-equipment/schools" replace />} />
-
-          {/* Legacy pages */}
-          <Route path="/equipment-legacy"         element={<Equipment />} />
-          <Route path="/equipment-legacy/send"    element={<EquipmentSEND />} />
-          <Route path="/equipment-legacy/schools" element={<EquipmentSchools />} />
-
-          {/* AI Equipment hub */}
-          <Route path="/ai-equipment"                        element={<AIEquipment />} />
-          <Route path="/ai-equipment/teachers"               element={<AIEquipmentTeachers />} />
-          <Route path="/ai-equipment/schools"                element={<AIEquipmentSchools />} />
-          <Route path="/ai-equipment/parents"                element={<AIEquipmentParents />} />
-          <Route path="/ai-equipment/students"               element={<AIEquipmentStudents />} />
-          <Route path="/ai-equipment/send"                   element={<AIEquipmentSEND />} />
-          <Route path="/ai-equipment/compare"                element={<AIEquipmentCompare />} />
-          <Route path="/ai-equipment/category/:categorySlug" element={<AIEquipmentCategory />} />
-          <Route path="/ai-equipment/product/:productSlug"   element={<AIEquipmentProduct />} />
-
-          <Route path="/training"             element={<Navigate to="/ai-training" replace />} />
-          <Route path="/ai-training"          element={<AITraining />} />
-          <Route path="/ai-training/free"     element={<AITrainingFree />} />
-          <Route path="/ai-training/paid"     element={<AITrainingPaid />} />
-          <Route path="/ai-training/teachers" element={<AITrainingTeachers />} />
-          <Route path="/ai-training/parents"  element={<AITrainingParents />} />
-          <Route path="/ai-training/students" element={<AITrainingStudents />} />
-          <Route path="/ai-training/send"     element={<AITrainingSEND />} />
-          <Route path="/ai-training/leaders"  element={<AITrainingLeaders />} />
-          <Route path="/safety-methodology"   element={<SafetyMethodology />} />
-          <Route path="/methodology"          element={<Methodology />} />
-          {/* Shared Trust Components harness — development builds only */}
-          {import.meta.env.DEV && <Route path="/dev/trust" element={<TrustGallery />} />}
-
-          <Route path="/prompts"                        element={<PromptLibrary />} />
-          <Route path="/prompts/packs"                  element={<PromptsHub />} />
-          <Route path="/prompts/library"                element={<PromptsLibrary />} />
-          <Route path="/prompts/category/:categorySlug" element={<PromptsCategory />} />
-          <Route path="/prompts/pack/:packSlug"         element={<PromptsPack />} />
-          <Route path="/prompts/teachers"               element={<PromptsTeachers />} />
-          <Route path="/prompts/school-leaders"         element={<PromptsSchoolLeaders />} />
-          <Route path="/prompts/senco"                  element={<PromptsSENCO />} />
-          <Route path="/prompts/parents"                element={<PromptsParents />} />
-          <Route path="/prompts/students"               element={<PromptsStudents />} />
-          <Route path="/prompts/admin"                  element={<PromptsAdmin />} />
-
-          {/* Role-first pages */}
-          <Route path="/role/:slug"                      element={<RoleEntry />} />
-          <Route path="/teachers"                        element={<TeachersPage />} />
-          <Route path="/school-leaders"                  element={<LeadersPage />} />
-          <Route path="/senco"                           element={<SencoPage />} />
-          <Route path="/parents"                         element={<ParentsRolePage />} />
-          <Route path="/students"                        element={<StudentsRolePage />} />
-          <Route path="/admin"                           element={<AdminRolePage />} />
-
-          <Route path="/who-we-are"                     element={<WhoWeAre />} />
-          <Route path="/schools"                        element={<Schools />} />
-          <Route path="/for-schools"                    element={<Navigate to="/schools" replace />} />
-          <Route path="/legal"                          element={<Legal />} />
-          <Route path="/privacy-policy"                 element={<Navigate to="/legal#privacy" replace />} />
-          <Route path="/cookie-policy"                  element={<Navigate to="/legal#cookies" replace />} />
-        </Routes>
-      </Suspense>
-    </main>
-
-    <Footer />
-    <AgentWidget />
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Suspense>
     <CookieBanner />
-    <LeadCaptureModal />
   </>
 );
 

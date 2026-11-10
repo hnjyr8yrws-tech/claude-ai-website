@@ -1,0 +1,23 @@
+/* Global styles for the public site (design v0.5, carried over 10 November 2026).
+   Tailwind's utilities stay for the few older components still in use (the cookie notice, the retired-tool view);
+   its base reset is deliberately not loaded: each page family brings its own scoped stylesheet from the approved design. */
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #F5F2EC; --text: #1A1A0E; --subtle: #E8E4DC;
+  --color-ground-black: #1E1E1E; --color-oat: #F5F2EC; --color-ink: #1A1A0E; --color-promptly-lime: #C8E44A;
+  --color-ink-accent: #46540E; --color-ink-muted: #6b6760; --color-fog: #9C9C8A; --color-rule: #E8E4DC;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html, body { margin: 0; padding: 0; }
+body { background: #1E1E1E; color: #1A1A14; font-family: 'Satoshi', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.pv { min-height: 100vh; }
+.pv-notfound { padding: 96px 0 0; }
+
+/* Legal: the policies' running text (the site's existing legal copy, set in the design's type) */
+.pv-site .lg-text h3 { font-family: var(--fr); font-weight: 400; font-size: 24px; line-height: 1.2; margin: 28px 0 10px; }
+.pv-site .lg-text ul { list-style: disc; padding-left: 22px; margin: 0 0 4px; font-size: 18px; line-height: 1.6; max-width: 36em; }
+.pv-site .lg-text li { margin-top: 6px; }
+.pv-site .lg-text a { text-decoration-color: var(--brass); text-underline-offset: 4px; }
