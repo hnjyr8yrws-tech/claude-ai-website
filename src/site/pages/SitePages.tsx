@@ -210,8 +210,8 @@ export function AboutPage() {
             <ul className="fd-list">
               <li><div className="fd-ph" aria-hidden="true"><span>Photo</span></div><p className="fd-n">Founder</p><p className="fd-r">Details to follow</p></li>
               <li><div className="fd-ph" aria-hidden="true"><span>Photo</span></div><p className="fd-n">Founder</p><p className="fd-r">Details to follow</p></li>
+              <li><div className="fd-ph" aria-hidden="true"><span>Picture</span></div><p className="fd-n">Luna</p><p className="fd-r">Librarian. AI, not a person.</p></li>
             </ul>
-            <p className="fd-luna">Luna, who guides our members, is Promptly’s librarian. She is AI, not a member of the team.</p>
           </div>
         </div></div></section>
         <section className="s9" aria-labelledby="h-who"><div className="shell">
