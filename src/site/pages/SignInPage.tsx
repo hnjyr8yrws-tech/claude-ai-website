@@ -26,7 +26,7 @@ export function Bookcase({ deskRef }: { deskRef: React.RefObject<HTMLDivElement>
   const [rows, setRows] = useState<Row[]>([]);
   const spine = (t: PublicTool) => (
     <button type="button" className="lbk tool cd-inert" key={t.slug} tabIndex={-1} aria-hidden="true">
-      <span className="lbk-l fr" aria-hidden="true">{t.letter}</span><span className="lbk-tx"><span className="lbk-t fr">{t.name}</span></span>
+      <span className="lbk-l fr" aria-hidden="true">{t.name.trim().charAt(0).toUpperCase()}</span><span className="lbk-tx"><span className="lbk-t fr">{t.name}</span></span>
     </button>
   );
   const pack = () => {

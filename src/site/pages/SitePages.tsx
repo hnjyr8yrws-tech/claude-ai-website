@@ -6,7 +6,7 @@ import { lazy, Suspense, useState, type FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../styles/site.css';
 import { AreaKey, Footer, Header, Page, Wordmark } from '../Chrome';
-import { AREAS, HELD_LETTERS, JOIN, LETTERS, MAIL, REQUEST, sample } from '../data';
+import { AREAS, HELD_LETTERS, JOIN, LETTERS, MAIL, NUMBERS, REQUEST, sample, shelfId } from '../data';
 
 // Meet Luna and her bookcase come with the Sign in page's styles, so they load only where they are shown
 const MeetLunaBand = lazy(() => import('./SignInPage').then((m) => ({ default: m.MeetLunaBand })));
@@ -49,8 +49,9 @@ export function HomePage() {
           </div>
           <nav className="az" aria-label="Every tool, A to Z"><ol>
             {LETTERS.map((c) => (
-              <li key={c}>{HELD_LETTERS.has(c) ? <Link to={'/tools#letter-' + c.toLowerCase()}>{c}</Link> : <span aria-label={c + ', no tools yet'}>{c}</span>}</li>
+              <li key={c}>{HELD_LETTERS.has(c) ? <Link to={'/tools#' + shelfId(c)}>{c}</Link> : <span aria-label={c + ', no tools yet'}>{c}</span>}</li>
             ))}
+            {HELD_LETTERS.has(NUMBERS) && <li><Link to={'/tools#' + shelfId(NUMBERS)} aria-label="Names that start with a number">{NUMBERS}</Link></li>}
           </ol></nav>
         </div></section>
       </div>
@@ -81,7 +82,7 @@ export function HomePage() {
                 <div className="lc-row">
                   {books.map((t, i) => (
                     <Link key={t.slug} className="cb" to={'/tools/' + t.slug} style={{ ['--h' as string]: HEIGHTS[i] + 'px' }}>
-                      <span className="cb-l" aria-hidden="true">{t.letter}</span><span className="cb-t">{t.name}</span>
+                      <span className="cb-l" aria-hidden="true">{t.name.trim().charAt(0).toUpperCase()}</span><span className="cb-t">{t.name}</span>
                     </Link>
                   ))}
                 </div>

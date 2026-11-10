@@ -24,16 +24,25 @@ export interface PublicTool { slug: string; name: string; letter: string; catego
 
 const collator = new Intl.Collator('en-GB', { sensitivity: 'base', numeric: true });
 
-/** Every active tool, A to Z. Retired tools live in the historic registry and are not listed. */
+/** The shelf for every name that starts with a number (or anything that is not a letter). It stands after Z. */
+export const NUMBERS = '0–9';
+
+/**
+ * Every active tool, A to Z, then the 0–9 shelf. Retired tools live in the historic registry and are not listed.
+ * `letter` is the shelf a tool stands on: its first letter, or 0–9 when its name starts with a number.
+ */
 export const PUBLIC_TOOLS: PublicTool[] = TOOLS
   .filter((t: Tool) => !Object.prototype.hasOwnProperty.call(HISTORIC_TOOLS, t.slug))
-  .map((t: Tool) => ({
-    slug: t.slug, name: t.name, category: t.primaryCategory, subcategory: t.subcategory, audience: t.audience, what: t.desc,
-    letter: t.name.trim().charAt(0).toUpperCase(),
-  }))
-  .sort((a, b) => collator.compare(a.name, b.name));
+  .map((t: Tool) => {
+    const first = t.name.trim().charAt(0).toUpperCase();
+    return { slug: t.slug, name: t.name, category: t.primaryCategory, subcategory: t.subcategory, audience: t.audience, what: t.desc,
+      letter: /[A-Z]/.test(first) ? first : NUMBERS };
+  })
+  .sort((a, b) => (a.letter === NUMBERS ? 1 : 0) - (b.letter === NUMBERS ? 1 : 0) || collator.compare(a.name, b.name));
 
 export const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+/** The address of a shelf on the Reviews page. */
+export const shelfId = (letter: string) => 'letter-' + (letter === NUMBERS ? '0-9' : letter.toLowerCase());
 export const HELD_LETTERS = new Set(PUBLIC_TOOLS.map((t) => t.letter));
 export const CATEGORIES = Array.from(new Set(PUBLIC_TOOLS.map((t) => t.category))).sort(collator.compare);
 

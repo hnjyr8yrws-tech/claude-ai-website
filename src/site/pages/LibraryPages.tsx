@@ -9,7 +9,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import '../styles/library.css';
 import { AreaKey, Footer, Header, Page } from '../Chrome';
-import { CATEGORIES, HELD_LETTERS, JOIN, LETTERS, MAIL, PUBLIC_TOOLS, REQUEST, WHO, findTool, search, type PublicTool } from '../data';
+import { CATEGORIES, HELD_LETTERS, JOIN, LETTERS, MAIL, NUMBERS, PUBLIC_TOOLS, REQUEST, WHO, findTool, search, shelfId, type PublicTool } from '../data';
 import { getHistoricRecord } from '../../data/historic';
 
 const UNDER_REVIEW = 'We’re reviewing this tool under our updated method.';
@@ -97,8 +97,8 @@ export function ReviewsPage() {
               </aside>
             </div>
             <nav className="az" aria-label="Jump to a letter"><ol>
-              {LETTERS.map((c) => (
-                <li key={c}>{byLetter.has(c) ? <a className="fr" href={'#letter-' + c.toLowerCase()}>{c}</a> : <span className="fr" title={(HELD_LETTERS.has(c) ? 'Nothing shown under ' : 'No reviews under ') + c}>{c}</span>}</li>
+              {[...LETTERS, ...(HELD_LETTERS.has(NUMBERS) ? [NUMBERS] : [])].map((c) => (
+                <li key={c}>{byLetter.has(c) ? <a className="fr" href={'#' + shelfId(c)} aria-label={c === NUMBERS ? 'Names that start with a number' : undefined}>{c}</a> : <span className="fr" title={(HELD_LETTERS.has(c) ? 'Nothing shown under ' : 'No reviews under ') + c}>{c}</span>}</li>
               ))}
             </ol></nav>
           </div></div>
@@ -118,8 +118,8 @@ export function ReviewsPage() {
             </form>
             <div className="lgs">
               {[...byLetter.keys()].map((c) => (
-                <section className="lg" id={'letter-' + c.toLowerCase()} key={c} aria-labelledby={'lg-' + c}>
-                  <h2 className="fr lg-c" id={'lg-' + c}>{c}</h2>
+                <section className="lg" id={shelfId(c)} key={c} aria-labelledby={'lg-' + shelfId(c)}>
+                  <h2 className="fr lg-c" id={'lg-' + shelfId(c)} style={c === NUMBERS ? { fontSize: 'clamp(44px, 5.2vw, 72px)', lineHeight: 1.2, whiteSpace: 'nowrap' } : undefined}>{c}</h2>
                   <ol className="rws">
                     {byLetter.get(c)!.map((t) => (
                       <li className="rw" key={t.slug}>
@@ -179,13 +179,14 @@ export function ToolPage() {
   const retired = getHistoricRecord(slug);
   const name = tool?.name ?? retired?.name;
   if (!name) return <NotFoundPage />;
-  const letter = name.trim().charAt(0).toUpperCase();
+  const first = name.trim().charAt(0).toUpperCase();
+  const letter = /[A-Z]/.test(first) ? first : NUMBERS;
   return (
     <Page family="pv-lib" path={'/tools/' + slug} title={`${name} — Promptly`} description={tool ? `${name}: ${tool.what}` : `${name} has been retired. Promptly keeps the record.`}>
       <Header current="reviews" currentValue="true" />
       <main id="main" className="tp">
         <section className="tp-top"><div className="shell">
-          <p className="tp-crumb"><Link to="/tools">Reviews</Link> / {HELD_LETTERS.has(letter) ? <Link to={'/tools#letter-' + letter.toLowerCase()}>{letter}</Link> : letter}</p>
+          <p className="tp-crumb"><Link to="/tools">Reviews</Link> / {HELD_LETTERS.has(letter) ? <Link to={'/tools#' + shelfId(letter)}>{letter}</Link> : letter}</p>
           <p className="tp-k"><span className="lab">Review</span></p>
           <h1 className="fr tp-h" id="h-tool">{name}</h1>
           {tool && <p className="tp-ed">{tool.category} · {tool.subcategory}</p>}
